@@ -1,0 +1,10 @@
+@import "scss-variables";
+
+body {
+  margin: unset;
+  font-family: var(--fontNunito);
+}
+
+.nunito-bold {
+  font-family: var(--fontNunitoBold) !important;
+}

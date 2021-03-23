@@ -1,0 +1,23 @@
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import routes from './routes';
+import PrivateRoute from './routes/privateRoute';
+
+const App = () => {
+  const [isAuth, setIsAuth] = useState<boolean>(true);
+
+  return (
+    <Router>
+      <Switch>
+        {
+          routes.map((route, index) =>
+            <PrivateRoute key={ index } isAuth={isAuth} { ...route } />
+          )
+        }
+      </Switch>
+    </Router>
+  );
+}
+
+export default App;
