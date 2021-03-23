@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
+import HeaderContainer from './containers/Header';
+
 import routes from './routes';
 import PrivateRoute from './routes/privateRoute';
 
@@ -9,6 +11,7 @@ const App = () => {
 
   return (
     <Router>
+      <HeaderContainer />
       <Switch>
         {
           routes.map((route, index) =>
