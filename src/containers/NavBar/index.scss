@@ -1,0 +1,34 @@
+@import "src/assets/styles/scss-variables";
+
+.nav-bar {
+  height: max-content;
+  padding: 10px 0;
+  margin-right: 30px;
+
+  background: var(--colorWhite);
+  border-radius: 10px;
+
+  font-size: 14px;
+  line-height: 19px;
+
+  ul {
+    list-style-type: none;
+
+    .active {
+      border-left: 3px solid var(--colorBlue);
+      color: var(--colorBlue);
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      width: 202px;
+      height: 43px;
+
+      img {
+        margin: 0 6px 0 20px;
+      }
+    }
+  }
+}
