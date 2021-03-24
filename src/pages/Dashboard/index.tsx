@@ -1,12 +1,14 @@
 import React from 'react';
 
+import NavBarContainer from '../../containers/NavBar';
+
 import MainInfoBlock from './MainInfoBlock';
 import EstimateBlock from './EstimateBlock';
 import PropertiesBlock from './PropertiesBlock';
-
-import NavBarContainer from '../../containers/NavBar';
+import FindAgentBlock from './FindAgentBlock';
 
 import './index.scss';
+
 
 const DashboardPage = () => {
   return (
@@ -16,6 +18,7 @@ const DashboardPage = () => {
         <MainInfoBlock/>
         <EstimateBlock/>
         <PropertiesBlock/>
+        <FindAgentBlock/>
       </div>
     </div>
   );

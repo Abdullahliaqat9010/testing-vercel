@@ -130,6 +130,10 @@
 
       .map-block {
         margin-right: 20px;
+
+        .gmnoprint, .gm-style-cc {
+          display: none;
+        }
       }
 
       .properties-list {
@@ -144,30 +148,38 @@
           line-height: 19px;
           margin-bottom: 24px;
         }
-
-        .load-more {
-          margin-top: 23px;
-          font-size: 14px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 47px;
-          color: var(--colorBlue);
-          background: var(--bg-blue);
-          border-radius: 8px;
-          border: unset;
-
-          img {
-            margin-right: 6px;
-          }
-
-          &:hover, &:active {
-            color: var(--colorBlue);
-            background: var(--bg-blue);
-          }
-        }
       }
     }
+
+    .find-agent-block {
+      padding: 30px;
+      height: 1148px;
+
+      background: #FFFFFF;
+      border-radius: 10px;
+    }
+
+    .load-more {
+       margin-top: 23px;
+       font-size: 14px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       width: 100%;
+       height: 47px;
+       color: var(--colorBlue);
+       background: var(--bg-blue);
+       border-radius: 8px;
+       border: unset;
+
+       img {
+         margin-right: 6px;
+       }
+
+       &:hover, &:active {
+         color: var(--colorBlue);
+         background: var(--bg-blue);
+       }
+     }
   }
 }
