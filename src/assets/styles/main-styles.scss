@@ -9,3 +9,36 @@ body {
 .nunito-bold {
   font-family: var(--fontNunitoBold) !important;
 }
+
+#price-block {
+  width: 148px;
+  height: 48px;
+
+  box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+  border-radius: 8px;
+  padding: unset;
+  inset: auto auto 12px 0 !important;
+
+  .tooltip-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: unset;
+    background-color: transparent;
+    padding: unset;
+
+    font-family: var(--fontNunitoBold);
+    font-size: 18px;
+    line-height: 25px;
+    color: var(--mainColor);
+  }
+  .arrow {
+    bottom: -6px;
+
+    &::before {
+      border-top-color: var(--colorWhite);
+    }
+  }
+}
