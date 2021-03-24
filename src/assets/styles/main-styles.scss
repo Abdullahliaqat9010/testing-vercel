@@ -11,17 +11,25 @@ body {
 }
 
 #price-block {
-  width: 148px;
-  height: 48px;
+  width: 130px;
+  height: 69px;
 
   box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
   border-radius: 8px;
   padding: unset;
   inset: auto auto 12px 0 !important;
 
+  .gray {
+    font-family: var(--fontNunito);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--colorGrayTwo);
+  }
+
   .tooltip-inner {
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 

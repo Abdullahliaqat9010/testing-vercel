@@ -13,7 +13,7 @@
 
     .main-info-block {
       padding: 30px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       width: 100%;
 
       background: var(--colorWhite);
@@ -55,7 +55,7 @@
     .estimate-block {
       width: 100%;
       padding: 30px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
 
       background: var(--colorWhite);
       border-radius: 10px;
@@ -66,30 +66,34 @@
 
       .scale-block {
         .line {
-          position: relative;
-          border-top: 4px solid var(--colorBlue);
+          background-image: url("../../assets/images/price-graph.svg");
           width: 836px;
-          border-radius: 10px;
-
-          .circle {
-            width: 20px;
-            height: 20px;
-            background: var(--colorWhite);
-            border: 3px solid var(--colorBlue);
-            box-sizing: border-box;
-            border-radius: 20px;
-            position: absolute;
-            bottom: -7px;
-            left: calc(50% - 10px);
-          }
+          background-size: cover;
+          height: 35px;
         }
 
         .range {
           margin-top: 14px;
 
+          .min, .max {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .max {
+            align-items: flex-end;
+          }
+
           span {
             font-family: var(--fontNunitoBold);
             font-size: 16px;
+          }
+
+          .gray {
+            font-family: var(--fontNunito);
+            color: var(--colorGrayTwo);
+            font-size: 12px;
+            line-height: 16px;
           }
         }
       }
@@ -113,6 +117,55 @@
           color: #1D2E5B;
           background-color: transparent;
           border-color: #D2D5DE;
+        }
+      }
+    }
+
+    .properties-block {
+      padding: 20px;
+      margin-bottom: 20px;
+
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      .map-block {
+        margin-right: 20px;
+      }
+
+      .properties-list {
+        h5 {
+          font-family: var(--fontNunitoBold);
+          line-height: 27px;
+          margin: 20px 0 10px;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 19px;
+          margin-bottom: 24px;
+        }
+
+        .load-more {
+          margin-top: 23px;
+          font-size: 14px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 47px;
+          color: var(--colorBlue);
+          background: var(--bg-blue);
+          border-radius: 8px;
+          border: unset;
+
+          img {
+            margin-right: 6px;
+          }
+
+          &:hover, &:active {
+            color: var(--colorBlue);
+            background: var(--bg-blue);
+          }
         }
       }
     }
