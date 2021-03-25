@@ -5,7 +5,7 @@ import { googleMapConfig } from '../../config/siteConfigs';
 
 import GoogleMapReact from 'google-map-react';
 
-const GoogleMap  = () => {
+const GoogleMap = () => {
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: '100%', width: '100%' }}>

@@ -114,9 +114,9 @@
           font-size: 14px;
           line-height: 19px;
 
-          color: #1D2E5B;
+          color: var(--mainColor);
           background-color: transparent;
-          border-color: #D2D5DE;
+          border-color: var(--colorLightGrey);
         }
       }
     }
@@ -153,10 +153,15 @@
 
     .find-agent-block {
       padding: 30px;
-      height: 1148px;
+      //height: 1148px;
 
-      background: #FFFFFF;
+      background: var(--colorWhite);
       border-radius: 10px;
+
+      .load-more {
+        margin: 30px auto 0;
+        width: 224px;
+      }
     }
 
     .load-more {
