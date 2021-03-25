@@ -2,9 +2,10 @@ import React from 'react';
 
 import Logo from '../../assets/images/logo.png';
 import NoPhoto from '../../assets/images/no-photo.png';
+import AddIcon from '../../assets/images/icon-plus.svg';
 
 import './index.scss';
-import { NavDropdown, Image } from 'react-bootstrap';
+import { NavDropdown, Image, Button } from 'react-bootstrap';
 
 const HeaderContainer = () => {
   return (
@@ -17,6 +18,7 @@ const HeaderContainer = () => {
           <NavDropdown.Divider />
           <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
         </NavDropdown>
+        <Button className='add-property'><img src={ AddIcon } alt="AddIcon"/>Add a property</Button>
       </div>
     </div>
   );

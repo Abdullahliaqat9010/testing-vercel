@@ -17,6 +17,20 @@
       height: 24px;
       margin-right: 6px;
     }
+
+    .add-property {
+      display: flex;
+      align-items: center;
+      height: 35px;
+      font-size: 14px;
+      margin-left: 30px;
+      background: var(--colorBlue);
+
+      img {
+        width: 14px;
+        height: 14px;
+      }
+    }
   }
 
   #header-dropdown {
