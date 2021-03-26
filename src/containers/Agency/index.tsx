@@ -51,7 +51,7 @@ const Agency = ({agency}: AgencyProps) => {
             </p>
           </div>
         </div>
-        <span onClick={ openMoreInfo } className="action-btn"/>
+        <span onClick={ openMoreInfo } className={ `action-btn ${showMoreInfo ? ' open' : ''}` }/>
       </div>
       {
         showMoreInfo &&
