@@ -9,6 +9,7 @@ import { store, persistor } from './store';
 
 import App from './App';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/styles/main-styles.scss';
 
 const root = (

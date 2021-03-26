@@ -1,0 +1,291 @@
+@import "src/assets/styles/scss-variables";
+
+.Dashboard {
+  padding: 27px 0 80px;
+  color: var(--mainColor);
+
+  h4 {
+    font-family: var(--fontNunitoBold);
+    line-height: 33px;
+  }
+
+  &__container {
+    width: 100%;
+
+    .main-info-block {
+      padding: 30px;
+      margin-bottom: 20px;
+      width: 100%;
+
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      .top-block {
+        span {
+          font-size: 14px;
+          cursor: pointer;
+          color: var(--colorBlue);
+
+          img {
+            margin-left: 4px;
+          }
+        }
+      }
+
+      .bottom-block {
+        .image-block {
+          margin-right: 40px;
+
+          &__info {
+            margin-left: 12px;
+
+            .title {
+              font-size: 12px;
+              line-height: 16px;
+              opacity: 0.7;
+            }
+
+            .desc {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .estimate-block {
+      width: 100%;
+      padding: 30px;
+      margin-bottom: 20px;
+
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      p {
+        margin-bottom: 86px;
+      }
+
+      .scale-block {
+        .line {
+          background-image: url("../../assets/images/price-graph.svg");
+          width: 836px;
+          background-size: cover;
+          height: 35px;
+        }
+
+        .range {
+          margin-top: 14px;
+
+          .min, .max {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .max {
+            align-items: flex-end;
+          }
+
+          span {
+            font-family: var(--fontNunitoBold);
+            font-size: 16px;
+          }
+
+          .gray {
+            font-family: var(--fontNunito);
+            color: var(--colorGrayTwo);
+            font-size: 12px;
+            line-height: 16px;
+          }
+        }
+      }
+
+      .btn-block {
+        margin-top: 35px;
+        font-family: var(--fontNunitoBold);
+
+        span {
+          line-height: 22px;
+          display: block;
+          text-align: center;
+          margin-bottom: 16px;
+        }
+
+        .custom-active {
+          background: var(--mainColor);
+          color: var(--colorWhite);
+        }
+
+        button {
+          height: 43px;
+          font-size: 14px;
+          line-height: 19px;
+
+          color: var(--mainColor);
+          background-color: transparent;
+          border-color: var(--colorLightGrey);
+
+          &:active, &:focus, &:target {
+            box-shadow: none;
+            background: var(--mainColor);
+            color: var(--colorWhite);
+          }
+        }
+      }
+
+      .estimation-popup {
+        padding: 30px;
+        margin-top: 20px;
+        width: 100%;
+        background: var(--bg-blue);
+        border-radius: 8px;
+
+        .ico {
+          background-color: #fff;
+          border-right: unset;
+          padding-left: 14px;
+          padding-right: 0;
+        }
+
+        input, textarea {
+          box-shadow: unset;
+          line-height: 22px;
+
+          &:focus {
+            border-color: #ced4da;
+          }
+        }
+
+        .border-left-0 {
+          padding-left: 5px;
+        }
+
+        textarea {
+          resize: none;
+        }
+
+        &__title {
+          margin-bottom: 5px;
+          font-size: 14px;
+          line-height: 19px;
+        }
+
+        .input-group {
+          margin-bottom: 20px;
+        }
+
+        .confirm {
+          font-family: var(--fontNunitoBold);
+          margin: 20px auto 0;
+          display: block;
+
+          width: 156px;
+          height: 50px;
+
+          background: var(--colorBlue);
+          border-radius: 8px;
+        }
+      }
+
+      .thanks-for-reply {
+        margin-top: 20px;
+        width: 100%;
+        background: var(--colorWhite);
+
+        border: 1px solid var(--colorLightBlue);
+        box-sizing: border-box;
+        border-radius: 8px;
+
+        img {
+          margin-top: 30px;
+        }
+
+        &__title {
+          margin: 10px 0;
+          font-family: var(--fontNunitoBold);
+          font-size: 16px;
+          line-height: 22px;
+        }
+
+        &__desc {
+          font-size: 14px;
+          line-height: 19px;
+          margin-bottom: 30px;
+        }
+
+        button {
+          font-family: var(--fontNunitoBold);
+          width: 156px;
+          height: 50px;
+          background: var(--colorBlue);
+          border-radius: 8px;
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    .properties-block {
+      padding: 20px;
+      margin-bottom: 20px;
+
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      .map-block {
+        margin-right: 20px;
+
+        .gmnoprint, .gm-style-cc {
+          display: none;
+        }
+      }
+
+      .properties-list {
+        h5 {
+          font-family: var(--fontNunitoBold);
+          line-height: 27px;
+          margin: 20px 0 10px;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 19px;
+          margin-bottom: 24px;
+        }
+      }
+    }
+
+    .find-agent-block {
+      padding: 30px;
+
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      .load-more {
+        margin: 30px auto 0;
+        width: 224px;
+      }
+    }
+
+    .load-more {
+      margin-top: 23px;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 47px;
+      color: var(--colorBlue);
+      background: var(--bg-blue);
+      border-radius: 8px;
+      border: unset;
+
+      img {
+        margin-right: 6px;
+      }
+
+      &:hover, &:active {
+        color: var(--colorBlue);
+        background: var(--bg-blue);
+      }
+    }
+  }
+}

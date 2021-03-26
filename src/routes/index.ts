@@ -4,6 +4,7 @@ import MainPage from '../pages/Main';
 import AgencyPage from '../pages/Agency';
 import PropertyPage from '../pages/Property';
 import AccountSettingsPage from '../pages/AccountSettings';
+import DashboardPage from '../pages/Dashboard';
 
 export const home = {
   path: '/',
@@ -26,9 +27,15 @@ export const settings = {
   component: AccountSettingsPage,
 } as RouteProps;
 
+export const dashboard = {
+  path: '/dashboard',
+  component: DashboardPage,
+} as RouteProps;
+
 export default [
   home,
   agency,
   property,
   settings,
+  dashboard,
 ] as const;
