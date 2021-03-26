@@ -5,6 +5,7 @@ import HeaderContainer from './containers/Header';
 
 import routes from './routes';
 import PrivateRoute from './routes/privateRoute';
+import FooterContainer from './containers/Footer';
 
 const App = () => {
   const isAuth = true;
@@ -24,6 +25,7 @@ const App = () => {
           )
         }
       </Switch>
+      <FooterContainer />
     </Router>
   );
 }
