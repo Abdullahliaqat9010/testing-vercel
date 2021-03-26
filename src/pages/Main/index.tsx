@@ -1,9 +1,15 @@
 import React from 'react';
 
+import ImagesBlock from './ImagesBlock';
+import TestimonialsBlock from './TestimonialsBlock';
+
+import './index.scss';
+
 const MainPage = () => {
   return (
-    <div>
-      <h4>Main Page</h4>
+    <div className='main-page'>
+      <ImagesBlock/>
+      <TestimonialsBlock/>
     </div>
   );
 };

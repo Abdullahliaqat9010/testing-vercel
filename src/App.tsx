@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, useLocation } from 'react-router-dom';
 
 import HeaderContainer from './containers/Header';
 
@@ -8,6 +8,11 @@ import PrivateRoute from './routes/privateRoute';
 import FooterContainer from './containers/Footer';
 
 const App = () => {
+
+  /**
+   * not show footer if this page not in whitelist for header
+   */
+  const { pathname } = useLocation();
   const isAuth = true;
 
   /**
@@ -25,7 +30,9 @@ const App = () => {
           )
         }
       </Switch>
-      <FooterContainer />
+      {
+        pathname !=='/' && <FooterContainer />
+      }
     </Router>
   );
 }
