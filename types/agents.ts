@@ -1,5 +1,3 @@
-import AgentAvatar from '../assets/images/agents/agent-avatar.png';
-
 export interface AgentsItem {
   id: number,
   title: string,

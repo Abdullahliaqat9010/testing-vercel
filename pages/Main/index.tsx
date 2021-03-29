@@ -8,6 +8,10 @@ const MainPageComponent = () => {
     <div className='main-page'>
       <ImagesBlock/>
       <TestimonialsBlock/>
+      <div className="short-footer d-flex justify-content-between">
+        <span>Agence:  | Numéro IPI: | Immo Wallonie ©{ new Date().getFullYear() }. All Rights Reserved.</span>
+        <span className="link">Politique de Confidentialité.</span>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 .main-page {
   background-color: var(--colorWhite);
+  color: var(--mainColor);
   padding: 0 20px;
 
   .image-carousel {
@@ -21,6 +22,7 @@
       grid-gap: 30px;
 
       .load-more {
+        margin-bottom: 107px;
         grid-column-start: 2;
         margin-top: unset;
         font-size: 14px;
@@ -47,12 +49,49 @@
 
     &__item {
       width: 356px;
-      height: 159px;
+      padding: 20px;
 
       background: var(--colorWhite);
       border: 1px solid rgba(56, 113, 239, 0.2);
       box-sizing: border-box;
       border-radius: 8px;
+
+      .avatar {
+        width: 42px;
+        height: 42px;
+        margin-right: 12px;
+      }
+
+      .full-name {
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+      }
+
+      .dv-star-rating {
+        label {
+          width: 14px;
+          height: 14px;
+          margin-bottom: unset;
+          margin-right: 1px;
+          float: unset !important;
+        }
+      }
+
+      .desc {
+        font-size: 14px;
+        line-height: 19px;
+      }
+    }
+  }
+
+  .short-footer {
+    padding: 0 20px 25px;
+    font-size: 14px;
+    line-height: 19px;
+
+    .link {
+      color: #3871EF;
     }
   }
 }
