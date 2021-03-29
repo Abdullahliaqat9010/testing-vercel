@@ -1,0 +1,58 @@
+.main-page {
+  background-color: var(--colorWhite);
+  padding: 0 20px;
+
+  .image-carousel {
+    position: relative;
+  }
+
+  .testimonials {
+    h4 {
+      font-family: var(--fontNunitoBold);
+      text-align: center;
+      margin-top: 56px;
+      line-height: 33px;
+      margin-bottom: 18px;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 30px;
+
+      .load-more {
+        grid-column-start: 2;
+        margin-top: unset;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 356px;
+        height: 47px;
+        color: var(--colorBlue);
+        background: var(--bg-blue);
+        border-radius: 8px;
+        border: unset;
+
+        img {
+          margin-right: 6px;
+        }
+
+        &:hover, &:active {
+          color: var(--colorBlue);
+          background: var(--bg-blue);
+        }
+      }
+    }
+
+    &__item {
+      width: 356px;
+      height: 159px;
+
+      background: var(--colorWhite);
+      border: 1px solid rgba(56, 113, 239, 0.2);
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@import "styles/scss-variables";
+
+body {
+  margin: unset;
+  background-color: var(--bg-blue);
+  font-family: var(--fontNunito);
+}
+
+.nunito-bold {
+  font-family: var(--fontNunitoBold) !important;
+}
+
+.w-55 {
+  width: 55% !important;
+}
+
+.w-45 {
+  width: 45% !important;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+#price-block {
+  width: 130px;
+  height: 69px;
+
+  box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+  border-radius: 8px;
+  padding: unset;
+  inset: auto auto 12px 0 !important;
+
+  .gray {
+    font-family: var(--fontNunito);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--colorGrayTwo);
+  }
+
+  .tooltip-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: unset;
+    background-color: transparent;
+    padding: unset;
+
+    font-family: var(--fontNunitoBold);
+    font-size: 18px;
+    line-height: 25px;
+    color: var(--mainColor);
+  }
+  .arrow {
+    bottom: -6px;
+
+    &::before {
+      border-top-color: var(--colorWhite);
+    }
+  }
+}
