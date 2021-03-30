@@ -1,4 +1,3 @@
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -20,9 +19,7 @@ const MyApp = ({ Component, pageProps }) => {
   return(
     <Provider store={ store }>
       <PersistGate loading={ null } persistor={ persistor }>
-        <BrowserRouter>
-          <Component { ...pageProps } />
-        </BrowserRouter>
+        <Component { ...pageProps } />
       </PersistGate>
     </Provider>
   )

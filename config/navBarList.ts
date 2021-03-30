@@ -9,6 +9,7 @@ import settingsActiveIcon from '../assets/images/nav-bar/settings-active.svg';
 
 const dashboard: NavBarLists = {
   id: 'dashboard',
+  href: '/dashboard',
   title: 'Dashboard',
   img: dashboardIcon,
   activeImg: dashboardActiveIcon,
@@ -17,6 +18,7 @@ const dashboard: NavBarLists = {
 
 const myProperties: NavBarLists = {
   id: 'myProperties',
+  href: '/properties',
   title: 'My Properties',
   img: propertiesIcon,
   activeImg: propertiesActiveIcon,
@@ -26,6 +28,7 @@ const myProperties: NavBarLists = {
 
 const settings: NavBarLists = {
   id: 'settings',
+  href: '/settings',
   title: 'Account Settings',
   img: settingsIcon,
   activeImg: settingsActiveIcon,

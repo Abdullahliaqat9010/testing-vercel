@@ -1,10 +1,67 @@
 .main-page {
   background-color: var(--colorWhite);
   color: var(--mainColor);
-  padding: 0 20px;
 
   .image-carousel {
+    max-width: 1360px;
+    margin: 0 auto;
     position: relative;
+
+    &__popup {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      width: 480px;
+
+      position: absolute;
+      z-index: 5;
+      left: 136px;
+      top: 140px;
+
+      background: var(--colorWhite);
+      box-shadow: 0 4px 42px rgba(29, 46, 91, 0.05);
+      border-radius: 10px;
+
+      h2 {
+        color: var(--colorBlack);
+        font-family: var(--fontNunitoBold);
+        max-width: 360px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 25px;
+        color: var(--colorBlack);
+        margin-bottom: 30px;
+      }
+
+      input {
+        border-radius: 6px;
+        height: 46px;
+      }
+
+      button {
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+        margin: 20px 0 30px;
+        width: 241px;
+        height: 50px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+      }
+
+      .gray {
+        color: var(--colorGray);
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: unset;
+      }
+    }
   }
 
   .testimonials {
@@ -86,12 +143,102 @@
   }
 
   .short-footer {
-    padding: 0 20px 25px;
+    padding: 0 40px 25px;
     font-size: 14px;
     line-height: 19px;
 
     .link {
-      color: #3871EF;
+      cursor: pointer;
+      color: var(--colorBlue);
+    }
+  }
+
+  .steps-block {
+    &__progress-bar {
+      width: 100%;
+      height: 4px;
+      background: #E5EAF7;
+
+      .progress-bar {
+        background: var(--colorBlue);
+      }
+    }
+
+    &__main {
+      height: calc(100vh - var(--headerHeight) - 4px); //4px height of progress-bar
+
+      .step-title {
+        display: block;
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 5px;
+      }
+
+      h4 {
+        font-family: var(--fontNunitoBold);
+        line-height: 33px;
+      }
+
+      label {
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 270px;
+        height: 46px;
+        border-radius: 6px;
+        border: 1px solid var(--colorGray);
+      }
+
+      #locality {
+        width: 310px;
+      }
+
+      #street {
+        border-right: unset;
+      }
+
+      .input-group-text {
+        border-color: var(--colorGray);
+        background: var(--colorWhite);
+
+        img {
+          cursor: pointer;
+        }
+      }
+
+      #number, #zip {
+        width: 96px;
+      }
+
+      .form-row {
+        margin: unset;
+        justify-content: space-between;
+      }
+
+      .steps-btn-group {
+        font-family: var(--fontNunitoBold);
+
+        .prev-step {
+          height: 50px;
+          color: var(--colorBlue);
+          background: var(--colorWhite);
+          border: unset;
+        }
+
+        .next-step {
+          width: 218px;
+          height: 50px;
+          background: var(--colorBlue);
+          border-radius: 8px;
+        }
+      }
+    }
+
+    .step-two {
+      width: 433px;
     }
   }
 }
