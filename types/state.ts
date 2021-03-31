@@ -1,12 +1,9 @@
 export interface RootState {
   userInfo: {},
-  stepBlock: {
+  stepsInfo: {
     mainBlocks: boolean,
     stepBlock: {
-      stepTwo: boolean,
-      stepThree: boolean,
-      stepFour: boolean,
-      stepFive: boolean,
+      step: number,
       title: string,
       address: string,
       location: {

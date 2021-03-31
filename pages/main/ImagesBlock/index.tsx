@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Carousel } from 'react-bootstrap';
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
-import { openMainSteps } from '../../../actions';
+import { openMainStepsAction } from '../../../actions';
 
 import { googleMapConfig } from '../../../config/siteConfigs';
 
@@ -33,12 +33,11 @@ const ImagesBlock = () => {
     }
 
     const data = {
-      titleHeader: 'Step 2: Confirm address',
       infoFromAutoComplete: value.label,
       location: {...geoLocation},
     };
 
-    return dispatch(openMainSteps(data));
+    return dispatch(openMainStepsAction(data));
   };
 
   return (

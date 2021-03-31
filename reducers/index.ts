@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import userInfo from './userReducer';
-import stepBlock from './stepsReducer';
+import stepsInfo from './stepsReducer';
 
 const rootReducer = combineReducers({
   userInfo,
-  stepBlock
+  stepsInfo
 });
 
 export default rootReducer;

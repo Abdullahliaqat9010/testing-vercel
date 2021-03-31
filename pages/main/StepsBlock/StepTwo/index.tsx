@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
 import { Button, Form, InputGroup } from 'react-bootstrap';
 
 import IconClear from '../../../../assets/images/icon-close.svg';
+import IconBack from '../../../../assets/images/long-arrow.svg';
+
+import {goToNextStepAction, goToPrevStepAction} from "../../../../actions";
 
 const StepTwo = () => {
+  const dispatch = useDispatch();
   const [addressValue, setAddressValue] = useState('');
 
-  const handleChangeVal = (el: any) => {
+  const handleChangeVal = (el) => {
     setAddressValue(el.target.value);
   };
 
   const clearInput = () => {
     setAddressValue('');
+  };
+
+  const handleClickPrevBtn = () => {
+    dispatch(goToPrevStepAction());
+  };
+
+  const handleClickNextBtn = () => {
+    dispatch(goToNextStepAction());
   };
 
   return (
@@ -48,8 +61,12 @@ const StepTwo = () => {
         </Form.Row>
       </Form>
       <div className="steps-btn-group d-flex justify-content-between">
-        <Button className='prev-step'>Back</Button>
-        <Button className='next-step'>Next</Button>
+        <Button
+            onClick={handleClickPrevBtn}
+            className='prev-step'>
+          <img src={IconBack} alt="IconBack"/>Back
+        </Button>
+        <Button onClick={handleClickNextBtn} className='next-step'>Next</Button>
       </div>
     </div>
   );

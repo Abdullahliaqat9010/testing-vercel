@@ -8,7 +8,7 @@ import TestimonialsBlock from './TestimonialsBlock';
 import StepsBlock from './StepsBlock';
 
 const MainPageComponent = () => {
-  const { mainBlocks } = useSelector((state: RootState) => state.stepBlock);
+  const { mainBlocks } = useSelector((state: RootState) => state.stepsInfo);
 
   return (
     <div className='main-page'>

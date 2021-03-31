@@ -3,11 +3,7 @@ import * as actionType from '../actions/actionTypes';
 export const initialState = {
   mainBlocks: false,
   stepBlock: {
-    stepTwo: false,
-    stepThree: false,
-    stepFour: false,
-    stepFive: false,
-    title: '',
+    step: 0,
     address: '',
     location: {
       lat: null,
@@ -24,12 +20,28 @@ const stepsReducer = (state = initialState, action: any) => {
         ...state,
         mainBlocks: true,
         stepBlock: {
-          stepTwo: true,
-          title: action.payload.titleHeader,
+          ...state.stepBlock,
           address: action.payload.infoFromAutoComplete,
           location: {...action.payload.location},
         },
       };
+    case actionType.PREV_STEP_REQUEST:
+      return {
+        ...state,
+        mainBlocks: state.stepBlock.step > 0,
+        stepBlock: {
+          ...state.stepBlock,
+          step: state.stepBlock.step > 0 ? --state.stepBlock.step : 0
+        }
+      }
+    case actionType.NEXT_STEP_REQUEST:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          step: ++state.stepBlock.step
+        }
+      }
     default:
       return {
         ...state,
