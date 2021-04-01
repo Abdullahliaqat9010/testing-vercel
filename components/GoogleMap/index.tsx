@@ -1,17 +1,27 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import GoogleMapReact from 'google-map-react';
+
+import { RootState } from '../../types/state';
 
 import { googleMapStyle } from '../../config/googleMapStyle';
 import { googleMapConfig } from '../../config/siteConfigs';
 
-import GoogleMapReact from 'google-map-react';
+import MarkerIcon from '../../assets/images/marker.png';
 
-const GoogleMap = ({lat = 40.7510674, lng = -74.1660403}: { lat: number, lng: number }) => {
+const Marker = props => {
+  return <img src={MarkerIcon} alt='MarkerIcon' className="marker"/>
+}
+
+const GoogleMap = () => {
+  const { location } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+
   return (
     // Important! Always set the container height explicitly
     <div style={ {height: '100%', width: '100%'} }>
       <GoogleMapReact
         bootstrapURLKeys={ {key: googleMapConfig.apiKey} }
-        defaultCenter={ {lat, lng} }
+        defaultCenter={ {lat: location.lat, lng: location.lng} }
         options={ {
           fullscreenControl: false,
           zoomControl: false,
@@ -19,11 +29,10 @@ const GoogleMap = ({lat = 40.7510674, lng = -74.1660403}: { lat: number, lng: nu
         } }
         defaultZoom={ 13 }
       >
-        {/*<AnyReactComponent*/ }
-        {/*  lat={59.955413}*/ }
-        {/*  lng={30.337844}*/ }
-        {/*  text="My Marker"*/ }
-        {/*/>*/ }
+        <Marker
+          lat={location.lat}
+          lng={location.lng}
+        />
       </GoogleMapReact>
     </div>
   );

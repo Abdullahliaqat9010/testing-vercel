@@ -4,7 +4,21 @@ export const initialState = {
   mainBlocks: false,
   stepBlock: {
     step: 0,
-    address: '',
+    addressFromStepOne: '',
+    additionalAddress: {
+      street: '',
+      number: '',
+      zip: '',
+      locality: '',
+    },
+    selectedProperty: '',
+    propertyDetails: {
+      livableArea: '',
+      totalArea: '',
+      numberBedrooms: 1,
+      numberBathrooms: 1,
+      numberLevels: 1,
+    },
     location: {
       lat: null,
       lng: null,
@@ -21,7 +35,7 @@ const stepsReducer = (state = initialState, action: any) => {
         mainBlocks: true,
         stepBlock: {
           ...state.stepBlock,
-          address: action.payload.infoFromAutoComplete,
+          addressFromStepOne: action.payload.infoFromAutoComplete,
           location: {...action.payload.location},
         },
       };
@@ -31,17 +45,41 @@ const stepsReducer = (state = initialState, action: any) => {
         mainBlocks: state.stepBlock.step > 0,
         stepBlock: {
           ...state.stepBlock,
-          step: state.stepBlock.step > 0 ? --state.stepBlock.step : 0
-        }
-      }
+          step: state.stepBlock.step > 0 ? --state.stepBlock.step : 0,
+        },
+      };
     case actionType.NEXT_STEP_REQUEST:
       return {
         ...state,
         stepBlock: {
           ...state.stepBlock,
-          step: ++state.stepBlock.step
-        }
-      }
+          step: ++state.stepBlock.step,
+        },
+      };
+    case actionType.SET_ADDITIONAL_ADDRESS:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          additionalAddress: {...action.payload},
+        },
+      };
+    case actionType.SET_PROPERTY_DETAILS:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          propertyDetails: {...action.payload},
+        },
+      };
+    case actionType.SET_ACTIVE_PROPERTY:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          selectedProperty: action.payload,
+        },
+      };
     default:
       return {
         ...state,

@@ -37,7 +37,7 @@ const ImagesBlock = () => {
       location: {...geoLocation},
     };
 
-    return dispatch(openMainStepsAction(data));
+    dispatch(openMainStepsAction(data));
   };
 
   return (
