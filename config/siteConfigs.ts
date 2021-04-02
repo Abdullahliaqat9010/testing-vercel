@@ -1,12 +1,12 @@
 // Site Config =============================================================
 export const config = {
-  siteTitle: process.env.REACT_APP_SITE_TITLE,
-  apiDomain: process.env.REACT_APP_API
+  siteTitle: process.env.SITE_TITLE,
+  apiDomain: process.env.APP_API
 };
 
 // Google Maps Configs =====================================================
 export const googleMapConfig = {
-  apiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || '',
+  apiKey: process.env.GOOGLE_MAP_API_KEY || '',
 };
 
 export const userToken = typeof window === 'object' && sessionStorage.getItem('auth') || '';

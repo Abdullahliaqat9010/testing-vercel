@@ -27,3 +27,13 @@ export const setPropertyDetailsAction = (data: object) => ({
   type: actionType.SET_PROPERTY_DETAILS,
   payload: data,
 });
+
+export const setUserDataAction = (data: object) => ({
+  type: actionType.SET_USER_DATA,
+  payload: data,
+});
+
+export const sendStepsDataRequestAction = (data: object) => ({
+  type: actionType.SEND_STEPS_DATA_REQUEST,
+  payload: data,
+})

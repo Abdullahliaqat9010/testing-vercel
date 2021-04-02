@@ -24,6 +24,14 @@ export interface RootState {
         lat: number,
         lng: number,
       },
+      userData: {
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        promotions: boolean,
+        agreement: boolean,
+      },
     },
     errors: string,
   }

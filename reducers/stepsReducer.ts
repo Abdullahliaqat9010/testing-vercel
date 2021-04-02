@@ -19,6 +19,14 @@ export const initialState = {
       numberBathrooms: 1,
       numberLevels: 1,
     },
+    userData: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      promotions: false,
+      agreement: false,
+    },
     location: {
       lat: null,
       lng: null,
@@ -78,6 +86,14 @@ const stepsReducer = (state = initialState, action: any) => {
         stepBlock: {
           ...state.stepBlock,
           selectedProperty: action.payload,
+        },
+      };
+    case actionType.SET_USER_DATA:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          userData: {...action.payload},
         },
       };
     default:

@@ -34,7 +34,7 @@ const StepsBlock = () => {
       return setProgressBar(100);
     }
 
-    return setProgressBar(20);
+    return;
   };
 
   useEffect(() => {

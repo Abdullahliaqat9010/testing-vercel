@@ -372,6 +372,7 @@
 
       .have-account {
         display: block;
+        cursor: pointer;
         color: var(--colorBlue);
         margin-bottom: 30px;
 
@@ -385,7 +386,7 @@
       }
 
       input {
-        border: 1px solid #8F99B4;
+        border: 1px solid var(--colorGray);
         border-radius: 6px;
       }
 
@@ -394,8 +395,16 @@
         align-items: center;
 
         .form-group {
+          position: relative;
+
           input {
             width: 205px;
+          }
+
+          img {
+            position: absolute;
+            right: 10px;
+            top: 40px;
           }
         }
       }
@@ -426,7 +435,7 @@
         margin-top: 30px;
         width: 100%;
         height: 50px;
-        background: #3871EF;
+        background: var(--colorBlue);
         border-radius: 8px;
       }
     }
