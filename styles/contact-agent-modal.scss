@@ -1,0 +1,83 @@
+.contact-agent-modal {
+  display: flex !important;
+  justify-content: flex-end;
+
+  .modal-dialog {
+    margin: unset;
+    color: var(--mainColor);
+
+    .modal-content {
+      padding: 40px;
+      width: 473px;
+      height: 100%;
+
+      .modal-header, .modal-body {
+        padding: unset;
+      }
+
+      .modal-header {
+        border-bottom: unset;
+
+        .modal-title {
+          font-family: var(--fontNunitoBold);
+          font-size: 20px;
+          line-height: 27px;
+
+          p {
+            margin: 5px 0 24px;
+            font-family: var(--fontNunito);
+            font-size: 14px;
+            line-height: 19px;
+          }
+        }
+
+        span {
+          color: var(--colorGray);
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      .modal-body {
+        font-size: 14px;
+        line-height: 19px;
+
+        input, textarea, select {
+          border: 1px solid var(--colorGray);
+          border-radius: 6px;
+          margin-bottom: 20px;
+          color: var(--mainColor);
+        }
+
+        input:not([type="checkbox"]), select {
+          height: 46px;
+        }
+
+        textarea {
+          resize: none;
+        }
+
+        .modal-btn-group {
+          display: flex;
+          justify-content: space-between;
+
+          button {
+            font-family: var(--fontNunitoBold);
+            font-size: 16px;
+            line-height: 22px;
+            width: 188px;
+            height: 50px;
+            border-radius: 8px;
+            background: var(--colorBlue);
+          }
+
+          .cancel {
+            border: unset;
+            background: var(--colorWhite);
+            color: var(--colorBlue);
+          }
+        }
+      }
+    }
+  }
+}

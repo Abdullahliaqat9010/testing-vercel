@@ -33,8 +33,9 @@
   #header-dropdown {
     font-size: 14px;
     padding: 0.5rem 0;
-    color: #1D2E5B;
+    color: var(--mainColor);
     line-height: 19px;
+
     &::after {
       top: 2px;
       position: relative;
@@ -77,7 +78,7 @@
       font-size: 14px;
       line-height: 19px;
       padding: unset;
-      color: #1D2E5B;
+      color: var(--mainColor);
 
       img {
         width: 18px;
@@ -86,7 +87,7 @@
 
       &:hover, &:active, &:focus {
         background-color: transparent;
-        color: #1D2E5B;
+        color: var(--mainColor);
       }
     }
 
@@ -106,20 +107,20 @@
       justify-content: center;
       font-size: 14px;
       line-height: 19px;
-      color: #3871EF;
-      border: 1px solid #3871EF;
+      color: var(--colorBlue);
+      border: 1px solid var(--colorBlue);
       box-sizing: border-box;
       border-radius: 6px;
 
       &:hover, &:active, &:focus {
-        color: #3871EF;
+        color: var(--colorBlue);
       }
     }
   }
 
   .show {
     #header-dropdown {
-      color: #3871EF;
+      color: var(--colorBlue);
     }
   }
 }
