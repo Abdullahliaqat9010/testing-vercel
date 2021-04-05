@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - feature-deploy-off
+      - main
 jobs:
   deploy:
     name: Deploy to server
