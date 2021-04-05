@@ -1,0 +1,221 @@
+.agency-block {
+  border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+
+  .short-info {
+    position: relative;
+
+    &__left {
+      .logo-block {
+        width: 150px;
+        height: 82px;
+        margin: 20px 16px 20px 0;
+
+        border: 1px solid var(--bg-blue);
+        box-sizing: border-box;
+        border-radius: 8px;
+      }
+
+      .info {
+        .agency-name {
+          font-family: var(--fontNunitoBold);
+        }
+
+        .rating-block {
+          .total {
+            font-size: 14px;
+            line-height: 19px;
+            margin-right: 6px;
+          }
+
+          label {
+            width: 14px;
+            height: 14px;
+            margin-bottom: unset;
+            margin-right: 4px;
+            float: unset !important;
+          }
+
+          .rating-star {
+            width: 100%;
+            height: 100%;
+          }
+
+          .from {
+            margin-left: 10px;
+            font-size: 12px;
+            line-height: 16px;
+            opacity: 0.6;
+          }
+        }
+
+        .nearest {
+          display: block;
+          width: max-content;
+          margin-top: 12px;
+          background: var(--bg-blue);
+          border-radius: 8px;
+          font-size: 12px;
+          line-height: 16px;
+          padding: 4px 8px;
+        }
+      }
+    }
+
+    .agency-border {
+      height: 63px;
+      border-right: 1px solid rgba(56, 113, 239, 0.2);
+    }
+
+    &__right {
+      .count-block {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 12px 0 20px;
+
+        width: 42px;
+        height: 42px;
+        background: var(--bg-blue);
+        border-radius: 8px;
+      }
+
+      .address {
+        font-size: 14px;
+        line-height: 19px;
+
+        p {
+          margin: unset;
+        }
+
+        &__bold {
+          width: 195px;
+          margin-left: 4px;
+          font-family: var(--fontNunitoBold);
+          display: block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .action-btn {
+      position: absolute;
+      right: 0;
+      cursor: pointer;
+      background-image: url("../assets/images/arrow.svg");
+      width: 24px;
+      height: 24px;
+    }
+
+    .open {
+      transform: rotate(180deg);
+    }
+  }
+
+  .more-info {
+    margin: 30px 0;
+
+    .agent-block {
+      display: flex;
+      flex-direction: column;
+
+      img {
+        width: 60px;
+        height: 60px;
+        margin-right: 20px;
+      }
+
+      span {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      .bold {
+        font-size: 16px;
+        line-height: 22px;
+        font-family: var(--fontNunitoBold);
+      }
+
+      .desc {
+        width: 90%;
+        margin-top: 20px;
+        font-size: 14px;
+        line-height: 19px;
+
+        .bold {
+          font-size: 14px;
+          line-height: 19px;
+        }
+
+        .link {
+          cursor: pointer;
+          font-family: var(--fontNunitoBold);
+          color: var(--colorBlue);
+          text-decoration: underline;
+        }
+      }
+
+      .contact {
+        margin: 20px 0;
+        font-family: var(--fontNunitoBold);
+        line-height: 22px;
+        width: 155px;
+        height: 50px;
+
+        background: #3871EF;
+        border-radius: 8px;
+      }
+
+      .details {
+        font-size: 14px;
+        color: var(--colorBlue);
+        cursor: pointer;
+
+        img {
+          width: 14px;
+          height: 14px;
+          margin-right: unset;
+          transform: rotate(270deg);
+        }
+      }
+    }
+
+    .agency-map {
+      width: 389px;
+      height: 264px;
+      border-radius: 8px;
+
+      .gmnoprint, .gm-style-cc {
+        display: none;
+      }
+
+      &__info {
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 16px;
+
+        .orange-circle, .blue-circle, .gray-circle {
+          width: 8px;
+          height: 8px;
+          border: 1px solid var(--colorWhite);
+          border-radius: 10px;
+          margin-right: 5px;
+        }
+
+        .orange-circle {
+          background: var(--colorOrange);
+        }
+
+        .blue-circle {
+          background: var(--colorBlue);
+        }
+
+        .gray-circle {
+          background: var(--colorGray);
+        }
+      }
+    }
+  }
+}

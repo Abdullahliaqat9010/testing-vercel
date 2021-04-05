@@ -1,0 +1,39 @@
+.Header {
+  height: var(--headerHeight);
+  padding: 0 20px;
+  background-color: var(--colorWhite);
+
+  img {
+    width: 155px;
+    height: 31px;
+  }
+
+  .right-block {
+    img {
+      width: 24px;
+      height: 24px;
+      margin-right: 6px;
+    }
+
+    .add-property {
+      display: flex;
+      align-items: center;
+      height: 35px;
+      font-size: 14px;
+      margin-left: 30px;
+      background: var(--colorBlue);
+
+      img {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  #header-dropdown {
+    font-size: 14px;
+    padding: 0.5rem 0;
+    color: #1D2E5B;
+    line-height: 19px;
+  }
+}
