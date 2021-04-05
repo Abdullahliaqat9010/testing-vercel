@@ -1,0 +1,443 @@
+.main-page {
+  background-color: var(--colorWhite);
+  color: var(--mainColor);
+
+  .image-carousel {
+    max-width: 1360px;
+    margin: 0 auto;
+    position: relative;
+
+    &__popup {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      width: 480px;
+
+      position: absolute;
+      z-index: 5;
+      left: 136px;
+      top: 140px;
+
+      background: var(--colorWhite);
+      box-shadow: 0 4px 42px rgba(29, 46, 91, 0.05);
+      border-radius: 10px;
+
+      h2 {
+        color: var(--colorBlack);
+        font-family: var(--fontNunitoBold);
+        max-width: 360px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 25px;
+        color: var(--colorBlack);
+        margin-bottom: 30px;
+      }
+
+      input {
+        border-radius: 6px;
+        height: 46px;
+      }
+
+      button {
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+        margin: 20px 0 30px;
+        width: 241px;
+        height: 50px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+      }
+
+      .gray {
+        color: var(--colorGray);
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: unset;
+      }
+    }
+  }
+
+  .testimonials {
+    h4 {
+      font-family: var(--fontNunitoBold);
+      text-align: center;
+      margin-top: 56px;
+      line-height: 33px;
+      margin-bottom: 18px;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 30px;
+
+      .load-more {
+        margin-bottom: 107px;
+        grid-column-start: 2;
+        margin-top: unset;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 356px;
+        height: 47px;
+        color: var(--colorBlue);
+        background: var(--bg-blue);
+        border-radius: 8px;
+        border: unset;
+
+        img {
+          margin-right: 6px;
+        }
+
+        &:hover, &:active {
+          color: var(--colorBlue);
+          background: var(--bg-blue);
+        }
+      }
+    }
+
+    &__item {
+      width: 356px;
+      padding: 20px;
+
+      background: var(--colorWhite);
+      border: 1px solid rgba(56, 113, 239, 0.2);
+      box-sizing: border-box;
+      border-radius: 8px;
+
+      .avatar {
+        width: 42px;
+        height: 42px;
+        margin-right: 12px;
+      }
+
+      .full-name {
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+      }
+
+      .dv-star-rating {
+        label {
+          width: 14px;
+          height: 14px;
+          margin-bottom: unset;
+          margin-right: 1px;
+          float: unset !important;
+        }
+      }
+
+      .desc {
+        font-size: 14px;
+        line-height: 19px;
+      }
+    }
+  }
+
+  .short-footer {
+    padding: 0 40px 25px;
+    font-size: 14px;
+    line-height: 19px;
+
+    .link {
+      cursor: pointer;
+      color: var(--colorBlue);
+    }
+  }
+
+  .steps-block {
+    &__progress-bar {
+      width: 100%;
+      height: 4px;
+      background: #E5EAF7;
+
+      .progress-bar {
+        -webkit-transition: width .5s ease;
+        -o-transition: width .5s ease;
+        transition: width .5s ease;
+        background: var(--colorBlue);
+      }
+    }
+
+    &__main {
+      height: calc(100vh - var(--headerHeight) - 4px); //4px height of progress-bar
+
+      .step-title {
+        display: block;
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 5px;
+      }
+
+      h4 {
+        font-family: var(--fontNunitoBold);
+        line-height: 33px;
+      }
+
+
+      #locality {
+        width: 310px;
+      }
+
+      #street {
+        border-right: unset;
+      }
+
+      .input-group-text {
+        border-color: var(--colorGray);
+        background: var(--colorWhite);
+
+        img {
+          cursor: pointer;
+        }
+      }
+
+      #number, #zip {
+        width: 96px;
+      }
+
+      .form-row {
+        margin: unset;
+        justify-content: space-between;
+      }
+
+      .steps-btn-group {
+        font-family: var(--fontNunitoBold);
+
+        .prev-step {
+          height: 50px;
+          color: var(--colorBlue);
+          background: var(--colorWhite);
+          border: unset;
+
+          img {
+            margin-right: 8px;
+          }
+        }
+
+        .next-step {
+          width: 218px;
+          height: 50px;
+          background: var(--colorBlue);
+          border-radius: 8px;
+        }
+      }
+    }
+
+    .step-two, .step-three, .step-four {
+      label {
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 270px;
+        height: 46px;
+        border-radius: 6px;
+        border: 1px solid var(--colorGray);
+
+        &:focus {
+          box-shadow: unset;
+        }
+      }
+    }
+
+    .step-two, .step-three, .step-four, .final-step {
+      width: 433px;
+    }
+
+    .step-three {
+      .properties {
+        margin: 30px 0;
+
+        .property-home, .property-apartment {
+          position: relative;
+          width: 205px;
+          height: 142px;
+          border: 1px solid var(--colorLightGrey);
+          box-sizing: border-box;
+          border-radius: 8px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          .title {
+            display: block;
+            margin-top: 10px;
+            line-height: 22px;
+          }
+
+          .active-item {
+            background: url("../../assets/images/active-item.svg") no-repeat center 32%;
+            position: absolute;
+            right: -18px;
+            top: -15px;
+            box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+            border-radius: 20px;
+            background-size: inherit;
+            width: 34px;
+            height: 34px;
+            display: none;
+          }
+        }
+
+        .active {
+          border: 1px solid var(--colorBlue);
+
+          .active-item {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .step-four {
+      h4 {
+        margin-bottom: 30px;
+      }
+
+      .input-group {
+        margin-bottom: 30px;
+        align-items: center;
+        justify-content: space-between;
+
+        label {
+          line-height: 22px;
+          font-size: 16px;
+        }
+
+        .input-block {
+          display: flex;
+          width: 217px;
+
+          .input-group-text {
+            justify-content: center;
+            padding: unset;
+            width: 46px;
+            height: 46px;
+            background: #F2F6FF;
+          }
+
+          .input-group-append {
+            .input-group-text {
+              border-radius: 0 6px 6px 0;
+            }
+          }
+
+          .input-group-prepend {
+            .input-group-text {
+              border-radius: 6px 0 0 6px;
+            }
+          }
+
+          input {
+            border-radius: 8px 0 0 8px;
+            width: 100%;
+          }
+        }
+
+        .input-border-radius-0 {
+          span {
+            cursor: pointer;
+          }
+
+          input {
+            background-color: var(--colorWhite);
+            text-align: center;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+
+    .final-step {
+      font-size: 14px;
+      line-height: 19px;
+
+      .step-desc {
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      .have-account {
+        display: block;
+        cursor: pointer;
+        color: var(--colorBlue);
+        margin-bottom: 30px;
+
+        img {
+          transform: rotate(270deg);
+        }
+      }
+
+      label {
+        margin-bottom: 5px;
+      }
+
+      input {
+        border: 1px solid var(--colorGray);
+        border-radius: 6px;
+      }
+
+      .form-row {
+        flex-wrap: unset;
+        align-items: center;
+
+        .form-group {
+          position: relative;
+
+          input {
+            width: 205px;
+          }
+
+          img {
+            position: absolute;
+            right: 10px;
+            top: 40px;
+          }
+        }
+      }
+
+      .form-group {
+        margin-bottom: unset;
+
+        input {
+          height: 46px;
+        }
+      }
+
+      .recommendation {
+        display: block;
+        font-size: 12px;
+        line-height: 16px;
+        margin: 12px 0 30px;
+      }
+
+      .form-check {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        font-family: var(--fontNunitoBold);
+        margin-top: 30px;
+        width: 100%;
+        height: 50px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+      }
+    }
+  }
+}

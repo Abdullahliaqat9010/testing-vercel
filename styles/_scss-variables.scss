@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('../assets/fonts/NunitoSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NunitoBold';
+  src: url('../assets/fonts/NunitoSans-Bold.ttf') format('truetype');
+}
+
+:root {
+  --headerHeight: 67px;
+  --mainColor: #1D2E5B;
+  --bg-blue: #F2F6FF;
+
+  --colorWhite: #FFFFFF;
+  --colorBlack: #151A20;
+  --colorLightGrey: #D2D5DE;
+  --colorGray: #8F99B4;
+  --colorGrayTwo: #6C768F;
+  --colorOrange: #FE7F2D;
+  --colorCyan: #178D84;
+  --colorLightBlue: #A9C0FF;
+  --colorBlue: #3871EF;
+
+  --fontNunito: 'Nunito', sans-serif;
+  --fontNunitoBold: 'NunitoBold', sans-serif;
+}

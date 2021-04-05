@@ -1,0 +1,64 @@
+.property-block {
+  margin-bottom: 6px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+
+  &__image {
+    margin-right: 20px;
+
+    img {
+      width: 140px;
+      height: 140px;
+    }
+  }
+
+  &__info {
+    font-size: 12px;
+
+    .address {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .house-info {
+      margin-bottom: 10px;
+
+      span {
+        padding: 4px 8px;
+        background: #F2F6FF;
+        border-radius: 8px;
+        margin-right: 6px;
+      }
+    }
+
+    .time {
+      margin-bottom: 10px;
+
+      span {
+        opacity: 0.6;
+      }
+      a {
+        color: var(--colorBlue);
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: var(--colorBlue);
+      border-color: var(--colorBlue);
+      border-radius: 6px;
+
+      &:hover, &:active {
+        color: var(--colorBlue) !important;
+        background-color: transparent !important;
+      }
+
+      img {
+        transform: rotate(270deg);
+      }
+    }
+  }
+}
