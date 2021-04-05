@@ -17,14 +17,13 @@ const ImagesBlock = () => {
   const [value, setValue] = useState(null);
   const [geoLocation, setGeoLocation] = useState({});
 
-  const handleChangeValue = (el: any) => {
+  const handleChangeValue = async (el: any) => {
     setValue(el);
-    geocodeByAddress(el.label)
-      .then(results => getLatLng(results[0]))
-      .then(({lat, lng}) => {
-        console.log('Successfully got latitude and longitude');
-        setGeoLocation({lat, lng});
-      });
+    const results = await geocodeByAddress(el.label);
+    const getLocations = await getLatLng(results[0]);
+
+    console.log('Successfully got latitude and longitude');
+    setGeoLocation(getLocations);
   };
 
   const goToMainSteps = () => {

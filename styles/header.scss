@@ -36,4 +36,25 @@
     color: #1D2E5B;
     line-height: 19px;
   }
+
+  .sign-in-btn {
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--mainColor);
+
+    img {
+      width: 14px;
+      height: 14px;
+      transform: rotate(270deg);
+    }
+  }
+
+  .step-info {
+    color: var(--mainColor);
+    font-size: 14px;
+    line-height: 19px;
+    position: absolute;
+    left: 226px;
+  }
 }

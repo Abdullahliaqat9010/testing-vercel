@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head'
 
 import NavBarContainer from '../../containers/NavBar';
 import MainInfoBlock from '../../containers/DashboardPageContainer/MainInfoBlock';

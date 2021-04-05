@@ -45,7 +45,21 @@ const FinalStep = () => {
     if (isDisabled) {
       dispatch(setUserDataAction(data));
       dispatch(sendStepsDataRequestAction({
-        property: {},
+        property: {
+          search_address: addressFromStepOne,
+          lat: location.lat,
+          lng: location.lng,
+          property_type: selectedProperty,
+          live_area: +propertyDetails.livableArea,
+          total_area: +propertyDetails.totalArea,
+          bedrooms: propertyDetails.numberBedrooms,
+          bathrooms: propertyDetails.numberBathrooms,
+          levels: propertyDetails.numberLevels,
+          street: additionalAddress.street,
+          street_number: additionalAddress.number,
+          zip: additionalAddress.zip,
+          locality: +additionalAddress.locality
+        },
         user: {...data}
       }));
     }

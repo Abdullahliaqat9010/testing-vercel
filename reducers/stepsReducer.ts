@@ -28,8 +28,8 @@ export const initialState = {
       agreement: false,
     },
     location: {
-      lat: null,
-      lng: null,
+      lat: 40.7510674,
+      lng: -74.1660403
     },
   },
   errors: '',
