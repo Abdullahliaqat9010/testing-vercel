@@ -33,7 +33,94 @@
   #header-dropdown {
     font-size: 14px;
     padding: 0.5rem 0;
-    color: #1D2E5B;
+    color: var(--mainColor);
     line-height: 19px;
+
+    &::after {
+      top: 2px;
+      position: relative;
+    }
+  }
+
+  .sign-in-btn {
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--mainColor);
+
+    img {
+      width: 14px;
+      height: 14px;
+      transform: rotate(270deg);
+    }
+  }
+
+  .step-info {
+    color: var(--mainColor);
+    font-size: 14px;
+    line-height: 19px;
+    position: absolute;
+    left: 226px;
+  }
+
+  .dropdown-menu {
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+    border-radius: 10px;
+    transform: translate(-80px, 50px) !important;
+    border: unset;
+
+    a {
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      height: 43px;
+      font-size: 14px;
+      line-height: 19px;
+      padding: unset;
+      color: var(--mainColor);
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover, &:active, &:focus {
+        background-color: transparent;
+        color: var(--mainColor);
+      }
+    }
+
+    &::before {
+      position: absolute;
+      display: block;
+      width: 8.71px;
+      height: 8.71px;
+      top: -5px;
+      left: 110px;
+      content: "";
+      background: var(--colorWhite);
+      transform: rotate(45deg);
+    }
+
+    .pro-workspace {
+      justify-content: center;
+      font-size: 14px;
+      line-height: 19px;
+      color: var(--colorBlue);
+      border: 1px solid var(--colorBlue);
+      box-sizing: border-box;
+      border-radius: 6px;
+
+      &:hover, &:active, &:focus {
+        color: var(--colorBlue);
+      }
+    }
+  }
+
+  .show {
+    #header-dropdown {
+      color: var(--colorBlue);
+    }
   }
 }
