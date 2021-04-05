@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head'
 
 import NavBarContainer from '../../containers/NavBar';
 import MainInfoBlock from '../../containers/DashboardPageContainer/MainInfoBlock';
@@ -8,10 +7,13 @@ import PropertiesBlock from '../../containers/DashboardPageContainer/PropertiesB
 import FindAgentBlock from '../../containers/DashboardPageContainer/FindAgentBlock';
 import FooterContainer from '../../containers/Footer';
 import HeaderContainer from '../../containers/Header';
+import ContactAgentModal from '../../containers/ContactAgentModal';
 
 const DashboardPage = () => {
+
   return (
     <>
+      <ContactAgentModal/>
       <HeaderContainer title='Dashboard' />
       <div className='Dashboard container d-flex'>
         <NavBarContainer/>

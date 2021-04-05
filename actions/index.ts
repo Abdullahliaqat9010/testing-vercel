@@ -36,4 +36,12 @@ export const setUserDataAction = (data: object) => ({
 export const sendStepsDataRequestAction = (data: object) => ({
   type: actionType.SEND_STEPS_DATA_REQUEST,
   payload: data,
-})
+});
+
+export const modalWindowContactAgentAction = () => ({
+  type: actionType.SHOW_MODAL_CONTACT_AGENT,
+});
+
+export const closeModalWindowContactAgentAction = () => ({
+  type: actionType.CLOSE_MODAL_CONTACT_AGENT,
+});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../../types/state';
@@ -9,6 +9,13 @@ import StepsBlock from './StepsBlock';
 
 const MainPageComponent = () => {
   const { mainBlocks } = useSelector((state: RootState) => state.stepsInfo);
+  const { auth } = useSelector((state: RootState) => state.userInfo);
+
+  useEffect(() => {
+    if (auth) {
+      window.location.href = '/dashboard';
+    }
+  }, [auth]);
 
   return (
     <div className='main-page'>

@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 
+import { modalWindowContactAgentAction } from '../../actions';
 import { AgencyProps } from '../../types/agents';
 
 import GoogleMap from '../../components/GoogleMap';
 
 const Agency = ({agency}: AgencyProps) => {
+  const dispatch = useDispatch();
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
   const openMoreInfo = () => {
     setShowMoreInfo(!showMoreInfo);
+  };
+
+  const openContactModal = () => {
+    dispatch(modalWindowContactAgentAction());
   };
 
   return (
@@ -68,7 +75,7 @@ const Agency = ({agency}: AgencyProps) => {
               including <span className="link">18 similar to yours</span>. Our team is at your disposal to manage
               your project
             </div>
-            <Button className='contact'>Contact { agency.moreInfo.agentName }</Button>
+            <Button className='contact' onClick={openContactModal}>Contact { agency.moreInfo.agentName }</Button>
             <span className="details">Agency details <img src={ArrowImage} alt="ArrowImage"/></span>
           </div>
           <div className="map-block d-flex flex-column">
