@@ -1,7 +1,21 @@
 import * as actionType from '../actions/actionTypes';
+import { parseJwt } from '../utils';
+
+let exp = false;
+
+/**
+ * check token on expire
+  */
+if (typeof localStorage !== "undefined") {
+  if (localStorage.getItem('auth')) {
+    const jwtToken = parseJwt(localStorage.getItem('auth'));
+    const dateNow = +Date.now().toString().slice(0, -3);
+    exp = dateNow < jwtToken.exp;
+  }
+}
 
 export const initialState = {
-  auth: false,
+  auth: exp,
   errors: '',
 };
 

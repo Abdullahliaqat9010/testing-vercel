@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
 
@@ -6,14 +6,17 @@ import Logo from '../../assets/images/logo.png';
 import NoPhoto from '../../assets/images/no-photo.png';
 import AddIcon from '../../assets/images/icon-plus.svg';
 import LoginArrow from '../../assets/images/arrow.svg';
+import ProIcon from '../../assets/images/pro-workspace.svg';
 
 import { NavDropdown, Image, Button } from 'react-bootstrap';
 
 import { RootState } from '../../types/state';
+import navBarList from '../../config/navBarList';
+
 
 const HeaderContainer = ({title}: { title: string }) => {
-  const [auth, setAuth] = useState<boolean>(false);
   const {mainBlocks, stepBlock} = useSelector((state: RootState) => state.stepsInfo);
+  const {auth} = useSelector((state: RootState) => state.userInfo);
 
   const stepInfo = () => {
     if (stepBlock.step === 0) {
@@ -41,9 +44,18 @@ const HeaderContainer = ({title}: { title: string }) => {
             <div className="right-block d-flex align-items-center">
               <Image src={ NoPhoto } roundedCircle/>
               <NavDropdown title="Anna Johns" id="header-dropdown">
-                <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
-                <NavDropdown.Divider/>
-                <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                <NavDropdown.Item className='pro-workspace'>
+                  <img src={ ProIcon } alt="ProIcon"/>
+                  Go to my pro workspace
+                </NavDropdown.Item>
+                {
+                  navBarList.map((list, index) => (
+                    <NavDropdown.Item href={ list.href } key={ index }>
+                      <img src={ list.img } alt={ list.title }/>
+                      { list.title }
+                    </NavDropdown.Item>
+                  ))
+                }
               </NavDropdown>
               <Button className='add-property'><img src={ AddIcon } alt="AddIcon"/>Add a property</Button>
             </div>

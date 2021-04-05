@@ -35,6 +35,10 @@
     padding: 0.5rem 0;
     color: #1D2E5B;
     line-height: 19px;
+    &::after {
+      top: 2px;
+      position: relative;
+    }
   }
 
   .sign-in-btn {
@@ -56,5 +60,66 @@
     line-height: 19px;
     position: absolute;
     left: 226px;
+  }
+
+  .dropdown-menu {
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+    border-radius: 10px;
+    transform: translate(-80px, 50px) !important;
+    border: unset;
+
+    a {
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      height: 43px;
+      font-size: 14px;
+      line-height: 19px;
+      padding: unset;
+      color: #1D2E5B;
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover, &:active, &:focus {
+        background-color: transparent;
+        color: #1D2E5B;
+      }
+    }
+
+    &::before {
+      position: absolute;
+      display: block;
+      width: 8.71px;
+      height: 8.71px;
+      top: -5px;
+      left: 110px;
+      content: "";
+      background: var(--colorWhite);
+      transform: rotate(45deg);
+    }
+
+    .pro-workspace {
+      justify-content: center;
+      font-size: 14px;
+      line-height: 19px;
+      color: #3871EF;
+      border: 1px solid #3871EF;
+      box-sizing: border-box;
+      border-radius: 6px;
+
+      &:hover, &:active, &:focus {
+        color: #3871EF;
+      }
+    }
+  }
+
+  .show {
+    #header-dropdown {
+      color: #3871EF;
+    }
   }
 }
