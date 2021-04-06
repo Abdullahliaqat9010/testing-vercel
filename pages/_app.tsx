@@ -11,9 +11,10 @@ import '../styles/footer.scss';
 import '../styles/navbar.scss';
 import '../styles/property-block.scss';
 import '../styles/agency-block.scss';
+import '../styles/contact-agent-modal.scss';
 import '../styles/pages/main.scss';
 import '../styles/pages/dashboard.scss';
-import '../styles/contact-agent-modal.scss';
+import '../styles/pages/agency.scss';
 
 
 const MyApp = ({ Component, pageProps }) => {

@@ -6,9 +6,10 @@ import { Button, Image } from 'react-bootstrap';
 
 import LoadMoreImage from '../../../assets/images/load-more.svg';
 import FacebookImage from '../../../assets/images/facebook-icon.svg';
+import RatingStar from '../../../assets/images/rating/full-star.svg';
+import RatingStarEmpty from '../../../assets/images/rating/star.svg';
 
 import { testimonialList } from '../../../templates/testimonialList';
-import RatingStar from '../../../assets/images/rating/full-star.svg';
 
 const TestimonialsBlock = () => {
   return (
@@ -25,7 +26,14 @@ const TestimonialsBlock = () => {
                     <span className='full-name'>{ item.name } { item.surname }</span>
                     <StarRatingComponent
                       name="rate"
-                      renderStarIcon={ () => <img className='rating-star' src={ RatingStar } alt="RatingStar"/> }
+                      renderStarIcon={
+                        (index, value) =>
+                          <img
+                            className='rating-star'
+                            src={ index <= value ? RatingStar : RatingStarEmpty }
+                            alt="RatingStar"
+                          />
+                      }
                       starCount={ 5 }
                       value={ Number(item.rating) }
                     />
