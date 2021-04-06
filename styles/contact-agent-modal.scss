@@ -77,6 +77,10 @@
             color: var(--colorBlue);
           }
         }
+        .custom-select{
+          background-image: url("../assets/images/arrow.svg");
+          background-size: 18px;
+        }
       }
     }
   }

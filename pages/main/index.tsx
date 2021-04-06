@@ -8,14 +8,13 @@ import TestimonialsBlock from './TestimonialsBlock';
 import StepsBlock from './StepsBlock';
 
 const MainPageComponent = () => {
-  const { mainBlocks } = useSelector((state: RootState) => state.stepsInfo);
-  const { auth } = useSelector((state: RootState) => state.userInfo);
+  const { mainBlocks, goToDashboard } = useSelector((state: RootState) => state.stepsInfo);
 
   useEffect(() => {
-    if (auth) {
+    if (goToDashboard) {
       window.location.href = '/dashboard';
     }
-  }, [auth]);
+  }, [goToDashboard]);
 
   return (
     <div className='main-page'>

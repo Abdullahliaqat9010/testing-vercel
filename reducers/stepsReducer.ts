@@ -2,6 +2,7 @@ import * as actionType from '../actions/actionTypes';
 
 export const initialState = {
   mainBlocks: false,
+  goToDashboard: false,
   stepBlock: {
     step: 0,
     addressFromStepOne: '',
@@ -71,6 +72,11 @@ const stepsReducer = (state = initialState, action: any) => {
           ...state.stepBlock,
           additionalAddress: {...action.payload},
         },
+      };
+      case actionType.CREATE_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        goToDashboard: true
       };
     case actionType.SET_PROPERTY_DETAILS:
       return {

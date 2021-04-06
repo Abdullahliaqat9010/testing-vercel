@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
+import Link from 'next/link'
 import RatingStar from '../../assets/images/rating/full-star.svg';
+import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 
 import { modalWindowContactAgentAction } from '../../actions';
@@ -36,7 +38,14 @@ const Agency = ({agency}: AgencyProps) => {
               <span className='total'>{ agency.rate }</span>
               <StarRatingComponent
                 name="rate"
-                renderStarIcon={ () => <img className='rating-star' src={ RatingStar } alt="RatingStar"/> }
+                renderStarIcon={
+                  (index, value) =>
+                    <img
+                      className='rating-star'
+                      src={ index <= value ? RatingStar : RatingStarEmpty }
+                      alt="RatingStar"
+                    />
+                }
                 starCount={ 5 }
                 value={ Number(agency.rate) }
               />
@@ -76,7 +85,9 @@ const Agency = ({agency}: AgencyProps) => {
               your project
             </div>
             <Button className='contact' onClick={openContactModal}>Contact { agency.moreInfo.agentName }</Button>
-            <span className="details">Agency details <img src={ArrowImage} alt="ArrowImage"/></span>
+            <Link href='/agency'>
+              <span className="details">Agency details <img src={ArrowImage} alt="ArrowImage"/></span>
+            </Link>
           </div>
           <div className="map-block d-flex flex-column">
             <div className="agency-map">
