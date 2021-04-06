@@ -286,4 +286,48 @@
       }
     }
   }
+
+  @media (min-width: 375px) and (max-width: 425px) {
+    padding: 30px 16px 0;
+
+    h4 {
+      font-size: 20px;
+      line-height: 27px;
+      width: 75%;
+    }
+
+    &__container {
+      .main-info-block {
+        padding: 20px;
+
+        .top-block {
+          align-items: flex-start !important;
+        }
+
+        .bottom-block {
+          margin-top: 20px;
+
+          .image-block {
+            flex-direction: column;
+            margin-right: 60px;
+            align-items: end;
+
+            img {
+              width: 30px;
+              height: 30px;
+              margin-bottom: 6px;
+            }
+
+            .title {
+              margin-bottom: 3px;
+            }
+
+            &__info {
+              margin-left: unset;
+            }
+          }
+        }
+      }
+    }
+  }
 }

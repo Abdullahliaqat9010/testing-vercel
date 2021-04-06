@@ -19,9 +19,9 @@ const DashboardPage = () => {
         <NavBarContainer/>
         <div className="Dashboard__container">
           <MainInfoBlock/>
-          {/*<EstimateBlock/>*/}
-          {/*<PropertiesBlock/>*/}
-          {/*<FindAgentBlock/>*/}
+          <EstimateBlock/>
+          <PropertiesBlock/>
+          <FindAgentBlock/>
         </div>
       </div>
       <FooterContainer />
