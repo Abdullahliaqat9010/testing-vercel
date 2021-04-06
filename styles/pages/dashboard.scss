@@ -328,6 +328,16 @@
           }
         }
       }
+      .estimate-block {
+        .scale-block {
+          .line {
+            width: 100%;
+            background-image: url("../../assets/images/price-graph-mobile.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+        }
+      }
     }
   }
 }

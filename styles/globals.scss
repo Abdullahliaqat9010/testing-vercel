@@ -69,4 +69,9 @@ body {
       border-top-color: var(--colorWhite);
     }
   }
+
+  @media (min-width: 375px) and (max-width: 425px) {
+    transform: translate3d(123px, -265px, 0px) !important;
+    opacity: 1;
+  }
 }
