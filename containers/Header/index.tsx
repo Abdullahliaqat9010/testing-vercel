@@ -36,6 +36,14 @@ const HeaderContainer = ({title}: { title: string }) => {
 
   const isActive = () => {
     if (isMobile) {
+      /**
+       * makes no scroll body
+       */
+      if (!openMenu) {
+        document.body.className+='modal-open';
+      } else {
+        document.body.classList.remove('modal-open');
+      }
       setOpenMenu(!openMenu);
     }
   };
