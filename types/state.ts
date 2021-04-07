@@ -5,6 +5,7 @@ export interface RootState {
   },
   stepsInfo: {
     mainBlocks: boolean,
+    goToDashboard: boolean,
     stepBlock: {
       step: number,
       title: string,

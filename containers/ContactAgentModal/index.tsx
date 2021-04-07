@@ -50,7 +50,7 @@ const ContactAgentModal = () => {
           </Form.Group>
           <Form.Group controlId="select-property">
             <Form.Label>Select your property</Form.Label>
-            <Form.Control as="select" defaultValue="Select">
+            <Form.Control className='custom-select' as="select" defaultValue="Select">
               <option>Select</option>
               <option>...</option>
               <option>...</option>
