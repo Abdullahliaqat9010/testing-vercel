@@ -176,6 +176,34 @@
           display: none;
         }
       }
+
+      .add-property-mobile {
+        margin: 10px auto 26px;
+        display: block;
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+        width: 311px;
+        height: 50px;
+        background: var(--colorBlue);
+        border: 1px solid var(--colorBlue);
+        box-sizing: border-box;
+        border-radius: 6px;
+
+        img {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .pro-workspace {
+        width: 245px;
+        height: 43px;
+
+        position: absolute;
+        bottom: 71px;
+        left: calc(50% - 123px);
+      }
     }
 
     .dropdown-menu {
@@ -187,6 +215,31 @@
 
       &:before {
         display: none;
+      }
+    }
+    .mobile-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      bottom: 134px;
+      left: 0;
+
+      .user-name {
+        font-family: var(--fontNunitoBold);
+        margin: 6px 0;
+      }
+
+      .pro {
+        padding: 6px 10px;
+        color: var(--colorWhite);
+        font-size: 14px;
+        line-height: 19px;
+        width: 50px;
+        height: 31px;
+        background: #FE7F2D;
+        border-radius: 10px;
       }
     }
   }
