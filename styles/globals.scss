@@ -33,6 +33,7 @@ body {
 #price-block {
   width: 130px;
   height: 69px;
+  z-index: 20;
 
   box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
   border-radius: 8px;
@@ -71,7 +72,6 @@ body {
   }
 
   @media (min-width: 375px) and (max-width: 425px) {
-    transform: translate3d(112px, -330px, 0px) !important;
     opacity: 1;
   }
 }
