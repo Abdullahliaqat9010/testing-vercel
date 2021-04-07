@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
 
+import {isMobile} from 'react-device-detect';
+
 import Logo from '../../assets/images/logo.png';
 import NoPhoto from '../../assets/images/no-photo.png';
 import AddIcon from '../../assets/images/icon-plus.svg';
@@ -38,12 +40,12 @@ const HeaderContainer = ({title}: { title: string }) => {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <Image src={ Logo } alt='Logo'/>
+        <Image className='logo' src={ Logo } alt='Logo'/>
         {
           auth ?
             <div className="right-block d-flex align-items-center">
-              <Image src={ NoPhoto } roundedCircle/>
-              <NavDropdown title="Anna Johns" id="header-dropdown">
+              <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+              <NavDropdown title={ isMobile ? '' : 'Anna Johns' } id="header-dropdown">
                 <NavDropdown.Item className='pro-workspace'>
                   <img src={ ProIcon } alt="ProIcon"/>
                   Go to my pro workspace
@@ -57,7 +59,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                   ))
                 }
               </NavDropdown>
-              <Button className='add-property'><img src={ AddIcon } alt="AddIcon"/>Add a property</Button>
+              <Button className='add-property'><img src={ AddIcon } alt="AddIcon"/><span>Add a property</span></Button>
             </div>
             :
             !mainBlocks

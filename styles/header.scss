@@ -123,4 +123,71 @@
       color: var(--colorBlue);
     }
   }
+
+  @media (min-width: 375px) and (max-width: 425px) {
+    height: 70px;
+    .logo {
+      margin-left: 44px;
+      width: 142px;
+      height: 28px;
+    }
+    .dropdown {
+      position: absolute;
+      left: 0;
+    }
+
+    .right-block {
+      #header-dropdown {
+        color: transparent;
+        position: relative;
+
+        &:after {
+          background: url("../assets/images/burger-menu.svg");
+          width: 28px;
+          height: 28px;
+          left: 25px;
+          border: unset;
+          margin-left: unset;
+          vertical-align: unset;
+        }
+      }
+
+      .show {
+        #header-dropdown {
+          &:after {
+            background: url("../assets/images/burger-menu-close.svg");
+          }
+        }
+      }
+
+      .user-avatar {
+        width: 38px;
+        height: 38px;
+        margin-right: unset;
+      }
+
+      .add-property {
+        margin-left: 16px;
+        width: 38px;
+        height: 38px;
+        border-radius: 6px;
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    .dropdown-menu {
+      transform: translate3d(0px, 58px, 0px) !important;
+      width: 100vw;
+      height: calc(100vh - 70px);
+      box-shadow: none;
+      border-radius: unset;
+
+      &:before {
+        display: none;
+      }
+    }
+  }
 }

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { isMobile } from 'react-device-detect';
 
 import { Button } from 'react-bootstrap';
 
@@ -9,21 +11,32 @@ import LoadMoreImage from '../../../assets/images/load-more.svg';
 import { propertiesList } from '../../../templates/propertiesList';
 
 const PropertiesBlock = () => {
+  const elementsOnPage = 3;
+  const [sizeArr, setSizeArr] = useState(3);
+  const properties = isMobile ? propertiesList.slice(0, sizeArr) : propertiesList;
+
+  const loadMore = () => {
+    setSizeArr(sizeArr + elementsOnPage);
+  }
+
   return (
     <div className='properties-block d-flex'>
-      <div className="map-block w-50">
-        <GoogleMap />
-      </div>
+      {
+        !isMobile &&
+        <div className="map-block w-50">
+          <GoogleMap/>
+        </div>
+      }
       <div className="properties-list w-50">
         <h5>Similar Sold Properties</h5>
         <p>We found 1,205 similar sold properties in this area.</p>
         {
-          propertiesList.map(
+          properties.map(
             (item, index) =>
-              <PropertyBlock key={index} property={item} />
-              )
+              <PropertyBlock key={ index } property={ item }/>,
+          )
         }
-        <Button className='load-more'>
+        <Button className='load-more' onClick={loadMore}>
           <img src={ LoadMoreImage } alt="LoadMoreImage"/>Load More
         </Button>
       </div>

@@ -32,3 +32,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### Deploy with Apache2 ###
+1. Install Apache in your server. Rename the file "example.immo_belgium.conf" to "immo_belgium.conf", edit it and add to /etc/apache2/sites-available
+2. Allow Apache settings for backend application proxy:   
+  - `a2enmod proxy`
+  - `a2enmod proxy_http`
+  - `a2enmod proxy_ajp`
+  - `a2enmod proxy_balancer`
+  - `a2enmod proxy_connect`
+  - `a2enmod proxy_html`   
+3. Deactivate default file `a2dissite 000-default.conf`   
+4. Activate file `a2ensite immo_belgium.conf`.
+5. Check config file `apache2ctl configtest`.
+6. Apply apache2: `sudo a2enmod rewrite && sudo systemctl restart apache2`. 
+7. For logs `nano /var/log/apache2/error.log`.
