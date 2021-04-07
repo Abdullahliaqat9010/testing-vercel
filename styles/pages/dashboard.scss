@@ -328,13 +328,43 @@
           }
         }
       }
+
       .estimate-block {
+        padding: 20px;
+
+        h4 {
+          width: 100%;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 19px;
+        }
+
         .scale-block {
           .line {
             width: 100%;
             background-image: url("../../assets/images/price-graph-mobile.svg");
             background-size: contain;
             background-repeat: no-repeat;
+          }
+        }
+
+        .btn-group {
+          display: flex;
+          margin-bottom: 20px;
+          flex-direction: column;
+
+          .btn:not(:first-child) {
+            border-top: unset;
+          }
+
+          .btn:first-child {
+            border-radius: 8px 8px 0 0
+          }
+
+          .btn:last-child {
+            border-radius: 0 0 8px 8px;
           }
         }
       }
