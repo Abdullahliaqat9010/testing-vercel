@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Send files to server
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          REMOTE_USER: ${{ secrets.DEV_SERVER_USERNAME }}
+          REMOTE_HOST: ${{ secrets.DEV_SERVER_IP }}
+          SSH_PRIVATE_KEY: ${{ secrets.DEV_PRIVATE_KEY }}
+          REMOTE_PORT: ${{ secrets.DEV_SERVER_PORT }}
+          SOURCE: '.'
+          TARGET: '/var/projects/immo_belgium_front'
+          ARGS: "-rltgoDzvO --delete --exclude .git --exclude .env --exclude /node_modules/"
+
+      - name: Executing remote ssh commands
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /var/projects/immo_belgium_front
+            npm install
+            npm run build
+            pm2 stop immo_belgium_front; pm2 delete immo_belgium_front; pm2 start npm --name "immo_belgium_front" -- start
+          host: ${{ secrets.DEV_SERVER_IP }}
+          user: ${{ secrets.DEV_SERVER_USERNAME }}
+          key: ${{ secrets.DEV_PRIVATE_KEY }}
+          port: ${{ secrets.DEV_SERVER_PORT }}
