@@ -1,6 +1,9 @@
 import PropertyImageOne from '../assets/images/properties/property1.png';
+import PropertyImageMobileOne from '../assets/images/properties/property1-mobile.png';
 import PropertyImageTwo from '../assets/images/properties/property2.png';
+import PropertyImageMobileTwo from '../assets/images/properties/property2-mobile.png';
 import PropertyImageThree from '../assets/images/properties/property3.png';
+import PropertyImageMobileThree from '../assets/images/properties/property3-mobile.png';
 import PropertyImageFour from '../assets/images/properties/property4.png';
 import PropertyImageFive from '../assets/images/properties/property5.png';
 import PropertyImageSix from '../assets/images/properties/property6.png';
@@ -15,6 +18,7 @@ export const propertiesList: PropertiesItem[] = [
     bath: '3',
     beds: '5',
     img: PropertyImageOne,
+    imgMobile: PropertyImageMobileOne,
   },
   {
     id: 2,
@@ -23,6 +27,7 @@ export const propertiesList: PropertiesItem[] = [
     bath: '3',
     beds: '5',
     img: PropertyImageTwo,
+    imgMobile: PropertyImageMobileTwo,
   },
   {
     id: 3,
@@ -31,6 +36,7 @@ export const propertiesList: PropertiesItem[] = [
     bath: '3',
     beds: '5',
     img: PropertyImageThree,
+    imgMobile: PropertyImageMobileThree,
   },
   {
     id: 4,

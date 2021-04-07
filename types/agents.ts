@@ -5,6 +5,7 @@ export interface AgentsItem {
   rate: string,
   reviews: string,
   logo: string,
+  logoMobile: string,
   count: number,
   nearest: boolean,
   moreInfo: {
@@ -23,6 +24,7 @@ export interface AgencyProps {
     rate: string,
     reviews: string,
     logo: string,
+    logoMobile: string,
     count: number,
     nearest: boolean,
     moreInfo: {
