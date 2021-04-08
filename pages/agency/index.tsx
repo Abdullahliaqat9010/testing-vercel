@@ -12,12 +12,13 @@ import BGImage from '../../assets/images/bg-agency.png';
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
 
+
 const AgencyPage = () => {
   return (
     <>
       <HeaderContainer title='Agency Info' />
       <div className='Agency container'>
-        <Link href='/dashboard'>
+        <Link href={ '/dashboard' }>
           <span className='Agency__back'><img src={ArrowImage} alt="ArrowImage"/> Back to dashboard</span>
         </Link>
         <div className="Agency__block">

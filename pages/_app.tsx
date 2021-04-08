@@ -16,7 +16,6 @@ import '../styles/pages/main.scss';
 import '../styles/pages/dashboard.scss';
 import '../styles/pages/agency.scss';
 
-
 const MyApp = ({ Component, pageProps }) => {
   return(
     <Provider store={ store }>

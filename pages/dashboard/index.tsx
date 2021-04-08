@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { userToken } from '../../config/siteConfigs';
 
 import NavBarContainer from '../../containers/NavBar';
 import MainInfoBlock from '../../containers/DashboardPageContainer/MainInfoBlock';
@@ -10,6 +12,15 @@ import HeaderContainer from '../../containers/Header';
 import ContactAgentModal from '../../containers/ContactAgentModal';
 
 const DashboardPage = () => {
+
+  /**
+   * @todo Add private routes
+   */
+  useEffect(() => {
+    if(!userToken) {
+      window.location.href = '/'
+    }
+  },[])
 
   return (
     <>
