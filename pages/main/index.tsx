@@ -27,7 +27,10 @@ const MainPageComponent = () => {
             <InfoBlock/>
             <TestimonialsBlock/>
             <div className="short-footer d-flex justify-content-between">
-              <span>Agence:  | Numéro IPI: | Immo Wallonie ©{ new Date().getFullYear() }. All Rights Reserved.</span>
+              <p>
+                <span>Immo Belgium </span>
+                <span>{ new Date().getFullYear() }. All Rights Reserved.</span>
+              </p>
               <span className="link">Politique de Confidentialité.</span>
             </div>
           </>
