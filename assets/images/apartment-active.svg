@@ -1,15 +1,15 @@
-<svg width="71" height="70" viewBox="0 0 71 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="4.63867" y="59.8887" width="62.2222" height="6.22222" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect width="51.3333" height="55.2222" transform="matrix(1 0 0 -1 10.083 59.8887)" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="30.3057" y="42" width="10.8889" height="17.8889" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="18.6387" y="12.4443" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="18.6387" y="27.2222" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="18.6387" y="42" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="28.75" y="12.4443" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="28.75" y="27.2222" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="38.8613" y="12.4443" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="38.8613" y="27.2222" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="48.9727" y="12.4443" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="48.9727" y="27.2222" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
-    <rect x="48.9727" y="42" width="3.88889" height="7.77778" stroke="#3871EF" stroke-width="2.33333" stroke-linejoin="round"/>
+<svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3.27832" y="42.7773" width="44.4444" height="4.44444" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect width="36.6667" height="39.4444" transform="matrix(1 0 0 -1 7.16699 42.7773)" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="21.6113" y="29.9995" width="7.77778" height="12.7778" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="13.2783" y="8.88867" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="13.2783" y="19.4443" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="13.2783" y="29.9995" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="20.501" y="8.88867" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="20.501" y="19.4443" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="27.7227" y="8.88867" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="27.7227" y="19.4443" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="34.9453" y="8.88867" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="34.9453" y="19.4443" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
+    <rect x="34.9453" y="29.9995" width="2.77778" height="5.55556" stroke="#3871EF" stroke-width="1.66667" stroke-linejoin="round"/>
 </svg>

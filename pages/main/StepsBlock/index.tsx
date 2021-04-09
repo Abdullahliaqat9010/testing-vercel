@@ -4,6 +4,7 @@ import { ProgressBar } from 'react-bootstrap';
 
 import { RootState } from '../../../types/state';
 
+import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import StepFour from './StepFour';
@@ -11,6 +12,7 @@ import FinalStep from './FinalStep';
 import GoogleMap from '../../../components/GoogleMap';
 
 const stepsArr = [
+  <StepOne/>,
   <StepTwo/>,
   <StepThree/>,
   <StepFour/>,
@@ -19,15 +21,15 @@ const stepsArr = [
 
 const StepsBlock = () => {
   const {step} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
-  const [progressBar, setProgressBar] = useState<number>(20);
+  const [progressBar, setProgressBar] = useState<number>(33);
 
   const changeProgressBar = () => {
     if (step === 1) {
-      return setProgressBar(40);
+      return setProgressBar(67);
     }
 
     if (step === 2) {
-      return setProgressBar(70);
+      return setProgressBar(83);
     }
 
     if (step === 3) {
@@ -45,7 +47,7 @@ const StepsBlock = () => {
     <div className='steps-block'>
       <ProgressBar className='steps-block__progress-bar' now={ progressBar }/>
       <div className="steps-block__main d-flex">
-        <div className='ml-156 w-50 mt-87'>
+        <div className='ml-156 w-50 mt-57'>
           {
             stepsArr[step]
           }

@@ -9,16 +9,29 @@ export const initialState = {
     additionalAddress: {
       street: '',
       number: '',
+      boxNumber: '',
       zip: '',
       locality: '',
     },
     selectedProperty: '',
     propertyDetails: {
-      livableArea: '',
-      totalArea: '',
+      livingArea: '0',
+      landSurface: '0',
+      facadesNumber: 1,
       numberBedrooms: 1,
       numberBathrooms: 1,
       numberLevels: 1,
+    },
+    details: {
+      prestige: 'basic',
+      condition: 'new',
+      constructionYear: '1998',
+      renovated: 0,
+      renovationYear: '2006',
+      renovationLevel: '0',
+    },
+    utilities: {
+
     },
     userData: {
       firstName: '',
@@ -84,6 +97,14 @@ const stepsReducer = (state = initialState, action: any) => {
         stepBlock: {
           ...state.stepBlock,
           propertyDetails: {...action.payload},
+        },
+      };
+    case actionType.SET_DETAILS:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          details: {...action.payload},
         },
       };
     case actionType.SET_ACTIVE_PROPERTY:

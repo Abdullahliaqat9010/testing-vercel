@@ -13,16 +13,26 @@ export interface RootState {
       additionalAddress: {
         street: string,
         number: string,
+        boxNumber: string,
         zip: string,
         locality: string,
       },
       selectedProperty: string,
       propertyDetails: {
-        livableArea: string,
-        totalArea: string,
+        livingArea: string,
+        landSurface: string,
         numberBedrooms: number,
+        facadesNumber: number,
         numberBathrooms: number,
         numberLevels: number,
+      },
+      details: {
+        prestige: string,
+        condition: string,
+        constructionYear: string,
+        renovated: number,
+        renovationYear: string,
+        renovationLevel: string,
       },
       location: {
         lat: number,

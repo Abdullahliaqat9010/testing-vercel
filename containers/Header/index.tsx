@@ -102,10 +102,9 @@ const HeaderContainer = ({title}: { title: string }) => {
               }
             </div>
             :
-            !mainBlocks
-              ? <span className='sign-in-btn'>Sign in <img src={ LoginArrow } alt="LoginArrow"/></span>
-              : <div className='step-info'>{ stepInfo() }</div>
+            !mainBlocks && <span className='sign-in-btn'>Login <img src={ LoginArrow } alt="LoginArrow"/></span>
         }
+        <div className='step-info'>{ stepInfo() }</div>
       </div>
     </>
   );
