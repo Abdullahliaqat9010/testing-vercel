@@ -28,6 +28,11 @@ export const setPropertyDetailsAction = (data: object) => ({
   payload: data,
 });
 
+export const setDetailsAction = (data: object) => ({
+  type: actionType.SET_DETAILS,
+  payload: data,
+});
+
 export const setUserDataAction = (data: object) => ({
   type: actionType.SET_USER_DATA,
   payload: data,

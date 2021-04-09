@@ -272,15 +272,12 @@
       h4 {
         font-family: var(--fontNunitoBold);
         line-height: 33px;
+        margin-bottom: 30px;
       }
 
 
       #locality {
         width: 310px;
-      }
-
-      #street {
-        border-right: unset;
       }
 
       .input-group-text {
@@ -292,7 +289,11 @@
         }
       }
 
-      #number, #zip {
+      #street {
+        width: 206px;
+      }
+
+      #number, #zip, #boxNumber {
         width: 96px;
       }
 
@@ -324,14 +325,14 @@
       }
     }
 
-    .step-two, .step-three, .step-four {
+    .step-one, .step-two, .step-three, {
       label {
         font-size: 14px;
         line-height: 19px;
         margin-bottom: 5px;
       }
 
-      input {
+      input:not([type="checkbox"]) {
         width: 270px;
         height: 46px;
         border-radius: 6px;
@@ -343,18 +344,33 @@
       }
     }
 
-    .step-two, .step-three, .step-four, .final-step {
+    .step-one, .step-two, .step-three, .final-step {
       width: 433px;
     }
 
-    .step-three {
+    .step-one {
+      h5 {
+        font-family: var(--fontNunitoBold);
+        font-size: 18px;
+        line-height: 25px;
+        margin: 15px 0 0;
+      }
+
+      button {
+        margin-top: 20px;
+        width: 433px;
+        height: 50px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+      }
+
       .properties {
-        margin: 30px 0;
+        margin: 20px 0;
 
         .property-home, .property-apartment {
           position: relative;
-          width: 205px;
-          height: 142px;
+          width: 131px;
+          height: 122px;
           border: 1px solid var(--colorLightGrey);
           box-sizing: border-box;
           border-radius: 8px;
@@ -394,9 +410,28 @@
       }
     }
 
-    .step-four {
+    .step-two, .step-three {
       h4 {
         margin-bottom: 30px;
+      }
+
+      .range {
+        background: var(--bg-blue);
+        border-radius: 6px;
+        height: 59px;
+
+        input {
+          width: 261px;
+        }
+
+        .prepend, .append {
+          span {
+            font-size: 14px;
+            line-height: 19px;
+            border: unset;
+            background-color: transparent;
+          }
+        }
       }
 
       .input-group {
@@ -418,7 +453,7 @@
             padding: unset;
             width: 46px;
             height: 46px;
-            background: #F2F6FF;
+            background: var(--bg-blue);
           }
 
           .input-group-append {
@@ -450,6 +485,145 @@
             border-radius: 0;
           }
         }
+      }
+
+      input[type=range] {
+        -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+        background: var(--colorLightBlue);
+        border-color: var(--colorLightBlue);
+        border-radius: 4px;
+        height: 3px;
+      }
+
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+      }
+
+      input[type=range]:focus {
+        outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+      }
+
+      input[type=range]::-ms-track {
+        width: 100%;
+        cursor: pointer;
+
+        /* Hides the slider so custom styles can be added */
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+      }
+
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        cursor: pointer;
+        width: 19px;
+        height: 19px;
+        background: var(--colorBlue);
+        box-shadow: 0 4px 10px rgba(56, 114, 239, 0.15);
+        border-radius: 10px;
+      }
+
+      /* All the same stuff for Firefox */
+      input[type=range]::-moz-range-thumb {
+        cursor: pointer;
+        width: 19px;
+        height: 19px;
+        background: var(--colorBlue);
+        box-shadow: 0 4px 10px rgba(56, 114, 239, 0.15);
+        border-radius: 10px;
+      }
+
+      /* All the same stuff for IE */
+      input[type=range]::-ms-thumb {
+        cursor: pointer;
+        width: 19px;
+        height: 19px;
+        background: var(--colorBlue);
+        box-shadow: 0 4px 10px rgba(56, 114, 239, 0.15);
+        border-radius: 10px;
+      }
+
+      img {
+        margin-right: 12px;
+      }
+    }
+
+    .step-three {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        font-size: 16px;
+        line-height: 22px;
+      }
+
+      .optional {
+        font-size: 16px;
+        line-height: 22px;
+        color: var(--colorGrayTwo);
+        font-family: var(--fontNunito);
+      }
+
+      .group-block {
+        margin-bottom: 30px;
+
+        .first-btn {
+          border-radius: 6px 0 0 6px;
+        }
+
+        .last-btn {
+          border-radius: 0 6px 6px 0;
+        }
+
+        .custom-btn-group {
+          margin-top: 5px;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+
+          span {
+            line-height: 22px;
+            display: block;
+            text-align: center;
+            margin-bottom: 16px;
+          }
+
+          .custom-active {
+            background: var(--mainColor);
+            color: var(--colorWhite);
+          }
+
+          button {
+            height: 46px;
+            font-size: 14px;
+            line-height: 19px;
+
+            color: var(--mainColor);
+            background-color: transparent;
+            border-color: var(--colorLightGrey);
+
+            &:active, &:focus, &:target {
+              box-shadow: none;
+              background: var(--mainColor);
+              color: var(--colorWhite);
+            }
+          }
+        }
+      }
+
+      .form-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        select {
+          width: 217px;
+          height: 46px;
+        }
+      }
+
+      .custom-select {
+        background-image: url("../../assets/images/arrow.svg");
+        background-size: 18px;
       }
     }
 
@@ -646,6 +820,10 @@
         flex-direction: column;
         align-items: center;
       }
+    }
+
+    .steps-block {
+
     }
   }
 }
