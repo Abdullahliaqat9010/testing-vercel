@@ -46,7 +46,7 @@ const HeaderContainer = ({title}: { title: string }) => {
       <div className='Header d-flex justify-content-between align-items-center'>
         <Image className='logo' src={ Logo } alt='Logo'/>
         {
-          mainBlocks &&
+          mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>
             <div className={ `header-step-one ${ stepBlock.step === 0 ? 'active-step' : '' }` }>
               <div className={ `image-block ${ stepBlock.step !== 0 ? 'success' : '' }` }>

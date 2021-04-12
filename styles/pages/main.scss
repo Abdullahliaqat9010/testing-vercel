@@ -345,7 +345,7 @@
       }
     }
 
-    .step-one, .step-two, .step-three, .final-step, .step-four {
+    .step-one, .step-two, .step-three, .final-step, .step-four, .create-personal-account {
       width: 433px;
     }
 
@@ -726,6 +726,24 @@
       .custom-select {
         background-image: url("../../assets/images/arrow.svg");
         background-size: 18px;
+      }
+    }
+
+    .create-personal-account {
+      h4 {
+        margin-bottom: 5px;
+      }
+
+      .have-account {
+        margin: 15px 0 30px;
+        color: #3871EF;
+        cursor: pointer;
+        display: flex;
+
+        img {
+          margin-left: 3px;
+          transform: rotate(270deg);
+        }
       }
     }
 

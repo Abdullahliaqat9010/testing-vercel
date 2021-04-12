@@ -8,6 +8,7 @@ import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import StepFour from './StepFour';
+import CreatePersonalAccount from './CreatePersonalAccount';
 import FinalStep from './FinalStep';
 import GoogleMap from '../../../components/GoogleMap';
 
@@ -16,6 +17,7 @@ const stepsArr = [
   <StepTwo/>,
   <StepThree/>,
   <StepFour/>,
+  <CreatePersonalAccount/>,
   <FinalStep/>,
 ];
 
