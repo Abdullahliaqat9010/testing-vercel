@@ -31,7 +31,19 @@ export const initialState = {
       renovationLevel: '0',
     },
     utilities: {
-
+      epc: '',
+      view: 'normal',
+      orientation: 'north',
+      attic: false,
+      atticValue: '',
+      cellar: false,
+      cellarValue: '',
+      elevator: false,
+      swimmingPool: false,
+      indoorGarage: 1,
+      outdoorGarage: 1,
+      carport: 1,
+      solarPanels: 0,
     },
     userData: {
       firstName: '',
@@ -121,6 +133,14 @@ const stepsReducer = (state = initialState, action: any) => {
         stepBlock: {
           ...state.stepBlock,
           userData: {...action.payload},
+        },
+      };
+    case actionType.SET_UTILITIES_DATA:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          utilities: {...action.payload},
         },
       };
     default:

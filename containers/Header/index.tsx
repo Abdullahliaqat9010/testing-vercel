@@ -10,6 +10,8 @@ import NoPhoto from '../../assets/images/no-photo.png';
 import AddIcon from '../../assets/images/icon-plus.svg';
 import LoginArrow from '../../assets/images/arrow.svg';
 import ProIcon from '../../assets/images/pro-workspace.svg';
+import CurrentStepIcon from '../../assets/images/header-step-current.svg';
+import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 
 import { NavDropdown, Image, Button } from 'react-bootstrap';
 
@@ -21,26 +23,13 @@ const HeaderContainer = ({title}: { title: string }) => {
   const {auth} = useSelector((state: RootState) => state.userInfo);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const stepInfo = () => {
-    if (stepBlock.step === 0) {
-      return 'Step 2: Confirm address';
-    }
-    if (stepBlock.step === 1) {
-      return 'Step 3: Property type';
-    }
-    if (stepBlock.step === 2) {
-      return 'Step 4: Property details';
-    }
-    return '';
-  };
-
   const isActive = () => {
     if (isMobile) {
       /**
        * makes no scroll body
        */
       if (!openMenu) {
-        document.body.className+='modal-open';
+        document.body.className += 'modal-open';
       } else {
         document.body.classList.remove('modal-open');
       }
@@ -56,6 +45,35 @@ const HeaderContainer = ({title}: { title: string }) => {
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
         <Image className='logo' src={ Logo } alt='Logo'/>
+        {
+          mainBlocks &&
+          <div className='step-info'>
+            <div className={ `header-step-one ${ stepBlock.step === 0 ? 'active-step' : '' }` }>
+              <div className={ `image-block ${ stepBlock.step !== 0 ? 'success' : '' }` }>
+                <img src={ stepBlock.step !== 0 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
+              </div>
+              Step 1
+            </div>
+            <div className={ `header-step-two ${ stepBlock.step === 1 ? 'active-step' : '' }` }>
+              <div className={ `image-block ${ stepBlock.step > 1 ? 'success' : '' }` }>
+                {
+                  stepBlock.step >= 1 &&
+                  <img src={ stepBlock.step >1 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
+                }
+              </div>
+              Step 2
+            </div>
+            <div className={ `header-step-three ${ stepBlock.step > 1 ? 'active-step' : '' }` }>
+              <div className="image-block">
+                {
+                  stepBlock.step >= 2 &&
+                  <img src={ CurrentStepIcon } alt="steps-icon"/>
+                }
+              </div>
+              Step 3
+            </div>
+          </div>
+        }
         {
           auth ?
             <div className="right-block d-flex align-items-center">
@@ -102,9 +120,10 @@ const HeaderContainer = ({title}: { title: string }) => {
               }
             </div>
             :
-            !mainBlocks && <span className='sign-in-btn'>Login <img src={ LoginArrow } alt="LoginArrow"/></span>
+            <span className='sign-in-btn'>
+              Login <img src={ LoginArrow } alt="LoginArrow"/>
+            </span>
         }
-        <div className='step-info'>{ stepInfo() }</div>
       </div>
     </>
   );

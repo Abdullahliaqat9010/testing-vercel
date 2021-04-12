@@ -56,11 +56,56 @@
   }
 
   .step-info {
-    color: var(--mainColor);
+    color: var(--colorGrayTwo);
     font-size: 14px;
     line-height: 19px;
-    position: absolute;
-    left: 226px;
+    display: flex;
+    align-items: center;
+
+    .header-step-one, .header-step-two, .header-step-three {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .active-step {
+      border: unset;
+
+      width: 77px;
+      height: 27px;
+      background: var(--colorBlue);
+      color: var(--colorWhite);
+      border-radius: 10px;
+
+      .image-block {
+        border: unset;
+      }
+    }
+
+    .success {
+      border: unset !important;
+    }
+
+    .image-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--colorLightGrey);
+      border-radius: 20px;
+      margin-right: 4px;
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .header-step-two {
+      margin: 0 24px;
+    }
   }
 
   .dropdown-menu {

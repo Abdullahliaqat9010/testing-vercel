@@ -260,7 +260,8 @@
     }
 
     &__main {
-      height: calc(100vh - var(--headerHeight) - 4px); //4px height of progress-bar
+      min-height: calc(100vh - var(--headerHeight) - 4px); //4px height of progress-bar
+      height: 100%;
 
       .step-title {
         display: block;
@@ -325,7 +326,7 @@
       }
     }
 
-    .step-one, .step-two, .step-three, {
+    .step-one, .step-two, .step-three, .step-four {
       label {
         font-size: 14px;
         line-height: 19px;
@@ -344,7 +345,7 @@
       }
     }
 
-    .step-one, .step-two, .step-three, .final-step {
+    .step-one, .step-two, .step-three, .final-step, .step-four {
       width: 433px;
     }
 
@@ -410,7 +411,7 @@
       }
     }
 
-    .step-two, .step-three {
+    .step-two, .step-three, .step-four {
       h4 {
         margin-bottom: 30px;
       }
@@ -548,7 +549,108 @@
       }
     }
 
-    .step-three {
+    .step-four {
+      .input-group {
+        margin-bottom: 20px;
+        height: 46px;
+      }
+
+      .epc {
+        .input-group-append {
+          .input-group-text {
+            font-size: 14px;
+            line-height: 19px;
+            width: 79px !important;
+          }
+        }
+      }
+
+      .custom-btn-group {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+
+      .terras-block {
+        position: relative;
+        width: 217px;
+        height: 161px;
+
+        .north {
+          width: 59px;
+          height: 41px;
+
+          left: 78.61px;
+          top: 0;
+        }
+
+        .north-east {
+          width: 56px;
+          height: 56px;
+
+          left: 125.53px;
+          top: 7px;
+        }
+
+        .east {
+          width: 41px;
+          height: 59px;
+
+          left: 147.33px;
+          top: 52.15px;
+        }
+
+        .south-east {
+          width: 56px;
+          height: 56px;
+
+          left: 125.34px;
+          bottom: 6.41px;
+        }
+
+        .south {
+          width: 59px;
+          height: 41px;
+
+          left: 78.32px;
+          bottom: 0;
+        }
+
+        .south-west {
+          width: 56px;
+          height: 56px;
+
+          left: 34.81px;
+          bottom: 6.88px;
+        }
+
+        .west {
+          width: 41px;
+          height: 59px;
+
+          left: 27.53px;
+          top: 49.87px;
+        }
+
+        .north-west {
+          width: 56px;
+          height: 56px;
+
+          left: 35.4px;
+          top: 6.33px;
+        }
+
+        img {
+          cursor: pointer;
+          position: absolute;
+          margin-right: unset;
+        }
+      }
+
+      .steps-btn-group {
+        margin-bottom: 72px;
+      }
+    }
+
+    .step-three, .step-four {
       display: flex;
       flex-direction: column;
 

@@ -33,10 +33,8 @@ const StepThree = () => {
   };
 
   const handleClickNextBtn = () => {
-    console.log(data);
-      dispatch(setDetailsAction(data));
-      dispatch(goToNextStepAction());
-    return false;
+    dispatch(setDetailsAction(data));
+    dispatch(goToNextStepAction());
   };
 
   const handleChangeVal = (el) => {
@@ -58,10 +56,6 @@ const StepThree = () => {
       ...data,
       condition: el.target.name,
     });
-  };
-
-  const disabledButton = () => {
-    return false;
   };
 
   return (
@@ -200,7 +194,7 @@ const StepThree = () => {
           className='prev-step'>
           <img src={ IconBack } alt="IconBack"/>Back
         </Button>
-        <Button disabled={ disabledButton() } onClick={ handleClickNextBtn } className='next-step'>Next</Button>
+        <Button onClick={ handleClickNextBtn } className='next-step'>Next</Button>
       </div>
     </div>
   );

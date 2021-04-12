@@ -38,6 +38,11 @@ export const setUserDataAction = (data: object) => ({
   payload: data,
 });
 
+export const setUtilitiesDataAction = (data: object) => ({
+  type: actionType.SET_UTILITIES_DATA,
+  payload: data,
+});
+
 export const sendStepsDataRequestAction = (data: object) => ({
   type: actionType.SEND_STEPS_DATA_REQUEST,
   payload: data,
