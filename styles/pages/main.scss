@@ -736,13 +736,184 @@
 
       .have-account {
         margin: 15px 0 30px;
-        color: #3871EF;
+        color: var(--colorBlue);
         cursor: pointer;
         display: flex;
 
         img {
           margin-left: 3px;
           transform: rotate(270deg);
+        }
+      }
+
+      &__main-block {
+        .title-block {
+          display: flex;
+
+          color: var(--colorGrayTwo);
+          font-family: var(--fontNunitoBold);
+          font-size: 16px;
+          line-height: 22px;
+          margin-bottom: 30px;
+
+          span {
+            text-align: center;
+            height: 36px;
+            width: 50%;
+            cursor: pointer;
+            border-bottom: 1px solid #D2D5DE;
+          }
+
+          .active {
+            color: var(--mainColor);
+            border-bottom: 2px solid var(--colorBlue);
+          }
+        }
+
+        .switch-block {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 30px;
+
+          .homeowner-block, .not-owner-block, .professional-account {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+
+            width: 206.5px;
+            height: 122px;
+            border: 1px solid var(--colorLightGrey);
+            box-sizing: border-box;
+            border-radius: 8px;
+
+            img {
+              margin-bottom: 10px;
+            }
+
+            .active-item {
+              background: url("../../assets/images/active-item.svg") no-repeat center 32%;
+              position: absolute;
+              right: -18px;
+              top: -15px;
+              box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+              border-radius: 20px;
+              background-size: inherit;
+              width: 34px;
+              height: 34px;
+              display: none;
+            }
+          }
+
+          .active-block {
+            border: 1px solid var(--colorBlue);
+
+            .active-item {
+              display: block;
+            }
+          }
+        }
+
+        .professional {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 20px;
+
+          .professional-account {
+            width: 131px;
+            height: 119px;
+          }
+
+          .other {
+            height: 59px;
+            width: 100%;
+            grid-column-start: 1;
+            grid-column-end: 4;
+          }
+        }
+      }
+
+      .form-group {
+        margin-bottom: 30px;
+      }
+
+      label {
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 5px;
+      }
+
+      .dropdown {
+        margin-bottom: 30px;
+
+        button {
+          width: 100%;
+          height: 46px;
+          text-align: inherit;
+          background: transparent;
+          color: #1D2E5B;
+
+          &:after {
+            background-image: url("../../assets/images/arrow.svg");
+            background-size: contain;
+            width: 18px;
+            height: 18px;
+            display: block;
+            position: absolute;
+            right: 12px;
+            top: 15px;
+            border: unset;
+          }
+        }
+
+        .active {
+          color: #1D2E5B;
+          background: #F2F6FF;
+
+          img {
+            display: block !important;
+          }
+        }
+
+        .dropdown-menu {
+          width: 100%;
+          padding: 10px;
+          box-shadow: 0px 10px 24px rgba(29, 46, 91, 0.24);
+          border-radius: 6px;
+
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 14px;
+            height: 46px;
+            border-radius: 6px;
+
+            &:hover {
+              background: #F2F6FF;
+            }
+
+            img {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .label {
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 4px;
+      }
+      .show {
+        button {
+          &:after {
+            background-image: url("../../assets/images/arrow.svg");
+            transform: rotate(180deg);
+          }
         }
       }
     }

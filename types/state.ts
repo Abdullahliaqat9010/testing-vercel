@@ -49,6 +49,13 @@ export interface RootState {
         carport: number,
         solarPanels: number,
       },
+      personalAccount: {
+        accountType: string,
+        selectedItem: string,
+        selectedResidence: string,
+        sellProperty: string,
+        howSell: string,
+      },
       location: {
         lat: number,
         lng: number,

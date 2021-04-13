@@ -43,6 +43,11 @@ export const setUtilitiesDataAction = (data: object) => ({
   payload: data,
 });
 
+export const createPersonalAccountAction = (data: object) => ({
+  type: actionType.CREATE_PERSONAL_ACCOUNT,
+  payload: data,
+});
+
 export const sendStepsDataRequestAction = (data: object) => ({
   type: actionType.SEND_STEPS_DATA_REQUEST,
   payload: data,

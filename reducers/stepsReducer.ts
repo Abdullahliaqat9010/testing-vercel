@@ -45,6 +45,13 @@ export const initialState = {
       carport: 1,
       solarPanels: 0,
     },
+    personalAccount: {
+      accountType: 'private',
+      selectedItem: '',
+      selectedResidence: '',
+      sellProperty: '',
+      howSell: '',
+    },
     userData: {
       firstName: '',
       lastName: '',
@@ -141,6 +148,14 @@ const stepsReducer = (state = initialState, action: any) => {
         stepBlock: {
           ...state.stepBlock,
           utilities: {...action.payload},
+        },
+      };
+    case actionType.CREATE_PERSONAL_ACCOUNT:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          personalAccount: {...action.payload},
         },
       };
     default:
