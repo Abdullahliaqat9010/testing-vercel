@@ -869,8 +869,8 @@
         }
 
         .active {
-          color: #1D2E5B;
-          background: #F2F6FF;
+          color: var(--mainColor);
+          background: var(--bg-blue);
 
           img {
             display: block !important;
@@ -893,7 +893,7 @@
             border-radius: 6px;
 
             &:hover {
-              background: #F2F6FF;
+              background: var(--bg-blue);
             }
 
             img {

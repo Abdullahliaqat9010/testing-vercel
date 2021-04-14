@@ -15,6 +15,7 @@ import '../styles/contact-agent-modal.scss';
 import '../styles/pages/main.scss';
 import '../styles/pages/dashboard.scss';
 import '../styles/pages/agency.scss';
+import '../styles/pages/login.scss';
 
 const MyApp = ({ Component, pageProps }) => {
   return(

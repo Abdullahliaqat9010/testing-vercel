@@ -120,9 +120,11 @@ const HeaderContainer = ({title}: { title: string }) => {
               }
             </div>
             :
-            <span className='sign-in-btn'>
-              Login <img src={ LoginArrow } alt="LoginArrow"/>
-            </span>
+            <Link href={ '/login' }>
+              <span className='sign-in-btn'>
+                Login <img src={ LoginArrow } alt="LoginArrow"/>
+              </span>
+            </Link>
         }
       </div>
     </>
