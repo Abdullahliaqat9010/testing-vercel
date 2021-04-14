@@ -1121,7 +1121,7 @@
         width: 100% !important;
       }
 
-      .step-one, .step-two, .step-three {
+      .step-one, .step-two, .step-three, .step-four {
         width: unset;
         padding: 0 16px;
 
@@ -1235,7 +1235,7 @@
         }
       }
 
-      .step-two, .step-three {
+      .step-two, .step-three, .step-four {
         .input-group {
           .input-block {
             width: 166px;
@@ -1261,6 +1261,16 @@
           .prev-step {
             margin-bottom: 28px;
           }
+        }
+      }
+
+      .step-three, .step-four {
+        h4 {
+          display: flex;
+          flex-direction: column;
+        }
+        .steps-btn-group {
+          margin-bottom: unset;
         }
       }
 

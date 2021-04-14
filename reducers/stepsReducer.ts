@@ -21,9 +21,9 @@ export const initialState = {
       numberBedrooms: 1,
       numberBathrooms: 1,
       numberLevels: 1,
-      gardenTerras: 0,
+      gardenTerras: false,
       gardenTerrasValue: '0',
-      elevator: 0,
+      elevator: false,
     },
     details: {
       prestige: 'basic',
@@ -45,8 +45,11 @@ export const initialState = {
       elevator: false,
       swimmingPool: false,
       indoorGarage: 1,
+      indoorGarageCheck: false,
       outdoorGarage: 1,
+      outdoorGarageCheck: false,
       carport: 1,
+      carportCheck: false,
       solarPanels: 0,
     },
     personalAccount: {

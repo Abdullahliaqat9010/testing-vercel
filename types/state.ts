@@ -25,9 +25,9 @@ export interface RootState {
         facadesNumber: number,
         numberBathrooms: number,
         numberLevels: number,
-        gardenTerras: number,
+        gardenTerras: boolean,
         gardenTerrasValue: number,
-        elevator: number,
+        elevator: boolean,
       },
       details: {
         prestige: string,
@@ -49,8 +49,11 @@ export interface RootState {
         elevator: boolean,
         swimmingPool: boolean,
         indoorGarage: number,
+        indoorGarageCheck: boolean,
         outdoorGarage: number,
+        outdoorGarageCheck: boolean,
         carport: number,
+        carportCheck: boolean,
         solarPanels: number,
       },
       personalAccount: {
