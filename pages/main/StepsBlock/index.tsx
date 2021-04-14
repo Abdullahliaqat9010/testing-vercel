@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
+import { isMobile } from 'react-device-detect';
 
 import { RootState } from '../../../types/state';
 
@@ -54,9 +55,12 @@ const StepsBlock = () => {
             stepsArr[step]
           }
         </div>
-        <div className='w-50'>
-          <GoogleMap/>
-        </div>
+        {
+          !isMobile &&
+          <div className='w-50'>
+            <GoogleMap/>
+          </div>
+        }
       </div>
     </div>
   );

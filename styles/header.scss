@@ -170,7 +170,7 @@
   }
 
   @media (min-width: 375px) and (max-width: 425px) {
-    height: 70px;
+    height: 60px;
     .logo {
       width: 142px;
       height: 28px;
@@ -179,7 +179,11 @@
       position: absolute;
       left: 0;
     }
-
+    .step-info {
+      position: absolute;
+      top: 90px;
+      left: calc(50% - 124px);
+    }
     .right-block {
       #header-dropdown {
         color: transparent;
