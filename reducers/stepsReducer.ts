@@ -32,6 +32,7 @@ export const initialState = {
       renovated: 0,
       renovationYear: '2006',
       renovationLevel: '0',
+      numberFloors: 1,
     },
     utilities: {
       epc: '',

@@ -17,7 +17,9 @@ const StepThree = () => {
     renovated,
     renovationYear,
     renovationLevel,
+    numberFloors,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.details);
+  const { selectedProperty } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
   const [data, setFormData] = useState({
     prestige,
@@ -26,6 +28,7 @@ const StepThree = () => {
     renovated,
     renovationYear,
     renovationLevel,
+    numberFloors,
   });
 
   const handleClickPrevBtn = () => {
@@ -41,6 +44,20 @@ const StepThree = () => {
     setFormData({
       ...data,
       [el.target.name]: el.target.name === 'renovated' ? el.target.checked : el.target.value,
+    });
+  };
+
+  const handleAddNumber = () => {
+    setFormData({
+      ...data,
+      numberFloors: ++data.numberFloors,
+    });
+  };
+
+  const handleSubtractNumber = () => {
+    setFormData({
+      ...data,
+      numberFloors: data.numberFloors > 1 ? --data.numberFloors : 1,
     });
   };
 
@@ -187,6 +204,21 @@ const StepThree = () => {
             <InputGroup.Text>100%</InputGroup.Text>
           </InputGroup.Append>
         </InputGroup>
+        {
+          selectedProperty === 'apartment' &&
+          <InputGroup>
+            <Form.Label>Number of floors</Form.Label>
+            <div className="input-block input-border-radius-0">
+              <InputGroup.Prepend>
+                <InputGroup.Text onClick={ handleSubtractNumber }>-</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control value={ data.numberFloors } readOnly type="number"/>
+              <InputGroup.Append>
+                <InputGroup.Text onClick={ handleAddNumber}>+</InputGroup.Text>
+              </InputGroup.Append>
+            </div>
+          </InputGroup>
+        }
       </Form>
       <div className="steps-btn-group d-flex justify-content-between">
         <Button

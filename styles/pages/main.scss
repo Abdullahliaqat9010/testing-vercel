@@ -880,7 +880,7 @@
         .dropdown-menu {
           width: 100%;
           padding: 10px;
-          box-shadow: 0px 10px 24px rgba(29, 46, 91, 0.24);
+          box-shadow: 0 10px 24px rgba(29, 46, 91, 0.24);
           border-radius: 6px;
 
           a {
@@ -1121,7 +1121,7 @@
         width: 100% !important;
       }
 
-      .step-one, .step-two {
+      .step-one, .step-two, .step-three {
         width: unset;
         padding: 0 16px;
 
@@ -1235,11 +1235,15 @@
         }
       }
 
-      .step-two {
+      .step-two, .step-three {
         .input-group {
           .input-block {
             width: 166px;
           }
+        }
+
+        select {
+          width: 166px !important;
         }
 
         .range {
