@@ -1121,7 +1121,7 @@
         width: 100% !important;
       }
 
-      .step-one {
+      .step-one, .step-two {
         width: unset;
         padding: 0 16px;
 
@@ -1231,6 +1231,31 @@
             justify-content: center;
             align-items: center;
             display: flex;
+          }
+        }
+      }
+
+      .step-two {
+        .input-group {
+          .input-block {
+            width: 166px;
+          }
+        }
+
+        .range {
+          input {
+            width: 50%;
+          }
+        }
+
+        .steps-btn-group {
+          flex-direction: column-reverse;
+
+          .next-step {
+            margin-bottom: 10px;
+          }
+          .prev-step {
+            margin-bottom: 28px;
           }
         }
       }

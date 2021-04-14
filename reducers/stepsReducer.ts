@@ -21,6 +21,9 @@ export const initialState = {
       numberBedrooms: 1,
       numberBathrooms: 1,
       numberLevels: 1,
+      gardenTerras: 0,
+      gardenTerrasValue: '0',
+      elevator: 0,
     },
     details: {
       prestige: 'basic',
