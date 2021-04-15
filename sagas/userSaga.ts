@@ -23,6 +23,7 @@ function* signupUserRequest({payload}: any) {
       },
       body: JSON.stringify({
         firstname: user.firstName,
+        lastname: user.lastName,
         email: user.email,
         password: user.password,
         promo_mailing: user.promotions,

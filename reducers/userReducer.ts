@@ -2,6 +2,8 @@ import * as actionType from '../actions/actionTypes';
 import { parseJwt } from '../utils';
 
 let exp = false;
+let userName = 'Anna';
+let userSurname = 'Johns';
 
 /**
  * check token on expire
@@ -14,12 +16,19 @@ if (typeof localStorage !== 'undefined') {
     if (!exp) {
       localStorage.removeItem('auth');
     }
+    console.log(jwtToken);
+    if (jwtToken.firstname && jwtToken.lastname) {
+      userName = jwtToken.firstname;
+      userSurname = jwtToken.lastname;
+    }
   }
 }
 
 export const initialState = {
   auth: exp,
   showAgentModal: false,
+  userName,
+  userSurname,
   errors: '',
 };
 

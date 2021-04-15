@@ -6,7 +6,12 @@ import Link from 'next/link';
 
 import { RootState } from '../../../../types/state';
 
-import { createPersonalAccountAction, goToNextStepAction, goToPrevStepAction } from '../../../../actions';
+import {
+  createPersonalAccountAction,
+  createPropertyRequestAction,
+  goToNextStepAction,
+  goToPrevStepAction,
+} from '../../../../actions';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
 import LinkArrow from '../../../../assets/images/arrow-blue.svg';
@@ -22,25 +27,23 @@ import { professionalAccountList } from '../../../../templates/professionalAccou
 import { residenceSelect } from '../../../../templates/residenceSelect';
 import { sellPropertySelect } from '../../../../templates/sellPropertySelect';
 import { howSellSelect } from '../../../../templates/howSellSelect';
+import { parseJwt } from '../../../../utils';
 
 const CreatePersonalAccount = () => {
   const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState<string>('private');
+  const {auth} = useSelector((state: RootState) => state.userInfo);
   const {
-    accountType,
-    selectedItem,
-    selectedResidence,
-    sellProperty,
-    howSell,
-  } = useSelector((state: RootState) => state.stepsInfo.stepBlock.personalAccount);
-  const [data, setData] = useState({
-    accountType,
-    selectedItem,
-    selectedResidence,
-    sellProperty,
-    howSell,
-  });
+    addressFromStepOne,
+    additionalAddress,
+    location,
+    selectedProperty,
+    propertyDetails,
+    personalAccount,
+  } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {accountType, selectedItem, selectedResidence, sellProperty, howSell} = personalAccount;
+  const [data, setData] = useState({accountType, selectedItem, selectedResidence, sellProperty, howSell});
   const [kindOfHomeValue, setKindOfHomeValue] = useState<string>('Please select');
   const [sellPropertyValue, setSellPropertyValue] = useState<string>('Please select');
   const [howSellValue, setHowSellValue] = useState<string>('Please select');
@@ -51,8 +54,28 @@ const CreatePersonalAccount = () => {
   };
 
   const handleClickNextBtn = () => {
-    dispatch(createPersonalAccountAction(data));
-    dispatch(goToNextStepAction());
+    if (!auth) {
+      dispatch(createPersonalAccountAction(data));
+      dispatch(goToNextStepAction());
+    } else {
+      const parseData = parseJwt(localStorage.getItem('auth'));
+      dispatch(createPropertyRequestAction({
+        leadId: parseData.id,
+        search_address: addressFromStepOne,
+        lat: location.lat,
+        lng: location.lng,
+        property_type: selectedProperty,
+        live_area: +propertyDetails.livingArea,
+        total_area: +propertyDetails.landSurface,
+        bedrooms: propertyDetails.numberBedrooms,
+        bathrooms: propertyDetails.numberBathrooms,
+        levels: propertyDetails.numberLevels,
+        street: additionalAddress.street,
+        street_number: additionalAddress.number,
+        zip: additionalAddress.zip,
+        locality: +additionalAddress.locality,
+      }));
+    }
   };
 
   const handleSelectResidence = (el) => {
@@ -243,7 +266,7 @@ const CreatePersonalAccount = () => {
                         >
                           { item.label }
                           <img src={ CheckedIcon } alt="CheckedIcon"/>
-                        </Dropdown.Item>
+                        </Dropdown.Item>,
                       )
                     }
                   </Dropdown.Menu>

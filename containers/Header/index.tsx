@@ -20,7 +20,7 @@ import navBarList from '../../config/navBarList';
 
 const HeaderContainer = ({title}: { title: string }) => {
   const {mainBlocks, stepBlock} = useSelector((state: RootState) => state.stepsInfo);
-  const {auth} = useSelector((state: RootState) => state.userInfo);
+  const {auth, userName, userSurname} = useSelector((state: RootState) => state.userInfo);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   const isActive = () => {
@@ -84,7 +84,7 @@ const HeaderContainer = ({title}: { title: string }) => {
               {
                 !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
               }
-              <NavDropdown title={ isMobile ? '' : 'Anna Johns' } id="header-dropdown" onClick={ isActive }>
+              <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown" onClick={ isActive }>
                 <NavDropdown.Item className='pro-workspace'>
                   <img src={ ProIcon } alt="ProIcon"/>
                   Go to my pro workspace
@@ -107,7 +107,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                   isMobile &&
                   <div className="mobile-block">
                     <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                    <span className="user-name">Anna Johns</span>
+                    <span className="user-name">{ userName + ' ' + userSurname }</span>
                     <span className="pro">PRO</span>
                   </div>
                 }

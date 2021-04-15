@@ -53,6 +53,11 @@ export const createPersonalAccountAction = (data: object) => ({
   payload: data,
 });
 
+export const createPropertyRequestAction = (data: object) => ({
+  type: actionType.CREATE_PROPERTY_REQUEST,
+  payload: data,
+})
+
 export const sendStepsDataRequestAction = (data: object) => ({
   type: actionType.SEND_STEPS_DATA_REQUEST,
   payload: data,

@@ -2,6 +2,8 @@ export interface RootState {
   userInfo: {
     auth: boolean,
     showAgentModal: boolean,
+    userName: string,
+    userSurname: string,
   },
   stepsInfo: {
     mainBlocks: boolean,
