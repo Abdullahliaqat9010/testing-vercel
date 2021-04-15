@@ -29,14 +29,14 @@ const FinalStep = () => {
     agreement: false,
   });
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.value,
     });
   };
 
-  const handleChecked = (el) => {
+  const handleChecked = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.checked,

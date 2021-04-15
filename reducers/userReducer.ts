@@ -11,6 +11,9 @@ if (typeof localStorage !== 'undefined') {
     const jwtToken = parseJwt(localStorage.getItem('auth'));
     const dateNow = +Date.now().toString().slice(0, -3);
     exp = dateNow < jwtToken.exp;
+    if (!exp) {
+      localStorage.removeItem('auth');
+    }
   }
 }
 
@@ -23,6 +26,7 @@ export const initialState = {
 const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case actionType.CREATE_PROPERTY_SUCCESS:
+    case actionType.LOGIN_USER_SUCCESS:
       return {
         ...state,
         auth: true,

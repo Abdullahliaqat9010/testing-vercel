@@ -79,7 +79,7 @@ const StepFour = () => {
       || name === 'carportCheck';
   }
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: checkIfCheckbox(el.target.name) ? el.target.checked : el.target.value,
@@ -289,7 +289,7 @@ const StepFour = () => {
           />
         </InputGroup>
         {
-          selectedProperty === 'home' &&
+          selectedProperty === 'house' &&
             <>
               <InputGroup>
                 <Form.Label>Indoor Garage</Form.Label>

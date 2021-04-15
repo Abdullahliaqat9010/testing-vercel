@@ -40,7 +40,7 @@ const StepThree = () => {
     dispatch(goToNextStepAction());
   };
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.name === 'renovated' ? el.target.checked : el.target.value,

@@ -50,7 +50,7 @@ const StepTwo = () => {
     return false;
   };
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.name === 'gardenTerras' || el.target.name === 'elevator' ? el.target.checked : el.target.value,
@@ -111,7 +111,7 @@ const StepTwo = () => {
             </InputGroup.Append>
           </InputGroup>
           {
-            selectedProperty === 'home' &&
+            selectedProperty === 'house' &&
               <>
                 <InputGroup className='mb-3'>
                   <Form.Label>Land surface</Form.Label>

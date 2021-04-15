@@ -38,7 +38,7 @@ const StepTwo = () => {
     locality,
   });
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.value,
@@ -127,10 +127,10 @@ const StepTwo = () => {
       <h5>Property Type</h5>
       <div className="properties d-flex justify-content-between">
         <div
-          onClick={ () => setActiveBlock('home') }
-          className={ `property-home ${ selectedProperty === 'home' ? 'active' : '' }` }
+          onClick={ () => setActiveBlock('house') }
+          className={ `property-home ${ selectedProperty === 'house' ? 'active' : '' }` }
         >
-          <img src={ selectedProperty === 'home' ? HomeImageActive : HomeImageNoActive } alt="home"/>
+          <img src={ selectedProperty === 'house' ? HomeImageActive : HomeImageNoActive } alt="house"/>
           <span className="title">Home</span>
           <div className="active-item"/>
         </div>

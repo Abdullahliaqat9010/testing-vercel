@@ -113,6 +113,7 @@ const stepsReducer = (state = initialState, action: any) => {
         },
       };
       case actionType.CREATE_PROPERTY_SUCCESS:
+      case actionType.LOGIN_USER_SUCCESS:
       return {
         ...state,
         goToDashboard: true

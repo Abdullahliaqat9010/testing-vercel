@@ -1,5 +1,10 @@
 import * as actionType from './actionTypes';
 
+export const userLoginAction = (data: object) => ({
+  type: actionType.LOGIN_USER_REQUEST,
+  payload: data,
+});
+
 export const openMainStepsAction = (data: object) => ({
   type: actionType.OPEN_MAIN_STEPS_BLOCK,
   payload: data,

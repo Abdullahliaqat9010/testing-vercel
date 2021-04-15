@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { Button, Form } from 'react-bootstrap';
+
+import { RootState } from '../../types/state';
+import { userLoginAction } from '../../actions';
 
 import HeaderContainer from '../../containers/Header';
 
@@ -10,6 +14,27 @@ import LockIcon from '../../assets/images/lock-icon.svg';
 import BackArrow from '../../assets/images/full-arrow.svg';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const {auth} = useSelector((state: RootState) => state.userInfo);
+  const [data, setData] = useState({userData: '', password: ''});
+
+  useEffect(() => {
+    if (auth) {
+      window.location.href = '/dashboard';
+    }
+  }, [auth]);
+
+  const handleChangeData = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setData({
+      ...data,
+      [el.target.name]: el.target.value,
+    });
+  };
+
+  const handleLogin = () => {
+    dispatch(userLoginAction(data));
+  };
+
   return (
     <div className='Login'>
       <HeaderContainer title='Login'/>
@@ -26,18 +51,19 @@ const LoginPage = () => {
         <Form.Group controlId="email-or-phone">
           <Form.Label>Email or Phone number</Form.Label>
           <img src={ MailIcon } alt="MailIcon"/>
-          <Form.Control type="text" placeholder="Enter your email"/>
+          <Form.Control onChange={ handleChangeData } name='userData' type="text" placeholder="Enter your email"/>
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <img src={ LockIcon } alt="LockIcon"/>
-          <Form.Control type="password" placeholder="Enter your password"/>
+          <Form.Control onChange={ handleChangeData } name='password' type="password"
+                        placeholder="Enter your password"/>
         </Form.Group>
-        <Link href={'/remind-password'}>
+        <Link href={ '/remind-password' }>
           <span className="link">Remind password</span>
         </Link>
         <div className="group-btn">
-          <Button>
+          <Button onClick={ handleLogin }>
             Login
           </Button>
           <Link href='/'>

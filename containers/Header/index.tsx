@@ -37,6 +37,10 @@ const HeaderContainer = ({title}: { title: string }) => {
     }
   };
 
+  const goToMainPage = () => {
+    window.location.href = '/';
+  }
+
   return (
     <>
       <Head>
@@ -87,11 +91,9 @@ const HeaderContainer = ({title}: { title: string }) => {
                 </NavDropdown.Item>
                 {
                   isMobile &&
-                  <Link href={ '/' }>
-                    <Button className='add-property-mobile'>
-                      <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
-                    </Button>
-                  </Link>
+                  <Button onClick={goToMainPage} className='add-property-mobile'>
+                    <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
+                  </Button>
                 }
                 {
                   navBarList.map((list, index) => (
@@ -112,11 +114,9 @@ const HeaderContainer = ({title}: { title: string }) => {
               </NavDropdown>
               {
                 !openMenu &&
-                <Link href={ '/' }>
-                  <Button className='add-property'>
-                    <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
-                  </Button>
-                </Link>
+                <Button className='add-property' onClick={goToMainPage}>
+                  <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
+                </Button>
               }
             </div>
             :
