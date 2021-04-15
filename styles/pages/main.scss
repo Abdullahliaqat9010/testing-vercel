@@ -987,15 +987,6 @@
         line-height: 22px;
         margin-bottom: 10px;
       }
-
-      button {
-        font-family: var(--fontNunitoBold);
-        margin-top: 30px;
-        width: 100%;
-        height: 50px;
-        background: var(--colorBlue);
-        border-radius: 8px;
-      }
     }
   }
 
@@ -1126,7 +1117,7 @@
         width: 100% !important;
       }
 
-      .step-one, .step-two, .step-three, .step-four, .create-personal-account {
+      .step-one, .step-two, .step-three, .step-four, .create-personal-account, .final-step {
         margin-top: 87px;
         width: unset;
         padding: 0 16px;
@@ -1241,7 +1232,7 @@
         }
       }
 
-      .step-two, .step-three, .step-four, .create-personal-account {
+      .step-two, .step-three, .step-four, .create-personal-account, .final-step {
         .input-group {
           .input-block {
             width: 166px;
@@ -1282,8 +1273,9 @@
         }
       }
 
-      .create-personal-account {
+      .create-personal-account, .final-step {
         margin-top: 30px;
+
         .step-title {
           display: block;
           text-align: center;
@@ -1334,6 +1326,20 @@
 
         .prev-step {
           margin-bottom: unset !important;
+        }
+      }
+
+      .final-step {
+        .have-account {
+          text-align: center;
+        }
+
+        .form-row {
+          .form-group {
+            input {
+              width: 161px;
+            }
+          }
         }
       }
 
