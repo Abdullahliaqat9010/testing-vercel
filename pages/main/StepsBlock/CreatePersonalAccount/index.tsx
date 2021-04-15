@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { isMobile } from 'react-device-detect';
 import { Button, Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 
@@ -14,8 +15,13 @@ import HomeownerIconActive from '../../../../assets/images/home-active.svg';
 import NotOwnerIcon from '../../../../assets/images/user-noactive.svg';
 import NotOwnerIconActive from '../../../../assets/images/user-active.svg';
 import CheckedIcon from '../../../../assets/images/valid-blue.svg';
+import Other from '../../../../assets/images/steps/professional-account/other-inactive.svg';
+import OtherActive from '../../../../assets/images/steps/professional-account/other-active.svg';
 
 import { professionalAccountList } from '../../../../templates/professionalAccountList';
+import { residenceSelect } from '../../../../templates/residenceSelect';
+import { sellPropertySelect } from '../../../../templates/sellPropertySelect';
+import { howSellSelect } from '../../../../templates/howSellSelect';
 
 const CreatePersonalAccount = () => {
   const dispatch = useDispatch();
@@ -26,14 +32,14 @@ const CreatePersonalAccount = () => {
     selectedItem,
     selectedResidence,
     sellProperty,
-    howSell
+    howSell,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.personalAccount);
   const [data, setData] = useState({
     accountType,
     selectedItem,
     selectedResidence,
     sellProperty,
-    howSell
+    howSell,
   });
   const [kindOfHomeValue, setKindOfHomeValue] = useState<string>('Please select');
   const [sellPropertyValue, setSellPropertyValue] = useState<string>('Please select');
@@ -163,7 +169,12 @@ const CreatePersonalAccount = () => {
                 className={ `professional-account other ${ activePrivateBlock === 'other' ? 'active-block' : '' }` }
                 onClick={ () => selectItem('other') }
               >
-                <span>Other</span>
+                <span>
+                  {
+                    isMobile && <img src={ activePrivateBlock === 'other' ? OtherActive : Other } alt="other"/>
+                  }
+                  Other
+                </span>
                 <div className="active-item"/>
               </div>
             </div>
@@ -177,38 +188,19 @@ const CreatePersonalAccount = () => {
                 { kindOfHomeValue }
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item
-                  className={ data.selectedResidence === 'principal' ? 'active' : '' }
-                  name='principal'
-                  onClick={ handleSelectResidence }
-                >
-                  Principal residence
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  className={ data.selectedResidence === 'secondary' ? 'active' : '' }
-                  name='secondary'
-                  onClick={ handleSelectResidence }
-                >
-                  Secondary residence
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  className={ data.selectedResidence === 'rental' ? 'active' : '' }
-                  name='rental'
-                  onClick={ handleSelectResidence }
-                >
-                  Rental residence
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  className={ data.selectedResidence === 'other' ? 'active' : '' }
-                  name='other'
-                  onClick={ handleSelectResidence }
-                >
-                  Other
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
+                {
+                  residenceSelect.map((item, index) =>
+                    <Dropdown.Item
+                      key={ index }
+                      className={ data.selectedResidence === item.name ? 'active' : '' }
+                      name={ item.name }
+                      onClick={ handleSelectResidence }
+                    >
+                      { item.label }
+                      <img src={ CheckedIcon } alt="CheckedIcon"/>
+                    </Dropdown.Item>,
+                  )
+                }
               </Dropdown.Menu>
             </Dropdown>
             <span className="label">Would you like to sell property?</span>
@@ -217,62 +209,19 @@ const CreatePersonalAccount = () => {
                 { sellPropertyValue }
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item
-                  name='started'
-                  className={ data.sellProperty === 'started' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  Yes, I have already started selling.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  name='possible'
-                  className={ data.sellProperty === 'possible' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  Yes, as fast as possible.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  name='three-month'
-                  className={ data.sellProperty === 'three-month' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  Yes, within this and 3 months.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  name='six-month'
-                  className={ data.sellProperty === 'six-month' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  Yes, within this and 6 months.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  name='six-month-more'
-                  className={ data.sellProperty === 'six-month-more' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  Yes, more then 6 months.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  name='curious'
-                  className={ data.sellProperty === 'curious' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  No, I'm just curious.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  name='bought'
-                  className={ data.sellProperty === 'bought' ? 'active' : '' }
-                  onClick={ handleSelectSellProperty }
-                >
-                  No, I have just bought this home.
-                  <img src={ CheckedIcon } alt="CheckedIcon"/>
-                </Dropdown.Item>
+                {
+                  sellPropertySelect.map((item, index) =>
+                    <Dropdown.Item
+                      key={ index }
+                      name={ item.name }
+                      className={ data.sellProperty === item.name ? 'active' : '' }
+                      onClick={ handleSelectSellProperty }
+                    >
+                      { item.label }
+                      <img src={ CheckedIcon } alt="CheckedIcon"/>
+                    </Dropdown.Item>,
+                  )
+                }
               </Dropdown.Menu>
             </Dropdown>
             {
@@ -284,30 +233,19 @@ const CreatePersonalAccount = () => {
                     { howSellValue }
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      name='agency'
-                      className={ data.howSell === 'agency' ? 'active' : '' }
-                      onClick={ handleSetHowSell }
-                    >
-                      With an agency
-                      <img src={ CheckedIcon } alt="CheckedIcon"/>
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      name='myself'
-                      className={ data.howSell === 'myself' ? 'active' : '' }
-                      onClick={ handleSetHowSell }
-                    >
-                      By myself
-                      <img src={ CheckedIcon } alt="CheckedIcon"/>
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      name='both'
-                      className={ data.howSell === 'both' ? 'active' : '' }
-                      onClick={ handleSetHowSell }
-                    >
-                      Both
-                      <img src={ CheckedIcon } alt="CheckedIcon"/>
-                    </Dropdown.Item>
+                    {
+                      howSellSelect.map((item, index) =>
+                        <Dropdown.Item
+                          key={ index }
+                          name={ item.name }
+                          className={ data.howSell === item.name ? 'active' : '' }
+                          onClick={ handleSetHowSell }
+                        >
+                          { item.label }
+                          <img src={ CheckedIcon } alt="CheckedIcon"/>
+                        </Dropdown.Item>
+                      )
+                    }
                   </Dropdown.Menu>
                 </Dropdown>
               </>

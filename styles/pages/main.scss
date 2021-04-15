@@ -1115,13 +1115,19 @@
     }
 
     .steps-block {
+
+      &__main {
+        min-height: calc(100vh - var(--headerHeightMobile) - 4px);
+      }
+
       .ml-156 {
         margin-left: unset;
-        margin-top: 87px;
+        margin-top: unset;
         width: 100% !important;
       }
 
-      .step-one, .step-two, .step-three, .step-four {
+      .step-one, .step-two, .step-three, .step-four, .create-personal-account {
+        margin-top: 87px;
         width: unset;
         padding: 0 16px;
 
@@ -1235,7 +1241,7 @@
         }
       }
 
-      .step-two, .step-three, .step-four {
+      .step-two, .step-three, .step-four, .create-personal-account {
         .input-group {
           .input-block {
             width: 166px;
@@ -1258,6 +1264,7 @@
           .next-step {
             margin-bottom: 10px;
           }
+
           .prev-step {
             margin-bottom: 28px;
           }
@@ -1269,8 +1276,64 @@
           display: flex;
           flex-direction: column;
         }
+
         .steps-btn-group {
           margin-bottom: unset;
+        }
+      }
+
+      .create-personal-account {
+        margin-top: 30px;
+        .step-title {
+          display: block;
+          text-align: center;
+        }
+
+        .have-account {
+          justify-content: center;
+        }
+
+        .title-block {
+          font-size: 14px;
+          line-height: 19px;
+        }
+
+        .switch-block {
+          margin-bottom: unset;
+          flex-direction: column;
+
+          .homeowner-block, .not-owner-block, .professional-account {
+            width: 100%;
+            height: 76px;
+            margin-bottom: 20px;
+            flex-direction: initial;
+            justify-content: flex-start;
+
+            img {
+              width: 36px;
+              height: 36px;
+              margin: 0 10px 0 20px;
+            }
+
+            .active-item {
+              top: 21px;
+              right: 21px;
+            }
+          }
+        }
+
+        .professional {
+          display: flex;
+          grid-gap: unset;
+          flex-direction: column;
+
+          .professional-account {
+            margin-bottom: 10px;
+          }
+        }
+
+        .prev-step {
+          margin-bottom: unset !important;
         }
       }
 
