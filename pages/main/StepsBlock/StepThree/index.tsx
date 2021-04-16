@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ButtonGroup, Form, InputGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Dropdown, Form, InputGroup } from 'react-bootstrap';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
+import CheckedIcon from '../../../../assets/images/valid-blue.svg';
 
 import { goToNextStepAction, goToPrevStepAction, setDetailsAction } from '../../../../actions';
 import { RootState } from '../../../../types/state';
@@ -77,6 +78,20 @@ const StepThree = () => {
       condition: el.target.name,
     });
   };
+  const handleSelectConstructionYear = (el) => {
+    setFormData({
+      ...data,
+      constructionYear: el.target.name,
+    });
+  };
+
+  const handleSelectRenovationYear = (el) => {
+    setFormData({
+      ...data,
+      renovationYear: el.target.name,
+    });
+  };
+
 
   return (
     <div className='step-three'>
@@ -137,35 +152,62 @@ const StepThree = () => {
       <Form>
         <Form.Group controlId="construction-year">
           <Form.Label>Construction year</Form.Label>
-          <Form.Control
-            name='constructionYear'
-            onChange={handleChangeVal}
-            as="select"
-            className='custom-select'
-            value={data.constructionYear}
-          >
-            {
-              constructionYearList.map((item,index) =>
-                <option key={index}>{item.label}</option>
-              )
-            }
-          </Form.Control>
+          <Dropdown>
+            <Dropdown.Toggle>
+              { data.constructionYear }
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {
+                constructionYearList.map((item, index) =>
+                  <Dropdown.Item
+                    key={ index }
+                    className={ data.constructionYear === item.label ? 'active' : '' }
+                    name={ item.label }
+                    onClick={ handleSelectConstructionYear }
+                  >
+                    { item.label }
+                    <img src={ CheckedIcon } alt="CheckedIcon"/>
+                  </Dropdown.Item>,
+                )
+              }
+            </Dropdown.Menu>
+          </Dropdown>
         </Form.Group>
         <Form.Group controlId="renovated">
           <Form.Label>Renovated</Form.Label>
-          <Form.Control
-            name='renovationYear'
-            onChange={handleChangeVal}
-            value={data.renovationYear}
-            as="select"
-            className='custom-select'
-          >
-            {
-              renovatedYearList.map((item,index) =>
-                <option key={index}>{item.label}</option>
-              )
-            }
-          </Form.Control>
+          <Dropdown>
+            <Dropdown.Toggle>
+              { data.renovationYear }
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {
+                renovatedYearList.map((item, index) =>
+                  <Dropdown.Item
+                    key={ index }
+                    className={ data.renovationYear === item.label ? 'active' : '' }
+                    name={ item.label }
+                    onClick={ handleSelectRenovationYear }
+                  >
+                    { item.label }
+                    <img src={ CheckedIcon } alt="CheckedIcon"/>
+                  </Dropdown.Item>,
+                )
+              }
+            </Dropdown.Menu>
+          </Dropdown>
+          {/*<Form.Control*/}
+          {/*  name='renovationYear'*/}
+          {/*  onChange={handleChangeVal}*/}
+          {/*  value={data.renovationYear}*/}
+          {/*  as="select"*/}
+          {/*  className='custom-select'*/}
+          {/*>*/}
+          {/*  {*/}
+          {/*    renovatedYearList.map((item,index) =>*/}
+          {/*      <option key={index}>{item.label}</option>*/}
+          {/*    )*/}
+          {/*  }*/}
+          {/*</Form.Control>*/}
         </Form.Group>
         <InputGroup>
           <Form.Label className='d-flex'>

@@ -650,6 +650,69 @@
       }
     }
 
+    .step-three {
+      .dropdown {
+        width: 217px;
+        height: 46px;
+
+        button {
+          width: 100%;
+          height: 46px;
+          text-align: inherit;
+          background: transparent;
+          color: #1D2E5B;
+
+          &:after {
+            background-image: url("../../assets/images/arrow.svg");
+            background-size: contain;
+            width: 18px;
+            height: 18px;
+            display: block;
+            position: absolute;
+            right: 12px;
+            top: 15px;
+            border: unset;
+          }
+        }
+
+        .active {
+          color: var(--mainColor);
+          background: var(--bg-blue);
+
+          img {
+            display: block !important;
+          }
+        }
+
+        .dropdown-menu {
+          overflow: auto;
+          height: 200px;
+          width: 100%;
+          padding: 10px;
+          box-shadow: 0 10px 24px rgba(29, 46, 91, 0.24);
+          border-radius: 6px;
+
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 14px;
+            height: 46px;
+            border-radius: 6px;
+
+            &:hover {
+              background: var(--bg-blue);
+            }
+
+            img {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
     .step-three, .step-four {
       display: flex;
       flex-direction: column;
