@@ -1,6 +1,5 @@
 import { SelectItem } from '../types/steps';
 
-
 export const howSellSelect: SelectItem[] = [
   {
     id: 1,
