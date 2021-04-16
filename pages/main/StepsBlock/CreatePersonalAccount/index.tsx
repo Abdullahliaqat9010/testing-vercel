@@ -28,6 +28,7 @@ import { residenceSelect } from '../../../../templates/residenceSelect';
 import { sellPropertySelect } from '../../../../templates/sellPropertySelect';
 import { howSellSelect } from '../../../../templates/howSellSelect';
 import { parseJwt } from '../../../../utils';
+import { userToken } from '../../../../config/siteConfigs';
 
 const CreatePersonalAccount = () => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const CreatePersonalAccount = () => {
       dispatch(createPersonalAccountAction(data));
       dispatch(goToNextStepAction());
     } else {
-      const parseData = parseJwt(localStorage.getItem('auth'));
+      const parseData = parseJwt(userToken);
       dispatch(createPropertyRequestAction({
         leadId: parseData.id,
         search_address: addressFromStepOne,

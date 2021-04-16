@@ -3,7 +3,7 @@ import { takeLatest, put } from 'redux-saga/effects';
 import * as actionType from '../actions/actionTypes';
 
 import { parseJwt } from '../utils';
-import { config } from '../config/siteConfigs';
+import { config, userToken } from '../config/siteConfigs';
 
 
 function* sendStepsDataRequest({payload}: any) {
@@ -104,8 +104,43 @@ function* loginUserError(error: string) {
   });
 }
 
+function* contactAgencyRequest({payload}: any) {
+  try {
+    const res = yield fetch(`${ config.apiDomain }/agency/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + userToken,
+      },
+      body: JSON.stringify({...payload}),
+    });
+
+
+    if (res.status === 201) {
+      yield contactAgencySuccess();
+    }
+  } catch (error) {
+    yield contactAgencyError(error);
+  }
+}
+
+function* contactAgencySuccess() {
+  yield put({
+    type: actionType.CONTACT_AGENCY_SUCCESS,
+  });
+}
+
+function* contactAgencyError(error: string) {
+  console.log(error);
+  yield put({
+    type: actionType.CONTACT_AGENCY_ERROR,
+    payload: error,
+  });
+}
+
 export function* userSaga() {
   yield takeLatest(actionType.SEND_STEPS_DATA_REQUEST, sendStepsDataRequest);
   yield takeLatest(actionType.SIGNUP_USER_REQUEST, signupUserRequest);
   yield takeLatest(actionType.LOGIN_USER_REQUEST, loginUserRequest);
+  yield takeLatest(actionType.CONTACT_AGENCY_REQUEST, contactAgencyRequest);
 }

@@ -1,25 +1,28 @@
 import * as actionType from '../actions/actionTypes';
 import { parseJwt } from '../utils';
+import { userToken } from '../config/siteConfigs';
 
 let exp = false;
-let userName = 'Anna';
-let userSurname = 'Johns';
+let userName = '';
+let userSurname = '';
+let userEmail = '';
 
 /**
  * check token on expire
  */
 if (typeof localStorage !== 'undefined') {
   if (localStorage.getItem('auth')) {
-    const jwtToken = parseJwt(localStorage.getItem('auth'));
+    const jwtToken = parseJwt(userToken);
     const dateNow = +Date.now().toString().slice(0, -3);
     exp = dateNow < jwtToken.exp;
     if (!exp) {
       localStorage.removeItem('auth');
     }
-    console.log(jwtToken);
+
     if (jwtToken.firstname && jwtToken.lastname) {
       userName = jwtToken.firstname;
       userSurname = jwtToken.lastname;
+      userEmail = jwtToken.email;
     }
   }
 }
@@ -27,8 +30,16 @@ if (typeof localStorage !== 'undefined') {
 export const initialState = {
   auth: exp,
   showAgentModal: false,
+  agencyContactInfo: {
+    title: '',
+    agentName: '',
+    agentSurname: '',
+    agencyId: null,
+  },
+  properties: [],
   userName,
   userSurname,
+  userEmail,
   errors: '',
 };
 
@@ -44,12 +55,28 @@ const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         showAgentModal: true,
+        agencyContactInfo: {
+          ...action.payload
+        }
       };
+    case actionType.CONTACT_AGENCY_SUCCESS:
     case actionType.CLOSE_MODAL_CONTACT_AGENT:
       return {
         ...state,
         showAgentModal: false,
+        agencyContactInfo: {
+          title: '',
+          agentName: '',
+          agentSurname: '',
+          agencyId: null,
+        },
       };
+    case actionType.GET_USER_PROPERTY_SUCCESS: {
+      return {
+        ...state,
+        properties: [...action.payload]
+      };
+    }
     default:
       return {
         ...state,

@@ -63,10 +63,21 @@ export const sendStepsDataRequestAction = (data: object) => ({
   payload: data,
 });
 
-export const modalWindowContactAgentAction = () => ({
+export const modalWindowContactAgentAction = (data: object) => ({
   type: actionType.SHOW_MODAL_CONTACT_AGENT,
+  payload: data,
 });
 
 export const closeModalWindowContactAgentAction = () => ({
   type: actionType.CLOSE_MODAL_CONTACT_AGENT,
 });
+
+export const contactAgencyAction = (data: object) => ({
+  type: actionType.CONTACT_AGENCY_REQUEST,
+  payload: data,
+})
+
+export const getPropertyForCurrentUserAction = (userId: number) => ({
+  type: actionType.GET_USER_PROPERTY_REQUEST,
+  payload: userId,
+})

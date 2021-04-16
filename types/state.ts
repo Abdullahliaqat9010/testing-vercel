@@ -2,8 +2,16 @@ export interface RootState {
   userInfo: {
     auth: boolean,
     showAgentModal: boolean,
+    agencyContactInfo: {
+      title: string,
+      agentName: string,
+      agentSurname: string,
+      agencyId: number
+    },
+    properties: any, //@todo add interface
     userName: string,
     userSurname: string,
+    userEmail: string,
   },
   stepsInfo: {
     mainBlocks: boolean,
