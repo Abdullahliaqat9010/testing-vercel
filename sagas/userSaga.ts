@@ -3,7 +3,7 @@ import { takeLatest, put } from 'redux-saga/effects';
 import * as actionType from '../actions/actionTypes';
 
 import { parseJwt } from '../utils';
-import { config, userToken } from '../config/siteConfigs';
+import { config } from '../config/siteConfigs';
 
 
 function* sendStepsDataRequest({payload}: any) {
@@ -106,11 +106,12 @@ function* loginUserError(error: string) {
 
 function* contactAgencyRequest({payload}: any) {
   try {
+    const token = localStorage.getItem('auth');
     const res = yield fetch(`${ config.apiDomain }/agency/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + userToken,
+        'Authorization': 'bearer ' + token,
       },
       body: JSON.stringify({...payload}),
     });
