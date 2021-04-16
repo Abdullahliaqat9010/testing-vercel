@@ -6,9 +6,10 @@ import { RootState } from '../../types/state';
 import ImagesBlock from './ImagesBlock';
 import TestimonialsBlock from './TestimonialsBlock';
 import StepsBlock from './StepsBlock';
+import InfoBlock from './InfoBlock';
 
 const MainPageComponent = () => {
-  const { mainBlocks, goToDashboard } = useSelector((state: RootState) => state.stepsInfo);
+  const {mainBlocks, goToDashboard} = useSelector((state: RootState) => state.stepsInfo);
 
   useEffect(() => {
     if (goToDashboard) {
@@ -23,14 +24,18 @@ const MainPageComponent = () => {
           ?
           <>
             <ImagesBlock/>
+            <InfoBlock/>
             <TestimonialsBlock/>
             <div className="short-footer d-flex justify-content-between">
-              <span>Agence:  | Numéro IPI: | Immo Wallonie ©{ new Date().getFullYear() }. All Rights Reserved.</span>
+              <p>
+                <span>Immo Belgium </span>
+                <span>{ new Date().getFullYear() }. All Rights Reserved.</span>
+              </p>
               <span className="link">Politique de Confidentialité.</span>
             </div>
           </>
           :
-          <StepsBlock />
+          <StepsBlock/>
       }
     </div>
   );

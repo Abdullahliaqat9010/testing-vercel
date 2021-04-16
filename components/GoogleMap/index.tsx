@@ -10,18 +10,26 @@ import { googleMapConfig } from '../../config/siteConfigs';
 import MarkerIcon from '../../assets/images/marker.png';
 
 const Marker = props => {
-  return <img src={MarkerIcon} alt='MarkerIcon' className="marker"/>
+  return <img src={ MarkerIcon } alt='MarkerIcon' className="marker"/>;
+};
+
+interface locationProps {
+  lat?: number,
+  lng?: number
 }
 
-const GoogleMap = () => {
-  const { location } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+const GoogleMap = (location: locationProps) => {
+  const {location: locationData} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
   return (
     // Important! Always set the container height explicitly
     <div style={ {height: '100%', width: '100%'} }>
       <GoogleMapReact
         bootstrapURLKeys={ {key: googleMapConfig.apiKey} }
-        defaultCenter={ {lat: location.lat, lng: location.lng} }
+        defaultCenter={ {
+          lat: location.lat || locationData.lat,
+          lng: location.lng || locationData.lng,
+        } }
         options={ {
           fullscreenControl: false,
           zoomControl: false,
@@ -30,8 +38,8 @@ const GoogleMap = () => {
         defaultZoom={ 13 }
       >
         <Marker
-          lat={location.lat}
-          lng={location.lng}
+          lat={ location.lat || locationData.lat }
+          lng={ location.lng || locationData.lng }
         />
       </GoogleMapReact>
     </div>

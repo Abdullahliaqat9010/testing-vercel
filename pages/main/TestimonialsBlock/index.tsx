@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { isMobile } from 'react-device-detect';
 import StarRatingComponent from 'react-star-rating-component';
 
 import { Button, Image } from 'react-bootstrap';
@@ -11,13 +12,23 @@ import RatingStarEmpty from '../../../assets/images/rating/star.svg';
 
 import { testimonialList } from '../../../templates/testimonialList';
 
+
 const TestimonialsBlock = () => {
+
+  const elementsOnPage = 3;
+  const [sizeArr, setSizeArr] = useState(3);
+  const testimonials = isMobile ? testimonialList.slice(0, sizeArr) : testimonialList;
+
+  const loadMore = () => {
+    setSizeArr(sizeArr + elementsOnPage);
+  }
+
   return (
     <div className='testimonials container'>
       <h4>Testimonials</h4>
       <div className="testimonials__list">
         {
-          testimonialList.map((item, index) => (
+          testimonials.map((item, index) => (
             <div key={ index } className="testimonials__item">
               <div className="user-block d-flex justify-content-between align-items-start">
                 <div className='left-block d-flex'>
@@ -45,7 +56,7 @@ const TestimonialsBlock = () => {
             </div>
           ))
         }
-        <Button className='load-more'>
+        <Button className='load-more' onClick={loadMore}>
           <img src={ LoadMoreImage } alt="LoadMoreImage"/>Load More
         </Button>
       </div>

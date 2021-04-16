@@ -5,8 +5,10 @@ import { Button, Form } from 'react-bootstrap';
 import ArrowIcon from '../../../../assets/images/arrow-blue.svg';
 import ValidIcon from '../../../../assets/images/valid.svg';
 
-import { sendStepsDataRequestAction, setUserDataAction } from '../../../../actions';
+import { goToPrevStepAction, sendStepsDataRequestAction, setUserDataAction } from '../../../../actions';
 import { RootState } from '../../../../types/state';
+
+import IconBack from '../../../../assets/images/long-arrow.svg';
 
 const FinalStep = () => {
   const dispatch = useDispatch();
@@ -27,14 +29,14 @@ const FinalStep = () => {
     agreement: false,
   });
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.value,
     });
   };
 
-  const handleChecked = (el) => {
+  const handleChecked = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.checked,
@@ -50,8 +52,8 @@ const FinalStep = () => {
           lat: location.lat,
           lng: location.lng,
           property_type: selectedProperty,
-          live_area: +propertyDetails.livableArea,
-          total_area: +propertyDetails.totalArea,
+          live_area: +propertyDetails.livingArea,
+          total_area: +propertyDetails.landSurface,
           bedrooms: propertyDetails.numberBedrooms,
           bathrooms: propertyDetails.numberBathrooms,
           levels: propertyDetails.numberLevels,
@@ -88,6 +90,10 @@ const FinalStep = () => {
 
   const checkIfPasswordsEqual = () => {
     return data.password && data.confirmPassword && data.password === data.confirmPassword;
+  };
+
+  const handleClickPrevBtn = () => {
+    dispatch(goToPrevStepAction());
   };
 
   return (
@@ -174,8 +180,16 @@ const FinalStep = () => {
           onChange={ handleChecked }
           label="I have read and agree to service Privacy Policy and Terms and conditions"
         />
-        <Button disabled={ isDisabled() } onClick={ handleSubmit }>Create an account</Button>
+
       </Form>
+      <div className="steps-btn-group d-flex justify-content-between">
+        <Button
+          onClick={ handleClickPrevBtn }
+          className='prev-step'>
+          <img src={ IconBack } alt="IconBack"/>Back
+        </Button>
+        <Button className='next-step' disabled={ isDisabled() } onClick={ handleSubmit }>Create an account</Button>
+      </div>
     </div>
   );
 };

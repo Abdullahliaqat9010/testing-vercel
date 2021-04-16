@@ -144,9 +144,19 @@
           padding-right: 0;
         }
 
+        input {
+          border-top-left-radius: 0 !important;
+          border-bottom-left-radius: 0 !important;
+        }
+
+        .input-group-text {
+          border-radius: 6px 0 0 6px;
+        }
+
         input, textarea {
           box-shadow: unset;
           line-height: 22px;
+          border-radius: 6px;
 
           &:focus {
             border-color: #ced4da;
@@ -342,11 +352,39 @@
         }
 
         .scale-block {
+          padding: 0 10px;
+
           .line {
             width: 100%;
             background-image: url("../../assets/images/price-graph-mobile.svg");
             background-size: contain;
             background-repeat: no-repeat;
+          }
+        }
+
+        .estimation-popup {
+          .input-group, input {
+            height: 46px;
+          }
+
+          .confirm {
+            width: 100%;
+          }
+        }
+        .thanks-for-reply {
+          padding: 30px;
+
+          img {
+            margin-top: unset;
+          }
+
+          button {
+            width: 100%;
+            margin-bottom: unset;
+          }
+
+          &__desc {
+            text-align: center;
           }
         }
 
@@ -507,6 +545,7 @@
             width: 100%;
             margin-bottom: 36px;
           }
+
           .details {
             text-align: center;
             margin-bottom: 16px;
