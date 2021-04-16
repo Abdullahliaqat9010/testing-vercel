@@ -7,6 +7,9 @@ import IconBack from '../../../../assets/images/long-arrow.svg';
 import { goToNextStepAction, goToPrevStepAction, setDetailsAction } from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
+import { constructionYearList } from '../../../../templates/constructionYearList';
+import { renovatedYearList } from '../../../../templates/renovatedYearList';
+
 const StepThree = () => {
   const dispatch = useDispatch();
 
@@ -141,11 +144,11 @@ const StepThree = () => {
             className='custom-select'
             value={data.constructionYear}
           >
-            <option>1998</option>
-            <option>1999</option>
-            <option>2000</option>
-            <option>2001</option>
-            <option>2002</option>
+            {
+              constructionYearList.map((item,index) =>
+                <option key={index}>{item.label}</option>
+              )
+            }
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="renovated">
@@ -157,11 +160,11 @@ const StepThree = () => {
             as="select"
             className='custom-select'
           >
-            <option>2006</option>
-            <option>2007</option>
-            <option>2008</option>
-            <option>2009</option>
-            <option>2010</option>
+            {
+              renovatedYearList.map((item,index) =>
+                <option key={index}>{item.label}</option>
+              )
+            }
           </Form.Control>
         </Form.Group>
         <InputGroup>
