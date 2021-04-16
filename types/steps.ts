@@ -7,6 +7,6 @@ export interface ProfessionalAccountItem {
 
 export interface SelectItem {
   id: number,
-  name: string,
+  name?: string,
   label: string,
 }
