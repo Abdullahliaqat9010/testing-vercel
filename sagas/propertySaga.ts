@@ -1,15 +1,16 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { config, userToken } from '../config/siteConfigs';
+import { config } from '../config/siteConfigs';
 
 import * as actionType from '../actions/actionTypes';
 
 function* createPropertyRequest({payload}: any) {
   try {
+    const token = localStorage.getItem('auth');
     const res = yield fetch(`${ config.apiDomain }/property`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + userToken,
+        'Authorization': 'bearer ' + token,
       },
       body: JSON.stringify(payload),
     });
@@ -38,11 +39,12 @@ function* createPropertyError(error) {
 
 function* getPropertyForCurrentUser({payload}: any) {
   try {
+    const token = localStorage.getItem('auth');
     const res = yield fetch(`${ config.apiDomain }/users/${ payload }/property`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + userToken,
+        'Authorization': 'bearer ' + token,
       },
     });
 
