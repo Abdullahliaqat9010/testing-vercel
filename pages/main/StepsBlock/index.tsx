@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
+import { isMobile } from 'react-device-detect';
 
 import { RootState } from '../../../types/state';
 
@@ -8,6 +9,7 @@ import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import StepFour from './StepFour';
+import CreatePersonalAccount from './CreatePersonalAccount';
 import FinalStep from './FinalStep';
 import GoogleMap from '../../../components/GoogleMap';
 
@@ -16,6 +18,7 @@ const stepsArr = [
   <StepTwo/>,
   <StepThree/>,
   <StepFour/>,
+  <CreatePersonalAccount/>,
   <FinalStep/>,
 ];
 
@@ -52,9 +55,12 @@ const StepsBlock = () => {
             stepsArr[step]
           }
         </div>
-        <div className='w-50'>
-          <GoogleMap/>
-        </div>
+        {
+          !isMobile &&
+          <div className='w-50'>
+            <GoogleMap/>
+          </div>
+        }
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { isMobile } from 'react-device-detect';
+
+import GoogleMap from '../../../../components/GoogleMap';
 
 import { goToNextStepAction, setActivePropertyAction, setAdditionalAddressAction } from '../../../../actions';
 import { RootState } from '../../../../types/state';
@@ -11,6 +14,8 @@ import ApartmentImageActive from '../../../../assets/images/apartment-active.svg
 import ApartmentImageNoActive from '../../../../assets/images/apartment-noactive.svg';
 import LandImageActive from '../../../../assets/images/land-active.svg';
 import LandImageNoActive from '../../../../assets/images/land-noactive.svg';
+import MarkerImage from '../../../../assets/images/marker-blue.svg';
+import CloseIcon from '../../../../assets/images/close-icon.svg';
 
 const StepTwo = () => {
   const dispatch = useDispatch();
@@ -23,6 +28,8 @@ const StepTwo = () => {
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.additionalAddress);
   const {selectedProperty: currentProp} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [selectedProperty, setCurrentProperty] = useState<string>(currentProp);
+  const [showMapBlock, setShowMapBlock] = useState<boolean>(false);
+  const [showAddressBlock, changeAddressBlockState] = useState<boolean>(true);
   const [data, setFormData] = useState({
     street,
     number,
@@ -31,7 +38,7 @@ const StepTwo = () => {
     locality,
   });
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.value,
@@ -71,6 +78,15 @@ const StepTwo = () => {
     return !data.zip.length;
   };
 
+  const showMap = () => {
+    changeAddressBlockState(true);
+    setShowMapBlock(!showMapBlock);
+  }
+
+  const closeAddressBlock = () => {
+    changeAddressBlockState(false);
+  }
+
   return (
     <div className='step-one'>
       <span className="step-title">Step 1</span>
@@ -103,13 +119,18 @@ const StepTwo = () => {
           </Form.Group>
         </Form.Row>
       </Form>
+      {
+        isMobile && <span className='pick-on-map' onClick={showMap}>
+          <img src={ MarkerImage } alt="marker"/>Pick on map
+        </span>
+      }
       <h5>Property Type</h5>
       <div className="properties d-flex justify-content-between">
         <div
-          onClick={ () => setActiveBlock('home') }
-          className={ `property-home ${ selectedProperty === 'home' ? 'active' : '' }` }
+          onClick={ () => setActiveBlock('house') }
+          className={ `property-home ${ selectedProperty === 'house' ? 'active' : '' }` }
         >
-          <img src={ selectedProperty === 'home' ? HomeImageActive : HomeImageNoActive } alt="home"/>
+          <img src={ selectedProperty === 'house' ? HomeImageActive : HomeImageNoActive } alt="house"/>
           <span className="title">Home</span>
           <div className="active-item"/>
         </div>
@@ -123,7 +144,7 @@ const StepTwo = () => {
         </div>
         <div
           onClick={ () => setActiveBlock('land') }
-          className={ `property-apartment ${ selectedProperty === 'land' ? 'active' : '' }` }
+          className={ `property-land ${ selectedProperty === 'land' ? 'active' : '' }` }
         >
           <img src={ selectedProperty === 'land' ? LandImageActive : LandImageNoActive } alt="land"/>
           <span className="title">Land</span>
@@ -138,6 +159,20 @@ const StepTwo = () => {
       >
         Next
       </Button>
+      {
+        isMobile && showMapBlock &&
+          <div className='mobile-map'>
+            {
+              showAddressBlock &&
+              <div className="address-block">
+                <span>2464 Royal Ln. Mesa, New Jersey 45463</span>
+                <img onClick={closeAddressBlock} src={ CloseIcon } alt="CloseIcon"/>
+              </div>
+            }
+            <GoogleMap />
+            <span className="close-map" onClick={showMap}>Close</span>
+          </div>
+      }
     </div>
   );
 };

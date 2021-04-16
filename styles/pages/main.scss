@@ -260,7 +260,8 @@
     }
 
     &__main {
-      height: calc(100vh - var(--headerHeight) - 4px); //4px height of progress-bar
+      min-height: calc(100vh - var(--headerHeight) - 4px); //4px height of progress-bar
+      height: 100%;
 
       .step-title {
         display: block;
@@ -325,7 +326,7 @@
       }
     }
 
-    .step-one, .step-two, .step-three, {
+    .step-one, .step-two, .step-three, .step-four {
       label {
         font-size: 14px;
         line-height: 19px;
@@ -344,7 +345,7 @@
       }
     }
 
-    .step-one, .step-two, .step-three, .final-step {
+    .step-one, .step-two, .step-three, .final-step, .step-four, .create-personal-account {
       width: 433px;
     }
 
@@ -367,7 +368,7 @@
       .properties {
         margin: 20px 0;
 
-        .property-home, .property-apartment {
+        .property-home, .property-apartment, .property-land {
           position: relative;
           width: 131px;
           height: 122px;
@@ -410,7 +411,7 @@
       }
     }
 
-    .step-two, .step-three {
+    .step-two, .step-three, .step-four {
       h4 {
         margin-bottom: 30px;
       }
@@ -548,7 +549,108 @@
       }
     }
 
-    .step-three {
+    .step-four {
+      .input-group {
+        margin-bottom: 20px;
+        height: 46px;
+      }
+
+      .epc {
+        .input-group-append {
+          .input-group-text {
+            font-size: 14px;
+            line-height: 19px;
+            width: 79px !important;
+          }
+        }
+      }
+
+      .custom-btn-group {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+
+      .terras-block {
+        position: relative;
+        width: 217px;
+        height: 161px;
+
+        .north {
+          width: 59px;
+          height: 41px;
+
+          left: 78.61px;
+          top: 0;
+        }
+
+        .north-east {
+          width: 56px;
+          height: 56px;
+
+          left: 125.53px;
+          top: 7px;
+        }
+
+        .east {
+          width: 41px;
+          height: 59px;
+
+          left: 147.33px;
+          top: 52.15px;
+        }
+
+        .south-east {
+          width: 56px;
+          height: 56px;
+
+          left: 125.34px;
+          bottom: 6.41px;
+        }
+
+        .south {
+          width: 59px;
+          height: 41px;
+
+          left: 78.32px;
+          bottom: 0;
+        }
+
+        .south-west {
+          width: 56px;
+          height: 56px;
+
+          left: 34.81px;
+          bottom: 6.88px;
+        }
+
+        .west {
+          width: 41px;
+          height: 59px;
+
+          left: 27.53px;
+          top: 49.87px;
+        }
+
+        .north-west {
+          width: 56px;
+          height: 56px;
+
+          left: 35.4px;
+          top: 6.33px;
+        }
+
+        img {
+          cursor: pointer;
+          position: absolute;
+          margin-right: unset;
+        }
+      }
+
+      .steps-btn-group {
+        margin-bottom: 72px;
+      }
+    }
+
+    .step-three, .step-four {
       display: flex;
       flex-direction: column;
 
@@ -627,6 +729,196 @@
       }
     }
 
+    .create-personal-account {
+      h4 {
+        margin-bottom: 5px;
+      }
+
+      .have-account {
+        margin: 15px 0 30px;
+        color: var(--colorBlue);
+        cursor: pointer;
+        display: flex;
+
+        img {
+          margin-left: 3px;
+          transform: rotate(270deg);
+        }
+      }
+
+      &__main-block {
+        .title-block {
+          display: flex;
+
+          color: var(--colorGrayTwo);
+          font-family: var(--fontNunitoBold);
+          font-size: 16px;
+          line-height: 22px;
+          margin-bottom: 30px;
+
+          span {
+            text-align: center;
+            height: 36px;
+            width: 50%;
+            cursor: pointer;
+            border-bottom: 1px solid #D2D5DE;
+          }
+
+          .active {
+            color: var(--mainColor);
+            border-bottom: 2px solid var(--colorBlue);
+          }
+        }
+
+        .switch-block {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 30px;
+
+          .homeowner-block, .not-owner-block, .professional-account {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+
+            width: 206.5px;
+            height: 122px;
+            border: 1px solid var(--colorLightGrey);
+            box-sizing: border-box;
+            border-radius: 8px;
+
+            img {
+              margin-bottom: 10px;
+            }
+
+            .active-item {
+              background: url("../../assets/images/active-item.svg") no-repeat center 32%;
+              position: absolute;
+              right: -18px;
+              top: -15px;
+              box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+              border-radius: 20px;
+              background-size: inherit;
+              width: 34px;
+              height: 34px;
+              display: none;
+            }
+          }
+
+          .active-block {
+            border: 1px solid var(--colorBlue);
+
+            .active-item {
+              display: block;
+            }
+          }
+        }
+
+        .professional {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 20px;
+
+          .professional-account {
+            width: 131px;
+            height: 119px;
+          }
+
+          .other {
+            height: 59px;
+            width: 100%;
+            grid-column-start: 1;
+            grid-column-end: 4;
+          }
+        }
+      }
+
+      .form-group {
+        margin-bottom: 30px;
+      }
+
+      label {
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 5px;
+      }
+
+      .dropdown {
+        margin-bottom: 30px;
+
+        button {
+          width: 100%;
+          height: 46px;
+          text-align: inherit;
+          background: transparent;
+          color: #1D2E5B;
+
+          &:after {
+            background-image: url("../../assets/images/arrow.svg");
+            background-size: contain;
+            width: 18px;
+            height: 18px;
+            display: block;
+            position: absolute;
+            right: 12px;
+            top: 15px;
+            border: unset;
+          }
+        }
+
+        .active {
+          color: var(--mainColor);
+          background: var(--bg-blue);
+
+          img {
+            display: block !important;
+          }
+        }
+
+        .dropdown-menu {
+          width: 100%;
+          padding: 10px;
+          box-shadow: 0 10px 24px rgba(29, 46, 91, 0.24);
+          border-radius: 6px;
+
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 14px;
+            height: 46px;
+            border-radius: 6px;
+
+            &:hover {
+              background: var(--bg-blue);
+            }
+
+            img {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .label {
+        font-size: 14px;
+        line-height: 19px;
+        margin-bottom: 4px;
+      }
+
+      .show {
+        button {
+          &:after {
+            background-image: url("../../assets/images/arrow.svg");
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
     .final-step {
       font-size: 14px;
       line-height: 19px;
@@ -694,15 +986,6 @@
         font-size: 16px;
         line-height: 22px;
         margin-bottom: 10px;
-      }
-
-      button {
-        font-family: var(--fontNunitoBold);
-        margin-top: 30px;
-        width: 100%;
-        height: 50px;
-        background: var(--colorBlue);
-        border-radius: 8px;
       }
     }
   }
@@ -824,6 +1107,246 @@
 
     .steps-block {
 
+      &__main {
+        min-height: calc(100vh - var(--headerHeightMobile) - 4px);
+      }
+
+      .ml-156 {
+        margin-left: unset;
+        margin-top: unset;
+        width: 100% !important;
+      }
+
+      .step-one, .step-two, .step-three, .step-four, .create-personal-account, .final-step {
+        margin-top: 87px;
+        width: unset;
+        padding: 0 16px;
+
+        .step-title {
+          display: none;
+        }
+
+        h4 {
+          text-align: center;
+        }
+
+        #street {
+          width: 168px;
+        }
+
+        #number, #boxNumber {
+          width: 65px;
+        }
+
+        #locality {
+          width: 225px;
+        }
+
+        .mr-4 {
+          margin-right: unset !important;
+        }
+
+        .properties {
+          flex-direction: column;
+
+          .property-home, .property-apartment, .property-land {
+            width: 100%;
+            height: 76px;
+            margin-bottom: 10px;
+            flex-direction: row;
+            justify-content: flex-start;
+
+            img {
+              width: 36px;
+              height: 36px;
+              margin-left: 20px;
+              margin-right: 10px;
+            }
+
+            .title {
+              margin-top: unset;
+            }
+
+            .active-item {
+              top: 21px;
+              right: 21px;
+            }
+          }
+        }
+
+        .pick-on-map {
+          display: flex;
+          color: var(--colorBlue);
+          font-size: 14px;
+          line-height: 19px;
+
+          img {
+            margin-right: 6px;
+          }
+        }
+
+        .mobile-map {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          left: 0;
+
+          .address-block {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 30px;
+            background-color: var(--colorWhite);
+            z-index: 50;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 104px;
+
+            span {
+              width: 90%;
+              font-family: var(--fontNunitoBold);
+              font-size: 16px;
+              line-height: 22px;
+            }
+          }
+
+          .close-map {
+            font-family: var(--fontNunitoBold);
+            color: var(--colorBlue);
+            position: absolute;
+            z-index: 50;
+            bottom: 30px;
+            width: 311px;
+            height: 50px;
+            left: 32px;
+            background: var(--colorWhite);
+            box-shadow: 0 4px 10px rgb(56 114 239 / 15%);
+            border-radius: 8px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+          }
+        }
+      }
+
+      .step-two, .step-three, .step-four, .create-personal-account, .final-step {
+        .input-group {
+          .input-block {
+            width: 166px;
+          }
+        }
+
+        select {
+          width: 166px !important;
+        }
+
+        .range {
+          input {
+            width: 50%;
+          }
+        }
+
+        .steps-btn-group {
+          flex-direction: column-reverse;
+
+          .next-step {
+            margin-bottom: 10px;
+          }
+
+          .prev-step {
+            margin-bottom: 28px;
+          }
+        }
+      }
+
+      .step-three, .step-four {
+        h4 {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .steps-btn-group {
+          margin-bottom: unset;
+        }
+      }
+
+      .create-personal-account, .final-step {
+        margin-top: 30px;
+
+        .step-title {
+          display: block;
+          text-align: center;
+        }
+
+        .have-account {
+          justify-content: center;
+        }
+
+        .title-block {
+          font-size: 14px;
+          line-height: 19px;
+        }
+
+        .switch-block {
+          margin-bottom: unset;
+          flex-direction: column;
+
+          .homeowner-block, .not-owner-block, .professional-account {
+            width: 100%;
+            height: 76px;
+            margin-bottom: 20px;
+            flex-direction: initial;
+            justify-content: flex-start;
+
+            img {
+              width: 36px;
+              height: 36px;
+              margin: 0 10px 0 20px;
+            }
+
+            .active-item {
+              top: 21px;
+              right: 21px;
+            }
+          }
+        }
+
+        .professional {
+          display: flex;
+          grid-gap: unset;
+          flex-direction: column;
+
+          .professional-account {
+            margin-bottom: 10px;
+          }
+        }
+
+        .prev-step {
+          margin-bottom: unset !important;
+        }
+      }
+
+      .final-step {
+        .have-account {
+          text-align: center;
+        }
+
+        .form-row {
+          .form-group {
+            input {
+              width: 161px;
+            }
+          }
+        }
+      }
+
+      .next-step {
+        width: 100% !important;
+        margin-bottom: 28px;
+      }
     }
   }
 }

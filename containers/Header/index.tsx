@@ -10,6 +10,8 @@ import NoPhoto from '../../assets/images/no-photo.png';
 import AddIcon from '../../assets/images/icon-plus.svg';
 import LoginArrow from '../../assets/images/arrow.svg';
 import ProIcon from '../../assets/images/pro-workspace.svg';
+import CurrentStepIcon from '../../assets/images/header-step-current.svg';
+import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 
 import { NavDropdown, Image, Button } from 'react-bootstrap';
 
@@ -18,21 +20,8 @@ import navBarList from '../../config/navBarList';
 
 const HeaderContainer = ({title}: { title: string }) => {
   const {mainBlocks, stepBlock} = useSelector((state: RootState) => state.stepsInfo);
-  const {auth} = useSelector((state: RootState) => state.userInfo);
+  const {auth, userName, userSurname} = useSelector((state: RootState) => state.userInfo);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-
-  const stepInfo = () => {
-    if (stepBlock.step === 0) {
-      return 'Step 2: Confirm address';
-    }
-    if (stepBlock.step === 1) {
-      return 'Step 3: Property type';
-    }
-    if (stepBlock.step === 2) {
-      return 'Step 4: Property details';
-    }
-    return '';
-  };
 
   const isActive = () => {
     if (isMobile) {
@@ -40,13 +29,17 @@ const HeaderContainer = ({title}: { title: string }) => {
        * makes no scroll body
        */
       if (!openMenu) {
-        document.body.className+='modal-open';
+        document.body.className += 'modal-open';
       } else {
         document.body.classList.remove('modal-open');
       }
       setOpenMenu(!openMenu);
     }
   };
+
+  const goToMainPage = () => {
+    window.location.href = '/';
+  }
 
   return (
     <>
@@ -57,23 +50,50 @@ const HeaderContainer = ({title}: { title: string }) => {
       <div className='Header d-flex justify-content-between align-items-center'>
         <Image className='logo' src={ Logo } alt='Logo'/>
         {
+          mainBlocks && stepBlock.step <= 3 &&
+          <div className='step-info'>
+            <div className={ `header-step-one ${ stepBlock.step === 0 ? 'active-step' : '' }` }>
+              <div className={ `image-block ${ stepBlock.step !== 0 ? 'success' : '' }` }>
+                <img src={ stepBlock.step !== 0 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
+              </div>
+              Step 1
+            </div>
+            <div className={ `header-step-two ${ stepBlock.step === 1 ? 'active-step' : '' }` }>
+              <div className={ `image-block ${ stepBlock.step > 1 ? 'success' : '' }` }>
+                {
+                  stepBlock.step >= 1 &&
+                  <img src={ stepBlock.step >1 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
+                }
+              </div>
+              Step 2
+            </div>
+            <div className={ `header-step-three ${ stepBlock.step > 1 ? 'active-step' : '' }` }>
+              <div className="image-block">
+                {
+                  stepBlock.step >= 2 &&
+                  <img src={ CurrentStepIcon } alt="steps-icon"/>
+                }
+              </div>
+              Step 3
+            </div>
+          </div>
+        }
+        {
           auth ?
             <div className="right-block d-flex align-items-center">
               {
                 !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
               }
-              <NavDropdown title={ isMobile ? '' : 'Anna Johns' } id="header-dropdown" onClick={ isActive }>
+              <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown" onClick={ isActive }>
                 <NavDropdown.Item className='pro-workspace'>
                   <img src={ ProIcon } alt="ProIcon"/>
                   Go to my pro workspace
                 </NavDropdown.Item>
                 {
                   isMobile &&
-                  <Link href={ '/' }>
-                    <Button className='add-property-mobile'>
-                      <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
-                    </Button>
-                  </Link>
+                  <Button onClick={goToMainPage} className='add-property-mobile'>
+                    <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
+                  </Button>
                 }
                 {
                   navBarList.map((list, index) => (
@@ -87,24 +107,25 @@ const HeaderContainer = ({title}: { title: string }) => {
                   isMobile &&
                   <div className="mobile-block">
                     <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                    <span className="user-name">Anna Johns</span>
+                    <span className="user-name">{ userName + ' ' + userSurname }</span>
                     <span className="pro">PRO</span>
                   </div>
                 }
               </NavDropdown>
               {
                 !openMenu &&
-                <Link href={ '/' }>
-                  <Button className='add-property'>
-                    <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
-                  </Button>
-                </Link>
+                <Button className='add-property' onClick={goToMainPage}>
+                  <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
+                </Button>
               }
             </div>
             :
-            !mainBlocks && <span className='sign-in-btn'>Login <img src={ LoginArrow } alt="LoginArrow"/></span>
+            <Link href={ '/login' }>
+              <span className='sign-in-btn'>
+                Login <img src={ LoginArrow } alt="LoginArrow"/>
+              </span>
+            </Link>
         }
-        <div className='step-info'>{ stepInfo() }</div>
       </div>
     </>
   );

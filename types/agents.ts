@@ -1,11 +1,16 @@
 export interface AgentsItem {
   id: number,
   title: string,
-  address: string,
+  agencyAddress: string,
+  location: {
+    lat: number,
+    lng: number
+  },
   rate: string,
   reviews: string,
   logo: string,
   logoMobile: string,
+  email: string,
   count: number,
   nearest: boolean,
   moreInfo: {
@@ -19,14 +24,20 @@ export interface AgentsItem {
 
 export interface AgencyProps {
   agency: {
+    id: number,
     title: string,
-    address: string,
+    agencyAddress: string,
+    location: {
+      lat: number,
+      lng: number
+    },
     rate: string,
     reviews: string,
     logo: string,
     logoMobile: string,
     count: number,
     nearest: boolean,
+    email: string,
     moreInfo: {
       agentName: string,
       agentSurname: string,

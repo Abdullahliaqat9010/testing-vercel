@@ -21,6 +21,9 @@ export const initialState = {
       numberBedrooms: 1,
       numberBathrooms: 1,
       numberLevels: 1,
+      gardenTerras: false,
+      gardenTerrasValue: '0',
+      elevator: false,
     },
     details: {
       prestige: 'basic',
@@ -29,9 +32,32 @@ export const initialState = {
       renovated: 0,
       renovationYear: '2006',
       renovationLevel: '0',
+      numberFloors: 1,
     },
     utilities: {
-
+      epc: '',
+      view: 'normal',
+      orientation: 'north',
+      attic: false,
+      atticValue: '',
+      cellar: false,
+      cellarValue: '',
+      elevator: false,
+      swimmingPool: false,
+      indoorGarage: 1,
+      indoorGarageCheck: false,
+      outdoorGarage: 1,
+      outdoorGarageCheck: false,
+      carport: 1,
+      carportCheck: false,
+      solarPanels: 0,
+    },
+    personalAccount: {
+      accountType: 'private',
+      selectedItem: '',
+      selectedResidence: '',
+      sellProperty: '',
+      howSell: '',
     },
     userData: {
       firstName: '',
@@ -87,6 +113,7 @@ const stepsReducer = (state = initialState, action: any) => {
         },
       };
       case actionType.CREATE_PROPERTY_SUCCESS:
+      case actionType.LOGIN_USER_SUCCESS:
       return {
         ...state,
         goToDashboard: true
@@ -121,6 +148,22 @@ const stepsReducer = (state = initialState, action: any) => {
         stepBlock: {
           ...state.stepBlock,
           userData: {...action.payload},
+        },
+      };
+    case actionType.SET_UTILITIES_DATA:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          utilities: {...action.payload},
+        },
+      };
+    case actionType.CREATE_PERSONAL_ACCOUNT:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          personalAccount: {...action.payload},
         },
       };
     default:

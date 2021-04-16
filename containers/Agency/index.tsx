@@ -23,8 +23,8 @@ const Agency = ({agency}: AgencyProps) => {
     setShowMoreInfo(!showMoreInfo);
   };
 
-  const openContactModal = () => {
-    dispatch(modalWindowContactAgentAction());
+  const openContactModal = (data: object) => {
+    dispatch(modalWindowContactAgentAction(data));
   };
 
   return (
@@ -64,7 +64,7 @@ const Agency = ({agency}: AgencyProps) => {
           <div className="address">
             <p>similar properties sold</p>
             <p className='d-flex'>to
-              <span className="address__bold">{ agency.address }</span>
+              <span className="address__bold">Route des Cent Ecus, 24370 Sainte Mondane</span>
             </p>
           </div>
         </div>
@@ -86,7 +86,17 @@ const Agency = ({agency}: AgencyProps) => {
               including <span className="link">18 similar to yours</span>. Our team is at your disposal to manage
               your project
             </div>
-            <Button className='contact' onClick={openContactModal}>Contact { agency.moreInfo.agentName }</Button>
+            <Button
+              className='contact'
+              onClick={() => openContactModal({
+                title: agency.title,
+                agencyId: agency.id,
+                agentName: agency.moreInfo.agentName,
+                agentSurname: agency.moreInfo.agentSurname,
+              })}
+            >
+              Contact { agency.moreInfo.agentName }
+            </Button>
             <Link href={ '/agency' }>
               <span className="details">Agency details <img src={ArrowImage} alt="ArrowImage"/></span>
             </Link>
@@ -95,7 +105,7 @@ const Agency = ({agency}: AgencyProps) => {
             !isMobile &&
             <div className="map-block d-flex flex-column">
               <div className="agency-map">
-                <GoogleMap />
+                <GoogleMap lng={agency.location.lng} lat={agency.location.lat}/>
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">

@@ -2,6 +2,16 @@ export interface RootState {
   userInfo: {
     auth: boolean,
     showAgentModal: boolean,
+    agencyContactInfo: {
+      title: string,
+      agentName: string,
+      agentSurname: string,
+      agencyId: number
+    },
+    properties: any, //@todo add interface
+    userName: string,
+    userSurname: string,
+    userEmail: string,
   },
   stepsInfo: {
     mainBlocks: boolean,
@@ -25,6 +35,9 @@ export interface RootState {
         facadesNumber: number,
         numberBathrooms: number,
         numberLevels: number,
+        gardenTerras: number,
+        gardenTerrasValue: number,
+        elevator: number,
       },
       details: {
         prestige: string,
@@ -33,6 +46,32 @@ export interface RootState {
         renovated: number,
         renovationYear: string,
         renovationLevel: string,
+        numberFloors: number,
+      },
+      utilities: {
+        epc: string | number,
+        view: 'normal' | 'enclosed' | 'good' | 'unique',
+        orientation: string,
+        attic: boolean,
+        atticValue: string | number,
+        cellar: boolean,
+        cellarValue: string | number,
+        elevator: boolean,
+        swimmingPool: boolean,
+        indoorGarage: number,
+        indoorGarageCheck: boolean,
+        outdoorGarage: number,
+        outdoorGarageCheck: boolean,
+        carport: number,
+        carportCheck: boolean,
+        solarPanels: number,
+      },
+      personalAccount: {
+        accountType: string,
+        selectedItem: string,
+        selectedResidence: string,
+        sellProperty: string,
+        howSell: string,
       },
       location: {
         lat: number,

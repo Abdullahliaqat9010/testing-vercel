@@ -20,7 +20,11 @@ const StepTwo = () => {
     numberBedrooms,
     numberLevels,
     facadesNumber,
+    gardenTerras,
+    elevator,
+    gardenTerrasValue,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.propertyDetails);
+  const { selectedProperty } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
   const [data, setFormData] = useState({
     livingArea,
@@ -29,6 +33,9 @@ const StepTwo = () => {
     numberBedrooms,
     numberLevels,
     facadesNumber,
+    gardenTerras,
+    elevator,
+    gardenTerrasValue,
   });
 
   const handleClickPrevBtn = () => {
@@ -43,10 +50,10 @@ const StepTwo = () => {
     return false;
   };
 
-  const handleChangeVal = (el) => {
+  const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.value,
+      [el.target.name]: el.target.name === 'gardenTerras' || el.target.name === 'elevator' ? el.target.checked : el.target.value,
     });
   };
 
@@ -103,31 +110,73 @@ const StepTwo = () => {
               <InputGroup.Text>1,000 m²</InputGroup.Text>
             </InputGroup.Append>
           </InputGroup>
-          <InputGroup className='mb-3'>
-            <Form.Label>Land surface</Form.Label>
-            <div className="input-block">
-              <Form.Control name='landSurface' value={ data.landSurface } type="number" onChange={ handleChangeVal }/>
-              <InputGroup.Append>
-                <InputGroup.Text>m²</InputGroup.Text>
-              </InputGroup.Append>
-            </div>
-          </InputGroup>
-          <InputGroup className='range'>
-            <InputGroup.Prepend className='prepend'>
-              <InputGroup.Text>0 m²</InputGroup.Text>
-            </InputGroup.Prepend>
-            <Form.Control
-              name='landSurface'
-              value={data.landSurface}
-              type="range"
-              onChange={ handleChangeVal }
-              min={0}
-              max={20000}
-            />
-            <InputGroup.Append className='append'>
-              <InputGroup.Text>20,000 m²</InputGroup.Text>
-            </InputGroup.Append>
-          </InputGroup>
+          {
+            selectedProperty === 'house' &&
+              <>
+                <InputGroup className='mb-3'>
+                  <Form.Label>Land surface</Form.Label>
+                  <div className="input-block">
+                    <Form.Control name='landSurface' value={ data.landSurface } type="number" onChange={ handleChangeVal }/>
+                    <InputGroup.Append>
+                      <InputGroup.Text>m²</InputGroup.Text>
+                    </InputGroup.Append>
+                  </div>
+                </InputGroup>
+                <InputGroup className='range'>
+                  <InputGroup.Prepend className='prepend'>
+                    <InputGroup.Text>0 m²</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    name='landSurface'
+                    value={data.landSurface}
+                    type="range"
+                    onChange={ handleChangeVal }
+                    min={0}
+                    max={20000}
+                  />
+                  <InputGroup.Append className='append'>
+                    <InputGroup.Text>20,000 m²</InputGroup.Text>
+                  </InputGroup.Append>
+                </InputGroup>
+              </>
+          }
+          {
+            selectedProperty === 'apartment' &&
+              <>
+                <InputGroup>
+                  <Form.Label className='d-flex'>
+                    <Form.Check
+                      value={ data.gardenTerras }
+                      name='gardenTerras'
+                      onChange={ handleChangeVal }
+                      type="checkbox"
+                    />
+                    Garden, terras
+                  </Form.Label>
+                  <div className="input-block">
+                    <Form.Control
+                      name='gardenTerrasValue'
+                      disabled={ !data.gardenTerras }
+                      value={ data.gardenTerrasValue }
+                      type="number"
+                      onChange={ handleChangeVal }
+                    />
+                    <InputGroup.Append>
+                      <InputGroup.Text>m²</InputGroup.Text>
+                    </InputGroup.Append>
+                  </div>
+                </InputGroup>
+                <InputGroup>
+                  <Form.Check
+                    value={ data.elevator }
+                    name='elevator'
+                    onChange={ handleChangeVal }
+                    type="checkbox"
+                    label='Elevator'
+                  />
+                </InputGroup>
+              </>
+          }
           <InputGroup>
             <Form.Label><img src={ FloorsIcon } alt="FloorsIcon"/>Floors</Form.Label>
             <div className="input-block input-border-radius-0">
