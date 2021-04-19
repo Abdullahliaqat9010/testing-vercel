@@ -414,6 +414,9 @@
     .step-two, .step-three, .step-four {
       h4 {
         margin-bottom: 30px;
+        span {
+          text-transform: capitalize;
+        }
       }
 
       .range {

@@ -20,7 +20,6 @@ const StepTwo = () => {
     numberBedrooms,
     numberLevels,
     facadesNumber,
-    gardenTerras,
     elevator,
     gardenTerrasValue,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.propertyDetails);
@@ -33,7 +32,6 @@ const StepTwo = () => {
     numberBedrooms,
     numberLevels,
     facadesNumber,
-    gardenTerras,
     elevator,
     gardenTerrasValue,
   });
@@ -53,22 +51,36 @@ const StepTwo = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.name === 'gardenTerras' || el.target.name === 'elevator' ? el.target.checked : el.target.value,
+      [el.target.name]: el.target.name === 'elevator' ? el.target.checked : el.target.value,
     });
   };
 
   const handleAddNumber = (elName: string) => {
-    setFormData({
-      ...data,
-      [elName]: ++data[elName],
-    });
+    if (elName === 'facadesNumber') {
+      setFormData({
+        ...data,
+        facadesNumber: data.facadesNumber < 4 ? ++data.facadesNumber : 4,
+      });
+    } else {
+      setFormData({
+        ...data,
+        [elName]: ++data[elName],
+      });
+    }
   };
 
   const handleSubtractNumber = (elName: string) => {
-    setFormData({
-      ...data,
-      [elName]: data[elName] > 1 ? --data[elName] : 1,
-    });
+    if (elName === 'facadesNumber') {
+      setFormData({
+        ...data,
+        facadesNumber: data.facadesNumber > 2 ? --data.facadesNumber : 2,
+      });
+    } else {
+      setFormData({
+        ...data,
+        [elName]: data[elName] > 1 ? --data[elName] : 1,
+      });
+    }
   };
 
   const disabledButton = () => {
@@ -82,7 +94,7 @@ const StepTwo = () => {
   return (
     <div className='step-two'>
       <span className="step-title">Step 2</span>
-      <h4>Home details</h4>
+      <h4><span>{ selectedProperty === 'house' ? 'home': selectedProperty }</span> details</h4>
       <Form>
         <Form.Row>
           <InputGroup className='mb-3'>
@@ -145,18 +157,11 @@ const StepTwo = () => {
               <>
                 <InputGroup>
                   <Form.Label className='d-flex'>
-                    <Form.Check
-                      value={ data.gardenTerras }
-                      name='gardenTerras'
-                      onChange={ handleChangeVal }
-                      type="checkbox"
-                    />
                     Garden, terras
                   </Form.Label>
                   <div className="input-block">
                     <Form.Control
                       name='gardenTerrasValue'
-                      disabled={ !data.gardenTerras }
                       value={ data.gardenTerrasValue }
                       type="number"
                       onChange={ handleChangeVal }
@@ -189,18 +194,21 @@ const StepTwo = () => {
               </InputGroup.Append>
             </div>
           </InputGroup>
-          <InputGroup>
-            <Form.Label><img src={ FacadesIcon } alt="FloorsIcon"/>Facades</Form.Label>
-            <div className="input-block input-border-radius-0">
-              <InputGroup.Prepend>
-                <InputGroup.Text onClick={ () => handleSubtractNumber('facadesNumber') }>-</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control value={ data.facadesNumber } readOnly type="number"/>
-              <InputGroup.Append>
-                <InputGroup.Text onClick={ () => handleAddNumber('facadesNumber') }>+</InputGroup.Text>
-              </InputGroup.Append>
-            </div>
-          </InputGroup>
+          {
+            selectedProperty === 'house' &&
+            <InputGroup>
+              <Form.Label><img src={ FacadesIcon } alt="FloorsIcon"/>Facades</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('facadesNumber') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.facadesNumber } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('facadesNumber') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+          }
           <InputGroup>
             <Form.Label><img src={ BedroomsIcon } alt="BedroomsIcon"/>Bedrooms</Form.Label>
             <div className="input-block input-border-radius-0">

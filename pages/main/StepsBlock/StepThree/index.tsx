@@ -96,7 +96,11 @@ const StepThree = () => {
   return (
     <div className='step-three'>
       <span className="step-title">Step 3</span>
-      <h4>Home details <span className="optional">(Optional)</span></h4>
+      <h4>
+        <span>
+          { selectedProperty === 'house' ? 'home': selectedProperty }
+        </span> details <span className="optional">(Optional)</span>
+      </h4>
       <div className="group-block d-flex flex-column">
         <span className="form-label">Prestige / quality of the home</span>
         <ButtonGroup aria-label='prestige' className='custom-btn-group'>
@@ -195,19 +199,6 @@ const StepThree = () => {
               }
             </Dropdown.Menu>
           </Dropdown>
-          {/*<Form.Control*/}
-          {/*  name='renovationYear'*/}
-          {/*  onChange={handleChangeVal}*/}
-          {/*  value={data.renovationYear}*/}
-          {/*  as="select"*/}
-          {/*  className='custom-select'*/}
-          {/*>*/}
-          {/*  {*/}
-          {/*    renovatedYearList.map((item,index) =>*/}
-          {/*      <option key={index}>{item.label}</option>*/}
-          {/*    )*/}
-          {/*  }*/}
-          {/*</Form.Control>*/}
         </Form.Group>
         <InputGroup>
           <Form.Label className='d-flex'>

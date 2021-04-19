@@ -204,9 +204,9 @@ const CreatePersonalAccount = () => {
             </div>
         }
         {
-          activePrivateBlock === 'homeowner' && activeTab === 'private' &&
+          activePrivateBlock && activeTab === 'private' &&
           <>
-            <span className="label">What kind of home do you own?</span>
+            <span className="label">This home is</span>
             <Dropdown>
               <Dropdown.Toggle>
                 { kindOfHomeValue }
