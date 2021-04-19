@@ -19,14 +19,32 @@ import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slid
 const ImagesBlock = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState(null);
-  const [geoLocation, setGeoLocation] = useState({});
+  const [geoLocation, setGeoLocation] = useState({
+    lat: null,
+    lng: null
+  });
+
+  const [dataInfo, setData] = useState({});
 
   const handleChangeValue = async (el: any) => {
     setValue(el);
     const results = await geocodeByAddress(el.label);
     const getLocations = await getLatLng(results[0]);
 
+    const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
+    const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
+    const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
+    const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+
+    const dataForNextStep = {
+      locality,
+      number,
+      street,
+      zip
+    }
+
     console.log('Successfully got latitude and longitude');
+    setData({...dataForNextStep})
     setGeoLocation(getLocations);
   };
 
@@ -38,6 +56,7 @@ const ImagesBlock = () => {
     const data = {
       infoFromAutoComplete: value.label,
       location: {...geoLocation},
+      additionalAddress: {...dataInfo}
     };
 
     dispatch(openMainStepsAction(data));
@@ -70,7 +89,7 @@ const ImagesBlock = () => {
             apiOptions={ {language: 'en'} }
           />
         </div>
-        <Button disabled={ !value } onClick={ goToMainSteps }>Get Free Estimation</Button>
+        <Button disabled={ !geoLocation.lng && !geoLocation.lng } onClick={ goToMainSteps }>Get Free Estimation</Button>
       </div>
     </div>
   );

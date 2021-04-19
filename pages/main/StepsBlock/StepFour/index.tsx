@@ -30,9 +30,7 @@ const StepFour = () => {
     epc,
     view,
     orientation,
-    attic,
     atticValue,
-    cellar,
     cellarValue,
     elevator,
     swimmingPool,
@@ -50,9 +48,7 @@ const StepFour = () => {
     epc,
     view,
     orientation,
-    attic,
     atticValue,
-    cellar,
     cellarValue,
     elevator,
     swimmingPool,
@@ -70,9 +66,7 @@ const StepFour = () => {
   };
 
   const checkIfCheckbox = (name: string) => {
-    return name === 'attic'
-      || name === 'cellar'
-      || name === 'swimmingPool'
+    return name === 'swimmingPool'
       || name === 'elevator'
       || name === 'indoorGarageCheck'
       || name === 'outdoorGarageCheck'
@@ -129,7 +123,11 @@ const StepFour = () => {
   return (
     <div className='step-four'>
       <span className="step-title">Step 3</span>
-      <h4>Home details <span className="optional">(Optional)</span></h4>
+      <h4>
+        <span>
+          { selectedProperty === 'house' ? 'home': selectedProperty }
+        </span> details <span className="optional">(Optional)</span>
+      </h4>
       <Form>
         <InputGroup className='epc'>
           <Form.Label className='d-flex'>
@@ -236,12 +234,10 @@ const StepFour = () => {
         </div>
         <InputGroup>
           <Form.Label className='d-flex'>
-            <Form.Check name='attic' onChange={ handleChangeVal } defaultChecked={ data.attic } type="checkbox"/>
             Attic
           </Form.Label>
           <div className="input-block">
             <Form.Control
-              disabled={ !data.attic }
               name='atticValue'
               value={ data.atticValue }
               onChange={ handleChangeVal }
@@ -254,12 +250,10 @@ const StepFour = () => {
         </InputGroup>
         <InputGroup>
           <Form.Label className='d-flex'>
-            <Form.Check name='cellar' onChange={ handleChangeVal } defaultChecked={ data.cellar } type="checkbox"/>
             Cellar
           </Form.Label>
           <div className="input-block">
             <Form.Control
-              disabled={ !data.cellar }
               name='cellarValue'
               value={ data.cellarValue }
               onChange={ handleChangeVal }
