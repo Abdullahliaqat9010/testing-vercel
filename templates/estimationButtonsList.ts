@@ -17,6 +17,6 @@ export const estimationButtonsList = [
   },
   {
     id: 'way_too_high',
-    title: 'Way to high',
+    title: 'Way too high',
   },
 ];

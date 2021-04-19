@@ -46,6 +46,7 @@ const HeaderContainer = ({title}: { title: string }) => {
       <Head>
         <title>{ title }</title>
         <link rel="icon" href={ '/favicon.ico' }/>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
         <Image className='logo' src={ Logo } alt='Logo'/>
@@ -82,41 +83,46 @@ const HeaderContainer = ({title}: { title: string }) => {
           auth ?
             <div className="right-block d-flex align-items-center">
               {
-                !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-              }
-              <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown" onClick={ isActive }>
-                <NavDropdown.Item className='pro-workspace'>
-                  <img src={ ProIcon } alt="ProIcon"/>
-                  Go to my pro workspace
-                </NavDropdown.Item>
-                {
-                  isMobile &&
-                  <Button onClick={goToMainPage} className='add-property-mobile'>
-                    <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
-                  </Button>
-                }
-                {
-                  navBarList.map((list, index) => (
-                    <NavDropdown.Item href={ list.href } key={ index }>
-                      <img src={ list.img } alt={ list.title }/>
-                      { list.title }
-                    </NavDropdown.Item>
-                  ))
-                }
-                {
-                  isMobile &&
-                  <div className="mobile-block">
-                    <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                    <span className="user-name">{ userName + ' ' + userSurname }</span>
-                    <span className="pro">PRO</span>
-                  </div>
-                }
-              </NavDropdown>
-              {
-                !openMenu &&
-                <Button className='add-property' onClick={goToMainPage}>
-                  <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
-                </Button>
+                !mainBlocks &&
+                  <>
+                    {
+                      !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                    }
+                    <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown" onClick={ isActive }>
+                      <NavDropdown.Item className='pro-workspace'>
+                        <img src={ ProIcon } alt="ProIcon"/>
+                        Go to my pro workspace
+                      </NavDropdown.Item>
+                      {
+                        isMobile &&
+                        <Button onClick={goToMainPage} className='add-property-mobile'>
+                          <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
+                        </Button>
+                      }
+                      {
+                        navBarList.map((list, index) => (
+                          <NavDropdown.Item href={ list.href } key={ index }>
+                            <img src={ list.img } alt={ list.title }/>
+                            { list.title }
+                          </NavDropdown.Item>
+                        ))
+                      }
+                      {
+                        isMobile &&
+                        <div className="mobile-block">
+                          <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                          <span className="user-name">{ userName + ' ' + userSurname }</span>
+                          <span className="pro">PRO</span>
+                        </div>
+                      }
+                    </NavDropdown>
+                    {
+                      !openMenu &&
+                      <Button className='add-property' onClick={goToMainPage}>
+                        <img src={ AddIcon } alt="AddIcon"/><span>Add a property</span>
+                      </Button>
+                    }
+                  </>
               }
             </div>
             :

@@ -1,7 +1,7 @@
 import { AgentsItem } from '../types/agents';
 
-import Agency from '../assets/images/agents/label-immo-logo.jpeg';
-import AgencyMobile from '../assets/images/agents/label-immo-logo.jpeg';
+import Agency from '../assets/images/agents/label-immo-logo.png';
+import AgencyMobile from '../assets/images/agents/label-immo-logo.png';
 import ThierryAvatar from '../assets/images/agents/thierry-hermanne.jpeg';
 // import AgentTwo from '../assets/images/agents/agent2.png';
 // import AgentTwoMobile from '../assets/images/agents/agent2-mobile.png';

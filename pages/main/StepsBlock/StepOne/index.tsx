@@ -68,9 +68,6 @@ const StepTwo = () => {
     if (!data.number.length) {
       return true;
     }
-    if (!data.boxNumber.length) {
-      return true;
-    }
     if (!selectedProperty.length) {
       return true;
     }
@@ -115,7 +112,7 @@ const StepTwo = () => {
           </Form.Group>
           <Form.Group controlId="locality">
             <Form.Label>Locality</Form.Label>
-            <Form.Control type="number" name='locality' value={ data.locality } onChange={ handleChangeVal }/>
+            <Form.Control name='locality' value={ data.locality } onChange={ handleChangeVal }/>
           </Form.Group>
         </Form.Row>
       </Form>
