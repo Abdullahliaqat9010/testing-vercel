@@ -414,6 +414,7 @@
     .step-two, .step-three, .step-four {
       h4 {
         margin-bottom: 30px;
+
         span {
           text-transform: capitalize;
         }
@@ -1056,7 +1057,7 @@
     }
   }
 
-  @media (min-width: 375px) and (max-width: 425px) {
+  @media (min-width: 375px) and (max-width: 600px) {
     .image-carousel {
       img {
         border-radius: unset;
@@ -1065,7 +1066,8 @@
 
       &__popup {
         left: calc(50% - 172px);
-        top: 200px;
+        top: 70%;
+        //top: 200px;
         padding: 30px;
         width: 343px;
 
@@ -1092,6 +1094,7 @@
       p {
         width: 100%;
         text-align: center;
+        margin: 0 auto 30px;
       }
 
       button {
@@ -1123,6 +1126,12 @@
         margin-top: 80px;
         padding: unset;
         flex-direction: column;
+
+        .left-block {
+          width: 100% !important;
+          display: flex;
+          justify-content: center;
+        }
       }
 
       &__bottom {

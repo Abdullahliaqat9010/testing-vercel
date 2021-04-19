@@ -82,6 +82,7 @@ const stepsReducer = (state = initialState, action: any) => {
           ...state.stepBlock,
           addressFromStepOne: action.payload.infoFromAutoComplete,
           location: {...action.payload.location},
+          additionalAddress: {...action.payload.additionalAddress},
         },
       };
     case actionType.PREV_STEP_REQUEST:

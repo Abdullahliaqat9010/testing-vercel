@@ -4,7 +4,7 @@ import { isMobile } from 'react-device-detect';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
-import Link from 'next/link'
+// import Link from 'next/link'
 
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
@@ -97,9 +97,9 @@ const Agency = ({agency}: AgencyProps) => {
             >
               Contact { agency.moreInfo.agentName }
             </Button>
-            <Link href={ '/agency' }>
+            {/*<Link href={ '/agency' }>*/}
               <span className="details">Agency details <img src={ArrowImage} alt="ArrowImage"/></span>
-            </Link>
+            {/*</Link>*/}
           </div>
           {
             !isMobile &&
