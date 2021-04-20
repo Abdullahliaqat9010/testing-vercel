@@ -9,6 +9,7 @@ export interface RootState {
       agencyId: number
     },
     properties: any, //@todo add interface
+    mainProperty: any, //@todo add interface
     userName: string,
     userSurname: string,
     userEmail: string,

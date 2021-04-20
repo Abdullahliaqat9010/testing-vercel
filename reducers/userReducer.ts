@@ -37,6 +37,7 @@ export const initialState = {
     agencyId: null,
   },
   properties: [],
+  mainProperty: {},
   userName,
   userSurname,
   userEmail,
@@ -71,11 +72,17 @@ const userReducer = (state = initialState, action: any) => {
           agencyId: null,
         },
       };
-    case actionType.GET_USER_PROPERTY_SUCCESS: {
+    case actionType.GET_USER_PROPERTY_SUCCESS:
       return {
         ...state,
-        properties: [...action.payload]
+        properties: [...action.payload],
+        mainProperty: action.payload[action.payload.length - 1]
       };
+    case actionType.GET_USER_PROPERTY_ERROR: {
+      return {
+        ...state,
+        errors: action.payload
+      }
     }
     default:
       return {
