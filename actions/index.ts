@@ -81,3 +81,8 @@ export const getPropertyForCurrentUserAction = (userId: number) => ({
   type: actionType.GET_USER_PROPERTY_REQUEST,
   payload: userId,
 })
+
+export const getPriceForPropertyAction = (propertyId: number) => ({
+  type: actionType.GET_PRICE_PROPERTY_REQUEST,
+  payload: propertyId,
+})

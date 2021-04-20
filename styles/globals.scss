@@ -30,14 +30,18 @@ body {
   margin-left: 156px;
 }
 
+.ml-67 {
+  margin-left: 67px;
+}
+
 #price-block {
-  width: 130px;
+  //width: 130px;
+  padding: 20px;
   height: 69px;
   z-index: 20;
 
   box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
   border-radius: 8px;
-  padding: unset;
   inset: auto auto 12px 0 !important;
 
   .gray {
@@ -71,7 +75,7 @@ body {
     }
   }
 
-  @media (min-width: 375px) and (max-width: 600px) {
+  @media (min-width: 375px) and (max-width: 768px) {
     opacity: 1;
   }
 }

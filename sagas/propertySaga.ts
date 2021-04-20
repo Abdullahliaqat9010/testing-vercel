@@ -54,7 +54,7 @@ function* getPropertyForCurrentUser({payload}: any) {
     }
 
   } catch (error) {
-    yield getPropertyForCurrentUserError(error)
+    yield getPropertyForCurrentUserError(error);
   }
 }
 
@@ -64,6 +64,7 @@ function* getPropertyForCurrentUserSuccess(data: object) {
     payload: data,
   });
 }
+
 function* getPropertyForCurrentUserError(error: string) {
   yield put({
     type: actionType.GET_USER_PROPERTY_ERROR,
@@ -71,7 +72,44 @@ function* getPropertyForCurrentUserError(error: string) {
   });
 }
 
+function* getPriceProperty({payload}: any) {
+  try {
+    const token = localStorage.getItem('auth');
+    const res = yield fetch(`${ config.apiDomain }/property/${payload}/estimation`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token,
+      },
+    });
+    // console.log(res);
+    if (res.status === 200) {
+      const data = yield res.json();
+      console.log(data);
+      // yield getPricePropertySuccess(data);
+    }
+
+  } catch (error) {
+    yield getPricePropertyError(error);
+  }
+}
+
+function* getPricePropertySuccess(data: object) {
+  yield put({
+    type: actionType.GET_PRICE_PROPERTY_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getPricePropertyError(error: string) {
+  yield put({
+    type: actionType.GET_PRICE_PROPERTY_ERROR,
+    payload: error,
+  });
+}
+
 export function* propertySaga() {
   yield takeLatest(actionType.CREATE_PROPERTY_REQUEST, createPropertyRequest);
   yield takeLatest(actionType.GET_USER_PROPERTY_REQUEST, getPropertyForCurrentUser);
+  yield takeLatest(actionType.GET_PRICE_PROPERTY_REQUEST, getPriceProperty);
 }

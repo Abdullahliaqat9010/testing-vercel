@@ -42,6 +42,8 @@ const CreatePersonalAccount = () => {
     selectedProperty,
     propertyDetails,
     personalAccount,
+    details,
+    utilities,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const {accountType, selectedItem, selectedResidence, sellProperty, howSell} = personalAccount;
   const [data, setData] = useState({accountType, selectedItem, selectedResidence, sellProperty, howSell});
@@ -62,19 +64,45 @@ const CreatePersonalAccount = () => {
       const parseData = parseJwt(userToken);
       dispatch(createPropertyRequestAction({
         leadId: parseData.id,
-        search_address: addressFromStepOne,
+        search_address: String(addressFromStepOne),
+        country: String(additionalAddress.country),
+        street: String(additionalAddress.street),
+        street_number: String(additionalAddress.number),
+        box_number: String(additionalAddress.boxNumber),
+        zip: String(additionalAddress.zip),
+        locality: String(additionalAddress.locality),
+        property_type: String(selectedProperty),
+        live_area: Number(propertyDetails.livingArea),
+        total_area: Number(propertyDetails.landSurface),
+        bedrooms: Number(propertyDetails.numberBedrooms),
+        bathrooms: Number(propertyDetails.numberBathrooms),
+        floor: Number(propertyDetails.numberLevels),
+        // levels: Number(),   //number of floors
+        prestige: String(details.prestige),
+        facades: Number(propertyDetails.facadesNumber),
+        construction_year: Number(details.constructionYear),
+        renov_year: Number(details.renovationYear),
+        renov_level: Number(details.renovationLevel),
+        epc: Number(utilities.epc),
+        view: String(utilities.view),
+        orientation_terras: String(utilities.orientation),
+        attic: Number(utilities.atticValue),
+        cellar: Number(utilities.cellarValue),
+        elevator: Boolean(utilities.elevator),
+        pool: Boolean(utilities.swimmingPool),
+        indoor_garage: Number(utilities.indoorGarage),
+        outdoor_garage: Number(utilities.outdoorGarage),
+        carport: Number(utilities.carport),
+        solar_panels: Number(utilities.solarPanels),
+        owner: Boolean(activePrivateBlock === 'homeowner'),
+        interest: String(data.sellProperty),
+        selling_way: String(data.howSell),
+        state: String(details.condition),
+        source: 'immoBelgium',
+        status: 'for_sale',
+        residence_type: String(data.selectedResidence),
         lat: location.lat,
         lng: location.lng,
-        property_type: selectedProperty,
-        live_area: +propertyDetails.livingArea,
-        total_area: +propertyDetails.landSurface,
-        bedrooms: propertyDetails.numberBedrooms,
-        bathrooms: propertyDetails.numberBathrooms,
-        levels: propertyDetails.numberLevels,
-        street: additionalAddress.street,
-        street_number: additionalAddress.number,
-        zip: additionalAddress.zip,
-        locality: +additionalAddress.locality,
       }));
     }
   };
@@ -249,7 +277,7 @@ const CreatePersonalAccount = () => {
               </Dropdown.Menu>
             </Dropdown>
             {
-              data.sellProperty === 'started' &&
+              data.sellProperty === 'in_process' &&
               <>
                 <span className="label">How are you selling your home?</span>
                 <Dropdown>

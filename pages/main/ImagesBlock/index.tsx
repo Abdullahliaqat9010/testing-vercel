@@ -35,12 +35,14 @@ const ImagesBlock = () => {
     const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
     const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
     const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+    const country = results[0].address_components.filter(res => res.types[0] === 'country')[0]?.short_name || '';
 
     const dataForNextStep = {
       locality,
       number,
       street,
-      zip
+      zip,
+      country,
     }
 
     console.log('Successfully got latitude and longitude');
