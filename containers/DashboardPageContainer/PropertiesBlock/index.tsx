@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { isMobile } from 'react-device-detect';
 
 import { Button } from 'react-bootstrap';
+
+import { RootState } from '../../../types/state';
 
 import GoogleMap from '../../../components/GoogleMap';
 import PropertyBlock from '../../../containers/Property';
@@ -13,6 +16,7 @@ import { propertiesList } from '../../../templates/propertiesList';
 const PropertiesBlock = () => {
   const elementsOnPage = 3;
   const [sizeArr, setSizeArr] = useState(3);
+  const { mainProperty } = useSelector((state: RootState) => state.userInfo);
   const properties = isMobile ? propertiesList.slice(0, sizeArr) : propertiesList;
 
   const loadMore = () => {
@@ -24,7 +28,7 @@ const PropertiesBlock = () => {
       {
         !isMobile &&
         <div className="map-block w-50">
-          <GoogleMap/>
+          <GoogleMap lng={Number(mainProperty.lng)} lat={Number(mainProperty.lat)}/>
         </div>
       }
       <div className="properties-list w-50">

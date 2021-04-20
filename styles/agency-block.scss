@@ -166,10 +166,11 @@
         margin: 20px 0;
         font-family: var(--fontNunitoBold);
         line-height: 22px;
-        width: 155px;
+        min-width: 155px;
+        width: max-content;
         height: 50px;
 
-        background: #3871EF;
+        background: var(--colorBlue);
         border-radius: 8px;
       }
 

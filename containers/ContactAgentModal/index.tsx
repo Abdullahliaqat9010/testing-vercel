@@ -25,12 +25,13 @@ const ContactAgentModal = () => {
     agree: false,
   });
 
+  const [validated, setValidated] = useState(false);
+
   useEffect(() => {
     if (properties.length > 0) {
       setData({...data, selectedProperty: properties[0].search_address});
     }
   }, [properties]);
-
 
   const handleCloseModal = () => {
     dispatch(closeModalWindowContactAgentAction());
@@ -43,18 +44,31 @@ const ContactAgentModal = () => {
     });
   };
 
+  const validation = () => {
+    return data.fullName.length > 0
+      && data.phone.length > 0
+      && data.email.length > 0
+      && data.desc.length > 0
+      && data.selectedProperty.length > 0;
+  };
+
   const sendToAgency = () => {
-    const findProp = properties.find(property => property.search_address === data.selectedProperty);
+    if (validation()) {
 
-    const dataInfo = {
-      agentId: agencyContactInfo.agencyId,
-      phone: data.phone,
-      message: data.desc,
-      propertyId: findProp.id,
-      free_evaluated: data.agree,
-    };
+      const findProp = properties.find(property => property.search_address === data.selectedProperty);
 
-    dispatch(contactAgencyAction(dataInfo));
+      const dataInfo = {
+        agentId: agencyContactInfo.agencyId,
+        phone: data.phone,
+        message: data.desc,
+        propertyId: findProp.id,
+        free_evaluated: data.agree,
+      };
+
+      dispatch(contactAgencyAction(dataInfo));
+    }
+
+    setValidated(true);
   };
 
   return (
@@ -70,41 +84,63 @@ const ContactAgentModal = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form noValidate validated={ validated }>
           <Form.Group controlId="fullName">
             <Form.Label>First and Last name</Form.Label>
             <Form.Control
+              required
               onChange={ handleOnChange }
               name='fullName'
               type="text"
               value={ data.fullName }
             />
+            <Form.Control.Feedback type="invalid">
+              This field is required
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="phone">
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
+              required
               onChange={ handleOnChange }
               name='phone'
               type="text"
               placeholder="Please enter"
               value={ data.phone }
             />
+            <Form.Control.Feedback type="invalid">
+              This field is required
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
+              required
               onChange={ handleOnChange }
               name='email'
               type="email"
               value={ data.email }
             />
+            <Form.Control.Feedback type="invalid">
+              This field is required
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="desc">
             <Form.Label>Example textarea</Form.Label>
-            <Form.Control value={ data.desc } as="textarea" rows={ 5 } name='desc' onChange={ handleOnChange }/>
+            <Form.Control
+              required
+              value={ data.desc }
+              as="textarea"
+              rows={ 5 }
+              name='desc'
+              onChange={ handleOnChange }
+            />
+            <Form.Control.Feedback type="invalid">
+              This field is required
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="select-property">
             <Form.Label>Select your property</Form.Label>

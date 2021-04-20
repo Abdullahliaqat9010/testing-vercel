@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 
 import StarRatingComponent from 'react-star-rating-component';
@@ -11,12 +11,16 @@ import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 
 import { modalWindowContactAgentAction } from '../../actions';
+
+import { RootState } from '../../types/state';
 import { AgencyProps } from '../../types/agents';
 
 import GoogleMap from '../../components/GoogleMap';
 
+
 const Agency = ({agency}: AgencyProps) => {
   const dispatch = useDispatch();
+  const { mainProperty } = useSelector((state: RootState) => state.userInfo);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
   const openMoreInfo = () => {
@@ -29,7 +33,7 @@ const Agency = ({agency}: AgencyProps) => {
 
   return (
     <div className="agency-block">
-      <div className="short-info d-flex align-items-center">
+      <div className="short-info d-flex align-items-center" onClick={ openMoreInfo }>
         <div className="short-info__left d-flex align-items-center w-55">
           <div className="logo-block">
             <img src={ isMobile ? agency.logoMobile : agency.logo } alt={ agency.title }/>
@@ -64,11 +68,11 @@ const Agency = ({agency}: AgencyProps) => {
           <div className="address">
             <p>similar properties sold</p>
             <p className='d-flex'>to
-              <span className="address__bold">Route des Cent Ecus, 24370 Sainte Mondane</span>
+              <span className="address__bold">{ mainProperty?.search_address }</span>
             </p>
           </div>
         </div>
-        <span onClick={ openMoreInfo } className={ `action-btn ${showMoreInfo ? ' open' : ''}` }/>
+        <span className={ `action-btn ${showMoreInfo ? ' open' : ''}` }/>
       </div>
       {
         showMoreInfo &&
@@ -98,7 +102,17 @@ const Agency = ({agency}: AgencyProps) => {
               Contact { agency.moreInfo.agentName }
             </Button>
             {/*<Link href={ '/agency' }>*/}
-              <span className="details">Agency details <img src={ArrowImage} alt="ArrowImage"/></span>
+              <span
+                className="details"
+                onClick={() => openContactModal({
+                  title: agency.title,
+                  agencyId: agency.id,
+                  agentName: agency.moreInfo.agentName,
+                  agentSurname: agency.moreInfo.agentSurname,
+                })}
+              >
+                Agency details <img src={ArrowImage} alt="ArrowImage"/>
+              </span>
             {/*</Link>*/}
           </div>
           {

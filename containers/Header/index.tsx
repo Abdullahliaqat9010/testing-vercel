@@ -49,7 +49,7 @@ const HeaderContainer = ({title}: { title: string }) => {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <Image className='logo' src={ Logo } alt='Logo'/>
+        <Image className={ `logo ${auth ? 'ml-67' : ''}` } src={ Logo } alt='Logo'/>
         {
           mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>
