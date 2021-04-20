@@ -30,6 +30,10 @@ body {
   margin-left: 156px;
 }
 
+.ml-67 {
+  margin-left: 67px;
+}
+
 #price-block {
   //width: 130px;
   padding: 20px;
@@ -71,7 +75,7 @@ body {
     }
   }
 
-  @media (min-width: 375px) and (max-width: 600px) {
+  @media (min-width: 375px) and (max-width: 768px) {
     opacity: 1;
   }
 }
