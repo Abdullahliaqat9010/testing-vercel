@@ -37,6 +37,7 @@ export const initialState = {
     agencyId: null,
   },
   properties: [],
+  currentPropertyPrice: '',
   mainProperty: {},
   userName,
   userSurname,
@@ -84,6 +85,11 @@ const userReducer = (state = initialState, action: any) => {
         errors: action.payload
       }
     }
+    case actionType.GET_PRICE_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        currentPropertyPrice: action.payload
+      }
     default:
       return {
         ...state,

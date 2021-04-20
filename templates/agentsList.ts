@@ -6,6 +6,9 @@ import ThierryAvatar from '../assets/images/agents/thierry-hermanne.jpeg';
 import AgencyTwo from '../assets/images/agents/waw-immo-logo.png';
 import AgencyTwoMobile from '../assets/images/agents/waw-immo-logo.png';
 import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.jpeg';
+import AgencyTest from '../assets/images/agents/test-agency.png';
+import AgencyTestMobile from '../assets/images/agents/test-agency.png';
+import TestAvatar from '../assets/images/no-photo.png';
 
 
 export const agentsList: AgentsItem[] = [
@@ -52,6 +55,29 @@ export const agentsList: AgentsItem[] = [
       agentSurname: 'Legrand',
       position: 'Agency owner',
       avatar: AlexandreAvatar,
+      desc: ''
+    }
+  },
+  {
+    id: 99,
+    title: 'Test Agency',
+    rate: '5.0',
+    reviews: '120',
+    logo: AgencyTest,
+    logoMobile: AgencyTestMobile,
+    count: 17,
+    agencyAddress: 'Test Agency',
+    location: {
+      lat: 50.6292036,
+      lng: 5.566588299999999
+    },
+    email: 'test@test.test',
+    nearest: true,
+    moreInfo: {
+      agentName: 'Test',
+      agentSurname: 'Agency',
+      position: 'Agency owner',
+      avatar: TestAvatar,
       desc: ''
     }
   },

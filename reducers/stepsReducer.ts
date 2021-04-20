@@ -12,6 +12,7 @@ export const initialState = {
       boxNumber: '',
       zip: '',
       locality: '',
+      country: '',
     },
     selectedProperty: '',
     propertyDetails: {
@@ -36,7 +37,7 @@ export const initialState = {
     utilities: {
       epc: '',
       view: 'normal',
-      orientation: 'north',
+      orientation: 'N',
       atticValue: '',
       cellarValue: '',
       elevator: false,
@@ -82,7 +83,10 @@ const stepsReducer = (state = initialState, action: any) => {
           ...state.stepBlock,
           addressFromStepOne: action.payload.infoFromAutoComplete,
           location: {...action.payload.location},
-          additionalAddress: {...action.payload.additionalAddress},
+          additionalAddress: {
+            ...state.stepBlock.additionalAddress,
+            ...action.payload.additionalAddress
+          },
         },
       };
     case actionType.PREV_STEP_REQUEST:
@@ -107,7 +111,10 @@ const stepsReducer = (state = initialState, action: any) => {
         ...state,
         stepBlock: {
           ...state.stepBlock,
-          additionalAddress: {...action.payload},
+          additionalAddress: {
+            ...state.stepBlock.additionalAddress,
+            ...action.payload
+          },
         },
       };
       case actionType.CREATE_PROPERTY_SUCCESS:

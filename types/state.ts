@@ -10,6 +10,7 @@ export interface RootState {
     },
     properties: any, //@todo add interface
     mainProperty: any, //@todo add interface
+    currentPropertyPrice: string,
     userName: string,
     userSurname: string,
     userEmail: string,
@@ -27,6 +28,7 @@ export interface RootState {
         boxNumber: string,
         zip: string,
         locality: string,
+        country: string,
       },
       selectedProperty: string,
       propertyDetails: {
@@ -51,7 +53,7 @@ export interface RootState {
       utilities: {
         epc: string | number,
         view: 'normal' | 'enclosed' | 'good' | 'unique',
-        orientation: string,
+        orientation: 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW',
         atticValue: string | number,
         cellarValue: string | number,
         elevator: boolean,

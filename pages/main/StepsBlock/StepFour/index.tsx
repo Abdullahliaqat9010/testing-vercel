@@ -87,7 +87,7 @@ const StepFour = () => {
     });
   };
 
-  const selectOrientation = (name: string) => {
+  const selectOrientation = (name: "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW") => {
     setFormData({
       ...data,
       orientation: name,
@@ -184,51 +184,51 @@ const StepFour = () => {
           <div className="terras-block">
             <img
               className='north'
-              src={ data.orientation === 'north' ? NorthActive : NorthInactive }
+              src={ data.orientation === 'N' ? NorthActive : NorthInactive }
               alt="North"
-              onClick={ () => selectOrientation('north') }
+              onClick={ () => selectOrientation('N') }
             />
             <img
               className='north-east'
-              src={ data.orientation === 'north-east' ? NorthEastActive : NorthEastInactive }
+              src={ data.orientation === 'NE' ? NorthEastActive : NorthEastInactive }
               alt="North-East"
-              onClick={ () => selectOrientation('north-east') }
+              onClick={ () => selectOrientation('NE') }
             />
             <img
               className='east'
-              src={ data.orientation === 'east' ? EastActive : EastInactive }
+              src={ data.orientation === 'E' ? EastActive : EastInactive }
               alt="East"
-              onClick={ () => selectOrientation('east') }
+              onClick={ () => selectOrientation('E') }
             />
             <img
               className='south-east'
-              src={ data.orientation === 'south-east' ? SouthEastActive : SouthEastInactive }
+              src={ data.orientation === 'SE' ? SouthEastActive : SouthEastInactive }
               alt="South-East"
-              onClick={ () => selectOrientation('south-east') }
+              onClick={ () => selectOrientation('SE') }
             />
             <img
               className='south'
-              src={ data.orientation === 'south' ? SouthActive : SouthInactive }
+              src={ data.orientation === 'S' ? SouthActive : SouthInactive }
               alt="South"
-              onClick={ () => selectOrientation('south') }
+              onClick={ () => selectOrientation('S') }
             />
             <img
               className='south-west'
-              src={ data.orientation === 'south-west' ? SouthWestActive : SouthWestInactive }
+              src={ data.orientation === 'SW' ? SouthWestActive : SouthWestInactive }
               alt="South-West"
-              onClick={ () => selectOrientation('south-west') }
+              onClick={ () => selectOrientation('SW') }
             />
             <img
               className='west'
-              src={ data.orientation === 'west' ? WestActive : WestInactive }
+              src={ data.orientation === 'W' ? WestActive : WestInactive }
               alt="West"
-              onClick={ () => selectOrientation('west') }
+              onClick={ () => selectOrientation('W') }
             />
             <img
               className='north-west'
-              src={ data.orientation === 'north-west' ? NorthWestActive : NorthWestInactive }
+              src={ data.orientation === 'NW' ? NorthWestActive : NorthWestInactive }
               alt="North-West"
-              onClick={ () => selectOrientation('north-west') }
+              onClick={ () => selectOrientation('NW') }
             />
           </div>
         </div>

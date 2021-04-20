@@ -17,7 +17,10 @@ const FinalStep = () => {
     additionalAddress,
     location,
     selectedProperty,
-    propertyDetails
+    propertyDetails,
+    details,
+    utilities,
+    personalAccount
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [data, setFormData] = useState({
     firstName: '',
@@ -48,19 +51,45 @@ const FinalStep = () => {
       dispatch(setUserDataAction(data));
       dispatch(sendStepsDataRequestAction({
         property: {
-          search_address: addressFromStepOne,
+          search_address: String(addressFromStepOne),
+          country: String(additionalAddress.country),
+          street: String(additionalAddress.street),
+          street_number: String(additionalAddress.number),
+          box_number: String(additionalAddress.boxNumber),
+          zip: String(additionalAddress.zip),
+          locality: String(additionalAddress.locality),
+          property_type: String(selectedProperty),
+          live_area: Number(propertyDetails.livingArea),
+          total_area: Number(propertyDetails.landSurface),
+          bedrooms: Number(propertyDetails.numberBedrooms),
+          bathrooms: Number(propertyDetails.numberBathrooms),
+          floor: Number(propertyDetails.numberLevels),
+          // levels: Number(),   //number of floors
+          prestige: String(details.prestige),
+          facades: Number(propertyDetails.facadesNumber),
+          construction_year: Number(details.constructionYear),
+          renov_year: Number(details.renovationYear),
+          renov_level: Number(details.renovationLevel),
+          epc: Number(utilities.epc),
+          view: String(utilities.view),
+          orientation_terras: String(utilities.orientation),
+          attic: Number(utilities.atticValue),
+          cellar: Number(utilities.cellarValue),
+          elevator: Boolean(utilities.elevator),
+          pool: Boolean(utilities.swimmingPool),
+          indoor_garage: Number(utilities.indoorGarage),
+          outdoor_garage: Number(utilities.outdoorGarage),
+          carport: Number(utilities.carport),
+          solar_panels: Number(utilities.solarPanels),
+          owner: Boolean(personalAccount.selectedItem === 'homeowner'),
+          interest: String(personalAccount.sellProperty),
+          selling_way: String(personalAccount.howSell),
+          state: String(details.condition),
+          source: 'immoBelgium',
+          status: 'for_sale',
+          residence_type: String(personalAccount.selectedResidence),
           lat: location.lat,
           lng: location.lng,
-          property_type: selectedProperty,
-          live_area: +propertyDetails.livingArea,
-          total_area: +propertyDetails.landSurface,
-          bedrooms: propertyDetails.numberBedrooms,
-          bathrooms: propertyDetails.numberBathrooms,
-          levels: propertyDetails.numberLevels,
-          street: additionalAddress.street,
-          street_number: additionalAddress.number,
-          zip: additionalAddress.zip,
-          locality: +additionalAddress.locality
         },
         user: {...data}
       }));

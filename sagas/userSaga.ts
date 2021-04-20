@@ -28,6 +28,7 @@ function* signupUserRequest({payload}: any) {
         password: user.password,
         promo_mailing: user.promotions,
         t_c: user.agreement,
+        phone_number: '5555555',  //@todo remove after test
       }),
     });
 
