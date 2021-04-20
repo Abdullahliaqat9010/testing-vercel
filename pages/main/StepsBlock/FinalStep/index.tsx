@@ -26,6 +26,7 @@ const FinalStep = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone_number: '',
     password: '',
     confirmPassword: '',
     promotions: false,
@@ -165,6 +166,15 @@ const FinalStep = () => {
             name='email'
             onChange={ handleChangeVal }
             type="email"
+          />
+        </Form.Group>
+        <Form.Group className='mb-4'>
+          <Form.Label>Phone number</Form.Label>
+          <Form.Control
+            value={ data.phone_number }
+            name='phone_number'
+            onChange={ handleChangeVal }
+            type="text"
           />
         </Form.Group>
         <Form.Row>
