@@ -25,10 +25,10 @@ function* signupUserRequest({payload}: any) {
         firstname: user.firstName,
         lastname: user.lastName,
         email: user.email,
+        phone_number: user.phone_number,
         password: user.password,
         promo_mailing: user.promotions,
-        t_c: user.agreement,
-        phone_number: '5555555',  //@todo remove after test
+        t_c: user.agreement
       }),
     });
 
