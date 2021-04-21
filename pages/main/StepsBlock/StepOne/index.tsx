@@ -12,8 +12,8 @@ import HomeImageActive from '../../../../assets/images/home-active.svg';
 import HomeImageNoActive from '../../../../assets/images/home-noactive.svg';
 import ApartmentImageActive from '../../../../assets/images/apartment-active.svg';
 import ApartmentImageNoActive from '../../../../assets/images/apartment-noactive.svg';
-import LandImageActive from '../../../../assets/images/land-active.svg';
-import LandImageNoActive from '../../../../assets/images/land-noactive.svg';
+// import LandImageActive from '../../../../assets/images/land-active.svg';
+// import LandImageNoActive from '../../../../assets/images/land-noactive.svg';
 import MarkerImage from '../../../../assets/images/marker-blue.svg';
 import CloseIcon from '../../../../assets/images/close-icon.svg';
 
@@ -139,14 +139,14 @@ const StepTwo = () => {
           <span className="title">Apartment</span>
           <div className="active-item"/>
         </div>
-        <div
-          onClick={ () => setActiveBlock('land') }
-          className={ `property-land ${ selectedProperty === 'land' ? 'active' : '' }` }
-        >
-          <img src={ selectedProperty === 'land' ? LandImageActive : LandImageNoActive } alt="land"/>
-          <span className="title">Land</span>
-          <div className="active-item"/>
-        </div>
+        {/*<div*/}
+        {/*  onClick={ () => setActiveBlock('land') }*/}
+        {/*  className={ `property-land ${ selectedProperty === 'land' ? 'active' : '' }` }*/}
+        {/*>*/}
+        {/*  <img src={ selectedProperty === 'land' ? LandImageActive : LandImageNoActive } alt="land"/>*/}
+        {/*  <span className="title">Land</span>*/}
+        {/*  <div className="active-item"/>*/}
+        {/*</div>*/}
       </div>
       <Button
         disabled={ disabledButton() }

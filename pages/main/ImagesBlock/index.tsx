@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Carousel } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
+import { useTranslation } from 'next-i18next';
 
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
@@ -17,6 +18,7 @@ import ThirdSlide from '../../../assets/images/main-page/slider/third-slide.png'
 import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slide-mobile.png';
 
 const ImagesBlock = () => {
+  const { t } = useTranslation('main-page');
   const dispatch = useDispatch();
   const [value, setValue] = useState(null);
   const [geoLocation, setGeoLocation] = useState({
@@ -78,11 +80,11 @@ const ImagesBlock = () => {
         </Carousel.Item>
       </Carousel>
       <div className="image-carousel__popup">
-        <h2>Get your estimation in three easy steps</h2>
+        <h2>{t('title.image-block')}</h2>
         <div className='w-100'>
           <GooglePlacesAutocomplete
             selectProps={ {
-              placeholder: 'Enter your property address',
+              placeholder: `${t('placeholder.enter-property-address')}`,
               value,
               onChange: handleChangeValue,
               classNamePrefix: 'custom-select',
@@ -91,7 +93,9 @@ const ImagesBlock = () => {
             apiOptions={ {language: 'en'} }
           />
         </div>
-        <Button disabled={ !geoLocation.lng && !geoLocation.lng } onClick={ goToMainSteps }>Get Free Estimation</Button>
+        <Button disabled={ !geoLocation.lng && !geoLocation.lng } onClick={ goToMainSteps }>
+          {t('button.get-free-estimation')}
+        </Button>
       </div>
     </div>
   );
