@@ -1,6 +1,7 @@
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { Button } from 'react-bootstrap';
+import { useTranslation } from 'next-i18next';
 
 import FirstImage from '../../../assets/images/main-page/info-block/first-image.png';
 import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.png';
@@ -15,19 +16,18 @@ import MapImageMobile from '../../../assets/images/main-page/info-block/user-map
 import LogoGray from '../../../assets/images/main-page/info-block/logo.svg';
 
 const InfoBlock = () => {
+  const { t } = useTranslation('main-page');
   return (
     <div className='info-block container'>
       <div className="info-block__top d-flex justify-content-between">
         <div className="left-block">
-          <h4>Get an instant price estimation of your house</h4>
+          <h4>{t('title.top-block')}</h4>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at condimentum eros.
-            Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat.
-            Morbi sed velit mollis, cursus ante ac, dignissim velit. Morbi in mauris placerat, tempus metus id,
-            suscipit urna. Integer sagittis, justo iaculis condimentum pretium, ligula elit venenatis leo,
-            quis suscipit massa turpis varius magna. Maecenas at tincidunt velit.
+            {t('desc.top-block')}
           </p>
-          <Button className='get-estimation'>Get Free Estimation</Button>
+          <Button className='get-estimation'>
+            {t('button.get-free-estimation')}
+          </Button>
         </div>
         <div className="right-block">
           <div className="image-block d-flex">
@@ -64,21 +64,19 @@ const InfoBlock = () => {
           <img src={ isMobile ? MapImageMobile : MapImage } alt="MapImage"/>
         </div>
         <div className="right-block">
-          <h4>Compare the best agencies in your area</h4>
+          <h4>{t('title.bottom-block')}</h4>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at condimentum eros. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Morbi sed velit mollis,
-            cursus ante ac, dignissim velit. Morbi in mauris placerat, tempus metus id, suscipit urna. Integer
-            sagittis, justo iaculis condimentum pretium, ligula elit venenatis leo, quis suscipit massa turpis
-            varius magna. Maecenas at tincidunt velit.
+            {t('desc.bottom-block')}
           </p>
-          <Button className='get-estimation'>Get Free Estimation</Button>
+          <Button className='get-estimation'>
+            {t('button.get-free-estimation')}
+          </Button>
         </div>
       </div>
       <div className="info-block__bottom">
-        <span className="gray">Our mission</span>
+        <span className="gray">{t('title.mission-block')}</span>
         <p>
-          Make the real estate market more transparent so that home sellers can make the best possible decision
+          {t('desc.mission-block')}
         </p>
         <img src={ LogoGray } alt="LogoGray"/>
       </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { isMobile } from 'react-device-detect';
 import StarRatingComponent from 'react-star-rating-component';
+import { useTranslation } from 'next-i18next';
 
 import { Button, Image } from 'react-bootstrap';
 
@@ -13,8 +14,9 @@ import RatingStarEmpty from '../../../assets/images/rating/star.svg';
 import { testimonialList } from '../../../templates/testimonialList';
 
 
-const TestimonialsBlock = () => {
 
+const TestimonialsBlock = () => {
+  const { t } = useTranslation('main-page');
   const elementsOnPage = 3;
   const [sizeArr, setSizeArr] = useState(3);
   const testimonials = isMobile ? testimonialList.slice(0, sizeArr) : testimonialList;
@@ -25,7 +27,7 @@ const TestimonialsBlock = () => {
 
   return (
     <div className='testimonials container'>
-      <h4>Testimonials</h4>
+      <h4>{t('title.testimonials')}</h4>
       <div className="testimonials__list">
         {
           testimonials.map((item, index) => (
@@ -57,7 +59,7 @@ const TestimonialsBlock = () => {
           ))
         }
         <Button className='load-more' onClick={loadMore}>
-          <img src={ LoadMoreImage } alt="LoadMoreImage"/>Load More
+          <img src={ LoadMoreImage } alt="LoadMoreImage"/>{t('button.load-more')}
         </Button>
       </div>
     </div>

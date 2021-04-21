@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { appWithTranslation } from 'next-i18next';
 
 import { store, persistor } from '../store';
 
@@ -39,4 +40,4 @@ const MyApp = ({ Component, pageProps }) => {
   )
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

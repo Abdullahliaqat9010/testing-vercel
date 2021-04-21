@@ -85,8 +85,7 @@ function* getPriceProperty({payload}: any) {
     // console.log(res);
     if (res.status === 200) {
       const data = yield res.json();
-      console.log(data);
-      // yield getPricePropertySuccess(data);
+      yield getPricePropertySuccess(data);
     }
 
   } catch (error) {
