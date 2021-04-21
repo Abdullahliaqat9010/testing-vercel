@@ -370,7 +370,8 @@
 
         .property-home, .property-apartment, .property-land {
           position: relative;
-          width: 131px;
+          //width: 131px;
+          width: 48%;
           height: 122px;
           border: 1px solid var(--colorLightGrey);
           box-sizing: border-box;
@@ -1057,7 +1058,7 @@
     }
   }
 
-  @media (min-width: 375px) and (max-width: 1024px) {
+  @media (min-width: 375px) and (max-width: 1080px) {
     .image-carousel {
       img {
         border-radius: unset;
