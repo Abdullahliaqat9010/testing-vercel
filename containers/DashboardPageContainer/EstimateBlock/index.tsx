@@ -18,7 +18,7 @@ const EstimateBlock = () => {
   const [thanksPopup, setThanksPopup] = useState<boolean>(false);
 
   useEffect(() => {
-    if (mainProperty.id) {
+    if (mainProperty && mainProperty.id) {
       dispatch(getPriceForPropertyAction(mainProperty.id));
     }
   }, [mainProperty])
