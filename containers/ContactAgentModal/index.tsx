@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'next-i18next';
 
 import { Button, Form, Modal } from 'react-bootstrap';
 import { RootState } from '../../types/state';
 import { closeModalWindowContactAgentAction, contactAgencyAction } from '../../actions';
 
 const ContactAgentModal = () => {
+  const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   const {
     showAgentModal,
@@ -79,14 +81,14 @@ const ContactAgentModal = () => {
     >
       <Modal.Header closeButton>
         <Modal.Title className='d-flex flex-column'>
-          Contact { agencyContactInfo.agentName + ' ' + agencyContactInfo.agentSurname }
+          { t('button.contact') } { agencyContactInfo.agentName + ' ' + agencyContactInfo.agentSurname }
           <p>{ agencyContactInfo.title }</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form noValidate validated={ validated }>
           <Form.Group controlId="fullName">
-            <Form.Label>First and Last name</Form.Label>
+            <Form.Label>{ t('label.fullname') }</Form.Label>
             <Form.Control
               required
               onChange={ handleOnChange }
@@ -95,12 +97,12 @@ const ContactAgentModal = () => {
               value={ data.fullName }
             />
             <Form.Control.Feedback type="invalid">
-              This field is required
+              { t('error.required') }
             </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="phone">
-            <Form.Label>Phone Number</Form.Label>
+            <Form.Label>{ t('label.phone') }</Form.Label>
             <Form.Control
               required
               onChange={ handleOnChange }
@@ -110,12 +112,12 @@ const ContactAgentModal = () => {
               value={ data.phone }
             />
             <Form.Control.Feedback type="invalid">
-              This field is required
+              { t('error.required') }
             </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>{ t('label.email') }</Form.Label>
             <Form.Control
               required
               onChange={ handleOnChange }
@@ -124,7 +126,7 @@ const ContactAgentModal = () => {
               value={ data.email }
             />
             <Form.Control.Feedback type="invalid">
-              This field is required
+              { t('error.required') }
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -139,11 +141,11 @@ const ContactAgentModal = () => {
               onChange={ handleOnChange }
             />
             <Form.Control.Feedback type="invalid">
-              This field is required
+              { t('error.required') }
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="select-property">
-            <Form.Label>Select your property</Form.Label>
+            <Form.Label>{ t('label.select') }</Form.Label>
             <Form.Control
               onChange={ handleOnChange }
               name='selectedProperty'
@@ -163,16 +165,16 @@ const ContactAgentModal = () => {
               name='agree'
               onChange={ handleOnChange }
               type="checkbox"
-              label="I would like to have my property evaluated free of charge"
+              label={ t('label.free-charge') }
               checked={ data.agree }
             />
           </Form.Group>
           <div className="modal-btn-group">
             <Button className='confirm' onClick={ sendToAgency }>
-              Confirm
+              { t('button.confirm') }
             </Button>
             <Button className='cancel' onClick={ handleCloseModal }>
-              Cancel
+              { t('button.cancel') }
             </Button>
           </div>
         </Form>

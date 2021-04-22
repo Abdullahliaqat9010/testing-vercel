@@ -1,0 +1,13 @@
+{
+  "title": "Connexion",
+  "button.back": "Dos",
+  "button.login": "Connexion",
+  "desc.create-here-link": "vous pouvez le créer ici",
+  "desc.dont-have-account": "Si vous n'avez pas encore de compte",
+  "label.email-phone": "Courriel ou numéro de téléphone",
+  "label.password": "Mot de passe",
+  "link.remind-password": "Rappeler le mot de passe",
+  "placeholder.email-phone": "Entrez votre courriel",
+  "placeholder.password": "Entrez votre mot de passe",
+  "title.login": "Connexion"
+}

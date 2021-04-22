@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'next-i18next';
 
 import { Button } from 'react-bootstrap';
 import LoadMoreImage from '../../../assets/images/load-more.svg';
@@ -8,10 +9,11 @@ import Agency from '../../../containers/Agency';
 import { agentsList } from '../../../templates/agentsList';
 
 const FindAgentBlock = () => {
+  const {t} = useTranslation('dashboard-page');
   return (
     <div className='find-agent-block'>
-      <h3>Find your agent</h3>
-      <p>We found 2 agents that are near to you property location.</p>
+      <h3>{t('title.find-your-agent')}</h3>
+      <p>{t('desc.we-found')} 2 {t('desc.agents-near-you')}</p>
       {
         agentsList.map(
           (agency, index) =>
@@ -19,7 +21,7 @@ const FindAgentBlock = () => {
         )
       }
       <Button className='load-more'>
-        <img src={ LoadMoreImage } alt="LoadMoreImage"/>Load More
+        <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
       </Button>
     </div>
   )
