@@ -1,13 +1,15 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next';
 
 import MainPageComponent from './main';
 import HeaderContainer from '../containers/Header';
 
 const MainPage = () => {
+  const { t } = useTranslation('header');
   return (
     <>
-      <HeaderContainer title='Evaluate your home' />
+      <HeaderContainer title={t('title')} />
       <MainPageComponent/>
     </>
   )
@@ -15,7 +17,7 @@ const MainPage = () => {
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale, ['main-page']),
+    ...await serverSideTranslations(locale, ['main-page', 'header']),
   }
 })
 
