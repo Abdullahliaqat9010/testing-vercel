@@ -31,7 +31,9 @@ const MainPageComponent = () => {
                 <span>Immo Belgium </span>
                 <span>{ new Date().getFullYear() }. All Rights Reserved.</span>
               </p>
-              <span className="link">Politique de Confidentialité.</span>
+              <span className="link">
+                <a href="https://winleads.eu/privacy-cookie-policy/" target='_blank'>Politique de Confidentialité.</a>
+              </span>
             </div>
           </>
           :
