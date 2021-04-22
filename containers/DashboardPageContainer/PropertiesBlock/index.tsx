@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-
+import { useTranslation } from 'next-i18next';
 import { isMobile } from 'react-device-detect';
 
 import { Button } from 'react-bootstrap';
@@ -14,6 +14,7 @@ import LoadMoreImage from '../../../assets/images/load-more.svg';
 import { propertiesList } from '../../../templates/propertiesList';
 
 const PropertiesBlock = () => {
+  const {t} = useTranslation('dashboard-page');
   const elementsOnPage = 3;
   const [sizeArr, setSizeArr] = useState(3);
   const { mainProperty } = useSelector((state: RootState) => state.userInfo);
@@ -35,8 +36,8 @@ const PropertiesBlock = () => {
         </div>
       }
       <div className="properties-list w-50">
-        <h5>Similar Sold Properties</h5>
-        <p>We found 1,205 similar sold properties in this area.</p>
+        <h5>{ t('title.similar-sold-properties') }</h5>
+        <p>{ t('desc.we-found') } 1,205 { t('desc.similar-sold-properties') }</p>
         {
           properties.map(
             (item, index) =>
@@ -44,7 +45,7 @@ const PropertiesBlock = () => {
           )
         }
         <Button className='load-more' onClick={loadMore}>
-          <img src={ LoadMoreImage } alt="LoadMoreImage"/>Load More
+          <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
         </Button>
       </div>
     </div>

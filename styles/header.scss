@@ -156,6 +156,7 @@
       border: 1px solid var(--colorBlue);
       box-sizing: border-box;
       border-radius: 6px;
+      padding: 0 10px;
 
       &:hover, &:active, &:focus {
         color: var(--colorBlue);
@@ -169,7 +170,7 @@
     }
   }
 
-  @media (min-width: 375px) and (max-width: 900px) {
+  @media (min-width: 320px) and (max-width: 900px) {
     height: 60px;
     .logo {
       width: 142px;
@@ -245,12 +246,15 @@
       }
 
       .pro-workspace {
-        width: 245px;
+        width: max-content;
+        padding: 0 33px;
         height: 43px;
 
         position: absolute;
         bottom: 71px;
-        left: calc(50% - 123px);
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, 0);
       }
     }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'next-i18next';
 import { isMobile } from 'react-device-detect';
 
 import StarRatingComponent from 'react-star-rating-component';
@@ -17,10 +18,10 @@ import { AgencyProps } from '../../types/agents';
 
 import GoogleMap from '../../components/GoogleMap';
 
-
 const Agency = ({agency}: AgencyProps) => {
+  const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
-  const { mainProperty } = useSelector((state: RootState) => state.userInfo);
+  const {mainProperty} = useSelector((state: RootState) => state.userInfo);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
   const openMoreInfo = () => {
@@ -55,10 +56,10 @@ const Agency = ({agency}: AgencyProps) => {
                 starCount={ 5 }
                 value={ Number(agency.rate) }
               />
-              <span className="from">from { agency.reviews } reviews</span>
+              <span className="from">{ t('span.from') } { agency.reviews } { t('span.reviews') }</span>
             </div>
             {
-              agency.nearest && <span className="nearest">Nearest agency to you</span>
+              agency.nearest && <span className="nearest">{ t('span.nearest-agency') }</span>
             }
           </div>
         </div>
@@ -66,73 +67,73 @@ const Agency = ({agency}: AgencyProps) => {
         <div className="short-info__right d-flex align-items-center w-45">
           <span className="count-block">{ agency.count }</span>
           <div className="address">
-            <p>similar properties sold</p>
-            <p className='d-flex'>to
+            <p>{ t('p.similar-properties-sold') }</p>
+            <p className='d-flex'>{ t('p.to') }
               <span className="address__bold">{ mainProperty?.search_address }</span>
             </p>
           </div>
         </div>
-        <span className={ `action-btn ${showMoreInfo ? ' open' : ''}` }/>
+        <span className={ `action-btn ${ showMoreInfo ? ' open' : '' }` }/>
       </div>
       {
         showMoreInfo &&
         <div className="more-info d-flex justify-content-between">
           <div className="agent-block">
             <div className="agent-info d-flex">
-              <Image src={ agency.moreInfo.avatar } roundedCircle />
+              <Image src={ agency.moreInfo.avatar } roundedCircle/>
               <div className="d-flex flex-column">
-                <span className="bold">{agency.moreInfo.agentName} {agency.moreInfo.agentSurname}</span>
-                <span>{agency.moreInfo.position}</span>
+                <span className="bold">{ agency.moreInfo.agentName } { agency.moreInfo.agentSurname }</span>
+                <span>{ agency.moreInfo.position }</span>
               </div>
             </div>
             <div className="desc">
-              During the last 24 months, our agency has sold <span className="bold">39 properties</span> nearby
-              including <span className="link">18 similar to yours</span>. Our team is at your disposal to manage
-              your project
+              { t('desc-agency.agency-sold') }
+              <span className="bold"> 39 { t('desc-agency.properties') }</span> { t('desc-agency.nearby-including') }
+              <span className="link"> 18 { t('desc-agency.similar') }</span>. { t('desc-agency.our-team') }
             </div>
             <Button
               className='contact'
-              onClick={() => openContactModal({
+              onClick={ () => openContactModal({
                 title: agency.title,
                 agencyId: agency.id,
                 agentName: agency.moreInfo.agentName,
                 agentSurname: agency.moreInfo.agentSurname,
-              })}
+              }) }
             >
-              Contact { agency.moreInfo.agentName }
+              {t('button.contact')} { agency.moreInfo.agentName }
             </Button>
-            {/*<Link href={ '/agency' }>*/}
-              <span
-                className="details"
-                onClick={() => openContactModal({
-                  title: agency.title,
-                  agencyId: agency.id,
-                  agentName: agency.moreInfo.agentName,
-                  agentSurname: agency.moreInfo.agentSurname,
-                })}
-              >
-                Agency details <img src={ArrowImage} alt="ArrowImage"/>
+            {/*<Link href={ '/agency' }>*/ }
+            <span
+              className="details"
+              onClick={ () => openContactModal({
+                title: agency.title,
+                agencyId: agency.id,
+                agentName: agency.moreInfo.agentName,
+                agentSurname: agency.moreInfo.agentSurname,
+              }) }
+            >
+                { t('button.agency-details') } <img src={ ArrowImage } alt="ArrowImage"/>
               </span>
-            {/*</Link>*/}
+            {/*</Link>*/ }
           </div>
           {
             !isMobile &&
             <div className="map-block d-flex flex-column">
               <div className="agency-map">
-                <GoogleMap lng={agency.location.lng} lat={agency.location.lat}/>
+                <GoogleMap lng={ agency.location.lng } lat={ agency.location.lat }/>
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">
                   <div className="orange-circle"/>
-                  <span>Your property</span>
+                  <span>{ t('span.your-property') }</span>
                 </div>
                 <div className="similar-property d-flex align-items-center">
                   <div className="blue-circle"/>
-                  <span>Similar property</span>
+                  <span>{ t('span.similar-property') }</span>
                 </div>
                 <div className="other-property d-flex align-items-center">
                   <div className="gray-circle"/>
-                  <span>Other properties</span>
+                  <span>{ t('span.other-properties') }</span>
                 </div>
               </div>
             </div>

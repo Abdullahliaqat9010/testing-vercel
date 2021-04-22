@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 import { userToken } from '../../config/siteConfigs';
 
@@ -16,6 +18,7 @@ import { getPropertyForCurrentUserAction } from '../../actions';
 import { parseJwt } from '../../utils';
 
 const DashboardPage = () => {
+  const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   /**
    * @todo Add private routes
@@ -36,7 +39,7 @@ const DashboardPage = () => {
   return (
     <>
       <ContactAgentModal/>
-      <HeaderContainer title='Dashboard'/>
+      <HeaderContainer title={ t('title') }/>
       <div className='Dashboard container d-flex'>
         <NavBarContainer/>
         <div className="Dashboard__container">
@@ -50,5 +53,11 @@ const DashboardPage = () => {
     </>
   );
 };
+
+export const getStaticProps = async ({locale}) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['dashboard-page', 'header']),
+  },
+});
 
 export default DashboardPage;
