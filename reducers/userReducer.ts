@@ -37,7 +37,7 @@ export const initialState = {
     agencyId: null,
   },
   properties: [],
-  currentPropertyPrice: '',
+  currentPropertyPrice: {},
   mainProperty: {},
   userName,
   userSurname,
@@ -58,8 +58,8 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         showAgentModal: true,
         agencyContactInfo: {
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
     case actionType.CONTACT_AGENCY_SUCCESS:
     case actionType.CLOSE_MODAL_CONTACT_AGENT:
@@ -77,19 +77,19 @@ const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         properties: [...action.payload],
-        mainProperty: action.payload[action.payload.length - 1]
+        mainProperty: action.payload[action.payload.length - 1],
       };
     case actionType.GET_USER_PROPERTY_ERROR: {
       return {
         ...state,
-        errors: action.payload
-      }
+        errors: action.payload,
+      };
     }
     case actionType.GET_PRICE_PROPERTY_SUCCESS:
       return {
         ...state,
-        currentPropertyPrice: action.payload
-      }
+        currentPropertyPrice: {...action.payload},
+      };
     default:
       return {
         ...state,
