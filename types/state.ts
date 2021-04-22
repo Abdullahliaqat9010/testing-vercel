@@ -10,7 +10,10 @@ export interface RootState {
     },
     properties: any, //@todo add interface
     mainProperty: any, //@todo add interface
-    currentPropertyPrice: string,
+    currentPropertyPrice: {
+      constrValue: number,
+      landValue: number
+    },
     userName: string,
     userSurname: string,
     userEmail: string,
