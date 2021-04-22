@@ -1,12 +1,15 @@
 import React from 'react';
 import { isMobile } from 'react-device-detect';
+import { useTranslation } from 'next-i18next';
 
 import { Button, Image } from 'react-bootstrap';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 
+
 const PropertyContainer = ({property}: PropertyContainerProps) => {
+  const {t} = useTranslation('dashboard-page');
   return (
     <div className='property-block d-flex'>
       <div className="property-block__image">
@@ -21,10 +24,12 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
             <span>{ property.beds } Beds</span>
           </div>
           <div className="time">
-            <span>Sold 3 months ago</span> <a href="#">Real Estate Agent</a>
+            <span>{ t('desc.sold') } 3 { t('desc.months-ago') }</span> <a href="#">{ t('link.real-estate-agent') }</a>
           </div>
         </div>
-        <Button variant="outline-primary">Request price <img src={ ArrowImage } alt="ArrowImage"/></Button>
+        <Button variant="outline-primary">{ t('button.request-price') }
+        <img src={ ArrowImage } alt="ArrowImage"/>
+        </Button>
       </div>
     </div>
   );

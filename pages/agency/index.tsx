@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import StarRatingComponent from 'react-star-rating-component';
+// import StarRatingComponent from 'react-star-rating-component';
 
 import ContactAgencyBlock from '../../components/ContactAgencyBlock';
 import HeaderContainer from '../../containers/Header';
@@ -9,8 +9,8 @@ import FooterContainer from '../../containers/Footer';
 
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 import BGImage from '../../assets/images/bg-agency.png';
-import RatingStar from '../../assets/images/rating/full-star.svg';
-import RatingStarEmpty from '../../assets/images/rating/star.svg';
+// import RatingStar from '../../assets/images/rating/full-star.svg';
+// import RatingStarEmpty from '../../assets/images/rating/star.svg';
 
 
 const AgencyPage = () => {

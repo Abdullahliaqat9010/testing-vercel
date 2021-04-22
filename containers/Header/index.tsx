@@ -105,7 +105,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                         navBarList.map((list, index) => (
                           <NavDropdown.Item href={ list.href } key={ index }>
                             <img src={ list.img } alt={ list.title }/>
-                            {t(`li.${list.id}`)}
+                            {t(`nav-li.${list.id}`)}
                           </NavDropdown.Item>
                         ))
                       }
