@@ -60,8 +60,8 @@ const EstimateBlock = () => {
             show
             overlay={
               <Tooltip id='price-block'>
-                <span>Construction price: €{ currentPropertyPrice }</span>
-                <span className='gray'>Land Price: 0</span>
+                <span>Construction price: €{ currentPropertyPrice.constrValue }</span>
+                <span className='gray'>Land Price: €{ currentPropertyPrice.landValue }</span>
                 {/*<span>€1,097,500</span>*/}
                 {/*<span className='gray'>€1,185.250 per m²</span>*/}
               </Tooltip>
