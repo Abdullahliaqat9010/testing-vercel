@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ButtonGroup, Dropdown, Form, InputGroup } from 'react-bootstrap';
+import { useTranslation } from 'next-i18next';
+import { Button, ButtonGroup, Form, InputGroup } from 'react-bootstrap';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
-import CheckedIcon from '../../../../assets/images/valid-blue.svg';
 
 import { goToNextStepAction, goToPrevStepAction, setDetailsAction } from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
-import { constructionYearList } from '../../../../templates/constructionYearList';
-import { renovatedYearList } from '../../../../templates/renovatedYearList';
-
 const StepThree = () => {
+  const {t} = useTranslation('steps');
   const dispatch = useDispatch();
 
   const {
@@ -78,52 +76,38 @@ const StepThree = () => {
       condition: el.target.name,
     });
   };
-  const handleSelectConstructionYear = (el) => {
-    setFormData({
-      ...data,
-      constructionYear: el.target.name,
-    });
-  };
-
-  const handleSelectRenovationYear = (el) => {
-    setFormData({
-      ...data,
-      renovationYear: el.target.name,
-    });
-  };
-
 
   return (
     <div className='step-three'>
-      <span className="step-title">Step 3</span>
+      <span className="step-title">{ t('span.step') } 3</span>
       <h4>
         <span>
           { selectedProperty === 'house' ? 'home': selectedProperty }
-        </span> details <span className="optional">(Optional)</span>
+        </span> details <span className="optional">({ t('title.optional') })</span>
       </h4>
       <div className="group-block d-flex flex-column">
-        <span className="form-label">Prestige / quality of the home</span>
+        <span className="form-label">{ t('title.prestige') }</span>
         <ButtonGroup aria-label='prestige' className='custom-btn-group'>
           <Button
             name='basic'
             onClick={ selectPrestige }
             className={ `first-btn ${ data.prestige === 'basic' ? 'custom-active' : '' }` }
           >
-            Basic
+            { t('button.basic') }
           </Button>
           <Button
             name='average'
             className={ data.prestige === 'average' ? 'custom-active' : '' }
             onClick={ selectPrestige }
           >
-            Average +
+            { t('button.average') }
           </Button>
           <Button
             name='luxury'
             onClick={ selectPrestige }
             className={ `last-btn ${ data.prestige === 'luxury' ? 'custom-active' : '' }` }
           >
-            Luxury
+            { t('button.luxury') }
           </Button>
         </ButtonGroup>
       </div>
@@ -135,71 +119,37 @@ const StepThree = () => {
             className={ `first-btn ${ data.condition === 'new' ? 'custom-active' : '' }` }
             onClick={ selectCondition }
           >
-            New
+            { t('button.new') }
           </Button>
           <Button
             name='good'
             className={ data.condition === 'good' ? 'custom-active' : '' }
             onClick={ selectCondition }
           >
-            Good
+            { t('button.good') }
           </Button>
           <Button
             name='renovate'
             className={ `last-btn ${ data.condition === 'renovate' ? 'custom-active' : '' }` }
             onClick={ selectCondition }
           >
-            To renovate
+            { t('button.renovate') }
           </Button>
         </ButtonGroup>
       </div>
       <Form>
-        <Form.Group controlId="construction-year">
-          <Form.Label>Construction year</Form.Label>
-          <Dropdown>
-            <Dropdown.Toggle>
-              { data.constructionYear }
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {
-                constructionYearList.map((item, index) =>
-                  <Dropdown.Item
-                    key={ index }
-                    className={ data.constructionYear === item.label ? 'active' : '' }
-                    name={ item.label }
-                    onClick={ handleSelectConstructionYear }
-                  >
-                    { item.label }
-                    <img src={ CheckedIcon } alt="CheckedIcon"/>
-                  </Dropdown.Item>,
-                )
-              }
-            </Dropdown.Menu>
-          </Dropdown>
-        </Form.Group>
-        <Form.Group controlId="renovated">
-          <Form.Label>Renovated</Form.Label>
-          <Dropdown>
-            <Dropdown.Toggle>
-              { data.renovationYear }
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {
-                renovatedYearList.map((item, index) =>
-                  <Dropdown.Item
-                    key={ index }
-                    className={ data.renovationYear === item.label ? 'active' : '' }
-                    name={ item.label }
-                    onClick={ handleSelectRenovationYear }
-                  >
-                    { item.label }
-                    <img src={ CheckedIcon } alt="CheckedIcon"/>
-                  </Dropdown.Item>,
-                )
-              }
-            </Dropdown.Menu>
-          </Dropdown>
-        </Form.Group>
+        <InputGroup>
+          <Form.Label>{ t('label.construction-year') }</Form.Label>
+          <div className="input-block">
+            <Form.Control name='constructionYear' value={ data.constructionYear } type="number" onChange={ handleChangeVal }/>
+          </div>
+        </InputGroup>
+        <InputGroup>
+          <Form.Label>{ t('label.renovated') }</Form.Label>
+          <div className="input-block">
+            <Form.Control name='renovationYear' value={ data.renovationYear } type="number" onChange={ handleChangeVal }/>
+          </div>
+        </InputGroup>
         <InputGroup>
           <Form.Label className='d-flex'>
             <Form.Check
@@ -208,7 +158,7 @@ const StepThree = () => {
               onChange={ handleChangeVal }
               type="checkbox"
             />
-            Renovation level
+            { t('label.renovation-level') }
           </Form.Label>
           <div className="input-block">
             <Form.Control
@@ -243,7 +193,7 @@ const StepThree = () => {
         {
           selectedProperty === 'apartment' &&
           <InputGroup>
-            <Form.Label>Number of floors</Form.Label>
+            <Form.Label>{ t('label.number-floors') }</Form.Label>
             <div className="input-block input-border-radius-0">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ handleSubtractNumber }>-</InputGroup.Text>
@@ -260,9 +210,9 @@ const StepThree = () => {
         <Button
           onClick={ handleClickPrevBtn }
           className='prev-step'>
-          <img src={ IconBack } alt="IconBack"/>Back
+          <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button onClick={ handleClickNextBtn } className='next-step'>Next</Button>
+        <Button onClick={ handleClickNextBtn } className='next-step'>{ t('button.next') }</Button>
       </div>
     </div>
   );

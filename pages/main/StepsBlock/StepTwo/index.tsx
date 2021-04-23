@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { useTranslation } from 'next-i18next';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
 import FloorsIcon from '../../../../assets/images/steps/floors.svg';
@@ -12,6 +13,7 @@ import { goToNextStepAction, goToPrevStepAction, setPropertyDetailsAction } from
 import { RootState } from '../../../../types/state';
 
 const StepTwo = () => {
+  const {t} = useTranslation('steps');
   const dispatch = useDispatch();
   const {
     livingArea,
@@ -23,7 +25,7 @@ const StepTwo = () => {
     elevator,
     gardenTerrasValue,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.propertyDetails);
-  const { selectedProperty } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {selectedProperty} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
   const [data, setFormData] = useState({
     livingArea,
@@ -93,12 +95,16 @@ const StepTwo = () => {
 
   return (
     <div className='step-two'>
-      <span className="step-title">Step 2</span>
-      <h4><span>{ selectedProperty === 'house' ? 'home': selectedProperty }</span> details</h4>
+      <span className="step-title">{ t('span.step') } 2</span>
+      <h4>
+        <span>
+          { selectedProperty === 'house' ? t('select.home') : t(`select.${ selectedProperty }`) }
+        </span> { t('title.details') }
+      </h4>
       <Form>
         <Form.Row>
           <InputGroup className='mb-3'>
-            <Form.Label>Living Area</Form.Label>
+            <Form.Label>{ t('label.living-area') }</Form.Label>
             <div className="input-block">
               <Form.Control name='livingArea' value={ data.livingArea } type="number" onChange={ handleChangeVal }/>
               <InputGroup.Append>
@@ -112,11 +118,11 @@ const StepTwo = () => {
             </InputGroup.Prepend>
             <Form.Control
               name='livingArea'
-              value={data.livingArea}
+              value={ data.livingArea }
               type="range"
               onChange={ handleChangeVal }
-              min={0}
-              max={1000}
+              min={ 0 }
+              max={ 1000 }
             />
             <InputGroup.Append className='append'>
               <InputGroup.Text>1,000 m²</InputGroup.Text>
@@ -124,66 +130,67 @@ const StepTwo = () => {
           </InputGroup>
           {
             selectedProperty === 'house' &&
-              <>
-                <InputGroup className='mb-3'>
-                  <Form.Label>Land surface</Form.Label>
-                  <div className="input-block">
-                    <Form.Control name='landSurface' value={ data.landSurface } type="number" onChange={ handleChangeVal }/>
-                    <InputGroup.Append>
-                      <InputGroup.Text>m²</InputGroup.Text>
-                    </InputGroup.Append>
-                  </div>
-                </InputGroup>
-                <InputGroup className='range'>
-                  <InputGroup.Prepend className='prepend'>
-                    <InputGroup.Text>0 m²</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    name='landSurface'
-                    value={data.landSurface}
-                    type="range"
-                    onChange={ handleChangeVal }
-                    min={0}
-                    max={20000}
-                  />
-                  <InputGroup.Append className='append'>
-                    <InputGroup.Text>20,000 m²</InputGroup.Text>
+            <>
+              <InputGroup className='mb-3'>
+                <Form.Label>{ t('label.land-surface') }</Form.Label>
+                <div className="input-block">
+                  <Form.Control name='landSurface' value={ data.landSurface } type="number"
+                                onChange={ handleChangeVal }/>
+                  <InputGroup.Append>
+                    <InputGroup.Text>m²</InputGroup.Text>
                   </InputGroup.Append>
-                </InputGroup>
-              </>
+                </div>
+              </InputGroup>
+              <InputGroup className='range'>
+                <InputGroup.Prepend className='prepend'>
+                  <InputGroup.Text>0 m²</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  name='landSurface'
+                  value={ data.landSurface }
+                  type="range"
+                  onChange={ handleChangeVal }
+                  min={ 0 }
+                  max={ 20000 }
+                />
+                <InputGroup.Append className='append'>
+                  <InputGroup.Text>20,000 m²</InputGroup.Text>
+                </InputGroup.Append>
+              </InputGroup>
+            </>
           }
           {
             selectedProperty === 'apartment' &&
-              <>
-                <InputGroup>
-                  <Form.Label className='d-flex'>
-                    Garden, terras
-                  </Form.Label>
-                  <div className="input-block">
-                    <Form.Control
-                      name='gardenTerrasValue'
-                      value={ data.gardenTerrasValue }
-                      type="number"
-                      onChange={ handleChangeVal }
-                    />
-                    <InputGroup.Append>
-                      <InputGroup.Text>m²</InputGroup.Text>
-                    </InputGroup.Append>
-                  </div>
-                </InputGroup>
-                <InputGroup>
-                  <Form.Check
-                    value={ data.elevator }
-                    name='elevator'
+            <>
+              <InputGroup>
+                <Form.Label className='d-flex'>
+                  { t('label.garden') }
+                </Form.Label>
+                <div className="input-block">
+                  <Form.Control
+                    name='gardenTerrasValue'
+                    value={ data.gardenTerrasValue }
+                    type="number"
                     onChange={ handleChangeVal }
-                    type="checkbox"
-                    label='Elevator'
                   />
-                </InputGroup>
-              </>
+                  <InputGroup.Append>
+                    <InputGroup.Text>m²</InputGroup.Text>
+                  </InputGroup.Append>
+                </div>
+              </InputGroup>
+              <InputGroup>
+                <Form.Check
+                  value={ data.elevator }
+                  name='elevator'
+                  onChange={ handleChangeVal }
+                  type="checkbox"
+                  label='Elevator'
+                />
+              </InputGroup>
+            </>
           }
           <InputGroup>
-            <Form.Label><img src={ FloorsIcon } alt="FloorsIcon"/>Floors</Form.Label>
+            <Form.Label><img src={ FloorsIcon } alt="FloorsIcon"/>{ t('label.floors') }</Form.Label>
             <div className="input-block input-border-radius-0">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberLevels') }>-</InputGroup.Text>
@@ -197,7 +204,7 @@ const StepTwo = () => {
           {
             selectedProperty === 'house' &&
             <InputGroup>
-              <Form.Label><img src={ FacadesIcon } alt="FloorsIcon"/>Facades</Form.Label>
+              <Form.Label><img src={ FacadesIcon } alt="FloorsIcon"/>{ t('label.facades') }</Form.Label>
               <div className="input-block input-border-radius-0">
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('facadesNumber') }>-</InputGroup.Text>
@@ -210,7 +217,7 @@ const StepTwo = () => {
             </InputGroup>
           }
           <InputGroup>
-            <Form.Label><img src={ BedroomsIcon } alt="BedroomsIcon"/>Bedrooms</Form.Label>
+            <Form.Label><img src={ BedroomsIcon } alt="BedroomsIcon"/>{ t('label.bedrooms') }</Form.Label>
             <div className="input-block input-border-radius-0">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberBedrooms') }>-</InputGroup.Text>
@@ -222,7 +229,7 @@ const StepTwo = () => {
             </div>
           </InputGroup>
           <InputGroup>
-            <Form.Label><img src={ BathroomsIcon } alt="BathroomsIcon"/>Bathrooms</Form.Label>
+            <Form.Label><img src={ BathroomsIcon } alt="BathroomsIcon"/>{ t('label.bathrooms') }</Form.Label>
             <div className="input-block input-border-radius-0">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberBathrooms') }>-</InputGroup.Text>
@@ -239,9 +246,11 @@ const StepTwo = () => {
         <Button
           onClick={ handleClickPrevBtn }
           className='prev-step'>
-          <img src={ IconBack } alt="IconBack"/>Back
+          <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button disabled={ disabledButton() } onClick={ handleClickNextBtn } className='next-step'>Next</Button>
+        <Button disabled={ disabledButton() } onClick={ handleClickNextBtn } className='next-step'>
+          { t('button.next') }
+        </Button>
       </div>
     </div>
   );

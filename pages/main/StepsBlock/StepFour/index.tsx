@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'next-i18next';
 import { Button, ButtonGroup, Form, InputGroup } from 'react-bootstrap';
 
 import { goToNextStepAction, goToPrevStepAction, setUtilitiesDataAction } from '../../../../actions';
@@ -24,6 +25,7 @@ import NorthWestInactive from '../../../../assets/images/steps/orientation/nw-in
 import NorthWestActive from '../../../../assets/images/steps/orientation/nw-active.svg';
 
 const StepFour = () => {
+  const {t} = useTranslation('steps');
   const dispatch = useDispatch();
 
   const {
@@ -42,7 +44,7 @@ const StepFour = () => {
     carportCheck,
     solarPanels,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.utilities);
-  const { selectedProperty } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {selectedProperty} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
   const [data, setFormData] = useState({
     epc,
@@ -71,7 +73,7 @@ const StepFour = () => {
       || name === 'indoorGarageCheck'
       || name === 'outdoorGarageCheck'
       || name === 'carportCheck';
-  }
+  };
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -87,7 +89,7 @@ const StepFour = () => {
     });
   };
 
-  const selectOrientation = (name: "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW") => {
+  const selectOrientation = (name: 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW') => {
     setFormData({
       ...data,
       orientation: name,
@@ -122,16 +124,16 @@ const StepFour = () => {
 
   return (
     <div className='step-four'>
-      <span className="step-title">Step 3</span>
+      <span className="step-title">{ t('span.step') } 3</span>
       <h4>
         <span>
-          { selectedProperty === 'house' ? 'home': selectedProperty }
-        </span> details <span className="optional">(Optional)</span>
+          { selectedProperty === 'house' ? 'home' : selectedProperty }
+        </span> { t('title.details') } <span className="optional">({ t('title.optional') })</span>
       </h4>
       <Form>
         <InputGroup className='epc'>
           <Form.Label className='d-flex'>
-            EPC/PEB
+            { t('label.epc') }
           </Form.Label>
           <div className="input-block">
             <Form.Control
@@ -147,40 +149,40 @@ const StepFour = () => {
           </div>
         </InputGroup>
         <div className="group-block d-flex flex-column">
-          <span className="form-label">View</span>
+          <span className="form-label">{ t('label.view') }</span>
           <ButtonGroup aria-label='condition' className='custom-btn-group'>
             <Button
               name='enclosed'
               className={ `first-btn ${ data.view === 'enclosed' ? 'custom-active' : '' }` }
               onClick={ selectView }
             >
-              Enclosed
+              { t('button.enclosed') }
             </Button>
             <Button
               name='normal'
               className={ data.view === 'normal' ? 'custom-active' : '' }
               onClick={ selectView }
             >
-              Normal
+              { t('button.normal') }
             </Button>
             <Button
               name='good'
               className={ data.view === 'good' ? 'custom-active' : '' }
               onClick={ selectView }
             >
-              Good
+              { t('button.good') }
             </Button>
             <Button
               name='unique'
               className={ `last-btn ${ data.view === 'unique' ? 'custom-active' : '' }` }
               onClick={ selectView }
             >
-              Unique
+              { t('button.unique') }
             </Button>
           </ButtonGroup>
         </div>
         <div className="group-block d-flex align-items-center justify-content-between">
-          <span className="form-label">Orientation terras</span>
+          <span className="form-label">{ t('label.orientation-terras') }</span>
           <div className="terras-block">
             <img
               className='north'
@@ -234,7 +236,7 @@ const StepFour = () => {
         </div>
         <InputGroup>
           <Form.Label className='d-flex'>
-            Attic
+            { t('label.attic') }
           </Form.Label>
           <div className="input-block">
             <Form.Control
@@ -250,7 +252,7 @@ const StepFour = () => {
         </InputGroup>
         <InputGroup>
           <Form.Label className='d-flex'>
-            Cellar
+            { t('label.cellar') }
           </Form.Label>
           <div className="input-block">
             <Form.Control
@@ -270,7 +272,7 @@ const StepFour = () => {
             onChange={ handleChangeVal }
             defaultChecked={ data.elevator }
             type="checkbox"
-            label='Elevator'
+            label={ t('label.elevator') }
           />
         </InputGroup>
         <InputGroup>
@@ -279,84 +281,84 @@ const StepFour = () => {
             onChange={ handleChangeVal }
             defaultChecked={ data.swimmingPool }
             type="checkbox"
-            label='Swimming pool'
+            label={ t('label.pool') }
           />
         </InputGroup>
         {
           selectedProperty === 'house' &&
-            <>
-              <InputGroup>
-                <Form.Label>Indoor Garage</Form.Label>
-                <div className="input-block input-border-radius-0">
-                  <InputGroup.Prepend>
-                    <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control value={ data.indoorGarage } readOnly type="number"/>
-                  <InputGroup.Append>
-                    <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
-                  </InputGroup.Append>
-                </div>
-              </InputGroup>
-              <InputGroup>
-                <Form.Label>Outdoor Garage</Form.Label>
-                <div className="input-block input-border-radius-0">
-                  <InputGroup.Prepend>
-                    <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
-                  <InputGroup.Append>
-                    <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
-                  </InputGroup.Append>
-                </div>
-              </InputGroup>
-              <InputGroup>
-                <Form.Label>Carport</Form.Label>
-                <div className="input-block input-border-radius-0">
-                  <InputGroup.Prepend>
-                    <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control value={ data.carport } readOnly type="number"/>
-                  <InputGroup.Append>
-                    <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
-                  </InputGroup.Append>
-                </div>
-              </InputGroup>
-            </>
+          <>
+            <InputGroup>
+              <Form.Label>{ t('label.indoor-garage') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.indoorGarage } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+            <InputGroup>
+              <Form.Label>{ t('label.outdoor-garage') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+            <InputGroup>
+              <Form.Label>{ t('label.carport') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.carport } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+          </>
         }
         {
           selectedProperty === 'apartment' &&
-            <>
-              <InputGroup>
-                <Form.Check
-                  name='indoorGarageCheck'
-                  onChange={ handleChangeVal }
-                  defaultChecked={ data.indoorGarageCheck }
-                  type="checkbox"
-                  label='Indoor Garage'
-                />
-              </InputGroup>
-              <InputGroup>
-                <Form.Check
-                  name='outdoorGarageCheck'
-                  onChange={ handleChangeVal }
-                  defaultChecked={ data.outdoorGarageCheck }
-                  type="checkbox"
-                  label='Outdoor Garage'
-                />
-              </InputGroup>
-              <InputGroup>
-                <Form.Check
-                  name='carportCheck'
-                  onChange={ handleChangeVal }
-                  defaultChecked={ data.carportCheck }
-                  type="checkbox"
-                  label='Carport'
-                />
-              </InputGroup>
-            </>
+          <>
+            <InputGroup>
+              <Form.Check
+                name='indoorGarageCheck'
+                onChange={ handleChangeVal }
+                defaultChecked={ data.indoorGarageCheck }
+                type="checkbox"
+                label={ t('label.indoor-garage') }
+              />
+            </InputGroup>
+            <InputGroup>
+              <Form.Check
+                name='outdoorGarageCheck'
+                onChange={ handleChangeVal }
+                defaultChecked={ data.outdoorGarageCheck }
+                type="checkbox"
+                label={ t('label.outdoor-garage') }
+              />
+            </InputGroup>
+            <InputGroup>
+              <Form.Check
+                name='carportCheck'
+                onChange={ handleChangeVal }
+                defaultChecked={ data.carportCheck }
+                type="checkbox"
+                label={ t('label.carport') }
+              />
+            </InputGroup>
+          </>
         }
         <InputGroup>
-          <Form.Label>Solar panels</Form.Label>
+          <Form.Label>{ t('label.solar-panels') }</Form.Label>
           <div className="input-block input-border-radius-0">
             <InputGroup.Prepend>
               <InputGroup.Text onClick={ () => handleSubtractNumber('solarPanels') }>-</InputGroup.Text>
@@ -372,9 +374,9 @@ const StepFour = () => {
         <Button
           onClick={ handleClickPrevBtn }
           className='prev-step'>
-          <img src={ IconBack } alt="IconBack"/>Back
+          <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button onClick={ handleClickNextBtn } className='next-step'>Next</Button>
+        <Button onClick={ handleClickNextBtn } className='next-step'>{ t('button.next') }</Button>
       </div>
     </div>
   );
