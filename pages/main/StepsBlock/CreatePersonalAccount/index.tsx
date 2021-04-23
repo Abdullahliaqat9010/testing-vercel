@@ -64,7 +64,7 @@ const CreatePersonalAccount = () => {
       dispatch(goToNextStepAction());
     } else {
       const parseData = parseJwt(userToken);
-      dispatch(createPropertyRequestAction({
+      const sendData = {
         leadId: parseData.id,
         search_address: String(addressFromStepOne),
         country: String(additionalAddress.country),
@@ -83,8 +83,8 @@ const CreatePersonalAccount = () => {
         prestige: String(details.prestige),
         facades: Number(propertyDetails.facadesNumber),
         construction_year: Number(details.constructionYear),
-        renov_year: Number(details.renovationYear),
-        renov_level: Number(details.renovationLevel),
+        renov_year: details.renovated ? Number(details.renovationYear) : undefined,
+        renov_level: details.renovated ? Number(details.renovationLevel) : undefined,
         epc: Number(utilities.epc),
         view: String(utilities.view),
         orientation_terras: String(utilities.orientation),
@@ -105,7 +105,9 @@ const CreatePersonalAccount = () => {
         residence_type: String(data.selectedResidence),
         lat: location.lat,
         lng: location.lng,
-      }));
+      };
+
+      dispatch(createPropertyRequestAction({...sendData}));
     }
   };
 
