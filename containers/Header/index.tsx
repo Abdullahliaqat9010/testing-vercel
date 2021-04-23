@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 import { isMobile } from 'react-device-detect';
 
@@ -20,6 +21,9 @@ import { RootState } from '../../types/state';
 import navBarList from '../../config/navBarList';
 
 const HeaderContainer = ({title}: { title: string }) => {
+  const router = useRouter();
+
+  const { locale } = router;
   const { t } = useTranslation('header');
   const {mainBlocks, stepBlock} = useSelector((state: RootState) => state.stepsInfo);
   const {auth, userName, userSurname} = useSelector((state: RootState) => state.userInfo);
@@ -103,7 +107,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                       }
                       {
                         navBarList.map((list, index) => (
-                          <NavDropdown.Item href={ list.href } key={ index }>
+                          <NavDropdown.Item href={ locale + list.href } key={ index }>
                             <img src={ list.img } alt={ list.title }/>
                             {t(`nav-li.${list.id}`)}
                           </NavDropdown.Item>
@@ -128,7 +132,7 @@ const HeaderContainer = ({title}: { title: string }) => {
               }
             </div>
             :
-            <Link href={ '/login' }>
+            <Link href={ '/login' } locale={ locale }>
               <span className='sign-in-btn'>
                 {t('button.login')} <img src={ LoginArrow } alt="LoginArrow"/>
               </span>

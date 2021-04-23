@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'next-i18next';
 
 import ArrowIcon from '../../../../assets/images/arrow-blue.svg';
 import ValidIcon from '../../../../assets/images/valid.svg';
@@ -11,6 +12,7 @@ import { RootState } from '../../../../types/state';
 import IconBack from '../../../../assets/images/long-arrow.svg';
 
 const FinalStep = () => {
+  const {t} = useTranslation('steps');
   const dispatch = useDispatch();
   const {
     addressFromStepOne,
@@ -20,7 +22,7 @@ const FinalStep = () => {
     propertyDetails,
     details,
     utilities,
-    personalAccount
+    personalAccount,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [data, setFormData] = useState({
     firstName: '',
@@ -69,8 +71,8 @@ const FinalStep = () => {
           prestige: String(details.prestige),
           facades: Number(propertyDetails.facadesNumber),
           construction_year: Number(details.constructionYear),
-          renov_year: Number(details.renovationYear),
-          renov_level: Number(details.renovationLevel),
+          renov_year: details.renovated ? Number(details.renovationYear) : undefined,
+          renov_level: details.renovated ? Number(details.renovationLevel) : undefined,
           epc: Number(utilities.epc),
           view: String(utilities.view),
           orientation_terras: String(utilities.orientation),
@@ -92,7 +94,7 @@ const FinalStep = () => {
           lat: location.lat,
           lng: location.lng,
         },
-        user: {...data}
+        user: {...data},
       }));
     }
     return false;
@@ -128,20 +130,19 @@ const FinalStep = () => {
 
   return (
     <div className='final-step'>
-      <span className="step-title">Good job!</span>
-      <h4>Your estimation is ready!</h4>
+      <span className="step-title">{ t('title.good-job') }</span>
+      <h4>{ t('title.estimation-ready') }</h4>
       <span className="step-desc">
-        We finalized your estimation and personal report. You need to create an account or use existing
-        account to review it.
+        { t('desc.finalized-estimation') }
       </span>
       <span className="have-account">
-        I already have an account
+        { t('link.already-have-account') }
         <img src={ ArrowIcon } alt="ArrowIcon"/>
       </span>
       <Form>
         <Form.Row className='mb-4'>
           <Form.Group>
-            <Form.Label>First name</Form.Label>
+            <Form.Label>{ t('label.first-name') }</Form.Label>
             <Form.Control
               value={ data.firstName }
               name='firstName'
@@ -150,7 +151,7 @@ const FinalStep = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Last name</Form.Label>
+            <Form.Label>{ t('label.last-name') }</Form.Label>
             <Form.Control
               value={ data.lastName }
               name='lastName'
@@ -160,7 +161,7 @@ const FinalStep = () => {
           </Form.Group>
         </Form.Row>
         <Form.Group className='mb-4'>
-          <Form.Label>Email</Form.Label>
+          <Form.Label>{ t('label.email') }</Form.Label>
           <Form.Control
             value={ data.email }
             name='email'
@@ -169,7 +170,7 @@ const FinalStep = () => {
           />
         </Form.Group>
         <Form.Group className='mb-4'>
-          <Form.Label>Phone number</Form.Label>
+          <Form.Label>{ t('label.phone') }</Form.Label>
           <Form.Control
             value={ data.phone_number }
             name='phone_number'
@@ -179,7 +180,7 @@ const FinalStep = () => {
         </Form.Group>
         <Form.Row>
           <Form.Group>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{ t('label.password') }</Form.Label>
             <Form.Control
               value={ data.password }
               name='password'
@@ -191,7 +192,7 @@ const FinalStep = () => {
             }
           </Form.Group>
           <Form.Group>
-            <Form.Label>Confirm password</Form.Label>
+            <Form.Label>{ t('label.confirm-password') }</Form.Label>
             <Form.Control
               value={ data.confirmPassword }
               name='confirmPassword'
@@ -205,19 +206,19 @@ const FinalStep = () => {
 
         </Form.Row>
         <span className='recommendation'>
-          We strongly recommend to use strong password, with at least one symbol and digit.
+          { t('desc.strongly-recommend') }
         </span>
         <Form.Check
           checked={ data.promotions }
           name='promotions'
           onChange={ handleChecked }
-          label="I’d like to receive occasional promotions by email."
+          label={ t('label.promotions') }
         />
         <Form.Check
           checked={ data.agreement }
           name='agreement'
           onChange={ handleChecked }
-          label="I have read and agree to service Privacy Policy and Terms and conditions"
+          label={ t('label.read-privacy') }
         />
 
       </Form>
@@ -225,9 +226,11 @@ const FinalStep = () => {
         <Button
           onClick={ handleClickPrevBtn }
           className='prev-step'>
-          <img src={ IconBack } alt="IconBack"/>Back
+          <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button className='next-step' disabled={ isDisabled() } onClick={ handleSubmit }>Create an account</Button>
+        <Button className='next-step' disabled={ isDisabled() } onClick={ handleSubmit }>
+          { t('button.create-account') }
+        </Button>
       </div>
     </div>
   );

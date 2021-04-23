@@ -29,8 +29,10 @@ import { sellPropertySelect } from '../../../../templates/sellPropertySelect';
 import { howSellSelect } from '../../../../templates/howSellSelect';
 import { parseJwt } from '../../../../utils';
 import { userToken } from '../../../../config/siteConfigs';
+import { useTranslation } from 'next-i18next';
 
 const CreatePersonalAccount = () => {
+  const {t} = useTranslation('steps');
   const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState<string>('private');
@@ -47,9 +49,9 @@ const CreatePersonalAccount = () => {
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const {accountType, selectedItem, selectedResidence, sellProperty, howSell} = personalAccount;
   const [data, setData] = useState({accountType, selectedItem, selectedResidence, sellProperty, howSell});
-  const [kindOfHomeValue, setKindOfHomeValue] = useState<string>('Please select');
-  const [sellPropertyValue, setSellPropertyValue] = useState<string>('Please select');
-  const [howSellValue, setHowSellValue] = useState<string>('Please select');
+  const [kindOfHomeValue, setKindOfHomeValue] = useState<string>(t('placeholder.please-select'));
+  const [sellPropertyValue, setSellPropertyValue] = useState<string>(t('placeholder.please-select'));
+  const [howSellValue, setHowSellValue] = useState<string>(t('placeholder.please-select'));
   const [activePrivateBlock, setActivePrivateBlock] = useState<string | boolean>(false);
 
   const handleClickPrevBtn = () => {
@@ -62,7 +64,7 @@ const CreatePersonalAccount = () => {
       dispatch(goToNextStepAction());
     } else {
       const parseData = parseJwt(userToken);
-      dispatch(createPropertyRequestAction({
+      const sendData = {
         leadId: parseData.id,
         search_address: String(addressFromStepOne),
         country: String(additionalAddress.country),
@@ -81,8 +83,8 @@ const CreatePersonalAccount = () => {
         prestige: String(details.prestige),
         facades: Number(propertyDetails.facadesNumber),
         construction_year: Number(details.constructionYear),
-        renov_year: Number(details.renovationYear),
-        renov_level: Number(details.renovationLevel),
+        renov_year: details.renovated ? Number(details.renovationYear) : undefined,
+        renov_level: details.renovated ? Number(details.renovationLevel) : undefined,
         epc: Number(utilities.epc),
         view: String(utilities.view),
         orientation_terras: String(utilities.orientation),
@@ -103,7 +105,9 @@ const CreatePersonalAccount = () => {
         residence_type: String(data.selectedResidence),
         lat: location.lat,
         lng: location.lng,
-      }));
+      };
+
+      dispatch(createPropertyRequestAction({...sendData}));
     }
   };
 
@@ -149,14 +153,13 @@ const CreatePersonalAccount = () => {
 
   return (
     <div className='create-personal-account'>
-      <span className="step-title">Great job!</span>
-      <h4>Estimation is ready!</h4>
+      <span className="step-title">{ t('title.great-job') }</span>
+      <h4>{ t('title.estimation-ready') }</h4>
       <span className="step-title">
-        We finalized your estimation and personal report. You need to create an account or use existing
-        account to review it.
+       { t('desc.finalized-estimation') }
       </span>
       <Link href={ '/login' }>
-        <span className='have-account'>I already have an account<img src={ LinkArrow } alt="LinkArrow"/></span>
+        <span className='have-account'>{ t('link.already-have-account') }<img src={ LinkArrow } alt="LinkArrow"/></span>
       </Link>
       <div className="create-personal-account__main-block">
         <div className="title-block">
@@ -164,13 +167,13 @@ const CreatePersonalAccount = () => {
             onClick={ () => switchTab('private') }
             className={ activeTab === 'private' ? 'active' : '' }
           >
-            Private account
+            { t('label.private-account') }
           </span>
           <span
             onClick={ () => switchTab('professional') }
             className={ activeTab === 'professional' ? 'active' : '' }
           >
-            Professional account
+            { t('label.professional-account') }
           </span>
         </div>
         {
@@ -185,7 +188,7 @@ const CreatePersonalAccount = () => {
                   src={ activePrivateBlock === 'homeowner' ? HomeownerIconActive : HomeownerIcon }
                   alt="HomeownerIcon"
                 />
-                <span>Homeowner</span>
+                <span>{ t('select.homeowner') }</span>
                 <div className="active-item"/>
               </div>
               <div
@@ -195,7 +198,7 @@ const CreatePersonalAccount = () => {
                 <img
                   src={ activePrivateBlock === 'not-owner' ? NotOwnerIconActive : NotOwnerIcon }
                   alt="NotOwnerIcon"/>
-                <span>Not owner</span>
+                <span>{ t('select.not-owner') }</span>
                 <div className="active-item"/>
               </div>
             </div>
@@ -212,7 +215,7 @@ const CreatePersonalAccount = () => {
                       src={ activePrivateBlock === item.name ? item.activeImg : item.img }
                       alt={ item.name }
                     />
-                    <span>{ item.name }</span>
+                    <span>{ t(`select.${ item.tag }`) }</span>
                     <div className="active-item"/>
                   </div>
                 ))
@@ -225,7 +228,7 @@ const CreatePersonalAccount = () => {
                   {
                     isMobile && <img src={ activePrivateBlock === 'other' ? OtherActive : Other } alt="other"/>
                   }
-                  Other
+                  { t('select.other') }
                 </span>
                 <div className="active-item"/>
               </div>
@@ -234,7 +237,7 @@ const CreatePersonalAccount = () => {
         {
           activePrivateBlock && activeTab === 'private' &&
           <>
-            <span className="label">This home is</span>
+            <span className="label">{ t('label.kind-of-home') }</span>
             <Dropdown>
               <Dropdown.Toggle>
                 { kindOfHomeValue }
@@ -248,14 +251,14 @@ const CreatePersonalAccount = () => {
                       name={ item.name }
                       onClick={ handleSelectResidence }
                     >
-                      { item.label }
+                      { t(`li.${ item.name }`) }
                       <img src={ CheckedIcon } alt="CheckedIcon"/>
                     </Dropdown.Item>,
                   )
                 }
               </Dropdown.Menu>
             </Dropdown>
-            <span className="label">Would you like to sell property?</span>
+            <span className="label">{ t('label.would-you-like') }</span>
             <Dropdown>
               <Dropdown.Toggle>
                 { sellPropertyValue }
@@ -269,7 +272,7 @@ const CreatePersonalAccount = () => {
                       className={ data.sellProperty === item.name ? 'active' : '' }
                       onClick={ handleSelectSellProperty }
                     >
-                      { item.label }
+                      { t(`li.${ item.name }`) }
                       <img src={ CheckedIcon } alt="CheckedIcon"/>
                     </Dropdown.Item>,
                   )
@@ -279,7 +282,7 @@ const CreatePersonalAccount = () => {
             {
               data.sellProperty === 'in_process' &&
               <>
-                <span className="label">How are you selling your home?</span>
+                <span className="label">{ t('label.how-you-sell') }</span>
                 <Dropdown>
                   <Dropdown.Toggle>
                     { howSellValue }
@@ -293,7 +296,7 @@ const CreatePersonalAccount = () => {
                           className={ data.howSell === item.name ? 'active' : '' }
                           onClick={ handleSetHowSell }
                         >
-                          { item.label }
+                          { t(`li.${ item.name }`) }
                           <img src={ CheckedIcon } alt="CheckedIcon"/>
                         </Dropdown.Item>,
                       )
@@ -309,9 +312,9 @@ const CreatePersonalAccount = () => {
         <Button
           onClick={ handleClickPrevBtn }
           className='prev-step'>
-          <img src={ IconBack } alt="IconBack"/>Back
+          <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button onClick={ handleClickNextBtn } className='next-step'>Next</Button>
+        <Button onClick={ handleClickNextBtn } className='next-step'>{ t('button.next') }</Button>
       </div>
     </div>
   );

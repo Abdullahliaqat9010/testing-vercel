@@ -1,5 +1,6 @@
 export interface ProfessionalAccountItem {
   id: number,
+  tag: string,
   img: string,
   activeImg: string,
   name: string

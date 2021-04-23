@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation, useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 import { store, persistor } from '../store';
 
@@ -26,6 +27,14 @@ const tagManagerArgs = {
 }
 
 const MyApp = ({ Component, pageProps }) => {
+  const router = useRouter();
+
+  const { locale } = router;
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [locale]);
 
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)

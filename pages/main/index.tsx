@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
+import { useRouter } from 'next/router';
 import { RootState } from '../../types/state';
 
 import ImagesBlock from './ImagesBlock';
@@ -8,12 +8,16 @@ import TestimonialsBlock from './TestimonialsBlock';
 import StepsBlock from './StepsBlock';
 import InfoBlock from './InfoBlock';
 
+
 const MainPageComponent = () => {
+  const router = useRouter();
+
+  const { locale } = router;
   const {mainBlocks, goToDashboard} = useSelector((state: RootState) => state.stepsInfo);
 
   useEffect(() => {
     if (goToDashboard) {
-      window.location.href = '/dashboard';
+      window.location.href = locale + '/dashboard';
     }
   }, [goToDashboard]);
 
