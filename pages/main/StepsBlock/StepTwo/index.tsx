@@ -53,7 +53,9 @@ const StepTwo = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.name === 'elevator' ? el.target.checked : el.target.value,
+      [el.target.name]: el.target.name === 'elevator'
+        ? el.target.checked : +el.target.value < 0
+          ? +el.target.value * -1 : el.target.value,
     });
   };
 
@@ -106,7 +108,13 @@ const StepTwo = () => {
           <InputGroup className='mb-3'>
             <Form.Label>{ t('label.living-area') }</Form.Label>
             <div className="input-block">
-              <Form.Control name='livingArea' value={ data.livingArea } type="number" onChange={ handleChangeVal }/>
+              <Form.Control
+                min={1}
+                name='livingArea'
+                value={ data.livingArea }
+                type="number"
+                onChange={ handleChangeVal }
+              />
               <InputGroup.Append>
                 <InputGroup.Text>m²</InputGroup.Text>
               </InputGroup.Append>
@@ -134,8 +142,13 @@ const StepTwo = () => {
               <InputGroup className='mb-3'>
                 <Form.Label>{ t('label.land-surface') }</Form.Label>
                 <div className="input-block">
-                  <Form.Control name='landSurface' value={ data.landSurface } type="number"
-                                onChange={ handleChangeVal }/>
+                  <Form.Control
+                    min={1}
+                    name='landSurface'
+                    value={ data.landSurface }
+                    type="number"
+                    onChange={ handleChangeVal }
+                  />
                   <InputGroup.Append>
                     <InputGroup.Text>m²</InputGroup.Text>
                   </InputGroup.Append>
@@ -168,6 +181,7 @@ const StepTwo = () => {
                 </Form.Label>
                 <div className="input-block">
                   <Form.Control
+                    min={1}
                     name='gardenTerrasValue'
                     value={ data.gardenTerrasValue }
                     type="number"

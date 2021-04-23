@@ -43,7 +43,7 @@ const StepTwo = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.value,
+      [el.target.name]: +el.target.value < 0 ? +el.target.value * -1 : el.target.value,
     });
   };
 
@@ -100,17 +100,17 @@ const StepTwo = () => {
           </Form.Group>
           <Form.Group controlId="number">
             <Form.Label>№</Form.Label>
-            <Form.Control type="number" name='number' value={ data.number } onChange={ handleChangeVal }/>
+            <Form.Control type="number" min={1} name='number' value={ data.number } onChange={ handleChangeVal }/>
           </Form.Group>
           <Form.Group controlId="boxNumber">
             <Form.Label>{ t('label.box') } №</Form.Label>
-            <Form.Control type="number" name='boxNumber' value={ data.boxNumber } onChange={ handleChangeVal }/>
+            <Form.Control type="number" min={1} name='boxNumber' value={ data.boxNumber } onChange={ handleChangeVal }/>
           </Form.Group>
         </Form.Row>
         <Form.Row>
           <Form.Group className='mr-4' controlId="zip">
             <Form.Label>{ t('label.zip') }</Form.Label>
-            <Form.Control type="number" name='zip' value={ data.zip } onChange={ handleChangeVal }/>
+            <Form.Control type="number" min={1} name='zip' value={ data.zip } onChange={ handleChangeVal }/>
           </Form.Group>
           <Form.Group controlId="locality">
             <Form.Label>{ t('label.locality') }</Form.Label>

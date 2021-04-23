@@ -13,7 +13,7 @@ const MainPageComponent = () => {
 
   useEffect(() => {
     if (goToDashboard) {
-      window.location.href = '/dashboard';
+      window.location.href = 'dashboard';
     }
   }, [goToDashboard]);
 

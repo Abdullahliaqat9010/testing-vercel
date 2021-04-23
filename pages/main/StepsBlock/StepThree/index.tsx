@@ -21,7 +21,7 @@ const StepThree = () => {
     renovationLevel,
     numberFloors,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.details);
-  const { selectedProperty } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {selectedProperty} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
   const [data, setFormData] = useState({
     prestige,
@@ -38,14 +38,24 @@ const StepThree = () => {
   };
 
   const handleClickNextBtn = () => {
-    dispatch(setDetailsAction(data));
+    const validData = {...data};
+    if (+validData.constructionYear < 1800) {
+      validData.constructionYear = '1800';
+    }
+    if (+validData.renovationYear < 1920) {
+      validData.renovationYear = '1920';
+    }
+
+    dispatch(setDetailsAction(validData));
     dispatch(goToNextStepAction());
   };
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.name === 'renovated' ? el.target.checked : el.target.value,
+      [el.target.name]: el.target.name === 'renovated'
+        ? el.target.checked : +el.target.value < 0
+          ? +el.target.value * -1 : el.target.value,
     });
   };
 
@@ -82,7 +92,7 @@ const StepThree = () => {
       <span className="step-title">{ t('span.step') } 3</span>
       <h4>
         <span>
-          { selectedProperty === 'house' ? 'home': selectedProperty }
+          { selectedProperty === 'house' ? 'home' : selectedProperty }
         </span> details <span className="optional">({ t('title.optional') })</span>
       </h4>
       <div className="group-block d-flex flex-column">
@@ -141,13 +151,25 @@ const StepThree = () => {
         <InputGroup>
           <Form.Label>{ t('label.construction-year') }</Form.Label>
           <div className="input-block">
-            <Form.Control name='constructionYear' value={ data.constructionYear } type="number" onChange={ handleChangeVal }/>
+            <Form.Control
+              name='constructionYear'
+              min={ 1800 }
+              value={ data.constructionYear }
+              type="number"
+              onChange={ handleChangeVal }
+            />
           </div>
         </InputGroup>
         <InputGroup>
           <Form.Label>{ t('label.renovated') }</Form.Label>
           <div className="input-block">
-            <Form.Control name='renovationYear' value={ data.renovationYear } type="number" onChange={ handleChangeVal }/>
+            <Form.Control
+              name='renovationYear'
+              min={ 1920 }
+              value={ data.renovationYear }
+              type="number"
+              onChange={ handleChangeVal }
+            />
           </div>
         </InputGroup>
         <InputGroup>
@@ -162,6 +184,7 @@ const StepThree = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
+              min={ 1 }
               name='renovationLevel'
               disabled={ !data.renovated }
               value={ data.renovationLevel }
@@ -200,7 +223,7 @@ const StepThree = () => {
               </InputGroup.Prepend>
               <Form.Control value={ data.numberFloors } readOnly type="number"/>
               <InputGroup.Append>
-                <InputGroup.Text onClick={ handleAddNumber}>+</InputGroup.Text>
+                <InputGroup.Text onClick={ handleAddNumber }>+</InputGroup.Text>
               </InputGroup.Append>
             </div>
           </InputGroup>

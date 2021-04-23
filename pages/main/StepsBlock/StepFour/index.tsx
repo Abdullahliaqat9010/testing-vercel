@@ -78,7 +78,9 @@ const StepFour = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: checkIfCheckbox(el.target.name) ? el.target.checked : el.target.value,
+      [el.target.name]: checkIfCheckbox(el.target.name)
+        ? el.target.checked : +el.target.value < 0
+        ? +el.target.value * -1 : el.target.value,
     });
   };
 
@@ -137,6 +139,7 @@ const StepFour = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
+              min={1}
               name='epc'
               value={ data.epc }
               onChange={ handleChangeVal }
@@ -240,6 +243,7 @@ const StepFour = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
+              min={1}
               name='atticValue'
               value={ data.atticValue }
               onChange={ handleChangeVal }
@@ -256,6 +260,7 @@ const StepFour = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
+              min={1}
               name='cellarValue'
               value={ data.cellarValue }
               onChange={ handleChangeVal }
