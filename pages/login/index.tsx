@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Button, Form } from 'react-bootstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -17,13 +18,17 @@ import BackArrow from '../../assets/images/full-arrow.svg';
 
 const LoginPage = () => {
   const {t} = useTranslation('login-page');
+
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { locale } = router;
+
   const {auth} = useSelector((state: RootState) => state.userInfo);
   const [data, setData] = useState({userData: '', password: ''});
 
   useEffect(() => {
     if (auth) {
-      window.location.href = '/dashboard';
+      window.location.href = 'dashboard';
     }
   }, [auth]);
 
@@ -60,17 +65,21 @@ const LoginPage = () => {
         <Form.Group controlId="password">
           <Form.Label>{ t('label.password') }</Form.Label>
           <img src={ LockIcon } alt="LockIcon"/>
-          <Form.Control onChange={ handleChangeData } name='password' type="password"
-                        placeholder={ t('placeholder.password') }/>
+          <Form.Control
+            onChange={ handleChangeData }
+            name='password'
+            type="password"
+            placeholder={ t('placeholder.password') }
+          />
         </Form.Group>
-        <Link href={ '/remind-password' }>
+        {/*<Link href={ '/remind-password' } locale={locale}>*/}
           <span className="link">{ t('link.remind-password') }</span>
-        </Link>
+        {/*</Link>*/}
         <div className="group-btn">
           <Button onClick={ handleLogin }>
             { t('button.login') }
           </Button>
-          <Link href='/'>
+          <Link href='/' locale={locale}>
             <span><img src={ BackArrow } alt="BackArrow"/>{ t('button.back') }</span>
           </Link>
         </div>

@@ -17,36 +17,42 @@ import PromoteurActive from '../assets/images/steps/professional-account/promote
 export const professionalAccountList: ProfessionalAccountItem[] = [
   {
     id: 1,
+    tag: 'estate-agent',
     img: RealEstate,
     activeImg: RealEstateActive,
     name: 'Real estate agent'
   },
   {
     id: 2,
+    tag: 'notary',
     img: Notary,
     activeImg: NotaryActive,
     name: 'Notary'
   },
   {
     id: 3,
+    tag: 'banquer',
     img: Banquer,
     activeImg: BanquerActive,
     name: 'Banquer'
   },
   {
     id: 4,
+    tag: 'land-surveyor',
     img: LandSurveyor,
     activeImg: LandSurveyorActive,
     name: 'Land surveyor'
   },
   {
     id: 5,
+    tag: 'syndic',
     img: Syndic,
     activeImg: SyndicActive,
     name: 'Syndic'
   },
   {
     id: 6,
+    tag: 'promoteur',
     img: Promoteur,
     activeImg: PromoteurActive,
     name: 'Promoteur'
