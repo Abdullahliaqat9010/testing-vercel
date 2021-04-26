@@ -70,7 +70,6 @@ const CreatePersonalAccount = () => {
         country: String(additionalAddress.country),
         street: String(additionalAddress.street),
         street_number: String(additionalAddress.number),
-        box_number: String(additionalAddress.boxNumber),
         zip: String(additionalAddress.zip),
         locality: String(additionalAddress.locality),
         property_type: String(selectedProperty),

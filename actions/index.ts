@@ -86,3 +86,8 @@ export const getPriceForPropertyAction = (propertyId: number) => ({
   type: actionType.GET_PRICE_PROPERTY_REQUEST,
   payload: propertyId,
 })
+
+export const goToModifyPropertyAction = (property: object) => ({
+  type: actionType.MODIFY_PROPERTY,
+  payload: property,
+})
