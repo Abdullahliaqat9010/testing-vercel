@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
@@ -8,6 +8,7 @@ import FloorsIcon from '../../../../assets/images/steps/floors.svg';
 import FacadesIcon from '../../../../assets/images/steps/facades.svg';
 import BedroomsIcon from '../../../../assets/images/steps/bedrooms.svg';
 import BathroomsIcon from '../../../../assets/images/steps/bathrooms.svg';
+import TooltipIcon from '../../../../assets/images/tooltip.svg';
 
 import { goToNextStepAction, goToPrevStepAction, setPropertyDetailsAction } from '../../../../actions';
 import { RootState } from '../../../../types/state';
@@ -22,6 +23,8 @@ const StepTwo = () => {
     numberBedrooms,
     numberLevels,
     facadesNumber,
+    gardenTerras,
+    numberFloors,
     elevator,
     gardenTerrasValue,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.propertyDetails);
@@ -33,7 +36,9 @@ const StepTwo = () => {
     numberBathrooms,
     numberBedrooms,
     numberLevels,
+    numberFloors,
     facadesNumber,
+    gardenTerras,
     elevator,
     gardenTerrasValue,
   });
@@ -53,7 +58,7 @@ const StepTwo = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.name === 'elevator'
+      [el.target.name]: el.target.name === 'gardenTerras' || el.target.name === 'elevator'
         ? el.target.checked : +el.target.value < 0
           ? +el.target.value * -1 : el.target.value,
     });
@@ -140,8 +145,13 @@ const StepTwo = () => {
             selectedProperty === 'house' &&
             <>
               <InputGroup className='mb-3'>
-                <Form.Label>{ t('label.land-surface') }</Form.Label>
-                <div className="input-block">
+                <Form.Label className='position-relative'>
+                  { t('label.land-surface') }
+                  <OverlayTrigger overlay={<Tooltip id="tooltip-info">{ t('tooltip-info') }</Tooltip>}>
+                    <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>
+                  </OverlayTrigger>
+                </Form.Label>
+                <div className="input-block block-with-tooltip">
                   <Form.Control
                     min={1}
                     name='landSurface'
@@ -177,6 +187,12 @@ const StepTwo = () => {
             <>
               <InputGroup>
                 <Form.Label className='d-flex'>
+                  <Form.Check
+                    checked={ data.gardenTerras }
+                    name='gardenTerras'
+                    onChange={ handleChangeVal }
+                    type="checkbox"
+                  />
                   { t('label.garden') }
                 </Form.Label>
                 <div className="input-block">
@@ -215,6 +231,21 @@ const StepTwo = () => {
               </InputGroup.Append>
             </div>
           </InputGroup>
+          {
+            selectedProperty === 'apartment' &&
+            <InputGroup className='number-floors'>
+              <Form.Label>{ t('label.number-floors') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('numberFloors') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.numberFloors } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('numberFloors') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+          }
           {
             selectedProperty === 'house' &&
             <InputGroup>

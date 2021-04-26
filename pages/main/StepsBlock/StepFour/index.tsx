@@ -41,6 +41,7 @@ const StepFour = () => {
     outdoorGarage,
     outdoorGarageCheck,
     carport,
+    parking,
     carportCheck,
     solarPanels,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.utilities);
@@ -59,6 +60,7 @@ const StepFour = () => {
     outdoorGarage,
     outdoorGarageCheck,
     carport,
+    parking,
     carportCheck,
     solarPanels,
   });
@@ -69,6 +71,7 @@ const StepFour = () => {
 
   const checkIfCheckbox = (name: string) => {
     return name === 'swimmingPool'
+      || name === 'parking'
       || name === 'elevator'
       || name === 'indoorGarageCheck'
       || name === 'outdoorGarageCheck'
@@ -289,79 +292,54 @@ const StepFour = () => {
             label={ t('label.pool') }
           />
         </InputGroup>
-        {
-          selectedProperty === 'house' &&
-          <>
-            <InputGroup>
-              <Form.Label>{ t('label.indoor-garage') }</Form.Label>
-              <div className="input-block input-border-radius-0">
-                <InputGroup.Prepend>
-                  <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control value={ data.indoorGarage } readOnly type="number"/>
-                <InputGroup.Append>
-                  <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
-                </InputGroup.Append>
-              </div>
-            </InputGroup>
-            <InputGroup>
-              <Form.Label>{ t('label.outdoor-garage') }</Form.Label>
-              <div className="input-block input-border-radius-0">
-                <InputGroup.Prepend>
-                  <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
-                <InputGroup.Append>
-                  <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
-                </InputGroup.Append>
-              </div>
-            </InputGroup>
-            <InputGroup>
-              <Form.Label>{ t('label.carport') }</Form.Label>
-              <div className="input-block input-border-radius-0">
-                <InputGroup.Prepend>
-                  <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control value={ data.carport } readOnly type="number"/>
-                <InputGroup.Append>
-                  <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
-                </InputGroup.Append>
-              </div>
-            </InputGroup>
-          </>
-        }
-        {
-          selectedProperty === 'apartment' &&
-          <>
-            <InputGroup>
-              <Form.Check
-                name='indoorGarageCheck'
-                onChange={ handleChangeVal }
-                defaultChecked={ data.indoorGarageCheck }
-                type="checkbox"
-                label={ t('label.indoor-garage') }
-              />
-            </InputGroup>
-            <InputGroup>
-              <Form.Check
-                name='outdoorGarageCheck'
-                onChange={ handleChangeVal }
-                defaultChecked={ data.outdoorGarageCheck }
-                type="checkbox"
-                label={ t('label.outdoor-garage') }
-              />
-            </InputGroup>
-            <InputGroup>
-              <Form.Check
-                name='carportCheck'
-                onChange={ handleChangeVal }
-                defaultChecked={ data.carportCheck }
-                type="checkbox"
-                label={ t('label.carport') }
-              />
-            </InputGroup>
-          </>
-        }
+        <InputGroup>
+          <Form.Check
+            name='parking'
+            onChange={ handleChangeVal }
+            defaultChecked={ data.parking }
+            type="checkbox"
+            label={ t('label.parking') }
+          />
+        </InputGroup>
+        <div className='bg-block'>
+          <InputGroup>
+            <Form.Label>{ t('label.indoor-garage') }</Form.Label>
+            <div className="input-block input-border-radius-0">
+              <InputGroup.Prepend>
+                <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control value={ data.indoorGarage } readOnly type="number"/>
+              <InputGroup.Append>
+                <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
+              </InputGroup.Append>
+            </div>
+          </InputGroup>
+          <InputGroup>
+            <Form.Label>{ t('label.outdoor-garage') }</Form.Label>
+            <div className="input-block input-border-radius-0">
+              <InputGroup.Prepend>
+                <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
+              <InputGroup.Append>
+                <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
+              </InputGroup.Append>
+            </div>
+          </InputGroup>
+          <InputGroup className='mb-0'>
+            <Form.Label>{ t('label.carport') }</Form.Label>
+            <div className="input-block input-border-radius-0">
+              <InputGroup.Prepend>
+                <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control value={ data.carport } readOnly type="number"/>
+              <InputGroup.Append>
+                <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
+              </InputGroup.Append>
+            </div>
+          </InputGroup>
+        </div>
+
         <InputGroup>
           <Form.Label>{ t('label.solar-panels') }</Form.Label>
           <div className="input-block input-border-radius-0">

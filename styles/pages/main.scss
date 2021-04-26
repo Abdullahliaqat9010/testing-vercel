@@ -277,7 +277,7 @@
       }
 
 
-      #locality {
+      #locality, #street {
         width: 310px;
       }
 
@@ -290,11 +290,7 @@
         }
       }
 
-      #street {
-        width: 206px;
-      }
-
-      #number, #zip, #boxNumber {
+      #number, #zip {
         width: 96px;
       }
 
@@ -441,6 +437,20 @@
         }
       }
 
+      .bg-block {
+        margin-bottom: 21px;
+      }
+
+      .number-floors, .bg-block {
+        padding: 10px 10px 10px 20px;
+        background: var(--bg-blue);
+        border-radius: 6px;
+
+        .input-block {
+          width: 207px !important;
+        }
+      }
+
       .input-group {
         margin-bottom: 30px;
         align-items: center;
@@ -548,6 +558,17 @@
         background: var(--colorBlue);
         box-shadow: 0 4px 10px rgba(56, 114, 239, 0.15);
         border-radius: 10px;
+      }
+
+      .block-with-tooltip {
+        width: 140px !important;
+      }
+
+      .tooltip-info {
+        position: absolute;
+        right: -15px;
+        margin-right: unset;
+        top: 0;
       }
 
       img {
@@ -1207,15 +1228,7 @@
           text-align: center;
         }
 
-        #street {
-          width: 168px;
-        }
-
-        #number, #boxNumber {
-          width: 65px;
-        }
-
-        #locality {
+        #locality, #street {
           width: 225px;
         }
 
@@ -1314,6 +1327,16 @@
           .input-block {
             width: 166px;
           }
+        }
+
+        .number-floors, .bg-block {
+          .input-block {
+            width: 156px !important;
+          }
+        }
+
+        .block-with-tooltip {
+          width: 100% !important;
         }
 
         select {

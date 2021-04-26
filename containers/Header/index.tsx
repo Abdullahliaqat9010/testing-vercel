@@ -23,8 +23,8 @@ import navBarList from '../../config/navBarList';
 const HeaderContainer = ({title}: { title: string }) => {
   const router = useRouter();
 
-  const { locale } = router;
-  const { t } = useTranslation('header');
+  const {locale} = router;
+  const {t} = useTranslation('header');
   const {mainBlocks, stepBlock} = useSelector((state: RootState) => state.stepsInfo);
   const {auth, userName, userSurname} = useSelector((state: RootState) => state.userInfo);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -45,17 +45,26 @@ const HeaderContainer = ({title}: { title: string }) => {
 
   const goToMainPage = () => {
     window.location.href = '/';
-  }
+  };
 
   return (
     <>
       <Head>
         <title>{ title }</title>
         <link rel="icon" href={ '/favicon.ico' }/>
-        <meta name="robots" content="noindex, nofollow" />
+        <link rel="apple-touch-icon" sizes="180x180" href={ '/apple-touch-icon.png' }/>
+        <link rel="icon" type="image/png" sizes="32x32" href={ '/favicon-32x32.png' }/>
+        <link rel="icon" type="image/png" sizes="16x16" href={ '/favicon-16x16.png' }/>
+        <link rel="manifest" href={ '/site.webmanifest' }/>
+        <link rel="mask-icon" href={ '/safari-pinned-tab.svg' } color="#1d2e5b"/>
+        <meta name="robots" content="noindex, nofollow"/>
+        <meta name="apple-mobile-web-app-title" content="BelgiumImmo"/>
+        <meta name="application-name" content="BelgiumImmo"/>
+        <meta name="msapplication-TileColor" content="#1d2e5b"/>
+        <meta name="theme-color" content="#1d2e5b"/>
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <Image className={ `logo ${auth ? 'ml-67' : ''}` } src={ Logo } alt='Logo'/>
+        <Image className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
         {
           mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>
@@ -63,16 +72,16 @@ const HeaderContainer = ({title}: { title: string }) => {
               <div className={ `image-block ${ stepBlock.step !== 0 ? 'success' : '' }` }>
                 <img src={ stepBlock.step !== 0 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
               </div>
-              {t('span.step')} 1
+              { t('span.step') } 1
             </div>
             <div className={ `header-step-two ${ stepBlock.step === 1 ? 'active-step' : '' }` }>
               <div className={ `image-block ${ stepBlock.step > 1 ? 'success' : '' }` }>
                 {
                   stepBlock.step >= 1 &&
-                  <img src={ stepBlock.step >1 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
+                  <img src={ stepBlock.step > 1 ? SuccessStepIcon : CurrentStepIcon } alt="steps-icon"/>
                 }
               </div>
-              {t('span.step')} 2
+              { t('span.step') } 2
             </div>
             <div className={ `header-step-three ${ stepBlock.step > 1 ? 'active-step' : '' }` }>
               <div className="image-block">
@@ -81,7 +90,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                   <img src={ CurrentStepIcon } alt="steps-icon"/>
                 }
               </div>
-              {t('span.step')} 3
+              { t('span.step') } 3
             </div>
           </div>
         }
@@ -90,51 +99,52 @@ const HeaderContainer = ({title}: { title: string }) => {
             <div className="right-block d-flex align-items-center">
               {
                 !mainBlocks &&
-                  <>
+                <>
+                  {
+                    !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                  }
+                  <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown"
+                               onClick={ isActive }>
+                    {/*<NavDropdown.Item className='pro-workspace'>*/ }
+                    {/*  <img src={ ProIcon } alt="ProIcon"/>*/ }
+                    {/*  {t('li.pro-workspace')}*/ }
+                    {/*</NavDropdown.Item>*/ }
                     {
-                      !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                    }
-                    <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown" onClick={ isActive }>
-                      {/*<NavDropdown.Item className='pro-workspace'>*/}
-                      {/*  <img src={ ProIcon } alt="ProIcon"/>*/}
-                      {/*  {t('li.pro-workspace')}*/}
-                      {/*</NavDropdown.Item>*/}
-                      {
-                        isMobile &&
-                        <Button onClick={goToMainPage} className='add-property-mobile'>
-                          <img src={ AddIcon } alt="AddIcon"/><span>{t('button.add-property')}</span>
-                        </Button>
-                      }
-                      {
-                        navBarList.map((list, index) => (
-                          <NavDropdown.Item href={ locale + list.href } key={ index }>
-                            <img src={ list.img } alt={ list.title }/>
-                            {t(`nav-li.${list.id}`)}
-                          </NavDropdown.Item>
-                        ))
-                      }
-                      {
-                        isMobile &&
-                        <div className="mobile-block">
-                          <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                          <span className="user-name">{ userName + ' ' + userSurname }</span>
-                          <span className="pro">PRO</span>
-                        </div>
-                      }
-                    </NavDropdown>
-                    {
-                      !openMenu &&
-                      <Button className='add-property' onClick={goToMainPage}>
-                        <img src={ AddIcon } alt="AddIcon"/><span>{t('button.add-property')}</span>
+                      isMobile &&
+                      <Button onClick={ goToMainPage } className='add-property-mobile'>
+                        <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
                       </Button>
                     }
-                  </>
+                    {
+                      navBarList.map((list, index) => (
+                        <NavDropdown.Item href={ locale + list.href } key={ index }>
+                          <img src={ list.img } alt={ list.title }/>
+                          { t(`nav-li.${ list.id }`) }
+                        </NavDropdown.Item>
+                      ))
+                    }
+                    {
+                      isMobile &&
+                      <div className="mobile-block">
+                        <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                        <span className="user-name">{ userName + ' ' + userSurname }</span>
+                        <span className="pro">PRO</span>
+                      </div>
+                    }
+                  </NavDropdown>
+                  {
+                    !openMenu &&
+                    <Button className='add-property' onClick={ goToMainPage }>
+                      <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
+                    </Button>
+                  }
+                </>
               }
             </div>
             :
             <Link href={ '/login' } locale={ locale }>
               <span className='sign-in-btn'>
-                {t('button.login')} <img src={ LoginArrow } alt="LoginArrow"/>
+                { t('button.login') } <img src={ LoginArrow } alt="LoginArrow"/>
               </span>
             </Link>
         }

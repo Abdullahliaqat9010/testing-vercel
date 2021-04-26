@@ -28,7 +28,6 @@ export interface RootState {
       additionalAddress: {
         street: string,
         number: string,
-        boxNumber: string,
         zip: string,
         locality: string,
         country: string,
@@ -41,6 +40,8 @@ export interface RootState {
         facadesNumber: number,
         numberBathrooms: number,
         numberLevels: number,
+        gardenTerras: boolean,
+        numberFloors: number,
         gardenTerrasValue: number,
         elevator: number,
       },
@@ -67,6 +68,7 @@ export interface RootState {
         outdoorGarageCheck: boolean,
         carport: number,
         carportCheck: boolean,
+        parking: boolean,
         solarPanels: number,
       },
       personalAccount: {

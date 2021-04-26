@@ -24,7 +24,6 @@ const StepTwo = () => {
   const {
     street,
     number,
-    boxNumber,
     locality,
     zip,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.additionalAddress);
@@ -35,7 +34,6 @@ const StepTwo = () => {
   const [data, setFormData] = useState({
     street,
     number,
-    boxNumber,
     zip,
     locality,
   });
@@ -101,10 +99,6 @@ const StepTwo = () => {
           <Form.Group controlId="number">
             <Form.Label>№</Form.Label>
             <Form.Control type="number" min={1} name='number' value={ data.number } onChange={ handleChangeVal }/>
-          </Form.Group>
-          <Form.Group controlId="boxNumber">
-            <Form.Label>{ t('label.box') } №</Form.Label>
-            <Form.Control type="number" min={1} name='boxNumber' value={ data.boxNumber } onChange={ handleChangeVal }/>
           </Form.Group>
         </Form.Row>
         <Form.Row>

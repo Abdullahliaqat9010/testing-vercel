@@ -9,7 +9,6 @@ export const initialState = {
     additionalAddress: {
       street: '',
       number: '',
-      boxNumber: '',
       zip: '',
       locality: '',
       country: '',
@@ -22,6 +21,8 @@ export const initialState = {
       numberBedrooms: 1,
       numberBathrooms: 1,
       numberLevels: 1,
+      numberFloors: 1,
+      gardenTerras: false,
       gardenTerrasValue: '0',
       elevator: false,
     },
@@ -48,6 +49,7 @@ export const initialState = {
       outdoorGarageCheck: false,
       carport: 1,
       carportCheck: false,
+      parking: false,
       solarPanels: 0,
     },
     personalAccount: {
@@ -171,6 +173,11 @@ const stepsReducer = (state = initialState, action: any) => {
           personalAccount: {...action.payload},
         },
       };
+    case actionType.MODIFY_PROPERTY:
+      return {
+        ...state,
+        ...action.payload
+      }
     default:
       return {
         ...state,
