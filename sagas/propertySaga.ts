@@ -24,6 +24,42 @@ function* createPropertyRequest({payload}: any) {
   }
 }
 
+function* updatePropertyRequest({payload}: any) {
+  try {
+    const {data, propertyId} = payload;
+
+    const token = localStorage.getItem('auth');
+    const res = yield fetch(`${ config.apiDomain }/property/${ propertyId }`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.status === 200) {
+      yield updatePropertySuccess();
+    }
+  } catch (error) {
+    console.log(error);
+    yield updatePropertyError(error);
+  }
+}
+
+function* updatePropertySuccess() {
+  yield put({
+    type: actionType.UPDATE_PROPERTY_SUCCESS,
+  });
+}
+
+function* updatePropertyError(error) {
+  yield put({
+    type: actionType.UPDATE_PROPERTY_ERROR,
+    payload: error,
+  });
+}
+
 function* createPropertySuccess() {
   yield put({
     type: actionType.CREATE_PROPERTY_SUCCESS,
@@ -75,7 +111,7 @@ function* getPropertyForCurrentUserError(error: string) {
 function* getPriceProperty({payload}: any) {
   try {
     const token = localStorage.getItem('auth');
-    const res = yield fetch(`${ config.apiDomain }/property/${payload}/estimation`, {
+    const res = yield fetch(`${ config.apiDomain }/property/${ payload }/estimation`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -109,6 +145,7 @@ function* getPricePropertyError(error: string) {
 
 export function* propertySaga() {
   yield takeLatest(actionType.CREATE_PROPERTY_REQUEST, createPropertyRequest);
+  yield takeLatest(actionType.UPDATE_PROPERTY_REQUEST, updatePropertyRequest);
   yield takeLatest(actionType.GET_USER_PROPERTY_REQUEST, getPropertyForCurrentUser);
   yield takeLatest(actionType.GET_PRICE_PROPERTY_REQUEST, getPriceProperty);
 }

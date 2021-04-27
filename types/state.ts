@@ -21,6 +21,7 @@ export interface RootState {
   stepsInfo: {
     mainBlocks: boolean,
     goToDashboard: boolean,
+    propertyId?: number,
     stepBlock: {
       step: number,
       title: string,
