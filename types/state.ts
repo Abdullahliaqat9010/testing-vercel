@@ -53,7 +53,6 @@ export interface RootState {
         renovated: number,
         renovationYear: string,
         renovationLevel: string,
-        numberFloors: number,
       },
       utilities: {
         epc: string | number,
