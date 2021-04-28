@@ -37,16 +37,9 @@ const StepThree = () => {
 
   const handleClickNextBtn = () => {
     const validData = {...data};
-    if (+validData.constructionYear < 1800) {
-      validData.constructionYear = '1800';
-    }
 
     if (+validData.constructionYear > new Date().getFullYear()) {
       validData.constructionYear = String(new Date().getFullYear());
-    }
-
-    if (+validData.renovationYear < 1920) {
-      validData.renovationYear = '1920';
     }
 
     if (+validData.renovationYear > new Date().getFullYear()) {
