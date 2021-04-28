@@ -66,7 +66,7 @@ const MainInfoBlock = () => {
           // selectedItem: '',
           selectedResidence: mainProperty.residence_type,
           sellProperty: mainProperty.interest,
-          howSell: mainProperty.selling_way,
+          howSell: mainProperty.selling_way || '',
         },
         location: {
           lat: mainProperty.lat,
