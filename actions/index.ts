@@ -56,7 +56,12 @@ export const createPersonalAccountAction = (data: object) => ({
 export const createPropertyRequestAction = (data: object) => ({
   type: actionType.CREATE_PROPERTY_REQUEST,
   payload: data,
-})
+});
+
+export const updatePropertyRequestAction = (data: object, propertyId) => ({
+  type: actionType.UPDATE_PROPERTY_REQUEST,
+  payload: {data, propertyId},
+});
 
 export const sendStepsDataRequestAction = (data: object) => ({
   type: actionType.SEND_STEPS_DATA_REQUEST,
@@ -75,19 +80,19 @@ export const closeModalWindowContactAgentAction = () => ({
 export const contactAgencyAction = (data: object) => ({
   type: actionType.CONTACT_AGENCY_REQUEST,
   payload: data,
-})
+});
 
 export const getPropertyForCurrentUserAction = (userId: number) => ({
   type: actionType.GET_USER_PROPERTY_REQUEST,
   payload: userId,
-})
+});
 
 export const getPriceForPropertyAction = (propertyId: number) => ({
   type: actionType.GET_PRICE_PROPERTY_REQUEST,
   payload: propertyId,
-})
+});
 
-export const goToModifyPropertyAction = (property: object) => ({
+export const goToModifyPropertyAction = (property: object, propertyId: number) => ({
   type: actionType.MODIFY_PROPERTY,
-  payload: property,
-})
+  payload: {...property, propertyId},
+});

@@ -21,6 +21,7 @@ export interface RootState {
   stepsInfo: {
     mainBlocks: boolean,
     goToDashboard: boolean,
+    propertyId?: number,
     stepBlock: {
       step: number,
       title: string,
@@ -52,7 +53,6 @@ export interface RootState {
         renovated: number,
         renovationYear: string,
         renovationLevel: string,
-        numberFloors: number,
       },
       utilities: {
         epc: string | number,

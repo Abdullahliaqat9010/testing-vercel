@@ -10,7 +10,7 @@ import {
   createPersonalAccountAction,
   createPropertyRequestAction,
   goToNextStepAction,
-  goToPrevStepAction,
+  goToPrevStepAction, updatePropertyRequestAction,
 } from '../../../../actions';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
@@ -37,6 +37,7 @@ const CreatePersonalAccount = () => {
 
   const [activeTab, setActiveTab] = useState<string>('private');
   const {auth} = useSelector((state: RootState) => state.userInfo);
+  const {propertyId} = useSelector((state: RootState) => state.stepsInfo);
   const {
     addressFromStepOne,
     additionalAddress,
@@ -105,8 +106,11 @@ const CreatePersonalAccount = () => {
         lat: location.lat,
         lng: location.lng,
       };
-
-      dispatch(createPropertyRequestAction({...sendData}));
+      if (propertyId) {
+        dispatch(updatePropertyRequestAction({...sendData}, propertyId));
+      } else {
+        dispatch(createPropertyRequestAction({...sendData}));
+      }
     }
   };
 
