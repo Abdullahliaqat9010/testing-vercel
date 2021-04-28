@@ -109,17 +109,10 @@ const StepFour = () => {
   };
 
   const handleSubtractNumber = (elName: string) => {
-    if (elName === 'solarPanels') {
-      setFormData({
-        ...data,
-        solarPanels: data.solarPanels > 0 ? --data.solarPanels : 0,
-      });
-    } else {
-      setFormData({
-        ...data,
-        [elName]: data[elName] > 1 ? --data[elName] : 1,
-      });
-    }
+    setFormData({
+      ...data,
+      [elName]: data[elName] > 0 ? --data[elName] : 0,
+    });
   };
 
   const handleClickNextBtn = () => {
@@ -301,45 +294,47 @@ const StepFour = () => {
             label={ t('label.parking') }
           />
         </InputGroup>
-        <div className='bg-block'>
-          <InputGroup>
-            <Form.Label>{ t('label.indoor-garage') }</Form.Label>
-            <div className="input-block input-border-radius-0">
-              <InputGroup.Prepend>
-                <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control value={ data.indoorGarage } readOnly type="number"/>
-              <InputGroup.Append>
-                <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
-              </InputGroup.Append>
-            </div>
-          </InputGroup>
-          <InputGroup>
-            <Form.Label>{ t('label.outdoor-garage') }</Form.Label>
-            <div className="input-block input-border-radius-0">
-              <InputGroup.Prepend>
-                <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
-              <InputGroup.Append>
-                <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
-              </InputGroup.Append>
-            </div>
-          </InputGroup>
-          <InputGroup className='mb-0'>
-            <Form.Label>{ t('label.carport') }</Form.Label>
-            <div className="input-block input-border-radius-0">
-              <InputGroup.Prepend>
-                <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control value={ data.carport } readOnly type="number"/>
-              <InputGroup.Append>
-                <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
-              </InputGroup.Append>
-            </div>
-          </InputGroup>
-        </div>
-
+        {
+          data.parking &&
+          <div className='bg-block'>
+            <InputGroup>
+              <Form.Label>{ t('label.indoor-garage') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.indoorGarage } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+            <InputGroup>
+              <Form.Label>{ t('label.outdoor-garage') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+            <InputGroup className='mb-0'>
+              <Form.Label>{ t('label.carport') }</Form.Label>
+              <div className="input-block input-border-radius-0">
+                <InputGroup.Prepend>
+                  <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control value={ data.carport } readOnly type="number"/>
+                <InputGroup.Append>
+                  <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
+                </InputGroup.Append>
+              </div>
+            </InputGroup>
+          </div>
+        }
         <InputGroup>
           <Form.Label>{ t('label.solar-panels') }</Form.Label>
           <div className="input-block input-border-radius-0">

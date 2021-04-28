@@ -268,7 +268,12 @@ const StepTwo = () => {
             </InputGroup>
           }
           <InputGroup>
-            <Form.Label><img src={ BedroomsIcon } alt="BedroomsIcon"/>{ t('label.bedrooms') }</Form.Label>
+            <Form.Label className='position-relative'>
+              <img src={ BedroomsIcon } alt="BedroomsIcon"/>{ t('label.bedrooms') }
+              <OverlayTrigger overlay={ <Tooltip id="tooltip-info-second">{ t('tooltip-info-second') }</Tooltip> }>
+                <img className='tooltip-info' key='tooltip-info-second' src={ TooltipIcon } alt="TooltipIcon"/>
+              </OverlayTrigger>
+            </Form.Label>
             <div className="input-block input-border-radius-0">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberBedrooms') }>-</InputGroup.Text>

@@ -47,6 +47,11 @@ const HeaderContainer = ({title}: { title: string }) => {
     window.location.href = '/';
   };
 
+  const Logout = () => {
+    localStorage.removeItem('auth');
+    window.location.href = '/';
+  };
+
   return (
     <>
       <Head>
@@ -117,12 +122,15 @@ const HeaderContainer = ({title}: { title: string }) => {
                     }
                     {
                       navBarList.map((list, index) => (
-                        <NavDropdown.Item href={ locale + list.href } key={ index }>
+                        <NavDropdown.Item href={'/' + locale + list.href } key={ index }>
                           <img src={ list.img } alt={ list.title }/>
                           { t(`nav-li.${ list.id }`) }
                         </NavDropdown.Item>
                       ))
                     }
+                    <NavDropdown.Item onClick={Logout}>
+                      Logout
+                    </NavDropdown.Item>
                     {
                       isMobile &&
                       <div className="mobile-block">
@@ -152,5 +160,6 @@ const HeaderContainer = ({title}: { title: string }) => {
     </>
   );
 };
+
 
 export default HeaderContainer;

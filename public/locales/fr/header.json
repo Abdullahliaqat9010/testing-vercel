@@ -1,8 +1,8 @@
 {
   "title": "Évaluez votre maison",
-  "button.add-property": "Ajouter une propriété",
+  "button.add-property": "Ajouter un bien",
   "button.login": "Connexion",
   "nav-li.dashboard": "Tableau de bord",
-  "li.pro-workspace": "Accéder à mon espace de travail pro",
-  "span.step": "Étape"
+  "li.pro-workspace": "Aller sur mon espace de travail pro.",
+  "span.step": "Etape"
 }
