@@ -62,36 +62,37 @@ const FinalStep = () => {
           locality: String(additionalAddress.locality),
           property_type: String(selectedProperty),
           live_area: Number(propertyDetails.livingArea),
-          total_area: Number(propertyDetails.landSurface),
+          total_area: selectedProperty !== 'apartment' ? Number(propertyDetails.landSurface) : undefined,
           bedrooms: Number(propertyDetails.numberBedrooms),
           bathrooms: Number(propertyDetails.numberBathrooms),
           floor: Number(propertyDetails.numberLevels),
-          // levels: Number(),   //number of floors
+          levels: Number(propertyDetails.numberFloors),
           prestige: String(details.prestige),
           facades: Number(propertyDetails.facadesNumber),
-          construction_year: Number(details.constructionYear),
+          construction_year: Number(details.constructionYear) || undefined,
+          terras_size: propertyDetails.gardenTerras ? Number(propertyDetails.gardenTerrasValue) : undefined,
           renov_year: details.renovated ? Number(details.renovationYear) : undefined,
           renov_level: details.renovated ? Number(details.renovationLevel) : undefined,
-          epc: Number(utilities.epc),
+          epc: Number(utilities.epc) || undefined,
           view: String(utilities.view),
           orientation_terras: String(utilities.orientation),
-          attic: Number(utilities.atticValue),
-          cellar: Number(utilities.cellarValue),
+          attic: Number(utilities.atticValue) || undefined,
+          cellar: Number(utilities.cellarValue) || undefined,
           elevator: Boolean(utilities.elevator),
           pool: Boolean(utilities.swimmingPool),
-          indoor_garage: Number(utilities.indoorGarage),
-          outdoor_garage: Number(utilities.outdoorGarage),
-          carport: Number(utilities.carport),
+          indoor_garage: utilities.parking ? Number(utilities.indoorGarage) : undefined,
+          outdoor_garage: utilities.parking ? Number(utilities.outdoorGarage) : undefined,
+          carport: utilities.parking ? Number(utilities.carport) : undefined,
           solar_panels: Number(utilities.solarPanels),
           owner: Boolean(personalAccount.selectedItem === 'homeowner'),
           interest: String(personalAccount.sellProperty),
-          selling_way: String(personalAccount.howSell),
+          selling_way: String(personalAccount.howSell).length ? String(personalAccount.howSell) : undefined,
           state: String(details.condition),
           source: 'immoBelgium',
           status: 'for_sale',
           residence_type: String(personalAccount.selectedResidence),
-          lat: location.lat,
-          lng: location.lng,
+          lat: String(location.lat),
+          lng: String(location.lng),
         },
         user: {...data},
       }));
@@ -169,7 +170,7 @@ const FinalStep = () => {
           />
         </Form.Group>
         <Form.Group className='mb-4'>
-          <Form.Label>{ t('label.phone') }</Form.Label>
+          <Form.Label>{ t('label.phone') }({ t('title.optional') })</Form.Label>
           <Form.Control
             value={ data.phone_number }
             name='phone_number'
@@ -213,13 +214,18 @@ const FinalStep = () => {
           onChange={ handleChecked }
           label={ t('label.promotions') }
         />
-        <Form.Check
-          checked={ data.agreement }
-          name='agreement'
-          onChange={ handleChecked }
-          label={ t('label.read-privacy') }
-        />
-
+        <div className='d-flex'>
+          <Form.Check
+            checked={ data.agreement }
+            name='agreement'
+            onChange={ handleChecked }
+          />
+          <Form.Label className='fs-16'>
+            { t('label.read-privacy') }
+            <a href="https://winleads.eu/privacy-cookie-policy" target='_blank'>{t('label.privacy')}</a>
+            {t('label.terms')}
+          </Form.Label>
+        </div>
       </Form>
       <div className="steps-btn-group d-flex justify-content-between">
         <Button

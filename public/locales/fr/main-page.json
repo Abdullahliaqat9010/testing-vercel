@@ -1,13 +1,13 @@
 {
-  "button.get-free-estimation": "Obtenir l'estimation",
+  "button.get-free-estimation": "Obtenir Estimation Gratuite",
   "button.load-more": "Charger plus",
   "desc.bottom-block": "Trouvez l’agent le plus compétent qui vous accompagnera dans vos projets. Partagez les avis et comparez les biens récemment vendus dans votre quartier.",
   "desc.mission-block": "Rendre le marché immobilier plus transparent afin que les vendeurs de maisons puissent prendre la meilleure décision possible.",
   "desc.top-block": "Nous nous inspirons des indicateurs du marché les plus pertinents pour vous proposer des évaluations précises.  Recevez une estimation qui se basera de la valeur moyenne du m2 en temps réeel, de l’impact du covid ou encore l’indicateur de performance énergétique.",
-  "placeholder.enter-property-address": "Entrez l'adresse de votre propriété",
-  "title.bottom-block": "Comparez les meilleurs agents de votre région",
-  "title.image-block": "Obtenez votre estimation en trois étapes simples",
-  "title.mission-block": "Notre mission",
+  "placeholder.enter-property-address": "Entrez l'Adresse de Votre Bien",
+  "title.bottom-block": "Comparez les Meilleurs Agences de Votre Région",
+  "title.image-block": "Estimez Votre Bien en 3 Etapes Rapides",
+  "title.mission-block": "Notre Mission",
   "title.testimonials": "Témoignages",
-  "title.top-block": "Obtenez gratuitement la valeur de votre bien"
+  "title.top-block": "Recevez la Valeur Instantanée de Votre Bien"
 }
