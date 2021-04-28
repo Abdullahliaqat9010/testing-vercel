@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
@@ -30,6 +30,8 @@ const StepTwo = () => {
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.propertyDetails);
   const {selectedProperty} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 
+  const [disabled, setDisabled] = useState(false);
+
   const [data, setFormData] = useState({
     livingArea,
     landSurface,
@@ -43,12 +45,16 @@ const StepTwo = () => {
     gardenTerrasValue,
   });
 
+  useEffect(() => {
+    setDisabled(disabledButton());
+  }, [data]);
+
   const handleClickPrevBtn = () => {
     dispatch(goToPrevStepAction());
   };
 
   const handleClickNextBtn = () => {
-    if (disabledButton) {
+    if (!disabled) {
       dispatch(setPropertyDetailsAction(data));
       dispatch(goToNextStepAction());
     }
@@ -93,11 +99,11 @@ const StepTwo = () => {
   };
 
   const disabledButton = () => {
-    if (!data.livingArea.length) {
+    if (!String(data.livingArea).length) {
       return true;
     }
 
-    return !data.landSurface.length;
+    return !String(data.landSurface).length;
   };
 
   return (
@@ -114,7 +120,7 @@ const StepTwo = () => {
             <Form.Label>{ t('label.living-area') }</Form.Label>
             <div className="input-block">
               <Form.Control
-                min={1}
+                min={ 1 }
                 name='livingArea'
                 value={ data.livingArea }
                 type="number"
@@ -147,13 +153,13 @@ const StepTwo = () => {
               <InputGroup className='mb-3'>
                 <Form.Label className='position-relative'>
                   { t('label.land-surface') }
-                  <OverlayTrigger overlay={<Tooltip id="tooltip-info">{ t('tooltip-info') }</Tooltip>}>
+                  <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip-info') }</Tooltip> }>
                     <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>
                   </OverlayTrigger>
                 </Form.Label>
                 <div className="input-block block-with-tooltip">
                   <Form.Control
-                    min={1}
+                    min={ 1 }
                     name='landSurface'
                     value={ data.landSurface }
                     type="number"
@@ -197,7 +203,7 @@ const StepTwo = () => {
                 </Form.Label>
                 <div className="input-block">
                   <Form.Control
-                    min={1}
+                    min={ 1 }
                     name='gardenTerrasValue'
                     value={ data.gardenTerrasValue }
                     type="number"
@@ -293,7 +299,7 @@ const StepTwo = () => {
           className='prev-step'>
           <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button disabled={ disabledButton() } onClick={ handleClickNextBtn } className='next-step'>
+        <Button disabled={ disabled } onClick={ handleClickNextBtn } className='next-step'>
           { t('button.next') }
         </Button>
       </div>

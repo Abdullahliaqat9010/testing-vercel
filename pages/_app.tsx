@@ -37,7 +37,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, [locale]);
 
   useEffect(() => {
-    TagManager.initialize(tagManagerArgs)
+    TagManager.initialize(tagManagerArgs);
   }, [])
 
   return(

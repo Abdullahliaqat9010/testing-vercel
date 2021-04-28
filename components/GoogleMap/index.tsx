@@ -27,8 +27,8 @@ const GoogleMap = (location: locationProps) => {
       <GoogleMapReact
         bootstrapURLKeys={ {key: googleMapConfig.apiKey} }
         defaultCenter={ {
-          lat: location.lat || locationData.lat,
-          lng: location.lng || locationData.lng,
+          lat: Number(location.lat) || Number(locationData.lat),
+          lng: Number(location.lng) || Number(locationData.lng),
         } }
         options={ {
           fullscreenControl: false,
@@ -38,8 +38,8 @@ const GoogleMap = (location: locationProps) => {
         defaultZoom={ 13 }
       >
         <Marker
-          lat={ location.lat || locationData.lat }
-          lng={ location.lng || locationData.lng }
+          lat={ Number(location.lat) || Number(locationData.lat) }
+          lng={ Number(location.lng) || Number(locationData.lng) }
         />
       </GoogleMapReact>
     </div>

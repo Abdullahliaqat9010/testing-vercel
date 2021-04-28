@@ -18,12 +18,12 @@ import ThirdSlide from '../../../assets/images/main-page/slider/third-slide.png'
 import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slide-mobile.png';
 
 const ImagesBlock = () => {
-  const { t } = useTranslation('main-page');
+  const {t} = useTranslation('main-page');
   const dispatch = useDispatch();
   const [value, setValue] = useState(null);
   const [geoLocation, setGeoLocation] = useState({
     lat: null,
-    lng: null
+    lng: null,
   });
 
   const [dataInfo, setData] = useState({});
@@ -45,10 +45,10 @@ const ImagesBlock = () => {
       street,
       zip,
       country,
-    }
+    };
 
     console.log('Successfully got latitude and longitude');
-    setData({...dataForNextStep})
+    setData({...dataForNextStep});
     setGeoLocation(getLocations);
   };
 
@@ -60,7 +60,7 @@ const ImagesBlock = () => {
     const data = {
       infoFromAutoComplete: value.label,
       location: {...geoLocation},
-      additionalAddress: {...dataInfo}
+      additionalAddress: {...dataInfo},
     };
 
     dispatch(openMainStepsAction(data));
@@ -80,21 +80,24 @@ const ImagesBlock = () => {
         </Carousel.Item>
       </Carousel>
       <div className="image-carousel__popup">
-        <h2>{t('title.image-block')}</h2>
+        <h2>{ t('title.image-block') }</h2>
         <div className='w-100'>
-          <GooglePlacesAutocomplete
-            selectProps={ {
-              placeholder: `${t('placeholder.enter-property-address')}`,
-              value,
-              onChange: handleChangeValue,
-              classNamePrefix: 'custom-select',
-            } }
-            apiKey={ googleMapConfig.apiKey }
-            apiOptions={ {language: 'en'} }
-          />
+          {
+            !window.sessionStorage.getItem('modify') &&
+            <GooglePlacesAutocomplete
+              selectProps={ {
+                placeholder: `${ t('placeholder.enter-property-address') }`,
+                value,
+                onChange: handleChangeValue,
+                classNamePrefix: 'custom-select',
+              } }
+              apiKey={ googleMapConfig.apiKey }
+              apiOptions={ {language: 'en'} }
+            />
+          }
         </div>
         <Button disabled={ !geoLocation.lng && !geoLocation.lng } onClick={ goToMainSteps }>
-          {t('button.get-free-estimation')}
+          { t('button.get-free-estimation') }
         </Button>
       </div>
     </div>
