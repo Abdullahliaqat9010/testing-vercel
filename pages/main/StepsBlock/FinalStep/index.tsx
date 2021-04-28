@@ -80,9 +80,9 @@ const FinalStep = () => {
           cellar: Number(utilities.cellarValue) || undefined,
           elevator: Boolean(utilities.elevator),
           pool: Boolean(utilities.swimmingPool),
-          indoor_garage: Number(utilities.indoorGarage),
-          outdoor_garage: Number(utilities.outdoorGarage),
-          carport: Number(utilities.carport),
+          indoor_garage: utilities.parking ? Number(utilities.indoorGarage) : undefined,
+          outdoor_garage: utilities.parking ? Number(utilities.outdoorGarage) : undefined,
+          carport: utilities.parking ? Number(utilities.carport) : undefined,
           solar_panels: Number(utilities.solarPanels),
           owner: Boolean(personalAccount.selectedItem === 'homeowner'),
           interest: String(personalAccount.sellProperty),
@@ -170,7 +170,7 @@ const FinalStep = () => {
           />
         </Form.Group>
         <Form.Group className='mb-4'>
-          <Form.Label>{ t('label.phone') }</Form.Label>
+          <Form.Label>{ t('label.phone') }({ t('title.optional') })</Form.Label>
           <Form.Control
             value={ data.phone_number }
             name='phone_number'
@@ -214,13 +214,18 @@ const FinalStep = () => {
           onChange={ handleChecked }
           label={ t('label.promotions') }
         />
-        <Form.Check
-          checked={ data.agreement }
-          name='agreement'
-          onChange={ handleChecked }
-          label={ t('label.read-privacy') }
-        />
-
+        <div className='d-flex'>
+          <Form.Check
+            checked={ data.agreement }
+            name='agreement'
+            onChange={ handleChecked }
+          />
+          <Form.Label className='fs-16'>
+            { t('label.read-privacy') }
+            <a href="https://winleads.eu/privacy-cookie-policy" target='_blank'>{t('label.privacy')}</a>
+            {t('label.terms')}
+          </Form.Label>
+        </div>
       </Form>
       <div className="steps-btn-group d-flex justify-content-between">
         <Button

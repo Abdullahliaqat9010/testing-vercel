@@ -93,6 +93,11 @@ const ImagesBlock = () => {
               } }
               apiKey={ googleMapConfig.apiKey }
               apiOptions={ {language: 'en'} }
+              autocompletionRequest={{
+                componentRestrictions: {
+                  country: ['be'],
+                }
+              }}
             />
           }
         </div>

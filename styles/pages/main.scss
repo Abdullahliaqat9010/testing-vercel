@@ -824,6 +824,11 @@
         margin-bottom: 5px;
       }
 
+      .form-label {
+        font-size: 16px;
+        line-height: 22px;
+      }
+
       .have-account {
         margin: 15px 0 30px;
         color: var(--colorBlue);
@@ -1016,6 +1021,12 @@
       .step-desc {
         display: block;
         margin-bottom: 20px;
+      }
+
+      .fs-16 {
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 30px;
       }
 
       .have-account {

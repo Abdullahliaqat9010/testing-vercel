@@ -90,7 +90,7 @@ const LoginPage = () => {
           <span>{ new Date().getFullYear() }. All Rights Reserved.</span>
         </p>
         <span className="link">
-          <a href="https://winleads.eu/privacy-cookie-policy/" target='_blank'>Politique de Confidentialité.</a>
+          <a href="https://winleads.eu/privacy-cookie-policy" target='_blank'>Politique de Confidentialité.</a>
         </span>
       </div>
     </div>

@@ -23,7 +23,7 @@ const PropertiesBlock = () => {
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
   }
-  console.log(mainProperty);
+
   return (
     <div className='properties-block d-flex'>
       {
