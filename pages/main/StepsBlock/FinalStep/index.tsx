@@ -86,7 +86,7 @@ const FinalStep = () => {
           solar_panels: Number(utilities.solarPanels),
           owner: Boolean(personalAccount.selectedItem === 'homeowner'),
           interest: String(personalAccount.sellProperty),
-          selling_way: String(personalAccount.howSell).length ? String(personalAccount.howSell) : undefined,
+          selling_way: personalAccount.howSell ? String(personalAccount.howSell) : undefined,
           state: String(details.condition),
           source: 'immoBelgium',
           status: 'for_sale',

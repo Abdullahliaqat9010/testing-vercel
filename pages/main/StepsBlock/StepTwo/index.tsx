@@ -203,7 +203,7 @@ const StepTwo = () => {
                 </Form.Label>
                 <div className="input-block">
                   <Form.Control
-                    min={ 1 }
+                    min={ 0 }
                     name='gardenTerrasValue'
                     value={ data.gardenTerrasValue }
                     type="number"

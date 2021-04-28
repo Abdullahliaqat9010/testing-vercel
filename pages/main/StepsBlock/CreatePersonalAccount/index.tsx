@@ -99,7 +99,7 @@ const CreatePersonalAccount = () => {
         solar_panels: Number(utilities.solarPanels),
         owner: Boolean(activePrivateBlock === 'homeowner'),
         interest: String(data.sellProperty),
-        selling_way: String(data.howSell).length ? String(data.howSell) : undefined,
+        selling_way: data.howSell ? String(data.howSell) : undefined,
         state: String(details.condition),
         source: 'immoBelgium',
         status: 'for_sale',
