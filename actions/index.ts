@@ -96,3 +96,8 @@ export const goToModifyPropertyAction = (property: object, propertyId: number) =
   type: actionType.MODIFY_PROPERTY,
   payload: {...property, propertyId},
 });
+
+export const updateAddressList = (addressList: object) => ({
+  type: actionType.UPDATE_ADDRESS_LIST,
+  payload: addressList,
+});

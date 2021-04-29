@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import GoogleMap from '../../../../components/GoogleMap';
 
-import { goToNextStepAction, setActivePropertyAction, setAdditionalAddressAction } from '../../../../actions';
+import {
+  goToNextStepAction,
+  setActivePropertyAction,
+  setAdditionalAddressAction,
+  updateAddressList,
+} from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
 import HomeImageActive from '../../../../assets/images/home-active.svg';
@@ -27,7 +33,11 @@ const StepTwo = () => {
     locality,
     zip,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.additionalAddress);
-  const {selectedProperty: currentProp} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {
+    addressFromStepOne,
+    selectedProperty: currentProp,
+    location,
+  } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [selectedProperty, setCurrentProperty] = useState<string>(currentProp);
   const [showMapBlock, setShowMapBlock] = useState<boolean>(false);
   const [showAddressBlock, changeAddressBlockState] = useState<boolean>(true);
@@ -51,6 +61,37 @@ const StepTwo = () => {
       dispatch(goToNextStepAction());
     }
     return false;
+  };
+
+  const getFullAddressByStreet = async (value: string) => {
+    if (data.street.length > 0 && value.length) {
+      const results = await geocodeByAddress(`address=${ value }, location=bel`);
+      const getLocations = await getLatLng(results[0]);
+      const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || data.locality;
+      const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || data.zip;
+
+      const addressList = {
+        addressFromStepOne: results[0].formatted_address,
+        location: {...getLocations},
+      };
+
+      dispatch(updateAddressList(addressList));
+      setFormData({...data, locality, zip});
+    }
+  };
+
+  const getAddress = async (value: string) => {
+    if (data.locality.length === 0 && value.length) {
+      const results = await geocodeByAddress(`postalCode=${ value }, location=bel`);
+      const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
+      setFormData({...data, locality});
+    }
+
+    if (data.zip.length === 0 && value.length) {
+      const results = await geocodeByAddress(`postalCode='', locality=${ value }, location=bel`);
+      const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+      setFormData({...data, zip});
+    }
   };
 
   const setActiveBlock = (item: string) => {
@@ -93,22 +134,39 @@ const StepTwo = () => {
           <Form.Group controlId="street">
             <Form.Label>{ t('label.street') }</Form.Label>
             <InputGroup>
-              <Form.Control name='street' value={ data.street } onChange={ handleChangeVal }/>
+              <Form.Control
+                name='street'
+                value={ data.street }
+                onChange={ handleChangeVal }
+                onBlur={ (el) => getFullAddressByStreet(el.target.value) }
+              />
             </InputGroup>
           </Form.Group>
           <Form.Group controlId="number">
             <Form.Label>№</Form.Label>
-            <Form.Control type="number" min={1} name='number' value={ data.number } onChange={ handleChangeVal }/>
+            <Form.Control type="number" min={ 1 } name='number' value={ data.number } onChange={ handleChangeVal }/>
           </Form.Group>
         </Form.Row>
         <Form.Row>
           <Form.Group className='mr-4' controlId="zip">
             <Form.Label>{ t('label.zip') }</Form.Label>
-            <Form.Control type="number" min={1} name='zip' value={ data.zip } onChange={ handleChangeVal }/>
+            <Form.Control
+              type="number"
+              min={ 1 }
+              name='zip'
+              value={ data.zip }
+              onChange={ handleChangeVal }
+              onBlur={ (el) => getAddress(el.target.value) }
+            />
           </Form.Group>
           <Form.Group controlId="locality">
             <Form.Label>{ t('label.locality') }</Form.Label>
-            <Form.Control name='locality' value={ data.locality } onChange={ handleChangeVal }/>
+            <Form.Control
+              name='locality'
+              value={ data.locality }
+              onChange={ handleChangeVal }
+              onBlur={ (el) => getAddress(el.target.value) }
+            />
           </Form.Group>
         </Form.Row>
       </Form>
@@ -159,11 +217,11 @@ const StepTwo = () => {
           {
             showAddressBlock &&
             <div className="address-block">
-              <span>2464 Royal Ln. Mesa, New Jersey 45463</span>
+              <span>{ addressFromStepOne }</span>
               <img onClick={ closeAddressBlock } src={ CloseIcon } alt="CloseIcon"/>
             </div>
           }
-          <GoogleMap/>
+          <GoogleMap lat={ location.lat } lng={ location.lng }/>
           <span className="close-map" onClick={ showMap }>{ t('button.close') }</span>
         </div>
       }
