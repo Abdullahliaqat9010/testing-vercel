@@ -2,6 +2,7 @@ export interface RootState {
   userInfo: {
     auth: boolean,
     showAgentModal: boolean,
+    existEmail: boolean,
     agencyContactInfo: {
       title: string,
       agentName: string,

@@ -30,6 +30,7 @@ if (typeof localStorage !== 'undefined') {
 export const initialState = {
   auth: exp,
   showAgentModal: false,
+  existEmail: false,
   agencyContactInfo: {
     title: '',
     agentName: '',
@@ -90,6 +91,11 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         currentPropertyPrice: {...action.payload},
       };
+    case actionType.CHECK_IF_EXIST_EMAIL_SUCCESS:
+      return {
+        ...state,
+        existEmail: action.payload
+      }
     default:
       return {
         ...state,

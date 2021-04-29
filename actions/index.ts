@@ -101,3 +101,8 @@ export const updateAddressList = (addressList: object) => ({
   type: actionType.UPDATE_ADDRESS_LIST,
   payload: addressList,
 });
+
+export const checkIfEmailExistAction = (email: string) => ({
+  type: actionType.CHECK_IF_EXIST_EMAIL,
+  payload: email
+});

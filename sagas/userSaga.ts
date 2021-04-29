@@ -4,7 +4,37 @@ import * as actionType from '../actions/actionTypes';
 
 import { parseJwt } from '../utils';
 import { config } from '../config/siteConfigs';
+import { createPropertyRequest } from './propertySaga';
 
+function* checkExistEmail({payload}: any) {
+  try {
+    const res = yield fetch(`${ config.apiDomain }/users/${payload}/exist`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = yield res.json();
+    yield checkExistEmailSuccess(data);
+  } catch (error) {
+    yield checkExistEmailError(error);
+  }
+}
+
+function* checkExistEmailSuccess(data: boolean) {
+  yield put({
+    type: actionType.CHECK_IF_EXIST_EMAIL_SUCCESS,
+    payload: data,
+  });
+}
+
+function* checkExistEmailError(error: string) {
+  console.log(error);
+  yield put({
+    type: actionType.CHECK_IF_EXIST_EMAIL_ERROR,
+    payload: error,
+  });
+}
 
 function* sendStepsDataRequest({payload}: any) {
   yield put({
@@ -84,14 +114,23 @@ function* loginUserRequest({payload}: any) {
     if (res.status === 201) {
       const data = yield res.json();
       localStorage.setItem('auth', data.access_token);
-      yield loginUserSuccess();
+      yield loginUserSuccess(data);
     }
   } catch (error) {
     yield loginUserError(error);
   }
 }
 
-function* loginUserSuccess() {
+function* loginUserSuccess(userData) {
+  if (window.sessionStorage.getItem('forgotLogin')) {
+    const parseData = parseJwt(userData.access_token);
+    const data = {
+      leadId: parseData.id,
+      ...JSON.parse(window.sessionStorage.getItem('forgotLogin'))
+    }
+    yield createPropertyRequest({payload: data});
+  }
+
   yield put({
     type: actionType.LOGIN_USER_SUCCESS,
   });
@@ -145,4 +184,5 @@ export function* userSaga() {
   yield takeLatest(actionType.SIGNUP_USER_REQUEST, signupUserRequest);
   yield takeLatest(actionType.LOGIN_USER_REQUEST, loginUserRequest);
   yield takeLatest(actionType.CONTACT_AGENCY_REQUEST, contactAgencyRequest);
+  yield takeLatest(actionType.CHECK_IF_EXIST_EMAIL, checkExistEmail);
 }

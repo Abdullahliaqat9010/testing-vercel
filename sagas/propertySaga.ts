@@ -3,7 +3,8 @@ import { config } from '../config/siteConfigs';
 
 import * as actionType from '../actions/actionTypes';
 
-function* createPropertyRequest({payload}: any) {
+export function* createPropertyRequest({payload}: any) {
+  console.log(payload);
   try {
     const token = localStorage.getItem('auth');
     const res = yield fetch(`${ config.apiDomain }/property`, {
@@ -61,6 +62,7 @@ function* updatePropertyError(error) {
 }
 
 function* createPropertySuccess() {
+  window.sessionStorage.removeItem('forgotLogin');
   yield put({
     type: actionType.CREATE_PROPERTY_SUCCESS,
   });
