@@ -4,7 +4,6 @@ import { config } from '../config/siteConfigs';
 import * as actionType from '../actions/actionTypes';
 
 export function* createPropertyRequest({payload}: any) {
-  console.log(payload);
   try {
     const token = localStorage.getItem('auth');
     const res = yield fetch(`${ config.apiDomain }/property`, {
@@ -96,7 +95,11 @@ function* getPropertyForCurrentUser({payload}: any) {
   }
 }
 
-function* getPropertyForCurrentUserSuccess(data: object) {
+function* getPropertyForCurrentUserSuccess(data: []) {
+  if (data.length) {
+    const {zip, property_type} = data.pop();
+    yield getSimilarPropertyRequest(property_type, zip);
+  }
   yield put({
     type: actionType.GET_USER_PROPERTY_SUCCESS,
     payload: data,
@@ -106,6 +109,42 @@ function* getPropertyForCurrentUserSuccess(data: object) {
 function* getPropertyForCurrentUserError(error: string) {
   yield put({
     type: actionType.GET_USER_PROPERTY_ERROR,
+    payload: error,
+  });
+}
+
+function* getSimilarPropertyRequest(propertyType: string, zip: string) {
+  try {
+    const token = localStorage.getItem('auth');
+    const res = yield fetch(`${ config.apiDomain }/property/similar?property_type=${ propertyType }&zip=${ zip }`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token,
+      },
+    });
+
+    if (res.status === 200) {
+      const {data} = yield res.json();
+      yield getSimilarPropertySuccess(data);
+    }
+
+  } catch (error) {
+    yield getSimilarPropertyError(error);
+  }
+}
+
+function* getSimilarPropertySuccess(data: []) {
+  yield put({
+    type: actionType.GET_SIMILAR_PROPERTY_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getSimilarPropertyError(error: string) {
+  console.log(error);
+  yield put({
+    type: actionType.GET_SIMILAR_PROPERTY_ERROR,
     payload: error,
   });
 }
