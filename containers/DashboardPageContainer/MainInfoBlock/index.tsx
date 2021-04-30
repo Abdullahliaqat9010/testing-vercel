@@ -43,7 +43,6 @@ const MainInfoBlock = () => {
           prestige: mainProperty.prestige,
           condition: mainProperty.state,
           constructionYear: mainProperty.construction_year || '',
-          renovated: mainProperty.renov_year ? 1 : 0,
           renovationYear: mainProperty.renov_year || '',
           renovationLevel: mainProperty.renov_level || '0',
         },

@@ -11,14 +11,14 @@ import GoogleMap from '../../../components/GoogleMap';
 import PropertyBlock from '../../../containers/Property';
 
 import LoadMoreImage from '../../../assets/images/load-more.svg';
-import { propertiesList } from '../../../templates/propertiesList';
+// import { propertiesList } from '../../../templates/propertiesList';
 
 const PropertiesBlock = () => {
   const {t} = useTranslation('dashboard-page');
   const elementsOnPage = 3;
   const [sizeArr, setSizeArr] = useState(3);
-  const { mainProperty } = useSelector((state: RootState) => state.userInfo);
-  const properties = isMobile ? propertiesList.slice(0, sizeArr) : propertiesList;
+  const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
+  const properties = isMobile ? similarProperty.slice(0, sizeArr) : similarProperty;
 
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
@@ -37,7 +37,7 @@ const PropertiesBlock = () => {
       }
       <div className="properties-list w-50">
         <h5>{ t('title.similar-sold-properties') }</h5>
-        <p>{ t('desc.we-found') } 1,205 { t('desc.similar-sold-properties') }</p>
+        <p>{ t('desc.we-found') } { properties.length } { t('desc.similar-sold-properties') }</p>
         {
           properties.map(
             (item, index) =>

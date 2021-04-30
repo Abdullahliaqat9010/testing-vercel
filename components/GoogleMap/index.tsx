@@ -30,6 +30,10 @@ const GoogleMap = (location: locationProps) => {
           lat: Number(location.lat) || Number(locationData.lat),
           lng: Number(location.lng) || Number(locationData.lng),
         } }
+        center={ {
+          lat: Number(location.lat) || Number(locationData.lat),
+          lng: Number(location.lng) || Number(locationData.lng),
+          } }
         options={ {
           fullscreenControl: false,
           zoomControl: false,

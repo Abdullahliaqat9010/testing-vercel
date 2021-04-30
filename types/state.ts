@@ -2,6 +2,7 @@ export interface RootState {
   userInfo: {
     auth: boolean,
     showAgentModal: boolean,
+    existEmail: boolean,
     agencyContactInfo: {
       title: string,
       agentName: string,
@@ -9,6 +10,7 @@ export interface RootState {
       agencyId: number
     },
     properties: any, //@todo add interface
+    similarProperty: any, //@todo add interface
     mainProperty: any, //@todo add interface
     currentPropertyPrice: {
       constrValue: number,
@@ -50,7 +52,6 @@ export interface RootState {
         prestige: string,
         condition: string,
         constructionYear: string,
-        renovated: number,
         renovationYear: string,
         renovationLevel: string,
       },

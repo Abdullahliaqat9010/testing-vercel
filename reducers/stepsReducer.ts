@@ -30,7 +30,6 @@ export const initialState = {
       prestige: 'basic',
       condition: 'new',
       constructionYear: '',
-      renovated: 0,
       renovationYear: '',
       renovationLevel: '0',
       numberFloors: 1,
@@ -69,7 +68,7 @@ export const initialState = {
     },
     location: {
       lat: 40.7510674,
-      lng: -74.1660403
+      lng: -74.1660403,
     },
   },
   errors: '',
@@ -87,7 +86,7 @@ const stepsReducer = (state = initialState, action: any) => {
           location: {...action.payload.location},
           additionalAddress: {
             ...state.stepBlock.additionalAddress,
-            ...action.payload.additionalAddress
+            ...action.payload.additionalAddress,
           },
         },
       };
@@ -115,16 +114,16 @@ const stepsReducer = (state = initialState, action: any) => {
           ...state.stepBlock,
           additionalAddress: {
             ...state.stepBlock.additionalAddress,
-            ...action.payload
+            ...action.payload,
           },
         },
       };
-      case actionType.CREATE_PROPERTY_SUCCESS:
-      case actionType.UPDATE_PROPERTY_SUCCESS:
-      case actionType.LOGIN_USER_SUCCESS:
+    case actionType.CREATE_PROPERTY_SUCCESS:
+    case actionType.UPDATE_PROPERTY_SUCCESS:
+    case actionType.LOGIN_USER_SUCCESS:
       return {
         ...state,
-        goToDashboard: true
+        goToDashboard: true,
       };
     case actionType.SET_PROPERTY_DETAILS:
       return {
@@ -177,7 +176,15 @@ const stepsReducer = (state = initialState, action: any) => {
     case actionType.MODIFY_PROPERTY:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+      };
+    case actionType.UPDATE_ADDRESS_LIST:
+      return {
+        ...state,
+        stepBlock: {
+          ...state.stepBlock,
+          ...action.payload
+        }
       }
     default:
       return {

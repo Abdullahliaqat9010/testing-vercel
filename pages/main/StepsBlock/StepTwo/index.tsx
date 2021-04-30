@@ -99,11 +99,7 @@ const StepTwo = () => {
   };
 
   const disabledButton = () => {
-    if (!String(data.livingArea).length) {
-      return true;
-    }
-
-    return !String(data.landSurface).length;
+    return Number(data.livingArea) === 0 || (selectedProperty === 'house' && Number(data.landSurface) === 0);
   };
 
   return (

@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
 import ArrowIcon from '../../../../assets/images/arrow-blue.svg';
 import ValidIcon from '../../../../assets/images/valid.svg';
 
-import { goToPrevStepAction, sendStepsDataRequestAction, setUserDataAction } from '../../../../actions';
+import {
+  checkIfEmailExistAction,
+  goToPrevStepAction,
+  sendStepsDataRequestAction,
+  setUserDataAction,
+} from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
@@ -14,6 +20,7 @@ import IconBack from '../../../../assets/images/long-arrow.svg';
 const FinalStep = () => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
+  const router = useRouter();
   const {
     addressFromStepOne,
     additionalAddress,
@@ -24,6 +31,8 @@ const FinalStep = () => {
     utilities,
     personalAccount,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {existEmail} = useSelector((state: RootState) => state.userInfo);
+
   const [data, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -49,51 +58,55 @@ const FinalStep = () => {
     });
   };
 
+  const propertyData = () => {
+    return {
+      search_address: String(addressFromStepOne),
+      country: String(additionalAddress.country),
+      street: String(additionalAddress.street),
+      street_number: String(additionalAddress.number),
+      zip: String(additionalAddress.zip),
+      locality: String(additionalAddress.locality),
+      property_type: String(selectedProperty),
+      live_area: Number(propertyDetails.livingArea),
+      total_area: selectedProperty !== 'apartment' ? Number(propertyDetails.landSurface) : undefined,
+      bedrooms: Number(propertyDetails.numberBedrooms),
+      bathrooms: Number(propertyDetails.numberBathrooms),
+      floor: Number(propertyDetails.numberLevels),
+      levels: Number(propertyDetails.numberFloors),
+      prestige: String(details.prestige),
+      facades: Number(propertyDetails.facadesNumber),
+      construction_year: Number(details.constructionYear) || undefined,
+      terras_size: propertyDetails.gardenTerras ? Number(propertyDetails.gardenTerrasValue) : undefined,
+      renov_year: Number(details.renovationYear) || undefined,
+      renov_level: Number(details.renovationLevel) || undefined,
+      epc: Number(utilities.epc) || undefined,
+      view: String(utilities.view),
+      orientation_terras: String(utilities.orientation),
+      attic: Number(utilities.atticValue) || undefined,
+      cellar: Number(utilities.cellarValue) || undefined,
+      elevator: Boolean(utilities.elevator),
+      pool: Boolean(utilities.swimmingPool),
+      indoor_garage: utilities.parking ? Number(utilities.indoorGarage) : undefined,
+      outdoor_garage: utilities.parking ? Number(utilities.outdoorGarage) : undefined,
+      carport: utilities.parking ? Number(utilities.carport) : undefined,
+      solar_panels: Number(utilities.solarPanels),
+      owner: Boolean(personalAccount.selectedItem === 'homeowner'),
+      interest: String(personalAccount.sellProperty),
+      selling_way: String(personalAccount.howSell).length ? String(personalAccount.howSell) : undefined,
+      state: String(details.condition),
+      source: 'immoBelgium',
+      status: 'for_sale',
+      residence_type: String(personalAccount.selectedResidence),
+      lat: String(location.lat),
+      lng: String(location.lng),
+    };
+  };
+
   const handleSubmit = () => {
     if (isDisabled) {
       dispatch(setUserDataAction(data));
       dispatch(sendStepsDataRequestAction({
-        property: {
-          search_address: String(addressFromStepOne),
-          country: String(additionalAddress.country),
-          street: String(additionalAddress.street),
-          street_number: String(additionalAddress.number),
-          zip: String(additionalAddress.zip),
-          locality: String(additionalAddress.locality),
-          property_type: String(selectedProperty),
-          live_area: Number(propertyDetails.livingArea),
-          total_area: selectedProperty !== 'apartment' ? Number(propertyDetails.landSurface) : undefined,
-          bedrooms: Number(propertyDetails.numberBedrooms),
-          bathrooms: Number(propertyDetails.numberBathrooms),
-          floor: Number(propertyDetails.numberLevels),
-          levels: Number(propertyDetails.numberFloors),
-          prestige: String(details.prestige),
-          facades: Number(propertyDetails.facadesNumber),
-          construction_year: Number(details.constructionYear) || undefined,
-          terras_size: propertyDetails.gardenTerras ? Number(propertyDetails.gardenTerrasValue) : undefined,
-          renov_year: details.renovated ? Number(details.renovationYear) : undefined,
-          renov_level: details.renovated ? Number(details.renovationLevel) : undefined,
-          epc: Number(utilities.epc) || undefined,
-          view: String(utilities.view),
-          orientation_terras: String(utilities.orientation),
-          attic: Number(utilities.atticValue) || undefined,
-          cellar: Number(utilities.cellarValue) || undefined,
-          elevator: Boolean(utilities.elevator),
-          pool: Boolean(utilities.swimmingPool),
-          indoor_garage: utilities.parking ? Number(utilities.indoorGarage) : undefined,
-          outdoor_garage: utilities.parking ? Number(utilities.outdoorGarage) : undefined,
-          carport: utilities.parking ? Number(utilities.carport) : undefined,
-          solar_panels: Number(utilities.solarPanels),
-          owner: Boolean(personalAccount.selectedItem === 'homeowner'),
-          interest: String(personalAccount.sellProperty),
-          selling_way: String(personalAccount.howSell).length ? String(personalAccount.howSell) : undefined,
-          state: String(details.condition),
-          source: 'immoBelgium',
-          status: 'for_sale',
-          residence_type: String(personalAccount.selectedResidence),
-          lat: String(location.lat),
-          lng: String(location.lng),
-        },
+        property: propertyData(),
         user: {...data},
       }));
     }
@@ -128,6 +141,15 @@ const FinalStep = () => {
     dispatch(goToPrevStepAction());
   };
 
+  const checkIfEmailExist = (value: string) => {
+    dispatch(checkIfEmailExistAction(value));
+  };
+
+  const goToLogin = () => {
+    window.sessionStorage.setItem('forgotLogin', JSON.stringify(propertyData()));
+    router.push('/login');
+  };
+
   return (
     <div className='final-step'>
       <span className="step-title">{ t('title.good-job') }</span>
@@ -135,7 +157,7 @@ const FinalStep = () => {
       <span className="step-desc">
         { t('desc.finalized-estimation') }
       </span>
-      <span className="have-account">
+      <span className="have-account" onClick={ goToLogin }>
         { t('link.already-have-account') }
         <img src={ ArrowIcon } alt="ArrowIcon"/>
       </span>
@@ -165,9 +187,14 @@ const FinalStep = () => {
           <Form.Control
             value={ data.email }
             name='email'
+            onBlur={ (el) => checkIfEmailExist(el.target.value) }
             onChange={ handleChangeVal }
             type="email"
+            isInvalid={existEmail}
           />
+          <Form.Control.Feedback type="invalid">
+            Email already exists. click on I already have an account to login
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className='mb-4'>
           <Form.Label>{ t('label.phone') }({ t('title.optional') })</Form.Label>
@@ -222,8 +249,8 @@ const FinalStep = () => {
           />
           <Form.Label className='fs-16'>
             { t('label.read-privacy') }
-            <a href="https://winleads.eu/privacy-cookie-policy" target='_blank'>{t('label.privacy')}</a>
-            {t('label.terms')}
+            <a href="https://winleads.eu/privacy-cookie-policy" target='_blank'>{ t('label.privacy') }</a>
+            { t('label.terms') }
           </Form.Label>
         </div>
       </Form>
