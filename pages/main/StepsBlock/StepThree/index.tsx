@@ -78,13 +78,26 @@ const StepThree = () => {
   };
 
   const setRenovationLevel = () => {
-    if(data.renovationYear && Number(data.renovationLevel) === 0) {
+    if (data.renovationYear && Number(data.renovationLevel) === 0) {
       setFormData({
         ...data,
         renovationLevel: '25',
       });
     }
-  }
+  };
+
+  const checkIfValidYears = () => {
+    return Number(data.constructionYear) && Number(data.renovationYear) < Number(data.constructionYear);
+  };
+
+  const checkMinValue = (name: string, value: string) => {
+    setFormData({
+      ...data,
+      [name]: data[name] < value ? value : data[name],
+    });
+
+    setRenovationLevel();
+  };
 
   return (
     <div className='step-three'>
@@ -153,9 +166,10 @@ const StepThree = () => {
             <Form.Control
               name='constructionYear'
               min={ 1800 }
-              max={new Date().getFullYear()}
+              max={ new Date().getFullYear() }
               value={ data.constructionYear }
               type="number"
+              onBlur={ () => checkMinValue('constructionYear', '1800') }
               onChange={ handleChangeVal }
             />
           </div>
@@ -166,12 +180,12 @@ const StepThree = () => {
             <Form.Control
               name='renovationYear'
               min={ 1920 }
-              max={new Date().getFullYear()}
+              max={ new Date().getFullYear() }
               value={ data.renovationYear }
               type="number"
-              onBlur={setRenovationLevel}
+              onBlur={ () => checkMinValue('renovationYear', '1920') }
               onChange={ handleChangeVal }
-              isInvalid={Number(data.renovationYear) < Number(data.constructionYear)}
+              isInvalid={ checkIfValidYears() }
             />
             <Form.Control.Feedback type="invalid">
               Renovation year can't be before construction year
