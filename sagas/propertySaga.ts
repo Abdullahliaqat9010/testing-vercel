@@ -97,7 +97,7 @@ function* getPropertyForCurrentUser({payload}: any) {
 
 function* getPropertyForCurrentUserSuccess(data: []) {
   if (data.length) {
-    const {zip, property_type} = data.pop();
+    const {zip, property_type} = data[data.length - 1];
     yield getSimilarPropertyRequest(property_type, zip);
   }
   yield put({

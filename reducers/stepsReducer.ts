@@ -30,7 +30,6 @@ export const initialState = {
       prestige: 'basic',
       condition: 'new',
       constructionYear: '',
-      renovated: 0,
       renovationYear: '',
       renovationLevel: '0',
       numberFloors: 1,

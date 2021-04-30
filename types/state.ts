@@ -52,7 +52,6 @@ export interface RootState {
         prestige: string,
         condition: string,
         constructionYear: string,
-        renovated: number,
         renovationYear: string,
         renovationLevel: string,
       },
