@@ -116,7 +116,7 @@ function* getPropertyForCurrentUserError(error: string) {
 function* getSimilarPropertyRequest(propertyType: string, zip: string) {
   try {
     const token = localStorage.getItem('auth');
-    const res = yield fetch(`${ config.apiDomain }/property/similar?property_type=${ propertyType }&zip=${ zip }`, {
+    const res = yield fetch(`${ config.apiDomain }/property/similar?property_type=${ propertyType }`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
