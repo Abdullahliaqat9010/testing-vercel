@@ -258,6 +258,11 @@
           line-height: 19px;
           margin-bottom: 24px;
         }
+
+        .property-main-block {
+          max-height: 1020px;
+          overflow-x: auto;
+        }
       }
     }
 
@@ -463,6 +468,10 @@
               }
             }
 
+          }
+
+          .property-main-block {
+            max-height: 1145px;
           }
         }
       }

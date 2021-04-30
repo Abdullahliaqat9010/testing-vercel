@@ -26,10 +26,18 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     return `${ count } ${ interval.label }${ count !== 1 ? 's' : '' } ago`;
   };
 
+  const getImageLink = () => {
+    if (property.images.length) {
+      return property.images[0].url_small;
+    }
+
+    return NoImage;
+  }
+
   return (
     <div className='property-block d-flex'>
       <div className="property-block__image">
-        <Image src={ NoImage } rounded/>
+        <Image src={ getImageLink() } rounded/>
         {/*<Image src={ isMobile && property.imgMobile ? property.imgMobile : property.img } rounded/>*/}
       </div>
       <div className="property-block__info">

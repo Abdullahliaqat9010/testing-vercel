@@ -10,8 +10,7 @@ export interface PropertiesItem {
 
 export interface PropertyContainerProps {
   property: {
-    img: string,
-    imgMobile?: string,
+    images: any[], //@todo add interface
     search_address: string,
     live_area: string,
     bathrooms: string,
