@@ -11,14 +11,13 @@ import GoogleMap from '../../../components/GoogleMap';
 import PropertyBlock from '../../../containers/Property';
 
 import LoadMoreImage from '../../../assets/images/load-more.svg';
-// import { propertiesList } from '../../../templates/propertiesList';
 
 const PropertiesBlock = () => {
   const {t} = useTranslation('dashboard-page');
-  const elementsOnPage = 3;
-  const [sizeArr, setSizeArr] = useState(3);
+  const elementsOnPage = isMobile ? 3 : 6;
+  const [sizeArr, setSizeArr] = useState(elementsOnPage);
   const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
-  const properties = isMobile ? similarProperty.slice(0, sizeArr) : similarProperty;
+  const properties = similarProperty.slice(0, sizeArr);
 
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
@@ -38,12 +37,14 @@ const PropertiesBlock = () => {
       <div className="properties-list w-50">
         <h5>{ t('title.similar-sold-properties') }</h5>
         <p>{ t('desc.we-found') } { properties.length } { t('desc.similar-sold-properties') }</p>
-        {
-          properties.map(
-            (item, index) =>
-              <PropertyBlock key={ index } property={ item }/>,
-          )
-        }
+        <div className="property-main-block">
+          {
+            properties.map(
+              (item, index) =>
+                <PropertyBlock key={ index } property={ item }/>,
+            )
+          }
+        </div>
         <Button className='load-more' onClick={loadMore}>
           <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
         </Button>
