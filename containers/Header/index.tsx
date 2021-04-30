@@ -61,12 +61,12 @@ const HeaderContainer = ({title}: { title: string }) => {
         <link rel="icon" type="image/png" sizes="32x32" href={ '/favicon-32x32.png' }/>
         <link rel="icon" type="image/png" sizes="16x16" href={ '/favicon-16x16.png' }/>
         <link rel="manifest" href={ '/site.webmanifest' }/>
-        <link rel="mask-icon" href={ '/safari-pinned-tab.svg' } color="#1d2e5b"/>
+        <link rel="mask-icon" href={ '/safari-pinned-tab.svg' } color="#3871ef"/>
         <meta name="robots" content="noindex, nofollow"/>
         <meta name="apple-mobile-web-app-title" content="BelgiumImmo"/>
         <meta name="application-name" content="BelgiumImmo"/>
-        <meta name="msapplication-TileColor" content="#1d2e5b"/>
-        <meta name="theme-color" content="#1d2e5b"/>
+        <meta name="msapplication-TileColor" content="#3871ef"/>
+        <meta name="theme-color" content="#3871ef"/>
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
         <Image className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>

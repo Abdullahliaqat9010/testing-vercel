@@ -17,6 +17,15 @@ import LogoGray from '../../../assets/images/main-page/info-block/logo.svg';
 
 const InfoBlock = () => {
   const { t } = useTranslation('main-page');
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
   return (
     <div className='info-block container'>
       <div className="info-block__top d-flex justify-content-between">
@@ -25,7 +34,7 @@ const InfoBlock = () => {
           <p>
             {t('desc.top-block')}
           </p>
-          <Button className='get-estimation'>
+          <Button className='get-estimation' onClick={scrollToTop}>
             {t('button.get-free-estimation')}
           </Button>
         </div>
@@ -68,7 +77,7 @@ const InfoBlock = () => {
           <p>
             {t('desc.bottom-block')}
           </p>
-          <Button className='get-estimation'>
+          <Button className='get-estimation' onClick={scrollToTop}>
             {t('button.get-free-estimation')}
           </Button>
         </div>

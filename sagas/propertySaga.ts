@@ -3,7 +3,7 @@ import { config } from '../config/siteConfigs';
 
 import * as actionType from '../actions/actionTypes';
 
-function* createPropertyRequest({payload}: any) {
+export function* createPropertyRequest({payload}: any) {
   try {
     const token = localStorage.getItem('auth');
     const res = yield fetch(`${ config.apiDomain }/property`, {
@@ -61,6 +61,7 @@ function* updatePropertyError(error) {
 }
 
 function* createPropertySuccess() {
+  window.sessionStorage.removeItem('forgotLogin');
   yield put({
     type: actionType.CREATE_PROPERTY_SUCCESS,
   });
@@ -94,7 +95,11 @@ function* getPropertyForCurrentUser({payload}: any) {
   }
 }
 
-function* getPropertyForCurrentUserSuccess(data: object) {
+function* getPropertyForCurrentUserSuccess(data: []) {
+  if (data.length) {
+    const {zip, property_type} = data[data.length - 1];
+    yield getSimilarPropertyRequest(property_type, zip);
+  }
   yield put({
     type: actionType.GET_USER_PROPERTY_SUCCESS,
     payload: data,
@@ -104,6 +109,42 @@ function* getPropertyForCurrentUserSuccess(data: object) {
 function* getPropertyForCurrentUserError(error: string) {
   yield put({
     type: actionType.GET_USER_PROPERTY_ERROR,
+    payload: error,
+  });
+}
+
+function* getSimilarPropertyRequest(propertyType: string, zip: string) {
+  try {
+    const token = localStorage.getItem('auth');
+    const res = yield fetch(`${ config.apiDomain }/property/similar?property_type=${ propertyType }&zip=${ zip }`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token,
+      },
+    });
+
+    if (res.status === 200) {
+      const {data} = yield res.json();
+      yield getSimilarPropertySuccess(data);
+    }
+
+  } catch (error) {
+    yield getSimilarPropertyError(error);
+  }
+}
+
+function* getSimilarPropertySuccess(data: []) {
+  yield put({
+    type: actionType.GET_SIMILAR_PROPERTY_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getSimilarPropertyError(error: string) {
+  console.log(error);
+  yield put({
+    type: actionType.GET_SIMILAR_PROPERTY_ERROR,
     payload: error,
   });
 }

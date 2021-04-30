@@ -16,7 +16,6 @@ const StepThree = () => {
     prestige,
     condition,
     constructionYear,
-    renovated,
     renovationYear,
     renovationLevel,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.details);
@@ -26,7 +25,6 @@ const StepThree = () => {
     prestige,
     condition,
     constructionYear,
-    renovated,
     renovationYear,
     renovationLevel,
   });
@@ -60,7 +58,7 @@ const StepThree = () => {
     } else {
       setFormData({
         ...data,
-        [el.target.name]: el.target.name === 'renovated' ? el.target.checked :  el.target.value,
+        [el.target.name]: el.target.value,
       });
     }
   };
@@ -78,6 +76,15 @@ const StepThree = () => {
       condition: el.target.name,
     });
   };
+
+  const setRenovationLevel = () => {
+    if(data.renovationYear && Number(data.renovationLevel) === 0) {
+      setFormData({
+        ...data,
+        renovationLevel: '25',
+      });
+    }
+  }
 
   return (
     <div className='step-three'>
@@ -155,32 +162,30 @@ const StepThree = () => {
         </InputGroup>
         <InputGroup>
           <Form.Label>{ t('label.renovated') }</Form.Label>
-          <div className="input-block">
+          <div className="input-block d-flex flex-column">
             <Form.Control
               name='renovationYear'
               min={ 1920 }
               max={new Date().getFullYear()}
               value={ data.renovationYear }
               type="number"
+              onBlur={setRenovationLevel}
               onChange={ handleChangeVal }
+              isInvalid={Number(data.renovationYear) < Number(data.constructionYear)}
             />
+            <Form.Control.Feedback type="invalid">
+              Renovation year can't be before construction year
+            </Form.Control.Feedback>
           </div>
         </InputGroup>
         <InputGroup>
           <Form.Label className='d-flex'>
-            <Form.Check
-              value={ data.renovated }
-              name='renovated'
-              onChange={ handleChangeVal }
-              type="checkbox"
-            />
             { t('label.renovation-level') }
           </Form.Label>
           <div className="input-block">
             <Form.Control
-              min={ 1 }
+              min={ 0 }
               name='renovationLevel'
-              disabled={ !data.renovated }
               value={ data.renovationLevel }
               type="number"
               onChange={ handleChangeVal }
@@ -196,7 +201,6 @@ const StepThree = () => {
           </InputGroup.Prepend>
           <Form.Control
             name='renovationLevel'
-            disabled={ !data.renovated }
             value={ data.renovationLevel }
             type="range"
             onChange={ handleChangeVal }

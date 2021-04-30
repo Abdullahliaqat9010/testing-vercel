@@ -30,6 +30,7 @@ if (typeof localStorage !== 'undefined') {
 export const initialState = {
   auth: exp,
   showAgentModal: false,
+  existEmail: false,
   agencyContactInfo: {
     title: '',
     agentName: '',
@@ -37,6 +38,7 @@ export const initialState = {
     agencyId: null,
   },
   properties: [],
+  similarProperty: [],
   currentPropertyPrice: {},
   mainProperty: {},
   userName,
@@ -79,17 +81,27 @@ const userReducer = (state = initialState, action: any) => {
         properties: [...action.payload],
         mainProperty: action.payload[action.payload.length - 1],
       };
+    case actionType.GET_PRICE_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        currentPropertyPrice: {...action.payload},
+      };
+    case actionType.CHECK_IF_EXIST_EMAIL_SUCCESS:
+      return {
+        ...state,
+        existEmail: action.payload
+      }
+    case actionType.GET_SIMILAR_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        similarProperty: [...action.payload]
+      }
     case actionType.GET_USER_PROPERTY_ERROR: {
       return {
         ...state,
         errors: action.payload,
       };
     }
-    case actionType.GET_PRICE_PROPERTY_SUCCESS:
-      return {
-        ...state,
-        currentPropertyPrice: {...action.payload},
-      };
     default:
       return {
         ...state,
