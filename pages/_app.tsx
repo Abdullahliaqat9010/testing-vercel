@@ -5,6 +5,7 @@ import { appWithTranslation, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 import { store, persistor } from '../store';
+import { config } from '../config/siteConfigs';
 
 import TagManager from 'react-gtm-module';
 
@@ -23,30 +24,30 @@ import '../styles/pages/agency.scss';
 import '../styles/pages/login.scss';
 
 const tagManagerArgs = {
-  gtmId: 'GTM-KGQ67XP'
-}
+  gtmId: config.metricKey,
+};
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({Component, pageProps}) => {
   const router = useRouter();
 
-  const { locale } = router;
-  const { i18n } = useTranslation();
+  const {locale} = router;
+  const {i18n} = useTranslation();
 
+  useEffect(() => {
+    TagManager.initialize(tagManagerArgs);
+  }, []);
+  
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [locale]);
 
-  useEffect(() => {
-    TagManager.initialize(tagManagerArgs);
-  }, [])
-
-  return(
+  return (
     <Provider store={ store }>
       <PersistGate loading={ null } persistor={ persistor }>
         <Component { ...pageProps } />
       </PersistGate>
     </Provider>
-  )
-}
+  );
+};
 
 export default appWithTranslation(MyApp);
