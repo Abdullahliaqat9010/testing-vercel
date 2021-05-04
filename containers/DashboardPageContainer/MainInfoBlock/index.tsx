@@ -35,7 +35,6 @@ const MainInfoBlock = () => {
           numberBathrooms: mainProperty.bathrooms,
           numberLevels: mainProperty.floor,
           numberFloors: mainProperty.levels,
-          gardenTerras: mainProperty.terras_size,
           gardenTerrasValue: mainProperty.terras_size,
           elevator: mainProperty.elevator,
         },

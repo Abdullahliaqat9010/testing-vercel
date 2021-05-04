@@ -23,7 +23,6 @@ const StepTwo = () => {
     numberBedrooms,
     numberLevels,
     facadesNumber,
-    gardenTerras,
     numberFloors,
     elevator,
     gardenTerrasValue,
@@ -40,7 +39,6 @@ const StepTwo = () => {
     numberLevels,
     numberFloors,
     facadesNumber,
-    gardenTerras,
     elevator,
     gardenTerrasValue,
   });
@@ -64,7 +62,7 @@ const StepTwo = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.name === 'gardenTerras' || el.target.name === 'elevator'
+      [el.target.name]: el.target.name === 'elevator'
         ? el.target.checked : +el.target.value < 0
           ? +el.target.value * -1 : el.target.value,
     });
@@ -189,12 +187,6 @@ const StepTwo = () => {
             <>
               <InputGroup>
                 <Form.Label className='d-flex'>
-                  <Form.Check
-                    checked={ data.gardenTerras }
-                    name='gardenTerras'
-                    onChange={ handleChangeVal }
-                    type="checkbox"
-                  />
                   { t('label.garden') }
                 </Form.Label>
                 <div className="input-block">
@@ -223,7 +215,7 @@ const StepTwo = () => {
           }
           <InputGroup>
             <Form.Label><img src={ FloorsIcon } alt="FloorsIcon"/>{ t('label.floors') }</Form.Label>
-            <div className="input-block input-border-radius-0">
+            <div className="input-block input-border-radius-0 number-levels">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberLevels') }>-</InputGroup.Text>
               </InputGroup.Prepend>

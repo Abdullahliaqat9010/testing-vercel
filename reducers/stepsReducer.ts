@@ -22,7 +22,6 @@ export const initialState = {
       numberBathrooms: 1,
       numberLevels: 1,
       numberFloors: 1,
-      gardenTerras: false,
       gardenTerrasValue: '0',
       elevator: false,
     },
