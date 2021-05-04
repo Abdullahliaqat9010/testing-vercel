@@ -43,7 +43,6 @@ export interface RootState {
         facadesNumber: number,
         numberBathrooms: number,
         numberLevels: number,
-        gardenTerras: boolean,
         numberFloors: number,
         gardenTerrasValue: number,
         elevator: number,

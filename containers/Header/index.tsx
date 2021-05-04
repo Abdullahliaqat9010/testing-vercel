@@ -11,6 +11,7 @@ import Logo from '../../assets/images/logo.png';
 import NoPhoto from '../../assets/images/no-photo.png';
 import AddIcon from '../../assets/images/icon-plus.svg';
 import LoginArrow from '../../assets/images/arrow.svg';
+import LogoutIcon from '../../assets/images/nav-bar/logout.svg';
 // import ProIcon from '../../assets/images/pro-workspace.svg';
 import CurrentStepIcon from '../../assets/images/header-step-current.svg';
 import SuccessStepIcon from '../../assets/images/header-step-success.svg';
@@ -129,6 +130,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                       ))
                     }
                     <NavDropdown.Item onClick={Logout}>
+                      <img className='logout-image' src={ LogoutIcon } alt='logout'/>
                       Logout
                     </NavDropdown.Item>
                     {

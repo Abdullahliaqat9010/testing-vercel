@@ -76,7 +76,7 @@ const FinalStep = () => {
       prestige: String(details.prestige),
       facades: Number(propertyDetails.facadesNumber),
       construction_year: Number(details.constructionYear) || undefined,
-      terras_size: propertyDetails.gardenTerras ? Number(propertyDetails.gardenTerrasValue) : undefined,
+      terras_size: Number(propertyDetails.gardenTerrasValue) || undefined,
       renov_year: Number(details.renovationYear) || undefined,
       renov_level: Number(details.renovationLevel) || undefined,
       epc: Number(utilities.epc) || undefined,
