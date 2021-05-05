@@ -17,6 +17,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.DEV_SERVER_IP }}
           SSH_PRIVATE_KEY: ${{ secrets.DEV_PRIVATE_KEY }}
           REMOTE_PORT: ${{ secrets.DEV_SERVER_PORT }}
+          REACT_APP_GOOGLE_METRIC_KEY: ${{ secrets.REACT_APP_GOOGLE_METRIC_KEY }}
           SOURCE: '.'
           TARGET: '/var/projects/immo_belgium_front'
           ARGS: "-rltgoDzvO --delete --exclude .git --exclude .env --exclude /node_modules/"
