@@ -2,7 +2,7 @@
 export const config = {
   siteTitle: process.env.SITE_TITLE,
   apiDomain: process.env.APP_API,
-  metricKey: process.env.METRIC_KEY,
+  metricKey: process.env.GOOGLE_METRIC_KEY,
 };
 
 // Google Maps Configs =====================================================
