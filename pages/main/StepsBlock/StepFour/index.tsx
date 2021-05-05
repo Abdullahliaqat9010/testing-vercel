@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import { Button, ButtonGroup, Form, InputGroup } from 'react-bootstrap';
 
-import { goToNextStepAction, goToPrevStepAction, setUtilitiesDataAction } from '../../../../actions';
+import {
+  goToNextStepAction,
+  goToPrevStepAction,
+  setUtilitiesDataAction,
+  updatePropertyRequestAction,
+} from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
@@ -23,6 +28,7 @@ import WestInactive from '../../../../assets/images/steps/orientation/w-inactive
 import WestActive from '../../../../assets/images/steps/orientation/w-active.svg';
 import NorthWestInactive from '../../../../assets/images/steps/orientation/nw-inactive.svg';
 import NorthWestActive from '../../../../assets/images/steps/orientation/nw-active.svg';
+import { generatePropertyData } from '../../../../utils/generatePropertyData';
 
 const StepFour = () => {
   const {t} = useTranslation('steps');
@@ -45,7 +51,15 @@ const StepFour = () => {
     carportCheck,
     solarPanels,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.utilities);
-  const {selectedProperty} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {
+    addressFromStepOne,
+    additionalAddress,
+    location,
+    selectedProperty,
+    propertyDetails,
+    details,
+  } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {propertyId} = useSelector((state: RootState) => state.stepsInfo);
 
   const [data, setFormData] = useState({
     epc,
@@ -116,8 +130,24 @@ const StepFour = () => {
   };
 
   const handleClickNextBtn = () => {
-    dispatch(setUtilitiesDataAction(data));
-    dispatch(goToNextStepAction());
+    if (propertyId) {
+      const utilities = {...data}
+      const sendData = {
+        ...generatePropertyData(
+          addressFromStepOne,
+          additionalAddress,
+          selectedProperty,
+          propertyDetails,
+          details,
+          utilities,
+          location
+        )
+      }
+      dispatch(updatePropertyRequestAction({...sendData}, propertyId));
+    } else {
+      dispatch(setUtilitiesDataAction(data));
+      dispatch(goToNextStepAction());
+    }
   };
 
   return (
