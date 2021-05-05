@@ -3,14 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 import { Button, Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 import { RootState } from '../../../../types/state';
+
+import { parseJwt } from '../../../../utils';
+import { generatePropertyData } from '../../../../utils/generatePropertyData';
 
 import {
   createPersonalAccountAction,
   createPropertyRequestAction,
   goToNextStepAction,
-  goToPrevStepAction, updatePropertyRequestAction,
+  goToPrevStepAction,
 } from '../../../../actions';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
@@ -27,9 +31,8 @@ import { professionalAccountList } from '../../../../templates/professionalAccou
 import { residenceSelect } from '../../../../templates/residenceSelect';
 import { sellPropertySelect } from '../../../../templates/sellPropertySelect';
 import { howSellSelect } from '../../../../templates/howSellSelect';
-import { parseJwt } from '../../../../utils';
+
 import { userToken } from '../../../../config/siteConfigs';
-import { useTranslation } from 'next-i18next';
 
 const CreatePersonalAccount = () => {
   const {t} = useTranslation('steps');
@@ -37,7 +40,7 @@ const CreatePersonalAccount = () => {
 
   const [activeTab, setActiveTab] = useState<string>('private');
   const {auth} = useSelector((state: RootState) => state.userInfo);
-  const {propertyId} = useSelector((state: RootState) => state.stepsInfo);
+
   const {
     addressFromStepOne,
     additionalAddress,
@@ -67,52 +70,20 @@ const CreatePersonalAccount = () => {
       const parseData = parseJwt(userToken);
       const sendData = {
         leadId: parseData.id,
-        search_address: String(addressFromStepOne),
-        country: String(additionalAddress.country),
-        street: String(additionalAddress.street),
-        street_number: String(additionalAddress.number),
-        zip: String(additionalAddress.zip),
-        locality: String(additionalAddress.locality),
-        property_type: String(selectedProperty),
-        live_area: Number(propertyDetails.livingArea),
-        total_area: selectedProperty !== 'apartment' ? Number(propertyDetails.landSurface) : undefined,
-        bedrooms: Number(propertyDetails.numberBedrooms),
-        bathrooms: Number(propertyDetails.numberBathrooms),
-        floor: Number(propertyDetails.numberLevels),
-        levels: Number(propertyDetails.numberFloors),
-        prestige: String(details.prestige),
-        facades: Number(propertyDetails.facadesNumber),
-        construction_year: Number(details.constructionYear) || undefined,
-        terras_size: Number(propertyDetails.gardenTerrasValue) || undefined,
-        renov_year: Number(details.renovationYear) || undefined,
-        renov_level: Number(details.renovationLevel) || undefined,
-        epc: Number(utilities.epc) || undefined,
-        view: String(utilities.view),
-        orientation_terras: String(utilities.orientation),
-        attic: Number(utilities.atticValue) || undefined,
-        cellar: Number(utilities.cellarValue) || undefined,
-        elevator: Boolean(utilities.elevator),
-        pool: Boolean(utilities.swimmingPool),
-        indoor_garage: utilities.parking ? Number(utilities.indoorGarage) : undefined,
-        outdoor_garage: utilities.parking ? Number(utilities.outdoorGarage) : undefined,
-        carport: utilities.parking ? Number(utilities.carport) : undefined,
-        solar_panels: Number(utilities.solarPanels),
         owner: Boolean(activePrivateBlock === 'homeowner'),
         interest: String(data.sellProperty),
         selling_way: String(data.howSell).length ? String(data.howSell) : undefined,
-        state: String(details.condition),
-        source: 'immoBelgium',
-        status: 'for_sale',
         residence_type: String(data.selectedResidence),
-        lat: String(location.lat),
-        lng: String(location.lng),
+        ...generatePropertyData(
+          addressFromStepOne,
+          additionalAddress,
+          selectedProperty,
+          propertyDetails,
+          details,
+          utilities,
+          location)
       };
-
-      if (propertyId) {
-        dispatch(updatePropertyRequestAction({...sendData}, propertyId));
-      } else {
-        dispatch(createPropertyRequestAction({...sendData}));
-      }
+      dispatch(createPropertyRequestAction({...sendData}));
     }
   };
 
