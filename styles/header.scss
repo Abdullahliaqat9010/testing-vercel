@@ -9,6 +9,31 @@
   }
 
   .right-block {
+
+    .switcher-lang {
+      text-transform: uppercase;
+      margin-left: 22px;
+      font-family: var(--fontNunitoBold);
+      font-size: 12px;
+      line-height: 16px;
+      padding: 4px 8px;
+      background: #E5EAF7;
+      border-radius: 6px;
+      cursor: pointer;
+
+      .lang-list {
+        padding: 4px 8px;
+        position: absolute;
+        z-index: 10;
+        text-transform: capitalize;
+        left: 0;
+        top: 25px;
+        display: flex;
+        flex-direction: column;
+        background: var(--colorWhite);
+      }
+    }
+
     img {
       width: 24px;
       height: 24px;

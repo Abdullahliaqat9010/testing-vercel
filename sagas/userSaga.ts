@@ -8,7 +8,7 @@ import { createPropertyRequest } from './propertySaga';
 
 function* checkExistEmail({payload}: any) {
   try {
-    const res = yield fetch(`${ config.apiDomain }/users/${payload}/exist`, {
+    const res = yield fetch(`${ config.apiDomain }/users/${ payload }/exist`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,6 +36,45 @@ function* checkExistEmailError(error: string) {
   });
 }
 
+function* verifyEmail({payload}: any) {
+  try {
+    const res = yield fetch(`${ config.apiDomain }/auth/verify-user/${payload}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const {data} = yield res.json();
+
+    if (res.status == 401) {
+      yield verifyEmailError(data.message);
+    }
+
+    if (res.status == 200) {
+      yield verifyEmailSuccess(data.access_token);
+    }
+
+  } catch (error) {
+    yield verifyEmailError(error);
+  }
+}
+
+function* verifyEmailSuccess(token: string) {
+  localStorage.setItem('auth', token);
+  yield put({
+    type: actionType.VERIFY_EMAIL_SUCCESS,
+  });
+}
+
+function* verifyEmailError(error: string) {
+  console.log(error);
+  yield put({
+    type: actionType.VERIFY_EMAIL_ERROR,
+    payload: error,
+  });
+}
+
 function* sendStepsDataRequest({payload}: any) {
   yield put({
     type: actionType.SIGNUP_USER_REQUEST,
@@ -44,9 +83,9 @@ function* sendStepsDataRequest({payload}: any) {
 }
 
 function* signupUserRequest({payload}: any) {
-  const {user, property} = payload;
+  const {user, property, locale} = payload;
   try {
-    const res = yield fetch(`${ config.apiDomain }/auth/signup`, {
+    const res = yield fetch(`${ config.apiDomain }/auth/signup/${locale}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -58,12 +97,12 @@ function* signupUserRequest({payload}: any) {
         phone_number: user.phone_number,
         password: user.password,
         promo_mailing: user.promotions,
-        t_c: user.agreement
+        t_c: user.agreement,
       }),
     });
 
     if (res.status === 201) {
-      const data = yield res.json();
+      const { data } = yield res.json();
       localStorage.setItem('auth', data.access_token);
       yield signupUserSuccess(data, property);
     }
@@ -126,8 +165,8 @@ function* loginUserSuccess(userData) {
     const parseData = parseJwt(userData.access_token);
     const data = {
       leadId: parseData.id,
-      ...JSON.parse(window.sessionStorage.getItem('forgotLogin'))
-    }
+      ...JSON.parse(window.sessionStorage.getItem('forgotLogin')),
+    };
     yield createPropertyRequest({payload: data});
   }
 
@@ -185,4 +224,5 @@ export function* userSaga() {
   yield takeLatest(actionType.LOGIN_USER_REQUEST, loginUserRequest);
   yield takeLatest(actionType.CONTACT_AGENCY_REQUEST, contactAgencyRequest);
   yield takeLatest(actionType.CHECK_IF_EXIST_EMAIL, checkExistEmail);
+  yield takeLatest(actionType.VERIFY_EMAIL, verifyEmail);
 }

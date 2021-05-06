@@ -22,6 +22,7 @@ const FinalStep = () => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
   const router = useRouter();
+  const {locale} = router;
   const {
     addressFromStepOne,
     additionalAddress,
@@ -83,6 +84,7 @@ const FinalStep = () => {
       dispatch(sendStepsDataRequestAction({
         property: propertyData(),
         user: {...data},
+        locale
       }));
     }
     return false;

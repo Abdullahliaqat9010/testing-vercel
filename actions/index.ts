@@ -73,6 +73,14 @@ export const modalWindowContactAgentAction = (data: object) => ({
   payload: data,
 });
 
+export const pleaseVerifyEmailAction = () => ({
+  type: actionType.PLEASE_VERIFY_EMAIL,
+});
+
+export const closeVerifyEmailModalAction = () => ({
+  type: actionType.CLOSE_VERIFY_EMAIL_MODAL,
+});
+
 export const closeModalWindowContactAgentAction = () => ({
   type: actionType.CLOSE_MODAL_CONTACT_AGENT,
 });
@@ -105,4 +113,9 @@ export const updateAddressList = (addressList: object) => ({
 export const checkIfEmailExistAction = (email: string) => ({
   type: actionType.CHECK_IF_EXIST_EMAIL,
   payload: email
+});
+
+export const verifyEmailAction = (token: string | string[]) => ({
+  type: actionType.VERIFY_EMAIL,
+  payload: token
 });
