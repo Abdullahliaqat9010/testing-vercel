@@ -13,6 +13,7 @@ import FindAgentBlock from '../../containers/DashboardPageContainer/FindAgentBlo
 import FooterContainer from '../../containers/Footer';
 import HeaderContainer from '../../containers/Header';
 import ContactAgentModal from '../../containers/ContactAgentModal';
+import VerifyEmailModal from '../../containers/VerifyEmailModal';
 
 import { getPropertyForCurrentUserAction } from '../../actions';
 import { parseJwt } from '../../utils';
@@ -39,6 +40,7 @@ const DashboardPage = () => {
   return (
     <>
       <ContactAgentModal/>
+      <VerifyEmailModal/>
       <HeaderContainer title={ t('title') }/>
       <div className='Dashboard container d-flex'>
         <NavBarContainer/>

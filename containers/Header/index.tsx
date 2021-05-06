@@ -21,6 +21,17 @@ import { NavDropdown, Image, Button } from 'react-bootstrap';
 import { RootState } from '../../types/state';
 import navBarList from '../../config/navBarList';
 
+const langList = [
+  {
+    id: 'en',
+    label: 'english'
+  },
+  {
+    id: 'fr',
+    label: 'france',
+  }
+];
+
 const HeaderContainer = ({title}: { title: string }) => {
   const router = useRouter();
 
@@ -29,6 +40,7 @@ const HeaderContainer = ({title}: { title: string }) => {
   const {mainBlocks, stepBlock} = useSelector((state: RootState) => state.stepsInfo);
   const {auth, userName, userSurname} = useSelector((state: RootState) => state.userInfo);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [openLangList, setOpenLangList] = useState<boolean>(false);
 
   const isActive = () => {
     if (isMobile) {
@@ -51,6 +63,14 @@ const HeaderContainer = ({title}: { title: string }) => {
   const Logout = () => {
     localStorage.removeItem('auth');
     window.location.href = '/';
+  };
+
+  const openSwitcherBlock = () => {
+    setOpenLangList(!openLangList);
+  };
+
+  const selectLang = (lang: string) => {
+    router.push(router.pathname, lang + router.pathname, {locale: lang})
   };
 
   return (
@@ -123,13 +143,13 @@ const HeaderContainer = ({title}: { title: string }) => {
                     }
                     {
                       navBarList.map((list, index) => (
-                        <NavDropdown.Item href={'/' + locale + list.href } key={ index }>
+                        <NavDropdown.Item href={ '/' + locale + list.href } key={ index }>
                           <img src={ list.img } alt={ list.title }/>
                           { t(`nav-li.${ list.id }`) }
                         </NavDropdown.Item>
                       ))
                     }
-                    <NavDropdown.Item onClick={Logout}>
+                    <NavDropdown.Item onClick={ Logout }>
                       <img className='logout-image' src={ LogoutIcon } alt='logout'/>
                       Logout
                     </NavDropdown.Item>
@@ -142,6 +162,25 @@ const HeaderContainer = ({title}: { title: string }) => {
                       </div>
                     }
                   </NavDropdown>
+                  <div className="switcher-lang position-relative">
+                    <span onClick={ openSwitcherBlock }>{ locale }</span>
+                    {
+                      openLangList &&
+                      <div className="lang-list">
+                        {
+                          langList.map((lang, index) =>
+                            <span
+                              className={lang.id === locale ? 'active' : ''}
+                              key={index}
+                              onClick={() => selectLang(lang.id)}
+                            >
+                              {lang.label}
+                            </span>
+                          )
+                        }
+                      </div>
+                    }
+                  </div>
                   {
                     !openMenu &&
                     <Button className='add-property' onClick={ goToMainPage }>

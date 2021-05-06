@@ -36,7 +36,7 @@ const PropertiesBlock = () => {
       }
       <div className="properties-list w-50">
         <h5>{ t('title.similar-sold-properties') }</h5>
-        <p>{ t('desc.we-found') } { properties.length } { t('desc.similar-sold-properties') }</p>
+        <p>{ t('desc.we-found') } { similarProperty.length } { t('desc.similar-sold-properties') }</p>
         <div className="property-main-block">
           {
             properties.map(
