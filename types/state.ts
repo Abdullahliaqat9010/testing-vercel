@@ -1,6 +1,7 @@
 export interface RootState {
   userInfo: {
     auth: boolean,
+    emailVerified: boolean,
     showAgentModal: boolean,
     existEmail: boolean,
     agencyContactInfo: {
@@ -13,8 +14,10 @@ export interface RootState {
     similarProperty: any, //@todo add interface
     mainProperty: any, //@todo add interface
     currentPropertyPrice: {
-      constrValue: number,
-      landValue: number
+      totalValue: number
+      pricePerM: number
+      min: number
+      max: number
     },
     userName: string,
     userSurname: string,

@@ -106,3 +106,8 @@ export const checkIfEmailExistAction = (email: string) => ({
   type: actionType.CHECK_IF_EXIST_EMAIL,
   payload: email
 });
+
+export const verifyEmailAction = (token: string | string[]) => ({
+  type: actionType.VERIFY_EMAIL,
+  payload: token
+});

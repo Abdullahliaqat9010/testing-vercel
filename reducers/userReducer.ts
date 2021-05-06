@@ -8,7 +8,7 @@ let userSurname = '';
 let userEmail = '';
 
 /**
- * check token on expire
+ * check [token] on expire
  */
 if (typeof localStorage !== 'undefined') {
   if (localStorage.getItem('auth')) {
@@ -31,6 +31,7 @@ export const initialState = {
   auth: exp,
   showAgentModal: false,
   existEmail: false,
+  emailVerified: false,
   agencyContactInfo: {
     title: '',
     agentName: '',
@@ -54,6 +55,11 @@ const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         auth: true,
+      };
+    case actionType.VERIFY_EMAIL_SUCCESS:
+      return {
+        ...state,
+        emailVerified: true,
       };
     case actionType.SHOW_MODAL_CONTACT_AGENT:
       return {

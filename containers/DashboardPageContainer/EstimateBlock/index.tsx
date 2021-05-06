@@ -12,7 +12,6 @@ import { estimationButtonsList } from '../../../templates/estimationButtonsList'
 
 const EstimateBlock = () => {
   const {t} = useTranslation('dashboard-page');
-  const percent = 11;
   const dispatch = useDispatch();
   const {mainProperty, currentPropertyPrice} = useSelector((state: RootState) => state.userInfo);
 
@@ -33,15 +32,15 @@ const EstimateBlock = () => {
   }, [mainProperty]);
 
   useEffect(() => {
-    if (currentPropertyPrice.constrValue && mainProperty.live_area) {
-      const min = currentPropertyPrice.constrValue - 100 * percent;
-      const max = currentPropertyPrice.constrValue + 100 * percent;
+    if (currentPropertyPrice.totalValue && mainProperty.live_area) {
+      const min = currentPropertyPrice.min;
+      const max = currentPropertyPrice.max;
 
       setPriceValue({
-        min: Math.ceil(min * 100)/100,
-        max: Math.ceil(max * 100)/100,
-        minPerMeter: Math.ceil((min / mainProperty.live_area) * 100)/100,
-        maxPerMeter: Math.ceil((max / mainProperty.live_area) * 100)/100,
+        min: currentPropertyPrice.min,
+        max: currentPropertyPrice.max,
+        minPerMeter: Math.round(min / mainProperty.live_area),
+        maxPerMeter: Math.round(max / mainProperty.live_area),
       });
     }
   }, [currentPropertyPrice]);
@@ -79,30 +78,26 @@ const EstimateBlock = () => {
       {
         mainProperty?.search_address &&
         <div className="scale-block">
-          <OverlayTrigger
-            key='tooltip'
-            placement='top'
-            show
-            overlay={
-              <Tooltip id='price-block'>
+          {
+            currentPropertyPrice.totalValue &&
+            <OverlayTrigger
+              key='tooltip'
+              placement='top'
+              show
+              overlay={
+                <Tooltip id='price-block'>
                 <span>
-                  Construction price: {
-                  currentPropertyPrice.constrValue && '€' + numberWithCommas(currentPropertyPrice.constrValue.toString())
-                }
+                  €{ numberWithCommas(currentPropertyPrice.totalValue.toString()) }
                 </span>
-                <span className='gray'>
-                  Land Price: {
-                  currentPropertyPrice.landValue && '€' + numberWithCommas(currentPropertyPrice.landValue.toString())
-                }
+                  <span className='gray'>
+                  €{ numberWithCommas(currentPropertyPrice.pricePerM.toString()) } per m²
                 </span>
-
-                {/*<span>€1,097,500</span>*/ }
-                {/*<span className='gray'>€1,185.250 per m²</span>*/ }
-              </Tooltip>
-            }
-          >
-            <div className="line"/>
-          </OverlayTrigger>
+                </Tooltip>
+              }
+            >
+              <div className="line"/>
+            </OverlayTrigger>
+          }
           <div className="range d-flex justify-content-between">
             <div className="min">
               {
