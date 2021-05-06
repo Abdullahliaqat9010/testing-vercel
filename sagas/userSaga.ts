@@ -45,7 +45,7 @@ function* verifyEmail({payload}: any) {
       },
     });
 
-    const data = yield res.json();
+    const {data} = yield res.json();
 
     if (res.status == 401) {
       yield verifyEmailError(data.message);
@@ -83,9 +83,9 @@ function* sendStepsDataRequest({payload}: any) {
 }
 
 function* signupUserRequest({payload}: any) {
-  const {user, property} = payload;
+  const {user, property, locale} = payload;
   try {
-    const res = yield fetch(`${ config.apiDomain }/auth/signup`, {
+    const res = yield fetch(`${ config.apiDomain }/auth/signup/${locale}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function* signupUserRequest({payload}: any) {
     });
 
     if (res.status === 201) {
-      const data = yield res.json();
+      const { data } = yield res.json();
       localStorage.setItem('auth', data.access_token);
       yield signupUserSuccess(data, property);
     }

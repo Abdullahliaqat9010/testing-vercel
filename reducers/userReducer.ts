@@ -32,6 +32,7 @@ export const initialState = {
   showAgentModal: false,
   existEmail: false,
   emailVerified: false,
+  needVerifyEmailModal: false,
   agencyContactInfo: {
     title: '',
     agentName: '',
@@ -69,6 +70,16 @@ const userReducer = (state = initialState, action: any) => {
           ...action.payload,
         },
       };
+    case actionType.PLEASE_VERIFY_EMAIL:
+      return {
+        ...state,
+        needVerifyEmailModal: true,
+      };
+    case actionType.CLOSE_VERIFY_EMAIL_MODAL:
+      return {
+        ...state,
+        needVerifyEmailModal: false,
+      };
     case actionType.CONTACT_AGENCY_SUCCESS:
     case actionType.CLOSE_MODAL_CONTACT_AGENT:
       return {
@@ -95,13 +106,13 @@ const userReducer = (state = initialState, action: any) => {
     case actionType.CHECK_IF_EXIST_EMAIL_SUCCESS:
       return {
         ...state,
-        existEmail: action.payload
-      }
+        existEmail: action.payload,
+      };
     case actionType.GET_SIMILAR_PROPERTY_SUCCESS:
       return {
         ...state,
-        similarProperty: [...action.payload]
-      }
+        similarProperty: [...action.payload],
+      };
     case actionType.GET_USER_PROPERTY_ERROR: {
       return {
         ...state,

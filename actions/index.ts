@@ -73,6 +73,14 @@ export const modalWindowContactAgentAction = (data: object) => ({
   payload: data,
 });
 
+export const pleaseVerifyEmailAction = () => ({
+  type: actionType.PLEASE_VERIFY_EMAIL,
+});
+
+export const closeVerifyEmailModalAction = () => ({
+  type: actionType.CLOSE_VERIFY_EMAIL_MODAL,
+});
+
 export const closeModalWindowContactAgentAction = () => ({
   type: actionType.CLOSE_MODAL_CONTACT_AGENT,
 });

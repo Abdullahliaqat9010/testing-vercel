@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 
-import { Button, ButtonGroup, FormControl, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, ButtonGroup, FormControl, InputGroup, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 
 import { getPriceForPropertyAction } from '../../../actions';
 import { RootState } from '../../../types/state';
@@ -79,7 +79,7 @@ const EstimateBlock = () => {
         mainProperty?.search_address &&
         <div className="scale-block">
           {
-            currentPropertyPrice.totalValue &&
+            currentPropertyPrice.totalValue ?
             <OverlayTrigger
               key='tooltip'
               placement='top'
@@ -96,7 +96,7 @@ const EstimateBlock = () => {
               }
             >
               <div className="line"/>
-            </OverlayTrigger>
+            </OverlayTrigger> : <Spinner animation="border" variant="primary" />
           }
           <div className="range d-flex justify-content-between">
             <div className="min">
