@@ -12,6 +12,7 @@ import NoPhoto from '../../assets/images/no-photo.png';
 import AddIcon from '../../assets/images/icon-plus.svg';
 import LoginArrow from '../../assets/images/arrow.svg';
 import LogoutIcon from '../../assets/images/nav-bar/logout.svg';
+import CheckedIcon from '../../assets/images/valid-blue.svg';
 // import ProIcon from '../../assets/images/pro-workspace.svg';
 import CurrentStepIcon from '../../assets/images/header-step-current.svg';
 import SuccessStepIcon from '../../assets/images/header-step-success.svg';
@@ -120,83 +121,104 @@ const HeaderContainer = ({title}: { title: string }) => {
             </div>
           </div>
         }
-        {
-          auth ?
-            <div className="right-block d-flex align-items-center">
-              {
-                !mainBlocks &&
-                <>
-                  {
-                    !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                  }
-                  <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown"
-                               onClick={ isActive }>
-                    {/*<NavDropdown.Item className='pro-workspace'>*/ }
-                    {/*  <img src={ ProIcon } alt="ProIcon"/>*/ }
-                    {/*  {t('li.pro-workspace')}*/ }
-                    {/*</NavDropdown.Item>*/ }
+        <div className='d-flex align-items-center'>
+          {
+            auth ?
+              <div className="right-block d-flex align-items-center">
+                {
+                  !mainBlocks &&
+                  <>
                     {
-                      isMobile &&
-                      <Button onClick={ goToMainPage } className='add-property-mobile'>
+                      !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                    }
+                    <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown"
+                                 onClick={ isActive }>
+                      {/*<NavDropdown.Item className='pro-workspace'>*/ }
+                      {/*  <img src={ ProIcon } alt="ProIcon"/>*/ }
+                      {/*  {t('li.pro-workspace')}*/ }
+                      {/*</NavDropdown.Item>*/ }
+                      {
+                        isMobile &&
+                        <Button onClick={ goToMainPage } className='add-property-mobile'>
+                          <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
+                        </Button>
+                      }
+                      {
+                        navBarList.map((list, index) => (
+                          <NavDropdown.Item href={ '/' + locale + list.href } key={ index }>
+                            <img src={ list.img } alt={ list.title }/>
+                            { t(`nav-li.${ list.id }`) }
+                          </NavDropdown.Item>
+                        ))
+                      }
+                      <NavDropdown.Item onClick={ Logout }>
+                        <img className='logout-image' src={ LogoutIcon } alt='logout'/>
+                        Logout
+                      </NavDropdown.Item>
+                      {
+                        isMobile &&
+                        <div className="mobile-block">
+                          <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                          <span className="user-name">{ userName + ' ' + userSurname }</span>
+                          {/*<span className="pro">PRO</span>*/}
+                          <div className="mobile-lang-list">
+                            {
+                              langList.map((lang, index) =>
+                                  <span
+                                    className={lang.id === locale ? 'active' : ''}
+                                    key={index}
+                                    onClick={() => selectLang(lang.id)}
+                                  >
+                                    {lang.label}
+                                  </span>
+                              )
+                            }
+                          </div>
+                        </div>
+                      }
+                    </NavDropdown>
+                    {
+                      !openMenu &&
+                      <Button className='add-property' onClick={ goToMainPage }>
                         <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
                       </Button>
                     }
-                    {
-                      navBarList.map((list, index) => (
-                        <NavDropdown.Item href={ '/' + locale + list.href } key={ index }>
-                          <img src={ list.img } alt={ list.title }/>
-                          { t(`nav-li.${ list.id }`) }
-                        </NavDropdown.Item>
-                      ))
-                    }
-                    <NavDropdown.Item onClick={ Logout }>
-                      <img className='logout-image' src={ LogoutIcon } alt='logout'/>
-                      Logout
-                    </NavDropdown.Item>
-                    {
-                      isMobile &&
-                      <div className="mobile-block">
-                        <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
-                        <span className="user-name">{ userName + ' ' + userSurname }</span>
-                        <span className="pro">PRO</span>
-                      </div>
-                    }
-                  </NavDropdown>
-                  <div className="switcher-lang position-relative">
-                    <span onClick={ openSwitcherBlock }>{ locale }</span>
-                    {
-                      openLangList &&
-                      <div className="lang-list">
-                        {
-                          langList.map((lang, index) =>
-                            <span
-                              className={lang.id === locale ? 'active' : ''}
-                              key={index}
-                              onClick={() => selectLang(lang.id)}
-                            >
-                              {lang.label}
-                            </span>
-                          )
-                        }
-                      </div>
-                    }
-                  </div>
-                  {
-                    !openMenu &&
-                    <Button className='add-property' onClick={ goToMainPage }>
-                      <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
-                    </Button>
-                  }
-                </>
-              }
-            </div>
-            :
-            <Link href={ '/login' } locale={ locale }>
+                  </>
+                }
+              </div>
+              :
+              <Link href={ '/login' } locale={ locale }>
               <span className='sign-in-btn'>
                 { t('button.login') } <img src={ LoginArrow } alt="LoginArrow"/>
               </span>
-            </Link>
-        }
+              </Link>
+          }
+          {
+            !auth &&
+            <div className={ `switcher-lang position-relative ${openLangList ? 'active-locale' : ''}` }>
+              <span onClick={ openSwitcherBlock }>{ locale }</span>
+              {
+                openLangList &&
+                <div className="lang-list">
+                  {
+                    langList.map((lang, index) =>
+                      <span
+                        className={lang.id === locale ? 'active' : ''}
+                        key={index}
+                        onClick={() => selectLang(lang.id)}
+                      >
+                              {lang.label}
+                        {
+                          lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/>
+                        }
+                            </span>
+                    )
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
       </div>
     </>
   );
