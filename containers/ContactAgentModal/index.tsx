@@ -15,12 +15,13 @@ const ContactAgentModal = () => {
     userName,
     userSurname,
     userEmail,
+    userPhone,
     properties,
   } = useSelector((state: RootState) => state.userInfo);
 
   const [data, setData] = useState({
     fullName: userName + ' ' + userSurname,
-    phone: '',
+    phone: userPhone,
     email: userEmail,
     desc: '',
     selectedProperty: '',
@@ -131,9 +132,10 @@ const ContactAgentModal = () => {
           </Form.Group>
 
           <Form.Group controlId="desc">
-            <Form.Label>Example textarea</Form.Label>
+            <Form.Label>{ t('label.message') }</Form.Label>
             <Form.Control
               required
+              placeholder={t('placeholder.message')}
               value={ data.desc }
               as="textarea"
               rows={ 5 }

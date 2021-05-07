@@ -29,6 +29,8 @@ const StepThree = () => {
     renovationLevel,
   });
 
+  const [noValidRenYear, setValidRenYear] = useState(false);
+
   const handleClickPrevBtn = () => {
     dispatch(goToPrevStepAction());
   };
@@ -61,6 +63,10 @@ const StepThree = () => {
         [el.target.name]: el.target.value,
       });
     }
+
+    if (el.target.name === 'renovationYear') {
+      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(el.target.value));
+    }
   };
 
   const selectPrestige = (el) => {
@@ -86,8 +92,8 @@ const StepThree = () => {
     }
   };
 
-  const checkIfValidYears = () => {
-    return Number(data.constructionYear) && Number(data.renovationYear) < Number(data.constructionYear);
+  const checkIfValidYears = (renovationYear) => {
+    return Number(data.constructionYear) && Number(renovationYear) < Number(data.constructionYear);
   };
 
   const checkMinValue = (name: string, value: string) => {
@@ -185,7 +191,7 @@ const StepThree = () => {
               type="number"
               onBlur={ () => checkMinValue('renovationYear', '1920') }
               onChange={ handleChangeVal }
-              isInvalid={ checkIfValidYears() }
+              isInvalid={ noValidRenYear }
             />
             <Form.Control.Feedback type="invalid">
               Renovation year can't be before construction year

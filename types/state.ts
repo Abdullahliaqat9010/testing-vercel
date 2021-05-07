@@ -23,6 +23,7 @@ export interface RootState {
     userName: string,
     userSurname: string,
     userEmail: string,
+    userPhone: string
   },
   stepsInfo: {
     mainBlocks: boolean,
