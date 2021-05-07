@@ -13,8 +13,6 @@ import RatingStarEmpty from '../../../assets/images/rating/star.svg';
 
 import { testimonialList } from '../../../templates/testimonialList';
 
-
-
 const TestimonialsBlock = () => {
   const { t } = useTranslation('main-page');
   const elementsOnPage = 3;
@@ -36,7 +34,7 @@ const TestimonialsBlock = () => {
                 <div className='left-block d-flex'>
                   <Image className='avatar' src={ item.avatar } roundedCircle/>
                   <div className='d-flex flex-column align-items-start'>
-                    <span className='full-name'>{ item.name } { item.surname }</span>
+                    <span className='full-name'>{ t(item.slug+'.testimonial.title') }</span>
                     <StarRatingComponent
                       name="rate"
                       renderStarIcon={
@@ -54,7 +52,7 @@ const TestimonialsBlock = () => {
                 </div>
                 <Image src={ FacebookImage } alt='FacebookImage'/>
               </div>
-              <span className="desc">"{ item.desc }"</span>
+              <span className="desc">"{ t(item.slug+'.testimonial.desc') }"</span>
             </div>
           ))
         }
