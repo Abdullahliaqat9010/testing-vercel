@@ -6,6 +6,7 @@ let exp = false;
 let userName = '';
 let userSurname = '';
 let userEmail = '';
+let userPhone = '';
 
 /**
  * check [token] on expire
@@ -23,6 +24,7 @@ if (typeof localStorage !== 'undefined') {
       userName = jwtToken.firstname;
       userSurname = jwtToken.lastname;
       userEmail = jwtToken.email;
+      userPhone = jwtToken.phone_number;
     }
   }
 }
@@ -46,6 +48,7 @@ export const initialState = {
   userName,
   userSurname,
   userEmail,
+  userPhone,
   errors: '',
 };
 
