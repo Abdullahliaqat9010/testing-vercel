@@ -3,9 +3,19 @@ import { AgentsItem } from '../types/agents';
 import Agency from '../assets/images/agents/label-immo-logo.png';
 import AgencyMobile from '../assets/images/agents/label-immo-logo.png';
 import ThierryAvatar from '../assets/images/agents/thierry-hermanne.jpeg';
+
 import AgencyTwo from '../assets/images/agents/waw-immo-logo.png';
 import AgencyTwoMobile from '../assets/images/agents/waw-immo-logo.png';
 import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.jpeg';
+
+import AgencyThree from '../assets/images/agents/bourse-logo.png';
+import AgencyThreeMobile from '../assets/images/agents/bourse-logo.png';
+import FabienneAvatar from '../assets/images/agents/fabienne.jpg';
+
+import AgencyFour from '../assets/images/agents/bertholome-logo.png';
+import AgencyFourMobile from '../assets/images/agents/bertholome-logo.png';
+import BertholomeAvatar from '../assets/images/agents/bertholome.jpeg';
+
 import AgencyTest from '../assets/images/agents/test-agency.png';
 import AgencyTestMobile from '../assets/images/agents/test-agency.png';
 import TestAvatar from '../assets/images/no-photo.png';
@@ -55,6 +65,52 @@ export const agentsList: AgentsItem[] = [
       agentSurname: 'Legrand',
       position: 'Agency owner',
       avatar: AlexandreAvatar,
+      desc: ''
+    }
+  },
+  {
+    id: 3,
+    title: 'Bourse Immobilière',
+    rate: '5.0',
+    reviews: '120',
+    logo: AgencyThree,
+    logoMobile: AgencyThreeMobile,
+    count: 17,
+    agencyAddress: "Voie de l'Ardenne 179, 4053 Chaudfontaine",
+    location: {
+      lat: 50.5837707,
+      lng: 5.617082799999999
+    },
+    email: 'info@bourse-immobiliere.be',
+    nearest: true,
+    moreInfo: {
+      agentName: 'Pierrée',
+      agentSurname: 'Fabienne',
+      position: 'Agency owner',
+      avatar: FabienneAvatar,
+      desc: ''
+    }
+  },
+  {
+    id: 4,
+    title: 'Immobilière Bertholomé',
+    rate: '5.0',
+    reviews: '120',
+    logo: AgencyFour,
+    logoMobile: AgencyFourMobile,
+    count: 17,
+    agencyAddress: "Rue d'Ans 116, 4000 Liège",
+    location: {
+      lat: 50.6716754,
+      lng: 5.5424035
+    },
+    email: 'info@bertholome.be',
+    nearest: true,
+    moreInfo: {
+      agentName: 'Stéphan',
+      agentSurname: 'Bertholomé',
+      position: 'Agency owner',
+      avatar: BertholomeAvatar,
       desc: ''
     }
   },
