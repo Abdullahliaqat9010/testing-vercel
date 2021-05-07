@@ -11,6 +11,7 @@ export const testimonialList: TestimonialItem[] = [
   {
     id: 1,
     avatar: AnneteAvatar,
+    slug: 'first',
     name: 'Annette',
     surname: 'Black',
     desc: 'I STRONGLY recommend it to EVERYONE interested in running a successful online business!',
@@ -19,6 +20,7 @@ export const testimonialList: TestimonialItem[] = [
   {
     id: 2,
     avatar: CourtneyAvatar,
+    slug: 'second',
     name: 'Courtney',
     surname: 'Henry',
     desc: 'I love it. After using It\'s my business skyrocketed! Man, this thing is getting better and better as ' +
@@ -28,6 +30,7 @@ export const testimonialList: TestimonialItem[] = [
   {
     id: 3,
     avatar: CodyAvatar,
+    slug: 'third',
     name: 'Cody',
     surname: 'Fisher',
     desc: 'Thank you so much for your help. Without It\'s, we would have gone bankrupt by now. It\'s  both ' +
@@ -37,6 +40,7 @@ export const testimonialList: TestimonialItem[] = [
   {
     id: 4,
     avatar: LeslieAvatar,
+    slug: 'fourth',
     name: 'Leslie',
     surname: 'Alexander',
     desc: 'You won\'t regret it. I love it. I didn\'t even need training. I will let my mum know about this, ' +
@@ -46,6 +50,7 @@ export const testimonialList: TestimonialItem[] = [
   {
     id: 5,
     avatar: RalphAvatar,
+    slug: 'fifth',
     name: 'Ralph',
     surname: 'Edwards',
     desc: 'Very easy to use. I made back the purchase price in just 48 hours! It\'s great. It\'s is both ' +
@@ -55,6 +60,7 @@ export const testimonialList: TestimonialItem[] = [
   {
     id: 6,
     avatar: RonaldAvatar,
+    slug: 'sixth',
     name: 'Ronald',
     surname: 'Richards',
     desc: 'I love your system. Thank you for making it painless, pleasant and most of all hassle free! ' +
