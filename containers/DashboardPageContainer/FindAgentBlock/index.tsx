@@ -13,7 +13,7 @@ const FindAgentBlock = () => {
   return (
     <div className='find-agent-block'>
       <h3>{t('title.find-your-agent')}</h3>
-      <p>{t('desc.we-found')} 2 {t('desc.agents-near-you')}</p>
+      <p>{t('desc.we-found')} { agentsList.length } {t('desc.agents-near-you')}</p>
       {
         agentsList.map(
           (agency, index) =>
