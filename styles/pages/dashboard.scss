@@ -63,6 +63,28 @@
         margin-bottom: 86px;
       }
 
+      .no-estim {
+        margin-bottom: 20px;
+      }
+
+      .no-estimation-block {
+        display: flex;
+        align-items: flex-start;
+
+        background: var(--bg-blue);
+        border-radius: 8px;
+        padding: 30px;
+
+        img {
+          margin-right: 10px;
+        }
+
+        span {
+          color: var(--colorGrayTwo);
+          width: 60%;
+        }
+      }
+
       .scale-block {
         .line {
           background-image: url("../../assets/images/price-graph.svg");

@@ -25,12 +25,12 @@ import navBarList from '../../config/navBarList';
 const langList = [
   {
     id: 'en',
-    label: 'english'
+    label: 'english',
   },
   {
     id: 'fr',
     label: 'france',
-  }
+  },
 ];
 
 const HeaderContainer = ({title}: { title: string }) => {
@@ -71,7 +71,7 @@ const HeaderContainer = ({title}: { title: string }) => {
   };
 
   const selectLang = (lang: string) => {
-    router.push(router.pathname, lang + router.pathname, {locale: lang})
+    router.push(router.pathname, lang + router.pathname, {locale: lang});
   };
 
   return (
@@ -89,9 +89,31 @@ const HeaderContainer = ({title}: { title: string }) => {
         <meta name="application-name" content="BelgiumImmo"/>
         <meta name="msapplication-TileColor" content="#3871ef"/>
         <meta name="theme-color" content="#3871ef"/>
+        <script id="Cookiebot" src={ 'https://consent.cookiebot.com/uc.js' }
+                data-cbid="26e5718e-f774-4fb6-bf24-3522ca807a53"
+                data-blockingmode="auto"
+                type="text/javascript"
+        />
+        <script
+          data-cookieconsent='ignore'
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+                                            function gtag() {
+                                                dataLayer.push(arguments)
+                                            }
+                                            gtag("consent", "default", {
+                                                ad_storage: "denied",
+                                                analytics_storage: "denied",
+                                                wait_for_update: 500,
+                                            });
+                                            gtag("set", "ads_data_redaction", true);`
+          }}
+        />
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <Image className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
+        <Link href={ '/' }>
+          <Image className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
+        </Link>
         {
           mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>
@@ -160,17 +182,17 @@ const HeaderContainer = ({title}: { title: string }) => {
                         <div className="mobile-block">
                           <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
                           <span className="user-name">{ userName + ' ' + userSurname }</span>
-                          {/*<span className="pro">PRO</span>*/}
+                          {/*<span className="pro">PRO</span>*/ }
                           <div className="mobile-lang-list">
                             {
                               langList.map((lang, index) =>
-                                  <span
-                                    className={lang.id === locale ? 'active' : ''}
-                                    key={index}
-                                    onClick={() => selectLang(lang.id)}
-                                  >
-                                    {lang.label}
-                                  </span>
+                                <span
+                                  className={ lang.id === locale ? 'active' : '' }
+                                  key={ index }
+                                  onClick={ () => selectLang(lang.id) }
+                                >
+                                    { lang.label }
+                                  </span>,
                               )
                             }
                           </div>
@@ -179,7 +201,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                     </NavDropdown>
                     {
                       !isMobile &&
-                      <div className={ `switcher-lang position-relative ${openLangList ? 'active-locale' : ''}` }>
+                      <div className={ `switcher-lang position-relative ${ openLangList ? 'active-locale' : '' }` }>
                         <span onClick={ openSwitcherBlock }>{ locale }</span>
                         {
                           openLangList &&
@@ -187,15 +209,12 @@ const HeaderContainer = ({title}: { title: string }) => {
                             {
                               langList.map((lang, index) =>
                                   <span
-                                    className={lang.id === locale ? 'active' : ''}
-                                    key={index}
-                                    onClick={() => selectLang(lang.id)}
+                                    className={ lang.id === locale ? 'active' : '' }
+                                    key={ index }
+                                    onClick={ () => selectLang(lang.id) }
                                   >
-                              {lang.label}
-                                    {
-                                      lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/>
-                                    }
-                            </span>
+                              { lang.id }{ lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/> }
+                            </span>,
                               )
                             }
                           </div>
@@ -220,7 +239,7 @@ const HeaderContainer = ({title}: { title: string }) => {
           }
           {
             !auth &&
-            <div className={ `switcher-lang position-relative ${openLangList ? 'active-locale' : ''}` }>
+            <div className={ `switcher-lang position-relative ${ openLangList ? 'active-locale' : '' }` }>
               <span onClick={ openSwitcherBlock }>{ locale }</span>
               {
                 openLangList &&
@@ -228,15 +247,11 @@ const HeaderContainer = ({title}: { title: string }) => {
                   {
                     langList.map((lang, index) =>
                       <span
-                        className={lang.id === locale ? 'active' : ''}
-                        key={index}
-                        onClick={() => selectLang(lang.id)}
-                      >
-                              {lang.label}
-                        {
-                          lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/>
-                        }
-                            </span>
+                        className={ lang.id === locale ? 'active' : '' }
+                        key={ index }
+                        onClick={ () => selectLang(lang.id) }
+                      >{ lang.id }{ lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/> }
+                      </span>,
                     )
                   }
                 </div>

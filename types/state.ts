@@ -3,6 +3,7 @@ export interface RootState {
     auth: boolean,
     emailVerified: boolean,
     showAgentModal: boolean,
+    noEstimation: boolean,
     needVerifyEmailModal: boolean,
     existEmail: boolean,
     agencyContactInfo: {

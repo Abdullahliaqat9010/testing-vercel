@@ -34,6 +34,7 @@ export const initialState = {
   showAgentModal: false,
   existEmail: false,
   emailVerified: false,
+  noEstimation: false,
   needVerifyEmailModal: false,
   agencyContactInfo: {
     title: '',
@@ -64,6 +65,11 @@ const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         emailVerified: true,
+      };
+    case actionType.NO_ESTIMATION_PROPERTY:
+      return {
+        ...state,
+        noEstimation: true,
       };
     case actionType.SHOW_MODAL_CONTACT_AGENT:
       return {

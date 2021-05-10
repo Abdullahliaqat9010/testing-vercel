@@ -22,7 +22,6 @@ import '../styles/pages/main.scss';
 import '../styles/pages/dashboard.scss';
 import '../styles/pages/agency.scss';
 import '../styles/pages/login.scss';
-import CookieConsent from 'react-cookie-consent';
 
 const tagManagerArgs = {
   gtmId: config.metricKey,
@@ -43,16 +42,11 @@ const MyApp = ({Component, pageProps}) => {
   }, [locale]);
 
   return (
-    <>
-      <Provider store={ store }>
-        <PersistGate loading={ null } persistor={ persistor }>
-          <Component { ...pageProps } />
-        </PersistGate>
-      </Provider>
-      <CookieConsent location="bottom" cookieName="myAwesomeCookieName3" expires={999} overlay>
-        This website uses cookies to enhance the user experience.
-      </CookieConsent>
-    </>
+    <Provider store={ store }>
+      <PersistGate loading={ null } persistor={ persistor }>
+        <Component { ...pageProps } />
+      </PersistGate>
+    </Provider>
   );
 };
 

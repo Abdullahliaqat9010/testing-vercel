@@ -8,12 +8,13 @@ import { getPriceForPropertyAction } from '../../../actions';
 import { RootState } from '../../../types/state';
 
 import SuccessImage from '../../../assets/images/success.png';
+import NoEstimationImage from '../../../assets/images/no-estimation.svg';
 import { estimationButtonsList } from '../../../templates/estimationButtonsList';
 
 const EstimateBlock = () => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
-  const {mainProperty, currentPropertyPrice} = useSelector((state: RootState) => state.userInfo);
+  const {mainProperty, currentPropertyPrice, noEstimation} = useSelector((state: RootState) => state.userInfo);
 
   const [activeBtn, setActiveBtn] = useState<string>('');
   const [priceValue, setPriceValue] = useState({
@@ -68,15 +69,15 @@ const EstimateBlock = () => {
   };
 
   const numberWithCommas = (value: string) => {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
   return (
     <div className='estimate-block'>
       <h4>Estimated Market Value</h4>
-      <p>{ mainProperty?.search_address }</p>
+      <p className={noEstimation ? 'no-estim' : ''}>{ mainProperty?.search_address }</p>
       {
-        mainProperty?.search_address &&
+        mainProperty?.search_address && !noEstimation &&
         <div className="scale-block">
           {
             currentPropertyPrice.totalValue ?
@@ -145,6 +146,17 @@ const EstimateBlock = () => {
               }
             </ButtonGroup>
           </div>
+        </div>
+      }
+
+      {
+        noEstimation &&
+        <div className='no-estimation-block'>
+          <img src={ NoEstimationImage } alt="NoEstimationImage"/>
+          <span>
+            The estimation and similar houses aren't available yet in your area.
+            We'll send you an email as soon it's available.
+          </span>
         </div>
       }
       {
