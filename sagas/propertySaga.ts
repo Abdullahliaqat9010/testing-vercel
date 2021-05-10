@@ -162,7 +162,11 @@ function* getPriceProperty({payload}: any) {
 
     if (res.status === 200) {
       const { data } = yield res.json();
-      yield getPricePropertySuccess(data);
+      if(data.message !== 'Not found') {
+        yield getPricePropertySuccess(data);
+      } else {
+        yield setNoEstimationProperty();
+      }
     }
 
   } catch (error) {
@@ -181,6 +185,12 @@ function* getPricePropertyError(error: string) {
   yield put({
     type: actionType.GET_PRICE_PROPERTY_ERROR,
     payload: error,
+  });
+}
+
+function* setNoEstimationProperty() {
+  yield put({
+    type: actionType.NO_ESTIMATION_PROPERTY,
   });
 }
 
