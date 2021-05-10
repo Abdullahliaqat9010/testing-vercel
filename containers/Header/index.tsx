@@ -178,6 +178,31 @@ const HeaderContainer = ({title}: { title: string }) => {
                       }
                     </NavDropdown>
                     {
+                      !isMobile &&
+                      <div className={ `switcher-lang position-relative ${openLangList ? 'active-locale' : ''}` }>
+                        <span onClick={ openSwitcherBlock }>{ locale }</span>
+                        {
+                          openLangList &&
+                          <div className="lang-list">
+                            {
+                              langList.map((lang, index) =>
+                                  <span
+                                    className={lang.id === locale ? 'active' : ''}
+                                    key={index}
+                                    onClick={() => selectLang(lang.id)}
+                                  >
+                              {lang.label}
+                                    {
+                                      lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/>
+                                    }
+                            </span>
+                              )
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                    {
                       !openMenu &&
                       <Button className='add-property' onClick={ goToMainPage }>
                         <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
