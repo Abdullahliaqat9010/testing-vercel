@@ -214,7 +214,12 @@ const StepTwo = () => {
             </>
           }
           <InputGroup>
-            <Form.Label><img src={ FloorsIcon } alt="FloorsIcon"/>{ t('label.floors') }</Form.Label>
+            <Form.Label>
+              <img src={ FloorsIcon } alt="FloorsIcon"/>
+              {
+                selectedProperty === 'apartment' ? t('label.floors-apartment') : t('label.floors-house')
+              }
+            </Form.Label>
             <div className="input-block input-border-radius-0 number-levels">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberLevels') }>-</InputGroup.Text>
