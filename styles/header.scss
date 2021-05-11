@@ -24,12 +24,17 @@
     border-radius: 6px;
     cursor: pointer;
 
+    .p-right {
+      left: unset !important;
+      right: 0;
+    }
+
     .lang-list {
       width: 130px;
       padding: 10px;
       position: absolute;
       z-index: 10;
-      text-transform: capitalize;
+      text-transform: uppercase;
       left: calc(50% - 65px);
       top: 35px;
       display: flex;
