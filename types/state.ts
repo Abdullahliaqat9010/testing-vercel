@@ -21,6 +21,13 @@ export interface RootState {
       min: number
       max: number
     },
+    propertiesListInfo: {
+      totalItems: number
+      itemCount: number
+      itemsPerPage: number
+      totalPages: number
+      currentPage: number
+    },
     userName: string,
     userSurname: string,
     userEmail: string,
