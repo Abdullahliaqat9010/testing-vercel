@@ -75,9 +75,10 @@ function* createPropertyError(error) {
 }
 
 function* getPropertyForCurrentUser({payload}: any) {
+  const {userId, elementsOnPage} = payload;
   try {
     const token = localStorage.getItem('auth');
-    const res = yield fetch(`${ config.apiDomain }/users/${ payload }/property`, {
+    const res = yield fetch(`${ config.apiDomain }/users/${ userId }/property`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ function* getPropertyForCurrentUser({payload}: any) {
 
     if (res.status === 200) {
       const data = yield res.json();
-      yield getPropertyForCurrentUserSuccess(data.properties);
+      yield getPropertyForCurrentUserSuccess(data.properties, elementsOnPage);
     }
 
   } catch (error) {
@@ -95,11 +96,12 @@ function* getPropertyForCurrentUser({payload}: any) {
   }
 }
 
-function* getPropertyForCurrentUserSuccess(data: []) {
+function* getPropertyForCurrentUserSuccess(data: [], elementsOnPage: number) {
   if (data.length) {
-    const {zip, property_type, id: propertyId} = data[data.length - 1];
-    yield getSimilarPropertyRequest(propertyId, property_type, zip);
+    const {id} = data[data.length - 1];
+    yield getSimilarPropertyRequest(id, 1, elementsOnPage);
   }
+
   yield put({
     type: actionType.GET_USER_PROPERTY_SUCCESS,
     payload: data,
@@ -113,10 +115,11 @@ function* getPropertyForCurrentUserError(error: string) {
   });
 }
 
-function* getSimilarPropertyRequest(propertyId: number, propertyType: string, zip: string) {
+
+function* getSimilarPropertyRequest(propertyId: number, page: number, limit: number) {
   try {
     const token = localStorage.getItem('auth');
-    const res = yield fetch(`${ config.apiDomain }/property/${propertyId}/similar?property_type=${ propertyType }`, {
+    const res = yield fetch(`${ config.apiDomain }/property/${ propertyId }/similar?page=${ page }&limit=${ limit }`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -125,8 +128,9 @@ function* getSimilarPropertyRequest(propertyId: number, propertyType: string, zi
     });
 
     if (res.status === 200) {
-      const {data} = yield res.json();
+      const {data, meta} = yield res.json();
       yield getSimilarPropertySuccess(data);
+      yield setSimilarPropertyPaginationInfo(meta);
     }
 
   } catch (error) {
@@ -138,6 +142,13 @@ function* getSimilarPropertySuccess(data: []) {
   yield put({
     type: actionType.GET_SIMILAR_PROPERTY_SUCCESS,
     payload: data,
+  });
+}
+
+function* setSimilarPropertyPaginationInfo(meta: object) {
+  yield put({
+    type: actionType.SET_SIMILAR_PROPERTY_PAGINATION_INFO,
+    payload: meta,
   });
 }
 
@@ -161,8 +172,8 @@ function* getPriceProperty({payload}: any) {
     });
 
     if (res.status === 200) {
-      const { data } = yield res.json();
-      if(data.message !== 'Not found') {
+      const {data} = yield res.json();
+      if (data.message !== 'Not found') {
         yield getPricePropertySuccess(data);
       } else {
         yield setNoEstimationProperty();
@@ -194,9 +205,15 @@ function* setNoEstimationProperty() {
   });
 }
 
+function* getMoreSimilarProperty({payload}: any) {
+  const { limit, page, propertyId} = payload;
+  yield getSimilarPropertyRequest(propertyId, page, limit);
+}
+
 export function* propertySaga() {
   yield takeLatest(actionType.CREATE_PROPERTY_REQUEST, createPropertyRequest);
   yield takeLatest(actionType.UPDATE_PROPERTY_REQUEST, updatePropertyRequest);
   yield takeLatest(actionType.GET_USER_PROPERTY_REQUEST, getPropertyForCurrentUser);
   yield takeLatest(actionType.GET_PRICE_PROPERTY_REQUEST, getPriceProperty);
+  yield takeLatest(actionType.GET_NEXT_PAGE_SIMILAR_PROPERTY, getMoreSimilarProperty);
 }

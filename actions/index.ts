@@ -90,9 +90,9 @@ export const contactAgencyAction = (data: object) => ({
   payload: data,
 });
 
-export const getPropertyForCurrentUserAction = (userId: number) => ({
+export const getPropertyForCurrentUserAction = (data: object) => ({
   type: actionType.GET_USER_PROPERTY_REQUEST,
-  payload: userId,
+  payload: data,
 });
 
 export const getPriceForPropertyAction = (propertyId: number) => ({
@@ -112,10 +112,15 @@ export const updateAddressList = (addressList: object) => ({
 
 export const checkIfEmailExistAction = (email: string) => ({
   type: actionType.CHECK_IF_EXIST_EMAIL,
-  payload: email
+  payload: email,
 });
 
 export const verifyEmailAction = (token: string | string[]) => ({
   type: actionType.VERIFY_EMAIL,
-  payload: token
+  payload: token,
+});
+
+export const getMoreSimilarPropertyAction = (propertyId: number, page: number, limit: number) => ({
+  type: actionType.GET_NEXT_PAGE_SIMILAR_PROPERTY,
+  payload: { propertyId, page, limit },
 });
