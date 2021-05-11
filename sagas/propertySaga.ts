@@ -97,8 +97,8 @@ function* getPropertyForCurrentUser({payload}: any) {
 
 function* getPropertyForCurrentUserSuccess(data: []) {
   if (data.length) {
-    const {id} = data[data.length - 1];
-    yield getSimilarPropertyRequest(id, 1, 2);
+    const {zip, property_type, id: propertyId} = data[data.length - 1];
+    yield getSimilarPropertyRequest(propertyId, property_type, zip);
   }
   yield put({
     type: actionType.GET_USER_PROPERTY_SUCCESS,
@@ -113,10 +113,10 @@ function* getPropertyForCurrentUserError(error: string) {
   });
 }
 
-function* getSimilarPropertyRequest(propertyId: number, page: number, limit: number) {
+function* getSimilarPropertyRequest(propertyId: number, page: string, limit: string) {
   try {
     const token = localStorage.getItem('auth');
-    const res = yield fetch(`${ config.apiDomain }/property/${propertyId}/similar?page=${page}&limit=${limit}`, {
+    const res = yield fetch(`${ config.apiDomain }/property/${propertyId}/similar?page=1&limit=2`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
