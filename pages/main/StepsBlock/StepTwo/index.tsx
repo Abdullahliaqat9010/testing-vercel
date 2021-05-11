@@ -145,7 +145,7 @@ const StepTwo = () => {
             selectedProperty === 'house' &&
             <>
               <InputGroup className='mb-3'>
-                <Form.Label className='position-relative'>
+                <Form.Label className='position-relative w-45'>
                   { t('label.land-surface') }
                   <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip-info') }</Tooltip> }>
                     <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>
@@ -216,9 +216,11 @@ const StepTwo = () => {
           <InputGroup>
             <Form.Label>
               <img src={ FloorsIcon } alt="FloorsIcon"/>
-              {
-                selectedProperty === 'apartment' ? t('label.floors-apartment') : t('label.floors-house')
-              }
+              <span className='custom-label'>
+                {
+                  selectedProperty === 'apartment' ? t('label.floors-apartment') : t('label.floors-house')
+                }
+              </span>
             </Form.Label>
             <div className="input-block input-border-radius-0 number-levels">
               <InputGroup.Prepend>
@@ -233,7 +235,11 @@ const StepTwo = () => {
           {
             selectedProperty === 'apartment' &&
             <InputGroup className='number-floors'>
-              <Form.Label>{ t('label.number-floors') }</Form.Label>
+              <Form.Label>
+                <span className='custom-label'>
+                  { t('label.number-floors') }
+                </span>
+              </Form.Label>
               <div className="input-block input-border-radius-0">
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('numberFloors') }>-</InputGroup.Text>
@@ -249,7 +255,7 @@ const StepTwo = () => {
             selectedProperty === 'house' &&
             <InputGroup>
               <Form.Label><img src={ FacadesIcon } alt="FloorsIcon"/>{ t('label.facades') }</Form.Label>
-              <div className="input-block input-border-radius-0">
+              <div className="input-block input-border-radius-0 facades">
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('facadesNumber') }>-</InputGroup.Text>
                 </InputGroup.Prepend>
@@ -267,7 +273,7 @@ const StepTwo = () => {
                 <img className='tooltip-info' key='tooltip-info-second' src={ TooltipIcon } alt="TooltipIcon"/>
               </OverlayTrigger>
             </Form.Label>
-            <div className="input-block input-border-radius-0">
+            <div className="input-block input-border-radius-0 bedrooms">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberBedrooms') }>-</InputGroup.Text>
               </InputGroup.Prepend>
@@ -279,7 +285,7 @@ const StepTwo = () => {
           </InputGroup>
           <InputGroup>
             <Form.Label><img src={ BathroomsIcon } alt="BathroomsIcon"/>{ t('label.bathrooms') }</Form.Label>
-            <div className="input-block input-border-radius-0">
+            <div className="input-block input-border-radius-0 bathrooms">
               <InputGroup.Prepend>
                 <InputGroup.Text onClick={ () => handleSubtractNumber('numberBathrooms') }>-</InputGroup.Text>
               </InputGroup.Prepend>

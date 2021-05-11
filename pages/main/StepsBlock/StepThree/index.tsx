@@ -170,6 +170,7 @@ const StepThree = () => {
           <Form.Label>{ t('label.construction-year') }</Form.Label>
           <div className="input-block">
             <Form.Control
+              className='constructionYear'
               name='constructionYear'
               min={ 1800 }
               max={ new Date().getFullYear() }
@@ -184,6 +185,7 @@ const StepThree = () => {
           <Form.Label>{ t('label.renovated') }</Form.Label>
           <div className="input-block d-flex flex-column">
             <Form.Control
+              className='renovationYear'
               name='renovationYear'
               min={ 1920 }
               max={ new Date().getFullYear() }

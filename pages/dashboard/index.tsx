@@ -17,6 +17,7 @@ import VerifyEmailModal from '../../containers/VerifyEmailModal';
 
 import { getPropertyForCurrentUserAction } from '../../actions';
 import { parseJwt } from '../../utils';
+import { isMobile } from 'react-device-detect';
 
 const DashboardPage = () => {
   const {t} = useTranslation('dashboard-page');
@@ -33,7 +34,8 @@ const DashboardPage = () => {
   useEffect(() => {
     if (userToken) {
       const parseData = parseJwt(userToken);
-      dispatch(getPropertyForCurrentUserAction(parseData.id));
+      const elementsOnPage = isMobile ? 3 : 6;
+      dispatch(getPropertyForCurrentUserAction({userId: parseData.id, elementsOnPage}));
     }
   }, []);
 
