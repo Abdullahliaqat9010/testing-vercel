@@ -3,11 +3,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import HeaderContainer from '../../containers/Header';
 
-const TermsAndConditionsPage = () => {
+const PrivacyPolicyPage = () => {
   return (
     <div>
-      <HeaderContainer title='Our terms and conditions' />
-      TermsAndConditionsPage
+      <HeaderContainer title='Our privacy policy' />
+      PrivacyPolicyPage
     </div>
   )
 }
@@ -18,4 +18,4 @@ export const getStaticProps = async ({locale}) => ({
   },
 });
 
-export default TermsAndConditionsPage;
+export default PrivacyPolicyPage;
