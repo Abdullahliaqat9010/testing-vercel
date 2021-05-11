@@ -330,11 +330,18 @@
         margin-bottom: 5px;
       }
 
+      input:read-only {
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+
       input:not([type="checkbox"]) {
         width: 270px;
         height: 46px;
-        border-radius: 6px !important;
-        border: 1px solid var(--colorGray);
+        border-color: var(--colorGray);
 
         &:focus {
           box-shadow: unset;
@@ -437,6 +444,10 @@
         }
       }
 
+      .constructionYear, .renovationYear {
+        border-radius: 6px !important;
+      }
+
       .bg-block {
         margin-bottom: 21px;
       }
@@ -460,6 +471,11 @@
         label {
           line-height: 22px;
           font-size: 16px;
+          display: flex;
+
+          .custom-label {
+            width: 60%;
+          }
         }
 
         .number-levels {
@@ -473,19 +489,21 @@
           .input-group-text {
             justify-content: center;
             padding: unset;
-            width: 46px;
+            width: 45px;
             height: 46px;
             background: var(--bg-blue);
           }
 
           .input-group-append {
             .input-group-text {
+              border-left: unset;
               border-radius: 0 6px 6px 0;
             }
           }
 
           .input-group-prepend {
             .input-group-text {
+              border-right: unset;
               border-radius: 6px 0 0 6px;
             }
           }
@@ -505,6 +523,7 @@
             background-color: var(--colorWhite);
             text-align: center;
             border-radius: 0;
+            border-left: unset;
           }
         }
       }
@@ -1106,7 +1125,6 @@
       &__popup {
         left: calc(50% - 172px);
         top: 70%;
-        //top: 200px;
         padding: 30px;
         width: 343px;
 
@@ -1248,6 +1266,19 @@
           width: 225px;
         }
 
+        .custom-label {
+          width: 70% !important;
+        }
+
+        .number-levels {
+          min-width: 132px;
+        }
+        .number-floors {
+          .input-block {
+            min-width: 132px;
+          }
+        }
+
         .mr-4 {
           margin-right: unset !important;
         }
@@ -1343,16 +1374,16 @@
           .input-block {
             width: 166px;
           }
+
+          .bedrooms, .bathrooms, .facades, .block-with-tooltip {
+            width: 128px;
+          }
         }
 
         .number-floors, .bg-block {
           .input-block {
             width: 156px !important;
           }
-        }
-
-        .block-with-tooltip {
-          width: 100% !important;
         }
 
         select {
