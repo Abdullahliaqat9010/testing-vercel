@@ -25,10 +25,12 @@ import navBarList from '../../config/navBarList';
 const langList = [
   {
     id: 'en',
+    tag: 'eng',
     label: 'english',
   },
   {
     id: 'fr',
+    tag: 'fr',
     label: 'france',
   },
 ];
@@ -213,7 +215,7 @@ const HeaderContainer = ({title}: { title: string }) => {
                                     key={ index }
                                     onClick={ () => selectLang(lang.id) }
                                   >
-                              { lang.id }{ lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/> }
+                              { lang.tag }{ lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/> }
                             </span>,
                               )
                             }
@@ -243,14 +245,14 @@ const HeaderContainer = ({title}: { title: string }) => {
               <span onClick={ openSwitcherBlock }>{ locale }</span>
               {
                 openLangList &&
-                <div className="lang-list">
+                <div className={ `lang-list ${!auth ? 'p-right' : ''}` }>
                   {
                     langList.map((lang, index) =>
                       <span
                         className={ lang.id === locale ? 'active' : '' }
                         key={ index }
                         onClick={ () => selectLang(lang.id) }
-                      >{ lang.id }{ lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/> }
+                      >{ lang.tag }{ lang.id === locale && <img src={ CheckedIcon } alt="CheckedIcon"/> }
                       </span>,
                     )
                   }
