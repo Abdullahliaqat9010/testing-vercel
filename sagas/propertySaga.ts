@@ -115,7 +115,6 @@ function* getPropertyForCurrentUserError(error: string) {
   });
 }
 
-
 function* getSimilarPropertyRequest(propertyId: number, page: number, limit: number) {
   try {
     const token = localStorage.getItem('auth');

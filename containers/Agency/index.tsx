@@ -11,13 +11,13 @@ import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 
-import { modalWindowContactAgentAction, pleaseVerifyEmailAction } from '../../actions';
+import { modalWindowContactAgentAction } from '../../actions';
 
 import { RootState } from '../../types/state';
 import { AgencyProps } from '../../types/agents';
 
 import GoogleMap from '../../components/GoogleMap';
-import { parseJwt } from '../../utils';
+// import { parseJwt } from '../../utils';
 
 const Agency = ({agency}: AgencyProps) => {
   const {t} = useTranslation('dashboard-page');
@@ -30,13 +30,14 @@ const Agency = ({agency}: AgencyProps) => {
   };
 
   const openContactModal = (data: object) => {
-    const userToken = localStorage.getItem('auth');
-    const jwtToken = parseJwt(userToken);
-    if (jwtToken.email_verified) {
+    //@todo uncomment when will add verify email
+    // const userToken = localStorage.getItem('auth');
+    // const jwtToken = parseJwt(userToken);
+    // if (jwtToken.email_verified) {
       dispatch(modalWindowContactAgentAction(data));
-    } else {
-      dispatch(pleaseVerifyEmailAction());
-    }
+    // } else {
+    //   dispatch(pleaseVerifyEmailAction());
+    // }
   };
 
   return (
