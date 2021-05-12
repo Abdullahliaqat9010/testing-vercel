@@ -1,4 +1,4 @@
-.Terms {
+.Terms, .PrivacyPolicy {
   background-color: var(--colorWhite);
   color: var(--mainColor);
   font-size: 14px;
@@ -22,6 +22,7 @@
     }
 
     h4 {
+      text-transform: uppercase;
       max-width: 598px;
       margin: 0 auto;
       text-align: center;
