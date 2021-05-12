@@ -22,6 +22,7 @@ import '../styles/pages/main.scss';
 import '../styles/pages/dashboard.scss';
 import '../styles/pages/agency.scss';
 import '../styles/pages/login.scss';
+import '../styles/pages/pravicy-and-terms.scss';
 
 const tagManagerArgs = {
   gtmId: config.metricKey,
