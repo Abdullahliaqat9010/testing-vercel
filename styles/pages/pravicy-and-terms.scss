@@ -1,0 +1,173 @@
+.Terms, .PrivacyPolicy {
+  background-color: var(--colorWhite);
+  color: var(--mainColor);
+  font-size: 14px;
+  padding-bottom: 31px;
+
+  .blue-line {
+    height: 4px;
+    width: 100%;
+    background: var(--colorBlue);
+  }
+
+  .main-content {
+    max-width: 665px;
+    width: 50%;
+    margin: 41px auto 0;
+
+    .data {
+      display: block;
+      text-align: center;
+      margin: 5px 0 50px;
+    }
+
+    h4 {
+      text-transform: uppercase;
+      max-width: 598px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 33px;
+      font-family: var(--fontNunitoBold);
+    }
+
+    .new-segment {
+      width: 100%;
+      border-bottom: 1px solid var(--colorLightGrey);
+      margin: 50px 0 30px;
+
+      span {
+        text-transform: uppercase;
+        font-family: var(--fontNunitoBold);
+        display: block;
+        margin-bottom: 10px;
+        font-size: 20px;
+        line-height: 27px;
+      }
+    }
+
+    .double-block {
+      display: flex;
+      margin-bottom: 20px;
+
+      &__label {
+        line-height: 140%;
+        min-width: 50px;
+        margin-right: 10px;
+        font-family: var(--fontNunitoBold);
+      }
+
+      &__text {
+        .roman-items {
+          .first {
+            &:before {
+              content: 'I.';
+            }
+          }
+
+          .second {
+            &:before {
+              content: 'II.';
+            }
+          }
+
+          .third {
+            &:before {
+              content: 'III.';
+            }
+          }
+
+          .fourth {
+            &:before {
+              content: 'IV.';
+            }
+          }
+
+          .fifth {
+            &:before {
+              content: 'V.';
+            }
+          }
+
+          .sixth {
+            &:before {
+              content: 'VI.';
+            }
+          }
+
+          .seventh {
+            &:before {
+              content: 'VII.';
+            }
+          }
+
+          .eighth {
+            &:before {
+              content: 'VIII.';
+            }
+          }
+
+          .ninth {
+            &:before {
+              content: 'IX.';
+            }
+          }
+
+          .tenth {
+            &:before {
+              content: 'X.';
+            }
+          }
+        }
+
+        ul {
+          margin: 20px 0 0;
+
+          li {
+            position: relative;
+            margin-bottom: 10px;
+
+            &:before {
+              content: '•';
+              position: absolute;
+              left: -40px;
+              width: 30px;
+            }
+
+            &::marker {
+              position: absolute;
+              left: -40px;
+            }
+          }
+        }
+      }
+    }
+
+    p {
+      line-height: 140%;
+    }
+
+    ul {
+      li {
+        list-style-type: none;
+        margin-bottom: 20px;
+        line-height: 140%;
+      }
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 900px) {
+
+    .main-content {
+      margin-top: 45px;
+      width: 100%;
+      padding: 0 16px;
+
+      h4{
+        font-size: 20px;
+        line-height: 27px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
