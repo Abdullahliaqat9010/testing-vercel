@@ -10,7 +10,7 @@ const TermsAndConditionsPage = () => {
       <div className='Terms'>
         <div className="blue-line"/>
         <div className="main-content">
-          <h4>CONDITIONS D'UTILISATION POUR LES VENDEURS IMMO BELGIUM</h4>
+          <h4>CONDITIONS D'UTILISATION POUR LES VENDEURS <span>IMMO BELGIUM</span></h4>
           <span className='data'>(Dernière mise à jour le 27 avril 2021)</span>
           <p>
             Bienvenue sur la plateforme ImmoBelgium, propriété de Winleads SA, immatriculée à la Banque Carrefour

@@ -153,4 +153,20 @@
       }
     }
   }
+
+  @media (min-width: 320px) and (max-width: 900px) {
+
+    .main-content {
+      margin-top: 45px;
+      width: 100%;
+      padding: 0 16px;
+
+      h4{
+        font-size: 20px;
+        line-height: 27px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
 }
