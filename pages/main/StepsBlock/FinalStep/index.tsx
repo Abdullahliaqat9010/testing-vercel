@@ -227,7 +227,8 @@ const FinalStep = () => {
           <Form.Label className='fs-16'>
             { t('label.read-privacy') }
             <a href="https://winleads.eu/privacy-cookie-policy" target='_blank'>{ t('label.privacy') }</a>
-            { t('label.terms') }
+            { t('label.and') }
+            <a href={ locale + '/terms-and-condition' } target='_blank'>{ t('label.terms') }</a>
           </Form.Label>
         </div>
       </Form>
