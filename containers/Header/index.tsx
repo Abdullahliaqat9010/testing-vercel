@@ -113,9 +113,9 @@ const HeaderContainer = ({title}: { title: string }) => {
         />
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <Link href={ '/' }>
+        <a href={ '/' }>
           <Image className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
-        </Link>
+        </a>
         {
           mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>

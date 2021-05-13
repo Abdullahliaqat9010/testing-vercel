@@ -63,8 +63,8 @@ export interface RootState {
       details: {
         prestige: string,
         condition: string,
-        constructionYear: string,
-        renovationYear: string,
+        constructionYear: string | number,
+        renovationYear: string | number,
         renovationLevel: string,
       },
       utilities: {
