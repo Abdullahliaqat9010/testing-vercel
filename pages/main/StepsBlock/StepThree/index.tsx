@@ -51,21 +51,25 @@ const StepThree = () => {
   };
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...data,
+      [el.target.name]: el.target.value,
+    });
+
     if (el.target.name === 'renovationYear' || el.target.name === 'constructionYear') {
       setFormData({
         ...data,
         [el.target.name]: +el.target.value < 0 ? +el.target.value * -1
           : +el.target.value > new Date().getFullYear() ? new Date().getFullYear() : el.target.value,
       });
-    } else {
-      setFormData({
-        ...data,
-        [el.target.name]: el.target.value,
-      });
     }
 
     if (el.target.name === 'renovationYear') {
-      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(el.target.value));
+      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(data.constructionYear, el.target.value));
+    }
+
+    if (el.target.name === 'constructionYear') {
+      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(el.target.value, data.renovationYear));
     }
   };
 
@@ -92,14 +96,14 @@ const StepThree = () => {
     }
   };
 
-  const checkIfValidYears = (renovationYear) => {
-    return Number(data.constructionYear) && Number(renovationYear) < Number(data.constructionYear);
+  const checkIfValidYears = (constructionYear, renovationYear) => {
+    return Number(renovationYear) < Number(constructionYear);
   };
 
   const checkMinValue = (name: string, value: string) => {
     setFormData({
       ...data,
-      [name]: data[name] < value ? value : data[name],
+      [name]: Number(data[name]) < Number(value) ? value : data[name],
     });
 
     setRenovationLevel();
