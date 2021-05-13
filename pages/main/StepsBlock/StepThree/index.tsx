@@ -38,34 +38,65 @@ const StepThree = () => {
   const handleClickNextBtn = () => {
     const validData = {...data};
 
-    if (+validData.constructionYear > new Date().getFullYear()) {
-      validData.constructionYear = String(new Date().getFullYear());
-    }
+    if (checkIfValidYears(validData.constructionYear, validData.renovationYear)) {
+      setValidRenYear(true)
+    } else {
+      if (+validData.constructionYear > new Date().getFullYear()) {
+        validData.constructionYear = String(new Date().getFullYear());
+      }
 
-    if (+validData.renovationYear > new Date().getFullYear()) {
-      validData.renovationYear = String(new Date().getFullYear());
-    }
+      if (+validData.renovationYear > new Date().getFullYear()) {
+        validData.renovationYear = String(new Date().getFullYear());
+      }
 
-    dispatch(setDetailsAction(validData));
-    dispatch(goToNextStepAction());
+      dispatch(setDetailsAction(validData));
+      dispatch(goToNextStepAction());
+    }
   };
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
-    if (el.target.name === 'renovationYear' || el.target.name === 'constructionYear') {
+    setFormData({
+      ...data,
+      [el.target.name]: el.target.value,
+    });
+
+    if (el.target.name === 'renovationLevel' && el.target.value.length === 0) {
       setFormData({
         ...data,
-        [el.target.name]: +el.target.value < 0 ? +el.target.value * -1
-          : +el.target.value > new Date().getFullYear() ? new Date().getFullYear() : el.target.value,
-      });
-    } else {
-      setFormData({
-        ...data,
-        [el.target.name]: el.target.value,
+        [el.target.name]: '0',
       });
     }
 
     if (el.target.name === 'renovationYear') {
-      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(el.target.value));
+      if (el.target.value.length) {
+        setFormData({
+          ...data,
+          renovationYear: +el.target.value < 0
+            ? +el.target.value * -1 : +el.target.value > new Date().getFullYear()
+              ? new Date().getFullYear() : el.target.value,
+          renovationLevel: '25',
+        });
+
+      } else {
+        setFormData({
+          ...data,
+          renovationYear: el.target.value,
+          renovationLevel: '0',
+        });
+      }
+
+      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(data.constructionYear, el.target.value));
+    }
+
+    if (el.target.name === 'constructionYear') {
+      setFormData({
+        ...data,
+        constructionYear: +el.target.value < 0
+          ? +el.target.value * -1 : +el.target.value > new Date().getFullYear()
+            ? new Date().getFullYear() : el.target.value,
+      });
+
+      setValidRenYear(el.target.value.length > 3 && checkIfValidYears(el.target.value, data.renovationYear));
     }
   };
 
@@ -83,26 +114,15 @@ const StepThree = () => {
     });
   };
 
-  const setRenovationLevel = () => {
-    if (data.renovationYear && Number(data.renovationLevel) === 0) {
-      setFormData({
-        ...data,
-        renovationLevel: '25',
-      });
-    }
-  };
-
-  const checkIfValidYears = (renovationYear) => {
-    return Number(data.constructionYear) && Number(renovationYear) < Number(data.constructionYear);
+  const checkIfValidYears = (constructionYear, renovationYear) => {
+    return renovationYear && Number(renovationYear) < Number(constructionYear);
   };
 
   const checkMinValue = (name: string, value: string) => {
     setFormData({
       ...data,
-      [name]: data[name] < value ? value : data[name],
+      [name]: data[name] && Number(data[name]) < Number(value) ? value : data[name],
     });
-
-    setRenovationLevel();
   };
 
   return (
