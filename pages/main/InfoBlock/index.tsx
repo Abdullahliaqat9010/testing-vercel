@@ -3,16 +3,16 @@ import { isMobile } from 'react-device-detect';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
-import FirstImage from '../../../assets/images/main-page/info-block/first-image.png';
-import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.png';
-import SecondImage from '../../../assets/images/main-page/info-block/second-image.png';
-import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.png';
-import ThirdImage from '../../../assets/images/main-page/info-block/third-image.png';
-import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.png';
-import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.png';
-import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.png';
-import MapImage from '../../../assets/images/main-page/info-block/user-map.png';
-import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.png';
+import FirstImage from '../../../assets/images/main-page/info-block/first-image.jpg';
+import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.jpg';
+import SecondImage from '../../../assets/images/main-page/info-block/second-image.jpg';
+import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.jpg';
+import ThirdImage from '../../../assets/images/main-page/info-block/third-image.jpg';
+import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.jpg';
+import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.jpg';
+import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.jpg';
+import MapImage from '../../../assets/images/main-page/info-block/user-map.jpg';
+import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.jpg';
 import LogoGray from '../../../assets/images/main-page/info-block/logo.svg';
 
 const InfoBlock = () => {
@@ -51,16 +51,16 @@ const InfoBlock = () => {
                 :
                 <>
                   <div className="image-block__left mr-16px">
-                    <img src={ FirstImage } alt="FirstImage"/>
+                    <img className='first-image' src={ FirstImage } alt="FirstImage"/>
                   </div>
                   <div className="image-block__right">
                     <div className="top">
-                      <img className='mr-16px' src={ SecondImage } alt="SecondImage"/>
-                      <img src={ ThirdImage } alt="ThirdImage"/>
+                      <img className='mr-16px second-image' src={ SecondImage } alt="SecondImage"/>
+                      <img className='third-image' src={ ThirdImage } alt="ThirdImage"/>
                     </div>
                     <div className="bottom">
-                      <img className='mr-16px' src={ FourthImage } alt="FourthImage"/>
-                      <img src={ FifthImage } alt="FifthImage"/>
+                      <img className='mr-16px fourth-image' src={ FourthImage } alt="FourthImage"/>
+                      <img className='fifth-image' src={ FifthImage } alt="FifthImage"/>
                     </div>
                   </div>
                 </>
