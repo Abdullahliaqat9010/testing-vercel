@@ -3,16 +3,16 @@ import { isMobile } from 'react-device-detect';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
-import FirstImage from '../../../assets/images/main-page/info-block/first-image.jpg';
-import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.jpg';
-import SecondImage from '../../../assets/images/main-page/info-block/second-image.jpg';
-import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.jpg';
-import ThirdImage from '../../../assets/images/main-page/info-block/third-image.jpg';
-import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.jpg';
-import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.jpg';
-import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.jpg';
-import MapImage from '../../../assets/images/main-page/info-block/user-map.jpg';
-import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.jpg';
+import FirstImage from '../../../assets/images/main-page/info-block/first-image.jpeg';
+import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.jpeg';
+import SecondImage from '../../../assets/images/main-page/info-block/second-image.jpeg';
+import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.jpeg';
+import ThirdImage from '../../../assets/images/main-page/info-block/third-image.jpeg';
+import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.jpeg';
+import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.jpeg';
+import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.jpeg';
+import MapImage from '../../../assets/images/main-page/info-block/user-map.jpeg';
+import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.jpeg';
 import LogoGray from '../../../assets/images/main-page/info-block/logo.svg';
 
 const InfoBlock = () => {

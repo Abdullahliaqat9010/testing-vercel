@@ -10,12 +10,12 @@ import { openMainStepsAction } from '../../../actions';
 
 import { googleMapConfig } from '../../../config/siteConfigs';
 
-import FirstSlide from '../../../assets/images/main-page/slider/first-slide.jpg';
-import FirstSlideMobile from '../../../assets/images/main-page/slider/first-slide-mobile.jpg';
-import SecondSlide from '../../../assets/images/main-page/slider/second-slide.jpg';
-import SecondSlideMobile from '../../../assets/images/main-page/slider/second-slide-mobile.jpg';
-import ThirdSlide from '../../../assets/images/main-page/slider/third-slide.jpg';
-import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slide-mobile.jpg';
+import FirstSlide from '../../../assets/images/main-page/slider/first-slide.jpeg';
+import FirstSlideMobile from '../../../assets/images/main-page/slider/first-slide-mobile.jpeg';
+import SecondSlide from '../../../assets/images/main-page/slider/second-slide.jpeg';
+import SecondSlideMobile from '../../../assets/images/main-page/slider/second-slide-mobile.jpeg';
+import ThirdSlide from '../../../assets/images/main-page/slider/third-slide.jpeg';
+import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slide-mobile.jpeg';
 
 const ImagesBlock = () => {
   const {t} = useTranslation('main-page');
