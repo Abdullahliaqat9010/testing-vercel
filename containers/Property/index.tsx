@@ -5,10 +5,13 @@ import { useTranslation } from 'next-i18next';
 
 import { Button, Image } from 'react-bootstrap';
 
+import { modalWindowContactAgentAction } from '../../actions';
+
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 import NoImage from '../../assets/images/no-image-available.png';
-import { modalWindowContactAgentAction } from '../../actions';
+
+import { agentsList } from '../../templates/agentsList';
 
 const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
@@ -21,6 +24,8 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     {label: 'minute', seconds: 60},
     {label: 'second', seconds: 0},
   ];
+
+  const [currentAgency] = agentsList.filter(agency => agency.title === property.company_name);
 
   const timeSince = (date) => {
     const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
@@ -56,17 +61,20 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
           </div>
           <div className="time">
             <span>{ t('desc.sold') } { timeSince(new Date(property.sold_date)) } </span>
-            <a href="#">
-              { property.source }
-            </a>
+            {
+              property.company_name &&
+              <a href="#">
+                { property.company_name }
+              </a>
+            }
           </div>
         </div>
-        <Button onClick={
+        <Button disabled={!currentAgency} onClick={
           () => openContactModal({
-          title: 'agency.title',
-          agencyId: 'agency.id',
-          agentName: 'agency.moreInfo.agentName',
-          agentSurname: 'agency.moreInfo.agentSurname',
+          title: currentAgency.title,
+          agencyId: currentAgency.id,
+          agentName: currentAgency.moreInfo.agentName,
+          agentSurname: currentAgency.moreInfo.agentSurname,
           }) }
                 variant="outline-primary">
           { t('button.request-price') }

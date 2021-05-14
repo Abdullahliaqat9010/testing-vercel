@@ -36,6 +36,7 @@ export const initialState = {
   emailVerified: false,
   noEstimation: false,
   needVerifyEmailModal: false,
+  showSuccessModal: false,
   agencyContactInfo: {
     title: '',
     agentName: '',
@@ -91,10 +92,16 @@ const userReducer = (state = initialState, action: any) => {
         needVerifyEmailModal: false,
       };
     case actionType.CONTACT_AGENCY_SUCCESS:
+      return {
+        ...state,
+        showSuccessModal: true,
+      };
     case actionType.CLOSE_MODAL_CONTACT_AGENT:
+      userPhone = '';
       return {
         ...state,
         showAgentModal: false,
+        showSuccessModal: false,
         agencyContactInfo: {
           title: '',
           agentName: '',

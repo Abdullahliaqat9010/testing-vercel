@@ -12,6 +12,7 @@ export interface PropertyContainerProps {
   property: {
     images: any[], //@todo add interface
     search_address: string,
+    company_name: string,
     live_area: string,
     bathrooms: string,
     bedrooms: string,

@@ -187,7 +187,7 @@ const StepThree = () => {
       </div>
       <Form>
         <InputGroup>
-          <Form.Label>{ t('label.construction-year') }</Form.Label>
+          <Form.Label className='construction-year-label'>{ t('label.construction-year') }</Form.Label>
           <div className="input-block">
             <Form.Control
               className='constructionYear'
@@ -202,7 +202,7 @@ const StepThree = () => {
           </div>
         </InputGroup>
         <InputGroup>
-          <Form.Label>{ t('label.renovated') }</Form.Label>
+          <Form.Label className='renovation-year-label'>{ t('label.renovated') }</Form.Label>
           <div className="input-block d-flex flex-column">
             <Form.Control
               className='renovationYear'
@@ -221,7 +221,7 @@ const StepThree = () => {
           </div>
         </InputGroup>
         <InputGroup>
-          <Form.Label className='d-flex'>
+          <Form.Label className='d-flex renovation-level-label'>
             { t('label.renovation-level') }
           </Form.Label>
           <div className="input-block">

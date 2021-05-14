@@ -5,12 +5,14 @@ import { useTranslation } from 'next-i18next';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { RootState } from '../../types/state';
 import { closeModalWindowContactAgentAction, contactAgencyAction } from '../../actions';
+import SendSuccess from '../../assets/images/message-send.svg';
 
 const ContactAgentModal = () => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   const {
     showAgentModal,
+    showSuccessModal,
     agencyContactInfo,
     userName,
     userSurname,
@@ -79,103 +81,126 @@ const ContactAgentModal = () => {
       show={ showAgentModal }
       onHide={ handleCloseModal }
     >
-      <Modal.Header closeButton>
-        <Modal.Title className='d-flex flex-column'>
-          { t('button.contact') } { agencyContactInfo.agentName + ' ' + agencyContactInfo.agentSurname }
-          <p>{ agencyContactInfo.title }</p>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form noValidate validated={ validated }>
-          <Form.Group controlId="fullName">
-            <Form.Label>{ t('label.fullname') }</Form.Label>
-            <Form.Control
-              required
-              onChange={ handleOnChange }
-              name='fullName'
-              type="text"
-              value={ data.fullName }
-            />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
-          </Form.Group>
+      {
+        !showSuccessModal ?
+          <>
+            <Modal.Header closeButton>
+              <Modal.Title className='d-flex flex-column'>
+                { t('button.contact') } { agencyContactInfo.agentName + ' ' + agencyContactInfo.agentSurname }
+                <p>{ agencyContactInfo.title }</p>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form noValidate validated={ validated }>
+                <Form.Group controlId="fullName">
+                  <Form.Label>{ t('label.fullname') }</Form.Label>
+                  <Form.Control
+                    required
+                    onChange={ handleOnChange }
+                    name='fullName'
+                    type="text"
+                    value={ data.fullName }
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    { t('error.required') }
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-          <Form.Group controlId="phone">
-            <Form.Label>{ t('label.phone') }</Form.Label>
-            <Form.Control
-              required
-              onChange={ handleOnChange }
-              name='phone'
-              type="text"
-              placeholder="Please enter"
-              value={ data.phone }
-            />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
-          </Form.Group>
+                <Form.Group controlId="phone">
+                  <Form.Label>{ t('label.phone') }</Form.Label>
+                  <Form.Control
+                    required
+                    onChange={ handleOnChange }
+                    name='phone'
+                    type="text"
+                    placeholder="Please enter"
+                    value={ data.phone }
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    { t('error.required') }
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-          <Form.Group controlId="email">
-            <Form.Label>{ t('label.email') }</Form.Label>
-            <Form.Control
-              required
-              onChange={ handleOnChange }
-              name='email'
-              type="email"
-              value={ data.email }
-            />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
-          </Form.Group>
+                <Form.Group controlId="email">
+                  <Form.Label>{ t('label.email') }</Form.Label>
+                  <Form.Control
+                    required
+                    onChange={ handleOnChange }
+                    name='email'
+                    type="email"
+                    value={ data.email }
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    { t('error.required') }
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-          <Form.Group controlId="desc">
-            <Form.Label>{ t('label.message') }</Form.Label>
-            <Form.Control
-              placeholder={t('placeholder.message')}
-              value={ data.desc }
-              as="textarea"
-              rows={ 5 }
-              name='desc'
-              onChange={ handleOnChange }
-            />
-          </Form.Group>
-          <Form.Group controlId="select-property">
-            <Form.Label>{ t('label.select') }</Form.Label>
-            <Form.Control
-              onChange={ handleOnChange }
-              name='selectedProperty'
-              className='custom-select'
-              as="select"
-              value={ data.selectedProperty }
-            >
-              {
-                properties.map((property, index) =>
-                  <option key={ index }>{ property.search_address }</option>,
-                )
-              }
-            </Form.Control>
-          </Form.Group>
-          <Form.Group controlId="agree">
-            <Form.Check
-              name='agree'
-              onChange={ handleOnChange }
-              type="checkbox"
-              label={ t('label.free-charge') }
-              checked={ data.agree }
-            />
-          </Form.Group>
-          <div className="modal-btn-group">
-            <Button className='confirm' onClick={ sendToAgency }>
-              { t('button.confirm') }
-            </Button>
-            <Button className='cancel' onClick={ handleCloseModal }>
-              { t('button.cancel') }
-            </Button>
-          </div>
-        </Form>
-      </Modal.Body>
+                <Form.Group controlId="desc">
+                  <Form.Label>{ t('label.message') }</Form.Label>
+                  <Form.Control
+                    placeholder={t('placeholder.message')}
+                    value={ data.desc }
+                    as="textarea"
+                    rows={ 5 }
+                    name='desc'
+                    onChange={ handleOnChange }
+                  />
+                </Form.Group>
+                <Form.Group controlId="select-property">
+                  <Form.Label>{ t('label.select') }</Form.Label>
+                  <Form.Control
+                    onChange={ handleOnChange }
+                    name='selectedProperty'
+                    className='custom-select'
+                    as="select"
+                    value={ data.selectedProperty }
+                  >
+                    {
+                      properties.map((property, index) =>
+                        <option key={ index }>{ property.search_address }</option>,
+                      )
+                    }
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group controlId="agree">
+                  <Form.Check
+                    name='agree'
+                    onChange={ handleOnChange }
+                    type="checkbox"
+                    label={ t('label.free-charge') }
+                    checked={ data.agree }
+                  />
+                </Form.Group>
+                <div className="modal-btn-group">
+                  <Button className='confirm' onClick={ sendToAgency }>
+                    { t('button.confirm') }
+                  </Button>
+                  <Button className='cancel' onClick={ handleCloseModal }>
+                    { t('button.cancel') }
+                  </Button>
+                </div>
+              </Form>
+            </Modal.Body>
+          </> :
+          <>
+            <Modal.Header closeButton/>
+            <Modal.Body>
+              <div className="main-content">
+                <img src={ SendSuccess } alt="SendSuccess"/>
+                <h3>
+                  Your message has been sent successfully.
+                </h3>
+                <p>
+                  <span>The agency { agencyContactInfo.title } will contact you soon.</span>
+                </p>
+                <Button className='close' onClick={ handleCloseModal }>
+                  Close
+                </Button>
+              </div>
+            </Modal.Body>
+          </>
+      }
+
     </Modal>
   );
 };
