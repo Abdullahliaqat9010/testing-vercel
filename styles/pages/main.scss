@@ -474,12 +474,15 @@
           display: flex;
 
           .custom-label {
-            width: 60%;
+            width: 70%;
           }
         }
 
         .number-levels {
-          width: 170px !important;
+          min-width: 217px;
+        }
+        .inside-floors {
+          min-width: 207px;
         }
 
         .input-block {
@@ -1267,11 +1270,11 @@
         }
 
         .custom-label {
-          width: 70% !important;
+          width: 69% !important;
         }
 
         .number-levels {
-          min-width: 132px;
+          min-width: 132px !important;
         }
         .number-floors {
           .input-block {
