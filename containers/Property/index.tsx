@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 // import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
 
@@ -7,9 +8,11 @@ import { Button, Image } from 'react-bootstrap';
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
 import NoImage from '../../assets/images/no-image-available.png';
+import { modalWindowContactAgentAction } from '../../actions';
 
 const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
+  const dispatch = useDispatch();
   const intervals = [
     {label: 'year', seconds: 31536000},
     {label: 'month', seconds: 2592000},
@@ -34,11 +37,14 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     return NoImage;
   }
 
+  const openContactModal = (data: object) => {
+    dispatch(modalWindowContactAgentAction(data));
+  };
+
   return (
     <div className='property-block d-flex'>
       <div className="property-block__image">
         <Image src={ getImageLink() } rounded/>
-        {/*<Image src={ isMobile && property.imgMobile ? property.imgMobile : property.img } rounded/>*/}
       </div>
       <div className="property-block__info">
         <span className="address">{ property.search_address }</span>
@@ -55,7 +61,15 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
             </a>
           </div>
         </div>
-        <Button variant="outline-primary">{ t('button.request-price') }
+        <Button onClick={
+          () => openContactModal({
+          title: 'agency.title',
+          agencyId: 'agency.id',
+          agentName: 'agency.moreInfo.agentName',
+          agentSurname: 'agency.moreInfo.agentSurname',
+          }) }
+                variant="outline-primary">
+          { t('button.request-price') }
           <img src={ ArrowImage } alt="ArrowImage"/>
         </Button>
       </div>
