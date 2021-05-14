@@ -3,16 +3,16 @@ import { isMobile } from 'react-device-detect';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
-import FirstImage from '../../../assets/images/main-page/info-block/first-image.jpeg';
-import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.jpeg';
-import SecondImage from '../../../assets/images/main-page/info-block/second-image.jpeg';
-import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.jpeg';
-import ThirdImage from '../../../assets/images/main-page/info-block/third-image.jpeg';
-import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.jpeg';
-import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.jpeg';
-import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.jpeg';
-import MapImage from '../../../assets/images/main-page/info-block/user-map.jpeg';
-import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.jpeg';
+import FirstImage from '../../../assets/images/main-page/info-block/first-image.webp';
+import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.webp';
+import SecondImage from '../../../assets/images/main-page/info-block/second-image.webp';
+import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.webp';
+import ThirdImage from '../../../assets/images/main-page/info-block/third-image.webp';
+import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.webp';
+import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.webp';
+import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.webp';
+import MapImage from '../../../assets/images/main-page/info-block/user-map.webp';
+import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.webp';
 import LogoGray from '../../../assets/images/main-page/info-block/logo.svg';
 
 const InfoBlock = () => {
