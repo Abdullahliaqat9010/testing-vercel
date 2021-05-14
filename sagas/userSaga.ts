@@ -85,7 +85,7 @@ function* sendStepsDataRequest({payload}: any) {
 function* signupUserRequest({payload}: any) {
   const {user, property, locale} = payload;
   try {
-    const res = yield fetch(`${ config.apiDomain }/auth/signup/${locale}`, {
+    const res = yield fetch(`${ config.apiDomain }/auth/signup?locale=${locale}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

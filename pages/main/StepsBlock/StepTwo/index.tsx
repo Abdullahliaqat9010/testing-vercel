@@ -145,7 +145,7 @@ const StepTwo = () => {
             selectedProperty === 'house' &&
             <>
               <InputGroup className='mb-3'>
-                <Form.Label className='position-relative w-45'>
+                <Form.Label className='position-relative custom-width-40'>
                   { t('label.land-surface') }
                   <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip-info') }</Tooltip> }>
                     <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>

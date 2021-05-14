@@ -15,10 +15,9 @@
         box-sizing: border-box;
         border-radius: 8px;
 
-        img {
-          width: 150px;
-          height: 82px;
-        }
+        justify-content: center;
+        display: flex;
+        align-items: center;
       }
 
       .info {

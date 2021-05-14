@@ -470,6 +470,10 @@
         }
       }
 
+      .construction-year-label, .renovation-year-label, .renovation-level-label {
+        width: 100%;
+      }
+
       .constructionYear, .renovationYear {
         border-radius: 6px !important;
       }
@@ -801,6 +805,8 @@
       .form-label {
         font-size: 16px;
         line-height: 22px;
+        width: 70%;
+        white-space: pre-wrap;
       }
 
       .optional {
@@ -1302,6 +1308,11 @@
 
         .number-levels {
           min-width: 132px !important;
+          width: 132px !important;
+        }
+
+        .construction-year-label, .renovation-year-label, .renovation-level-label {
+          width: 55%;
         }
 
         .number-floors {
@@ -1411,7 +1422,26 @@
           }
         }
 
-        .number-floors, .bg-block {
+        .custom-width-40 {
+          width: 40%;
+        }
+
+        .epc {
+          align-items: flex-start;
+          height: max-content;
+
+          label {
+            width: 40%;
+          }
+        }
+
+        .number-floors {
+          .input-block {
+            width: 132px !important;
+          }
+        }
+
+        .bg-block {
           .input-block {
             width: 156px !important;
           }

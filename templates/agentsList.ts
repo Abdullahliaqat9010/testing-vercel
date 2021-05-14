@@ -1,20 +1,20 @@
 import { AgentsItem } from '../types/agents';
 
-import Agency from '../assets/images/agents/label-immo-logo.png';
-import AgencyMobile from '../assets/images/agents/label-immo-logo.png';
-import ThierryAvatar from '../assets/images/agents/thierry-hermanne.jpeg';
+import Agency from '../assets/images/agents/label-immo-logo.webp';
+import AgencyMobile from '../assets/images/agents/label-immo-logo.webp';
+import ThierryAvatar from '../assets/images/agents/thierry-hermanne.webp';
 
-import AgencyTwo from '../assets/images/agents/waw-immo-logo.png';
-import AgencyTwoMobile from '../assets/images/agents/waw-immo-logo.png';
-import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.jpeg';
+import AgencyTwo from '../assets/images/agents/waw-immo-logo.webp';
+import AgencyTwoMobile from '../assets/images/agents/waw-immo-logo.webp';
+import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.webp';
 
-import AgencyThree from '../assets/images/agents/bourse-logo.png';
-import AgencyThreeMobile from '../assets/images/agents/bourse-logo.png';
-import FabienneAvatar from '../assets/images/agents/fabienne.jpg';
+import AgencyThree from '../assets/images/agents/bourse-logo.webp';
+import AgencyThreeMobile from '../assets/images/agents/bourse-logo.webp';
+import FabienneAvatar from '../assets/images/agents/fabienne.webp';
 
-import AgencyFour from '../assets/images/agents/bertholome-logo.png';
-import AgencyFourMobile from '../assets/images/agents/bertholome-logo.png';
-import BertholomeAvatar from '../assets/images/agents/bertholome.jpeg';
+import AgencyFour from '../assets/images/agents/bertholome-logo.webp';
+import AgencyFourMobile from '../assets/images/agents/bertholome-logo.webp';
+import BertholomeAvatar from '../assets/images/agents/bertholome.webp';
 
 import AgencyTest from '../assets/images/agents/test-agency.png';
 import AgencyTestMobile from '../assets/images/agents/test-agency.png';
