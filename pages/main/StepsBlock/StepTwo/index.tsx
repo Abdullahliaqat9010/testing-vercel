@@ -240,7 +240,7 @@ const StepTwo = () => {
                   { t('label.number-floors') }
                 </span>
               </Form.Label>
-              <div className="input-block input-border-radius-0">
+              <div className="input-block input-border-radius-0 inside-floors">
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('numberFloors') }>-</InputGroup.Text>
                 </InputGroup.Prepend>

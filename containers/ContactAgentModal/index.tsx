@@ -23,7 +23,7 @@ const ContactAgentModal = () => {
     fullName: userName + ' ' + userSurname,
     phone: userPhone,
     email: userEmail,
-    desc: '',
+    desc: t('placeholder.message'),
     selectedProperty: '',
     agree: false,
   });
@@ -51,7 +51,6 @@ const ContactAgentModal = () => {
     return data.fullName.length > 0
       && data.phone.length > 0
       && data.email.length > 0
-      && data.desc.length > 0
       && data.selectedProperty.length > 0;
   };
 
@@ -63,7 +62,7 @@ const ContactAgentModal = () => {
       const dataInfo = {
         agentId: agencyContactInfo.agencyId,
         phone: data.phone,
-        message: data.desc,
+        message: data.desc.length > 0 ? data.desc : t('placeholder.message'),
         propertyId: findProp.id,
         free_evaluated: data.agree,
       };
@@ -134,7 +133,6 @@ const ContactAgentModal = () => {
           <Form.Group controlId="desc">
             <Form.Label>{ t('label.message') }</Form.Label>
             <Form.Control
-              required
               placeholder={t('placeholder.message')}
               value={ data.desc }
               as="textarea"
@@ -142,9 +140,6 @@ const ContactAgentModal = () => {
               name='desc'
               onChange={ handleOnChange }
             />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="select-property">
             <Form.Label>{ t('label.select') }</Form.Label>

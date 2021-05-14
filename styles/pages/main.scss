@@ -60,6 +60,7 @@
     }
 
     img {
+      width: 100%;
       border-radius: 10px;
     }
   }
@@ -131,6 +132,31 @@
       .image-block {
         .mr-16px {
           margin-right: 16px;
+        }
+
+        .first-image {
+          width: 172px;
+          height: 418px;
+        }
+
+        .second-image {
+          width: 172px;
+          height: 206px;
+        }
+
+        .third-image {
+          width: 172px;
+          height: 186px;
+        }
+
+        .fourth-image {
+          width: 127px;
+          height: 216px;
+        }
+
+        .fifth-image {
+          width: 218px;
+          height: 236px;
         }
 
         &__left {
@@ -474,12 +500,16 @@
           display: flex;
 
           .custom-label {
-            width: 60%;
+            width: 70%;
           }
         }
 
         .number-levels {
-          width: 170px !important;
+          min-width: 217px;
+        }
+
+        .inside-floors {
+          min-width: 207px;
         }
 
         .input-block {
@@ -1267,12 +1297,13 @@
         }
 
         .custom-label {
-          width: 70% !important;
+          width: 69% !important;
         }
 
         .number-levels {
-          min-width: 132px;
+          min-width: 132px !important;
         }
+
         .number-floors {
           .input-block {
             min-width: 132px;
