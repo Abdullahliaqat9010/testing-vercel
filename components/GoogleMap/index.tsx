@@ -20,6 +20,7 @@ interface locationProps {
 
 const GoogleMap = (location: locationProps) => {
   const {location: locationData} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {similarPropertiesLocation} = useSelector((state: RootState) => state.userInfo);
 
   return (
     // Important! Always set the container height explicitly
@@ -39,12 +40,21 @@ const GoogleMap = (location: locationProps) => {
           zoomControl: false,
           styles: googleMapStyle,
         } }
-        defaultZoom={ 13 }
+        defaultZoom={ similarPropertiesLocation.length ? 11 : 13 }
       >
-        <Marker
-          lat={ Number(location.lat) || Number(locationData.lat) }
-          lng={ Number(location.lng) || Number(locationData.lng) }
-        />
+        {
+          similarPropertiesLocation.length ? similarPropertiesLocation.map((property, index) =>
+            <Marker
+              key={index}
+              lat={ property.lat }
+              lng={ property.lng }
+            />
+          ) :
+            <Marker
+              lat={ Number(location.lat) || Number(locationData.lat) }
+              lng={ Number(location.lng) || Number(locationData.lng) }
+            />
+        }
       </GoogleMapReact>
     </div>
   );
