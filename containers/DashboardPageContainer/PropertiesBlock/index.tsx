@@ -18,13 +18,13 @@ const PropertiesBlock = () => {
   // const dispatch = useDispatch();
   const elementsOnPage = isMobile ? 3 : 6;
   const [sizeArr, setSizeArr] = useState(elementsOnPage);
-  const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
+  const { mainProperty, similarProperty, similarPropertiesLocation } = useSelector((state: RootState) => state.userInfo);
   const properties = similarProperty.slice(0, sizeArr);
 
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
   }
-
+  // console.log(similarPropertiesLocation);
   return (
     <div className='properties-block d-flex'>
       {

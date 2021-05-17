@@ -127,9 +127,14 @@ function* getSimilarPropertyRequest(propertyId: number, page: number, limit: num
     });
 
     if (res.status === 200) {
+      const similarPropertiesLocation = [];
       const {data, meta} = yield res.json();
+      data.forEach(item => {
+        similarPropertiesLocation.push({lat: Number(item.lat), lng: Number(item.lng)})
+      })
       yield getSimilarPropertySuccess(data);
       yield setSimilarPropertyPaginationInfo(meta);
+      yield setSimilarPropertyLocation(similarPropertiesLocation);
     }
 
   } catch (error) {
@@ -148,6 +153,13 @@ function* setSimilarPropertyPaginationInfo(meta: object) {
   yield put({
     type: actionType.SET_SIMILAR_PROPERTY_PAGINATION_INFO,
     payload: meta,
+  });
+}
+
+function* setSimilarPropertyLocation(location: object[]) {
+  yield put({
+    type: actionType.SET_SIMILAR_PROPERTY_LOCATIONS,
+    payload: location,
   });
 }
 
