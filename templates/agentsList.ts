@@ -1,20 +1,19 @@
 import { AgentsItem } from '../types/agents';
 
-import Agency from '../assets/images/agents/label-immo-logo.webp';
-import AgencyMobile from '../assets/images/agents/label-immo-logo.webp';
+import LabelImmo from '../assets/images/agents/label-immo-logo.webp';
 import ThierryAvatar from '../assets/images/agents/thierry-hermanne.webp';
 
-import AgencyTwo from '../assets/images/agents/waw-immo-logo.webp';
-import AgencyTwoMobile from '../assets/images/agents/waw-immo-logo.webp';
+import WawImmo from '../assets/images/agents/waw-immo-logo.webp';
 import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.webp';
 
-import AgencyThree from '../assets/images/agents/bourse-logo.webp';
-import AgencyThreeMobile from '../assets/images/agents/bourse-logo.webp';
+import Bourse from '../assets/images/agents/bourse-logo.webp';
 import FabienneAvatar from '../assets/images/agents/fabienne.webp';
 
-import AgencyFour from '../assets/images/agents/bertholome-logo.webp';
-import AgencyFourMobile from '../assets/images/agents/bertholome-logo.webp';
+import Bertholome from '../assets/images/agents/bertholome-logo.webp';
 import BertholomeAvatar from '../assets/images/agents/bertholome.webp';
+
+import EcoImmo from '../assets/images/agents/logo_eco-immo.webp';
+import AngeloAvatar from '../assets/images/agents/angelo-ponente.webp';
 
 import AgencyTest from '../assets/images/agents/test-agency.png';
 import AgencyTestMobile from '../assets/images/agents/test-agency.png';
@@ -27,8 +26,8 @@ export const agentsList: AgentsItem[] = [
     title: 'Label Immo',
     rate: '5.0',
     reviews: '120',
-    logo: Agency,
-    logoMobile: AgencyMobile,
+    logo: LabelImmo,
+    logoMobile: LabelImmo,
     count: 17,
     agencyAddress: 'Chaussée de Napoléon 3, 4500 Huy',
     location: {
@@ -50,8 +49,8 @@ export const agentsList: AgentsItem[] = [
     title: 'WaW Immo',
     rate: '5.0',
     reviews: '120',
-    logo: AgencyTwo,
-    logoMobile: AgencyTwoMobile,
+    logo: WawImmo,
+    logoMobile: WawImmo,
     count: 17,
     agencyAddress: 'Rue des Ixellois 1, 4000 Liège',
     location: {
@@ -73,8 +72,8 @@ export const agentsList: AgentsItem[] = [
     title: 'Bourse Immobilière',
     rate: '5.0',
     reviews: '120',
-    logo: AgencyThree,
-    logoMobile: AgencyThreeMobile,
+    logo: Bourse,
+    logoMobile: Bourse,
     count: 17,
     agencyAddress: "Voie de l'Ardenne 179, 4053 Chaudfontaine",
     location: {
@@ -96,8 +95,8 @@ export const agentsList: AgentsItem[] = [
     title: 'Immobilière Bertholomé',
     rate: '5.0',
     reviews: '120',
-    logo: AgencyFour,
-    logoMobile: AgencyFourMobile,
+    logo: Bertholome,
+    logoMobile: Bertholome,
     count: 17,
     agencyAddress: "Rue d'Ans 116, 4000 Liège",
     location: {
@@ -111,6 +110,29 @@ export const agentsList: AgentsItem[] = [
       agentSurname: 'Bertholomé',
       position: 'Agency owner',
       avatar: BertholomeAvatar,
+      desc: ''
+    }
+  },
+  {
+    id: 5,
+    title: 'Eco Immo',
+    rate: '5.0',
+    reviews: '120',
+    logo: EcoImmo,
+    logoMobile: EcoImmo,
+    count: 17,
+    agencyAddress: "Rue de la Station 3, 4430 ANS",
+    location: {
+      lat: 50.6635702,
+      lng: 5.5113576
+    },
+    email: 'a.ponente@eco-immo.be',
+    nearest: true,
+    moreInfo: {
+      agentName: 'Angelo',
+      agentSurname: 'Ponente',
+      position: 'Agency owner',
+      avatar: AngeloAvatar,
       desc: ''
     }
   },

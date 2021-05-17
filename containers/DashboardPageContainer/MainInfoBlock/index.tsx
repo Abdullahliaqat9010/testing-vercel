@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
 import { RootState } from '../../../types/state';
@@ -10,6 +11,8 @@ import bedsIcon from '../../../assets/images/beds.svg';
 import bathIcon from '../../../assets/images/bath.svg';
 
 const MainInfoBlock = () => {
+  const router = useRouter();
+  const {locale} = router;
   const {t} = useTranslation('dashboard-page');
   const {mainProperty} = useSelector((state: RootState) => state.userInfo);
 
@@ -74,7 +77,7 @@ const MainInfoBlock = () => {
     }
     window.sessionStorage.setItem('modify', JSON.stringify(propertyObjectForModify));
     window.sessionStorage.setItem('modifyId', mainProperty.id);
-    window.location.href = '/';
+    window.location.href = '/' + locale;
   };
 
   return (

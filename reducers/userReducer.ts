@@ -45,6 +45,7 @@ export const initialState = {
   },
   properties: [],
   similarProperty: [],
+  similarPropertiesLocation: [],
   propertiesListInfo: {},
   currentPropertyPrice: {},
   mainProperty: {},
@@ -133,8 +134,13 @@ const userReducer = (state = initialState, action: any) => {
     case actionType.SET_SIMILAR_PROPERTY_PAGINATION_INFO:
       return {
         ...state,
-        propertiesListInfo: {...action.payload}
-      }
+        propertiesListInfo: {...action.payload},
+      };
+    case actionType.SET_SIMILAR_PROPERTY_LOCATIONS:
+      return {
+        ...state,
+        similarPropertiesLocation: [...action.payload],
+      };
     case actionType.GET_USER_PROPERTY_ERROR: {
       return {
         ...state,

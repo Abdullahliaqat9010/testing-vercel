@@ -60,7 +60,7 @@ const HeaderContainer = ({title}: { title: string }) => {
   };
 
   const goToMainPage = () => {
-    window.location.href = '/';
+    window.location.href = '/' + locale;
   };
 
   const Logout = () => {
@@ -113,9 +113,7 @@ const HeaderContainer = ({title}: { title: string }) => {
         />
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <a href={ '/' }>
-          <Image className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
-        </a>
+        <Image onClick={() => goToMainPage()} className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
         {
           mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>
