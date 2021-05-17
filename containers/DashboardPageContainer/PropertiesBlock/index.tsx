@@ -18,13 +18,13 @@ const PropertiesBlock = () => {
   // const dispatch = useDispatch();
   const elementsOnPage = isMobile ? 3 : 6;
   const [sizeArr, setSizeArr] = useState(elementsOnPage);
-  const { mainProperty, similarProperty, similarPropertiesLocation } = useSelector((state: RootState) => state.userInfo);
+  const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
   const properties = similarProperty.slice(0, sizeArr);
 
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
   }
-  // console.log(similarPropertiesLocation);
+
   return (
     <div className='properties-block d-flex'>
       {
@@ -32,7 +32,8 @@ const PropertiesBlock = () => {
         <div className="map-block w-50">
           {
             mainProperty && mainProperty.lng && mainProperty.lat
-              && <GoogleMap lng={Number(mainProperty.lng)} lat={ Number(mainProperty.lat)}/>
+              && <GoogleMap lng={Number(mainProperty.lng)} lat={ Number(mainProperty.lat)}
+            />
           }
         </div>
       }

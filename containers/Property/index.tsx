@@ -25,7 +25,7 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     {label: 'second', seconds: 0},
   ];
 
-  const [currentAgency] = agentsList.filter(agency => agency.title === property.company_name);
+  const [currentAgency] = agentsList.filter(agency => agency.tag === property.company_name);
 
   const timeSince = (date) => {
     const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
