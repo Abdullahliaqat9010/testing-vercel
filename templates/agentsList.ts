@@ -24,6 +24,7 @@ export const agentsList: AgentsItem[] = [
   {
     id: 1,
     title: 'Label Immo',
+    tag: 'Label Immo',
     rate: '5.0',
     reviews: '120',
     logo: LabelImmo,
@@ -47,6 +48,7 @@ export const agentsList: AgentsItem[] = [
   {
     id: 2,
     title: 'WaW Immo',
+    tag: 'WaW Immo',
     rate: '5.0',
     reviews: '120',
     logo: WawImmo,
@@ -70,6 +72,7 @@ export const agentsList: AgentsItem[] = [
   {
     id: 3,
     title: 'Bourse Immobilière',
+    tag: 'Bourse Immobilière',
     rate: '5.0',
     reviews: '120',
     logo: Bourse,
@@ -93,6 +96,7 @@ export const agentsList: AgentsItem[] = [
   {
     id: 4,
     title: 'Immobilière Bertholomé',
+    tag: 'Immobilière Bertholomé',
     rate: '5.0',
     reviews: '120',
     logo: Bertholome,
@@ -116,6 +120,7 @@ export const agentsList: AgentsItem[] = [
   {
     id: 5,
     title: 'Eco Immo',
+    tag: 'ECO DEVELOPPEMENT - ECO IMMO',
     rate: '5.0',
     reviews: '120',
     logo: EcoImmo,
@@ -139,6 +144,7 @@ export const agentsList: AgentsItem[] = [
   {
     id: 99,
     title: 'Test Agency',
+    tag: 'Test Agency',
     rate: '5.0',
     reviews: '120',
     logo: AgencyTest,

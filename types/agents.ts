@@ -1,6 +1,7 @@
 export interface AgentsItem {
   id: number,
   title: string,
+  tag: string,
   agencyAddress: string,
   location: {
     lat: number,
