@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 
-import { Button } from 'react-bootstrap';
-import LoadMoreImage from '../../../assets/images/load-more.svg';
+// import { Button } from 'react-bootstrap';
+// import LoadMoreImage from '../../../assets/images/load-more.svg';
 
 import Agency from '../../../containers/Agency';
 
@@ -20,9 +20,9 @@ const FindAgentBlock = () => {
             <Agency agency={agency} key={index}/>
         )
       }
-      <Button className='load-more'>
-        <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
-      </Button>
+      {/*<Button className='load-more'>*/}
+      {/*  <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }*/}
+      {/*</Button>*/}
     </div>
   )
 }

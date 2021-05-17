@@ -15,6 +15,7 @@ export interface RootState {
     },
     properties: any, //@todo add interface
     similarProperty: any, //@todo add interface
+    similarPropertiesLocation: any, //@todo add interface
     mainProperty: any, //@todo add interface
     currentPropertyPrice: {
       totalValue: number

@@ -19,8 +19,7 @@ const FooterContainer = () => {
         <div className="footer__info w-25">
           <img src={ LogoFooter } alt="LogoFooter"/>
           <span className="desc">
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-          duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+          Make the real estate market more transparent so that home sellers can make the best possible decisions
         </span>
           <span className="copyright">
           All rights reserved © Immo Belgium { new Date().getFullYear() }
