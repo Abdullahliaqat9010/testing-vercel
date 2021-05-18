@@ -21,16 +21,27 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const { locale } = router;
+  const {locale} = router;
 
-  const {auth} = useSelector((state: RootState) => state.userInfo);
+  const {auth, errors} = useSelector((state: RootState) => state.userInfo);
   const [data, setData] = useState({userData: '', password: ''});
+  const [errorsData, setErrors] = useState({
+    noValid: false,
+    userData: 'this field is required',
+    password: 'this field is required',
+  });
 
   useEffect(() => {
     if (auth) {
       window.location.href = 'dashboard';
     }
-  }, [auth]);
+
+    if (errors.length) {
+      setData({...data, password: ''});
+      setErrors({...errorsData, noValid: true, password: errors});
+    }
+
+  }, [auth, errors, errorsData.noValid]);
 
   const handleChangeData = (el: React.ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -39,8 +50,16 @@ const LoginPage = () => {
     });
   };
 
-  const handleLogin = () => {
-    dispatch(userLoginAction(data));
+  const handleLogin = (event) => {
+    event.preventDefault();
+    if (data.userData.length === 0 || data.password.length === 0) {
+      setErrors({...errorsData, noValid: true});
+    }
+
+    if (data.userData.length && data.password.length) {
+      setErrors({noValid: false, userData: '', password: ''});
+      dispatch(userLoginAction(data));
+    }
   };
 
   return (
@@ -55,31 +74,45 @@ const LoginPage = () => {
           <span className='link'> { t('desc.create-here-link') } <img src={ ArrowLink } alt="ArrowLink"/></span>
         </Link>
       </p>
-      <Form>
+      <Form noValidate validated={ errorsData.noValid }>
         <Form.Group controlId="email-or-phone">
           <Form.Label>{ t('label.email-phone') }</Form.Label>
           <img src={ MailIcon } alt="MailIcon"/>
-          <Form.Control onChange={ handleChangeData } name='userData' type="text"
-                        placeholder={ t('placeholder.email-phone') }/>
+          <Form.Control
+            onChange={ handleChangeData }
+            required
+            value={data.userData}
+            name='userData'
+            type="text"
+            placeholder={ t('placeholder.email-phone') }
+          />
+          <Form.Control.Feedback type="invalid">
+            { errorsData.userData }
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>{ t('label.password') }</Form.Label>
           <img src={ LockIcon } alt="LockIcon"/>
           <Form.Control
             onChange={ handleChangeData }
+            value={data.password}
+            required
             name='password'
             type="password"
             placeholder={ t('placeholder.password') }
           />
+          <Form.Control.Feedback type="invalid">
+            { errorsData.password }
+          </Form.Control.Feedback>
         </Form.Group>
-        {/*<Link href={ '/remind-password' } locale={locale}>*/}
+        <Link href={ '/forgot-password' } locale={ locale }>
           <span className="link">{ t('link.remind-password') }</span>
-        {/*</Link>*/}
+        </Link>
         <div className="group-btn">
-          <Button onClick={ handleLogin }>
+          <Button type='submit' onClick={ handleLogin }>
             { t('button.login') }
           </Button>
-          <Link href='/' locale={locale}>
+          <Link href='/' locale={ locale }>
             <span><img src={ BackArrow } alt="BackArrow"/>{ t('button.back') }</span>
           </Link>
         </div>
@@ -90,7 +123,7 @@ const LoginPage = () => {
           <span>{ new Date().getFullYear() }. All Rights Reserved.</span>
         </p>
         <span className="link">
-          <a href={ locale + '/privacy-policy' } target='_blank'>Politique de Confidentialité.</a>
+          <a href={ '/' + locale + '/privacy-policy' } target='_blank'>Politique de Confidentialité.</a>
         </span>
       </div>
     </div>
