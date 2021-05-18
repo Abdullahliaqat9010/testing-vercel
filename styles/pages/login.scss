@@ -1,4 +1,4 @@
-.Login {
+.Login, .ForgotPassword {
   background-color: var(--colorWhite);
   height: 100vh;
 
@@ -58,7 +58,7 @@
       img {
         position: absolute;
         left: 14px;
-        bottom: 14px;
+        top: 58px;
       }
     }
 
@@ -70,6 +70,10 @@
     }
 
     .group-btn {
+      .send-reminder {
+        margin-top: 40px;
+      }
+
       button {
         font-family: var(--fontNunitoBold);
         width: 100%;
