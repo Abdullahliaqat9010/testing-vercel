@@ -33,7 +33,8 @@ export interface RootState {
     userName: string,
     userSurname: string,
     userEmail: string,
-    userPhone: string
+    userPhone: string,
+    errors: string
   },
   stepsInfo: {
     mainBlocks: boolean,

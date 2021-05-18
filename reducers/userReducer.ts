@@ -43,7 +43,7 @@ export const initialState = {
     agentSurname: '',
     agencyId: null,
   },
-  properties: [],
+  properties: [], //@todo separate properties and user data
   similarProperty: [],
   similarPropertiesLocation: [],
   propertiesListInfo: {},
@@ -58,6 +58,11 @@ export const initialState = {
 
 const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case actionType.LOGIN_USER_REQUEST:
+      return {
+        ...state,
+        errors: '',
+      }
     case actionType.CREATE_PROPERTY_SUCCESS:
     case actionType.LOGIN_USER_SUCCESS:
       return {
@@ -141,6 +146,7 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         similarPropertiesLocation: [...action.payload],
       };
+    case actionType.LOGIN_USER_ERROR:
     case actionType.GET_USER_PROPERTY_ERROR: {
       return {
         ...state,

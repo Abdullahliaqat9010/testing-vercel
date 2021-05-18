@@ -150,10 +150,13 @@ function* loginUserRequest({payload}: any) {
       }),
     });
 
+    const data = yield res.json();
+
     if (res.status === 201) {
-      const data = yield res.json();
       localStorage.setItem('auth', data.access_token);
       yield loginUserSuccess(data);
+    } else {
+      yield loginUserError(data.message);
     }
   } catch (error) {
     yield loginUserError(error);
