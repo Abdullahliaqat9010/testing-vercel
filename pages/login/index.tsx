@@ -46,7 +46,7 @@ const LoginPage = () => {
   const handleChangeData = (el: React.ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
-      [el.target.name]: el.target.value,
+      [el.target.name]: el.target.value.trim(),
     });
   };
 
