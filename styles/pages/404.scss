@@ -1,0 +1,38 @@
+.ErrorPage {
+  &__main-component {
+    color: var(--mainColor);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      margin: 134px 0 42px;
+    }
+
+    h1 {
+      font-family: var(--fontNunitoBold);
+      font-size: 24px;
+      line-height: 33px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 22px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-family: var(--fontNunitoBold);
+      width: 224px;
+      height: 50px;
+      background: var(--colorBlue);
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 22px;
+      margin-bottom: 133px;
+    }
+  }
+}
