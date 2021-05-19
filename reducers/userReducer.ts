@@ -31,12 +31,9 @@ if (typeof localStorage !== 'undefined') {
 
 export const initialState = {
   auth: exp,
-  showAgentModal: false,
   existEmail: false,
   emailVerified: false,
   noEstimation: false,
-  needVerifyEmailModal: false,
-  showSuccessModal: false,
   agencyContactInfo: {
     title: '',
     agentName: '',
@@ -62,7 +59,7 @@ const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         errors: '',
-      }
+      };
     case actionType.CREATE_PROPERTY_SUCCESS:
     case actionType.LOGIN_USER_SUCCESS:
       return {
@@ -82,32 +79,14 @@ const userReducer = (state = initialState, action: any) => {
     case actionType.SHOW_MODAL_CONTACT_AGENT:
       return {
         ...state,
-        showAgentModal: true,
         agencyContactInfo: {
           ...action.payload,
         },
-      };
-    case actionType.PLEASE_VERIFY_EMAIL:
-      return {
-        ...state,
-        needVerifyEmailModal: true,
-      };
-    case actionType.CLOSE_VERIFY_EMAIL_MODAL:
-      return {
-        ...state,
-        needVerifyEmailModal: false,
-      };
-    case actionType.CONTACT_AGENCY_SUCCESS:
-      return {
-        ...state,
-        showSuccessModal: true,
       };
     case actionType.CLOSE_MODAL_CONTACT_AGENT:
       userPhone = '';
       return {
         ...state,
-        showAgentModal: false,
-        showSuccessModal: false,
         agencyContactInfo: {
           title: '',
           agentName: '',

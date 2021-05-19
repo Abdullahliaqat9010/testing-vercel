@@ -19,7 +19,7 @@ export function* createPropertyRequest({payload}: any) {
       yield createPropertySuccess();
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield createPropertyError(error);
   }
 }
@@ -42,7 +42,7 @@ function* updatePropertyRequest({payload}: any) {
       yield updatePropertySuccess();
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield updatePropertyError(error);
   }
 }
@@ -164,7 +164,7 @@ function* setSimilarPropertyLocation(location: object[]) {
 }
 
 function* getSimilarPropertyError(error: string) {
-  console.log(error);
+  console.error(error);
   yield put({
     type: actionType.GET_SIMILAR_PROPERTY_ERROR,
     payload: error,
