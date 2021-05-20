@@ -3,16 +3,16 @@ import { isMobile } from 'react-device-detect';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
-import FirstImage from '../../../assets/images/main-page/info-block/first-image.webp';
-import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.webp';
-import SecondImage from '../../../assets/images/main-page/info-block/second-image.webp';
-import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.webp';
-import ThirdImage from '../../../assets/images/main-page/info-block/third-image.webp';
-import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.webp';
-import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.webp';
-import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.webp';
-import MapImage from '../../../assets/images/main-page/info-block/user-map.webp';
-import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.webp';
+import FirstImage from '../../../assets/images/main-page/info-block/first-image.jpeg';
+import FirstImageMobile from '../../../assets/images/main-page/info-block/first-mobile.jpeg';
+import SecondImage from '../../../assets/images/main-page/info-block/second-image.jpeg';
+import SecondImageMobile from '../../../assets/images/main-page/info-block/second-mobile.jpeg';
+import ThirdImage from '../../../assets/images/main-page/info-block/third-image.jpeg';
+import ThirdImageMobile from '../../../assets/images/main-page/info-block/third-mobile.jpeg';
+import FourthImage from '../../../assets/images/main-page/info-block/fourth-image.jpeg';
+import FifthImage from '../../../assets/images/main-page/info-block/fifth-image.jpeg';
+import MapImage from '../../../assets/images/main-page/info-block/user-map.jpeg';
+import MapImageMobile from '../../../assets/images/main-page/info-block/user-map-mobile.jpeg';
 import LogoGray from '../../../assets/images/main-page/info-block/logo.svg';
 
 const InfoBlock = () => {
@@ -30,7 +30,7 @@ const InfoBlock = () => {
     <div className='info-block container'>
       <div className="info-block__top d-flex justify-content-between">
         <div className="left-block">
-          <h4>{t('title.top-block')}</h4>
+          <h2 className='title-h2'>{t('title.top-block')}</h2>
           <p>
             {t('desc.top-block')}
           </p>
@@ -73,7 +73,7 @@ const InfoBlock = () => {
           <img className='map-image' src={ isMobile ? MapImageMobile : MapImage } alt="MapImage"/>
         </div>
         <div className="right-block">
-          <h4>{t('title.bottom-block')}</h4>
+          <h2 className='title-h2'>{t('title.bottom-block')}</h2>
           <p>
             {t('desc.bottom-block')}
           </p>
