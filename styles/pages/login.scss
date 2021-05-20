@@ -1,6 +1,13 @@
-.Login, .ForgotPassword {
+.Login, .ForgotPassword, .ResetPassword {
   background-color: var(--colorWhite);
   height: 100vh;
+
+  .custom-alert {
+    position: absolute;
+    width: 100%;
+    z-index: 20;
+    top: 65px;
+  }
 
   .bg-image {
     display: flex;

@@ -124,3 +124,21 @@ export const getMoreSimilarPropertyAction = (propertyId: number, page: number, l
   type: actionType.GET_NEXT_PAGE_SIMILAR_PROPERTY,
   payload: { propertyId, page, limit },
 });
+
+export const remindPasswordAction = (email: string, locale: string) => ({
+  type: actionType.REMIND_PASSWORD_REQUEST,
+  payload: { email, locale },
+});
+
+export const closeRemindPasswordModalAction = () => ({
+  type: actionType.CLOSE_REMIND_PASSWORD_MODAL,
+});
+
+export const sendDataForUpdatePasswordAction = (password: string, token: string | string[]) => ({
+  type: actionType.CHANGE_PASSWORD_REQUEST,
+  payload: { password, token },
+});
+
+export const closeChangePasswordModalAction = () => ({
+  type: actionType.CLOSE_CHANGE_PASSWORD_MODAL
+});

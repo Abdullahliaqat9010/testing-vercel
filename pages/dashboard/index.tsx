@@ -12,8 +12,8 @@ import PropertiesBlock from '../../containers/DashboardPageContainer/PropertiesB
 import FindAgentBlock from '../../containers/DashboardPageContainer/FindAgentBlock';
 import FooterContainer from '../../containers/Footer';
 import HeaderContainer from '../../containers/Header';
-import ContactAgentModal from '../../containers/ContactAgentModal';
-import VerifyEmailModal from '../../containers/VerifyEmailModal';
+import ContactAgentModal from '../../containers/Modals/ContactAgentModal';
+import VerifyEmailModal from '../../containers/Modals/VerifyEmailModal';
 
 import { getPropertyForCurrentUserAction } from '../../actions';
 import { parseJwt } from '../../utils';

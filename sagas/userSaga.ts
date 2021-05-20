@@ -29,7 +29,7 @@ function* checkExistEmailSuccess(data: boolean) {
 }
 
 function* checkExistEmailError(error: string) {
-  console.log(error);
+  console.error(error);
   yield put({
     type: actionType.CHECK_IF_EXIST_EMAIL_ERROR,
     payload: error,
@@ -38,7 +38,7 @@ function* checkExistEmailError(error: string) {
 
 function* verifyEmail({payload}: any) {
   try {
-    const res = yield fetch(`${ config.apiDomain }/auth/verify-user/${payload}`, {
+    const res = yield fetch(`${ config.apiDomain }/auth/verify-user/${ payload }`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ function* verifyEmailSuccess(token: string) {
 }
 
 function* verifyEmailError(error: string) {
-  console.log(error);
+  console.error(error);
   yield put({
     type: actionType.VERIFY_EMAIL_ERROR,
     payload: error,
@@ -82,10 +82,88 @@ function* sendStepsDataRequest({payload}: any) {
   });
 }
 
+function* remindPasswordRequest({payload}: any) {
+  const {email, locale} = payload;
+  try {
+    const res = yield fetch(`${ config.apiDomain }/auth/recover`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        locale,
+      }),
+    });
+
+    if(res.status === 204) {
+      yield remindPasswordSuccess();
+    } else {
+      yield remindPasswordError('something went wrong');
+    }
+  } catch (e) {
+    yield remindPasswordError(e);
+  }
+}
+
+function* remindPasswordSuccess() {
+  yield put({
+    type: actionType.REMIND_PASSWORD_SUCCESS
+  });
+}
+
+function* remindPasswordError(error: string) {
+  console.error(error);
+  yield put({
+    type: actionType.REMIND_PASSWORD_ERROR,
+    payload: error,
+  });
+
+}
+
+function* sendDataForUpdatePasswordRequest({payload}: any) {
+  try {
+    const {token, password} = payload;
+    const res = yield fetch(`${ config.apiDomain }/auth/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token,
+        password,
+      }),
+    });
+
+    if (res.status === 204) {
+      yield sendDataForUpdatePasswordSuccess();
+    } else {
+      const data = yield res.json();
+      yield sendDataForUpdatePasswordError(data.message);
+    }
+  } catch (e) {
+    yield sendDataForUpdatePasswordError(e);
+  }
+}
+
+function* sendDataForUpdatePasswordError(error: string) {
+  console.error(error);
+  yield put({
+    type: actionType.CHANGE_PASSWORD_ERROR,
+    payload: error,
+  });
+}
+
+function* sendDataForUpdatePasswordSuccess() {
+  yield put({
+    type: actionType.CHANGE_PASSWORD_SUCCESS
+  });
+}
+
 function* signupUserRequest({payload}: any) {
   const {user, property, locale} = payload;
   try {
-    const res = yield fetch(`${ config.apiDomain }/auth/signup?locale=${locale}`, {
+    const res = yield fetch(`${ config.apiDomain }/auth/signup?locale=${ locale }`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,13 +180,13 @@ function* signupUserRequest({payload}: any) {
     });
 
     if (res.status === 201) {
-      const { data } = yield res.json();
+      const {data} = yield res.json();
       localStorage.setItem('auth', data.access_token);
       yield signupUserSuccess(data, property);
     }
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     yield signupUserError(error);
   }
 }
@@ -179,7 +257,7 @@ function* loginUserSuccess(userData) {
 }
 
 function* loginUserError(error: string) {
-  console.log(error);
+  console.error(error);
   yield put({
     type: actionType.LOGIN_USER_ERROR,
     payload: error,
@@ -214,7 +292,7 @@ function* contactAgencySuccess() {
 }
 
 function* contactAgencyError(error: string) {
-  console.log(error);
+  console.error(error);
   yield put({
     type: actionType.CONTACT_AGENCY_ERROR,
     payload: error,
@@ -228,4 +306,6 @@ export function* userSaga() {
   yield takeLatest(actionType.CONTACT_AGENCY_REQUEST, contactAgencyRequest);
   yield takeLatest(actionType.CHECK_IF_EXIST_EMAIL, checkExistEmail);
   yield takeLatest(actionType.VERIFY_EMAIL, verifyEmail);
+  yield takeLatest(actionType.REMIND_PASSWORD_REQUEST, remindPasswordRequest);
+  yield takeLatest(actionType.CHANGE_PASSWORD_REQUEST, sendDataForUpdatePasswordRequest);
 }

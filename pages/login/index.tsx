@@ -62,6 +62,11 @@ const LoginPage = () => {
     }
   };
 
+  const handleRegister = () => {
+    window.sessionStorage.setItem('modify', JSON.stringify({mainBlocks: true}));
+    router.push('/', '/', {locale});
+  }
+
   return (
     <div className='Login'>
       <HeaderContainer title={ t('title') }/>
@@ -70,9 +75,11 @@ const LoginPage = () => {
       </div>
       <p className='desc'>
         { t('desc.dont-have-account') }
-        <Link href={ '#' }>
-          <span className='link'> { t('desc.create-here-link') } <img src={ ArrowLink } alt="ArrowLink"/></span>
-        </Link>
+        <span
+          className='link'
+          onClick={handleRegister}
+        > { t('desc.create-here-link') } <img src={ ArrowLink } alt="ArrowLink"/>
+        </span>
       </p>
       <Form noValidate validated={ errorsData.noValid }>
         <Form.Group controlId="email-or-phone">
