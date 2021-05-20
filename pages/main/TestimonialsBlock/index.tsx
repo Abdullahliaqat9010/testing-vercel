@@ -42,7 +42,7 @@ const TestimonialsBlock = () => {
                           <img
                             className='rating-star'
                             src={ index <= value ? RatingStar : RatingStarEmpty }
-                            alt="RatingStar"
+                            alt={ 'RatingStar' + index }
                           />
                       }
                       starCount={ 5 }
