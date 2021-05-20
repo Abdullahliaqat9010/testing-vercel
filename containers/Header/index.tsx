@@ -19,25 +19,6 @@ import CheckedIcon from '../../assets/images/valid-blue.svg';
 import CurrentStepIcon from '../../assets/images/header-step-current.svg';
 import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 
-//preload main page images
-import FirstSlide from '../../assets/images/main-page/slider/first-slide.jpeg';
-import FirstSlideMobile from '../../assets/images/main-page/slider/first-slide-mobile.jpeg';
-import SecondSlide from '../../assets/images/main-page/slider/second-slide.jpeg';
-import SecondSlideMobile from '../../assets/images/main-page/slider/second-slide-mobile.jpeg';
-import ThirdSlide from '../../assets/images/main-page/slider/third-slide.jpeg';
-import ThirdSlideMobile from '../../assets/images/main-page/slider/third-slide-mobile.jpeg';
-
-import FirstImage from '../../assets/images/main-page/info-block/first-image.jpeg';
-import FirstImageMobile from '../../assets/images/main-page/info-block/first-mobile.jpeg';
-import SecondImage from '../../assets/images/main-page/info-block/second-image.jpeg';
-import SecondImageMobile from '../../assets/images/main-page/info-block/second-mobile.jpeg';
-import ThirdImage from '../../assets/images/main-page/info-block/third-image.jpeg';
-import ThirdImageMobile from '../../assets/images/main-page/info-block/third-mobile.jpeg';
-import FourthImage from '../../assets/images/main-page/info-block/fourth-image.jpeg';
-import FifthImage from '../../assets/images/main-page/info-block/fifth-image.jpeg';
-import MapImage from '../../assets/images/main-page/info-block/user-map.jpeg';
-import MapImageMobile from '../../assets/images/main-page/info-block/user-map-mobile.jpeg';
-
 import { RootState } from '../../types/state';
 import navBarList from '../../config/navBarList';
 import { config } from '../../config/siteConfigs';
@@ -106,33 +87,24 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
         <link rel="icon" type="image/png" sizes="16x16" href={ '/favicon-16x16.png' }/>
         <link rel="manifest" href={ '/site.webmanifest' }/>
         <link rel="mask-icon" href={ '/safari-pinned-tab.svg' } color="#3871ef"/>
+
+        <link
+          rel='preload'
+          as='fonts'
+          href='https://belgiumimmo.be/.next/static/media/NunitoSans-Regular.87d9266583abd389ca1f46c0462b2733.ttf'
+        />
+        <link
+          rel='preload'
+          as='fonts'
+          href='https://belgiumimmo.be/.next/static/media/NunitoSans-Bold.8268666c3b2ca2ec11c02d578d520f7a.ttf'
+        />
         {
-          mainPage &&
-          <>
-            {
-              isMobile ?
-                <>
-                  <link rel='preload' as="image" href={ FirstSlideMobile }/>
-                  <link rel='preload' as="image" href={ SecondSlideMobile }/>
-                  <link rel='preload' as="image" href={ ThirdSlideMobile }/>
-                  <link rel='preload' as="image" href={ FirstImageMobile }/>
-                  <link rel='preload' as="image" href={ SecondImageMobile }/>
-                  <link rel='preload' as="image" href={ ThirdImageMobile }/>
-                  <link rel='preload' as="image" href={ MapImageMobile }/>
-                </> :
-                <>
-                  <link rel='preload' as="image" href={ FirstSlide }/>
-                  <link rel='preload' as="image" href={ SecondSlide }/>
-                  <link rel='preload' as="image" href={ ThirdSlide }/>
-                  <link rel='preload' as="image" href={ FirstImage }/>
-                  <link rel='preload' as="image" href={ SecondImage }/>
-                  <link rel='preload' as="image" href={ ThirdImage }/>
-                  <link rel='preload' as="image" href={ FourthImage }/>
-                  <link rel='preload' as="image" href={ FifthImage }/>
-                  <link rel='preload' as="image" href={ MapImage }/>
-                </>
-            }
-          </>
+          mainPage && !isMobile &&
+          <link
+            rel='preload'
+            as="image"
+            href='https://belgiumimmo.be/.next/static/images/first-slide-18826daf4027ca921bbf41fda900b574.jpeg'
+          />
         }
         <meta name="robots" content="noindex, nofollow"/>
         <meta name="apple-mobile-web-app-title" content="BelgiumImmo"/>
