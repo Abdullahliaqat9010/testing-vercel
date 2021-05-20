@@ -90,12 +90,12 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
 
         <link
           rel='preload'
-          as='fonts'
+          as='font'
           href='https://belgiumimmo.be/.next/static/media/NunitoSans-Regular.87d9266583abd389ca1f46c0462b2733.ttf'
         />
         <link
           rel='preload'
-          as='fonts'
+          as='font'
           href='https://belgiumimmo.be/.next/static/media/NunitoSans-Bold.8268666c3b2ca2ec11c02d578d520f7a.ttf'
         />
         {
