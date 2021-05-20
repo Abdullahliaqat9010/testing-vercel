@@ -23,7 +23,7 @@ const MainPage = () => {
 
   return (
     <>
-      <HeaderContainer title={t('title')} />
+      <HeaderContainer mainPage title={t('title')} />
       <MainPageComponent/>
     </>
   )

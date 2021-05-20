@@ -44,9 +44,9 @@ const InfoBlock = () => {
               isMobile
                 ?
                 <>
-                  <img src={ FirstImageMobile } alt="FirstImageMobile"/>
-                  <img className='mt-30px' src={ SecondImageMobile } alt="SecondImageMobile"/>
-                  <img src={ ThirdImageMobile } alt="ThirdImageMobile"/>
+                  <img className='first-image-mobile' src={ FirstImageMobile } alt="FirstImageMobile"/>
+                  <img className='mt-30px second-image-mobile' src={ SecondImageMobile } alt="SecondImageMobile"/>
+                  <img className='third-image-mobile' src={ ThirdImageMobile } alt="ThirdImageMobile"/>
                 </>
                 :
                 <>
@@ -70,7 +70,7 @@ const InfoBlock = () => {
       </div>
       <div className="info-block__middle d-flex justify-content-between">
         <div className="left-block w-55">
-          <img src={ isMobile ? MapImageMobile : MapImage } alt="MapImage"/>
+          <img className='map-image' src={ isMobile ? MapImageMobile : MapImage } alt="MapImage"/>
         </div>
         <div className="right-block">
           <h4>{t('title.bottom-block')}</h4>
@@ -87,7 +87,7 @@ const InfoBlock = () => {
         <p>
           {t('desc.mission-block')}
         </p>
-        <img src={ LogoGray } alt="LogoGray"/>
+        <img className='logo-gray' src={ LogoGray } alt="LogoGray"/>
       </div>
     </div>
   );
