@@ -17,6 +17,25 @@ import CheckedIcon from '../../assets/images/valid-blue.svg';
 import CurrentStepIcon from '../../assets/images/header-step-current.svg';
 import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 
+//preload main page images
+import FirstSlide from '../../assets/images/main-page/slider/first-slide.webp';
+import FirstSlideMobile from '../../assets/images/main-page/slider/first-slide-mobile.webp';
+import SecondSlide from '../../assets/images/main-page/slider/second-slide.webp';
+import SecondSlideMobile from '../../assets/images/main-page/slider/second-slide-mobile.webp';
+import ThirdSlide from '../../assets/images/main-page/slider/third-slide.webp';
+import ThirdSlideMobile from '../../assets/images/main-page/slider/third-slide-mobile.webp';
+
+import FirstImage from '../../assets/images/main-page/info-block/first-image.webp';
+import FirstImageMobile from '../../assets/images/main-page/info-block/first-mobile.webp';
+import SecondImage from '../../assets/images/main-page/info-block/second-image.webp';
+import SecondImageMobile from '../../assets/images/main-page/info-block/second-mobile.webp';
+import ThirdImage from '../../assets/images/main-page/info-block/third-image.webp';
+import ThirdImageMobile from '../../assets/images/main-page/info-block/third-mobile.webp';
+import FourthImage from '../../assets/images/main-page/info-block/fourth-image.webp';
+import FifthImage from '../../assets/images/main-page/info-block/fifth-image.webp';
+import MapImage from '../../assets/images/main-page/info-block/user-map.webp';
+import MapImageMobile from '../../assets/images/main-page/info-block/user-map-mobile.webp';
+
 import { NavDropdown, Image, Button } from 'react-bootstrap';
 
 import { RootState } from '../../types/state';
@@ -35,7 +54,7 @@ const langList = [
   },
 ];
 
-const HeaderContainer = ({title}: { title: string }) => {
+const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean }) => {
   const router = useRouter();
 
   const {locale} = router;
@@ -86,6 +105,34 @@ const HeaderContainer = ({title}: { title: string }) => {
         <link rel="icon" type="image/png" sizes="16x16" href={ '/favicon-16x16.png' }/>
         <link rel="manifest" href={ '/site.webmanifest' }/>
         <link rel="mask-icon" href={ '/safari-pinned-tab.svg' } color="#3871ef"/>
+        {
+          mainPage &&
+          <>
+            {
+              isMobile ?
+                <>
+                  <link rel='preload' as="image" href={ FirstSlideMobile }/>
+                  <link rel='preload' as="image" href={ SecondSlideMobile }/>
+                  <link rel='preload' as="image" href={ ThirdSlideMobile }/>
+                  <link rel='preload' as="image" href={ FirstImageMobile }/>
+                  <link rel='preload' as="image" href={ SecondImageMobile }/>
+                  <link rel='preload' as="image" href={ ThirdImageMobile }/>
+                  <link rel='preload' as="image" href={ MapImageMobile }/>
+                </> :
+                <>
+                  <link rel='preload' as="image" href={ FirstSlide }/>
+                  <link rel='preload' as="image" href={ SecondSlide }/>
+                  <link rel='preload' as="image" href={ ThirdSlide }/>
+                  <link rel='preload' as="image" href={ FirstImage }/>
+                  <link rel='preload' as="image" href={ SecondImage }/>
+                  <link rel='preload' as="image" href={ ThirdImage }/>
+                  <link rel='preload' as="image" href={ FourthImage }/>
+                  <link rel='preload' as="image" href={ FifthImage }/>
+                  <link rel='preload' as="image" href={ MapImage }/>
+                </>
+            }
+          </>
+        }
         <meta name="robots" content="noindex, nofollow"/>
         <meta name="apple-mobile-web-app-title" content="BelgiumImmo"/>
         <meta name="application-name" content="BelgiumImmo"/>
@@ -98,7 +145,7 @@ const HeaderContainer = ({title}: { title: string }) => {
         />
         <script
           data-cookieconsent='ignore'
-          dangerouslySetInnerHTML={{
+          dangerouslySetInnerHTML={ {
             __html: `window.dataLayer = window.dataLayer || [];
                                             function gtag() {
                                                 dataLayer.push(arguments)
@@ -108,12 +155,12 @@ const HeaderContainer = ({title}: { title: string }) => {
                                                 analytics_storage: "denied",
                                                 wait_for_update: 500,
                                             });
-                                            gtag("set", "ads_data_redaction", true);`
-          }}
+                                            gtag("set", "ads_data_redaction", true);`,
+          } }
         />
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
-        <Image onClick={() => goToMainPage()} className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
+        <Image onClick={ () => goToMainPage() } className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
         {
           mainBlocks && stepBlock.step <= 3 &&
           <div className='step-info'>
@@ -243,7 +290,7 @@ const HeaderContainer = ({title}: { title: string }) => {
               <span onClick={ openSwitcherBlock }>{ locale }</span>
               {
                 openLangList &&
-                <div className={ `lang-list ${!auth ? 'p-right' : ''}` }>
+                <div className={ `lang-list ${ !auth ? 'p-right' : '' }` }>
                   {
                     langList.map((lang, index) =>
                       <span
@@ -263,6 +310,5 @@ const HeaderContainer = ({title}: { title: string }) => {
     </>
   );
 };
-
 
 export default HeaderContainer;

@@ -80,7 +80,7 @@ const ImagesBlock = () => {
         </Carousel.Item>
       </Carousel>
       <div className="image-carousel__popup">
-        <h2>{ t('title.image-block') }</h2>
+        <h1>{ t('title.image-block') }</h1>
         <div className='w-100'>
           {
             !window.sessionStorage.getItem('modify') &&
