@@ -1,11 +1,16 @@
 export interface RootState {
+  modals: {
+    showAgentModal: boolean,
+    showSuccessModal: boolean,
+    needVerifyEmailModal: boolean,
+    remindPasswordModal: boolean,
+    changePasswordModal: boolean,
+    error: string,
+  }
   userInfo: {
     auth: boolean,
     emailVerified: boolean,
-    showAgentModal: boolean,
-    showSuccessModal: boolean,
     noEstimation: boolean,
-    needVerifyEmailModal: boolean,
     existEmail: boolean,
     agencyContactInfo: {
       title: string,

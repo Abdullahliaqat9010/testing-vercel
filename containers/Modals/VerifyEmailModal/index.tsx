@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 
-import { closeVerifyEmailModalAction } from '../../actions';
-import { RootState } from '../../types/state';
+import { closeVerifyEmailModalAction } from '../../../actions';
+import { RootState } from '../../../types/state';
 
 const VerifyEmailModal = () => {
   const dispatch = useDispatch();
-  const { needVerifyEmailModal  } = useSelector((state: RootState) => state.userInfo);
+  const { needVerifyEmailModal  } = useSelector((state: RootState) => state.modals);
 
   const handleCloseModal = () => {
     dispatch(closeVerifyEmailModalAction());

@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 
 import { Button, Form, Modal } from 'react-bootstrap';
-import { RootState } from '../../types/state';
-import { closeModalWindowContactAgentAction, contactAgencyAction } from '../../actions';
-import SendSuccess from '../../assets/images/message-send.svg';
+import { RootState } from '../../../types/state';
+import { closeModalWindowContactAgentAction, contactAgencyAction } from '../../../actions';
+import SendSuccess from '../../../assets/images/message-send.svg';
 
 const ContactAgentModal = () => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   const {
-    showAgentModal,
-    showSuccessModal,
     agencyContactInfo,
     userName,
     userSurname,
@@ -20,6 +18,7 @@ const ContactAgentModal = () => {
     userPhone,
     properties,
   } = useSelector((state: RootState) => state.userInfo);
+  const {showAgentModal, showSuccessModal} = useSelector((state: RootState) => state.modals);
 
   const [data, setData] = useState({
     fullName: userName + ' ' + userSurname,

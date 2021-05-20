@@ -302,9 +302,30 @@
         margin-bottom: 30px;
       }
 
+      .custom-select {
+        background-image: url("../../assets/images/arrow.svg");
+        background-size: 18px;
+
+        &__value-container {
+          width: 100%;
+          height: 46px;
+          position: unset;
+        }
+
+        &__indicators {
+          display: none;
+        }
+      }
+
 
       #locality, #street {
         width: 310px;
+
+        .input-group {
+          div:nth-child(1) {
+            width: 100%;
+          }
+        }
       }
 
       .input-group-text {
