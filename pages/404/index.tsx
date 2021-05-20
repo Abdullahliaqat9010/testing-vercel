@@ -4,7 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import HeaderContainer from '../../containers/Header';
 import FooterContainer from '../../containers/Footer';
-import MainImage from '../../assets/images/404/404.png';
 import { Button } from 'react-bootstrap';
 
 const ErrorPage = () => {
@@ -20,7 +19,8 @@ const ErrorPage = () => {
     <div className='ErrorPage'>
       <HeaderContainer title='404 Something went wrong'/>
       <div className="ErrorPage__main-component">
-        <img src={ MainImage } alt="MainImage"/>
+        <div className="image-bg"/>
+        {/*<img src={ MainImage } alt="MainImage"/>*/}
         <h1>This page does’t seem to exist…</h1>
         <p>Please check if the URL is correct</p>
         <Button onClick={ goToDashboard }>Dashboard</Button>
