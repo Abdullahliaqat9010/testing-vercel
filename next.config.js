@@ -8,5 +8,6 @@ module.exports = withImages({
     SITE_TITLE: process.env.REACT_APP_SITE_TITLE,
     APP_API: process.env.REACT_APP_API,
     GOOGLE_METRIC_KEY: process.env.REACT_APP_GOOGLE_METRIC_KEY,
+    COOKIE_KEY: process.env.REACT_APP_COOKIE_KEY,
   },
 });

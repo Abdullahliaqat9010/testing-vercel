@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
+import { NavDropdown, Image, Button } from 'react-bootstrap';
+
 import { isMobile } from 'react-device-detect';
 
 import Logo from '../../assets/images/logo.png';
@@ -18,28 +20,27 @@ import CurrentStepIcon from '../../assets/images/header-step-current.svg';
 import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 
 //preload main page images
-import FirstSlide from '../../assets/images/main-page/slider/first-slide.webp';
-import FirstSlideMobile from '../../assets/images/main-page/slider/first-slide-mobile.webp';
-import SecondSlide from '../../assets/images/main-page/slider/second-slide.webp';
-import SecondSlideMobile from '../../assets/images/main-page/slider/second-slide-mobile.webp';
-import ThirdSlide from '../../assets/images/main-page/slider/third-slide.webp';
-import ThirdSlideMobile from '../../assets/images/main-page/slider/third-slide-mobile.webp';
+import FirstSlide from '../../assets/images/main-page/slider/first-slide.jpeg';
+import FirstSlideMobile from '../../assets/images/main-page/slider/first-slide-mobile.jpeg';
+import SecondSlide from '../../assets/images/main-page/slider/second-slide.jpeg';
+import SecondSlideMobile from '../../assets/images/main-page/slider/second-slide-mobile.jpeg';
+import ThirdSlide from '../../assets/images/main-page/slider/third-slide.jpeg';
+import ThirdSlideMobile from '../../assets/images/main-page/slider/third-slide-mobile.jpeg';
 
-import FirstImage from '../../assets/images/main-page/info-block/first-image.webp';
-import FirstImageMobile from '../../assets/images/main-page/info-block/first-mobile.webp';
-import SecondImage from '../../assets/images/main-page/info-block/second-image.webp';
-import SecondImageMobile from '../../assets/images/main-page/info-block/second-mobile.webp';
-import ThirdImage from '../../assets/images/main-page/info-block/third-image.webp';
-import ThirdImageMobile from '../../assets/images/main-page/info-block/third-mobile.webp';
-import FourthImage from '../../assets/images/main-page/info-block/fourth-image.webp';
-import FifthImage from '../../assets/images/main-page/info-block/fifth-image.webp';
-import MapImage from '../../assets/images/main-page/info-block/user-map.webp';
-import MapImageMobile from '../../assets/images/main-page/info-block/user-map-mobile.webp';
-
-import { NavDropdown, Image, Button } from 'react-bootstrap';
+import FirstImage from '../../assets/images/main-page/info-block/first-image.jpeg';
+import FirstImageMobile from '../../assets/images/main-page/info-block/first-mobile.jpeg';
+import SecondImage from '../../assets/images/main-page/info-block/second-image.jpeg';
+import SecondImageMobile from '../../assets/images/main-page/info-block/second-mobile.jpeg';
+import ThirdImage from '../../assets/images/main-page/info-block/third-image.jpeg';
+import ThirdImageMobile from '../../assets/images/main-page/info-block/third-mobile.jpeg';
+import FourthImage from '../../assets/images/main-page/info-block/fourth-image.jpeg';
+import FifthImage from '../../assets/images/main-page/info-block/fifth-image.jpeg';
+import MapImage from '../../assets/images/main-page/info-block/user-map.jpeg';
+import MapImageMobile from '../../assets/images/main-page/info-block/user-map-mobile.jpeg';
 
 import { RootState } from '../../types/state';
 import navBarList from '../../config/navBarList';
+import { config } from '../../config/siteConfigs';
 
 const langList = [
   {
@@ -139,7 +140,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
         <meta name="msapplication-TileColor" content="#3871ef"/>
         <meta name="theme-color" content="#3871ef"/>
         <script id="Cookiebot" src={ 'https://consent.cookiebot.com/uc.js' }
-                data-cbid="26e5718e-f774-4fb6-bf24-3522ca807a53"
+                data-cbid={ config.cookieKey }
                 data-blockingmode="auto"
                 type="text/javascript"
         />
@@ -198,7 +199,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                   !mainBlocks &&
                   <>
                     {
-                      !openMenu && <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                      !openMenu && <Image className='user-avatar' src={ NoPhoto } alt='avatar' roundedCircle/>
                     }
                     <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown"
                                  onClick={ isActive }>
@@ -227,7 +228,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                       {
                         isMobile &&
                         <div className="mobile-block">
-                          <Image className='user-avatar' src={ NoPhoto } roundedCircle/>
+                          <Image alt='avatar' className='user-avatar' src={ NoPhoto } roundedCircle/>
                           <span className="user-name">{ userName + ' ' + userSurname }</span>
                           {/*<span className="pro">PRO</span>*/ }
                           <div className="mobile-lang-list">
