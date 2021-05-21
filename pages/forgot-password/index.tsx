@@ -38,7 +38,7 @@ const ForgotPasswordPage = () => {
       <RemindPasswordModal />
       <HeaderContainer title="Remind password"/>
       <div className="bg-image">
-        <h4>Remind password</h4>
+        <h1 className='h4'>Remind password</h1>
       </div>
       <p className='desc'>
         If you know your password please

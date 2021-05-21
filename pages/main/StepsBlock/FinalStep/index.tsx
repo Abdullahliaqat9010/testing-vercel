@@ -49,7 +49,7 @@ const FinalStep = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.value,
+      [el.target.name]: el.target.value.trim(),
     });
   };
 
@@ -166,7 +166,7 @@ const FinalStep = () => {
             name='email'
             onBlur={ (el) => checkIfEmailExist(el.target.value) }
             onChange={ handleChangeVal }
-            type="email"
+            type="text"
             isInvalid={existEmail}
           />
           <Form.Control.Feedback type="invalid">

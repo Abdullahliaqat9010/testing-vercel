@@ -60,7 +60,21 @@ const StepTwo = () => {
   };
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
+    if (el.target.name === 'livingArea') {
+      return setFormData({
+        ...data,
+        livingArea: +el.target.value >= 1000 ? '1000' : el.target.value
+      });
+    }
+
+    if (el.target.name === 'landSurface') {
+     return setFormData({
+        ...data,
+       landSurface: +el.target.value >= 20000 ? '20000' : el.target.value
+      });
+    }
+
+    return setFormData({
       ...data,
       [el.target.name]: el.target.name === 'elevator'
         ? el.target.checked : +el.target.value < 0
@@ -111,10 +125,11 @@ const StepTwo = () => {
       <Form>
         <Form.Row>
           <InputGroup className='mb-3'>
-            <Form.Label>{ t('label.living-area') }</Form.Label>
+            <Form.Label>{ t('label.living-area') }*</Form.Label>
             <div className="input-block">
               <Form.Control
                 min={ 1 }
+                max={ 1000 }
                 name='livingArea'
                 value={ data.livingArea }
                 type="number"
@@ -146,7 +161,7 @@ const StepTwo = () => {
             <>
               <InputGroup className='mb-3'>
                 <Form.Label className='position-relative custom-width-40'>
-                  { t('label.land-surface') }
+                  { t('label.land-surface') }*
                   <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip-info') }</Tooltip> }>
                     <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>
                   </OverlayTrigger>
@@ -154,6 +169,7 @@ const StepTwo = () => {
                 <div className="input-block block-with-tooltip">
                   <Form.Control
                     min={ 1 }
+                    max={ 20000 }
                     name='landSurface'
                     value={ data.landSurface }
                     type="number"
