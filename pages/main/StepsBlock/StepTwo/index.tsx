@@ -222,6 +222,7 @@ const StepTwo = () => {
                 <Form.Check
                   value={ data.elevator }
                   name='elevator'
+                  id='apartmentElevator'
                   onChange={ handleChangeVal }
                   type="checkbox"
                   label='Elevator'

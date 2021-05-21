@@ -300,6 +300,7 @@ const StepFour = () => {
         <InputGroup>
           <Form.Check
             name='elevator'
+            id='elevator'
             onChange={ handleChangeVal }
             defaultChecked={ data.elevator }
             type="checkbox"
@@ -309,6 +310,7 @@ const StepFour = () => {
         <InputGroup>
           <Form.Check
             name='swimmingPool'
+            id='swimmingPool'
             onChange={ handleChangeVal }
             defaultChecked={ data.swimmingPool }
             type="checkbox"
@@ -318,6 +320,7 @@ const StepFour = () => {
         <InputGroup>
           <Form.Check
             name='parking'
+            id='parking'
             onChange={ handleChangeVal }
             defaultChecked={ data.parking }
             type="checkbox"
