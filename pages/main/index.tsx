@@ -3,16 +3,10 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { RootState } from '../../types/state';
 
-// import loadable from '@loadable/component';
-
 import ImagesBlock from './ImagesBlock';
 import TestimonialsBlock from './TestimonialsBlock';
 import StepsBlock from './StepsBlock';
 import InfoBlock from './InfoBlock';
-// const ImagesBlock = loadable(() => import('./ImagesBlock'));
-// const TestimonialsBlock = loadable(() => import('./TestimonialsBlock'));
-// const StepsBlock = loadable(() => import('./StepsBlock'));
-// const InfoBlock = loadable(() => import('./InfoBlock'));
 
 const MainPageComponent = () => {
   const router = useRouter();

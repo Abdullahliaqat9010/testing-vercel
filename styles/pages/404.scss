@@ -8,7 +8,7 @@
     align-items: center;
 
     .image-bg {
-      background: url("../../assets/images/404/404.webp") no-repeat 100%;
+      background: url("../../assets/images/404/404.png") no-repeat 100%;
       width: 640px;
       height: 263px;
       margin: 134px 0 42px;
@@ -40,7 +40,7 @@
 
     @media (min-width: 320px) and (max-width: 767px) {
       .image-bg {
-        background: url("../../assets/images/404/404-mobile.webp") no-repeat 100%;
+        background: url("../../assets/images/404/404-mobile.png") no-repeat 100%;
         width: 297px;
         height: 122px;
         margin: 73px 0 40px;
@@ -58,7 +58,7 @@
 
     @media (min-width: 768px) and (max-width: 1439px) {
       .image-bg {
-        background: url("../../assets/images/404/404-tablet.webp") no-repeat 100%;
+        background: url("../../assets/images/404/404-tablet.png") no-repeat 100%;
         width: 469px;
         height: 193px;
         margin: 125px 0 42px;

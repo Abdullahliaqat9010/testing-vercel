@@ -32,7 +32,7 @@ const TestimonialsBlock = () => {
             <div key={ index } className="testimonials__item">
               <div className="user-block d-flex justify-content-between align-items-start">
                 <div className='left-block d-flex'>
-                  <Image className='avatar' src={ item.avatar } roundedCircle/>
+                  <Image className='avatar' src={ item.avatar } roundedCircle alt={item.slug}/>
                   <div className='d-flex flex-column align-items-start'>
                     <span className='full-name'>{ t(item.slug+'.testimonial.title') }</span>
                     <StarRatingComponent

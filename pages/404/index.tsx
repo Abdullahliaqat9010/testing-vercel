@@ -20,7 +20,6 @@ const ErrorPage = () => {
       <HeaderContainer title='404 Something went wrong'/>
       <div className="ErrorPage__main-component">
         <div className="image-bg"/>
-        {/*<img src={ MainImage } alt="MainImage"/>*/}
         <h1>This page does’t seem to exist…</h1>
         <p>Please check if the URL is correct</p>
         <Button onClick={ goToDashboard }>Dashboard</Button>
