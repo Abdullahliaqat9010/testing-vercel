@@ -9,7 +9,7 @@
     .modal-content {
       padding: 40px;
       width: 473px;
-      height: 100vh;
+      min-height: 100vh;
 
       .modal-header, .modal-body {
         padding: unset;

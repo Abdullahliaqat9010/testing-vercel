@@ -1,19 +1,19 @@
 import { AgentsItem } from '../types/agents';
 
-import LabelImmo from '../assets/images/agents/label-immo-logo.webp';
-import ThierryAvatar from '../assets/images/agents/thierry-hermanne.webp';
+import LabelImmo from '../assets/images/agents/label-immo-logo.jpeg';
+import ThierryAvatar from '../assets/images/agents/thierry-hermanne.jpeg';
 
-import WawImmo from '../assets/images/agents/waw-immo-logo.webp';
-import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.webp';
+import WawImmo from '../assets/images/agents/waw-immo-logo.jpeg';
+import AlexandreAvatar from '../assets/images/agents/alexandre-legrand.jpeg';
 
-import Bourse from '../assets/images/agents/bourse-logo.webp';
-import FabienneAvatar from '../assets/images/agents/fabienne.webp';
+import Bourse from '../assets/images/agents/bourse-logo.jpeg';
+import FabienneAvatar from '../assets/images/agents/fabienne.jpeg';
 
-import Bertholome from '../assets/images/agents/bertholome-logo.webp';
-import BertholomeAvatar from '../assets/images/agents/bertholome.webp';
+import Bertholome from '../assets/images/agents/bertholome-logo.jpeg';
+import BertholomeAvatar from '../assets/images/agents/bertholome.jpeg';
 
-import EcoImmo from '../assets/images/agents/logo_eco-immo.webp';
-import AngeloAvatar from '../assets/images/agents/angelo-ponente.webp';
+import EcoImmo from '../assets/images/agents/logo_eco-immo.jpeg';
+import AngeloAvatar from '../assets/images/agents/angelo-ponente.jpeg';
 
 import AgencyTest from '../assets/images/agents/test-agency.png';
 import AgencyTestMobile from '../assets/images/agents/test-agency.png';
