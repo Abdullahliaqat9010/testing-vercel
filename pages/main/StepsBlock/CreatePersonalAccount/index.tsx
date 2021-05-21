@@ -62,6 +62,13 @@ const CreatePersonalAccount = () => {
     dispatch(goToPrevStepAction());
   };
 
+  const disabledBtn = () => {
+    if (data.accountType === 'private') {
+      return data.sellProperty.length === 0 || data.selectedResidence.length === 0 || data.selectedItem.length === 0;
+    }
+    return data.selectedItem.length === 0;
+  }
+
   const handleClickNextBtn = () => {
     if (!auth) {
       dispatch(createPersonalAccountAction(data));
@@ -290,7 +297,13 @@ const CreatePersonalAccount = () => {
           className='prev-step'>
           <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button onClick={ handleClickNextBtn } className='next-step'>{ t('button.next') }</Button>
+        <Button
+          disabled={disabledBtn()}
+          onClick={ handleClickNextBtn }
+          className='next-step'
+        >
+          { t('button.next') }
+        </Button>
       </div>
     </div>
   );

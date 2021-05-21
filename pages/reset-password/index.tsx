@@ -102,7 +102,7 @@ const ResetPasswordPage = () => {
       </Alert>
       <HeaderContainer title="Reset your password"/>
       <div className="bg-image">
-        <h4>Reset password</h4>
+        <h1 className='h4'>Reset password</h1>
       </div>
       <p className='desc'>
         If you know your password please
