@@ -25,7 +25,7 @@ const TestimonialsBlock = () => {
 
   return (
     <div className='testimonials container'>
-      <h4>{t('title.testimonials')}</h4>
+      <h3 className='h4'>{t('title.testimonials')}</h3>
       <div className="testimonials__list">
         {
           testimonials.map((item, index) => (

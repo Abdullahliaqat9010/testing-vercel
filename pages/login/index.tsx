@@ -71,7 +71,7 @@ const LoginPage = () => {
     <div className='Login'>
       <HeaderContainer title={ t('title') }/>
       <div className="bg-image">
-        <h4>{ t('title.login') }</h4>
+        <h1 className='h4'>{ t('title.login') }</h1>
       </div>
       <p className='desc'>
         { t('desc.dont-have-account') }
