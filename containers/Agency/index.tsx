@@ -5,7 +5,8 @@ import { isMobile } from 'react-device-detect';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
-// import Link from 'next/link'
+import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
@@ -17,11 +18,14 @@ import { RootState } from '../../types/state';
 import { AgencyProps } from '../../types/agents';
 
 import GoogleMap from '../../components/GoogleMap';
+
 // import { parseJwt } from '../../utils';
 
 const Agency = ({agency}: AgencyProps) => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
+  const router = useRouter();
+  const {locale} = router;
   const {mainProperty} = useSelector((state: RootState) => state.userInfo);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
@@ -110,19 +114,11 @@ const Agency = ({agency}: AgencyProps) => {
             >
               {t('button.contact')} { agency.moreInfo.agentName }
             </Button>
-            {/*<Link href={ '/agency' }>*/ }
-            <span
-              className="details"
-              onClick={ () => openContactModal({
-                title: agency.title,
-                agencyId: agency.id,
-                agentName: agency.moreInfo.agentName,
-                agentSurname: agency.moreInfo.agentSurname,
-              }) }
-            >
+            <Link href={ `/agency/${agency.url}` } locale={locale}>
+            <span className="details">
                 { t('button.agency-details') } <img src={ ArrowImage } alt="ArrowImage"/>
               </span>
-            {/*</Link>*/ }
+            </Link>
           </div>
           {
             !isMobile &&

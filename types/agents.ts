@@ -2,6 +2,7 @@ export interface AgentsItem {
   id: number,
   title: string,
   tag: string,
+  url: string,
   agencyAddress: string,
   location: {
     lat: number,
@@ -28,6 +29,7 @@ export interface AgencyProps {
     id: number,
     title: string,
     agencyAddress: string,
+    url: string,
     location: {
       lat: number,
       lng: number

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-// import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
-
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Button, Image } from 'react-bootstrap';
 
 import { modalWindowContactAgentAction } from '../../actions';
@@ -16,6 +16,9 @@ import { agentsList } from '../../templates/agentsList';
 const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
+  const router = useRouter();
+  const {locale} = router;
+
   const intervals = [
     {label: 'year', seconds: 31536000},
     {label: 'month', seconds: 2592000},
@@ -63,9 +66,9 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
             <span>{ t('desc.sold') } { timeSince(new Date(property.sold_date)) } </span>
             {
               property.company_name &&
-              <a href="#">
+              <Link href={ `/agency/${currentAgency.url}` } locale={locale}>
                 { property.company_name }
-              </a>
+              </Link>
             }
           </div>
         </div>
