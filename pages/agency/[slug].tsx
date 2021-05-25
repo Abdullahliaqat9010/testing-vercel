@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
+
+import { isMobile } from 'react-device-detect';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import StarRatingComponent from 'react-star-rating-component';
 
 import ContactAgencyBlock from '../../components/ContactAgencyBlock';
+import GoogleMap from '../../components/GoogleMap';
+import PropertyBlock from '../../containers/Property';
 import HeaderContainer from '../../containers/Header';
 import FooterContainer from '../../containers/Footer';
 
@@ -31,12 +37,17 @@ import AgentFour from '../../assets/images/agency-page/temp/4.png';
 import AgentFive from '../../assets/images/agency-page/temp/5.png';
 import AgentSix from '../../assets/images/agency-page/temp/6.png';
 import LoadMoreImage from '../../assets/images/load-more.svg';
-import { Button } from 'react-bootstrap';
+
+import { RootState } from '../../types/state';
 
 
 const AgencyPage = () => {
   const [show, setShowBlock] = useState<boolean>(false);
+  const elementsOnPage = isMobile ? 3 : 6;
+  const [sizeArr, setSizeArr] = useState(elementsOnPage);
 
+  const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
+  const properties = similarProperty.slice(0, sizeArr);
   const showPhone = () => {
     setShowBlock(true);
   };
@@ -204,6 +215,25 @@ const AgencyPage = () => {
             <Button className='load-more'>
               <img src={ LoadMoreImage } alt="LoadMoreImage"/> Load more
             </Button>
+          </div>
+        </div>
+        <div className="Agency__third-block">
+          <div className="main-content">
+            <h3>Sold properties</h3>
+            <p>by Century 21 - Patrimoine 24</p>
+          </div>
+          <div className="properties-list">
+            <div className="left-block">
+              <GoogleMap />
+            </div>
+            <div className="right-block">
+              {
+                properties.map(
+                  (item, index) =>
+                    <PropertyBlock key={ index } property={ {...item, currentNumber: ++index} }/>,
+                )
+              }
+            </div>
           </div>
         </div>
       </div>

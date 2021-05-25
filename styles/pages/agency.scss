@@ -258,8 +258,20 @@
     }
   }
 
-  &__second-block {
+  &__second-block, &__third-block {
     margin-top: 20px;
+
+    h3 {
+      font-family: var(--fontNunitoBold);
+      font-size: 20px;
+      line-height: 27px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 19px;
+    }
 
     .main-content {
       padding: 30px;
@@ -306,6 +318,18 @@
         color: var(--colorBlue);
         border-radius: 8px;
         margin: 30px auto 0;
+      }
+
+      .properties-list {
+        display: flex;
+
+        .left-block {
+
+        }
+
+        .right-block {
+
+        }
       }
     }
   }
