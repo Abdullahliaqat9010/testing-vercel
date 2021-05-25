@@ -100,8 +100,8 @@ export interface RootState {
         howSell: string,
       },
       location: {
-        lat: number,
-        lng: number,
+        lat: number | null,
+        lng: number | null,
       },
       userData: {
         firstName: string,

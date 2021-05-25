@@ -110,7 +110,6 @@ const Agency = ({agency}: AgencyProps) => {
             >
               {t('button.contact')} { agency.moreInfo.agentName }
             </Button>
-            {/*<Link href={ '/agency' }>*/ }
             <span
               className="details"
               onClick={ () => openContactModal({
@@ -122,13 +121,12 @@ const Agency = ({agency}: AgencyProps) => {
             >
                 { t('button.agency-details') } <img src={ ArrowImage } alt="ArrowImage"/>
               </span>
-            {/*</Link>*/ }
           </div>
           {
             !isMobile &&
             <div className="map-block d-flex flex-column">
-              <div className="agency-map">
-                <GoogleMap lng={ agency.location.lng } lat={ agency.location.lat }/>
+              <div className="agency-map position-relative">
+                <GoogleMap agencyLocation={{lat: agency.location.lat, lng: agency.location.lng}} />
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">

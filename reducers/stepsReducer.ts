@@ -66,8 +66,8 @@ export const initialState = {
       agreement: false,
     },
     location: {
-      lat: 40.7510674,
-      lng: -74.1660403,
+      lat: null,
+      lng: null,
     },
   },
   errors: '',
