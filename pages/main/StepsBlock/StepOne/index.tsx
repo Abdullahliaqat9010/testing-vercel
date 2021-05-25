@@ -38,7 +38,6 @@ const StepTwo = () => {
   const {
     addressFromStepOne,
     selectedProperty: currentProp,
-    location,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [selectedProperty, setCurrentProperty] = useState<string>(currentProp);
   const [showMapBlock, setShowMapBlock] = useState<boolean>(false);
@@ -235,7 +234,8 @@ const StepTwo = () => {
               <img onClick={ closeAddressBlock } src={ CloseIcon } alt="CloseIcon"/>
             </div>
           }
-          <GoogleMap lat={ location.lat } lng={ location.lng }/>
+          {/*// @ts-ignore*/}
+          <GoogleMap />
           <span className="close-map" onClick={ showMap }>{ t('button.close') }</span>
         </div>
       }
