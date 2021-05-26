@@ -9,7 +9,14 @@ import { googleMapConfig } from '../../config/siteConfigs';
 
 import MarkerIcon from '../../assets/images/marker.png';
 
-const GoogleMap = ({google, agencyLocation}) => {
+interface GoogleMapProps {
+  google?: any,
+  agencyLocation?: {
+    lat?: number | string,
+    lng?: number | string,
+  }
+}
+const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
   const {location} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const {similarPropertiesLocation, mainProperty} = useSelector((state: RootState) => state.userInfo);
   const [useLocation, setUseLocation] = useState({lat: null, lng: null});
@@ -47,8 +54,8 @@ const GoogleMap = ({google, agencyLocation}) => {
       zoom={ similarPropertiesLocation.length ? 11 : 13 }
       google={ google }
       initialCenter={ {
-        lat: useLocation.lat,
-        lng: useLocation.lng,
+        lat: useLocation.lat || 51.260197,
+        lng: useLocation.lng || 4.402771,
       } }
       center={ {
         lat: useLocation.lat,
@@ -70,8 +77,8 @@ const GoogleMap = ({google, agencyLocation}) => {
           <Marker
             icon={ MarkerIcon }
             position={ {
-              lat: useLocation.lat,
-              lng: useLocation.lng,
+              lat: useLocation.lat || 51.260197,
+              lng: useLocation.lng || 4.402771,
             } }
           />
       }
