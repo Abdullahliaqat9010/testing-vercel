@@ -126,6 +126,7 @@ const Agency = ({agency}: AgencyProps) => {
             !isMobile &&
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
+                {/*@ts-ignore*/}
                 <GoogleMap agencyLocation={{lat: agency.location.lat, lng: agency.location.lng}} />
               </div>
               <div className="agency-map__info d-flex justify-content-between">
