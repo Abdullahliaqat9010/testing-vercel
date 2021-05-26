@@ -58,8 +58,7 @@ const StepsBlock = () => {
         {
           !isMobile &&
           <div className='w-50 position-relative'>
-            {/*// @ts-ignore*/}
-            <GoogleMap/>
+            <GoogleMap />
           </div>
         }
       </div>
