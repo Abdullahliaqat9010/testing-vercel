@@ -142,3 +142,7 @@ export const sendDataForUpdatePasswordAction = (password: string, token: string 
 export const closeChangePasswordModalAction = () => ({
   type: actionType.CLOSE_CHANGE_PASSWORD_MODAL
 });
+
+export const getInfoAgencyAction = () => ({
+  type: actionType.GET_INFO_AGENCY_FROM_GOOGLE,
+})

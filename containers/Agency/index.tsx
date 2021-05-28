@@ -23,6 +23,8 @@ const Agency = ({agency}: AgencyProps) => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   const {mainProperty} = useSelector((state: RootState) => state.userInfo);
+  const {agencyInfoList} = useSelector((state: RootState) => state.agency);
+  const [agencyReviews] = agencyInfoList.filter(list => list.place_id === agency.place_id);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
   const openMoreInfo = () => {
@@ -34,10 +36,24 @@ const Agency = ({agency}: AgencyProps) => {
     // const userToken = localStorage.getItem('auth');
     // const jwtToken = parseJwt(userToken);
     // if (jwtToken.email_verified) {
-      dispatch(modalWindowContactAgentAction(data));
+    dispatch(modalWindowContactAgentAction(data));
     // } else {
     //   dispatch(pleaseVerifyEmailAction());
     // }
+  };
+
+  const agencyRating = (rate) => {
+    if (rate) {
+      return rate.toString().length > 1 ? rate : rate + '.0';
+    }
+    return '5.0';
+  };
+
+  const agencyTotalUserReview = (reviews) => {
+    if (reviews) {
+      return reviews;
+    }
+    return 120;
   };
 
   return (
@@ -50,9 +66,10 @@ const Agency = ({agency}: AgencyProps) => {
           <div className="info">
             <span className="agency-name">{ agency.title }</span>
             <div className="rating-block d-flex align-items-center">
-              <span className='total'>{ agency.rate }</span>
+              <span className='total'>{ agencyRating(agencyReviews?.rating) }</span>
               <StarRatingComponent
                 name="rate"
+                className='custom-rate'
                 renderStarIcon={
                   (index, value) =>
                     <img
@@ -62,9 +79,11 @@ const Agency = ({agency}: AgencyProps) => {
                     />
                 }
                 starCount={ 5 }
-                value={ Number(agency.rate) }
+                value={ Number(agencyRating(agencyReviews?.rating)) }
               />
-              <span className="from">{ t('span.from') } { agency.reviews } { t('span.reviews') }</span>
+              <span className="from">
+                { t('span.from') } { agencyTotalUserReview(agencyReviews?.user_ratings_total) } { t('span.reviews') }
+              </span>
             </div>
             {
               agency.nearest && <span className="nearest">{ t('span.nearest-agency') }</span>
@@ -108,7 +127,7 @@ const Agency = ({agency}: AgencyProps) => {
                 agentSurname: agency.moreInfo.agentSurname,
               }) }
             >
-              {t('button.contact')} { agency.moreInfo.agentName }
+              { t('button.contact') } { agency.moreInfo.agentName }
             </Button>
             <span
               className="details"
@@ -126,8 +145,8 @@ const Agency = ({agency}: AgencyProps) => {
             !isMobile &&
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
-                {/*@ts-ignore*/}
-                <GoogleMap agencyLocation={{lat: agency.location.lat, lng: agency.location.lng}} />
+                {/*@ts-ignore*/ }
+                <GoogleMap agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">
