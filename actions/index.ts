@@ -146,3 +146,7 @@ export const closeChangePasswordModalAction = () => ({
 export const getInfoAgencyAction = () => ({
   type: actionType.GET_INFO_AGENCY_FROM_GOOGLE,
 })
+
+export const getAgencyPropertyDataAction = () => ({
+  type: actionType.GET_DATA_PROPERTIES_AGENCY,
+})
