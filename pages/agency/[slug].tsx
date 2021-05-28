@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
-import { isMobile } from 'react-device-detect';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import StarRatingComponent from 'react-star-rating-component';
@@ -39,15 +38,27 @@ import AgentSix from '../../assets/images/agency-page/temp/6.png';
 import LoadMoreImage from '../../assets/images/load-more.svg';
 
 import { RootState } from '../../types/state';
+import { userToken } from '../../config/siteConfigs';
+import { parseJwt } from '../../utils';
+import { getPropertyForCurrentUserAction } from '../../actions';
 
 
 const AgencyPage = () => {
-  const [show, setShowBlock] = useState<boolean>(false);
-  const elementsOnPage = isMobile ? 3 : 6;
-  const [sizeArr, setSizeArr] = useState(elementsOnPage);
+  const dispatch = useDispatch();
 
-  const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
-  const properties = similarProperty.slice(0, sizeArr);
+  const [show, setShowBlock] = useState<boolean>(false);
+  const elementsOnPage = 3;
+
+  const { similarProperty } = useSelector((state: RootState) => state.userInfo);
+  const properties = similarProperty.slice(0, elementsOnPage);
+
+  useEffect(() => {
+    if (userToken) {
+      const parseData = parseJwt(userToken);
+      dispatch(getPropertyForCurrentUserAction({userId: parseData.id, elementsOnPage}));
+    }
+  }, []);
+
   const showPhone = () => {
     setShowBlock(true);
   };
@@ -221,18 +232,18 @@ const AgencyPage = () => {
           <div className="main-content">
             <h3>Sold properties</h3>
             <p>by Century 21 - Patrimoine 24</p>
-          </div>
-          <div className="properties-list">
-            <div className="left-block">
-              <GoogleMap />
-            </div>
-            <div className="right-block">
-              {
-                properties.map(
-                  (item, index) =>
-                    <PropertyBlock key={ index } property={ {...item, currentNumber: ++index} }/>,
-                )
-              }
+            <div className="properties-list">
+              <div className="left-block position-relative">
+                <GoogleMap />
+              </div>
+              <div className="right-block">
+                {
+                  properties.map(
+                    (item, index) =>
+                      <PropertyBlock key={ index } property={ {...item, currentNumber: ++index} }/>,
+                  )
+                }
+              </div>
             </div>
           </div>
         </div>

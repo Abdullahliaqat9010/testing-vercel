@@ -131,7 +131,7 @@ const Agency = ({agency}: AgencyProps) => {
                 agentSurname: agency.moreInfo.agentSurname,
               }) }
             >
-              { t('button.contact') } { agency.moreInfo.agentName }
+              {t('button.contact')} { agency.moreInfo.agentName }
             </Button>
             <Link href={ `/agency/${agency.url}` } locale={locale}>
             <span className="details">
