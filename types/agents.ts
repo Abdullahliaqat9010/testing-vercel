@@ -33,8 +33,8 @@ export interface AgencyProps {
       lat: number,
       lng: number
     },
-    rate: string,
-    reviews: string,
+    rate?: string,
+    reviews?: string,
     place_id?: string,
     logo: string,
     logoMobile: string,
