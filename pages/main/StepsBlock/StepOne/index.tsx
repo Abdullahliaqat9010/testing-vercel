@@ -95,11 +95,11 @@ const StepTwo = () => {
     changeAddressBlockState(false);
   };
 
-  const getAddress = async (value: string) => {
-    if (data.locality.length === 0 && value.length && (+value >= 1000 && +value <= 9999)) {
+  const getAddress = async (el: React.ChangeEvent<HTMLInputElement>) => {
+    if (el.target.name === 'zip' && (+el.target.value >= 1000 && +el.target.value <= 9999)) {
       try {
         setError({...error, zip: ''});
-        const results = await geocodeByAddress(`postalCode=${ value }, location=bel`);
+        const results = await geocodeByAddress(`postalCode=${ el.target.value }, location=bel`);
         const getLocations = await getLatLng(results[0]);
         const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
         setFormData({...data, locality});
@@ -111,16 +111,20 @@ const StepTwo = () => {
       } catch (e) {
         console.log(e);
       }
-    } else {
+    }
+
+    if (el.target.name === 'zip' && (+el.target.value < 1000 || +el.target.value > 9999)) {
       setError({...error, zip: 'please use only Belgium zip codes'});
     }
 
-    if (data.zip.length === 0 && value.length) {
+    if (el.target.name === 'locality') {
       try {
-        const results = await geocodeByAddress(`postalCode='', locality=${ value }, location=bel`);
+        const results = await geocodeByAddress(`postalCode='', locality=${ el.target.value }, location=bel`);
         const getLocations = await getLatLng(results[0]);
         const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
-        setFormData({...data, zip});
+        if (zip.length) {
+          setFormData({...data, zip});
+        }
         const addressList = {
           addressFromStepOne: results[0].formatted_address,
           location: {...getLocations},
@@ -164,7 +168,7 @@ const StepTwo = () => {
               name='zip'
               value={ data.zip }
               onChange={ handleChangeVal }
-              onBlur={ (el) => getAddress(el.target.value) }
+              onBlur={ getAddress }
             />
             {
               error.zip.length > 0 && <span className="error">{ error.zip }</span>
@@ -176,7 +180,7 @@ const StepTwo = () => {
               name='locality'
               value={ data.locality }
               onChange={ handleChangeVal }
-              onBlur={ (el) => getAddress(el.target.value) }
+              onBlur={ getAddress }
             />
           </Form.Group>
         </Form.Row>

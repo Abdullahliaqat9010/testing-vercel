@@ -130,8 +130,8 @@ function* getSimilarPropertyRequest(propertyId: number, page: number, limit: num
       const similarPropertiesLocation = [];
       const {data, meta} = yield res.json();
       data.forEach(item => {
-        similarPropertiesLocation.push({lat: Number(item.lat), lng: Number(item.lng)})
-      })
+        similarPropertiesLocation.push({lat: Number(item.lat), lng: Number(item.lng)});
+      });
       yield getSimilarPropertySuccess(data);
       yield setSimilarPropertyPaginationInfo(meta);
       yield setSimilarPropertyLocation(similarPropertiesLocation);
@@ -217,8 +217,42 @@ function* setNoEstimationProperty() {
 }
 
 function* getMoreSimilarProperty({payload}: any) {
-  const { limit, page, propertyId} = payload;
+  const {limit, page, propertyId} = payload;
   yield getSimilarPropertyRequest(propertyId, page, limit);
+}
+
+function* getGoogleDataAgency() {
+  const token = localStorage.getItem('auth');
+  try {
+    const res = yield fetch(`${ config.apiDomain }/agency/reviews`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token,
+      },
+    });
+
+    if (res.status === 200) {
+      const {data} = yield res.json();
+      yield getGoogleDataAgencySuccess(data.reviews);
+    }
+  } catch (error) {
+    yield getGoogleDataAgencyError(error);
+  }
+}
+
+function* getGoogleDataAgencySuccess(data) {
+  yield put({
+    type: actionType.GET_INFO_AGENCY_FROM_GOOGLE_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getGoogleDataAgencyError(error: string) {
+  yield put({
+    type: actionType.GET_INFO_AGENCY_FROM_GOOGLE_ERROR,
+    payload: error,
+  });
 }
 
 export function* propertySaga() {
@@ -227,4 +261,5 @@ export function* propertySaga() {
   yield takeLatest(actionType.GET_USER_PROPERTY_REQUEST, getPropertyForCurrentUser);
   yield takeLatest(actionType.GET_PRICE_PROPERTY_REQUEST, getPriceProperty);
   yield takeLatest(actionType.GET_NEXT_PAGE_SIMILAR_PROPERTY, getMoreSimilarProperty);
+  yield takeLatest(actionType.GET_INFO_AGENCY_FROM_GOOGLE, getGoogleDataAgency);
 }
