@@ -28,6 +28,7 @@ export interface AgencyProps {
   agency: {
     id: number,
     title: string,
+    tag: string,
     agencyAddress: string,
     location: {
       lat: number,
