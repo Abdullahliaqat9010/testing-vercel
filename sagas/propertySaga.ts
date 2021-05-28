@@ -128,13 +128,14 @@ function* getSimilarPropertyRequest(propertyId: number, page: number, limit: num
 
     if (res.status === 200) {
       const similarPropertiesLocation = [];
-      const {data, meta} = yield res.json();
+      const {data, meta, agencies} = yield res.json();
       data.forEach(item => {
         similarPropertiesLocation.push({lat: Number(item.lat), lng: Number(item.lng)});
       });
       yield getSimilarPropertySuccess(data);
       yield setSimilarPropertyPaginationInfo(meta);
       yield setSimilarPropertyLocation(similarPropertiesLocation);
+      yield setSimilarPropertyByAgency(agencies);
     }
 
   } catch (error) {
@@ -160,6 +161,13 @@ function* setSimilarPropertyLocation(location: object[]) {
   yield put({
     type: actionType.SET_SIMILAR_PROPERTY_LOCATIONS,
     payload: location,
+  });
+}
+
+function* setSimilarPropertyByAgency(agencies: object[]) {
+  yield put({
+    type: actionType.SET_SIMILAR_PROPERTY_BY_AGENCY,
+    payload: agencies,
   });
 }
 
@@ -255,6 +263,40 @@ function* getGoogleDataAgencyError(error: string) {
   });
 }
 
+function* getPropertyAgencyData() {
+  const token = localStorage.getItem('auth');
+  try {
+    const res = yield fetch(`${ config.apiDomain }/property/by-agency`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token,
+      },
+    });
+
+    if (res.status === 200) {
+      const {data} = yield res.json();
+      yield getPropertyAgencyDataSuccess(data);
+    }
+  } catch (error) {
+    yield getPropertyAgencyDataError(error);
+  }
+}
+
+function* getPropertyAgencyDataSuccess(data) {
+  yield put({
+    type: actionType.GET_DATA_PROPERTIES_AGENCY_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getPropertyAgencyDataError(error: string) {
+  yield put({
+    type: actionType.GET_DATA_PROPERTIES_AGENCY_ERROR,
+    payload: error,
+  });
+}
+
 export function* propertySaga() {
   yield takeLatest(actionType.CREATE_PROPERTY_REQUEST, createPropertyRequest);
   yield takeLatest(actionType.UPDATE_PROPERTY_REQUEST, updatePropertyRequest);
@@ -262,4 +304,5 @@ export function* propertySaga() {
   yield takeLatest(actionType.GET_PRICE_PROPERTY_REQUEST, getPriceProperty);
   yield takeLatest(actionType.GET_NEXT_PAGE_SIMILAR_PROPERTY, getMoreSimilarProperty);
   yield takeLatest(actionType.GET_INFO_AGENCY_FROM_GOOGLE, getGoogleDataAgency);
+  yield takeLatest(actionType.GET_DATA_PROPERTIES_AGENCY, getPropertyAgencyData);
 }

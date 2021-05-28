@@ -121,6 +121,14 @@ export interface RootState {
       rating: number
       user_ratings_total: number
     }[],
+    agencyCountPropertiesList: {
+      count: string,
+      company_name: string,
+    }[],
+    agencySimilarPropertiesList: {
+      count: string,
+      name: string,
+    }[],
     error: string,
   }
 }
