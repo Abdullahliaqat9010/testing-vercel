@@ -100,8 +100,8 @@ export interface RootState {
         howSell: string,
       },
       location: {
-        lat: number,
-        lng: number,
+        lat: number | null,
+        lng: number | null,
       },
       userData: {
         firstName: string,
@@ -113,5 +113,14 @@ export interface RootState {
       },
     },
     errors: string,
+  },
+  agency: {
+    agencyInfoList: {
+      name: string,
+      place_id: string,
+      rating: number
+      user_ratings_total: number
+    }[],
+    error: string,
   }
 }

@@ -9,7 +9,7 @@ import { modalWindowContactAgentAction } from '../../actions';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
-import NoImage from '../../assets/images/no-image-available.png';
+import NoImage from '../../assets/images/no-image-available.jpeg';
 
 import { agentsList } from '../../templates/agentsList';
 

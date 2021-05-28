@@ -8,8 +8,9 @@ export interface AgentsItem {
     lat: number,
     lng: number
   },
-  rate: string,
-  reviews: string,
+  place_id?: string,
+  rate?: string,
+  reviews?: string,
   logo: string,
   logoMobile: string,
   email: string,
@@ -34,8 +35,9 @@ export interface AgencyProps {
       lat: number,
       lng: number
     },
-    rate: string,
-    reviews: string,
+    rate?: string,
+    reviews?: string,
+    place_id?: string,
     logo: string,
     logoMobile: string,
     count: number,

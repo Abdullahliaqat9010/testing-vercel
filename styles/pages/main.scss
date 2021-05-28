@@ -384,6 +384,16 @@
     }
 
     .step-one, .step-two, .step-three, .step-four {
+      .custom-styles {
+        position: relative;
+        .error {
+          font-size: 14px;
+          position: absolute;
+          width: max-content;
+          color: red;
+        }
+      }
+
       label {
         font-size: 14px;
         line-height: 19px;

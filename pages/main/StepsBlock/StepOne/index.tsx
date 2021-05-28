@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
-import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import GoogleMap from '../../../../components/GoogleMap';
 
@@ -23,12 +23,10 @@ import ApartmentImageNoActive from '../../../../assets/images/apartment-noactive
 // import LandImageNoActive from '../../../../assets/images/land-noactive.svg';
 import MarkerImage from '../../../../assets/images/marker-blue.svg';
 import CloseIcon from '../../../../assets/images/close-icon.svg';
-import { googleMapConfig } from '../../../../config/siteConfigs';
 
 const StepTwo = () => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
-  const [value, setValue] = useState(null);
   const {
     street,
     number,
@@ -38,7 +36,6 @@ const StepTwo = () => {
   const {
     addressFromStepOne,
     selectedProperty: currentProp,
-    location,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [selectedProperty, setCurrentProperty] = useState<string>(currentProp);
   const [showMapBlock, setShowMapBlock] = useState<boolean>(false);
@@ -49,6 +46,8 @@ const StepTwo = () => {
     zip,
     locality,
   });
+
+  const [error, setError] = useState({zip: ''});
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -96,33 +95,47 @@ const StepTwo = () => {
     changeAddressBlockState(false);
   };
 
-  const handleSelectChangeValue = async (el: any) => {
-    const results = await geocodeByAddress(el.label);
-    const getLocations = await getLatLng(results[0]);
+  const getAddress = async (el: React.ChangeEvent<HTMLInputElement>) => {
+    if (el.target.name === 'zip' && (+el.target.value >= 1000 && +el.target.value <= 9999)) {
+      try {
+        setError({...error, zip: ''});
+        const results = await geocodeByAddress(`postalCode=${ el.target.value }, location=bel`);
+        const getLocations = await getLatLng(results[0]);
+        const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
+        setFormData({...data, locality});
+        const addressList = {
+          addressFromStepOne: results[0].formatted_address,
+          location: {...getLocations},
+        };
+        dispatch(updateAddressList(addressList));
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
-    const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
-    const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
-    const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
-    const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+    if (el.target.name === 'zip' && (+el.target.value < 1000 || +el.target.value > 9999)) {
+      setError({...error, zip: 'please use only Belgium zip codes'});
+    }
 
-    setFormData({
-        street,
-        number,
-        locality,
-        zip,
-      });
-
-    setValue(null);
-
-    console.log('Successfully got latitude and longitude');
-
-    const addressList = {
-      addressFromStepOne: results[0].formatted_address,
-      location: {...getLocations},
-    };
-
-    dispatch(updateAddressList(addressList));
+    if (el.target.name === 'locality') {
+      try {
+        const results = await geocodeByAddress(`postalCode='', locality=${ el.target.value }, location=bel`);
+        const getLocations = await getLatLng(results[0]);
+        const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+        if (zip.length) {
+          setFormData({...data, zip});
+        }
+        const addressList = {
+          addressFromStepOne: results[0].formatted_address,
+          location: {...getLocations},
+        };
+        dispatch(updateAddressList(addressList));
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
+
 
   return (
     <div className='step-one'>
@@ -133,29 +146,11 @@ const StepTwo = () => {
           <Form.Group id='street' controlId="street">
             <Form.Label>{ t('label.street') }</Form.Label>
             <InputGroup>
-              {
-                data.street.length ?
-                  <Form.Control
-                    name='street'
-                    value={ data.street }
-                    onChange={ handleChangeVal }
-                  /> :
-                     <GooglePlacesAutocomplete
-                      selectProps={ {
-                        placeholder: '',
-                        value,
-                        onChange: handleSelectChangeValue,
-                        classNamePrefix: 'custom-select',
-                      } }
-                      apiKey={ googleMapConfig.apiKey }
-                      apiOptions={ {language: 'en'} }
-                      autocompletionRequest={{
-                        componentRestrictions: {
-                          country: ['be'],
-                        }
-                      }}
-                    />
-              }
+              <Form.Control
+                name='street'
+                value={ data.street }
+                onChange={ handleChangeVal }
+              />
             </InputGroup>
           </Form.Group>
           <Form.Group controlId="number">
@@ -164,15 +159,20 @@ const StepTwo = () => {
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group className='mr-4' controlId="zip">
+          <Form.Group className='mr-4 custom-styles' controlId="zip">
             <Form.Label>{ t('label.zip') }</Form.Label>
             <Form.Control
               type="number"
-              min={ 1 }
+              min={ 1000 }
+              max={ 9999 }
               name='zip'
               value={ data.zip }
               onChange={ handleChangeVal }
+              onBlur={ getAddress }
             />
+            {
+              error.zip.length > 0 && <span className="error">{ error.zip }</span>
+            }
           </Form.Group>
           <Form.Group controlId="locality">
             <Form.Label>{ t('label.locality') }</Form.Label>
@@ -180,6 +180,7 @@ const StepTwo = () => {
               name='locality'
               value={ data.locality }
               onChange={ handleChangeVal }
+              onBlur={ getAddress }
             />
           </Form.Group>
         </Form.Row>
@@ -235,7 +236,7 @@ const StepTwo = () => {
               <img onClick={ closeAddressBlock } src={ CloseIcon } alt="CloseIcon"/>
             </div>
           }
-          <GoogleMap lat={ location.lat } lng={ location.lng }/>
+          <GoogleMap />
           <span className="close-map" onClick={ showMap }>{ t('button.close') }</span>
         </div>
       }

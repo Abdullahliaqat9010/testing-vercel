@@ -29,11 +29,9 @@ const PropertiesBlock = () => {
     <div className='properties-block d-flex'>
       {
         !isMobile &&
-        <div className="map-block w-50">
+        <div className="map-block w-50 position-relative">
           {
-            mainProperty && mainProperty.lng && mainProperty.lat
-              && <GoogleMap lng={Number(mainProperty.lng)} lat={ Number(mainProperty.lat)}
-            />
+            mainProperty && mainProperty.lng && mainProperty.lat && <GoogleMap />
           }
         </div>
       }

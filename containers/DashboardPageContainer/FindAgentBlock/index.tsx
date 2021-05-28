@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import { Button } from 'react-bootstrap';
@@ -7,13 +7,20 @@ import LoadMoreImage from '../../../assets/images/load-more.svg';
 import Agency from '../../../containers/Agency';
 
 import { agentsList } from '../../../templates/agentsList';
+import { getInfoAgencyAction } from '../../../actions';
+import { useDispatch } from 'react-redux';
 
 const FindAgentBlock = () => {
   const {t} = useTranslation('dashboard-page');
+  const dispatch = useDispatch();
 
   const elementsOnPage = 3;
   const [sizeArr, setSizeArr] = useState(elementsOnPage);
   const agencyList = agentsList.slice(0, sizeArr);
+
+  useEffect(() => {
+    dispatch(getInfoAgencyAction());
+  }, [])
 
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
