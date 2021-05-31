@@ -57,11 +57,6 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
       <div className="property-block__info">
         <span className="address">{ property.search_address }</span>
         <div className='short-desc'>
-          <div className="house-info">
-            <span>{ property.live_area }m²</span>
-            <span>{ property.bathrooms } Baths</span>
-            <span>{ property.bedrooms } Beds</span>
-          </div>
           <div className="time">
             <span>{ t('desc.sold') } { timeSince(new Date(property.sold_date)) } </span>
             {
@@ -70,6 +65,11 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
                 { property.company_name }
               </Link>
             }
+          </div>
+          <div className="house-info">
+            <span>{ property.live_area }m²</span>
+            <span>{ property.bathrooms } Baths</span>
+            <span>{ property.bedrooms } Beds</span>
           </div>
         </div>
         <Button disabled={!currentAgency} onClick={
