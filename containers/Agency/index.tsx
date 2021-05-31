@@ -27,8 +27,14 @@ const Agency = ({agency}: AgencyProps) => {
   const router = useRouter();
   const {locale} = router;
   const {mainProperty} = useSelector((state: RootState) => state.userInfo);
-  const {agencyInfoList} = useSelector((state: RootState) => state.agency);
+  const {
+    agencyInfoList,
+    agencyCountPropertiesList,
+    agencySimilarPropertiesList,
+  } = useSelector((state: RootState) => state.agency);
   const [agencyReviews] = agencyInfoList.filter(list => list.place_id === agency.place_id);
+  const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(list => list.company_name === agency.tag);
+  const [agencySimilarProperties] = agencySimilarPropertiesList.filter(list => list.name === agency.title);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
   const openMoreInfo = () => {
@@ -119,8 +125,10 @@ const Agency = ({agency}: AgencyProps) => {
             </div>
             <div className="desc">
               { t('desc-agency.agency-sold') }
-              <span className="bold"> 39 { t('desc-agency.properties') }</span> { t('desc-agency.nearby-including') }
-              <span className="link"> 18 { t('desc-agency.similar') }</span>. { t('desc-agency.our-team') }
+              <span className="bold"> { agencyPropertiesInfo?.count || 39 } { t('desc-agency.properties') }
+              </span> { t('desc-agency.nearby-including') }
+              <span className="link"> { agencySimilarProperties?.count || 18 } { t('desc-agency.similar') }
+              </span>. { t('desc-agency.our-team') }
             </div>
             <Button
               className='contact'

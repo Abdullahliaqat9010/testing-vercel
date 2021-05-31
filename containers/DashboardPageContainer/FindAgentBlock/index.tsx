@@ -7,7 +7,7 @@ import LoadMoreImage from '../../../assets/images/load-more.svg';
 import Agency from '../../../containers/Agency';
 
 import { agentsList } from '../../../templates/agentsList';
-import { getInfoAgencyAction } from '../../../actions';
+import { getAgencyPropertyDataAction, getInfoAgencyAction } from '../../../actions';
 import { useDispatch } from 'react-redux';
 
 const FindAgentBlock = () => {
@@ -20,6 +20,7 @@ const FindAgentBlock = () => {
 
   useEffect(() => {
     dispatch(getInfoAgencyAction());
+    dispatch(getAgencyPropertyDataAction());
   }, [])
 
   const loadMore = () => {
