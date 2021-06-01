@@ -19,15 +19,18 @@ import { AgencyProps } from '../../types/agents';
 import GoogleMap from '../../components/GoogleMap';
 // import { parseJwt } from '../../utils';
 
-const Agency = ({agency}: AgencyProps) => {
+const Agency = ({nearest, agency}: AgencyProps) => {
   const {t} = useTranslation('dashboard-page');
+
   const dispatch = useDispatch();
+
   const {mainProperty} = useSelector((state: RootState) => state.userInfo);
   const {
     agencyInfoList,
     agencyCountPropertiesList,
     agencySimilarPropertiesList,
   } = useSelector((state: RootState) => state.agency);
+
   const [agencyReviews] = agencyInfoList.filter(list => list.place_id === agency.place_id);
   const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(list => list.company_name === agency.tag);
   const [agencySimilarProperties] = agencySimilarPropertiesList.filter(list => list.name === agency.title);
@@ -92,7 +95,7 @@ const Agency = ({agency}: AgencyProps) => {
               </span>
             </div>
             {
-              agency.nearest && <span className="nearest">{ t('span.nearest-agency') }</span>
+              agency.id === nearest && <span className="nearest">{ t('span.nearest-agency') }</span>
             }
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Button, Form } from 'react-bootstrap';
@@ -45,6 +45,10 @@ const FinalStep = () => {
     promotions: false,
     agreement: false,
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

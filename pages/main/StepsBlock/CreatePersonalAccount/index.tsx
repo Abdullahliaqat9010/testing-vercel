@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 import { Button, Dropdown } from 'react-bootstrap';
@@ -57,6 +57,10 @@ const CreatePersonalAccount = () => {
   const [sellPropertyValue, setSellPropertyValue] = useState<string>(t('placeholder.please-select'));
   const [howSellValue, setHowSellValue] = useState<string>(t('placeholder.please-select'));
   const [activePrivateBlock, setActivePrivateBlock] = useState<string | boolean>(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   const handleClickPrevBtn = () => {
     dispatch(goToPrevStepAction());
