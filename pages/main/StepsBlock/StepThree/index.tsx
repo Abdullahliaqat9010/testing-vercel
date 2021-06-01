@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import { Button, ButtonGroup, Form, InputGroup } from 'react-bootstrap';
@@ -30,6 +30,10 @@ const StepThree = () => {
   });
 
   const [noValidRenYear, setValidRenYear] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   const handleClickPrevBtn = () => {
     dispatch(goToPrevStepAction());
