@@ -14,7 +14,6 @@ export interface AgentsItem {
   logoMobile: string,
   email: string,
   count: number,
-  nearest: boolean,
   moreInfo: {
     agentName: string,
     agentSurname: string,
@@ -25,6 +24,7 @@ export interface AgentsItem {
 }
 
 export interface AgencyProps {
+  nearest: number | undefined,
   agency: {
     id: number,
     title: string,
@@ -40,7 +40,6 @@ export interface AgencyProps {
     logo: string,
     logoMobile: string,
     count: number,
-    nearest: boolean,
     email: string,
     moreInfo: {
       agentName: string,
