@@ -110,6 +110,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
         <meta name="apple-mobile-web-app-title" content="BelgiumImmo"/>
         <meta name="application-name" content="BelgiumImmo"/>
         <meta name="msapplication-TileColor" content="#3871ef"/>
+        <meta name="facebook-domain-verification" content="30qmvq4ldi8cytef4h7ao0hwkcvp4s" />
         <meta name="theme-color" content="#3871ef"/>
         <script id="Cookiebot" src={ 'https://consent.cookiebot.com/uc.js' }
                 data-cbid={ config.cookieKey }

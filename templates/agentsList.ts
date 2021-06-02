@@ -15,6 +15,9 @@ import BertholomeAvatar from '../assets/images/agents/bertholome.jpeg';
 import EcoImmo from '../assets/images/agents/logo_eco-immo.jpeg';
 import AngeloAvatar from '../assets/images/agents/angelo-ponente.jpeg';
 
+import RenatoMammo from '../assets/images/agents/logo-renato-mammo.jpeg';
+import RenatoMammoAvatar from '../assets/images/agents/renato-mammo.jpeg'
+
 import AgencyTest from '../assets/images/agents/test-agency.png';
 import AgencyTestMobile from '../assets/images/agents/test-agency.png';
 import TestAvatar from '../assets/images/no-photo.png';
@@ -36,7 +39,6 @@ export const agentsList: AgentsItem[] = [
       lng: 5.2350217
     },
     email: 'hermanne@labelimmo.be',
-    nearest: true,
     moreInfo: {
       agentName: 'Thierry',
       agentSurname: 'Hermanne',
@@ -60,7 +62,6 @@ export const agentsList: AgentsItem[] = [
       lng: 5.566588299999999
     },
     email: 'laurence@waw.immo',
-    nearest: true,
     moreInfo: {
       agentName: 'Alexandre',
       agentSurname: 'Legrand',
@@ -84,10 +85,9 @@ export const agentsList: AgentsItem[] = [
       lng: 5.617082799999999
     },
     email: 'info@bourse-immobiliere.be',
-    nearest: true,
     moreInfo: {
-      agentName: 'Pierrée',
-      agentSurname: 'Fabienne',
+      agentName: 'Fabienne',
+      agentSurname: 'Pierrée',
       position: 'Agency owner',
       avatar: FabienneAvatar,
       desc: ''
@@ -108,7 +108,6 @@ export const agentsList: AgentsItem[] = [
       lng: 5.5424035
     },
     email: 'info@bertholome.be',
-    nearest: true,
     moreInfo: {
       agentName: 'Stéphan',
       agentSurname: 'Bertholomé',
@@ -132,12 +131,33 @@ export const agentsList: AgentsItem[] = [
       lng: 5.5113576
     },
     email: 'a.ponente@eco-immo.be',
-    nearest: true,
     moreInfo: {
       agentName: 'Angelo',
       agentSurname: 'Ponente',
       position: 'Agency owner',
       avatar: AngeloAvatar,
+      desc: ''
+    }
+  },
+  {
+    id: 6,
+    title: 'Renato Mammo',
+    tag: 'Renato Mammo',
+    place_id: 'ChIJvX3M4uf7wEcRLK5O-JcswJQ',
+    logo: RenatoMammo,
+    logoMobile: RenatoMammo,
+    count: 17,
+    agencyAddress: "10 Rue Giacomo Mattéoti 4460 Grâce-Hollogne",
+    location: {
+      lat: 50.6427346,
+      lng: 5.506668299999999
+    },
+    email: 'info@renato-mammo.be',
+    moreInfo: {
+      agentName: 'Renato',
+      agentSurname: 'Mammo',
+      position: 'Agency owner',
+      avatar: RenatoMammoAvatar,
       desc: ''
     }
   },
@@ -153,11 +173,10 @@ export const agentsList: AgentsItem[] = [
     count: 17,
     agencyAddress: 'Test Agency',
     location: {
-      lat: 50.6292036,
-      lng: 5.566588299999999
+      lat: 48.3794,
+      lng: 31.1656
     },
     email: 'test@test.test',
-    nearest: true,
     moreInfo: {
       agentName: 'Test',
       agentSurname: 'Agency',
