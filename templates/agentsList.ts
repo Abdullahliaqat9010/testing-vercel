@@ -144,6 +144,7 @@ export const agentsList: AgentsItem[] = [
     title: 'Renato Mammo',
     tag: 'Renato Mammo',
     place_id: 'ChIJvX3M4uf7wEcRLK5O-JcswJQ',
+    url: 'renato-mammo',
     logo: RenatoMammo,
     logoMobile: RenatoMammo,
     count: 17,
