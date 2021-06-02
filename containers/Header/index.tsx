@@ -16,6 +16,9 @@ import LoginArrow from '../../assets/images/arrow.svg';
 import LogoutIcon from '../../assets/images/nav-bar/logout.svg';
 import CheckedIcon from '../../assets/images/valid-blue.svg';
 // import ProIcon from '../../assets/images/pro-workspace.svg';
+import NunitoSans from '../../assets/fonts/NunitoSans-Regular.ttf';
+import NunitoSansBold from '../../assets/fonts/NunitoSans-Bold.ttf';
+import FirstSlide from '../../assets/images/main-page/slider/first-slide.jpeg';
 import CurrentStepIcon from '../../assets/images/header-step-current.svg';
 import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 
@@ -91,19 +94,19 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
         <link
           rel='preload'
           as='font'
-          href='https://belgiumimmo.be/.next/static/media/NunitoSans-Regular.87d9266583abd389ca1f46c0462b2733.ttf'
+          href={ NunitoSans }
         />
         <link
           rel='preload'
           as='font'
-          href='https://belgiumimmo.be/.next/static/media/NunitoSans-Bold.8268666c3b2ca2ec11c02d578d520f7a.ttf'
+          href={ NunitoSansBold }
         />
         {
           mainPage && !isMobile &&
           <link
             rel='preload'
             as="image"
-            href='https://belgiumimmo.be/.next/static/images/first-slide-18826daf4027ca921bbf41fda900b574.jpeg'
+            href={ FirstSlide }
           />
         }
         <meta name="robots" content="noindex, nofollow"/>
