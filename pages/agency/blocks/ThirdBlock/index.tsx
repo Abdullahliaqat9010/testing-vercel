@@ -6,11 +6,12 @@ import { Button } from 'react-bootstrap';
 import GoogleMap from '../../../../components/GoogleMap';
 import PropertyBlock from '../../../../containers/Property';
 
+import { AgentsItem } from '../../../../types/agents';
 import { RootState } from '../../../../types/state';
 
 import LoadMoreImage from '../../../../assets/images/load-more.svg';
 
-const ThirdBlock = ({elementsOnPage}: { elementsOnPage: number }) => {
+const ThirdBlock = ({elementsOnPage, currentAgency}: { elementsOnPage: number, currentAgency: AgentsItem }) => {
 
   const {t} = useTranslation('dashboard-page');
 
@@ -22,11 +23,12 @@ const ThirdBlock = ({elementsOnPage}: { elementsOnPage: number }) => {
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
   }
+
   return (
     <div className="Agency__third-block">
       <div className="main-content">
         <h3>Sold properties</h3>
-        <p>by Century 21 - Patrimoine 24</p>
+        <p>by { currentAgency.title }</p>
         <div className="properties-list">
           <div className="left-block position-relative">
             <GoogleMap />

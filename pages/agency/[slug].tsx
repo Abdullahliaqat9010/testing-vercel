@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -18,11 +19,22 @@ import SecondBlock from './blocks/SecondBlock';
 import ThirdBlock from './blocks/ThirdBlock';
 import FourthBlock from './blocks/FourthBlock';
 
+import { agentsList } from '../../templates/agentsList';
 
 const AgencyPage = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const {slug} = router.query;
+
+  const [currentAgency] = agentsList.filter(agency => agency.url === slug);
 
   const elementsOnPage = 3;
+
+  useEffect(() => {
+    if (!currentAgency) {
+      router.push('/404');
+    }
+  }, []);
 
   useEffect(() => {
     if (userToken) {
@@ -40,10 +52,10 @@ const AgencyPage = () => {
             <img src={ ArrowImage } alt="ArrowImage"/> Back to dashboard
           </span>
         </Link>
-        <FirstBlock />
-        <SecondBlock />
-        <ThirdBlock elementsOnPage={elementsOnPage} />
-        <FourthBlock />
+        <FirstBlock currentAgency={ currentAgency }/>
+        <SecondBlock/>
+        <ThirdBlock currentAgency={ currentAgency } elementsOnPage={ elementsOnPage }/>
+        <FourthBlock currentAgency={ currentAgency }/>
       </div>
       <FooterContainer/>
     </>

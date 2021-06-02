@@ -8,13 +8,14 @@ import NoActiveLightStar from '../../../../assets/images/rating/star.svg';
 import MessageIcon from '../../../../assets/images/message-icon.svg';
 import FlagIcon from '../../../../assets/images/flag.svg';
 import Avatar from '../../../../assets/images/no-photo.png';
+import { AgentsItem } from '../../../../types/agents';
 
-const FourthBlock = () => {
+const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
   return (
     <div className="Agency__fourth-block">
       <div className="main-content">
         <h3>Client reviews</h3>
-        <p>for Century 21 - Patrimoine 24</p>
+        <p>for { currentAgency.title }</p>
         <div className="main-rate-info">
           <div className="total-info">
             <div className="total-info__main">

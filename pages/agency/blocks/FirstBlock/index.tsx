@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { isMobile } from 'react-device-detect';
+import { Button } from 'react-bootstrap';
 
 import StarRatingComponent from 'react-star-rating-component';
 
+import ContactAgentModal from '../../../../containers/Modals/ContactAgentModal';
 import ContactAgencyBlock from '../../../../components/ContactAgencyBlock';
+
+import { AgentsItem } from '../../../../types/agents';
+import { modalWindowContactAgentAction } from '../../../../actions';
 
 import BGImage from '../../../../assets/images/agency-page/bg-agency.jpeg';
 import RatingStar from '../../../../assets/images/rating/full-star.svg';
@@ -17,8 +24,10 @@ import InstagramIcon from '../../../../assets/images/agency-page/social/instagra
 import YoutubeIcon from '../../../../assets/images/agency-page/social/youtube-icon.svg';
 import LinkedinIcon from '../../../../assets/images/agency-page/social/linkedin-icon.svg';
 import ArrowImage from '../../../../assets/images/arrow-blue.svg';
+import MailIcon from '../../../../assets/images/mail-white-icon.svg';
 
-const FirstBlock = () => {
+const FirstBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
+  const dispatch = useDispatch();
 
   const [show, setShowBlock] = useState<boolean>(false);
 
@@ -26,17 +35,22 @@ const FirstBlock = () => {
     setShowBlock(true);
   };
 
+  const openContactModal = (data: object) => {
+    dispatch(modalWindowContactAgentAction(data));
+  };
+
   return (
     <div className="Agency__first-block">
+      <ContactAgentModal/>
       <div className="main-content">
         <img className='main-content__bg' src={ BGImage } alt="BGImage"/>
         <div className="agency-info">
           <div className='d-flex agency-info__title'>
             <div className="logo-block">
-
+              <img src={ currentAgency.logo } alt="logo"/>
             </div>
             <div className="agency-info__block">
-              <h1 className="agency-name">Century 21 - PATRIMOINE 24</h1>
+              <h1 className="agency-name">{ currentAgency.title }</h1>
               <div className="rating-block d-flex align-items-center">
                 <span className='total'>5.0</span>
                 <StarRatingComponent
@@ -65,7 +79,7 @@ const FirstBlock = () => {
                 <span>Address</span>
               </div>
               <div className="contact-agency-list__info">
-                <span>2464 Royal Ln. Mesa, New Jersey 45463</span>
+                <span>{ currentAgency.agencyAddress }</span>
               </div>
             </div>
             <div className="contact-agency-list">
@@ -123,11 +137,26 @@ const FirstBlock = () => {
             </p>
             <span className='show-more'><img src={ ArrowImage } alt="ArrowImage"/>Show more</span>
           </div>
+          {
+            isMobile && <Button
+              className='contact'
+              onClick={() => openContactModal({
+                  title: currentAgency.title,
+                  agencyId: currentAgency.id,
+                  agentName: currentAgency.moreInfo.agentName,
+                  agentSurname: currentAgency.moreInfo.agentSurname,
+                })}
+            >
+              <img src={ MailIcon } alt="MailIcon"/>Contact this agency
+            </Button>
+          }
         </div>
       </div>
-      <ContactAgencyBlock/>
+      {
+        !isMobile && <ContactAgencyBlock agencyInfo={{id: currentAgency.id, title: currentAgency.title}}/>
+      }
     </div>
-  )
+  );
 };
 
 export default FirstBlock;

@@ -624,4 +624,125 @@
       }
     }
   }
+
+  @media (min-width: 768px) and (max-width: 1439px) {
+    &__first-block {
+      .main-content {
+        margin-right: unset;
+
+        &__bg {
+          width: 100%;
+        }
+      }
+
+      .contact {
+        margin: 28px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--fontNunitoBold);
+        width: 224px;
+        height: 50px;
+        background: var(--colorBlue);
+        border: 1px solid var(--colorBlue);
+        box-sizing: border-box;
+        border-radius: 6px;
+
+        img {
+          margin-right: 5px;
+        }
+      }
+    }
+    &__third-block {
+      .main-content {
+        .properties-list {
+          flex-direction: column;
+
+          .left-block {
+            max-width: unset;
+            min-height: 242px;
+            max-height: 242px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    padding: 27px 16px 80px;
+    &__first-block {
+      .main-content {
+        margin-right: unset;
+
+        &__bg {
+          width: 100%;
+          height: 172px;
+        }
+        .agency-info {
+          &__block {
+
+          }
+        }
+      }
+
+      .contact {
+        display: none;
+        //margin: 28px auto;
+        //display: flex;
+        //align-items: center;
+        //justify-content: center;
+        //font-family: var(--fontNunitoBold);
+        //width: 224px;
+        //height: 50px;
+        //background: var(--colorBlue);
+        //border: 1px solid var(--colorBlue);
+        //box-sizing: border-box;
+        //border-radius: 6px;
+        //
+        //img {
+        //  margin-right: 5px;
+        //}
+      }
+    }
+    &__second-block {
+      .main-content {
+        .agents-block {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+    &__third-block {
+      .main-content {
+        .properties-list {
+          flex-direction: column;
+
+          .left-block {
+            max-width: unset;
+            min-height: 242px;
+            max-height: 242px;
+          }
+        }
+      }
+    }
+    &__fourth-block {
+      .main-rate-info {
+        .total-info {
+          flex-direction: column;
+
+          &__main {
+            flex-direction: column;
+            width: 100%;
+          }
+        }
+
+        .reviews-list {
+          .review {
+            &__content {
+              flex-direction: column;
+            }
+          }
+        }
+      }
+    }
+  }
 }
