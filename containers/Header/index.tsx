@@ -92,12 +92,14 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
         <link rel="mask-icon" href={ '/safari-pinned-tab.svg' } color="#3871ef"/>
 
         <link
-          rel='preload'
+          rel='prefetch'
+          type="font/ttf"
           as='font'
           href={ NunitoSans }
         />
         <link
-          rel='preload'
+          rel='prefetch'
+          type="font/ttf"
           as='font'
           href={ NunitoSansBold }
         />
