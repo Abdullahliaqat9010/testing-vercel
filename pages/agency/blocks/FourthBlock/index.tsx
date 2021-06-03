@@ -6,7 +6,7 @@ import ActiveStar from '../../../../assets/images/rating/full-star.svg';
 import NoActiveStar from '../../../../assets/images/rating/dark-star.svg';
 import NoActiveLightStar from '../../../../assets/images/rating/star.svg';
 import MessageIcon from '../../../../assets/images/message-icon.svg';
-import FlagIcon from '../../../../assets/images/flag.svg';
+// import FlagIcon from '../../../../assets/images/flag.svg';
 import Avatar from '../../../../assets/images/no-photo.png';
 import { AgentsItem } from '../../../../types/agents';
 
@@ -21,14 +21,16 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
             <div className="total-info__main">
               <div className="left-block">
                 <span className="total">4.6</span>
-                <div className="stars">
-                  <img src={ ActiveStar } alt="ActiveStar"/>
-                  <img src={ ActiveStar } alt="ActiveStar"/>
-                  <img src={ ActiveStar } alt="ActiveStar"/>
-                  <img src={ ActiveStar } alt="ActiveStar"/>
-                  <img src={ ActiveStar } alt="ActiveStar"/>
+                <div className="review-block d-flex flex-column">
+                  <div className="stars">
+                    <img src={ ActiveStar } alt="ActiveStar"/>
+                    <img src={ ActiveStar } alt="ActiveStar"/>
+                    <img src={ ActiveStar } alt="ActiveStar"/>
+                    <img src={ ActiveStar } alt="ActiveStar"/>
+                    <img src={ ActiveStar } alt="ActiveStar"/>
+                  </div>
+                  <span className="from">From 125 reviews</span>
                 </div>
-                <span className="from">From 125 reviews</span>
               </div>
               <div className="right-block">
                 <div className='statistic'>
@@ -96,7 +98,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                   </div>
                   <span className="bold">Very nice experience...</span>
                 </div>
-                <img src={ FlagIcon } alt="FlagIcon" className="flag"/>
+                {/*<img src={ FlagIcon } alt="FlagIcon" className="flag"/>*/}
               </div>
               <div className="review__content">
                 <div className="left-side">
@@ -179,7 +181,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                   </div>
                   <span className="bold">Very nice experience...</span>
                 </div>
-                <img src={ FlagIcon } alt="FlagIcon" className="flag"/>
+                {/*<img src={ FlagIcon } alt="FlagIcon" className="flag"/>*/}
               </div>
               <div className="review__content">
                 <div className="left-side">
@@ -262,7 +264,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                   </div>
                   <span className="bold">Very nice experience...</span>
                 </div>
-                <img src={ FlagIcon } alt="FlagIcon" className="flag"/>
+                {/*<img src={ FlagIcon } alt="FlagIcon" className="flag"/>*/}
               </div>
               <div className="review__content">
                 <div className="left-side">

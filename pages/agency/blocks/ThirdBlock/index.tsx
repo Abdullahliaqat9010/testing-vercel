@@ -10,6 +10,7 @@ import { AgentsItem } from '../../../../types/agents';
 import { RootState } from '../../../../types/state';
 
 import LoadMoreImage from '../../../../assets/images/load-more.svg';
+import { isMobileOnly } from 'react-device-detect';
 
 const ThirdBlock = ({elementsOnPage, currentAgency}: { elementsOnPage: number, currentAgency: AgentsItem }) => {
 
@@ -30,9 +31,12 @@ const ThirdBlock = ({elementsOnPage, currentAgency}: { elementsOnPage: number, c
         <h3>Sold properties</h3>
         <p>by { currentAgency.title }</p>
         <div className="properties-list">
-          <div className="left-block position-relative">
-            <GoogleMap />
-          </div>
+          {
+            !isMobileOnly &&
+            <div className="left-block position-relative">
+              <GoogleMap />
+            </div>
+          }
           <div className="right-block">
             <div className="property-main-block">
               {

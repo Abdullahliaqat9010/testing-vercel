@@ -40,14 +40,22 @@
           border-bottom: 1px solid rgba(56, 113, 239, 0.2);
 
           .logo-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: absolute;
             bottom: 25px;
             width: 172px;
             height: 172px;
-            border: 1px solid var(--colorLightGrey);
             box-sizing: border-box;
             border-radius: 8px;
             background: #E5EAF7;
+
+            img {
+              width: 100%;
+              height: auto;
+              border-radius: 8px;
+            }
           }
         }
 
@@ -678,36 +686,77 @@
           width: 100%;
           height: 172px;
         }
-        .agency-info {
-          &__block {
 
+        .agency-info {
+          .logo-block {
+            width: 132px;
+            height: 132px;
+            left: calc(50% - 66px);
+            bottom: 135px;
+          }
+
+          &__block {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 87px 0 0;
+
+            .rating-block {
+              .from {
+                height: 100%;
+                padding-top: 5px;
+              }
+            }
+
+            .gray {
+              margin-bottom: 30px;
+            }
+          }
+
+          &__contact-block {
+            .contact-agency-list {
+              flex-direction: column;
+              align-items: flex-start;
+
+              &__info {
+                margin-left: 22px;
+              }
+            }
           }
         }
       }
 
       .contact {
         display: none;
-        //margin: 28px auto;
-        //display: flex;
-        //align-items: center;
-        //justify-content: center;
-        //font-family: var(--fontNunitoBold);
-        //width: 224px;
-        //height: 50px;
-        //background: var(--colorBlue);
-        //border: 1px solid var(--colorBlue);
-        //box-sizing: border-box;
-        //border-radius: 6px;
-        //
-        //img {
-        //  margin-right: 5px;
-        //}
       }
     }
     &__second-block {
       .main-content {
+        p {
+          margin-bottom: 30px;
+        }
+
         .agents-block {
           grid-template-columns: 1fr;
+          grid-gap: 20px;
+
+          .agent {
+            align-items: flex-start;
+            padding: unset;
+            border: unset;
+
+            img {
+              width: 42px;
+              height: 42px;
+            }
+
+            .agent-info {
+              width: 100%;
+              border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+              padding-bottom: 30px;
+            }
+          }
         }
       }
     }
@@ -731,12 +780,77 @@
 
           &__main {
             flex-direction: column;
-            width: 100%;
+            width: 100% !important;
+            margin-bottom: 30px;
+
+            .left-block {
+              padding: 20px 30px 18px !important;
+              display: flex;
+              align-items: center;
+
+              .total {
+                font-size: 46px !important;
+                line-height: 63px !important;
+                margin-right: 10px;
+              }
+
+              .review-block {
+                .stars {
+                  img {
+                    width: 14px;
+                    height: 14px;
+                  }
+                }
+
+                .from {
+                  margin-top: 4px;
+                }
+              }
+            }
+
+            .right-block {
+              padding: 0 30px !important;
+            }
           }
+
+          &__feedback {
+            padding: 20px;
+            border-top: 1px solid var(--colorLightBlue);
+            border-left: unset !important;
+
+            p {
+              width: 100% !important;
+            }
+
+            .leave-feedback {
+              width: 100% !important;
+              height: 47px !important;
+            }
+          }
+        }
+
+        .sort-block {
+          display: none !important;
         }
 
         .reviews-list {
           .review {
+            &__head {
+              .review-title {
+                flex-direction: column;
+                align-items: flex-start;
+
+                .stars-block {
+                  margin-bottom: 5px;
+                  img {
+                    margin-right: 3px;
+                    width: 11px;
+                    height: 11px;
+                  }
+                }
+              }
+            }
+
             &__content {
               flex-direction: column;
             }
