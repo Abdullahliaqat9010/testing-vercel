@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
@@ -24,7 +24,7 @@ import ApartmentImageNoActive from '../../../../assets/images/apartment-noactive
 import MarkerImage from '../../../../assets/images/marker-blue.svg';
 import CloseIcon from '../../../../assets/images/close-icon.svg';
 
-const StepTwo = () => {
+const StepOne = () => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
   const {
@@ -46,6 +46,10 @@ const StepTwo = () => {
     zip,
     locality,
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   const [error, setError] = useState({zip: ''});
 
@@ -244,4 +248,4 @@ const StepTwo = () => {
   );
 };
 
-export default StepTwo;
+export default StepOne;

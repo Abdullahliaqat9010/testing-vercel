@@ -125,8 +125,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
             <div className="desc">
               { t('desc-agency.agency-sold') }
               <span className="bold"> { agencyPropertiesInfo?.count || 39 } { t('desc-agency.properties') }
-              </span> { t('desc-agency.nearby-including') }
-              <span className="link"> { agencySimilarProperties?.count || 18 } { t('desc-agency.similar') }
+              </span> { t('desc-agency.nearby-including') } <span className="link">
+              { agencySimilarProperties?.count || 18 } { t('desc-agency.similar') }
               </span>. { t('desc-agency.our-team') }
             </div>
             <Button
