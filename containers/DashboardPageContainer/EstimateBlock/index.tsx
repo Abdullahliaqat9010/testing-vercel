@@ -74,7 +74,7 @@ const EstimateBlock = () => {
 
   return (
     <div className='estimate-block'>
-      <h4>Estimated Market Value</h4>
+      <h4>{ t('title.estimated-value') }</h4>
       <p className={noEstimation ? 'no-estim' : ''}>{ mainProperty?.search_address }</p>
       {
         mainProperty?.search_address && !noEstimation &&
@@ -154,8 +154,7 @@ const EstimateBlock = () => {
         <div className='no-estimation-block'>
           <img src={ NoEstimationImage } alt="NoEstimationImage"/>
           <span>
-            The estimation and similar houses aren't available yet in your area.
-            We'll send you an email as soon it's available.
+            { t('desc.estimated-value') }
           </span>
         </div>
       }
