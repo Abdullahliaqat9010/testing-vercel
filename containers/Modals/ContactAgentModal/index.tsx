@@ -187,13 +187,13 @@ const ContactAgentModal = () => {
               <div className="main-content">
                 <img src={ SendSuccess } alt="SendSuccess"/>
                 <h3>
-                  Your message has been sent successfully.
+                  { t('title.message-sent-successfully') }
                 </h3>
                 <p>
-                  <span>The agency { agencyContactInfo.title } will contact you soon.</span>
+                  <span>{ t('desc.agency') } { agencyContactInfo.title } { t('desc.soon') }</span>
                 </p>
                 <Button className='close' onClick={ handleCloseModal }>
-                  Close
+                  { t('button.close') }
                 </Button>
               </div>
             </Modal.Body>
