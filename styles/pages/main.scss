@@ -227,16 +227,6 @@
         img {
           margin-right: 6px;
         }
-
-        &:focus {
-          box-shadow: unset;
-        }
-
-        &:hover, &:active {
-          color: var(--colorBlue);
-          background: var(--bg-blue);
-          box-shadow: unset !important;
-        }
       }
     }
 

@@ -173,7 +173,7 @@ const StepFour = () => {
               name='epc'
               value={ data.epc }
               onChange={ handleChangeVal }
-              placeholder='Enter'
+              placeholder={ t('placeholder.epc') }
               type="number"
             />
             <InputGroup.Append>
