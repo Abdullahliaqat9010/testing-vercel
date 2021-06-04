@@ -98,5 +98,6 @@
   "title.optional": "Optional",
   "title.prestige": "Prestige / quality of the home",
   "title.property-condition": "Property condition",
-  "title.property-type": "Property Type"
+  "title.property-type": "Property Type",
+  "placeholder.epc": "Enter"
 }

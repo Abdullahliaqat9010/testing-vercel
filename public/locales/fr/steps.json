@@ -98,5 +98,6 @@
   "title.optional": "Optionnel",
   "title.prestige": "Niveau de standing du bien ",
   "title.property-condition": "Etat général du bien",
-  "title.property-type": "Type de propriété"
+  "title.property-type": "Type de propriété",
+  "placeholder.epc": "Enter"
 }
