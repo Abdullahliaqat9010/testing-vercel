@@ -229,7 +229,7 @@ const StepTwo = () => {
                   id='apartmentElevator'
                   onChange={ handleChangeVal }
                   type="checkbox"
-                  label='Elevator'
+                  label={ t('label.elevator') }
                 />
               </InputGroup>
             </>
