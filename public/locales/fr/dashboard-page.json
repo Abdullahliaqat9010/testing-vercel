@@ -1,7 +1,7 @@
 {
   "button.accurate": "Précise",
   "button.agency-details": "Informations sur l'agence",
-  "button.cancel": "Supprimer",
+  "button.cancel": "Annuler",
   "button.close": "Fermer",
   "button.confirm": "Confirmer",
   "button.contact": "Contacter",
@@ -16,7 +16,7 @@
   "desc-agency.our-team": " Nous sommes à votre disposition pour gérer votre projet immobilier",
   "desc-agency.properties": "biens",
   "desc-agency.similar": "similaire à la vôtre",
-  "desc.agents-near-you": "les agents qui sont proches de l'endroit où se trouve votre propriété.",
+  "desc.agents-near-you": "agences qui sont proches de l'endroit où se trouve votre propriété.",
   "desc.months-ago": "derniers mois par",
   "desc.similar-sold-properties": "biens vendus dans cette zone",
   "desc.sold": "Vendu(s) ces",
