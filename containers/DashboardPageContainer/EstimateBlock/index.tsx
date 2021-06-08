@@ -66,7 +66,7 @@ const EstimateBlock = () => {
         myEstimationFeedback: `${ t('placeholder.property-has') } ${ showTitle(t('button.' + activeBtn)) } ${ t('placeholder.price-because') }...`,
       })
     }
-  }, [currentPropertyPrice]);
+  }, [currentPropertyPrice, activeBtn]);
 
   const showEstimationPopup = (btnId: string) => {
     if (!thanksPopup) {
