@@ -150,3 +150,8 @@ export const getInfoAgencyAction = () => ({
 export const getAgencyPropertyDataAction = () => ({
   type: actionType.GET_DATA_PROPERTIES_AGENCY,
 })
+
+export const setActivePropertyFromMapAction = (propertyId: number) => ({
+  type: actionType.SET_ACTIVE_PROPERTY_FROM_MAP,
+  payload: propertyId,
+})

@@ -9,7 +9,9 @@ export interface PropertiesItem {
 }
 
 export interface PropertyContainerProps {
+  currentNumber?: number,
   property: {
+    id: number,
     images: any[], //@todo add interface
     search_address: string,
     company_name: string,
