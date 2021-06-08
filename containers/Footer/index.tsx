@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'next-i18next';
 
 // import { isMobile } from 'react-device-detect';
 
@@ -7,6 +8,7 @@ import LogoFooter from '../../assets/images/logo-footer.png';
 // import CloseBlock from '../../assets/images/arrow-close-block.svg';
 
 const FooterContainer = () => {
+  const {t} = useTranslation('common');
   // const [isOpen, setCurrentOpenBlock] = useState('firstBlock');
 
   // const showBlock = (blockId) => {
@@ -19,10 +21,11 @@ const FooterContainer = () => {
         <div className="footer__info w-25">
           <img src={ LogoFooter } alt="LogoFooter"/>
           <span className="desc">
-          Make the real estate market more transparent so that home sellers can make the best possible decisions
+            { t('footer.desc') }
+
         </span>
           <span className="copyright">
-          All rights reserved © Immo Belgium { new Date().getFullYear() }
+          { t('footer.copyright') } © Immo Belgium { new Date().getFullYear() }
         </span>
         </div>
         {/*<div className="footer__main">*/}
