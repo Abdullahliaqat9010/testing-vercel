@@ -206,14 +206,14 @@ const StepTwo = () => {
             selectedProperty === 'apartment' &&
             <>
               <InputGroup>
-                <Form.Label className='d-flex'>
+                <Form.Label className='d-flex terras-value-label'>
                   { t('label.garden') }
                 </Form.Label>
                 <div className="input-block">
                   <Form.Control
                     min={ 0 }
                     name='gardenTerrasValue'
-                    value={ data.gardenTerrasValue }
+                    value={ data.gardenTerrasValue || 0 }
                     type="number"
                     onChange={ handleChangeVal }
                   />

@@ -1,5 +1,5 @@
 .property-block {
-  margin-bottom: 6px;
+  margin: 0 20px 6px;
   padding: 10px 0;
   border-bottom: 1px solid rgba(56, 113, 239, 0.2);
 
@@ -13,12 +13,33 @@
   }
 
   &__info {
+    width: 100%;
     font-size: 12px;
 
     .address {
-      display: block;
+      display: flex;
+      justify-content: space-between;
       font-size: 14px;
       margin-bottom: 6px;
+
+      .property-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        background: var(--bg-blue);
+        color: var(--colorGray);
+        border-radius: 20px;
+        font-family: var(--fontNunitoBold);
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      .active {
+        background: var(--colorBlue);
+        color: var(--colorWhite)
+      }
     }
 
     .house-info {
@@ -38,6 +59,7 @@
       span {
         opacity: 0.6;
       }
+
       a {
         text-transform: capitalize;
         color: var(--colorBlue);
@@ -62,4 +84,11 @@
       }
     }
   }
+}
+.active-block {
+  box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+  margin: 0 5px 6px;
+  padding: 0 15px;
+  height: 197px;
+  align-items: center;
 }

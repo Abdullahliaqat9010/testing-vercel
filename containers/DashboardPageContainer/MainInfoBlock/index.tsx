@@ -59,7 +59,7 @@ const MainInfoBlock = () => {
           indoorGarage: mainProperty.indoor_garage,
           outdoorGarage: mainProperty.outdoor_garage,
           carport: mainProperty.carport,
-          parking: mainProperty.carport && mainProperty.outdoor_garage&& mainProperty.indoor_garage,
+          parking: mainProperty.carport || mainProperty.outdoor_garage || mainProperty.indoor_garage,
           solarPanels: mainProperty.solar_panels,
         },
         personalAccount: {

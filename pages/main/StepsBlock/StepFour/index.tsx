@@ -10,6 +10,7 @@ import {
   updatePropertyRequestAction,
 } from '../../../../actions';
 import { RootState } from '../../../../types/state';
+import { toBool } from '../../../../utils';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
 import NorthInactive from '../../../../assets/images/steps/orientation/n-inactive.svg';
@@ -332,7 +333,7 @@ const StepFour = () => {
           />
         </InputGroup>
         {
-          data.parking &&
+          toBool(data.parking) &&
           <div className='bg-block'>
             <InputGroup>
               <Form.Label>{ t('label.indoor-garage') }</Form.Label>
@@ -340,7 +341,7 @@ const StepFour = () => {
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('indoorGarage') }>-</InputGroup.Text>
                 </InputGroup.Prepend>
-                <Form.Control value={ data.indoorGarage } readOnly type="number"/>
+                <Form.Control value={ data.indoorGarage || 0 } readOnly type="number"/>
                 <InputGroup.Append>
                   <InputGroup.Text onClick={ () => handleAddNumber('indoorGarage') }>+</InputGroup.Text>
                 </InputGroup.Append>
@@ -352,7 +353,7 @@ const StepFour = () => {
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('outdoorGarage') }>-</InputGroup.Text>
                 </InputGroup.Prepend>
-                <Form.Control value={ data.outdoorGarage } readOnly type="number"/>
+                <Form.Control value={ data.outdoorGarage || 0 } readOnly type="number"/>
                 <InputGroup.Append>
                   <InputGroup.Text onClick={ () => handleAddNumber('outdoorGarage') }>+</InputGroup.Text>
                 </InputGroup.Append>
@@ -364,7 +365,7 @@ const StepFour = () => {
                 <InputGroup.Prepend>
                   <InputGroup.Text onClick={ () => handleSubtractNumber('carport') }>-</InputGroup.Text>
                 </InputGroup.Prepend>
-                <Form.Control value={ data.carport } readOnly type="number"/>
+                <Form.Control value={ data.carport || 0 } readOnly type="number"/>
                 <InputGroup.Append>
                   <InputGroup.Text onClick={ () => handleAddNumber('carport') }>+</InputGroup.Text>
                 </InputGroup.Append>

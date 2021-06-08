@@ -1,7 +1,7 @@
 {
   "button.accurate": "Précise",
   "button.agency-details": "Informations sur l'agence",
-  "button.cancel": "Supprimer",
+  "button.cancel": "Annuler",
   "button.close": "Fermer",
   "button.confirm": "Confirmer",
   "button.contact": "Contacter",
@@ -16,7 +16,7 @@
   "desc-agency.our-team": " Nous sommes à votre disposition pour gérer votre projet immobilier",
   "desc-agency.properties": "biens",
   "desc-agency.similar": "similaire à la vôtre",
-  "desc.agents-near-you": "les agents qui sont proches de l'endroit où se trouve votre propriété.",
+  "desc.agents-near-you": "agences qui sont proches de l'endroit où se trouve votre propriété.",
   "desc.months-ago": "derniers mois par",
   "desc.similar-sold-properties": "biens vendus dans cette zone",
   "desc.sold": "Vendu(s) ces",
@@ -35,8 +35,8 @@
   "link.real-estate-agent": "Agent immobilier",
   "p.similar-properties-sold": "bien similaires vendus à proximité de",
   "p.to": "à",
-  "placeholder.price-because": "le prix car",
-  "placeholder.property-has": "Je pense que cette évaluation est",
+  "placeholder.price-because": "car",
+  "placeholder.property-has": "Je pense que cette estimation est",
   "placeholder.message": "J'ai trouvé votre profil sur BelgiumImmo et je voudrais vous informer sur mon project immobilier.",
   "span.from": "sur",
   "span.nearest-agency": "Agence la plus proche de votre bien",
@@ -45,7 +45,7 @@
   "span.similar-property": "Biens similaires",
   "span.your-property": "Votre bien",
   "title": "Tableau de bord",
-  "title.accurate-estimation": "Cette estimation vous semble juste?",
+  "title.accurate-estimation": "Cette estimation vous semble correcte?",
   "title.baths": "Salles de Bain",
   "title.beds": "Chambres",
   "title.estimated-value": "Valeur Estimée du Marché ",
@@ -54,7 +54,7 @@
   "title.similar-sold-properties": "Biens Similaires Vendus",
   "title.square": "Surface",
   "title.thanks-reply": "Merci pour votre réponse!",
-  "title.message-sent-successfully": "Your message has been sent successfully.",
-  "desc.agency": "The agency",
-  "desc.soon": "will contact you soon."
+  "title.message-sent-successfully": "Votre message a été envoyé avec succès.",
+  "desc.agency": "L'agence",
+  "desc.soon": "vous contactera bientôt."
 }

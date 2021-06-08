@@ -125,6 +125,18 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         similarPropertiesLocation: [...action.payload],
       };
+    case actionType.SET_ACTIVE_PROPERTY_FROM_MAP:
+      return {
+        ...state,
+        similarPropertiesLocation: [
+          ...state.similarPropertiesLocation.map(property => {
+            if (property.id === action.payload) {
+              return {...property, activeOnMap: true};
+            }
+            return {...property, activeOnMap: false};
+          }),
+        ],
+      };
     case actionType.LOGIN_USER_ERROR:
     case actionType.GET_USER_PROPERTY_ERROR: {
       return {

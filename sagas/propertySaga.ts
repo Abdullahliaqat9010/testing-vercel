@@ -130,7 +130,12 @@ function* getSimilarPropertyRequest(propertyId: number, page: number, limit: num
       const similarPropertiesLocation = [];
       const {data, meta, agencies} = yield res.json();
       data.forEach(item => {
-        similarPropertiesLocation.push({lat: Number(item.lat), lng: Number(item.lng)});
+        similarPropertiesLocation.push({
+          id: Number(item.id),
+          lat: Number(item.lat),
+          lng: Number(item.lng),
+          activeOnMap: false
+        });
       });
       yield getSimilarPropertySuccess(data);
       yield setSimilarPropertyPaginationInfo(meta);
