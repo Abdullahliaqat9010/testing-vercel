@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
-import { Button, ButtonGroup, Form, InputGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import {
   goToNextStepAction,
@@ -166,7 +166,9 @@ const StepFour = () => {
       <Form>
         <InputGroup className='epc'>
           <Form.Label className='d-flex'>
-            { t('label.epc') }
+            <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip.epc') }</Tooltip> }>
+              <span key='tooltip-info'>{ t('label.epc') }</span>
+            </OverlayTrigger>
           </Form.Label>
           <div className="input-block">
             <Form.Control
