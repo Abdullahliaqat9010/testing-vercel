@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
@@ -47,11 +46,11 @@ const AgencyPage = () => {
     <>
       <HeaderContainer title='Agency Info'/>
       <div className='Agency container'>
-        <Link href={ '/dashboard' }>
+        <a href={ '/dashboard' }>
           <span className='Agency__back'>
             <img src={ ArrowImage } alt="ArrowImage"/> Back to dashboard
           </span>
-        </Link>
+        </a>
         <FirstBlock currentAgency={ currentAgency }/>
         <SecondBlock/>
         <ThirdBlock currentAgency={ currentAgency } elementsOnPage={ elementsOnPage }/>

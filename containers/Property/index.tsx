@@ -42,7 +42,6 @@ const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) =>
   };
 
   const getImageLink = () => {
-    console.log(property.images);
     if (property.images.length) {
       return property.images[0].url_small;
     }
