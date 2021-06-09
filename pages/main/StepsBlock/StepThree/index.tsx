@@ -220,7 +220,7 @@ const StepThree = () => {
               isInvalid={ noValidRenYear }
             />
             <Form.Control.Feedback type="invalid">
-              Renovation year can't be before construction year
+              { t('error.renovation-level') }
             </Form.Control.Feedback>
           </div>
         </InputGroup>

@@ -56,6 +56,7 @@
   "label.privacy": "Privacy Policy",
   "label.renovated": "Renovated",
   "label.renovation-level": "Renovation level",
+  "error.renovation-level": "Renovation year can't be before construction year",
   "label.solar-panels": "Solar panels",
   "label.street": "Street",
   "label.view": "View",
