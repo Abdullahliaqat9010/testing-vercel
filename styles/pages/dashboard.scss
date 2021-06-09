@@ -2,7 +2,7 @@
   padding: 27px 0 80px;
   color: var(--mainColor);
 
-  h4 {
+  h1 {
     font-family: var(--fontNunitoBold);
     line-height: 33px;
   }
@@ -58,6 +58,10 @@
 
       background: var(--colorWhite);
       border-radius: 10px;
+
+      h2 {
+        font-family: var(--fontNunitoBold);
+      }
 
       p {
         margin-bottom: 86px;
@@ -269,7 +273,7 @@
       }
 
       .properties-list {
-        h5 {
+        h3 {
           font-family: var(--fontNunitoBold);
           line-height: 27px;
           margin: 20px 0 10px 20px;
@@ -325,10 +329,168 @@
     }
   }
 
-  @media (min-width: 320px) and (max-width: 900px) {
+  @media (min-width: 768px) and (max-width: 1439px) {
+    flex-direction: column;
+    padding-top: 40px;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    &__container {
+      margin-top: 20px;
+
+      .main-info-block {
+        .top-block {
+          align-items: baseline !important;
+        }
+      }
+
+      .estimate-block {
+        p {
+          margin-bottom: 100px;
+        }
+
+        .scale-block {
+          .line {
+            width: 100%;
+            background-image: url("../../assets/images/price-graph-tablet.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+        }
+      }
+
+      .properties-block {
+        position: relative;
+        padding: 20px;
+        flex-direction: column;
+
+        .w-48 {
+          width: 100% !important;
+          margin-top: 86px;
+          min-height: 482px;
+        }
+
+        .properties-list {
+          h3 {
+            position: absolute;
+            top: 10px;
+          }
+
+          p {
+            position: absolute;
+            top: 60px;
+          }
+
+          .property-main-block {
+            margin-top: 20px;
+
+            .property-block {
+              margin: 0 0 9px;
+
+              &__info {
+                position: relative;
+
+                .address {
+                  margin-top: 32px;
+
+                  .property-number {
+                    display: none;
+                  }
+                }
+
+                .short-desc {
+                  .time {
+                    margin-bottom: 14px;
+                    flex-direction: row;
+
+                    a {
+                      margin-left: 4px;
+                    }
+                  }
+                }
+              }
+
+              button {
+                position: absolute;
+                right: 0;
+                bottom: 22px;
+              }
+            }
+          }
+        }
+      }
+
+      .find-agent-block {
+        .agency-block {
+          min-height: 170px;
+
+          .short-info {
+            flex-direction: column;
+            align-items: baseline !important;
+
+            .action-btn {
+              top: 20px;
+            }
+
+            &__left {
+              align-items: flex-start !important;
+              margin-left: 165px;
+            }
+
+            &__right {
+              margin: 12px 0 20px 145px;
+            }
+
+            .logo-block {
+              height: 126px;
+              position: absolute;
+              left: 0;
+              border: 1px solid var(--colorLightGrey);
+            }
+
+            .info {
+              margin-top: 20px;
+            }
+
+            .agency-border {
+              display: none;
+            }
+          }
+
+          .more-info {
+            flex-direction: column;
+
+            .agent-block {
+              position: relative;
+
+              .desc {
+                width: 95%;
+              }
+
+              .details {
+                position: absolute;
+                left: 195px;
+                bottom: 35px;
+              }
+            }
+
+            .map-block {
+              .agency-map {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
     padding: 30px 16px 0;
 
-    h4 {
+    h1 {
       font-size: 20px;
       line-height: 27px;
       width: 75%;
@@ -370,7 +532,7 @@
       .estimate-block {
         padding: 20px;
 
-        h4 {
+        h2 {
           width: 100%;
         }
 
@@ -440,7 +602,7 @@
         .properties-list {
           width: 100% !important;
 
-          h5 {
+          h3 {
             margin: 0 0 6px;
           }
 
