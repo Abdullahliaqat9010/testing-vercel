@@ -9,5 +9,6 @@
   "link.remind-password": "Remind password",
   "placeholder.email-phone": "Enter your email",
   "placeholder.password": "Enter your password",
-  "title.login": "Log in"
+  "title.login": "Log in",
+  "footer.copyright": "All rights reserved"
 }
