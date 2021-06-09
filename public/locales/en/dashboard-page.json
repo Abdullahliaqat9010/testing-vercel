@@ -49,8 +49,12 @@
   "title.baths": "Baths",
   "title.beds": "Beds",
   "title.estimated-value": "Estimated Market Value",
+  "desc.estimated-value": "The estimation and similar houses aren't available yet in your area. We'll send you an email as soon it's available.",
   "title.find-your-agent": "Find your agent",
   "title.similar-sold-properties": "Similar Sold Properties",
   "title.square": "Square",
-  "title.thanks-reply": "Thank you for your reply!"
+  "title.thanks-reply": "Thank you for your reply!",
+  "title.message-sent-successfully": "Your message has been sent successfully.",
+  "desc.agency": "The agency",
+  "desc.soon": "will contact you soon."
 }

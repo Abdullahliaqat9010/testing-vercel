@@ -16,6 +16,17 @@ const EstimateBlock = () => {
   const dispatch = useDispatch();
   const {mainProperty, currentPropertyPrice, noEstimation} = useSelector((state: RootState) => state.userInfo);
 
+  const showTitle = (btnName: string) => {
+    return btnName.toLowerCase();
+  };
+
+  const numberWithCommas = (value: string) => {
+    if (value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    return '';
+  };
+
   const [activeBtn, setActiveBtn] = useState<string>('');
   const [priceValue, setPriceValue] = useState({
     min: null,
@@ -23,6 +34,12 @@ const EstimateBlock = () => {
     minPerMeter: null,
     maxPerMeter: null,
   });
+
+  const [estimationForm, setEstimationForm] = useState({
+    myEstimation: '',
+    myEstimationFeedback: '',
+  });
+
   const [estimationPopup, setEstimationPopup] = useState<boolean>(false);
   const [thanksPopup, setThanksPopup] = useState<boolean>(false);
 
@@ -43,8 +60,13 @@ const EstimateBlock = () => {
         minPerMeter: Math.round(min / mainProperty.live_area),
         maxPerMeter: Math.round(max / mainProperty.live_area),
       });
+
+      setEstimationForm({
+        myEstimation: numberWithCommas(currentPropertyPrice.totalValue.toString()),
+        myEstimationFeedback: `${ t('placeholder.property-has') } ${ showTitle(t('button.' + activeBtn)) } ${ t('placeholder.price-because') }...`,
+      })
     }
-  }, [currentPropertyPrice]);
+  }, [currentPropertyPrice, activeBtn]);
 
   const showEstimationPopup = (btnId: string) => {
     if (!thanksPopup) {
@@ -59,45 +81,44 @@ const EstimateBlock = () => {
     setThanksPopup(true);
   };
 
-  const showTitle = (btnName: string) => {
-    return btnName.toLowerCase();
-  };
-
   const closePopups = () => {
     setActiveBtn('');
     setThanksPopup(false);
   };
 
-  const numberWithCommas = (value: string) => {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const handleUpdatePrice = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setEstimationForm({
+     ...estimationForm,
+      [el.target.name]: el.target.value
+    })
   };
 
   return (
     <div className='estimate-block'>
-      <h4>Estimated Market Value</h4>
-      <p className={noEstimation ? 'no-estim' : ''}>{ mainProperty?.search_address }</p>
+      <h4>{ t('title.estimated-value') }</h4>
+      <p className={ noEstimation ? 'no-estim' : '' }>{ mainProperty?.search_address }</p>
       {
         mainProperty?.search_address && !noEstimation &&
         <div className="scale-block">
           {
             currentPropertyPrice.totalValue ?
-            <OverlayTrigger
-              key='tooltip'
-              placement='top'
-              show
-              overlay={
-                <Tooltip id='price-block'>
+              <OverlayTrigger
+                key='tooltip'
+                placement='top'
+                show
+                overlay={
+                  <Tooltip id='price-block'>
                 <span>
                   €{ numberWithCommas(currentPropertyPrice.totalValue.toString()) }
                 </span>
-                  <span className='gray'>
+                    <span className='gray'>
                   €{ numberWithCommas(currentPropertyPrice.pricePerM.toString()) } per m²
                 </span>
-                </Tooltip>
-              }
-            >
-              <div className="line"/>
-            </OverlayTrigger> : <Spinner animation="border" variant="primary" />
+                  </Tooltip>
+                }
+              >
+                <div className="line"/>
+              </OverlayTrigger> : <Spinner animation="border" variant="primary"/>
           }
           <div className="range d-flex justify-content-between">
             <div className="min">
@@ -154,8 +175,7 @@ const EstimateBlock = () => {
         <div className='no-estimation-block'>
           <img src={ NoEstimationImage } alt="NoEstimationImage"/>
           <span>
-            The estimation and similar houses aren't available yet in your area.
-            We'll send you an email as soon it's available.
+            { t('desc.estimated-value') }
           </span>
         </div>
       }
@@ -169,14 +189,18 @@ const EstimateBlock = () => {
             </InputGroup.Prepend>
             <FormControl
               className='border-left-0'
-              placeholder="1,097,500"
+              name='myEstimation'
+              value={ estimationForm.myEstimation }
+              onChange={ handleUpdatePrice }
             />
           </InputGroup>
           <p className='estimation-popup__title'>{ t('label.feedback-or-comments') }</p>
           <FormControl
             as="textarea"
+            name='myEstimationFeedback'
             rows={ 5 }
-            placeholder={ `${ t('placeholder.property-has') } ${ showTitle(t('button.' + activeBtn)) } ${ t('placeholder.price-because') }...` }
+            onChange={ handleUpdatePrice }
+            value={ estimationForm.myEstimationFeedback }
           />
           <Button onClick={ nextStepPopup } className='confirm'>{ t('button.confirm') }</Button>
         </div>

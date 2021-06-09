@@ -227,11 +227,6 @@
         img {
           margin-right: 6px;
         }
-
-        &:hover, &:active {
-          color: var(--colorBlue);
-          background: var(--bg-blue);
-        }
       }
     }
 
@@ -386,6 +381,7 @@
     .step-one, .step-two, .step-three, .step-four {
       .custom-styles {
         position: relative;
+
         .error {
           font-size: 14px;
           position: absolute;
@@ -558,6 +554,10 @@
 
         .inside-floors {
           min-width: 207px;
+        }
+
+        .terras-value-label {
+          width: 35%;
         }
 
         .input-block {

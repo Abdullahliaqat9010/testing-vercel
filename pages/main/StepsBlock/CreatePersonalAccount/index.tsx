@@ -82,9 +82,9 @@ const CreatePersonalAccount = () => {
       const sendData = {
         leadId: parseData.id,
         owner: Boolean(activePrivateBlock === 'homeowner'),
-        interest: String(data.sellProperty),
+        interest: data.accountType === 'professional' ? 'asap' : String(data.sellProperty),
         selling_way: String(data.howSell).length ? String(data.howSell) : undefined,
-        residence_type: String(data.selectedResidence),
+        residence_type: data.accountType === 'professional' ? 'other' : String(data.selectedResidence),
         ...generatePropertyData(
           addressFromStepOne,
           additionalAddress,

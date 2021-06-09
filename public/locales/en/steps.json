@@ -24,7 +24,8 @@
   "label.construction-year": "Construction year",
   "label.elevator": "Elevator",
   "label.email": "Email",
-  "label.epc": "EPC/PEB",
+  "label.epc": "EPB",
+  "tooltip.epc": "Energy performance of buildings (EPB)",
   "label.facades": "Facades",
   "label.first-name": "First name",
   "label.floors-apartment": "On which floor is the property located",
@@ -55,6 +56,7 @@
   "label.privacy": "Privacy Policy",
   "label.renovated": "Renovated",
   "label.renovation-level": "Renovation level",
+  "error.renovation-level": "Renovation year can't be before construction year",
   "label.solar-panels": "Solar panels",
   "label.street": "Street",
   "label.view": "View",
@@ -98,5 +100,6 @@
   "title.optional": "Optional",
   "title.prestige": "Prestige / quality of the home",
   "title.property-condition": "Property condition",
-  "title.property-type": "Property Type"
+  "title.property-type": "Property Type",
+  "placeholder.epc": "Enter"
 }

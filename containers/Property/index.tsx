@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,8 +12,9 @@ import ArrowImage from '../../assets/images/arrow-blue.svg';
 import NoImage from '../../assets/images/no-image-available.jpeg';
 
 import { agentsList } from '../../templates/agentsList';
+import { RootState } from '../../types/state';
 
-const PropertyContainer = ({property}: PropertyContainerProps) => {
+const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,6 +28,9 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     {label: 'minute', seconds: 60},
     {label: 'second', seconds: 0},
   ];
+
+  const {similarPropertiesLocation} = useSelector((state: RootState) => state.userInfo);
+  const [activePropertyOnMap] = similarPropertiesLocation.filter(property => property.activeOnMap);
 
   const [currentAgency] = agentsList.filter(agency => agency.tag === property.company_name);
 
@@ -50,12 +54,17 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
   };
 
   return (
-    <div className='property-block d-flex'>
+    <div className={ `property-block d-flex ${activePropertyOnMap?.id === property.id ? 'active-block' : ''}` }>
       <div className="property-block__image">
         <Image src={ getImageLink() } rounded/>
       </div>
       <div className="property-block__info">
-        <span className="address">{ property.search_address }</span>
+        <div className="address">
+          { property.search_address }
+          <span className={ `property-number ${activePropertyOnMap?.id === property.id ? 'active' : ''}` }>
+            { currentNumber }
+          </span>
+        </div>
         <div className='short-desc'>
           <div className="time">
             <span>{ t('desc.sold') } { timeSince(new Date(property.sold_date)) } </span>

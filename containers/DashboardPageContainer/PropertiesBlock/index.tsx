@@ -29,20 +29,20 @@ const PropertiesBlock = () => {
     <div className='properties-block d-flex'>
       {
         !isMobile &&
-        <div className="map-block w-50 position-relative">
+        <div className="map-block w-48 position-relative">
           {
             mainProperty && mainProperty.lng && mainProperty.lat && <GoogleMap />
           }
         </div>
       }
-      <div className="properties-list w-50">
+      <div className="properties-list">
         <h5>{ t('title.similar-sold-properties') }</h5>
         <p>{ t('desc.we-found') } { similarProperty.length } { t('desc.similar-sold-properties') }</p>
         <div className="property-main-block">
           {
             properties.map(
               (item, index) =>
-                <PropertyBlock key={ index } property={ {...item, currentNumber: ++index} }/>,
+                <PropertyBlock key={ index } property={ {...item, currentNumber: ++index} } currentNumber={++index}/>,
             )
           }
         </div>

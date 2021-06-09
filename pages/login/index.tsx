@@ -127,7 +127,7 @@ const LoginPage = () => {
       <div className="short-footer d-flex justify-content-between">
         <p>
           <span>Immo Belgium </span>
-          <span>{ new Date().getFullYear() }. All Rights Reserved.</span>
+          <span>{ new Date().getFullYear() }. { t('footer.copyright') }.</span>
         </p>
         <span className="link">
           <a href={ '/' + locale + '/privacy-policy' } target='_blank'>Politique de Confidentialité.</a>
