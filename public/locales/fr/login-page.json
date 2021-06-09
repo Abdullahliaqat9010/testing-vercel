@@ -9,5 +9,6 @@
   "link.remind-password": "Réinitialiser mot de passe",
   "placeholder.email-phone": "Entrez votre adresse e-mail",
   "placeholder.password": "Entrez votre mot de passe",
-  "title.login": "Connexion"
+  "title.login": "Connexion",
+  "footer.copyright": "All rights reserved"
 }
