@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isMobileOnly } from 'react-device-detect';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
@@ -150,7 +150,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
             </Link>
           </div>
           {
-            !isMobile &&
+            !isMobileOnly &&
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
                 {/*@ts-ignore*/ }

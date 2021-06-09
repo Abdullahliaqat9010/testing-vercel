@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 import { NavDropdown, Image, Button } from 'react-bootstrap';
 
-import { isMobile } from 'react-device-detect';
+import { isMobile, isMobileOnly } from 'react-device-detect';
 
 import Logo from '../../assets/images/logo.png';
 import NoPhoto from '../../assets/images/no-photo.png';
@@ -50,7 +50,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
   const [openLangList, setOpenLangList] = useState<boolean>(false);
 
   const isActive = () => {
-    if (isMobile) {
+    if (isMobileOnly) {
       /**
        * makes no scroll body
        */
@@ -179,14 +179,14 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                     {
                       !openMenu && <Image className='user-avatar' src={ NoPhoto } alt='avatar' roundedCircle/>
                     }
-                    <NavDropdown title={ isMobile ? '' : userName + ' ' + userSurname } id="header-dropdown"
+                    <NavDropdown title={ isMobileOnly ? '' : userName + ' ' + userSurname } id="header-dropdown"
                                  onClick={ isActive }>
                       {/*<NavDropdown.Item className='pro-workspace'>*/ }
                       {/*  <img src={ ProIcon } alt="ProIcon"/>*/ }
                       {/*  {t('li.pro-workspace')}*/ }
                       {/*</NavDropdown.Item>*/ }
                       {
-                        isMobile &&
+                        isMobileOnly &&
                         <Button onClick={ goToMainPage } className='add-property-mobile'>
                           <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.add-property') }</span>
                         </Button>
@@ -204,7 +204,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                         Logout
                       </NavDropdown.Item>
                       {
-                        isMobile &&
+                        isMobileOnly &&
                         <div className="mobile-block">
                           <Image alt='avatar' className='user-avatar' src={ NoPhoto } roundedCircle/>
                           <span className="user-name">{ userName + ' ' + userSurname }</span>
@@ -226,7 +226,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                       }
                     </NavDropdown>
                     {
-                      !isMobile &&
+                      !isMobileOnly &&
                       <div className={ `switcher-lang position-relative ${ openLangList ? 'active-locale' : '' }` }>
                         <span onClick={ openSwitcherBlock }>{ locale }</span>
                         {
