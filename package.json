@@ -11,7 +11,7 @@
     "@svgr/webpack": "^5.5.0",
     "bootstrap": "^4.6.0",
     "google-maps-react": "^2.0.6",
-    "next": "10.0.9",
+    "next": "^10.2.3",
     "next-fonts": "^1.5.1",
     "next-i18next": "^8.2.0",
     "next-images": "^1.7.0",
