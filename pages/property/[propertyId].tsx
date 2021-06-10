@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { isMobile } from 'react-device-detect';
@@ -24,9 +24,9 @@ import Map from '../../assets/images/template/map-img.png';
 
 const PropertyPage = () => {
   // const dispatch = useDispatch();
-  const router = useRouter();
-  const {propertyId} = router.query;
-  console.log(propertyId);
+  // const router = useRouter();
+  // const {propertyId} = router.query;
+  // console.log(propertyId);
 
   return (
     <>
