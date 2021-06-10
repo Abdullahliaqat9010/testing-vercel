@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -46,11 +47,11 @@ const AgencyPage = () => {
     <>
       <HeaderContainer title='Agency Info'/>
       <div className='Agency container'>
-        <a href={ '/dashboard' }>
+        <Link href={ '/dashboard' }>
           <span className='Agency__back'>
             <img src={ ArrowImage } alt="ArrowImage"/> Back to dashboard
           </span>
-        </a>
+        </Link>
         <FirstBlock currentAgency={ currentAgency }/>
         <SecondBlock/>
         <ThirdBlock currentAgency={ currentAgency } elementsOnPage={ elementsOnPage }/>

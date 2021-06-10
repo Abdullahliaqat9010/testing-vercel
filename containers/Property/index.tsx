@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button, Image } from 'react-bootstrap';
 
-import { modalWindowContactAgentAction } from '../../actions';
+// import { modalWindowContactAgentAction } from '../../actions';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
@@ -16,7 +16,7 @@ import { RootState } from '../../types/state';
 
 const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const router = useRouter();
   const {locale} = router;
 
@@ -49,9 +49,9 @@ const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) =>
     return NoImage;
   }
 
-  const openContactModal = (data: object) => {
-    dispatch(modalWindowContactAgentAction(data));
-  };
+  // const openContactModal = (data: object) => {
+  //   dispatch(modalWindowContactAgentAction(data));
+  // };
 
   return (
     <div className={ `property-block d-flex ${activePropertyOnMap?.id === property.id ? 'active-block' : ''}` }>
@@ -81,17 +81,12 @@ const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) =>
             <span>{ property.bedrooms } Beds</span>
           </div>
         </div>
-        <Button disabled={!currentAgency} onClick={
-          () => openContactModal({
-          title: currentAgency.title,
-          agencyId: currentAgency.id,
-          agentName: currentAgency.moreInfo.agentName,
-          agentSurname: currentAgency.moreInfo.agentSurname,
-          }) }
-                variant="outline-primary">
-          { t('button.request-price') }
-          <img src={ ArrowImage } alt="ArrowImage"/>
-        </Button>
+        <Link href={ `/property/${property.id}` } locale={locale}>
+          <Button variant="outline-primary">
+            { t('button.request-price') }
+            <img src={ ArrowImage } alt="ArrowImage"/>
+          </Button>
+        </Link>
       </div>
     </div>
   );

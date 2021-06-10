@@ -111,9 +111,12 @@ const userReducer = (state = initialState, action: any) => {
         existEmail: action.payload,
       };
     case actionType.GET_SIMILAR_PROPERTY_SUCCESS:
+      const changedPropertyList = JSON.stringify(state.similarProperty) === JSON.stringify(action.payload);
       return {
         ...state,
-        similarProperty: [...state.similarProperty, ...action.payload],
+        similarProperty: !changedPropertyList
+          ? [...state.similarProperty, ...action.payload]
+          : [...state.similarProperty],
       };
     case actionType.SET_SIMILAR_PROPERTY_PAGINATION_INFO:
       return {
