@@ -21,8 +21,8 @@
 
     .property-info {
       padding: 20px 20px 30px;
-      width: 780px;
-      height: 741px;
+      max-width: 780px;
+      max-height: 741px;
       background: var(--colorWhite);
       border-radius: 10px;
 
@@ -46,6 +46,144 @@
           img {
             width: 259px;
             height: 185px;
+          }
+        }
+      }
+
+      .property-content {
+        margin-top: 30px;
+        justify-content: space-between;
+
+        &__info {
+          .address {
+            font-family: var(--fontNunitoBold);
+            font-size: 18px;
+            line-height: 25px;
+            margin-bottom: 16px;
+          }
+
+          .request-price {
+            font-size: 12px;
+            line-height: 16px;
+            width: 115px;
+            height: 32px;
+
+            img {
+              transform: rotate(270deg);
+            }
+          }
+
+          .info {
+            .baths, .beds {
+              margin-left: 40px;
+            }
+
+            .square, .baths, .beds {
+              img {
+                width: 32px;
+                height: 32px;
+                margin-right: 12px;
+              }
+
+              display: flex;
+              align-items: center;
+            }
+
+            &__title {
+              font-size: 12px;
+              line-height: 16px;
+              display: block;
+              opacity: 0.7;
+              margin-bottom: 2px;
+            }
+
+            &__desc {
+              font-family: var(--fontNunitoBold);
+              font-size: 16px;
+              line-height: 22px;
+            }
+          }
+        }
+      }
+
+      .agency-block {
+        border-top: 1px solid rgba(56, 113, 239, 0.2);
+        border-bottom: unset;
+        margin-top: 30px;
+
+        .sold-by {
+          margin: 30px 0 20px;
+          font-size: 18px;
+          line-height: 25px;
+          font-family: var(--fontNunitoBold);
+        }
+
+        &__short-info {
+          display: flex;
+          align-items: center;
+
+          .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 82px;
+            border: 1px solid var(--colorLightGrey);
+            box-sizing: border-box;
+            border-radius: 8px;
+          }
+
+          .left-block {
+            margin-left: 16px;
+
+            .agency-name {
+              font-family: var(--fontNunitoBold);
+              font-size: 16px;
+              line-height: 22px;
+              margin-bottom: 5px;
+            }
+
+            .agency-stats {
+              display: flex;
+              align-items: center;
+
+              .rate {
+                font-size: 14px;
+                line-height: 19px;
+              }
+
+              .stars-block {
+                margin: 0 10px 0 6px;
+              }
+
+              .from {
+                font-size: 12px;
+                line-height: 16px;
+                opacity: 0.6;
+              }
+            }
+          }
+
+          .right-block {
+            display: flex;
+            align-items: center;
+
+            .count {
+              font-family: var(--fontNunitoBold);
+              font-size: 18px;
+              line-height: 25px;
+              padding: 9px 10px;
+              background: var(--bg-blue);
+              border-radius: 8px;
+              margin-right: 12px;
+            }
+
+            .similar {
+              display: block;
+              width: 70%;
+              font-size: 14px;
+              line-height: 19px;
+            }
           }
         }
       }

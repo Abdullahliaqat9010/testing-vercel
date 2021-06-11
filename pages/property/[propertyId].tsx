@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
@@ -6,6 +6,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { isMobile } from 'react-device-detect';
 import Link from 'next/link';
 
+import GoogleMapModal from '../../containers/Modals/GoogleMapModal';
+import RequestPriceModal from '../../containers/Modals/RequestPriceModal';
 import ContactAgencyBlock from '../../components/ContactAgencyBlock';
 import HeaderContainer from '../../containers/Header';
 import FooterContainer from '../../containers/Footer';
@@ -19,18 +21,30 @@ import FirstImage from '../../assets/images/template/first-image.png';
 import SecondImage from '../../assets/images/template/second-image.png';
 import ThirdImage from '../../assets/images/template/third-image.png';
 import Map from '../../assets/images/template/map-img.png';
-
-
+import Stars from '../../assets/images/template/stars.png';
+import TestAgency from '../../assets/images/agents/test-agency.png';
 
 const PropertyPage = () => {
   // const dispatch = useDispatch();
   const router = useRouter();
   const {propertyId} = router.query;
+
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [showRequestPriceModal, setShowRequestPriceModal] = useState(false);
+
+  const handleCloseMapModal = () => setShowMapModal(false);
+  const handleShowMapModal = () => setShowMapModal(true);
+
+  const handleCloseRequestPriceModal = () => setShowRequestPriceModal(false);
+  const handleShowRequestPriceModal = () => setShowRequestPriceModal(true);
+
   console.log(propertyId);
 
   return (
     <>
       <HeaderContainer title='Agency Info'/>
+      <GoogleMapModal show={showMapModal} handleClose={handleCloseMapModal} />
+      <RequestPriceModal show={showRequestPriceModal} handleClose={handleCloseRequestPriceModal} />
       <div className='PropertyPage container'>
         <Link href={ '/dashboard' }>
           <span className='PropertyPage__back'>
@@ -47,12 +61,12 @@ const PropertyPage = () => {
               </div>
             </div>
             <div className="property-content d-flex">
-              <div className="property-content__info">
+              <div className="property-content__info w-75">
                 <p className="address">
                   2464 Royal Ln. Mesa, New Jersey 45463
                 </p>
-                <div className='d-flex w-100 align-items-center'>
-                  <Button variant="outline-primary">
+                <div className='d-flex w-100 align-items-center justify-content-between'>
+                  <Button onClick={handleShowRequestPriceModal} className='request-price' variant="outline-primary">
                     Request price
                     <img src={ ArrowImage } alt="ArrowImage"/>
                   </Button>
@@ -82,12 +96,37 @@ const PropertyPage = () => {
                 </div>
               </div>
               <div className="property-content__map">
-                <img src={ Map } alt="Map"/>
+                <img onClick={handleShowMapModal} src={ Map } alt="Map"/>
               </div>
             </div>
-            {/*<div className="agency-block">*/}
-
-            {/*</div>*/}
+            <div className="agency-block">
+              <p className="sold-by">
+                This property was sold by
+              </p>
+              <div className="agency-block__short-info">
+                <div className="logo">
+                  <img src={ TestAgency } alt="TestAgency"/>
+                </div>
+                <div className='d-flex justify-content-between'>
+                  <div className="left-block w-50">
+                    <p className="agency-name">
+                      Century 21 - PATRIMOINE 24
+                    </p>
+                    <div className="agency-stats">
+                      <span className="rate">5.0</span>
+                      <div className="stars-block">
+                        <img src={ Stars } alt="Stars"/>
+                      </div>
+                      <span className="from">from 120 reviews</span>
+                    </div>
+                  </div>
+                  <div className="right-block w-50">
+                    <span className='count'>17</span>
+                    <span className="similar">similar properties was sold by this agency last month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           {
             !isMobile && <ContactAgencyBlock agencyInfo={{id: 99, title: ''}}/>
