@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - feat/dev-ci-cd
+      - testing-dev-branch
 jobs:
   deploy:
     name: Deploy to server
