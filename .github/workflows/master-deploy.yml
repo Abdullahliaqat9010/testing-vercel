@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - feat/dev-ci-cd
+      - main
 jobs:
   deploy:
     name: Deploy to server
@@ -20,17 +20,17 @@ jobs:
           REACT_APP_GOOGLE_METRIC_KEY: ${{ secrets.REACT_APP_GOOGLE_METRIC_KEY }}
           COOKIE_KEY: ${{ secrets.REACT_APP_COOKIE_KEY }}
           SOURCE: '.'
-          TARGET: '/var/projects/dev_frontend'
-          ARGS: "-avzn --delete --exclude .git --exclude .env --exclude /node_modules/"
+          TARGET: '/var/projects/immo_belgium_front'
+          ARGS: "-rltgoDzvO --delete --exclude .git --exclude .env --exclude /node_modules/"
 
       - name: Executing remote ssh commands
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd /var/projects/dev_frontend
+            cd /var/projects/immo_belgium_front
             npm install
             npm run build
-            pm2 start npm --name "dev_frontend" -- start
+            pm2 stop immo_belgium_front; pm2 delete immo_belgium_front; pm2 start npm --name "immo_belgium_front" -- start
           host: ${{ secrets.DEV_SERVER_IP }}
           user: ${{ secrets.DEV_SERVER_USERNAME }}
           key: ${{ secrets.DEV_PRIVATE_KEY }}
