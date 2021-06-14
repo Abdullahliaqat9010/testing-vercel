@@ -21,7 +21,7 @@ jobs:
           COOKIE_KEY: ${{ secrets.REACT_APP_COOKIE_KEY }}
           SOURCE: '.'
           TARGET: '/var/projects/dev_frontend'
-          ARGS: "-avzn --delete --exclude .git --exclude .env --exclude /node_modules/"
+          ARGS: "-avzr --delete --exclude .git --exclude .env --exclude /node_modules/"
 
       - name: Executing remote ssh commands
         uses: fifsky/ssh-action@master
