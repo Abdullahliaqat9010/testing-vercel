@@ -13,7 +13,7 @@ import NoImage from '../../assets/images/no-image-available.jpeg';
 import { agentsList } from '../../templates/agentsList';
 import { RootState } from '../../types/state';
 
-const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) => {
+const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
   const intervals = [
@@ -57,9 +57,6 @@ const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) =>
       <div className="property-block__info">
         <div className="address">
           { property.search_address }
-          <span className={ `property-number ${activePropertyOnMap?.id === property.id ? 'active' : ''}` }>
-            { currentNumber }
-          </span>
         </div>
         <div className='short-desc'>
           <div className="house-info">

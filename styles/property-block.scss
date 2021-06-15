@@ -21,25 +21,6 @@
       justify-content: space-between;
       font-size: 14px;
       margin-bottom: 6px;
-
-      .property-number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-        background: var(--bg-blue);
-        color: var(--colorGray);
-        border-radius: 20px;
-        font-family: var(--fontNunitoBold);
-        font-size: 12px;
-        line-height: 16px;
-      }
-
-      .active {
-        background: var(--colorBlue);
-        color: var(--colorWhite)
-      }
     }
 
     .house-info {
