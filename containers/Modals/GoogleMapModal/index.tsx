@@ -1,7 +1,8 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 import GoogleMap from '../../../components/GoogleMap';
+import { isMobileOnly } from 'react-device-detect';
 
 const GoogleMapModal = ({show, handleClose}) => {
   return (
@@ -22,6 +23,9 @@ const GoogleMapModal = ({show, handleClose}) => {
         {/*@ts-ignore*/}
         <GoogleMap coordsCurrentProperty={{lat: 50.4666086, lng: 4.0528334}} />
       </Modal.Body>
+      {
+        isMobileOnly && <Button className='close-btn' onClick={handleClose}>Close</Button>
+      }
     </Modal>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
@@ -16,6 +16,7 @@ import ArrowImage from '../../assets/images/arrow-blue.svg';
 import squareIcon from '../../assets/images/square-gray.svg';
 import bedsIcon from '../../assets/images/beds-gray.svg';
 import bathIcon from '../../assets/images/bath-gray.svg';
+import MailIcon from '../../assets/images/mail-white-icon.svg';
 
 import FirstImage from '../../assets/images/template/first-image.png';
 import SecondImage from '../../assets/images/template/second-image.png';
@@ -23,6 +24,7 @@ import ThirdImage from '../../assets/images/template/third-image.png';
 import Map from '../../assets/images/template/map-img.png';
 import Stars from '../../assets/images/template/stars.png';
 import TestAgency from '../../assets/images/agents/test-agency.png';
+import { userToken } from '../../config/siteConfigs';
 
 const PropertyPage = () => {
   // const dispatch = useDispatch();
@@ -32,13 +34,22 @@ const PropertyPage = () => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [showRequestPriceModal, setShowRequestPriceModal] = useState(false);
 
+  /**
+   * @todo Add private routes
+   */
+  useEffect(() => {
+    if (!userToken) {
+      window.location.href = '/';
+    }
+  }, []);
+
   const handleCloseMapModal = () => setShowMapModal(false);
   const handleShowMapModal = () => setShowMapModal(true);
 
   const handleCloseRequestPriceModal = () => setShowRequestPriceModal(false);
   const handleShowRequestPriceModal = () => setShowRequestPriceModal(true);
 
-  console.log(propertyId);
+  // console.log(propertyId);
 
   return (
     <>
@@ -107,7 +118,7 @@ const PropertyPage = () => {
                 <div className="logo">
                   <img src={ TestAgency } alt="TestAgency"/>
                 </div>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between agency-block__blocks'>
                   <div className="left-block w-50">
                     <p className="agency-name">
                       Century 21 - PATRIMOINE 24
@@ -127,6 +138,12 @@ const PropertyPage = () => {
                 </div>
               </div>
             </div>
+            {
+              isMobile &&
+              <Button className='contact-agency-btn'>
+                <img src={ MailIcon } alt="MailIcon"/>Contact this agency
+              </Button>
+            }
           </div>
           {
             !isMobile && <ContactAgencyBlock agencyInfo={{id: 99, title: ''}}/>
@@ -147,7 +164,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({locale}) => ({
   props: {
-    ...await serverSideTranslations(locale, ['header', 'dashboard-page']),
+    ...await serverSideTranslations(locale, ['header', 'dashboard-page', 'common']),
   },
 });
 
