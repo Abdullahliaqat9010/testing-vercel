@@ -557,7 +557,11 @@
         }
 
         .terras-value-label {
-          width: 35%;
+          width: 40%;
+          .tooltip-info {
+            margin-left: 5px;
+            position: unset;
+          }
         }
 
         .input-block {

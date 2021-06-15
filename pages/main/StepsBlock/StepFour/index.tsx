@@ -30,6 +30,7 @@ import WestActive from '../../../../assets/images/steps/orientation/w-active.svg
 import NorthWestInactive from '../../../../assets/images/steps/orientation/nw-inactive.svg';
 import NorthWestActive from '../../../../assets/images/steps/orientation/nw-active.svg';
 import { generatePropertyData } from '../../../../utils/generatePropertyData';
+import TooltipIcon from '../../../../assets/images/tooltip.svg';
 
 const StepFour = () => {
   const {t} = useTranslation('steps');
@@ -166,9 +167,12 @@ const StepFour = () => {
       <Form>
         <InputGroup className='epc'>
           <Form.Label className='d-flex'>
-            <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip.epc') }</Tooltip> }>
-              <span key='tooltip-info'>{ t('label.epc') }</span>
-            </OverlayTrigger>
+            <span key='tooltip-info' className='position-relative'>
+              { t('label.epc') }
+              <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip.epc') }</Tooltip> }>
+                <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>
+              </OverlayTrigger>
+            </span>
           </Form.Label>
           <div className="input-block">
             <Form.Control
