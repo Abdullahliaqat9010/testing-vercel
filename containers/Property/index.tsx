@@ -91,4 +91,5 @@ const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) =>
     </div>
   );
 };
+
 export default PropertyContainer;

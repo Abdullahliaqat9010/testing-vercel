@@ -18,10 +18,14 @@ interface GoogleMapProps {
   agencyLocation?: {
     lat?: number | string,
     lng?: number | string,
+  },
+  coordsCurrentProperty?: {
+    lat?: number | string,
+    lng?: number | string,
   }
 }
 
-const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
+const GoogleMap = ({google, agencyLocation, coordsCurrentProperty}: GoogleMapProps) => {
   const dispatch = useDispatch();
   const {location} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const {similarPropertiesLocation, mainProperty} = useSelector((state: RootState) => state.userInfo);
@@ -48,7 +52,14 @@ const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
         lng: agencyLocation.lng,
       });
     }
-  }, [location, mainProperty, agencyLocation]);
+
+    if (coordsCurrentProperty) {
+      setUseLocation({
+        lat: coordsCurrentProperty.lat,
+        lng: coordsCurrentProperty.lng,
+      });
+    }
+  }, [location, mainProperty, agencyLocation, coordsCurrentProperty]);
 
   const setActiveMarker = (propertyId) => {
     if (propertyId) {
