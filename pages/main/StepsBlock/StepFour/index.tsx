@@ -309,34 +309,52 @@ const StepFour = () => {
           </div>
         </InputGroup>
         <InputGroup>
-          <Form.Check
-            name='elevator'
-            id='elevator'
-            onChange={ handleChangeVal }
-            defaultChecked={ data.elevator }
-            type="checkbox"
-            label={ t('label.elevator') }
-          />
+          <Form.Label className='d-flex'>
+            { t('label.elevator') }
+          </Form.Label>
+          <label className="switch">
+            <input
+              className="custom-input"
+              name='elevator'
+              id='elevator'
+              onChange={ handleChangeVal }
+              defaultChecked={ data.elevator }
+              type="checkbox"
+            />
+              <span className="slider round"/>
+          </label>
         </InputGroup>
         <InputGroup>
-          <Form.Check
-            name='swimmingPool'
-            id='swimmingPool'
-            onChange={ handleChangeVal }
-            defaultChecked={ data.swimmingPool }
-            type="checkbox"
-            label={ t('label.pool') }
-          />
+          <Form.Label className='d-flex'>
+            { t('label.pool') }
+          </Form.Label>
+          <label className="switch">
+            <input
+              className="custom-input"
+              name='swimmingPool'
+              id='swimmingPool'
+              onChange={ handleChangeVal }
+              defaultChecked={ data.swimmingPool }
+              type="checkbox"
+            />
+            <span className="slider round"/>
+          </label>
         </InputGroup>
         <InputGroup>
-          <Form.Check
-            name='parking'
-            id='parking'
-            onChange={ handleChangeVal }
-            defaultChecked={ data.parking }
-            type="checkbox"
-            label={ t('label.parking') }
-          />
+          <Form.Label className='d-flex'>
+            { t('label.parking') }
+          </Form.Label>
+          <label className="switch">
+            <input
+              className="custom-input"
+              name='parking'
+              id='parking'
+              onChange={ handleChangeVal }
+              defaultChecked={ data.parking }
+              type="checkbox"
+            />
+            <span className="slider round"/>
+          </label>
         </InputGroup>
         {
           toBool(data.parking) &&
