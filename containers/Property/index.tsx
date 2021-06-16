@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 
 import { Button, Image } from 'react-bootstrap';
 
-import { modalWindowContactAgentAction } from '../../actions';
+import { modalWindowContactAgentAction, setActivePropertyFromMapAction } from '../../actions';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
@@ -49,8 +49,18 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     dispatch(modalWindowContactAgentAction(data));
   };
 
+  const setActiveMarker = (propertyId) => {
+    if (propertyId) {
+      dispatch(setActivePropertyFromMapAction(propertyId));
+    }
+    return;
+  };
+
   return (
-    <div className={ `property-block d-flex ${activePropertyOnMap?.id === property.id ? 'active-block' : ''}` }>
+    <div
+      onClick={() => setActiveMarker(property.id)}
+      className={ `property-block d-flex ${activePropertyOnMap?.id === property.id ? 'active-block' : ''}` }
+    >
       <div className="property-block__image">
         <Image src={ getImageLink() } rounded/>
       </div>
