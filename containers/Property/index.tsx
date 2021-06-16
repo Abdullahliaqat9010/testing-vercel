@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button, Image } from 'react-bootstrap';
 
-// import { modalWindowContactAgentAction, setActivePropertyFromMapAction } from '../../actions';
+import { setActivePropertyFromMapAction } from '../../actions';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
@@ -16,7 +16,7 @@ import { RootState } from '../../types/state';
 
 const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
   const {locale} = router;
 
