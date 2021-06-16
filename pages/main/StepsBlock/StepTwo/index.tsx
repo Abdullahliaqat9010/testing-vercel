@@ -207,7 +207,12 @@ const StepTwo = () => {
             <>
               <InputGroup>
                 <Form.Label className='d-flex terras-value-label'>
-                  { t('label.garden') }
+                  <span className='position-relative'>
+                    { t('label.garden') }
+                    <OverlayTrigger overlay={ <Tooltip id="tooltip-info">{ t('tooltip.garden') }</Tooltip> }>
+                      <img className='tooltip-info' key='tooltip-info' src={ TooltipIcon } alt="TooltipIcon"/>
+                    </OverlayTrigger>
+                  </span>
                 </Form.Label>
                 <div className="input-block">
                   <Form.Control

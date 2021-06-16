@@ -42,7 +42,7 @@ const PropertiesBlock = () => {
           {
             properties.map(
               (item, index) =>
-                <PropertyBlock key={ index } property={ {...item} } currentNumber={++index}/>,
+                <PropertyBlock key={ index } property={ item }/>,
             )
           }
         </div>

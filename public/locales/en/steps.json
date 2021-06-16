@@ -31,6 +31,7 @@
   "label.floors-apartment": "On which floor is the property located",
   "label.floors-house": "How many floors inside property",
   "label.garden": "Garden, terras",
+  "tooltip.garden": "Private surface of your home excluded your habitable surface",
   "label.how-you-sell": "How are you selling your home?",
   "label.indoor-garage": "Indoor Garage",
   "label.kind-of-home": "What kind of home do you own?",
