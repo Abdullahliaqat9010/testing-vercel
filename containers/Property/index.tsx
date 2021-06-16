@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button, Image } from 'react-bootstrap';
 
-// import { modalWindowContactAgentAction } from '../../actions';
+import { setActivePropertyFromMapAction } from '../../actions';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
@@ -14,9 +14,9 @@ import NoImage from '../../assets/images/no-image-available.jpeg';
 import { agentsList } from '../../templates/agentsList';
 import { RootState } from '../../types/state';
 
-const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) => {
+const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
   const {locale} = router;
 
@@ -53,17 +53,24 @@ const PropertyContainer = ({property, currentNumber}: PropertyContainerProps) =>
   //   dispatch(modalWindowContactAgentAction(data));
   // };
 
+  const setActiveMarker = (propertyId) => {
+    if (propertyId) {
+      dispatch(setActivePropertyFromMapAction(propertyId));
+    }
+    return;
+  };
+
   return (
-    <div className={ `property-block d-flex ${activePropertyOnMap?.id === property.id ? 'active-block' : ''}` }>
+    <div
+      onClick={() => setActiveMarker(property.id)}
+      className={ `property-block d-flex ${activePropertyOnMap?.id === property.id ? 'active-block' : ''}` }
+    >
       <div className="property-block__image">
         <Image src={ getImageLink() } rounded/>
       </div>
       <div className="property-block__info">
         <div className="address">
           { property.search_address }
-          <span className={ `property-number ${activePropertyOnMap?.id === property.id ? 'active' : ''}` }>
-            { currentNumber }
-          </span>
         </div>
         <div className='short-desc'>
           <div className="time">

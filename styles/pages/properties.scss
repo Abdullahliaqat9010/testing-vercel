@@ -1,0 +1,159 @@
+.PropertiesPage {
+  padding: 27px 0 50px;
+  color: var(--mainColor);
+
+  &__container {
+    .title-block {
+      align-items: center;
+      background: var(--colorWhite);
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 20px;
+
+      h1 {
+        font-family: var(--fontNunitoBold);
+        font-size: 24px;
+        line-height: 33px;
+        margin-bottom: unset;
+      }
+
+      .new-estimate {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+        width: 165px;
+        height: 50px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+
+        img {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .property {
+      width: 100%;
+      padding: 30px;
+      background: var(--colorWhite);
+      border-radius: 10px;
+      margin-bottom: 20px;
+
+      &__head {
+        display: flex;
+        justify-content: space-between;
+
+        .address {
+          font-family: var(--fontNunitoBold);
+          font-size: 20px;
+          line-height: 27px;
+        }
+
+        .blue {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-size: 14px;
+          line-height: 19px;
+          color: var(--colorBlue);
+
+          img {
+            width: 14px;
+            height: 14px;
+            transform: rotate(270deg);
+          }
+        }
+      }
+
+      &__body {
+        .short-info {
+          margin-top: 22px;
+          display: flex;
+          align-items: center;
+
+          .square, .beds, .baths {
+            display: flex;
+            align-items: center;
+            margin-right: 40px;
+
+            img {
+              width: 42px;
+              height: 42px;
+              margin-right: 12px;
+            }
+
+            .info-block {
+              display: flex;
+              flex-direction: column;
+
+              span {
+                font-size: 14px;
+                line-height: 19px;
+              }
+
+              .gray {
+                font-size: 12px;
+                line-height: 16px;
+                opacity: 0.7;
+              }
+            }
+          }
+        }
+
+        .property-estimation {
+          p {
+            margin: 35px 0 12px;
+            font-size: 14px;
+            line-height: 19px;
+          }
+
+          .minimal, .average, .maximal {
+            width: 164px;
+            padding: 12px;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--colorGrayTwo);
+
+            .estimation-title {
+              margin-bottom: 6px;
+            }
+
+            .estimation-desc {
+              margin-bottom: 6px;
+              font-family: var(--fontNunitoBold);
+              color: var(--mainColor);
+              font-size: 18px;
+              line-height: 25px;
+            }
+          }
+
+          .minimal {
+            border: 1px solid #E5EAF7;
+            border-radius: 8px 0 0 8px;
+          }
+
+          .average {
+            border-top: 1px solid #E5EAF7;
+            border-bottom: 1px solid #E5EAF7;
+          }
+
+          .maximal {
+            border: 1px solid #E5EAF7;
+            border-radius: 0 8px 8px 0;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1439px) {
+
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+
+  }
+}
