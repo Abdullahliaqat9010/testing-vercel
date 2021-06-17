@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Button } from 'react-bootstrap';
 
@@ -52,12 +53,14 @@ const PropertiesPage = () => {
             </Button>
           </div>
           {
-            properties.length && properties.map(
+            properties.length > 0 && properties.map(
               (property, index) =>
                 <div className="property" key={index}>
                   <div className="property__head">
                     <span className='address'>{ property.search_address }</span>
-                    <span className="blue">View <img src={ ArrowIcon } alt="ArrowIcon"/></span>
+                    <Link href={ `/property/${property.id}` } locale={ locale }>
+                      <span className="blue">View <img src={ ArrowIcon } alt="ArrowIcon"/></span>
+                    </Link>
                   </div>
                   <div className="property__body">
                     <div className="short-info">
@@ -85,7 +88,7 @@ const PropertiesPage = () => {
                     </div>
                     <div className="property-estimation">
                       <p>Property estimation</p>
-                      <div className='d-flex align-items-center'>
+                      <div className='d-flex align-items-center custom-block'>
                         <div className="minimal d-flex flex-column">
                           <span className="estimation-title">Minimal</span>
                           <span className="estimation-desc">€1,007,500</span>
