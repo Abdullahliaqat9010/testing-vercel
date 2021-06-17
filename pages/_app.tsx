@@ -23,6 +23,7 @@ import '../styles/pages/dashboard.scss';
 import '../styles/pages/agency.scss';
 import '../styles/pages/property.scss';
 import '../styles/pages/properties.scss';
+import '../styles/pages/settings.scss';
 import '../styles/pages/login.scss';
 import '../styles/pages/pravicy-and-terms.scss';
 import '../styles/pages/404.scss';
