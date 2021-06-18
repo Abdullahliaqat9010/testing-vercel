@@ -1,0 +1,246 @@
+.SettingsPage {
+  display: grid;
+  grid-template-columns: 202px 1fr 318px;
+  grid-column-gap: 30px;
+  padding: 27px 0 50px;
+  color: var(--mainColor);
+
+  .nav-bar {
+    margin-right: unset;
+  }
+
+  &__container {
+    .first-block {
+      padding: 30px;
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      h1 {
+        font-family: var(--fontNunitoBold);
+        font-size: 24px;
+        line-height: 33px;
+        margin-bottom: 30px;
+      }
+
+      form {
+        label {
+          font-size: 14px;
+          line-height: 19px;
+          margin-bottom: 5px;
+        }
+
+        input:not([type="checkbox"]) {
+          font-size: 16px;
+          line-height: 22px;
+          height: 46px;
+          padding: 12px 14px;
+        }
+
+        .custom-button-group {
+          button {
+            border: 1px solid var(--colorGray);
+            color: var(--mainColor);
+            background-color: var(--colorWhite);
+            min-width: 162px;
+            font-family: var(--fontNunitoBold);
+            height: 46px;
+            font-size: 16px;
+            line-height: 22px;
+
+            &:active, &:focus, &:target {
+              box-shadow: none;
+              background-color: var(--mainColor) !important;
+              color: var(--colorWhite);
+            }
+          }
+
+          .active {
+            background-color: var(--mainColor) !important;
+            border-color: 1px solid var(--mainColor) !important;
+          }
+        }
+      }
+
+      .password-block {
+        margin-top: 30px;
+        padding: 30px 0;
+        border-top: 1px solid rgba(56, 113, 239, 0.2);
+        border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+
+        h2 {
+          font-family: var(--fontNunitoBold);
+          font-size: 20px;
+          line-height: 27px;
+        }
+
+        p {
+          font-size: 12px;
+          line-height: 16px;
+          margin-bottom: 20px;
+        }
+
+        .change-pass {
+          cursor: pointer;
+          color: var(--colorBlue);
+          font-size: 14px;
+          line-height: 19px;
+          margin-top: 10px;
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-right: 6px;
+          }
+        }
+      }
+
+      .notification-block {
+        margin-top: 30px;
+
+        h3 {
+          font-family: var(--fontNunitoBold);
+          font-size: 20px;
+          line-height: 27px;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 12px;
+          line-height: 16px;
+          margin-bottom: 30px;
+        }
+
+        .form-check {
+          margin-bottom: 40px;
+        }
+
+        .save {
+          font-family: var(--fontNunitoBold);
+          font-size: 16px;
+          line-height: 22px;
+          padding: 14px 61px;
+          background: var(--colorBlue);
+          border-radius: 8px;
+        }
+      }
+    }
+
+    .second-block {
+      margin-top: 20px;
+      width: 100%;
+      padding: 30px;
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      img {
+        //border: 1px solid #8F99B4;
+        box-sizing: border-box;
+        border-radius: 24px;
+        margin-right: 10px;
+      }
+
+      .top-block {
+        font-size: 12px;
+        line-height: 16px;
+
+        .title {
+          font-family: var(--fontNunitoBold);
+          font-size: 20px;
+          line-height: 27px;
+        }
+      }
+
+      .become-pro {
+        margin-top: 30px;
+        padding: 14px 63px;
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+      }
+    }
+  }
+
+  .user-info-block {
+    display: flex;
+    height: max-content;
+    flex-direction: column;
+    align-items: center;
+    background: var(--colorWhite);
+    border-radius: 10px;
+
+    span {
+      display: block;
+    }
+
+    .user-avatar, .user-short-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .user-avatar {
+      margin-top: 50px;
+
+      img {
+        width: 104px;
+        height: 104px;
+        box-sizing: border-box;
+        border-radius: 80px;
+        border: 1px solid rgba(56, 113, 239, 0.2);
+      }
+
+      .upload-btn {
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 19px;
+        color: var(--colorBlue)
+      }
+    }
+
+    .user-short-info {
+      margin-top: 20px;
+
+      .fullname {
+        font-family: var(--fontNunitoBold);
+        font-size: 20px;
+        line-height: 27px;
+        margin-bottom: 6px;
+      }
+
+      .status {
+        padding: 6px 10px;
+        background: var(--bg-blue);
+        border-radius: 10px;
+        font-size: 14px;
+        line-height: 19px;
+      }
+    }
+
+    .logout {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--colorBlue);
+      margin: 20px 0 30px;
+      font-size: 14px;
+      line-height: 19px;
+
+      img {
+        margin-left: 3px;
+        transform: rotate(270deg);
+      }
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1439px) {
+
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+
+  }
+}

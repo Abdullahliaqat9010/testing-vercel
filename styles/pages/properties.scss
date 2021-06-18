@@ -45,6 +45,7 @@
       &__head {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
 
         .address {
           font-family: var(--fontNunitoBold);
@@ -150,10 +151,120 @@
   }
 
   @media (min-width: 768px) and (max-width: 1439px) {
+    flex-direction: column;
+    padding-top: 40px;
 
+    &__container {
+      margin-top: 20px;
+
+      .property {
+        .address {
+          width: 90%;
+        }
+      }
+    }
   }
 
   @media (min-width: 320px) and (max-width: 767px) {
+    flex-direction: column;
+    padding: 30px 16px 50px;
 
+    &__container {
+      .title-block {
+        flex-direction: column;
+
+        h1 {
+          font-size: 20px;
+          line-height: 27px;
+          margin-bottom: 20px;
+        }
+
+        .new-estimate {
+          width: 100%;
+        }
+      }
+
+      .property {
+        &__head {
+          flex-direction: column;
+
+          .address {
+            font-size: 18px;
+            line-height: 25px;
+            margin-bottom: 10px;
+          }
+        }
+
+        &__body {
+          .short-info {
+            justify-content: space-between;
+
+            .square, .beds, .baths {
+              flex-direction: column;
+              align-items: baseline;
+              margin-right: unset;
+
+              img {
+                margin-bottom: 12px;
+              }
+
+              .info-block {
+                .gray {
+                  margin-bottom: 3px;
+                }
+              }
+            }
+          }
+
+          .property-estimation {
+            p {
+              margin-top: 30px;
+            }
+
+            .custom-block {
+              flex-direction: column;
+
+              .minimal, .average, .maximal {
+                width: 100%;
+                display: grid !important;
+                grid-template-columns: 100px 1fr;
+
+                .estimation-title {
+                  font-size: 10px;
+                  line-height: 14px;
+                  font-family: var(--fontNunitoBold);
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: unset;
+                  grid-row-start: 1;
+                  grid-row-end: 3;
+                }
+
+                .estimation-desc {
+                  font-size: 14px;
+                  line-height: 19px;
+                  margin-bottom: 4px;
+                }
+              }
+
+              .minimal {
+                border-radius: 8px 8px 0 0;
+              }
+
+              .average {
+                border-bottom: unset;
+                border-top: unset;
+                border-left: 1px solid #E5EAF7;
+                border-right: 1px solid #E5EAF7;
+              }
+
+              .maximal {
+                border-radius: 0 0 8px 8px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
