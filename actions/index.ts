@@ -155,3 +155,7 @@ export const setActivePropertyFromMapAction = (propertyId: number) => ({
   type: actionType.SET_ACTIVE_PROPERTY_FROM_MAP,
   payload: propertyId,
 })
+
+export const clearStepsStateAction = () => ({
+  type: actionType.CLEAR_STEPS_STATE,
+})
