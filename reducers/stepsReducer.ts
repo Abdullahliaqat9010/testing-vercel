@@ -1,75 +1,77 @@
 import * as actionType from '../actions/actionTypes';
 
+const initData = {
+  step: 0,
+  addressFromStepOne: '',
+  additionalAddress: {
+    street: '',
+    number: '',
+    zip: '',
+    locality: '',
+    country: '',
+  },
+  selectedProperty: '',
+  propertyDetails: {
+    livingArea: '0',
+    landSurface: '0',
+    facadesNumber: 2,
+    numberBedrooms: 1,
+    numberBathrooms: 1,
+    numberLevels: 1,
+    numberFloors: 1,
+    gardenTerrasValue: '0',
+    elevator: false,
+  },
+  details: {
+    prestige: 'basic',
+    condition: 'new',
+    constructionYear: '',
+    renovationYear: '',
+    renovationLevel: '0',
+    numberFloors: 1,
+  },
+  utilities: {
+    epc: '',
+    view: 'normal',
+    orientation: 'N',
+    atticValue: '',
+    cellarValue: '',
+    elevator: false,
+    swimmingPool: false,
+    indoorGarage: 0,
+    indoorGarageCheck: false,
+    outdoorGarage: 0,
+    outdoorGarageCheck: false,
+    carport: 0,
+    carportCheck: false,
+    parking: false,
+    solarPanels: 0,
+  },
+  personalAccount: {
+    accountType: 'private',
+    selectedItem: '',
+    selectedResidence: '',
+    sellProperty: '',
+    howSell: '',
+  },
+  userData: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    promotions: false,
+    agreement: false,
+  },
+  location: {
+    lat: null,
+    lng: null,
+  },
+};
+
 export const initialState = {
   mainBlocks: false,
   goToDashboard: false,
-  stepBlock: {
-    step: 0,
-    addressFromStepOne: '',
-    additionalAddress: {
-      street: '',
-      number: '',
-      zip: '',
-      locality: '',
-      country: '',
-    },
-    selectedProperty: '',
-    propertyDetails: {
-      livingArea: '0',
-      landSurface: '0',
-      facadesNumber: 2,
-      numberBedrooms: 1,
-      numberBathrooms: 1,
-      numberLevels: 1,
-      numberFloors: 1,
-      gardenTerrasValue: '0',
-      elevator: false,
-    },
-    details: {
-      prestige: 'basic',
-      condition: 'new',
-      constructionYear: '',
-      renovationYear: '',
-      renovationLevel: '0',
-      numberFloors: 1,
-    },
-    utilities: {
-      epc: '',
-      view: 'normal',
-      orientation: 'N',
-      atticValue: '',
-      cellarValue: '',
-      elevator: false,
-      swimmingPool: false,
-      indoorGarage: 0,
-      indoorGarageCheck: false,
-      outdoorGarage: 0,
-      outdoorGarageCheck: false,
-      carport: 0,
-      carportCheck: false,
-      parking: false,
-      solarPanels: 0,
-    },
-    personalAccount: {
-      accountType: 'private',
-      selectedItem: '',
-      selectedResidence: '',
-      sellProperty: '',
-      howSell: '',
-    },
-    userData: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      promotions: false,
-      agreement: false,
-    },
-    location: {
-      lat: null,
-      lng: null,
-    },
-  },
+  stepBlock: {...initData},
   errors: '',
 };
 
@@ -88,6 +90,12 @@ const stepsReducer = (state = initialState, action: any) => {
             ...action.payload.additionalAddress,
           },
         },
+      };
+    case actionType.CLEAR_STEPS_STATE:
+      return {
+        ...state,
+        mainBlocks: false,
+        stepBlock: {...initData},
       };
     case actionType.PREV_STEP_REQUEST:
       return {
@@ -182,9 +190,9 @@ const stepsReducer = (state = initialState, action: any) => {
         ...state,
         stepBlock: {
           ...state.stepBlock,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
     default:
       return {
         ...state,
