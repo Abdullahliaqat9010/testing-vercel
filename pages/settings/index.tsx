@@ -9,10 +9,35 @@ import NavBarContainer from '../../containers/NavBar';
 import NoPhoto from '../../assets/images/no-avatar.png';
 import ArrowIcon from '../../assets/images/arrow-blue.svg';
 import LockIcon from '../../assets/images/lock-icon-blue.svg';
+import ValidPasswordIcon from '../../assets/images/valid.svg';
 import AccountImage from '../../assets/images/account-image.png';
 
 const SettingsPage = () => {
-  const [validated, setValidated] = useState(false);
+  const [newPasswordData, setNewPasswordData] = useState({newPass: '', repeatNewPass: ''});
+  const [validated, setValidated] = useState<boolean>(false);
+  const [changePass, showChangePassBlock] = useState<boolean>(false);
+
+  const showChangePasswordBlock = () => {
+    setNewPasswordData({newPass: '', repeatNewPass: ''});
+    showChangePassBlock(!changePass);
+  };
+
+  const handleChangePassword = () => {
+    console.log('handleChangePassword');
+  };
+
+  const handleChangePasswordValue = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPasswordData({
+      ...newPasswordData,
+      [el.target.name]: el.target.value,
+    });
+  };
+
+  const validNewPassword = () => {
+    return newPasswordData.newPass.length > 5
+      && newPasswordData.repeatNewPass.length > 5
+      && newPasswordData.newPass === newPasswordData.repeatNewPass
+  }
 
   return (
     <>
@@ -89,12 +114,48 @@ const SettingsPage = () => {
                     required
                   </Form.Control.Feedback>
                 </Form.Group>
-                <span className="change-pass"><img src={ LockIcon } alt="LockIcon"/>Change password</span>
+                {
+                  !changePass
+                    ? <span className="change-pass" onClick={ showChangePasswordBlock }>
+                        <img src={ LockIcon } alt="LockIcon"/>Change password
+                      </span>
+                    : <div className='change-password-block'>
+                      <Form.Group controlId="new-pass">
+                        <Form.Label>Enter new password</Form.Label>
+                        <Form.Control
+                          onChange={ handleChangePasswordValue }
+                          value={ newPasswordData.newPass }
+                          name='newPass'
+                          type="password"
+                        />
+                        {
+                          validNewPassword() && <img src={ ValidPasswordIcon } alt="ValidPasswordIcon"/>
+                        }
+                      </Form.Group>
+                      <Form.Group controlId="repeat-new-pass">
+                        <Form.Label>Repeat new password</Form.Label>
+                        <Form.Control
+                          onChange={ handleChangePasswordValue }
+                          value={ newPasswordData.repeatNewPass }
+                          name='repeatNewPass'
+                          type="password"
+                        />
+                        {
+                          validNewPassword() && <img src={ ValidPasswordIcon } alt="ValidPasswordIcon"/>
+                        }
+                      </Form.Group>
+                      <div className="change-password-btns">
+                        <Button className='confirm' onClick={ handleChangePassword }>Confirm</Button>
+                        <Button className='cancel' onClick={ showChangePasswordBlock }>Cancel</Button>
+                      </div>
+                    </div>
+                }
+
               </div>
               <div className="notification-block">
                 <h3>Notifications</h3>
                 <p>Please check if you like to be notified about system updates, new estimations.</p>
-                <Form.Group className='mb-0' >
+                <Form.Group className='mb-0'>
                   <Form.Check
                     type="checkbox"
                     label='I allow Immo Belgium to send me updates about my market.'
@@ -129,8 +190,8 @@ const SettingsPage = () => {
       </div>
       <FooterContainer/>
     </>
-  )
-}
+  );
+};
 
 export const getStaticProps = async ({locale}) => ({
   props: {
