@@ -31,6 +31,10 @@ const PropertiesPage = () => {
   const {properties} = useSelector((state: RootState) => state.userInfo);
 
   useEffect(() => {
+    if (!userToken) {
+      window.location.href = '/';
+    }
+
     if (userToken) {
       const parseData = parseJwt(userToken);
       const elementsOnPage = 6;

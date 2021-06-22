@@ -1,10 +1,13 @@
 import React from 'react';
+import { isMobileOnly } from 'react-device-detect';
+import { useTranslation } from 'next-i18next';
 import { Button, Modal } from 'react-bootstrap';
 
 import GoogleMap from '../../../components/GoogleMap';
-import { isMobileOnly } from 'react-device-detect';
 
 const GoogleMapModal = ({show, handleClose}) => {
+  const {t} = useTranslation('property-page');
+
   return (
     <Modal
       className='map-modal'
@@ -24,7 +27,7 @@ const GoogleMapModal = ({show, handleClose}) => {
         <GoogleMap coordsCurrentProperty={{lat: 50.4666086, lng: 4.0528334}} />
       </Modal.Body>
       {
-        isMobileOnly && <Button className='close-btn' onClick={handleClose}>Close</Button>
+        isMobileOnly && <Button className='close-btn' onClick={handleClose}>{ t('button.close') }</Button>
       }
     </Modal>
   )

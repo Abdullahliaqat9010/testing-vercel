@@ -36,6 +36,7 @@
         .main-image {
           width: 471px;
           height: 379px;
+          margin-right: 10px;
         }
 
         .second-block {
@@ -63,10 +64,9 @@
           }
 
           .request-price {
+            padding: 8px 12px;
             font-size: 12px;
             line-height: 16px;
-            width: 115px;
-            height: 32px;
 
             img {
               transform: rotate(270deg);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { isMobile } from 'react-device-detect';
 import Link from 'next/link';
@@ -27,12 +28,14 @@ import TestAgency from '../../assets/images/agents/test-agency.png';
 import { userToken } from '../../config/siteConfigs';
 
 const PropertyPage = () => {
+  const {t} = useTranslation('property-page');
   // const dispatch = useDispatch();
   const router = useRouter();
+  const {locale} = router;
   const {propertyId} = router.query;
 
-  const [showMapModal, setShowMapModal] = useState(false);
-  const [showRequestPriceModal, setShowRequestPriceModal] = useState(false);
+  const [showMapModal, setShowMapModal] = useState<boolean>(false);
+  const [showRequestPriceModal, setShowRequestPriceModal] = useState<boolean>(false);
 
   /**
    * @todo Add private routes
@@ -53,13 +56,13 @@ const PropertyPage = () => {
 
   return (
     <>
-      <HeaderContainer title='Agency Info'/>
+      <HeaderContainer title={ t('title') }/>
       <GoogleMapModal show={showMapModal} handleClose={handleCloseMapModal} />
       <RequestPriceModal show={showRequestPriceModal} handleClose={handleCloseRequestPriceModal} />
       <div className='PropertyPage container'>
-        <Link href={ '/dashboard' }>
+        <Link href={ '/dashboard' } locale={locale}>
           <span className='PropertyPage__back'>
-            <img src={ ArrowImage } alt="ArrowImage"/> Back to dashboard
+            <img src={ ArrowImage } alt="ArrowImage"/> { t('link.back') }
           </span>
         </Link>
         <div className="PropertyPage__main-content d-flex">
@@ -78,28 +81,28 @@ const PropertyPage = () => {
                 </p>
                 <div className='d-flex w-100 align-items-center justify-content-between'>
                   <Button onClick={handleShowRequestPriceModal} className='request-price' variant="outline-primary">
-                    Request price
+                    { t('button.request-price') }
                     <img src={ ArrowImage } alt="ArrowImage"/>
                   </Button>
                   <div className="info d-flex">
                     <div className="square">
                       <img src={ squareIcon } alt="squareIcon"/>
                       <div className='d-flex flex-column'>
-                        <span className="info__title">Square</span>
+                        <span className="info__title">{ t('span.square') }</span>
                         <span className="info__desc">100m²</span>
                       </div>
                     </div>
                     <div className="beds">
                       <img src={ bedsIcon } alt="bedsIcon"/>
                       <div className='d-flex flex-column'>
-                        <span className="info__title">Beds</span>
+                        <span className="info__title">{ t('span.beds') }</span>
                         <span className="info__desc">3</span>
                       </div>
                     </div>
                     <div className="baths">
                       <img src={ bathIcon } alt="bathIcon"/>
                       <div className='d-flex flex-column'>
-                        <span className="info__title">Baths</span>
+                        <span className="info__title">{ t('span.baths') }</span>
                         <span className="info__desc">2</span>
                       </div>
                     </div>
@@ -112,7 +115,7 @@ const PropertyPage = () => {
             </div>
             <div className="agency-block">
               <p className="sold-by">
-                This property was sold by
+                { t('p.sold-by') }
               </p>
               <div className="agency-block__short-info">
                 <div className="logo">
@@ -128,12 +131,12 @@ const PropertyPage = () => {
                       <div className="stars-block">
                         <img src={ Stars } alt="Stars"/>
                       </div>
-                      <span className="from">from 120 reviews</span>
+                      <span className="from">{ t('span.from') } 120 { t('span.reviews') }</span>
                     </div>
                   </div>
                   <div className="right-block w-50">
                     <span className='count'>17</span>
-                    <span className="similar">similar properties was sold by this agency last month</span>
+                    <span className="similar">{ t('span.similar') }</span>
                   </div>
                 </div>
               </div>
@@ -164,7 +167,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({locale}) => ({
   props: {
-    ...await serverSideTranslations(locale, ['header', 'dashboard-page', 'common']),
+    ...await serverSideTranslations(locale, ['header', 'dashboard-page', 'property-page', 'common']),
   },
 });
 
