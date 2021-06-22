@@ -77,7 +77,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
   };
 
   const selectLang = (lang: string) => {
-    router.push(router.pathname, lang + router.pathname, {locale: lang});
+    router.push(router.pathname, '/' + lang + router.asPath, {locale: lang});
   };
 
   return (
