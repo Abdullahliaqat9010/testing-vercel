@@ -56,5 +56,12 @@
   "title.thanks-reply": "Merci pour votre réponse!",
   "title.message-sent-successfully": "Votre message a été envoyé avec succès.",
   "desc.agency": "L'agence",
-  "desc.soon": "vous contactera bientôt."
+  "desc.soon": "vous contactera bientôt.",
+  "title.contact-agency": "Agence de contact",
+  "placeholder.enter": "Veuillez entrer",
+  "span.link1": "nostrud amet.",
+  "span.link2": "Velit officia",
+  "p.desc-part1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt",
+  "p.desc-part2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
+  "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,"
 }

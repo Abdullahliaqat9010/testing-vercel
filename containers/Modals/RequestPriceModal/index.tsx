@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { isMobileOnly } from 'react-device-detect';
+import { useTranslation } from 'next-i18next';
 
 import GoogleMap from '../../../components/GoogleMap';
 
@@ -7,16 +9,17 @@ import BathImage from '../../../assets/images/bath-gray.svg';
 import BedsImage from '../../../assets/images/beds-gray.svg';
 import SquareImage from '../../../assets/images/square-gray.svg';
 import LivingSquareImage from '../../../assets/images/living-square-gray.svg';
-import { isMobileOnly } from 'react-device-detect';
+
 
 const RequestPriceModal = ({show, handleClose}) => {
+  const {t} = useTranslation('property-page');
   const [validated, setValidated] = useState(false);
 
   const [data, setData] = useState({
     fullName: '',
     phone: '',
     email: '',
-    desc: 'I have seen you sold property [2464 Royal Ln. Mesa, New Jersey 45463] and I’d like to know the sold price.',
+    desc: `${ t('desc.have-seen') } [2464 Royal Ln. Mesa, New Jersey 45463] ${t('desc.sold-price')}`,
     agree: false,
   });
 
@@ -46,7 +49,7 @@ const RequestPriceModal = ({show, handleClose}) => {
       fullName: '',
       phone: '',
       email: '',
-      desc: 'I have seen you sold property [2464 Royal Ln. Mesa, New Jersey 45463] and I’d like to know the sold price.',
+      desc: `${ t('desc.have-seen') } [2464 Royal Ln. Mesa, New Jersey 45463] ${t('desc.sold-price')}`,
       agree: false,
     });
     setValidated(false);
@@ -64,7 +67,7 @@ const RequestPriceModal = ({show, handleClose}) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="request-property-modal">
-          Request the price
+          { t('title.request-price') }
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className='custom-req-price-modal'>
@@ -74,7 +77,7 @@ const RequestPriceModal = ({show, handleClose}) => {
         <div className="left-block">
           <Form noValidate validated={ validated }>
             <Form.Group controlId="fullName">
-              <Form.Label>First and Last name</Form.Label>
+              <Form.Label>{ t('label.fullname') }</Form.Label>
               <Form.Control
                 required
                 value={ data.fullName }
@@ -85,7 +88,7 @@ const RequestPriceModal = ({show, handleClose}) => {
             </Form.Group>
 
             <Form.Group controlId="phone">
-              <Form.Label>Phone Number</Form.Label>
+              <Form.Label>{ t('label.phone') }</Form.Label>
               <Form.Control
                 required
                 name='phone'
@@ -97,7 +100,7 @@ const RequestPriceModal = ({show, handleClose}) => {
             </Form.Group>
 
             <Form.Group controlId="email">
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label>{ t('label.email') }</Form.Label>
               <Form.Control
                 required
                 value={ data.email }
@@ -108,7 +111,7 @@ const RequestPriceModal = ({show, handleClose}) => {
             </Form.Group>
 
             <Form.Group controlId="desc">
-              <Form.Label>Message</Form.Label>
+              <Form.Label>{ t('label.desc') }</Form.Label>
               <Form.Control
                 required
                 value={ data.desc }
@@ -125,15 +128,15 @@ const RequestPriceModal = ({show, handleClose}) => {
                 name='agree'
                 type="checkbox"
                 onChange={ handleChange }
-                label='I agree to Terms and Conditions of Belgium Immo'
+                label={ t('label.agree') }
               />
             </Form.Group>
             <div className="modal-btn-group">
               <Button className='confirm' onClick={ handleConfirm }>
-                confirm
+                { t('button.confirm') }
               </Button>
               <Button className='cancel' onClick={ handleCloseBtn }>
-                cancel
+                { t('button.cancel') }
               </Button>
             </div>
           </Form>
@@ -150,28 +153,28 @@ const RequestPriceModal = ({show, handleClose}) => {
             <div className="property-info__item">
               <img src={ SquareImage } alt="SquareImage"/>
               <div className="info-block">
-                <span className='gray'>Total Square</span>
+                <span className='gray'>{ t('span.total-square') }</span>
                 <span className='nunito-bold'>100m²</span>
               </div>
             </div>
             <div className="property-info__item">
               <img src={ BedsImage } alt="BedsImage"/>
               <div className="info-block">
-                <span className='gray'>Beds</span>
+                <span className='gray'>{ t('span.beds') }</span>
                 <span className='nunito-bold'>3</span>
               </div>
             </div>
             <div className="property-info__item living-square">
               <img src={ LivingSquareImage } alt="LivingSquareImage"/>
               <div className="info-block">
-                <span className='gray'>Living Square</span>
+                <span className='gray'>{ t('span.living-square') }</span>
                 <span className='nunito-bold'>65m²</span>
               </div>
             </div>
             <div className="property-info__item">
               <img src={ BathImage } alt="BathImage"/>
               <div className="info-block">
-                <span className='gray'>Baths</span>
+                <span className='gray'>{ t('span.baths') }</span>
                 <span className='nunito-bold'>2</span>
               </div>
             </div>

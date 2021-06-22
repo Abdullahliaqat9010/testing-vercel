@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Button } from 'react-bootstrap';
 
@@ -22,6 +23,7 @@ import { getPropertyForCurrentUserAction } from '../../actions';
 import { RootState } from '../../types/state';
 
 const PropertiesPage = () => {
+  const {t} = useTranslation('properties-page');
   const router = useRouter();
   const {locale} = router;
   const dispatch = useDispatch();
@@ -29,6 +31,10 @@ const PropertiesPage = () => {
   const {properties} = useSelector((state: RootState) => state.userInfo);
 
   useEffect(() => {
+    if (!userToken) {
+      window.location.href = '/';
+    }
+
     if (userToken) {
       const parseData = parseJwt(userToken);
       const elementsOnPage = 6;
@@ -42,14 +48,14 @@ const PropertiesPage = () => {
 
   return (
     <>
-      <HeaderContainer title='My Properties'/>
+      <HeaderContainer title={ t('title') }/>
       <div className='PropertiesPage container d-flex'>
         <NavBarContainer/>
         <div className="PropertiesPage__container w-100">
           <div className="title-block d-flex justify-content-between">
-            <h1>My Properties</h1>
+            <h1>{ t('title') }</h1>
             <Button className='new-estimate' onClick={ goToMainPage }>
-              <img src={ AddIcon } alt="AddIcon"/><span>New Estimate</span>
+              <img src={ AddIcon } alt="AddIcon"/><span>{ t('button.new-estimate') }</span>
             </Button>
           </div>
           {
@@ -59,7 +65,7 @@ const PropertiesPage = () => {
                   <div className="property__head">
                     <span className='address'>{ property.search_address }</span>
                     <Link href={ `/property/${property.id}` } locale={ locale }>
-                      <span className="blue">View <img src={ ArrowIcon } alt="ArrowIcon"/></span>
+                      <span className="blue">{ t('link.view') } <img src={ ArrowIcon } alt="ArrowIcon"/></span>
                     </Link>
                   </div>
                   <div className="property__body">
@@ -67,40 +73,40 @@ const PropertiesPage = () => {
                       <div className="square">
                         <img src={ SquareIcon } alt="SquareIcon"/>
                         <div className="info-block">
-                          <span className="gray">Square</span>
+                          <span className="gray">{ t('span.square') }</span>
                           <span>{ property.total_area }m²</span>
                         </div>
                       </div>
                       <div className="beds">
                         <img src={ BedsIcon } alt="BedsIcon"/>
                         <div className="info-block">
-                          <span className="gray">Beds</span>
+                          <span className="gray">{ t('span.beds') }</span>
                           <span>{ property.bedrooms }</span>
                         </div>
                       </div>
                       <div className="baths">
                         <img src={ BathIcon } alt="BathIcon"/>
                         <div className="info-block">
-                          <span className="gray">Baths</span>
+                          <span className="gray">{ t('span.baths') }</span>
                           <span>{ property.bathrooms }</span>
                         </div>
                       </div>
                     </div>
                     <div className="property-estimation">
-                      <p>Property estimation</p>
+                      <p>{ t('p.property-estimation') }</p>
                       <div className='d-flex align-items-center custom-block'>
                         <div className="minimal d-flex flex-column">
-                          <span className="estimation-title">Minimal</span>
+                          <span className="estimation-title">{ t('span.minimal') }</span>
                           <span className="estimation-desc">€1,007,500</span>
                           <span className="estimation-per-metre">€1,007.500 per m²</span>
                         </div>
                         <div className="average d-flex flex-column">
-                          <span className="estimation-title">Average</span>
+                          <span className="estimation-title">{ t('span.average') }</span>
                           <span className="estimation-desc">€1,097,500</span>
                           <span className="estimation-per-metre">€1,097.500 per m²</span>
                         </div>
                         <div className="maximal d-flex flex-column">
-                          <span className="estimation-title">Maximal</span>
+                          <span className="estimation-title">{ t('span.maximal') }</span>
                           <span className="estimation-desc">€1,197,500</span>
                           <span className="estimation-per-metre">€1,197.500 per m²</span>
                         </div>
@@ -119,7 +125,7 @@ const PropertiesPage = () => {
 
 export const getStaticProps = async ({locale}) => ({
   props: {
-    ...await serverSideTranslations(locale, ['header', 'common']),
+    ...await serverSideTranslations(locale, ['header', 'properties-page', 'common']),
   },
 });
 

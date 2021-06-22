@@ -64,7 +64,7 @@ const ContactAgencyBlock = ({agencyInfo}) => {
   return (
     <div className='contact-agency-block'>
       <div className='contact-agency'>
-        <h4>Contact Agency</h4>
+        <h4>{t('title.contact-agency')}</h4>
         <p>{ agencyInfo.title }</p>
         <Form noValidate validated={ validated }>
           <Form.Group controlId="fullName">
@@ -86,7 +86,7 @@ const ContactAgencyBlock = ({agencyInfo}) => {
               onChange={ handleOnChange }
               name='phone'
               type="text"
-              placeholder="Please enter"
+              placeholder={ t('placeholder.enter') }
               value={ data.phone }
             />
             <Form.Control.Feedback type="invalid">
@@ -109,7 +109,7 @@ const ContactAgencyBlock = ({agencyInfo}) => {
 
           <Form.Group controlId="desc">
             <Form.Control
-              placeholder={t('placeholder.message')}
+              placeholder={ t('placeholder.message') }
               value={ data.desc }
               as="textarea"
               rows={ 5 }
@@ -137,7 +137,7 @@ const ContactAgencyBlock = ({agencyInfo}) => {
               name='freeCharge'
               onChange={ handleOnChange }
               type="checkbox"
-              label='I would like to have my property evaluated free of charge'
+              label={ t('label.free-charge') }
               checked={ data.freeCharge }
             />
           </Form.Group>
@@ -150,15 +150,12 @@ const ContactAgencyBlock = ({agencyInfo}) => {
       </div>
       <div className="contact-agency-block__desc">
         <p>
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-          duis enim velit mollit. Exercitation veniam consequat sunt <span className='link'>nostrud amet.</span> Amet
-          minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. <span className='link'>
-          Velit officia</span> consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-          Amet minim mollit non deserunt ullamco est sit aliqu,
+          { t('p.desc-part1') } <span className='link'>{ t('span.link1') }</span> { t('p.desc-part2') }&nbsp;
+          <span className='link'>{ t('span.link2') }</span> { t('p.desc-part3') }
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ContactAgencyBlock;
