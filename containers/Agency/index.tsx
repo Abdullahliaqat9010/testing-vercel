@@ -101,7 +101,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
         </div>
         <div className="agency-border"/>
         <div className="short-info__right d-flex align-items-center w-45">
-          <span className="count-block">{ agencySimilarProperties?.count || 0 }</span>
+          <span className="count-block">{ agencySimilarProperties?.estates.length || 0 }</span>
           <div className="address">
             <p>{ t('p.similar-properties-sold') }</p>
             <p className='d-flex'>{ t('p.to') }
@@ -124,9 +124,9 @@ const Agency = ({nearest, agency}: AgencyProps) => {
             </div>
             <div className="desc">
               { t('desc-agency.agency-sold') }
-              <span className="bold"> { agencyPropertiesInfo?.count || 0 } { t('desc-agency.properties') }
+              <span className="bold"> { agencyPropertiesInfo?.countSold || 0 } { t('desc-agency.properties') }
               </span> { t('desc-agency.nearby-including') } <span className="link">
-              { agencySimilarProperties?.count || 0 } { t('desc-agency.similar') }
+              { agencySimilarProperties?.estates.length || 0 } { t('desc-agency.similar') }
               </span>. { t('desc-agency.our-team') }
             </div>
             <Button
@@ -157,7 +157,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
                 {/*@ts-ignore*/ }
-                <GoogleMap agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
+                <GoogleMap agencyName={agency.title} agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">
