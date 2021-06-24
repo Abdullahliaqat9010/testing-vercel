@@ -302,12 +302,13 @@
     }
 
     .load-more {
-      margin-top: 23px;
+      margin: 23px auto 0;
       font-size: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
+      max-width: 460px;
       height: 47px;
       color: var(--colorBlue);
       background: var(--bg-blue);

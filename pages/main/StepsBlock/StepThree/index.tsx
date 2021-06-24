@@ -167,11 +167,12 @@ const StepThree = () => {
         <span className="form-label">Property condition</span>
         <ButtonGroup aria-label='condition' className='custom-btn-group'>
           <Button
-            name='new'
-            className={ `first-btn ${ data.condition === 'new' ? 'custom-active' : '' }` }
+            name='renovate'
+            className={ `first-btn ${ data.condition === 'renovate' ? 'custom-active' : '' }` }
             onClick={ selectCondition }
           >
-            { t('button.new') }
+
+            { t('button.renovate') }
           </Button>
           <Button
             name='good'
@@ -181,11 +182,11 @@ const StepThree = () => {
             { t('button.good') }
           </Button>
           <Button
-            name='renovate'
-            className={ `last-btn ${ data.condition === 'renovate' ? 'custom-active' : '' }` }
+            name='new'
+            className={ `last-btn ${ data.condition === 'new' ? 'custom-active' : '' }` }
             onClick={ selectCondition }
           >
-            { t('button.renovate') }
+            { t('button.new') }
           </Button>
         </ButtonGroup>
       </div>
