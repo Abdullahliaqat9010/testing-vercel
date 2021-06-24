@@ -95,7 +95,7 @@ const GoogleMap = ({google, agencyLocation, agencyName}: GoogleMapProps) => {
         }
       ]
 
-      if (similarProperties && similarProperties.estates.length > 0) {
+      if (similarProperties && similarProperties.estates && similarProperties.estates.length > 0) {
         similarProperties.estates.map(estate => markerList.push({
           agencyMarker: false,
           similar: true,
