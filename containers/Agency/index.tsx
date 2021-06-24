@@ -101,7 +101,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
         </div>
         <div className="agency-border"/>
         <div className="short-info__right d-flex align-items-center w-45">
-          <span className="count-block">{ agencySimilarProperties?.estates.length || 0 }</span>
+          <span className="count-block">{ agencySimilarProperties?.estates?.length || 0 }</span>
           <div className="address">
             <p>{ t('p.similar-properties-sold') }</p>
             <p className='d-flex'>{ t('p.to') }
@@ -126,7 +126,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
               { t('desc-agency.agency-sold') }
               <span className="bold"> { agencyPropertiesInfo?.countSold || 0 } { t('desc-agency.properties') }
               </span> { t('desc-agency.nearby-including') } <span className="link">
-              { agencySimilarProperties?.estates.length || 0 } { t('desc-agency.similar') }
+              { agencySimilarProperties?.estates?.length || 0 } { t('desc-agency.similar') }
               </span>. { t('desc-agency.our-team') }
             </div>
             <Button
