@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import GoogleMap from '../../../../components/GoogleMap';
 
@@ -23,6 +23,7 @@ import ApartmentImageNoActive from '../../../../assets/images/apartment-noactive
 // import LandImageNoActive from '../../../../assets/images/land-noactive.svg';
 import MarkerImage from '../../../../assets/images/marker-blue.svg';
 import CloseIcon from '../../../../assets/images/close-icon.svg';
+import { googleMapConfig } from '../../../../config/siteConfigs';
 
 const StepOne = () => {
   const {t} = useTranslation('steps');
@@ -33,6 +34,7 @@ const StepOne = () => {
     locality,
     zip,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.additionalAddress);
+  const [value, setValue] = useState(street);
   const {
     addressFromStepOne,
     selectedProperty: currentProp,
@@ -141,6 +143,34 @@ const StepOne = () => {
   };
 
 
+  const handleSelectChangeValue = async (el: any) => {
+    const results = await geocodeByAddress(el.label);
+    const getLocations = await getLatLng(results[0]);
+
+    const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
+    const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
+    const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
+    const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+
+    setFormData({
+      street,
+      number,
+      locality,
+      zip,
+    });
+
+    setValue(street);
+
+    console.log('Successfully got latitude and longitude');
+
+    const addressList = {
+      addressFromStepOne: results[0].formatted_address,
+      location: {...getLocations},
+    };
+
+    dispatch(updateAddressList(addressList));
+  };
+
   return (
     <div className='step-one'>
       <span className="step-title">{ t('span.step') } 1</span>
@@ -149,13 +179,22 @@ const StepOne = () => {
         <Form.Row>
           <Form.Group id='street' controlId="street">
             <Form.Label>{ t('label.street') }</Form.Label>
-            <InputGroup>
-              <Form.Control
-                name='street'
-                value={ data.street }
-                onChange={ handleChangeVal }
-              />
-            </InputGroup>
+            <GooglePlacesAutocomplete
+              selectProps={ {
+                placeholder: value,
+                name: 'street',
+                value,
+                onChange: handleSelectChangeValue,
+                classNamePrefix: 'custom-select',
+              } }
+              apiKey={ googleMapConfig.apiKey }
+              apiOptions={ {language: 'en'} }
+              autocompletionRequest={{
+                componentRestrictions: {
+                  country: ['be'],
+                }
+              }}
+            />
           </Form.Group>
           <Form.Group controlId="number">
             <Form.Label>№</Form.Label>
