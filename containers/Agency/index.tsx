@@ -10,6 +10,7 @@ import { Button, Image } from 'react-bootstrap';
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
+import AgencyStarImage from '../../assets/images/star-blue.svg';
 
 import { modalWindowContactAgentAction } from '../../actions';
 
@@ -169,8 +170,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                   <span>{ t('span.similar-property') }</span>
                 </div>
                 <div className="other-property d-flex align-items-center">
-                  <div className="gray-circle"/>
-                  <span>{ t('span.other-properties') }</span>
+                  <img src={ AgencyStarImage } alt="AgencyStarImage"/>
+                  <span>{ t('span.agency') }</span>
                 </div>
               </div>
             </div>

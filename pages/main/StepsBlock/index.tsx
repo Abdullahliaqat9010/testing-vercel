@@ -25,6 +25,7 @@ const stepsArr = [
 const StepsBlock = () => {
   const {step} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const [progressBar, setProgressBar] = useState<number>(33);
+  const [showBlock, setShowBlock] = useState<boolean>(false);
 
   const changeProgressBar = () => {
     if (step === 1) {
@@ -41,6 +42,9 @@ const StepsBlock = () => {
 
     return;
   };
+  useEffect(() => {
+    setTimeout(() => setShowBlock(true), 500)
+  }, []);
 
   useEffect(() => {
     changeProgressBar();
@@ -58,7 +62,9 @@ const StepsBlock = () => {
         {
           !isMobile &&
           <div className='w-50 position-relative'>
-            <GoogleMap />
+            {
+              showBlock && <GoogleMap />
+            }
           </div>
         }
       </div>
