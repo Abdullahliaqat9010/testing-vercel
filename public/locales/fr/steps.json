@@ -23,6 +23,7 @@
   "label.confirm-password": "Confirmer le mot de passe",
   "label.construction-year": "Année de construction",
   "label.elevator": "Ascenseur",
+  "label.step-4-elevator": "Ascenseur dans l'appartement",
   "label.email": "Courriel",
   "label.epc": "PEB",
   "tooltip.epc": "La performance énergétique des bâtiments (PEB)",

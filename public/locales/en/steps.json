@@ -23,6 +23,7 @@
   "label.confirm-password": "Confirm password",
   "label.construction-year": "Construction year",
   "label.elevator": "Elevator",
+  "label.step-4-elevator": "Elevator inside apartment",
   "label.email": "Email",
   "label.epc": "EPB",
   "tooltip.epc": "Energy performance of buildings (EPB)",
