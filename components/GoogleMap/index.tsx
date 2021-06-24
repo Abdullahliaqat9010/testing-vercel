@@ -83,6 +83,32 @@ const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
       );
     }
 
+    if(agencyLocation && mainProperty.lat && mainProperty.lng) {
+      const markerList = [
+        {
+          agencyMarker: false,
+          lat: mainProperty.lat,
+          lng: mainProperty.lng,
+        },
+        {
+          agencyMarker: true,
+          lat: agencyLocation.lat,
+          lng: agencyLocation.lng,
+        }
+      ]
+
+      return markerList.map((property, index) =>
+        <Marker
+          key={ index }
+          icon={ property.agencyMarker ? MarkerAgencyIcon : MarkerHomeIcon }
+          position={ {
+            lat: property.lat,
+            lng: property.lng,
+          } }
+        />,
+      );
+    }
+
     return <Marker
       icon={  agencyLocation ? MarkerAgencyIcon : MarkerHomeIcon }
       position={
