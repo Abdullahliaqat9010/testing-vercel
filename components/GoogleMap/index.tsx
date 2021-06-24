@@ -18,12 +18,15 @@ interface GoogleMapProps {
   agencyLocation?: {
     lat?: number | string,
     lng?: number | string,
-  }
+  },
+  agencyName?: string
 }
 
-const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
+const GoogleMap = ({google, agencyLocation, agencyName}: GoogleMapProps) => {
   const dispatch = useDispatch();
   const {location} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {agencySimilarPropertiesList} = useSelector((state: RootState) => state.agency);
+  const [similarProperties] = agencySimilarPropertiesList.filter(list => list.name === agencyName);
   const {similarPropertiesLocation, mainProperty} = useSelector((state: RootState) => state.userInfo);
   const [useLocation, setUseLocation] = useState({lat: null, lng: null});
 
@@ -39,13 +42,6 @@ const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
       setUseLocation({
         lat: mainProperty.lat,
         lng: mainProperty.lng,
-      });
-    }
-
-    if (agencyLocation) {
-      setUseLocation({
-        lat: agencyLocation.lat,
-        lng: agencyLocation.lng,
       });
     }
   }, [location, mainProperty, agencyLocation]);
@@ -87,20 +83,31 @@ const GoogleMap = ({google, agencyLocation}: GoogleMapProps) => {
       const markerList = [
         {
           agencyMarker: false,
+          similar: false,
           lat: mainProperty.lat,
           lng: mainProperty.lng,
         },
         {
           agencyMarker: true,
+          similar: false,
           lat: agencyLocation.lat,
           lng: agencyLocation.lng,
         }
       ]
 
+      if (similarProperties && similarProperties.estates.length > 0) {
+        similarProperties.estates.map(estate => markerList.push({
+          agencyMarker: false,
+          similar: true,
+          lat: estate.lat,
+          lng: estate.lng
+        }));
+      }
+
       return markerList.map((property, index) =>
         <Marker
           key={ index }
-          icon={ property.agencyMarker ? MarkerAgencyIcon : MarkerHomeIcon }
+          icon={ property.agencyMarker ? MarkerAgencyIcon : property.similar ? MarkerPropertyIcon : MarkerHomeIcon }
           position={ {
             lat: property.lat,
             lng: property.lng,

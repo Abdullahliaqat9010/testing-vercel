@@ -122,11 +122,11 @@ export interface RootState {
       user_ratings_total: number
     }[],
     agencyCountPropertiesList: {
-      count: string,
+      countSold: string,
       company_name: string,
     }[],
     agencySimilarPropertiesList: {
-      count: string,
+      estates: any[], //todo add current interface
       name: string,
     }[],
     error: string,
