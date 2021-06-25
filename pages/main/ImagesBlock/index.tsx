@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Button, Carousel } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Carousel, FormControl, InputGroup } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
 
-import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+// import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
-import { openMainStepsAction } from '../../../actions';
+import { clearAutocompleteItems, getAutocompleteItemsAction, openMainStepsAction } from '../../../actions';
 
-import { googleMapConfig } from '../../../config/siteConfigs';
+// import { googleMapConfig } from '../../../config/siteConfigs';
 
 import FirstSlide from '../../../assets/images/main-page/slider/first-slide.jpeg';
 import FirstSlideMobile from '../../../assets/images/main-page/slider/first-slide-mobile.jpeg';
@@ -16,11 +16,13 @@ import SecondSlide from '../../../assets/images/main-page/slider/second-slide.jp
 import SecondSlideMobile from '../../../assets/images/main-page/slider/second-slide-mobile.jpeg';
 import ThirdSlide from '../../../assets/images/main-page/slider/third-slide.jpeg';
 import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slide-mobile.jpeg';
+import { RootState } from '../../../types/state';
 
 const ImagesBlock = () => {
   const {t} = useTranslation('main-page');
+  const {dataFromMapBox} = useSelector((state: RootState) => state.stepsInfo);
   const dispatch = useDispatch();
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   const [geoLocation, setGeoLocation] = useState({
     lat: null,
     lng: null,
@@ -28,42 +30,68 @@ const ImagesBlock = () => {
 
   const [dataInfo, setData] = useState({});
 
-  const handleChangeValue = async (el: any) => {
-    setValue(el);
-    const results = await geocodeByAddress(el.label);
-    const getLocations = await getLatLng(results[0]);
-
-    const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
-    const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
-    const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
-    const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
-    const country = results[0].address_components.filter(res => res.types[0] === 'country')[0]?.short_name || '';
-
-    const dataForNextStep = {
-      locality,
-      number,
-      street,
-      zip,
-      country,
-    };
-
-    console.log('Successfully got latitude and longitude');
-    setData({...dataForNextStep});
-    setGeoLocation(getLocations);
-  };
+  // const handleChangeValue = async (el: any) => {
+  //   setValue(el);
+  //   const results = await geocodeByAddress(el.label);
+  //   const getLocations = await getLatLng(results[0]);
+  //
+  //   const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
+  //   const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
+  //   const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
+  //   const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
+  //   const country = results[0].address_components.filter(res => res.types[0] === 'country')[0]?.short_name || '';
+  //
+  //   const dataForNextStep = {
+  //     locality,
+  //     number,
+  //     street,
+  //     zip,
+  //     country,
+  //   };
+  //
+  //   console.log('Successfully got latitude and longitude');
+  //   setData({...dataForNextStep});
+  //   setGeoLocation(getLocations);
+  // };
 
   const goToMainSteps = () => {
-    if (!value) {
+    if (value.length === 0) {
       return false;
     }
 
     const data = {
-      infoFromAutoComplete: value.label,
+      infoFromAutoComplete: value,
       location: {...geoLocation},
       additionalAddress: {...dataInfo},
     };
 
     dispatch(openMainStepsAction(data));
+  };
+
+  const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(el.target.value);
+    if (el.target.value.length > 0) {
+      dispatch(getAutocompleteItemsAction(el.target.value, el.target.name));
+    } else {
+      dispatch(clearAutocompleteItems());
+    }
+  };
+
+  const handleSelectAddress = (addressId: string) => {
+    const [currentAddress] = dataFromMapBox.filter(list => list.id === addressId);
+    setValue(currentAddress.fullAddress);
+
+    const dataForNextStep = {
+      locality: currentAddress.locality.length > 1 ? currentAddress.locality : currentAddress.place,
+      number: currentAddress.number,
+      street: currentAddress.street,
+      zip: currentAddress.postcode,
+      country: currentAddress.country,
+    };
+
+    setData({...dataForNextStep});
+    setGeoLocation(currentAddress.location);
+    dispatch(clearAutocompleteItems());
   };
 
   return (
@@ -82,24 +110,45 @@ const ImagesBlock = () => {
       <div className="image-carousel__popup">
         <h1>{ t('title.image-block') }</h1>
         <div className='w-100'>
-          {
-            !window.sessionStorage.getItem('modify') &&
-            <GooglePlacesAutocomplete
-              selectProps={ {
-                placeholder: `${ t('placeholder.enter-property-address') }`,
-                value,
-                onChange: handleChangeValue,
-                classNamePrefix: 'custom-select',
-              } }
-              apiKey={ googleMapConfig.apiKey }
-              apiOptions={ {language: 'en'} }
-              autocompletionRequest={{
-                componentRestrictions: {
-                  country: ['be'],
+          <div className="custom-autocomplete position-relative">
+            <InputGroup>
+              <FormControl
+                placeholder={ t('placeholder.enter-property-address') }
+                name='address'
+                onChange={ handleAutocomplete }
+                value={ value }
+              />
+            </InputGroup>
+            {
+              dataFromMapBox.length > 0 &&
+              <ul className='autocomplete-list'>
+                {
+                  dataFromMapBox.map((item, index) =>
+                    <li onClick={ () => handleSelectAddress(item.id) } key={ index }>{ item.fullAddress }</li>,
+                  )
                 }
-              }}
-            />
-          }
+              </ul>
+            }
+          </div>
+
+          {/*{*/ }
+          {/*  !window.sessionStorage.getItem('modify') &&*/ }
+          {/*  <GooglePlacesAutocomplete*/ }
+          {/*    selectProps={ {*/ }
+          {/*      placeholder: `${ t('placeholder.enter-property-address') }`,*/ }
+          {/*      value,*/ }
+          {/*      onChange: handleChangeValue,*/ }
+          {/*      classNamePrefix: 'custom-select',*/ }
+          {/*    } }*/ }
+          {/*    apiKey={ googleMapConfig.apiKey }*/ }
+          {/*    apiOptions={ {language: 'en'} }*/ }
+          {/*    autocompletionRequest={{*/ }
+          {/*      componentRestrictions: {*/ }
+          {/*        country: ['be'],*/ }
+          {/*      }*/ }
+          {/*    }}*/ }
+          {/*  />*/ }
+          {/*}*/ }
         </div>
         <Button disabled={ !geoLocation.lng && !geoLocation.lng } onClick={ goToMainSteps }>
           { t('button.get-free-estimation') }

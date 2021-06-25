@@ -70,6 +70,7 @@ export const initialState = {
       lng: null,
     },
   },
+  dataFromMapBox: [],
   errors: '',
 };
 
@@ -184,6 +185,16 @@ const stepsReducer = (state = initialState, action: any) => {
           ...state.stepBlock,
           ...action.payload
         }
+      }
+    case actionType.GET_AUTOCOMPLETE_ITEMS_SUCCESS:
+      return {
+        ...state,
+        dataFromMapBox: [...action.payload]
+      }
+    case actionType.CLEAR_AUTOCOMPLETE_ITEMS:
+      return {
+        ...state,
+        dataFromMapBox: []
       }
     default:
       return {
