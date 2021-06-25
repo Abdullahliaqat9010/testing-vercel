@@ -2,6 +2,28 @@
   background-color: var(--colorWhite);
   color: var(--mainColor);
 
+  .autocomplete-list {
+    position: absolute;
+    background-color: var(--colorWhite);
+    z-index: 20;
+    list-style-type: none;
+    padding: unset;
+    box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+
+    li {
+      padding: 10px;
+      cursor: pointer;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 360px;
+      overflow: hidden;
+
+      &:hover {
+        background-color: var(--bg-blue);
+      }
+    }
+  }
+
   .image-carousel {
     max-width: 1400px;
     margin: 0 auto;
@@ -37,28 +59,6 @@
 
           :active {
             border: 1px solid var(--colorGray);
-          }
-        }
-
-        .autocomplete-list {
-          position: absolute;
-          background-color: var(--colorWhite);
-          z-index: 20;
-          list-style-type: none;
-          padding: unset;
-          box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
-
-          li {
-            padding: 10px;
-            cursor: pointer;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            max-width: 360px;
-            overflow: hidden;
-
-            &:hover {
-              background-color: var(--bg-blue);
-            }
           }
         }
       }

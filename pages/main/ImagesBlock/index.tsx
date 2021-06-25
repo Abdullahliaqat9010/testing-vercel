@@ -4,11 +4,7 @@ import { Button, Carousel, FormControl, InputGroup } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
 
-// import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
-
 import { clearAutocompleteItems, getAutocompleteItemsAction, openMainStepsAction } from '../../../actions';
-
-// import { googleMapConfig } from '../../../config/siteConfigs';
 
 import FirstSlide from '../../../assets/images/main-page/slider/first-slide.jpeg';
 import FirstSlideMobile from '../../../assets/images/main-page/slider/first-slide-mobile.jpeg';
@@ -29,30 +25,6 @@ const ImagesBlock = () => {
   });
 
   const [dataInfo, setData] = useState({});
-
-  // const handleChangeValue = async (el: any) => {
-  //   setValue(el);
-  //   const results = await geocodeByAddress(el.label);
-  //   const getLocations = await getLatLng(results[0]);
-  //
-  //   const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
-  //   const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
-  //   const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
-  //   const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
-  //   const country = results[0].address_components.filter(res => res.types[0] === 'country')[0]?.short_name || '';
-  //
-  //   const dataForNextStep = {
-  //     locality,
-  //     number,
-  //     street,
-  //     zip,
-  //     country,
-  //   };
-  //
-  //   console.log('Successfully got latitude and longitude');
-  //   setData({...dataForNextStep});
-  //   setGeoLocation(getLocations);
-  // };
 
   const goToMainSteps = () => {
     if (value.length === 0) {
@@ -117,6 +89,7 @@ const ImagesBlock = () => {
                 name='address'
                 onChange={ handleAutocomplete }
                 value={ value }
+                autoComplete='off'
               />
             </InputGroup>
             {

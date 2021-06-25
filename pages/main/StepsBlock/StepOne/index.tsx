@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
@@ -8,7 +8,9 @@ import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GoogleMap from '../../../../components/GoogleMap';
 
 import {
-  goToNextStepAction,
+  clearAutocompleteItems,
+  getAutocompleteItemsAction,
+  goToNextStepAction, openMainStepsAction,
   setActivePropertyAction,
   setAdditionalAddressAction,
   updateAddressList,
@@ -37,9 +39,16 @@ const StepOne = () => {
     addressFromStepOne,
     selectedProperty: currentProp,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {dataFromMapBox} = useSelector((state: RootState) => state.stepsInfo);
   const [selectedProperty, setCurrentProperty] = useState<string>(currentProp);
   const [showMapBlock, setShowMapBlock] = useState<boolean>(false);
   const [showAddressBlock, changeAddressBlockState] = useState<boolean>(true);
+
+  const [autoCompleteList, showAutoCompleteList] = useState({
+    street: false,
+    locality: false,
+  });
+
   const [data, setFormData] = useState({
     street,
     number,
@@ -48,7 +57,7 @@ const StepOne = () => {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
   const [error, setError] = useState({zip: ''});
@@ -58,6 +67,66 @@ const StepOne = () => {
       ...data,
       [el.target.name]: +el.target.value < 0 ? +el.target.value * -1 : el.target.value,
     });
+  };
+
+  const handleUpdateInput = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...data,
+      [el.target.name]: el.target.value,
+    });
+
+    showAutoCompleteList({
+      ...autoCompleteList,
+      [el.target.name]: true,
+    });
+
+    if (el.target.value.length > 0) {
+      const type = el.target.name === 'locality' ? 'place' : 'address';
+      dispatch(getAutocompleteItemsAction(el.target.value, type));
+    } else {
+      dispatch(clearAutocompleteItems());
+    }
+  };
+
+  const setNewLocality = (locality: string) => {
+    setFormData({...data, locality});
+    showAutoCompleteList({
+      ...autoCompleteList,
+      locality: false,
+    });
+    dispatch(clearAutocompleteItems());
+  };
+
+  const setNewAddress = (id: string) => {
+    const [data] = dataFromMapBox.filter(item => item.id === id);
+
+    setFormData({
+      locality: data.locality.length > 1 ? data.locality : data.place,
+      number: data.number,
+      street: data.street,
+      zip: data.postcode,
+    })
+
+    const dataForNextStep = {
+      locality: data.locality.length > 1 ? data.locality : data.place,
+      number: data.number,
+      street: data.street,
+      zip: data.postcode,
+      country: data.country,
+    };
+
+    const sendData = {
+      location: {...data.location},
+      additionalAddress: {...dataForNextStep},
+    };
+
+    dispatch(openMainStepsAction(sendData));
+
+    showAutoCompleteList({
+      ...autoCompleteList,
+      street: false,
+    });
+    dispatch(clearAutocompleteItems());
   };
 
   const handleClickNextBtn = () => {
@@ -147,15 +216,26 @@ const StepOne = () => {
       <h4>{ t('title.address') }</h4>
       <Form>
         <Form.Row>
-          <Form.Group id='street' controlId="street">
+          <Form.Group className='position-relative' id='street' controlId="street">
             <Form.Label>{ t('label.street') }</Form.Label>
-            <InputGroup>
-              <Form.Control
-                name='street'
-                value={ data.street }
-                onChange={ handleChangeVal }
-              />
-            </InputGroup>
+            <Form.Control
+              name='street'
+              value={ data.street }
+              autoComplete='off'
+              onChange={ handleUpdateInput }
+            />
+            {
+              dataFromMapBox.length > 0 && autoCompleteList.street &&
+              <ul className='autocomplete-list'>
+                {
+                  dataFromMapBox.map((item, index) =>
+                    <li onClick={ () => setNewAddress(item.id) } key={ index }>
+                      { item.fullAddress }
+                    </li>,
+                  )
+                }
+              </ul>
+            }
           </Form.Group>
           <Form.Group controlId="number">
             <Form.Label>№</Form.Label>
@@ -178,14 +258,26 @@ const StepOne = () => {
               error.zip.length > 0 && <span className="error">{ error.zip }</span>
             }
           </Form.Group>
-          <Form.Group controlId="locality">
+          <Form.Group className='position-relative' controlId="locality">
             <Form.Label>{ t('label.locality') }</Form.Label>
             <Form.Control
               name='locality'
+              autoComplete='off'
               value={ data.locality }
-              onChange={ handleChangeVal }
-              onBlur={ getAddress }
+              onChange={ handleUpdateInput }
             />
+            {
+              dataFromMapBox.length > 0 && autoCompleteList.locality &&
+              <ul className='autocomplete-list'>
+                {
+                  dataFromMapBox.map((item, index) =>
+                    <li onClick={ () => setNewLocality(item.fullAddress) } key={ index }>
+                      { item.fullAddress }
+                    </li>,
+                  )
+                }
+              </ul>
+            }
           </Form.Group>
         </Form.Row>
       </Form>
@@ -240,7 +332,7 @@ const StepOne = () => {
               <img onClick={ closeAddressBlock } src={ CloseIcon } alt="CloseIcon"/>
             </div>
           }
-          <GoogleMap />
+          <GoogleMap/>
           <span className="close-map" onClick={ showMap }>{ t('button.close') }</span>
         </div>
       }
