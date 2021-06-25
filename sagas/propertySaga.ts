@@ -325,7 +325,7 @@ function* getDataFromMapBox({payload}: any) {
             region: item.context.filter(el => el.id.indexOf('region') !== -1)[0]?.text || '',
             locality: item.context.filter(el => el.id.indexOf('locality') !== -1)[0]?.text || '',
             street: item?.text || '',
-            number: '',
+            number: item?.address || '',
             country: item.context.filter(el => el.id.indexOf('country') !== -1)[0]?.text || ''
           })
         })
