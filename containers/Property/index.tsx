@@ -66,7 +66,7 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
       </div>
       <div className="property-block__info">
         <div className="address">
-          { property.search_address }
+          { property.street } { property.zip } { property.locality }
         </div>
         <div className='short-desc'>
           <div className="house-info">
