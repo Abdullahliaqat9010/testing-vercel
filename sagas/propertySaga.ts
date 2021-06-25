@@ -315,7 +315,7 @@ function* getDataFromMapBox({payload}: any) {
         features.map(item => {
           listArr.push({
             id: item.id,
-            fullAddress: item.place_name,
+            fullAddress: type === 'place' ? item.text : item.place_name,
             location: {
               lng: item.center[0],
               lat: item.center[1]
