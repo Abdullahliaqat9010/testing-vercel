@@ -302,6 +302,55 @@ function* getPropertyAgencyDataError(error: string) {
   });
 }
 
+function* getDataFromMapBox({payload}: any) {
+  const {searchValue, type} = payload;
+  try {
+    const res = yield fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchValue}.json?country=BE&language=en&types=${type}&access_token=pk.eyJ1IjoibWF0dGVvZ3JhY2VmZmEiLCJhIjoiY2txYjBiZW11MDVwcjJwbm1yMmdlaGY2eSJ9.5LiTaHbs8vlwsjwAMzm1eA`);
+
+    if (res.status === 200) {
+      const listArr = [];
+      const {features} = yield res.json();
+
+      if (features.length > 0) {
+        features.map(item => {
+          listArr.push({
+            id: item.id,
+            fullAddress: type === 'place' ? item.text : item.place_name,
+            location: {
+              lng: item.center[0],
+              lat: item.center[1]
+            },
+            postcode: item.context.filter(el => el.id.indexOf('postcode') !== -1)[0]?.text || '',
+            place: item.context.filter(el => el.id.indexOf('place') !== -1)[0]?.text || '',
+            region: item.context.filter(el => el.id.indexOf('region') !== -1)[0]?.text || '',
+            locality: item.context.filter(el => el.id.indexOf('locality') !== -1)[0]?.text || '',
+            street: item?.text || '',
+            number: item?.address || '',
+            country: item.context.filter(el => el.id.indexOf('country') !== -1)[0]?.text || ''
+          })
+        })
+      }
+      yield getDataFromMapBoxSuccess(listArr);
+    }
+  } catch (error) {
+    yield getDataFromMapBoxError(error);
+  }
+}
+
+function* getDataFromMapBoxSuccess(data) {
+  yield put({
+    type: actionType.GET_AUTOCOMPLETE_ITEMS_SUCCESS,
+    payload: data,
+  });
+}
+
+function* getDataFromMapBoxError(error: string) {
+  yield put({
+    type: actionType.GET_AUTOCOMPLETE_ITEMS_ERROR,
+    payload: error,
+  });
+}
+
 export function* propertySaga() {
   yield takeLatest(actionType.CREATE_PROPERTY_REQUEST, createPropertyRequest);
   yield takeLatest(actionType.UPDATE_PROPERTY_REQUEST, updatePropertyRequest);
@@ -310,4 +359,5 @@ export function* propertySaga() {
   yield takeLatest(actionType.GET_NEXT_PAGE_SIMILAR_PROPERTY, getMoreSimilarProperty);
   yield takeLatest(actionType.GET_INFO_AGENCY_FROM_GOOGLE, getGoogleDataAgency);
   yield takeLatest(actionType.GET_DATA_PROPERTIES_AGENCY, getPropertyAgencyData);
+  yield takeLatest(actionType.GET_AUTOCOMPLETE_ITEMS, getDataFromMapBox);
 }
