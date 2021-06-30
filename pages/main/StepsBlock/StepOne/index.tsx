@@ -170,10 +170,9 @@ const StepOne = () => {
 
   const getAddress = async (el: React.ChangeEvent<HTMLInputElement>) => {
     if (el.target.name === 'zip' && (+el.target.value < 1000 || +el.target.value > 9999)) {
-      setError({...error, zip: 'please use only Belgium zip codes'});
+      setError({...error, zip: t('error.zip')});
     }
   };
-
 
   return (
     <div className='step-one'>
