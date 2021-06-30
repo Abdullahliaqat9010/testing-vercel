@@ -19,7 +19,7 @@
   "desc.agents-near-you": "agences qui sont proches de l'endroit où se trouve votre propriété.",
   "desc.months-ago": "derniers mois par",
   "desc.similar-sold-properties": "biens vendus dans cette zone",
-  "desc.sold": "Vendu(s) ces",
+  "desc.sold": "Vendu il y a",
   "desc.thanks-reply": "Nous apprécions votre aide précieuse afin d'améliorer chaque jour notre outil d'estimation",
   "desc.we-found": "Nous avons trouvé",
   "label.feedback-or-comments": "Avez-vous des commentaires ou des remarques concernant l'estimation?",
@@ -56,5 +56,9 @@
   "title.thanks-reply": "Merci pour votre réponse!",
   "title.message-sent-successfully": "Votre message a été envoyé avec succès.",
   "desc.agency": "L'agence",
+  "sold.ago": "par",
+  "span.day": "jour",
+  "span.month": "mois",
+  "span.year": "an",
   "desc.soon": "vous contactera bientôt."
 }
