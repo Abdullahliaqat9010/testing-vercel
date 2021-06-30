@@ -24,7 +24,7 @@ const initData = {
   },
   details: {
     prestige: 'basic',
-    condition: 'new',
+    condition: 'renovate',
     constructionYear: '',
     renovationYear: '',
     renovationLevel: '0',
@@ -72,6 +72,7 @@ export const initialState = {
   mainBlocks: false,
   goToDashboard: false,
   stepBlock: {...initData},
+  dataFromMapBox: [],
   errors: '',
 };
 
@@ -193,6 +194,16 @@ const stepsReducer = (state = initialState, action: any) => {
           ...action.payload,
         },
       };
+    case actionType.GET_AUTOCOMPLETE_ITEMS_SUCCESS:
+      return {
+        ...state,
+        dataFromMapBox: [...action.payload]
+      }
+    case actionType.CLEAR_AUTOCOMPLETE_ITEMS:
+      return {
+        ...state,
+        dataFromMapBox: []
+      }
     default:
       return {
         ...state,

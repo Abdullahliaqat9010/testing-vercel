@@ -2,6 +2,28 @@
   background-color: var(--colorWhite);
   color: var(--mainColor);
 
+  .autocomplete-list {
+    position: absolute;
+    background-color: var(--colorWhite);
+    z-index: 20;
+    list-style-type: none;
+    padding: unset;
+    box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+
+    li {
+      padding: 10px;
+      cursor: pointer;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 360px;
+      overflow: hidden;
+
+      &:hover {
+        background-color: var(--bg-blue);
+      }
+    }
+  }
+
   .image-carousel {
     max-width: 1400px;
     margin: 0 auto;
@@ -24,13 +46,21 @@
       box-shadow: 0 4px 42px rgba(29, 46, 91, 0.05);
       border-radius: 10px;
 
-      .custom-select__value-container {
-        height: 46px;
-        position: unset;
-      }
+      .custom-autocomplete {
+        input {
+          padding: 12px 14px;
+          height: unset;
+          width: 100%;
+          border: 1px solid var(--colorGray);
 
-      .custom-select__indicators {
-        display: none;
+          &::placeholder {
+            color: var(--colorGray);
+          }
+
+          :active {
+            border: 1px solid var(--colorGray);
+          }
+        }
       }
 
       h1 {

@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
-import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import GoogleMap from '../../../../components/GoogleMap';
 
 import {
-  goToNextStepAction,
+  clearAutocompleteItems,
+  getAutocompleteItemsAction,
+  goToNextStepAction, openMainStepsAction,
   setActivePropertyAction,
-  setAdditionalAddressAction,
-  updateAddressList,
+  setAdditionalAddressAction
 } from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
@@ -23,7 +23,6 @@ import ApartmentImageNoActive from '../../../../assets/images/apartment-noactive
 // import LandImageNoActive from '../../../../assets/images/land-noactive.svg';
 import MarkerImage from '../../../../assets/images/marker-blue.svg';
 import CloseIcon from '../../../../assets/images/close-icon.svg';
-import { googleMapConfig } from '../../../../config/siteConfigs';
 
 const StepOne = () => {
   const {t} = useTranslation('steps');
@@ -34,14 +33,20 @@ const StepOne = () => {
     locality,
     zip,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock.additionalAddress);
-  const [value, setValue] = useState(street);
   const {
     addressFromStepOne,
     selectedProperty: currentProp,
   } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {dataFromMapBox} = useSelector((state: RootState) => state.stepsInfo);
   const [selectedProperty, setCurrentProperty] = useState<string>(currentProp);
   const [showMapBlock, setShowMapBlock] = useState<boolean>(false);
   const [showAddressBlock, changeAddressBlockState] = useState<boolean>(true);
+
+  const [autoCompleteList, showAutoCompleteList] = useState({
+    street: false,
+    locality: false,
+  });
+
   const [data, setFormData] = useState({
     street,
     number,
@@ -50,7 +55,7 @@ const StepOne = () => {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
   const [error, setError] = useState({zip: ''});
@@ -60,6 +65,68 @@ const StepOne = () => {
       ...data,
       [el.target.name]: +el.target.value < 0 ? +el.target.value * -1 : el.target.value,
     });
+  };
+
+  const handleUpdateInput = (el: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...data,
+      [el.target.name]: el.target.value,
+    });
+
+    showAutoCompleteList({
+      ...autoCompleteList,
+      [el.target.name]: true,
+      locality: false,
+    });
+
+    if (el.target.value.length > 0) {
+      const type = el.target.name === 'locality' ? 'place' : 'address';
+      dispatch(getAutocompleteItemsAction(el.target.value, type));
+    } else {
+      dispatch(clearAutocompleteItems());
+    }
+  };
+
+  const setNewLocality = (locality: string) => {
+    setFormData({...data, locality});
+    showAutoCompleteList({
+      ...autoCompleteList,
+      locality: false,
+    });
+
+    dispatch(clearAutocompleteItems());
+  };
+
+  const setNewAddress = (id: string) => {
+    const [data] = dataFromMapBox.filter(item => item.id === id);
+
+    setFormData({
+      locality: data.locality.length > 1 ? data.locality : data.place,
+      number: data.number,
+      street: data.street,
+      zip: data.postcode,
+    })
+
+    const dataForNextStep = {
+      locality: data.locality.length > 1 ? data.locality : data.place,
+      number: data.number,
+      street: data.street,
+      zip: data.postcode,
+      country: data.country,
+    };
+
+    const sendData = {
+      location: {...data.location},
+      additionalAddress: {...dataForNextStep},
+    };
+
+    dispatch(openMainStepsAction(sendData));
+
+    showAutoCompleteList({
+      ...autoCompleteList,
+      street: false,
+    });
+    dispatch(clearAutocompleteItems());
   };
 
   const handleClickNextBtn = () => {
@@ -102,74 +169,11 @@ const StepOne = () => {
   };
 
   const getAddress = async (el: React.ChangeEvent<HTMLInputElement>) => {
-    if (el.target.name === 'zip' && (+el.target.value >= 1000 && +el.target.value <= 9999)) {
-      try {
-        setError({...error, zip: ''});
-        const results = await geocodeByAddress(`postalCode=${ el.target.value }, location=bel`);
-        const getLocations = await getLatLng(results[0]);
-        const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
-        setFormData({...data, locality});
-        const addressList = {
-          addressFromStepOne: results[0].formatted_address,
-          location: {...getLocations},
-        };
-        dispatch(updateAddressList(addressList));
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
     if (el.target.name === 'zip' && (+el.target.value < 1000 || +el.target.value > 9999)) {
       setError({...error, zip: 'please use only Belgium zip codes'});
     }
-
-    if (el.target.name === 'locality') {
-      try {
-        const results = await geocodeByAddress(`postalCode='', locality=${ el.target.value }, location=bel`);
-        const getLocations = await getLatLng(results[0]);
-        const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
-        if (zip.length) {
-          setFormData({...data, zip});
-        }
-        const addressList = {
-          addressFromStepOne: results[0].formatted_address,
-          location: {...getLocations},
-        };
-        dispatch(updateAddressList(addressList));
-      } catch (e) {
-        console.log(e);
-      }
-    }
   };
 
-
-  const handleSelectChangeValue = async (el: any) => {
-    const results = await geocodeByAddress(el.label);
-    const getLocations = await getLatLng(results[0]);
-
-    const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
-    const number = results[0].address_components.filter(res => res.types[0] === 'street_number')[0]?.short_name || '';
-    const street = results[0].address_components.filter(res => res.types[0] === 'route')[0]?.short_name || '';
-    const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
-
-    setFormData({
-      street,
-      number,
-      locality,
-      zip,
-    });
-
-    setValue(street);
-
-    console.log('Successfully got latitude and longitude');
-
-    const addressList = {
-      addressFromStepOne: results[0].formatted_address,
-      location: {...getLocations},
-    };
-
-    dispatch(updateAddressList(addressList));
-  };
 
   return (
     <div className='step-one'>
@@ -177,24 +181,26 @@ const StepOne = () => {
       <h4>{ t('title.address') }</h4>
       <Form>
         <Form.Row>
-          <Form.Group id='street' controlId="street">
+          <Form.Group className='position-relative' id='street' controlId="street">
             <Form.Label>{ t('label.street') }</Form.Label>
-            <GooglePlacesAutocomplete
-              selectProps={ {
-                placeholder: value,
-                name: 'street',
-                value,
-                onChange: handleSelectChangeValue,
-                classNamePrefix: 'custom-select',
-              } }
-              apiKey={ googleMapConfig.apiKey }
-              apiOptions={ {language: 'en'} }
-              autocompletionRequest={{
-                componentRestrictions: {
-                  country: ['be'],
-                }
-              }}
+            <Form.Control
+              name='street'
+              value={ data.street }
+              autoComplete='off'
+              onChange={ handleUpdateInput }
             />
+            {
+              dataFromMapBox.length > 0 && autoCompleteList.street &&
+              <ul className='autocomplete-list'>
+                {
+                  dataFromMapBox.map((item, index) =>
+                    <li onClick={ () => setNewAddress(item.id) } key={ index }>
+                      { item.fullAddress }
+                    </li>,
+                  )
+                }
+              </ul>
+            }
           </Form.Group>
           <Form.Group controlId="number">
             <Form.Label>№</Form.Label>
@@ -217,14 +223,26 @@ const StepOne = () => {
               error.zip.length > 0 && <span className="error">{ error.zip }</span>
             }
           </Form.Group>
-          <Form.Group controlId="locality">
+          <Form.Group className='position-relative' controlId="locality">
             <Form.Label>{ t('label.locality') }</Form.Label>
             <Form.Control
               name='locality'
+              autoComplete='off'
               value={ data.locality }
-              onChange={ handleChangeVal }
-              onBlur={ getAddress }
+              onChange={ handleUpdateInput }
             />
+            {
+              dataFromMapBox.length > 0 && autoCompleteList.locality &&
+              <ul className='autocomplete-list'>
+                {
+                  dataFromMapBox.map((item, index) =>
+                    <li onClick={ () => setNewLocality(item.fullAddress) } key={ index }>
+                      { item.fullAddress }
+                    </li>,
+                  )
+                }
+              </ul>
+            }
           </Form.Group>
         </Form.Row>
       </Form>
