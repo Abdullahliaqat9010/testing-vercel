@@ -104,5 +104,6 @@
   "title.prestige": "Niveau de standing du bien ",
   "title.property-condition": "Etat général du bien",
   "title.property-type": "Type de propriété",
+  "error.zip": "veuillez utiliser un code postal belge valide",
   "placeholder.epc": "Entrer"
 }
