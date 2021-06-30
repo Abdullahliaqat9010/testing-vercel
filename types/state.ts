@@ -112,6 +112,7 @@ export interface RootState {
         agreement: boolean,
       },
     },
+    dataFromMapBox: any, //todo add types
     errors: string,
   },
   agency: {
