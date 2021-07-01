@@ -43,6 +43,9 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     if (interval.label === 'year' && locale === 'fr') {
       return `${ count } ${ t(`span.${interval.label}`) } ${t('sold.ago')}${ count !== 1 ? 's' : '' }`;
     }
+    if (interval.label === 'month' && locale === 'fr') {
+      return `${ count } ${ t(`span.${interval.label}`) } ${t('sold.ago')}`;
+    }
     return `${ count } ${ t(`span.${interval.label}`) }${ count !== 1 ? 's' : '' } ${t('sold.ago')}`;
   };
 
