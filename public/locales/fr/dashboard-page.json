@@ -51,6 +51,7 @@
   "title.thanks-reply": "Merci pour votre réponse!",
   "title.message-sent-successfully": "Votre message a été envoyé avec succès.",
   "desc.agency": "L'agence",
+  "desc.no-items": "Les maisons similaires ne sont pas encore disponibles dans votre région. Nous vous enverrons un e-mail dès qu'ils seront disponibles.",
   "sold.ago": "par",
   "span.day": "jour",
   "span.month": "mois",

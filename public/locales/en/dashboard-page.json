@@ -51,6 +51,7 @@
   "title.thanks-reply": "Thank you for your reply!",
   "title.message-sent-successfully": "Your message has been sent successfully.",
   "desc.agency": "The agency",
+  "desc.no-items": "The estimation and similar houses aren't available yet in your area. We'll send you an email as soon it's available.",
   "sold.ago": "ago by",
   "span.day": "day",
   "span.month": "month",
