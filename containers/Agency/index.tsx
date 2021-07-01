@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import { isMobile } from 'react-device-detect';
+import { useRouter } from 'next/router';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
@@ -18,9 +19,12 @@ import { RootState } from '../../types/state';
 import { AgencyProps } from '../../types/agents';
 
 import GoogleMap from '../../components/GoogleMap';
+
 // import { parseJwt } from '../../utils';
 
 const Agency = ({nearest, agency}: AgencyProps) => {
+  const router = useRouter();
+  const {locale} = router;
   const {t} = useTranslation('dashboard-page');
 
   const dispatch = useDispatch();
@@ -64,6 +68,53 @@ const Agency = ({nearest, agency}: AgencyProps) => {
       return reviews;
     }
     return 120;
+  };
+
+  const agencyDesc = (countProperties: string | undefined, similarProperties: any[] | undefined) => {
+    if (locale === 'en') {
+      if (similarProperties) {
+        return {
+          __html: `During the last 24 months, our agency has sold 
+                   <span class="bold">${ countProperties || 0 } properties</span> nearby including <span class="bold">
+                   ${ similarProperties.length } similar to yours</span>. Our team is at your disposal to manage your 
+                   project`,
+        };
+      }
+      return {
+        __html: `During the last 24 months, our agency has sold 
+                 <span class="bold">${ countProperties || 0 } properties</span> nearby. Our team is at your disposal 
+                 to manage your project`,
+      };
+    }
+
+    if (locale === 'fr') {
+      if (Number(countProperties) === 1) {
+        return {
+          __html: `Au cours des 24 derniers mois, notre agence a vendu 
+                 <span class="bold">${ countProperties || 0 } bien</span> à proximité. Nous sommes à votre disposition 
+                 pour gérer votre projet immobilier`,
+        };
+      }
+
+      if (similarProperties) {
+        return {
+          __html: `Au cours des 24 derniers mois, notre agence a vendu 
+                   <span class="bold">${ countProperties || 0 } biens</span> à proximité dont <span class="bold">
+                   ${ similarProperties.length } similaires au vôtre</span>. Nous sommes à votre disposition pour gérer 
+                   votre projet immobilier`,
+        };
+      }
+
+      return {
+        __html: `Au cours des 24 derniers mois, notre agence a vendu 
+                 <span class="bold">${ countProperties || 0 } biens</span> à proximité. Nous sommes à votre disposition 
+                 pour gérer votre projet immobilier`,
+      };
+    }
+
+    return {
+      __html: '',
+    };
   };
 
   return (
@@ -123,12 +174,16 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                 <span>{ agency.moreInfo.position }</span>
               </div>
             </div>
-            <div className="desc">
-              { t('desc-agency.agency-sold') }
-              <span className="bold"> { agencyPropertiesInfo?.countSold || 0 } { t('desc-agency.properties') }
-              </span> { t('desc-agency.nearby-including') } <span className="bold">
-              { agencySimilarProperties?.estates?.length || 0 } { t('desc-agency.similar') }
-              </span>. { t('desc-agency.our-team') }
+            <div
+              className="desc"
+              dangerouslySetInnerHTML={ agencyDesc(agencyPropertiesInfo?.countSold, agencySimilarProperties?.estates) }
+            >
+
+              {/*{ t('desc-agency.agency-sold') }*/ }
+              {/*<span className="bold"> { agencyPropertiesInfo?.countSold || 0 } { t('desc-agency.properties') }*/ }
+              {/*</span> { t('desc-agency.nearby-including') } <span className="bold">*/ }
+              {/*{ agencySimilarProperties?.estates?.length || 0 } { t('desc-agency.similar') }*/ }
+              {/*</span>. { t('desc-agency.our-team') }*/ }
             </div>
             <Button
               className='contact'
@@ -158,7 +213,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
                 {/*@ts-ignore*/ }
-                <GoogleMap agencyName={agency.title} agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
+                <GoogleMap agencyName={ agency.title }
+                           agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">
