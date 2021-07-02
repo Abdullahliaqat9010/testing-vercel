@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
@@ -25,6 +24,7 @@ import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 import { RootState } from '../../types/state';
 import navBarList from '../../config/navBarList';
 import { config } from '../../config/siteConfigs';
+import { clearStepsStateAction } from '../../actions';
 
 const langList = [
   {
@@ -41,6 +41,7 @@ const langList = [
 
 const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const {locale} = router;
   const {t} = useTranslation('header');
@@ -79,6 +80,11 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
   const selectLang = (lang: string) => {
     router.push(router.pathname, '/' + lang + router.asPath, {locale: lang});
   };
+
+  const goToLoginPage = () => {
+    dispatch(clearStepsStateAction());
+    router.push('/login', locale + '/login', {locale: locale});
+  }
 
   return (
     <>
@@ -265,11 +271,9 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                 }
               </div>
               :
-              <Link href={ '/login' } locale={ locale }>
-              <span className='sign-in-btn'>
+              <span className='sign-in-btn' onClick={goToLoginPage}>
                 { t('button.login') } <img src={ LoginArrow } alt="LoginArrow"/>
               </span>
-              </Link>
           }
           {
             !auth &&

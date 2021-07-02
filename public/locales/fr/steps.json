@@ -23,6 +23,8 @@
   "label.confirm-password": "Confirmer le mot de passe",
   "label.construction-year": "Année de construction",
   "label.elevator": "Ascenseur",
+  "label.step-4-elevator.appartment": "Ascenseur dans l'appartement",
+  "label.step-4-elevator.home": "Ascenseur dans la maison",
   "label.email": "Courriel",
   "label.epc": "PEB",
   "tooltip.epc": "La performance énergétique des bâtiments (PEB)",
@@ -102,5 +104,6 @@
   "title.prestige": "Niveau de standing du bien ",
   "title.property-condition": "Etat général du bien",
   "title.property-type": "Type de propriété",
+  "error.zip": "veuillez utiliser un code postal belge valide",
   "placeholder.epc": "Entrer"
 }

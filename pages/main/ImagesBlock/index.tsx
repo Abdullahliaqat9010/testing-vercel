@@ -103,25 +103,6 @@ const ImagesBlock = () => {
               </ul>
             }
           </div>
-
-          {/*{*/ }
-          {/*  !window.sessionStorage.getItem('modify') &&*/ }
-          {/*  <GooglePlacesAutocomplete*/ }
-          {/*    selectProps={ {*/ }
-          {/*      placeholder: `${ t('placeholder.enter-property-address') }`,*/ }
-          {/*      value,*/ }
-          {/*      onChange: handleChangeValue,*/ }
-          {/*      classNamePrefix: 'custom-select',*/ }
-          {/*    } }*/ }
-          {/*    apiKey={ googleMapConfig.apiKey }*/ }
-          {/*    apiOptions={ {language: 'en'} }*/ }
-          {/*    autocompletionRequest={{*/ }
-          {/*      componentRestrictions: {*/ }
-          {/*        country: ['be'],*/ }
-          {/*      }*/ }
-          {/*    }}*/ }
-          {/*  />*/ }
-          {/*}*/ }
         </div>
         <Button disabled={ !geoLocation.lng && !geoLocation.lng } onClick={ goToMainSteps }>
           { t('button.get-free-estimation') }

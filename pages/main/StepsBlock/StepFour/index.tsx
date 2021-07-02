@@ -310,7 +310,7 @@ const StepFour = () => {
         </InputGroup>
         <InputGroup>
           <Form.Label className='d-flex'>
-            { t('label.elevator') }
+            { t(`label.step-4-elevator.${selectedProperty === 'house' ? 'home' : 'appartment'}`) }
           </Form.Label>
           <label className="switch">
             <input

@@ -156,6 +156,10 @@ export const setActivePropertyFromMapAction = (propertyId: number) => ({
   payload: propertyId,
 })
 
+export const clearStepsStateAction = () => ({
+  type: actionType.CLEAR_STEPS_STATE,
+})
+
 export const getAutocompleteItemsAction = (searchValue: string, type: string) => ({
   type: actionType.GET_AUTOCOMPLETE_ITEMS,
   payload: {searchValue, type},
