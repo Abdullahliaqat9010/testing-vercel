@@ -204,15 +204,10 @@ const stepsReducer = (state = initialState, action: any) => {
         ...state,
         dataFromMapBox: []
       }
-    case actionType.GET_AUTOCOMPLETE_ITEMS_SUCCESS:
+    case actionType.SHOW_STEPS_ON_HEADER:
       return {
         ...state,
-        dataFromMapBox: [...action.payload]
-      }
-    case actionType.CLEAR_AUTOCOMPLETE_ITEMS:
-      return {
-        ...state,
-        dataFromMapBox: []
+        mainBlocks: true
       }
     default:
       return {

@@ -174,16 +174,9 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                 <span>{ agency.moreInfo.position }</span>
               </div>
             </div>
-            <div
-              className="desc"
+            <div className="desc"
               dangerouslySetInnerHTML={ agencyDesc(agencyPropertiesInfo?.countSold, agencySimilarProperties?.estates) }
             >
-
-              {/*{ t('desc-agency.agency-sold') }*/ }
-              {/*<span className="bold"> { agencyPropertiesInfo?.countSold || 0 } { t('desc-agency.properties') }*/ }
-              {/*</span> { t('desc-agency.nearby-including') } <span className="bold">*/ }
-              {/*{ agencySimilarProperties?.estates?.length || 0 } { t('desc-agency.similar') }*/ }
-              {/*</span>. { t('desc-agency.our-team') }*/ }
             </div>
             <Button
               className='contact'

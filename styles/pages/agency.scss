@@ -336,7 +336,9 @@
           width: 100%;
 
           .property-main-block {
-            margin-top: 30px;
+            .active-block {
+              width: 370px;
+            }
           }
 
           .property-block {
@@ -676,6 +678,15 @@
             max-width: unset;
             min-height: 242px;
             max-height: 242px;
+          }
+
+          .right-block {
+            .property-main-block {
+              margin-top: 30px;
+              .active-block {
+                width: 100% !important;
+              }
+            }
           }
 
           .property-block {

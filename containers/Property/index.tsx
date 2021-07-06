@@ -13,17 +13,13 @@ import NoImage from '../../assets/images/no-image-available.jpeg';
 
 import { agentsList } from '../../templates/agentsList';
 import { RootState } from '../../types/state';
-import { useRouter } from 'next/router';
 
 const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
   const router = useRouter();
-
   const {locale} = router;
 
   const dispatch = useDispatch();
-  const router = useRouter();
-  const {locale} = router;
 
   const intervals = [
     {label: 'year', seconds: 31536000},

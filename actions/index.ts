@@ -168,3 +168,11 @@ export const getAutocompleteItemsAction = (searchValue: string, type: string) =>
 export const clearAutocompleteItems = () => ({
   type: actionType.CLEAR_AUTOCOMPLETE_ITEMS,
 })
+
+export const clearSimilarPropertiesLocation = () => ({
+  type: actionType.CLEAR_SIMILAR_PROPERTIES_LIST,
+})
+
+export const showStepsOnTheHeaderAction = () => ({
+  type: actionType.SHOW_STEPS_ON_HEADER,
+})
