@@ -13,6 +13,9 @@ export interface PropertyContainerProps {
     id: number,
     images: any[], //@todo add interface
     search_address: string,
+    street: string,
+    zip: string,
+    locality: string,
     currentNumber?: number,
     company_name: string,
     live_area: string,

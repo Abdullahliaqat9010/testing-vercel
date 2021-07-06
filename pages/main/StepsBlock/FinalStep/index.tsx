@@ -53,7 +53,7 @@ const FinalStep = () => {
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
-      [el.target.name]: el.target.value.trim(),
+      [el.target.name]: el.target.value,
     });
   };
 

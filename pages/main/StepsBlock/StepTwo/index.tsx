@@ -228,14 +228,20 @@ const StepTwo = () => {
                 </div>
               </InputGroup>
               <InputGroup>
-                <Form.Check
-                  value={ data.elevator }
-                  name='elevator'
-                  id='apartmentElevator'
-                  onChange={ handleChangeVal }
-                  type="checkbox"
-                  label={ t('label.elevator') }
-                />
+                <Form.Label className='d-flex'>
+                  { t('label.elevator') }
+                </Form.Label>
+                <label className="switch">
+                  <input
+                    className="custom-input"
+                    value={ data.elevator }
+                    name='elevator'
+                    id='apartmentElevator'
+                    onChange={ handleChangeVal }
+                    type="checkbox"
+                  />
+                  <span className="slider round"/>
+                </label>
               </InputGroup>
             </>
           }

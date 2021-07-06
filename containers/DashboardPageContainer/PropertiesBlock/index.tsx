@@ -12,6 +12,7 @@ import GoogleMap from '../../../components/GoogleMap';
 import PropertyBlock from '../../../containers/Property';
 
 import LoadMoreImage from '../../../assets/images/load-more.svg';
+import NoEstimationImage from '../../../assets/images/no-estimation.svg';
 
 const PropertiesBlock = () => {
   const {t} = useTranslation('dashboard-page');
@@ -40,18 +41,27 @@ const PropertiesBlock = () => {
         <p>{ t('desc.we-found') } { similarProperty.length } { t('desc.similar-sold-properties') }</p>
         <div className="property-main-block">
           {
-            properties.map(
-              (item, index) =>
-                <PropertyBlock key={ index } property={ item }/>,
-            )
+            properties.length > 0 ?
+              <>
+                {
+                  properties.map((item, index) => <PropertyBlock key={ index } property={ item }/>)
+                }
+                {
+                  properties.length < similarProperty.length &&
+                  <Button className='load-more' onClick={loadMore}>
+                    <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
+                  </Button>
+                }
+              </>
+              : <div className="property-main-block__no-items">
+                <img src={ NoEstimationImage } alt="NoEstimationImage"/>
+                <span>
+                  {t('desc.no-items')}
+                </span>
+              </div>
           }
         </div>
-        {
-          properties.length < similarProperty.length &&
-          <Button className='load-more' onClick={loadMore}>
-            <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
-          </Button>
-        }
+
       </div>
     </div>
   );

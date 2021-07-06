@@ -209,7 +209,7 @@
         font-size: 12px;
         line-height: 16px;
 
-        .orange-circle, .blue-circle, .gray-circle {
+        .orange-circle, .blue-circle {
           width: 8px;
           height: 8px;
           border: 1px solid var(--colorWhite);
@@ -225,8 +225,12 @@
           background: var(--colorBlue);
         }
 
-        .gray-circle {
-          background: var(--colorGray);
+        .other-property {
+          img {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+          }
         }
       }
     }

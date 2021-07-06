@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
@@ -15,7 +14,7 @@ import AddIcon from '../../assets/images/icon-plus.svg';
 import LoginArrow from '../../assets/images/arrow.svg';
 import LogoutIcon from '../../assets/images/nav-bar/logout.svg';
 import CheckedIcon from '../../assets/images/valid-blue.svg';
-// import ProIcon from '../../assets/images/pro-workspace.svg';
+import ProIcon from '../../assets/images/pro-workspace.svg';
 import NunitoSans from '../../assets/fonts/NunitoSans-Regular.ttf';
 import NunitoSansBold from '../../assets/fonts/NunitoSans-Bold.ttf';
 import FirstSlide from '../../assets/images/main-page/slider/first-slide.jpeg';
@@ -25,6 +24,7 @@ import SuccessStepIcon from '../../assets/images/header-step-success.svg';
 import { RootState } from '../../types/state';
 import navBarList from '../../config/navBarList';
 import { config } from '../../config/siteConfigs';
+import { clearStepsStateAction } from '../../actions';
 
 const langList = [
   {
@@ -41,6 +41,7 @@ const langList = [
 
 const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const {locale} = router;
   const {t} = useTranslation('header');
@@ -80,6 +81,11 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
     router.push(router.pathname, '/' + lang + router.asPath, {locale: lang});
   };
 
+  const goToLoginPage = () => {
+    dispatch(clearStepsStateAction());
+    router.push('/login', locale + '/login', {locale: locale});
+  };
+
   return (
     <>
       <Head>
@@ -115,7 +121,7 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
         <meta name="apple-mobile-web-app-title" content="BelgiumImmo"/>
         <meta name="application-name" content="BelgiumImmo"/>
         <meta name="msapplication-TileColor" content="#3871ef"/>
-        <meta name="facebook-domain-verification" content="30qmvq4ldi8cytef4h7ao0hwkcvp4s" />
+        <meta name="facebook-domain-verification" content="30qmvq4ldi8cytef4h7ao0hwkcvp4s"/>
         <meta name="theme-color" content="#3871ef"/>
         <script id="Cookiebot" src={ 'https://consent.cookiebot.com/uc.js' }
                 data-cbid={ config.cookieKey }
@@ -137,14 +143,16 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                                             gtag("set", "ads_data_redaction", true);`,
           } }
         />
-        <script dangerouslySetInnerHTML={{__html: `(function(h,o,t,j,a,r){
+        <script dangerouslySetInnerHTML={ {
+          __html: `(function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:2446941,hjsv:6};
         a=o.getElementsByTagName('head')[0];
         r=o.createElement('script');r.async=1;
         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
         a.appendChild(r);
-       })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}} />
+       })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
+        } }/>
       </Head>
       <div className='Header d-flex justify-content-between align-items-center'>
         <Image onClick={ () => goToMainPage() } className={ `logo ${ auth ? 'ml-67' : '' }` } src={ Logo } alt='Logo'/>
@@ -189,10 +197,10 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                     }
                     <NavDropdown title={ isMobileOnly ? '' : userName + ' ' + userSurname } id="header-dropdown"
                                  onClick={ isActive }>
-                      {/*<NavDropdown.Item className='pro-workspace'>*/ }
-                      {/*  <img src={ ProIcon } alt="ProIcon"/>*/ }
-                      {/*  {t('li.pro-workspace')}*/ }
-                      {/*</NavDropdown.Item>*/ }
+                      <NavDropdown.Item href={ '/' + locale + '/pro-workspace' } className='pro-workspace'>
+                        <img src={ ProIcon } alt="ProIcon"/>
+                        { t('li.pro-workspace') }
+                      </NavDropdown.Item>
                       {
                         isMobileOnly &&
                         <Button onClick={ goToMainPage } className='add-property-mobile'>
@@ -265,11 +273,9 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
                 }
               </div>
               :
-              <Link href={ '/login' } locale={ locale }>
-              <span className='sign-in-btn'>
+              <span className='sign-in-btn' onClick={ goToLoginPage }>
                 { t('button.login') } <img src={ LoginArrow } alt="LoginArrow"/>
               </span>
-              </Link>
           }
           {
             !auth &&

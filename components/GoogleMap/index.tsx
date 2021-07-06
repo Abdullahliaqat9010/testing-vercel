@@ -22,12 +22,15 @@ interface GoogleMapProps {
   coordsCurrentProperty?: {
     lat?: number | string,
     lng?: number | string,
-  }
+  },
+  agencyName?: string,
 }
 
-const GoogleMap = ({google, agencyLocation, coordsCurrentProperty}: GoogleMapProps) => {
+const GoogleMap = ({google, agencyLocation, agencyName, coordsCurrentProperty}: GoogleMapProps) => {
   const dispatch = useDispatch();
   const {location} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+  const {agencySimilarPropertiesList} = useSelector((state: RootState) => state.agency);
+  const [similarProperties] = agencySimilarPropertiesList.filter(list => list.name === agencyName);
   const {similarPropertiesLocation, mainProperty} = useSelector((state: RootState) => state.userInfo);
   const [useLocation, setUseLocation] = useState({lat: null, lng: null});
 
@@ -45,21 +48,7 @@ const GoogleMap = ({google, agencyLocation, coordsCurrentProperty}: GoogleMapPro
         lng: mainProperty.lng,
       });
     }
-
-    if (agencyLocation) {
-      setUseLocation({
-        lat: agencyLocation.lat,
-        lng: agencyLocation.lng,
-      });
-    }
-
-    if (coordsCurrentProperty) {
-      setUseLocation({
-        lat: coordsCurrentProperty.lat,
-        lng: coordsCurrentProperty.lng,
-      });
-    }
-  }, [location, mainProperty, agencyLocation, coordsCurrentProperty]);
+  }, [location, mainProperty, agencyLocation]);
 
   const setActiveMarker = (propertyId) => {
     if (propertyId) {
@@ -86,6 +75,43 @@ const GoogleMap = ({google, agencyLocation, coordsCurrentProperty}: GoogleMapPro
               ? MarkerPropertyActiveIcon : MarkerPropertyIcon
           }
           onClick={ () => setActiveMarker(property.id) }
+          position={ {
+            lat: property.lat,
+            lng: property.lng,
+          } }
+        />,
+      );
+    }
+
+    if(agencyLocation && mainProperty.lat && mainProperty.lng) {
+      const markerList = [
+        {
+          agencyMarker: false,
+          similar: false,
+          lat: mainProperty.lat,
+          lng: mainProperty.lng,
+        },
+        {
+          agencyMarker: true,
+          similar: false,
+          lat: agencyLocation.lat,
+          lng: agencyLocation.lng,
+        }
+      ]
+
+      if (similarProperties && similarProperties.estates && similarProperties.estates.length > 0) {
+        similarProperties.estates.map(estate => markerList.push({
+          agencyMarker: false,
+          similar: true,
+          lat: estate.lat,
+          lng: estate.lng
+        }));
+      }
+
+      return markerList.map((property, index) =>
+        <Marker
+          key={ index }
+          icon={ property.agencyMarker ? MarkerAgencyIcon : property.similar ? MarkerPropertyIcon : MarkerHomeIcon }
           position={ {
             lat: property.lat,
             lng: property.lng,

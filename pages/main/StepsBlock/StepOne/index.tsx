@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import GoogleMap from '../../../../components/GoogleMap';
 
@@ -12,8 +11,7 @@ import {
   getAutocompleteItemsAction,
   goToNextStepAction, openMainStepsAction,
   setActivePropertyAction,
-  setAdditionalAddressAction,
-  updateAddressList,
+  setAdditionalAddressAction
 } from '../../../../actions';
 import { RootState } from '../../../../types/state';
 
@@ -78,6 +76,7 @@ const StepOne = () => {
     showAutoCompleteList({
       ...autoCompleteList,
       [el.target.name]: true,
+      locality: false,
     });
 
     if (el.target.value.length > 0) {
@@ -94,6 +93,7 @@ const StepOne = () => {
       ...autoCompleteList,
       locality: false,
     });
+
     dispatch(clearAutocompleteItems());
   };
 
@@ -169,46 +169,10 @@ const StepOne = () => {
   };
 
   const getAddress = async (el: React.ChangeEvent<HTMLInputElement>) => {
-    if (el.target.name === 'zip' && (+el.target.value >= 1000 && +el.target.value <= 9999)) {
-      try {
-        setError({...error, zip: ''});
-        const results = await geocodeByAddress(`postalCode=${ el.target.value }, location=bel`);
-        const getLocations = await getLatLng(results[0]);
-        const locality = results[0].address_components.filter(res => res.types[0] === 'locality')[0]?.short_name || '';
-        setFormData({...data, locality});
-        const addressList = {
-          addressFromStepOne: results[0].formatted_address,
-          location: {...getLocations},
-        };
-        dispatch(updateAddressList(addressList));
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
     if (el.target.name === 'zip' && (+el.target.value < 1000 || +el.target.value > 9999)) {
-      setError({...error, zip: 'please use only Belgium zip codes'});
-    }
-
-    if (el.target.name === 'locality') {
-      try {
-        const results = await geocodeByAddress(`postalCode='', locality=${ el.target.value }, location=bel`);
-        const getLocations = await getLatLng(results[0]);
-        const zip = results[0].address_components.filter(res => res.types[0] === 'postal_code')[0]?.short_name || '';
-        if (zip.length) {
-          setFormData({...data, zip});
-        }
-        const addressList = {
-          addressFromStepOne: results[0].formatted_address,
-          location: {...getLocations},
-        };
-        dispatch(updateAddressList(addressList));
-      } catch (e) {
-        console.log(e);
-      }
+      setError({...error, zip: t('error.zip')});
     }
   };
-
 
   return (
     <div className='step-one'>

@@ -56,6 +56,7 @@ const RequestPriceModal = ({show, handleClose}) => {
     handleClose();
   };
 
+  // @ts-ignore
   return (
     <Modal
       className='request-property-modal'

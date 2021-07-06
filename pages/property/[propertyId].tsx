@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
@@ -25,11 +25,13 @@ import ThirdImage from '../../assets/images/template/third-image.png';
 import Map from '../../assets/images/template/map-img.png';
 import Stars from '../../assets/images/template/stars.png';
 import TestAgency from '../../assets/images/agents/test-agency.png';
+
 import { userToken } from '../../config/siteConfigs';
+import { clearSimilarPropertiesLocation } from '../../actions';
 
 const PropertyPage = () => {
   const {t} = useTranslation('property-page');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
   const {locale} = router;
   const {propertyId} = router.query;
@@ -46,21 +48,32 @@ const PropertyPage = () => {
     }
   }, []);
 
+  const handleClearSimilarPropertiesLocation = () => {
+    dispatch(clearSimilarPropertiesLocation());
+  }
+
   const handleCloseMapModal = () => setShowMapModal(false);
-  const handleShowMapModal = () => setShowMapModal(true);
+  const handleShowMapModal = () => {
+    handleClearSimilarPropertiesLocation();
+    return setShowMapModal(true);
+  }
 
   const handleCloseRequestPriceModal = () => setShowRequestPriceModal(false);
-  const handleShowRequestPriceModal = () => setShowRequestPriceModal(true);
+  const handleShowRequestPriceModal = () => {
+    handleClearSimilarPropertiesLocation();
+    return setShowRequestPriceModal(true);
+  };
+
 
   // console.log(propertyId);
 
   return (
     <>
       <HeaderContainer title={ t('title') }/>
-      <GoogleMapModal show={showMapModal} handleClose={handleCloseMapModal} />
-      <RequestPriceModal show={showRequestPriceModal} handleClose={handleCloseRequestPriceModal} />
+      <GoogleMapModal show={ showMapModal } handleClose={ handleCloseMapModal }/>
+      <RequestPriceModal show={ showRequestPriceModal } handleClose={ handleCloseRequestPriceModal }/>
       <div className='PropertyPage container'>
-        <Link href={ '/dashboard' } locale={locale}>
+        <Link href={ '/dashboard' } locale={ locale }>
           <span className='PropertyPage__back'>
             <img src={ ArrowImage } alt="ArrowImage"/> { t('link.back') }
           </span>
@@ -80,7 +93,7 @@ const PropertyPage = () => {
                   2464 Royal Ln. Mesa, New Jersey 45463
                 </p>
                 <div className='d-flex w-100 align-items-center justify-content-between'>
-                  <Button onClick={handleShowRequestPriceModal} className='request-price' variant="outline-primary">
+                  <Button onClick={ handleShowRequestPriceModal } className='request-price' variant="outline-primary">
                     { t('button.request-price') }
                     <img src={ ArrowImage } alt="ArrowImage"/>
                   </Button>
@@ -110,7 +123,7 @@ const PropertyPage = () => {
                 </div>
               </div>
               <div className="property-content__map">
-                <img onClick={handleShowMapModal} src={ Map } alt="Map"/>
+                <img onClick={ handleShowMapModal } src={ Map } alt="Map"/>
               </div>
             </div>
             <div className="agency-block">
@@ -149,14 +162,14 @@ const PropertyPage = () => {
             }
           </div>
           {
-            !isMobile && <ContactAgencyBlock agencyInfo={{id: 99, title: ''}}/>
+            !isMobile && <ContactAgencyBlock agencyInfo={ {id: 99, title: ''} }/>
           }
         </div>
       </div>
       <FooterContainer/>
     </>
-  )
-}
+  );
+};
 
 export const getStaticPaths = async () => {
   return {

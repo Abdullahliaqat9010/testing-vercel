@@ -156,6 +156,10 @@ export const setActivePropertyFromMapAction = (propertyId: number) => ({
   payload: propertyId,
 })
 
+export const clearStepsStateAction = () => ({
+  type: actionType.CLEAR_STEPS_STATE,
+})
+
 export const getAutocompleteItemsAction = (searchValue: string, type: string) => ({
   type: actionType.GET_AUTOCOMPLETE_ITEMS,
   payload: {searchValue, type},
@@ -163,4 +167,12 @@ export const getAutocompleteItemsAction = (searchValue: string, type: string) =>
 
 export const clearAutocompleteItems = () => ({
   type: actionType.CLEAR_AUTOCOMPLETE_ITEMS,
+})
+
+export const clearSimilarPropertiesLocation = () => ({
+  type: actionType.CLEAR_SIMILAR_PROPERTIES_LIST,
+})
+
+export const showStepsOnTheHeaderAction = () => ({
+  type: actionType.SHOW_STEPS_ON_HEADER,
 })

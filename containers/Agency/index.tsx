@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
 import { isMobile, isMobileOnly } from 'react-device-detect';
+import { useRouter } from 'next/router';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
 import Link from 'next/link'
-import { useRouter } from 'next/router';
 
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
+import AgencyStarImage from '../../assets/images/star-blue.svg';
 
 import { modalWindowContactAgentAction } from '../../actions';
 
@@ -22,11 +23,12 @@ import GoogleMap from '../../components/GoogleMap';
 // import { parseJwt } from '../../utils';
 
 const Agency = ({nearest, agency}: AgencyProps) => {
+  const router = useRouter();
+  const {locale} = router;
   const {t} = useTranslation('dashboard-page');
 
   const dispatch = useDispatch();
-  const router = useRouter();
-  const {locale} = router;
+
   const {mainProperty} = useSelector((state: RootState) => state.userInfo);
   const {
     agencyInfoList,
@@ -68,6 +70,53 @@ const Agency = ({nearest, agency}: AgencyProps) => {
     return 120;
   };
 
+  const agencyDesc = (countProperties: string | undefined, similarProperties: any[] | undefined) => {
+    if (locale === 'en') {
+      if (similarProperties) {
+        return {
+          __html: `During the last 24 months, our agency has sold 
+                   <span class="bold">${ countProperties || 0 } properties</span> nearby including <span class="bold">
+                   ${ similarProperties.length } similar to yours</span>. Our team is at your disposal to manage your 
+                   project`,
+        };
+      }
+      return {
+        __html: `During the last 24 months, our agency has sold 
+                 <span class="bold">${ countProperties || 0 } properties</span> nearby. Our team is at your disposal 
+                 to manage your project`,
+      };
+    }
+
+    if (locale === 'fr') {
+      if (Number(countProperties) === 1) {
+        return {
+          __html: `Au cours des 24 derniers mois, notre agence a vendu 
+                 <span class="bold">${ countProperties || 0 } bien</span> à proximité. Nous sommes à votre disposition 
+                 pour gérer votre projet immobilier`,
+        };
+      }
+
+      if (similarProperties) {
+        return {
+          __html: `Au cours des 24 derniers mois, notre agence a vendu 
+                   <span class="bold">${ countProperties || 0 } biens</span> à proximité dont <span class="bold">
+                   ${ similarProperties.length } similaires au vôtre</span>. Nous sommes à votre disposition pour gérer 
+                   votre projet immobilier`,
+        };
+      }
+
+      return {
+        __html: `Au cours des 24 derniers mois, notre agence a vendu 
+                 <span class="bold">${ countProperties || 0 } biens</span> à proximité. Nous sommes à votre disposition 
+                 pour gérer votre projet immobilier`,
+      };
+    }
+
+    return {
+      __html: '',
+    };
+  };
+
   return (
     <div className="agency-block">
       <div className="short-info d-flex align-items-center" onClick={ openMoreInfo }>
@@ -104,7 +153,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
         </div>
         <div className="agency-border"/>
         <div className="short-info__right d-flex align-items-center w-45">
-          <span className="count-block">{ agency.count }</span>
+          <span className="count-block">{ agencySimilarProperties?.estates?.length || 0 }</span>
           <div className="address">
             <p>{ t('p.similar-properties-sold') }</p>
             <p className='d-flex'>{ t('p.to') }
@@ -125,12 +174,9 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                 <span>{ agency.moreInfo.position }</span>
               </div>
             </div>
-            <div className="desc">
-              { t('desc-agency.agency-sold') }
-              <span className="bold"> { agencyPropertiesInfo?.count || 39 } { t('desc-agency.properties') }
-              </span> { t('desc-agency.nearby-including') } <span className="link">
-              { agencySimilarProperties?.count || 18 } { t('desc-agency.similar') }
-              </span>. { t('desc-agency.our-team') }
+            <div className="desc"
+              dangerouslySetInnerHTML={ agencyDesc(agencyPropertiesInfo?.countSold, agencySimilarProperties?.estates) }
+            >
             </div>
             <Button
               className='contact'
@@ -154,7 +200,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
                 {/*@ts-ignore*/ }
-                <GoogleMap agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
+                <GoogleMap agencyName={ agency.title }
+                           agencyLocation={ {lat: agency.location.lat, lng: agency.location.lng} }/>
               </div>
               <div className="agency-map__info d-flex justify-content-between">
                 <div className="your-property d-flex align-items-center">
@@ -166,8 +213,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                   <span>{ t('span.similar-property') }</span>
                 </div>
                 <div className="other-property d-flex align-items-center">
-                  <div className="gray-circle"/>
-                  <span>{ t('span.other-properties') }</span>
+                  <img src={ AgencyStarImage } alt="AgencyStarImage"/>
+                  <span>{ t('span.agency') }</span>
                 </div>
               </div>
             </div>
