@@ -225,50 +225,54 @@ const CreatePersonalAccount = () => {
           activePrivateBlock && activeTab === 'private' &&
           <>
             <span className="label">{ t('label.kind-of-home') }</span>
-            <Dropdown>
-              <Dropdown.Toggle>
-                { kindOfHomeValue }
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {
-                  residenceSelect.map((item, index) =>
-                    <Dropdown.Item
-                      key={ index }
-                      className={ data.selectedResidence === item.name ? 'active' : '' }
-                      name={ item.name }
-                      onClick={ handleSelectResidence }
-                    >
-                      { t(`li.${ item.name }`) }
-                      <img src={ CheckedIcon } alt="CheckedIcon"/>
-                    </Dropdown.Item>,
-                  )
-                }
-              </Dropdown.Menu>
-            </Dropdown>
-            <span className="label">{ t('label.would-you-like') }</span>
-            <Dropdown>
-              <Dropdown.Toggle>
-                { sellPropertyValue }
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {
-                  sellPropertySelect.map((item, index) =>
-                    <Dropdown.Item
-                      key={ index }
-                      name={ item.name }
-                      className={ data.sellProperty === item.name ? 'active' : '' }
-                      onClick={ handleSelectSellProperty }
-                    >
-                      { t(`li.${ item.name }`) }
-                      <img src={ CheckedIcon } alt="CheckedIcon"/>
-                    </Dropdown.Item>,
-                  )
-                }
-              </Dropdown.Menu>
-            </Dropdown>
+            <div className="first-dd">
+              <Dropdown>
+                <Dropdown.Toggle>
+                  { kindOfHomeValue }
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {
+                    residenceSelect.map((item, index) =>
+                      <Dropdown.Item
+                        key={ index }
+                        className={ data.selectedResidence === item.name ? 'active' : '' }
+                        name={ item.name }
+                        onClick={ handleSelectResidence }
+                      >
+                        { t(`li.${ item.name }`) }
+                        <img src={ CheckedIcon } alt="CheckedIcon"/>
+                      </Dropdown.Item>,
+                    )
+                  }
+                </Dropdown.Menu>
+              </Dropdown>
+              <span className="label">{ t('label.would-you-like') }</span>
+            </div>
+            <div className="second-dd">
+              <Dropdown>
+                <Dropdown.Toggle>
+                  { sellPropertyValue }
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {
+                    sellPropertySelect.map((item, index) =>
+                      <Dropdown.Item
+                        key={ index }
+                        name={ item.name }
+                        className={ data.sellProperty === item.name ? 'active' : '' }
+                        onClick={ handleSelectSellProperty }
+                      >
+                        { t(`li.${ item.name }`) }
+                        <img src={ CheckedIcon } alt="CheckedIcon"/>
+                      </Dropdown.Item>,
+                    )
+                  }
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
             {
               data.sellProperty === 'in_process' &&
-              <>
+              <div className='third-dd'>
                 <span className="label">{ t('label.how-you-sell') }</span>
                 <Dropdown>
                   <Dropdown.Toggle>
@@ -290,7 +294,7 @@ const CreatePersonalAccount = () => {
                     }
                   </Dropdown.Menu>
                 </Dropdown>
-              </>
+              </div>
             }
           </>
         }

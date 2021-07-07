@@ -5,7 +5,6 @@ import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 
 import ArrowIcon from '../../../../assets/images/arrow-blue.svg';
-import ValidIcon from '../../../../assets/images/valid.svg';
 
 import {
   checkIfEmailExistAction,
@@ -17,6 +16,7 @@ import { RootState } from '../../../../types/state';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
 import { generatePropertyData } from '../../../../utils/generatePropertyData';
+import { regexp } from '../../../../utils';
 
 const FinalStep = () => {
   const {t} = useTranslation('steps');
@@ -46,14 +46,39 @@ const FinalStep = () => {
     agreement: false,
   });
 
+  const [errors, setErrors] = useState({
+    noValid: false,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone_number: '',
+    password: '',
+    confirmPassword: '',
+    agreement: '',
+  });
+
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (existEmail && data.email.length > 0) {
+      setErrors({
+        ...errors,
+        email: 'Email already exists. click on I already have an account to login',
+      });
+    }
+  }, [existEmail]);
 
   const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...data,
       [el.target.name]: el.target.value,
+    });
+
+    setErrors({
+      ...errors,
+      [el.target.name]: '',
     });
   };
 
@@ -77,45 +102,85 @@ const FinalStep = () => {
         propertyDetails,
         details,
         utilities,
-        location
-      )
-    }
+        location,
+      ),
+    };
   };
 
   const handleSubmit = () => {
-    if (isDisabled) {
-      dispatch(setUserDataAction(data));
+    if (isDisabled()) {
+      const newData = {...data, phone_number: data.phone_number.length > 0 ? data.phone_number : null};
+      dispatch(setUserDataAction(newData));
       dispatch(sendStepsDataRequestAction({
         property: propertyData(),
-        user: {...data},
-        locale
+        user: {...newData},
+        locale,
       }));
     }
     return false;
   };
 
   const isDisabled = () => {
-    if (!data.firstName) {
-      return true;
+    if (
+      data.firstName.length === 0 ||
+      data.lastName.length === 0 ||
+      data.password.length === 0 ||
+      data.confirmPassword.length === 0 ||
+      data.email.length === 0
+    ) {
+      setErrors({
+        noValid: true,
+        firstName: data.firstName.length > 0 ? '' : 'this field is required',
+        lastName: data.lastName.length > 0 ? '' : 'this field is required',
+        password: data.password.length > 0 ? '' : 'this field is required',
+        confirmPassword: data.confirmPassword.length > 0 ? '' : 'this field is required',
+        email: data.email.length > 0 ? '' : 'this field is required',
+        agreement: '',
+        phone_number: '',
+      });
+      return false;
     }
 
-    if (!data.lastName) {
-      return true;
+    if (data.password.length < 5 || data.confirmPassword.length < 5) {
+      setErrors({
+        ...errors,
+        noValid: true,
+        password: data.password.length < 5 ? 'password should be more then 5 symbols' : '',
+        confirmPassword: data.confirmPassword.length < 5 ? 'password should be more then 5 symbols' : '',
+      });
+      return false;
     }
 
-    if (!data.email) {
-      return true;
+    if (!data.firstName.match(regexp.name) || !data.lastName.match(regexp.name)) {
+      setErrors({
+        ...errors,
+        noValid: true,
+        firstName: !data.firstName.match(regexp.name) ? 'can contain only latter\'s and spaces' : '',
+        lastName: !data.lastName.match(regexp.name) ? 'can contain only latter\'s and spaces' : '',
+      });
+      return false;
     }
 
-    if (!data.agreement) {
-      return true;
+    if (!data.password.match(regexp.password) || !data.confirmPassword.match(regexp.password)) {
+      setErrors({
+        ...errors,
+        noValid: true,
+        password: !data.password.match(regexp.password) ? 'Password should contain at least one lower and Upper letter and number' : '',
+        confirmPassword: !data.confirmPassword.match(regexp.password) ? 'Password should contain at least one lower and Upper letter and number' : '',
+      });
+      return false;
     }
 
-    return data.password !== data.confirmPassword;
-  };
+    if (data.password !== data.confirmPassword) {
+      setErrors({
+        ...errors,
+        noValid: true,
+        confirmPassword: 'Passwords dont match',
+      });
+      return false;
+    }
 
-  const checkIfPasswordsEqual = () => {
-    return data.password && data.confirmPassword && data.password === data.confirmPassword;
+    return true;
   };
 
   const handleClickPrevBtn = () => {
@@ -142,25 +207,39 @@ const FinalStep = () => {
         { t('link.already-have-account') }
         <img src={ ArrowIcon } alt="ArrowIcon"/>
       </span>
-      <Form>
+      <Form validated={ errors.noValid }>
         <Form.Row className='mb-4'>
           <Form.Group>
             <Form.Label>{ t('label.first-name') }</Form.Label>
             <Form.Control
               value={ data.firstName }
               name='firstName'
+              required
+              minLength={ 2 }
+              maxLength={ 60 }
               onChange={ handleChangeVal }
               type="text"
+              isInvalid={ errors.firstName.length > 0 }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.firstName }
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>{ t('label.last-name') }</Form.Label>
             <Form.Control
               value={ data.lastName }
               name='lastName'
+              required
+              minLength={ 2 }
+              maxLength={ 60 }
               onChange={ handleChangeVal }
               type="text"
+              isInvalid={ errors.lastName.length > 0 }
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.lastName }
+            </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
         <Form.Group className='mb-4'>
@@ -168,13 +247,14 @@ const FinalStep = () => {
           <Form.Control
             value={ data.email }
             name='email'
+            required
             onBlur={ (el) => checkIfEmailExist(el.target.value) }
             onChange={ handleChangeVal }
             type="text"
-            isInvalid={existEmail}
+            isInvalid={ errors.email.length > 0 }
           />
           <Form.Control.Feedback type="invalid">
-            Email already exists. click on I already have an account to login
+            { errors.email }
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className='mb-4'>
@@ -184,7 +264,11 @@ const FinalStep = () => {
             name='phone_number'
             onChange={ handleChangeVal }
             type="text"
+            isInvalid={ errors.phone_number.length > 0 }
           />
+          <Form.Control.Feedback type="invalid">
+            { errors.phone_number }
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Row>
           <Form.Group>
@@ -192,26 +276,31 @@ const FinalStep = () => {
             <Form.Control
               value={ data.password }
               name='password'
+              required
+              minLength={ 5 }
+              isInvalid={ errors.password.length > 0 }
               onChange={ handleChangeVal }
               type="password"
             />
-            {
-              data.password.length > 0 && <img src={ ValidIcon } alt="ValidIcon"/>
-            }
+            <Form.Control.Feedback type="invalid">
+              { errors.password }
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>{ t('label.confirm-password') }</Form.Label>
             <Form.Control
               value={ data.confirmPassword }
               name='confirmPassword'
+              required
+              minLength={ 5 }
+              isInvalid={ errors.confirmPassword.length > 0 }
               onChange={ handleChangeVal }
               type="password"
             />
-            {
-              checkIfPasswordsEqual() && <img src={ ValidIcon } alt="ValidIcon"/>
-            }
+            <Form.Control.Feedback type="invalid">
+              { errors.confirmPassword }
+            </Form.Control.Feedback>
           </Form.Group>
-
         </Form.Row>
         <span className='recommendation'>
           { t('desc.strongly-recommend') }
@@ -226,14 +315,17 @@ const FinalStep = () => {
           <Form.Check
             checked={ data.agreement }
             name='agreement'
+            required
             onChange={ handleChecked }
+            label={
+              <Form.Label className='fs-16'>
+                { t('label.read-privacy') }
+                <a href={ locale + '/privacy-policy' } target='_blank'>{ t('label.privacy') }</a>
+                { t('label.and') }
+                <a href={ locale + '/terms-and-condition' } target='_blank'>{ t('label.terms') }</a>
+              </Form.Label>
+            }
           />
-          <Form.Label className='fs-16'>
-            { t('label.read-privacy') }
-            <a href={ locale + '/privacy-policy' } target='_blank'>{ t('label.privacy') }</a>
-            { t('label.and') }
-            <a href={ locale + '/terms-and-condition' } target='_blank'>{ t('label.terms') }</a>
-          </Form.Label>
         </div>
       </Form>
       <div className="steps-btn-group d-flex justify-content-between">
@@ -242,7 +334,7 @@ const FinalStep = () => {
           className='prev-step'>
           <img src={ IconBack } alt="IconBack"/>{ t('button.back') }
         </Button>
-        <Button className='next-step' disabled={ isDisabled() } onClick={ handleSubmit }>
+        <Button className='next-step' onClick={ handleSubmit }>
           { t('button.create-account') }
         </Button>
       </div>
