@@ -27,3 +27,9 @@ export function parseJwt(token: string) {
 
   return JSON.parse(jsonPayload);
 }
+
+export const regexp = {
+  name: /^[a-zA-Z\s]*$/,
+  password: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+  phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+};

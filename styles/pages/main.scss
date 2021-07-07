@@ -1161,6 +1161,12 @@
         margin-bottom: 20px;
       }
 
+      .was-validated {
+        .form-control:valid {
+          background-image: url("../../assets/images/valid.svg");
+        }
+      }
+
       .fs-16 {
         font-size: 16px;
         line-height: 22px;
@@ -1189,19 +1195,13 @@
 
       .form-row {
         flex-wrap: unset;
-        align-items: center;
+        align-items: flex-start;
 
         .form-group {
-          position: relative;
+          max-width: 205px;
 
           input {
             width: 205px;
-          }
-
-          img {
-            position: absolute;
-            right: 10px;
-            top: 40px;
           }
         }
       }
