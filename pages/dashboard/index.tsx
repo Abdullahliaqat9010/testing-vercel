@@ -24,7 +24,7 @@ import { RootState } from '../../types/state';
 const DashboardPage = () => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
-  const {currentPropertyPrice} = useSelector((state: RootState) => state.userInfo);
+  const {currentPropertyPrice, noEstimation} = useSelector((state: RootState) => state.userInfo);
   const [showLoadingModal, setShowLoadingModal] = useState<boolean>(false);
 
   /**
@@ -41,12 +41,12 @@ const DashboardPage = () => {
   }, []);
 
   useEffect(() => {
-    if (currentPropertyPrice.totalValue) {
+    if (currentPropertyPrice.totalValue || noEstimation) {
       setShowLoadingModal(true);
     } else {
       setShowLoadingModal(false);
     }
-  }, [currentPropertyPrice]);
+  }, [currentPropertyPrice, noEstimation]);
 
   return (
     <>
