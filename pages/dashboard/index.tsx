@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { Modal, Spinner } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 
 import { userToken } from '../../config/siteConfigs';
@@ -19,13 +18,10 @@ import VerifyEmailModal from '../../containers/Modals/VerifyEmailModal';
 
 import { getPropertyForCurrentUserAction } from '../../actions';
 import { parseJwt } from '../../utils';
-import { RootState } from '../../types/state';
 
 const DashboardPage = () => {
   const {t} = useTranslation('dashboard-page');
   const dispatch = useDispatch();
-  const {currentPropertyPrice, noEstimation} = useSelector((state: RootState) => state.userInfo);
-  const [showLoadingModal, setShowLoadingModal] = useState<boolean>(false);
 
   /**
    * @todo Add private routes
@@ -40,33 +36,8 @@ const DashboardPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (currentPropertyPrice.totalValue || noEstimation) {
-      setShowLoadingModal(true);
-    } else {
-      setShowLoadingModal(false);
-    }
-  }, [currentPropertyPrice, noEstimation]);
-
   return (
     <>
-      {/*todo move to component*/ }
-      <Modal
-        size="lg"
-        show={ !showLoadingModal }
-        onHide={ () => showLoadingModal }
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Please wait contain is loading...
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Spinner animation="border" variant="primary"/>
-        </Modal.Body>
-      </Modal>
       <ContactAgentModal/>
       <VerifyEmailModal/>
       <HeaderContainer title={ t('title') }/>
