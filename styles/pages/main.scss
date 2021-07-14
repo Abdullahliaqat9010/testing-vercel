@@ -588,6 +588,7 @@
 
         .terras-value-label {
           width: 40%;
+
           .tooltip-info {
             margin-left: 5px;
             position: unset;
@@ -1291,7 +1292,79 @@
     }
   }
 
-  @media (min-width: 320px) and (max-width: 900px) {
+  @media (min-width: 768px) and (max-width: 1439px) {
+    .image-carousel {
+      img {
+        height: 330px;
+        border-radius: unset;
+      }
+
+      &__popup {
+        box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
+        top: 232px;
+      }
+    }
+
+    .info-block {
+      margin-top: 320px;
+      max-width: unset;
+      padding: unset;
+
+      .title-h2 {
+        width: 80%;
+      }
+
+      &__top {
+
+        .first-image-mobile, .second-image-mobile {
+          margin-right: 10px;
+          width: 108px;
+        }
+
+        .second-image-mobile {
+          height: 245px;
+        }
+
+        .first-image-mobile, .third-image-mobile {
+          height: 213px;
+        }
+      }
+
+      &__middle {
+        .left-block {
+          margin-right: 20px;
+        }
+
+        .map-image {
+          width: 342px;
+          height: 279px;
+        }
+      }
+    }
+
+    .testimonials {
+      &__list {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+
+        .load-more {
+          grid-column-start: 1;
+          grid-column-end: 3;
+          justify-self: center;
+        }
+      }
+      &__item {
+        width: 342px;
+      }
+
+      .desc {
+        display: block;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
     .image-carousel {
       img {
         border-radius: unset;

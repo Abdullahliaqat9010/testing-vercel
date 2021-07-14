@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { isMobile } from 'react-device-detect';
+import { isMobileOnly } from 'react-device-detect';
 import StarRatingComponent from 'react-star-rating-component';
 import { useTranslation } from 'next-i18next';
 
@@ -17,7 +17,7 @@ const TestimonialsBlock = () => {
   const { t } = useTranslation('main-page');
   const elementsOnPage = 3;
   const [sizeArr, setSizeArr] = useState(3);
-  const testimonials = isMobile ? testimonialList.slice(0, sizeArr) : testimonialList;
+  const testimonials = isMobileOnly ? testimonialList.slice(0, sizeArr) : testimonialList;
 
   const loadMore = () => {
     setSizeArr(sizeArr + elementsOnPage);
