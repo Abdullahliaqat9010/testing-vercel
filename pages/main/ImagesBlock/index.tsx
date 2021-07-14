@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Carousel, FormControl, InputGroup } from 'react-bootstrap';
-import { isMobile } from 'react-device-detect';
+import { isMobileOnly, isTablet } from 'react-device-detect';
 import { useTranslation } from 'next-i18next';
 
 import { clearAutocompleteItems, getAutocompleteItemsAction, openMainStepsAction } from '../../../actions';
 
 import FirstSlide from '../../../assets/images/main-page/slider/first-slide.jpeg';
+import FirstSlideTablet from '../../../assets/images/main-page/slider/first-slide-tablet.jpeg';
 import FirstSlideMobile from '../../../assets/images/main-page/slider/first-slide-mobile.jpeg';
 import SecondSlide from '../../../assets/images/main-page/slider/second-slide.jpeg';
+import SecondSlideTablet from '../../../assets/images/main-page/slider/second-slide-tablet.jpeg';
 import SecondSlideMobile from '../../../assets/images/main-page/slider/second-slide-mobile.jpeg';
 import ThirdSlide from '../../../assets/images/main-page/slider/third-slide.jpeg';
+import ThirdSlideTablet from '../../../assets/images/main-page/slider/third-slide-tablet.jpeg';
 import ThirdSlideMobile from '../../../assets/images/main-page/slider/third-slide-mobile.jpeg';
 import { RootState } from '../../../types/state';
 
@@ -66,17 +69,52 @@ const ImagesBlock = () => {
     dispatch(clearAutocompleteItems());
   };
 
+  const renderImage = (slideNumber: string) => {
+    if (isMobileOnly) {
+      switch (slideNumber) {
+        case 'first':
+          return FirstSlideMobile
+        case 'second':
+          return SecondSlideMobile
+        default:
+          return ThirdSlideMobile
+      }
+    }
+
+    if (isTablet) {
+      switch (slideNumber) {
+        case 'first':
+          return FirstSlideTablet
+        case 'second':
+          return SecondSlideTablet
+        default:
+          return ThirdSlideTablet
+      }
+    }
+
+    switch (slideNumber) {
+      case 'first':
+        return FirstSlide
+      case 'second':
+        return SecondSlide
+      default:
+        return ThirdSlide
+    }
+
+    return;
+  }
+
   return (
     <div className='image-carousel'>
       <Carousel fade controls={ false } indicators={ false } interval={ 3000 } pause={ false }>
         <Carousel.Item className='d-flex justify-content-between'>
-          <img src={ isMobile ? FirstSlideMobile : FirstSlide } alt="First slide"/>
+          <img src={ renderImage('first') } alt="First slide"/>
         </Carousel.Item>
         <Carousel.Item className='d-flex justify-content-between'>
-          <img src={ isMobile ? SecondSlideMobile : SecondSlide } alt="Second slide"/>
+          <img src={ renderImage('second') } alt="Second slide"/>
         </Carousel.Item>
         <Carousel.Item className='d-flex justify-content-between'>
-          <img src={ isMobile ? ThirdSlideMobile : ThirdSlide } alt="Third slide"/>
+          <img src={ renderImage('third') } alt="Third slide"/>
         </Carousel.Item>
       </Carousel>
       <div className="image-carousel__popup">
