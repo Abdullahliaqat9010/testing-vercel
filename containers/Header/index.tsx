@@ -187,6 +187,9 @@ const HeaderContainer = ({title, mainPage}: { title: string, mainPage?: boolean 
           {
             auth ?
               <div className="right-block d-flex align-items-center">
+                <div className="username d-none">
+                  {userName + ' ' + userSurname}
+                </div>
                 {
                   !mainBlocks &&
                   <>
