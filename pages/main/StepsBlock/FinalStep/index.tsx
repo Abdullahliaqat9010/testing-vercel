@@ -8,7 +8,6 @@ import ArrowIcon from '../../../../assets/images/arrow-blue.svg';
 
 import {
   checkIfEmailExistAction,
-  goToPrevStepAction,
   sendStepsDataRequestAction,
   setUserDataAction,
 } from '../../../../actions';
@@ -18,7 +17,7 @@ import IconBack from '../../../../assets/images/long-arrow.svg';
 import { generatePropertyData } from '../../../../utils/generatePropertyData';
 import { regexp } from '../../../../utils';
 
-const FinalStep = () => {
+const FinalStep = ({handleSwitchSteps}: any) => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -184,7 +183,7 @@ const FinalStep = () => {
   };
 
   const handleClickPrevBtn = () => {
-    dispatch(goToPrevStepAction());
+    handleSwitchSteps();
   };
 
   const checkIfEmailExist = (value: string) => {

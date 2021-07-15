@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 import { Button, Dropdown } from 'react-bootstrap';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
 import { RootState } from '../../../../types/state';
@@ -12,9 +12,7 @@ import { generatePropertyData } from '../../../../utils/generatePropertyData';
 
 import {
   createPersonalAccountAction,
-  createPropertyRequestAction,
-  goToNextStepAction,
-  goToPrevStepAction,
+  createPropertyRequestAction
 } from '../../../../actions';
 
 import IconBack from '../../../../assets/images/long-arrow.svg';
@@ -34,9 +32,10 @@ import { howSellSelect } from '../../../../templates/howSellSelect';
 
 import { userToken } from '../../../../config/siteConfigs';
 
-const CreatePersonalAccount = () => {
+const CreatePersonalAccount = ({handleSwitchSteps}: any) => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<string>('private');
   const {auth} = useSelector((state: RootState) => state.userInfo);
@@ -63,8 +62,32 @@ const CreatePersonalAccount = () => {
   }, []);
 
   const handleClickPrevBtn = () => {
-    dispatch(goToPrevStepAction());
+    router.back();
   };
+
+  const goToLogin = () => {
+    if (!auth) {
+      router.push('/login');
+    } else {
+      const parseData = parseJwt(userToken);
+      const sendData = {
+        leadId: parseData.id,
+        owner: Boolean(activePrivateBlock === 'homeowner'),
+        interest: 'asap',
+        selling_way: String(data.howSell).length ? String(data.howSell) : undefined,
+        residence_type: 'other',
+        ...generatePropertyData(
+          addressFromStepOne,
+          additionalAddress,
+          selectedProperty,
+          propertyDetails,
+          details,
+          utilities,
+          location)
+      };
+      dispatch(createPropertyRequestAction({...sendData}));
+    }
+  }
 
   const disabledBtn = () => {
     if (data.accountType === 'private') {
@@ -76,7 +99,7 @@ const CreatePersonalAccount = () => {
   const handleClickNextBtn = () => {
     if (!auth) {
       dispatch(createPersonalAccountAction(data));
-      dispatch(goToNextStepAction());
+      handleSwitchSteps();
     } else {
       const parseData = parseJwt(userToken);
       const sendData = {
@@ -145,9 +168,9 @@ const CreatePersonalAccount = () => {
       <span className="step-title">
        { t('desc.finalized-estimation') }
       </span>
-      <Link href={ '/login' }>
-        <span className='have-account'>{ t('link.already-have-account') }<img src={ LinkArrow } alt="LinkArrow"/></span>
-      </Link>
+      <span onClick={goToLogin} className='have-account'>
+        { t('link.already-have-account') }<img src={ LinkArrow } alt="LinkArrow"/>
+      </span>
       <div className="create-personal-account__main-block">
         <div className="title-block">
           <span

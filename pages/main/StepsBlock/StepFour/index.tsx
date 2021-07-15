@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { Button, ButtonGroup, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import {
-  goToNextStepAction,
   goToPrevStepAction,
   setUtilitiesDataAction,
   updatePropertyRequestAction,
@@ -35,6 +35,8 @@ import TooltipIcon from '../../../../assets/images/tooltip.svg';
 const StepFour = () => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
+  const router = useRouter();
+  const {locale} = router;
 
   const {
     epc,
@@ -82,7 +84,7 @@ const StepFour = () => {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
   const handleClickPrevBtn = () => {
@@ -103,7 +105,7 @@ const StepFour = () => {
       ...data,
       [el.target.name]: checkIfCheckbox(el.target.name)
         ? el.target.checked : +el.target.value < 0
-        ? +el.target.value * -1 : el.target.value,
+          ? +el.target.value * -1 : el.target.value,
     });
   };
 
@@ -137,7 +139,7 @@ const StepFour = () => {
 
   const handleClickNextBtn = () => {
     if (propertyId) {
-      const utilities = {...data}
+      const utilities = {...data};
       const sendData = {
         ...generatePropertyData(
           addressFromStepOne,
@@ -146,13 +148,13 @@ const StepFour = () => {
           propertyDetails,
           details,
           utilities,
-          location
-        )
-      }
+          location,
+        ),
+      };
       dispatch(updatePropertyRequestAction({...sendData}, propertyId));
     } else {
       dispatch(setUtilitiesDataAction(data));
-      dispatch(goToNextStepAction());
+      router.push('/final-steps', locale + '/final-steps', {locale: locale});
     }
   };
 
@@ -176,7 +178,7 @@ const StepFour = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
-              min={1}
+              min={ 1 }
               name='epc'
               value={ data.epc }
               onChange={ handleChangeVal }
@@ -280,7 +282,7 @@ const StepFour = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
-              min={1}
+              min={ 1 }
               name='atticValue'
               value={ data.atticValue }
               onChange={ handleChangeVal }
@@ -297,7 +299,7 @@ const StepFour = () => {
           </Form.Label>
           <div className="input-block">
             <Form.Control
-              min={1}
+              min={ 1 }
               name='cellarValue'
               value={ data.cellarValue }
               onChange={ handleChangeVal }
@@ -310,7 +312,7 @@ const StepFour = () => {
         </InputGroup>
         <InputGroup>
           <Form.Label className='d-flex'>
-            { t(`label.step-4-elevator.${selectedProperty === 'house' ? 'home' : 'appartment'}`) }
+            { t(`label.step-4-elevator.${ selectedProperty === 'house' ? 'home' : 'appartment' }`) }
           </Form.Label>
           <label className="switch">
             <input
@@ -321,7 +323,7 @@ const StepFour = () => {
               defaultChecked={ data.elevator }
               type="checkbox"
             />
-              <span className="slider round"/>
+            <span className="slider round"/>
           </label>
         </InputGroup>
         <InputGroup>
