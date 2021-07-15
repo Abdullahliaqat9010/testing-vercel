@@ -100,8 +100,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
         return {
           __html: `Au cours des 24 derniers mois, notre agence a vendu 
                    <span class="bold">${ countProperties || 0 } biens</span> à proximité dont <span class="bold">
-                   ${ similarProperties.length } similaires au vôtre</span>. Nous sommes à votre disposition pour gérer 
-                   votre projet immobilier`,
+                   ${ similarProperties.length } similaire${similarProperties.length !== 1 ? 's' : ''} au vôtre</span>. 
+                   Nous sommes à votre disposition pour gérer votre projet immobilier`,
         };
       }
 

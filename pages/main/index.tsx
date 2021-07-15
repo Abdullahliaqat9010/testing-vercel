@@ -16,7 +16,7 @@ const MainPageComponent = () => {
 
   useEffect(() => {
     if (goToDashboard) {
-      window.location.href = locale + '/dashboard';
+      router.push('/dashboard', locale + '/dashboard', {locale: locale});
     }
   }, [goToDashboard]);
 

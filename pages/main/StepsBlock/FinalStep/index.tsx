@@ -8,7 +8,6 @@ import ArrowIcon from '../../../../assets/images/arrow-blue.svg';
 
 import {
   checkIfEmailExistAction,
-  goToPrevStepAction,
   sendStepsDataRequestAction,
   setUserDataAction,
 } from '../../../../actions';
@@ -18,7 +17,7 @@ import IconBack from '../../../../assets/images/long-arrow.svg';
 import { generatePropertyData } from '../../../../utils/generatePropertyData';
 import { regexp } from '../../../../utils';
 
-const FinalStep = () => {
+const FinalStep = ({handleSwitchSteps}: any) => {
   const {t} = useTranslation('steps');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -65,7 +64,7 @@ const FinalStep = () => {
     if (existEmail && data.email.length > 0) {
       setErrors({
         ...errors,
-        email: 'Email already exists. click on I already have an account to login',
+        email: t('error.email-exists'),
       });
     }
   }, [existEmail]);
@@ -130,11 +129,11 @@ const FinalStep = () => {
     ) {
       setErrors({
         noValid: true,
-        firstName: data.firstName.length > 0 ? '' : 'this field is required',
-        lastName: data.lastName.length > 0 ? '' : 'this field is required',
-        password: data.password.length > 0 ? '' : 'this field is required',
-        confirmPassword: data.confirmPassword.length > 0 ? '' : 'this field is required',
-        email: data.email.length > 0 ? '' : 'this field is required',
+        firstName: data.firstName.length > 0 ? '' : t('error.required'),
+        lastName: data.lastName.length > 0 ? '' : t('error.required'),
+        password: data.password.length > 0 ? '' : t('error.required'),
+        confirmPassword: data.confirmPassword.length > 0 ? '' : t('error.required'),
+        email: data.email.length > 0 ? '' : t('error.required'),
         agreement: '',
         phone_number: '',
       });
@@ -145,8 +144,8 @@ const FinalStep = () => {
       setErrors({
         ...errors,
         noValid: true,
-        password: data.password.length < 5 ? 'password should be more then 5 symbols' : '',
-        confirmPassword: data.confirmPassword.length < 5 ? 'password should be more then 5 symbols' : '',
+        password: data.password.length < 5 ? t('error.more-then-5') : '',
+        confirmPassword: data.confirmPassword.length < 5 ? t('error.more-then-5') : '',
       });
       return false;
     }
@@ -155,8 +154,8 @@ const FinalStep = () => {
       setErrors({
         ...errors,
         noValid: true,
-        firstName: !data.firstName.match(regexp.name) ? 'can contain only latter\'s and spaces' : '',
-        lastName: !data.lastName.match(regexp.name) ? 'can contain only latter\'s and spaces' : '',
+        firstName: !data.firstName.match(regexp.name) ? t('error.only-latter') : '',
+        lastName: !data.lastName.match(regexp.name) ? t('error.only-latter') : '',
       });
       return false;
     }
@@ -165,8 +164,8 @@ const FinalStep = () => {
       setErrors({
         ...errors,
         noValid: true,
-        password: !data.password.match(regexp.password) ? 'Password should contain at least one lower and Upper letter and number' : '',
-        confirmPassword: !data.confirmPassword.match(regexp.password) ? 'Password should contain at least one lower and Upper letter and number' : '',
+        password: !data.password.match(regexp.password) ? t('error.password') : '',
+        confirmPassword: !data.confirmPassword.match(regexp.password) ? t('error.password') : '',
       });
       return false;
     }
@@ -175,7 +174,7 @@ const FinalStep = () => {
       setErrors({
         ...errors,
         noValid: true,
-        confirmPassword: 'Passwords dont match',
+        confirmPassword: t('error.dont-match'),
       });
       return false;
     }
@@ -184,7 +183,7 @@ const FinalStep = () => {
   };
 
   const handleClickPrevBtn = () => {
-    dispatch(goToPrevStepAction());
+    handleSwitchSteps();
   };
 
   const checkIfEmailExist = (value: string) => {

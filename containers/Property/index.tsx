@@ -8,7 +8,8 @@ import { modalWindowContactAgentAction, setActivePropertyFromMapAction } from '.
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
-import NoImage from '../../assets/images/no-image-available.jpeg';
+import NoImage from '../../assets/images/no-image-available.svg';
+import NoImageFr from '../../assets/images/no-image-available-fr.svg';
 
 import { agentsList } from '../../templates/agentsList';
 import { RootState } from '../../types/state';
@@ -54,7 +55,7 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
       return property.images[0].url_small;
     }
 
-    return NoImage;
+    return locale === 'fr' ? NoImageFr : NoImage;
   }
 
   const openContactModal = (data: object) => {
