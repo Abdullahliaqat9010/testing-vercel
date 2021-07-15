@@ -105,5 +105,11 @@
   "title.property-condition": "Property condition",
   "title.property-type": "Property Type",
   "error.zip": "please use a valid Belgian zipcode",
+  "error.required": "This field is required",
+  "error.email-exists": "Email already exists. click on I already have an account to login",
+  "error.more-then-5": "password should be more then 5 symbols",
+  "error.only-latter": "can contain only latter's and spaces",
+  "error.password": "Password should contain at least one lower and Upper letter and number",
+  "error.dont-match": "Passwords dont match",
   "placeholder.epc": "Enter"
 }
