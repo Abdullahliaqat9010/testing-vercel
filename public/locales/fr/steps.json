@@ -105,5 +105,11 @@
   "title.property-condition": "Etat général du bien",
   "title.property-type": "Type de propriété",
   "error.zip": "veuillez utiliser un code postal belge valide",
+  "error.required": "Ce champ est obligatoire",
+  "error.email-exists": "L'adresse électronique existe déjà. Cliquez sur J'ai déjà un compte pour vous connecter.",
+  "error.more-then-5": "le mot de passe doit comporter plus de 5 symboles",
+  "error.only-latter": "ne peut contenir que des terminaisons et des espaces",
+  "error.password": "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.",
+  "error.dont-match": "Les mots de passe ne correspondent pas",
   "placeholder.epc": "Entrer"
 }
