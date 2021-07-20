@@ -91,7 +91,7 @@ const CreatePersonalAccount = ({handleSwitchSteps}: any) => {
 
   const disabledBtn = () => {
     if (data.accountType === 'private') {
-      return data.sellProperty.length === 0 || data.selectedResidence.length === 0 || data.selectedItem.length === 0;
+      return data?.sellProperty?.length === 0 || data.selectedResidence?.length === 0 || data?.selectedItem?.length === 0;
     }
     return data.selectedItem.length === 0;
   }
@@ -122,6 +122,7 @@ const CreatePersonalAccount = ({handleSwitchSteps}: any) => {
   };
 
   const handleSelectResidence = (el) => {
+    //console.log(el.target.name)
     setKindOfHomeValue(el.target.text);
     setData({
       ...data,

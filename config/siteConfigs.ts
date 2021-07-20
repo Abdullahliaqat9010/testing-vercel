@@ -1,7 +1,7 @@
 // Site Config =============================================================
 export const config = {
 	siteTitle: process.env.SITE_TITLE,
-	apiDomain: process.env.API,
+	apiDomain: process.env.APP_API,
 	metricKey: process.env.GOOGLE_METRIC_KEY,
 	cookieKey: process.env.COOKIE_KEY,
 };
