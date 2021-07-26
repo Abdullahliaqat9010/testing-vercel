@@ -36,7 +36,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
     agencySimilarPropertiesList,
   } = useSelector((state: RootState) => state.agency);
 
-  const [agencyReviews] = agencyInfoList.filter(list => list.place_id === agency.place_id);
+  const [agencyReviews] = agencyInfoList.filter(list => list?.place_id === agency?.place_id);
   const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(list => list.company_name === agency.tag);
   const [agencySimilarProperties] = agencySimilarPropertiesList.filter(list => list.name === agency.title);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
