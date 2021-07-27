@@ -23,7 +23,7 @@ const FindAgentBlock = () => {
   const agencyList = sortedAgencyList.slice(0, sizeArr);
 
   useEffect(() => {
-    if (mainProperty?.lat && mainProperty?.lng) {
+    if (mainProperty.lat && mainProperty.lng) {
       const arrDist = agentsList.map((agency, index) => {
           return {
             agencyIndex: index,
