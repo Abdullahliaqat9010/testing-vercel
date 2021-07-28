@@ -162,35 +162,35 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 		}
 	};
 
-	const handleSelectResidence = (el) => {
-		setKindOfHomeValue(el.target.text);
+	const handleSelectResidence = (key) => {
+		setKindOfHomeValue(`li.${key}`);
 		setData({
 			...data,
-			selectedResidence: el.target.name,
+			selectedResidence: key,
 		});
 	};
 
-	const handleSelectEstimationReason = (el) => {
-		setEstimationReason(el.target.text);
+	const handleSelectEstimationReason = (key) => {
+		setEstimationReason(`li.${key}`);
 		setData({
 			...data,
-			estimationReason: el.target.name,
+			estimationReason: key,
 		});
 	};
 
-	const handleSelectSellProperty = (el) => {
-		setSellPropertyValue(el.target.text);
+	const handleSelectSellProperty = (key) => {
+		setSellPropertyValue(`li.${key}`);
 		setData({
 			...data,
-			sellProperty: el.target.name,
+			sellProperty: key,
 		});
 	};
 
-	const handleSetHowSell = (el) => {
-		setHowSellValue(el.target.text);
+	const handleSetHowSell = (key) => {
+		setHowSellValue(`li.${key}`);
 		setData({
 			...data,
-			howSell: el.target.name,
+			howSell: key,
 		});
 	};
 
@@ -315,17 +315,16 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 						{data?.selectedItem === "not-owner" ? (
 							<div className="first-dd">
 								<span className="label">{t("label.estimation-reason")}</span>
-								<Dropdown>
-									<Dropdown.Toggle>{estimationReasonSelect}</Dropdown.Toggle>
+								<Dropdown onSelect={handleSelectEstimationReason}>
+									<Dropdown.Toggle>{t(estimationReasonSelect)}</Dropdown.Toggle>
 									<Dropdown.Menu>
 										{estimationSelect.map((item, index) => (
 											<Dropdown.Item
 												key={index}
+												eventKey={item.name}
 												className={
 													data.estimationReason === item.name ? "active" : ""
 												}
-												name={item.name}
-												onClick={handleSelectEstimationReason}
 											>
 												{t(`li.${item.name}`)}
 												<img src={CheckedIcon} alt="CheckedIcon" />
@@ -338,8 +337,8 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 							<>
 								<span className="label">{t("label.kind-of-home")}</span>
 								<div className="first-dd">
-									<Dropdown>
-										<Dropdown.Toggle>{kindOfHomeValue}</Dropdown.Toggle>
+									<Dropdown onSelect={handleSelectResidence}>
+										<Dropdown.Toggle>{t(kindOfHomeValue)}</Dropdown.Toggle>
 										<Dropdown.Menu>
 											{residenceSelect.map((item, index) => (
 												<Dropdown.Item
@@ -347,8 +346,7 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 													className={
 														data.selectedResidence === item.name ? "active" : ""
 													}
-													name={item.name}
-													onClick={handleSelectResidence}
+													eventKey={item.name}
 												>
 													{t(`li.${item.name}`)}
 													<img src={CheckedIcon} alt="CheckedIcon" />
@@ -359,17 +357,16 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 									<span className="label">{t("label.would-you-like")}</span>
 								</div>
 								<div className="second-dd">
-									<Dropdown>
-										<Dropdown.Toggle>{sellPropertyValue}</Dropdown.Toggle>
+									<Dropdown onSelect={handleSelectSellProperty}>
+										<Dropdown.Toggle>{t(sellPropertyValue)}</Dropdown.Toggle>
 										<Dropdown.Menu>
 											{sellPropertySelect.map((item, index) => (
 												<Dropdown.Item
 													key={index}
-													name={item.name}
+													eventKey={item.name}
 													className={
 														data.sellProperty === item.name ? "active" : ""
 													}
-													onClick={handleSelectSellProperty}
 												>
 													{t(`li.${item.name}`)}
 													<img src={CheckedIcon} alt="CheckedIcon" />
@@ -384,15 +381,14 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 							data.sellProperty === "in_process" && (
 								<div className="third-dd">
 									<span className="label">{t("label.how-you-sell")}</span>
-									<Dropdown>
-										<Dropdown.Toggle>{howSellValue}</Dropdown.Toggle>
+									<Dropdown onSelect={handleSetHowSell}>
+										<Dropdown.Toggle>{t(howSellValue)}</Dropdown.Toggle>
 										<Dropdown.Menu>
 											{howSellSelect.map((item, index) => (
 												<Dropdown.Item
 													key={index}
-													name={item.name}
+													eventKey={item.name}
 													className={data.howSell === item.name ? "active" : ""}
-													onClick={handleSetHowSell}
 												>
 													{t(`li.${item.name}`)}
 													<img src={CheckedIcon} alt="CheckedIcon" />
