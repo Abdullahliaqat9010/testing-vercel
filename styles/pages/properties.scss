@@ -1,0 +1,269 @@
+.PropertiesPage {
+  padding: 27px 0 50px;
+  color: var(--mainColor);
+
+  &__container {
+    .title-block {
+      align-items: center;
+      background: var(--colorWhite);
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 20px;
+
+      h1 {
+        font-family: var(--fontNunitoBold);
+        font-size: 24px;
+        line-height: 33px;
+        margin-bottom: unset;
+      }
+
+      .new-estimate {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--fontNunitoBold);
+        font-size: 16px;
+        line-height: 22px;
+        background: var(--colorBlue);
+        border-radius: 8px;
+        padding: 14px 20px;
+
+        img {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .property {
+      width: 100%;
+      padding: 30px;
+      background: var(--colorWhite);
+      border-radius: 10px;
+      margin-bottom: 20px;
+
+      &__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .address {
+          font-family: var(--fontNunitoBold);
+          font-size: 20px;
+          line-height: 27px;
+        }
+
+        .blue {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-size: 14px;
+          line-height: 19px;
+          color: var(--colorBlue);
+
+          img {
+            width: 14px;
+            height: 14px;
+            transform: rotate(270deg);
+          }
+        }
+      }
+
+      &__body {
+        .short-info {
+          margin-top: 22px;
+          display: flex;
+          align-items: center;
+
+          .square, .beds, .baths {
+            display: flex;
+            align-items: center;
+            margin-right: 40px;
+
+            img {
+              width: 42px;
+              height: 42px;
+              margin-right: 12px;
+            }
+
+            .info-block {
+              display: flex;
+              flex-direction: column;
+
+              span {
+                font-size: 14px;
+                line-height: 19px;
+              }
+
+              .gray {
+                font-size: 12px;
+                line-height: 16px;
+                opacity: 0.7;
+              }
+            }
+          }
+        }
+
+        .property-estimation {
+          p {
+            margin: 35px 0 12px;
+            font-size: 14px;
+            line-height: 19px;
+          }
+
+          .minimal, .average, .maximal {
+            width: 164px;
+            padding: 12px;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--colorGrayTwo);
+
+            .estimation-title {
+              margin-bottom: 6px;
+            }
+
+            .estimation-desc {
+              margin-bottom: 6px;
+              font-family: var(--fontNunitoBold);
+              color: var(--mainColor);
+              font-size: 18px;
+              line-height: 25px;
+            }
+          }
+
+          .minimal {
+            border: 1px solid #E5EAF7;
+            border-radius: 8px 0 0 8px;
+          }
+
+          .average {
+            border-top: 1px solid #E5EAF7;
+            border-bottom: 1px solid #E5EAF7;
+          }
+
+          .maximal {
+            border: 1px solid #E5EAF7;
+            border-radius: 0 8px 8px 0;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1439px) {
+    flex-direction: column;
+    padding-top: 40px;
+
+    &__container {
+      margin-top: 20px;
+
+      .property {
+        .address {
+          width: 90%;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    flex-direction: column;
+    padding: 30px 16px 50px;
+
+    &__container {
+      .title-block {
+        flex-direction: column;
+
+        h1 {
+          font-size: 20px;
+          line-height: 27px;
+          margin-bottom: 20px;
+        }
+
+        .new-estimate {
+          width: 100%;
+        }
+      }
+
+      .property {
+        &__head {
+          flex-direction: column;
+
+          .address {
+            font-size: 18px;
+            line-height: 25px;
+            margin-bottom: 10px;
+          }
+        }
+
+        &__body {
+          .short-info {
+            justify-content: space-between;
+
+            .square, .beds, .baths {
+              flex-direction: column;
+              align-items: baseline;
+              margin-right: unset;
+
+              img {
+                margin-bottom: 12px;
+              }
+
+              .info-block {
+                .gray {
+                  margin-bottom: 3px;
+                }
+              }
+            }
+          }
+
+          .property-estimation {
+            p {
+              margin-top: 30px;
+            }
+
+            .custom-block {
+              flex-direction: column;
+
+              .minimal, .average, .maximal {
+                width: 100%;
+                display: grid !important;
+                grid-template-columns: 100px 1fr;
+
+                .estimation-title {
+                  font-size: 10px;
+                  line-height: 14px;
+                  font-family: var(--fontNunitoBold);
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: unset;
+                  grid-row-start: 1;
+                  grid-row-end: 3;
+                }
+
+                .estimation-desc {
+                  font-size: 14px;
+                  line-height: 19px;
+                  margin-bottom: 4px;
+                }
+              }
+
+              .minimal {
+                border-radius: 8px 8px 0 0;
+              }
+
+              .average {
+                border-bottom: unset;
+                border-top: unset;
+                border-left: 1px solid #E5EAF7;
+                border-right: 1px solid #E5EAF7;
+              }
+
+              .maximal {
+                border-radius: 0 0 8px 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -71,6 +71,11 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         emailVerified: true,
       };
+    case actionType.CLEAR_SIMILAR_PROPERTIES_LIST:
+      return {
+        ...state,
+        similarPropertiesLocation: []
+      }
     case actionType.NO_ESTIMATION_PROPERTY:
       return {
         ...state,

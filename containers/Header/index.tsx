@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import { NavDropdown, Image, Button } from "react-bootstrap";
 
-import { isMobile } from "react-device-detect";
+import { isMobile, isMobileOnly } from "react-device-detect";
 
 import Logo from "../../assets/images/logo.png";
 import NoPhoto from "../../assets/images/no-photo.png";
@@ -14,7 +14,7 @@ import AddIcon from "../../assets/images/icon-plus.svg";
 import LoginArrow from "../../assets/images/arrow.svg";
 import LogoutIcon from "../../assets/images/nav-bar/logout.svg";
 import CheckedIcon from "../../assets/images/valid-blue.svg";
-// import ProIcon from '../../assets/images/pro-workspace.svg';
+import ProIcon from "../../assets/images/pro-workspace.svg";
 import NunitoSans from "../../assets/fonts/NunitoSans-Regular.ttf";
 import NunitoSansBold from "../../assets/fonts/NunitoSans-Bold.ttf";
 import FirstSlide from "../../assets/images/main-page/slider/first-slide.jpeg";
@@ -61,7 +61,7 @@ const HeaderContainer = ({
 	const [openLangList, setOpenLangList] = useState<boolean>(false);
 
 	const isActive = () => {
-		if (isMobile) {
+		if (isMobileOnly) {
 			/**
 			 * makes no scroll body
 			 */
@@ -88,7 +88,7 @@ const HeaderContainer = ({
 	};
 
 	const selectLang = (lang: string) => {
-		router.push(router.pathname, lang + router.pathname, { locale: lang });
+		router.push(router.pathname, "/" + lang + router.asPath, { locale: lang });
 	};
 
 	const goToLoginPage = () => {
@@ -230,9 +230,6 @@ const HeaderContainer = ({
 				<div className="d-flex align-items-center">
 					{auth ? (
 						<div className="right-block d-flex align-items-center">
-							<div className="username d-none">
-								{userName + " " + userSurname}
-							</div>
 							{!mainBlocks && (
 								<>
 									{!openMenu && (
@@ -244,15 +241,18 @@ const HeaderContainer = ({
 										/>
 									)}
 									<NavDropdown
-										title={isMobile ? "" : userName + " " + userSurname}
+										title={isMobileOnly ? "" : userName + " " + userSurname}
 										id="header-dropdown"
 										onClick={isActive}
 									>
-										{/*<NavDropdown.Item className='pro-workspace'>*/}
-										{/*  <img src={ ProIcon } alt="ProIcon"/>*/}
-										{/*  {t('li.pro-workspace')}*/}
-										{/*</NavDropdown.Item>*/}
-										{isMobile && (
+										<NavDropdown.Item
+											href={"/" + locale + "/pro-workspace"}
+											className="pro-workspace"
+										>
+											<img src={ProIcon} alt="ProIcon" />
+											{t("li.pro-workspace")}
+										</NavDropdown.Item>
+										{isMobileOnly && (
 											<Button
 												onClick={goToMainPage}
 												className="add-property-mobile"
@@ -278,7 +278,7 @@ const HeaderContainer = ({
 											/>
 											Logout
 										</NavDropdown.Item>
-										{isMobile && (
+										{isMobileOnly && (
 											<div className="mobile-block">
 												<Image
 													alt="avatar"
@@ -304,7 +304,7 @@ const HeaderContainer = ({
 											</div>
 										)}
 									</NavDropdown>
-									{!isMobile && (
+									{!isMobileOnly && (
 										<div
 											className={`switcher-lang position-relative ${
 												openLangList ? "active-locale" : ""

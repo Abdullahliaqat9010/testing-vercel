@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
-import { isMobile } from 'react-device-detect';
+import { isMobileOnly } from 'react-device-detect';
 
 import { Button } from 'react-bootstrap';
 
@@ -17,7 +17,7 @@ import NoEstimationImage from '../../../assets/images/no-estimation.svg';
 const PropertiesBlock = () => {
   const {t} = useTranslation('dashboard-page');
   // const dispatch = useDispatch();
-  const elementsOnPage = isMobile ? 3 : 6;
+  const elementsOnPage = isMobileOnly ? 3 : 6;
   const [sizeArr, setSizeArr] = useState(elementsOnPage);
   const { mainProperty, similarProperty } = useSelector((state: RootState) => state.userInfo);
   const properties = similarProperty.slice(0, sizeArr);
@@ -29,7 +29,7 @@ const PropertiesBlock = () => {
   return (
     <div className='properties-block d-flex'>
       {
-        !isMobile &&
+        !isMobileOnly &&
         <div className="map-block w-48 position-relative">
           {
             mainProperty && mainProperty.lng && mainProperty.lat && <GoogleMap />
@@ -37,7 +37,7 @@ const PropertiesBlock = () => {
         </div>
       }
       <div className="properties-list">
-        <h5>{ t('title.similar-sold-properties') }</h5>
+        <h3 className='h5'>{ t('title.similar-sold-properties') }</h3>
         <p>{ t('desc.we-found') } { similarProperty.length } { t('desc.similar-sold-properties') }</p>
         <div className="property-main-block">
           {

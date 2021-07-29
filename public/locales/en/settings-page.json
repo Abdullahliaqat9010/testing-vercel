@@ -1,0 +1,10 @@
+{
+  "title": "Account Settings",
+  "h1.title": "Profile details",
+  "label.firstName": "First name",
+  "label.lastName": "Last name",
+  "label.email": "Email",
+  "label.phone": "Phone number",
+  "label.gender": "Gender",
+  "span.required": "required"
+}
