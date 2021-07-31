@@ -95,7 +95,7 @@ const EstimateBlock = () => {
 
   return (
     <div className='estimate-block'>
-      <h2 className='h4'>{ t('title.estimated-value') }</h2>
+      <h4>{ t('title.estimated-value') }</h4>
       <p className={ noEstimation ? 'no-estim' : '' }>{ mainProperty?.search_address }</p>
       {
         mainProperty?.search_address && !noEstimation &&

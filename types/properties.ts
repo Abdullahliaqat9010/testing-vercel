@@ -16,7 +16,6 @@ export interface PropertyContainerProps {
     street: string,
     zip: string,
     locality: string,
-    currentNumber?: number,
     company_name: string,
     live_area: string,
     bathrooms: string,

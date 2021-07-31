@@ -3,8 +3,6 @@
   "button.add-property": "Add a property",
   "button.login": "Login",
   "nav-li.dashboard": "Dashboard",
-  "nav-li.myProperties": "My Properties",
-  "nav-li.settings": "Account Settings",
   "li.pro-workspace": "Go to my pro workspace",
   "span.step": "Step"
 }

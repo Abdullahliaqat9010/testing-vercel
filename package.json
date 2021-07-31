@@ -5,14 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3033",
-    "start:dev": "next start -p 3033"
+    "start": "next start"
   },
   "dependencies": {
     "@svgr/webpack": "^5.5.0",
     "bootstrap": "^4.6.0",
     "google-maps-react": "^2.0.6",
-    "mapbox-gl": "^2.3.1",
     "next": "^10.2.3",
     "next-fonts": "^1.5.1",
     "next-i18next": "^8.2.0",
