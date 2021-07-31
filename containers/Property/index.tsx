@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
-
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Button, Image } from 'react-bootstrap';
 
-import { modalWindowContactAgentAction, setActivePropertyFromMapAction } from '../../actions';
+import { setActivePropertyFromMapAction } from '../../actions';
 
 import { PropertyContainerProps } from '../../types/properties';
 import ArrowImage from '../../assets/images/arrow-blue.svg';
@@ -13,15 +14,14 @@ import NoImageFr from '../../assets/images/no-image-available-fr.svg';
 
 import { agentsList } from '../../templates/agentsList';
 import { RootState } from '../../types/state';
-import { useRouter } from 'next/router';
 
 const PropertyContainer = ({property}: PropertyContainerProps) => {
   const {t} = useTranslation('dashboard-page');
   const router = useRouter();
-
   const {locale} = router;
 
   const dispatch = useDispatch();
+
   const intervals = [
     {label: 'year', seconds: 31536000},
     {label: 'month', seconds: 2592000},
@@ -58,9 +58,9 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
     return locale === 'fr' ? NoImageFr : NoImage;
   }
 
-  const openContactModal = (data: object) => {
-    dispatch(modalWindowContactAgentAction(data));
-  };
+  // const openContactModal = (data: object) => {
+  //   dispatch(modalWindowContactAgentAction(data));
+  // };
 
   const setActiveMarker = (propertyId) => {
     if (propertyId) {
@@ -82,34 +82,30 @@ const PropertyContainer = ({property}: PropertyContainerProps) => {
           { property.street } { property.zip } { property.locality }
         </div>
         <div className='short-desc'>
+          <div className="time">
+            <span>{ t('desc.sold') } { timeSince(new Date(property.sold_date)) } </span>
+            {
+              property.company_name &&
+              <Link href={ `/agency/${currentAgency.url}` } locale={locale}>
+                { property.company_name }
+              </Link>
+            }
+          </div>
           <div className="house-info">
             <span>{ property.live_area }m²</span>
             <span>{ property.bathrooms } Baths</span>
             <span>{ property.bedrooms } Beds</span>
           </div>
-          <div className="time">
-            <span>{ t('desc.sold') } { timeSince(new Date(property.sold_date)) } </span>
-            {
-              property.company_name &&
-              <a href="#">
-                { property.company_name }
-              </a>
-            }
-          </div>
         </div>
-        <Button disabled={!currentAgency} onClick={
-          () => openContactModal({
-          title: currentAgency.title,
-          agencyId: currentAgency.id,
-          agentName: currentAgency.moreInfo.agentName,
-          agentSurname: currentAgency.moreInfo.agentSurname,
-          }) }
-                variant="outline-primary">
-          { t('button.request-price') }
-          <img src={ ArrowImage } alt="ArrowImage"/>
-        </Button>
+        <Link href={ `/property/${property.id}` } locale={locale}>
+          <Button variant="outline-primary">
+            { t('button.request-price') }
+            <img src={ ArrowImage } alt="ArrowImage"/>
+          </Button>
+        </Link>
       </div>
     </div>
   );
 };
+
 export default PropertyContainer;
