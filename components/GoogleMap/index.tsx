@@ -42,7 +42,7 @@ const GoogleMap = ({google, agencyLocation, agencyName, coordsCurrentProperty}: 
       });
     }
 
-    if (mainProperty.lng && mainProperty.lat) {
+    if (mainProperty?.lng && mainProperty?.lat) {
       setUseLocation({
         lat: mainProperty.lat,
         lng: mainProperty.lng,

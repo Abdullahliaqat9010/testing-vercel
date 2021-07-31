@@ -36,7 +36,7 @@ const Agency = ({nearest, agency}: AgencyProps) => {
     agencySimilarPropertiesList,
   } = useSelector((state: RootState) => state.agency);
 
-  const [agencyReviews] = agencyInfoList.filter(list => list.place_id === agency.place_id);
+  const [agencyReviews] = agencyInfoList.filter(list => list?.place_id === agency?.place_id);
   const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(list => list.company_name === agency.tag);
   const [agencySimilarProperties] = agencySimilarPropertiesList.filter(list => list.name === agency.title);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
@@ -100,8 +100,8 @@ const Agency = ({nearest, agency}: AgencyProps) => {
         return {
           __html: `Au cours des 24 derniers mois, notre agence a vendu 
                    <span class="bold">${ countProperties || 0 } biens</span> à proximité dont <span class="bold">
-                   ${ similarProperties.length } similaires au vôtre</span>. Nous sommes à votre disposition pour gérer 
-                   votre projet immobilier`,
+                   ${ similarProperties.length } similaire${similarProperties.length !== 1 ? 's' : ''} au vôtre</span>. 
+                   Nous sommes à votre disposition pour gérer votre projet immobilier`,
         };
       }
 

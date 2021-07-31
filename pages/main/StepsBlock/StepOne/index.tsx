@@ -9,7 +9,8 @@ import GoogleMap from '../../../../components/GoogleMap';
 import {
   clearAutocompleteItems,
   getAutocompleteItemsAction,
-  goToNextStepAction, openMainStepsAction,
+  goToNextStepAction,
+  openMainStepsAction,
   setActivePropertyAction,
   setAdditionalAddressAction
 } from '../../../../actions';
@@ -117,6 +118,7 @@ const StepOne = () => {
 
     const sendData = {
       location: {...data.location},
+      infoFromAutoComplete: data.fullAddress,
       additionalAddress: {...dataForNextStep},
     };
 
