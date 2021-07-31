@@ -298,7 +298,7 @@ const StepOne = () => {
               <img onClick={ closeAddressBlock } src={ CloseIcon } alt="CloseIcon"/>
             </div>
           }
-          <GoogleMap/>
+          <GoogleMap />
           <span className="close-map" onClick={ showMap }>{ t('button.close') }</span>
         </div>
       }

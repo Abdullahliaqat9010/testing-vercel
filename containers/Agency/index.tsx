@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'next-i18next';
-import { isMobile, isMobileOnly } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { useRouter } from 'next/router';
 
 import StarRatingComponent from 'react-star-rating-component';
 import { Button, Image } from 'react-bootstrap';
-import Link from 'next/link'
+// import Link from 'next/link'
 
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
@@ -174,9 +174,16 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                 <span>{ agency.moreInfo.position }</span>
               </div>
             </div>
-            <div className="desc"
+            <div
+              className="desc"
               dangerouslySetInnerHTML={ agencyDesc(agencyPropertiesInfo?.countSold, agencySimilarProperties?.estates) }
             >
+
+              {/*{ t('desc-agency.agency-sold') }*/ }
+              {/*<span className="bold"> { agencyPropertiesInfo?.countSold || 0 } { t('desc-agency.properties') }*/ }
+              {/*</span> { t('desc-agency.nearby-including') } <span className="bold">*/ }
+              {/*{ agencySimilarProperties?.estates?.length || 0 } { t('desc-agency.similar') }*/ }
+              {/*</span>. { t('desc-agency.our-team') }*/ }
             </div>
             <Button
               className='contact'
@@ -187,16 +194,22 @@ const Agency = ({nearest, agency}: AgencyProps) => {
                 agentSurname: agency.moreInfo.agentSurname,
               }) }
             >
-              {t('button.contact')} { agency.moreInfo.agentName }
+              { t('button.contact') } { agency.moreInfo.agentName }
             </Button>
-            <Link href={ `/agency/${agency.url}` } locale={locale}>
-            <span className="details">
+            <span
+              className="details"
+              onClick={ () => openContactModal({
+                title: agency.title,
+                agencyId: agency.id,
+                agentName: agency.moreInfo.agentName,
+                agentSurname: agency.moreInfo.agentSurname,
+              }) }
+            >
                 { t('button.agency-details') } <img src={ ArrowImage } alt="ArrowImage"/>
               </span>
-            </Link>
           </div>
           {
-            !isMobileOnly &&
+            !isMobile &&
             <div className="map-block d-flex flex-column">
               <div className="agency-map position-relative">
                 {/*@ts-ignore*/ }

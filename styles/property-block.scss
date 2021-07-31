@@ -36,15 +36,12 @@
 
     .time {
       margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
 
       span {
         opacity: 0.6;
       }
 
       a {
-        font-family: var(--fontNunitoBold);
         text-transform: capitalize;
         color: var(--colorBlue);
       }
