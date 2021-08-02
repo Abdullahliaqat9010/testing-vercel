@@ -83,7 +83,7 @@ const MainInfoBlock = () => {
   return (
     <div className='main-info-block'>
       <div className="top-block d-flex align-items-center justify-content-between">
-        <h1 className='h4'>{ mainProperty?.search_address }</h1>
+        <h4>{ mainProperty?.search_address }</h4>
         <span className='d-flex align-items-center' onClick={ modifyProperty }>
           { t('link.modify') } <img src={ arrowIcon } alt="arrowIcon"/>
         </span>

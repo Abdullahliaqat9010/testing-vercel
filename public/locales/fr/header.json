@@ -3,8 +3,6 @@
   "button.add-property": "Ajouter un bien",
   "button.login": "Connexion",
   "nav-li.dashboard": "Tableau de bord",
-  "nav-li.myProperties": "Mes propriétés",
-  "nav-li.settings": "Paramètres du compte",
   "li.pro-workspace": "Aller sur mon espace de travail pro.",
   "span.step": "Etape"
 }

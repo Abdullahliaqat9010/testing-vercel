@@ -205,11 +205,6 @@ const stepsReducer = (state = initialState, action: any) => {
 				...state,
 				dataFromMapBox: [],
 			};
-		case actionType.SHOW_STEPS_ON_HEADER:
-			return {
-				...state,
-				mainBlocks: true,
-			};
 		default:
 			return {
 				...state,
