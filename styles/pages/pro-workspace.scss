@@ -1,0 +1,180 @@
+.ProWorkspacePage {
+  &__main-component {
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--mainColor);
+    background-color: var(--colorWhite);
+
+    .custom-progress-bar {
+      width: 100%;
+      height: 4px;
+      background: #E5EAF7;
+
+      .progress-bar {
+        -webkit-transition: width .5s ease;
+        -o-transition: width .5s ease;
+        transition: width .5s ease;
+        background: var(--colorBlue);
+      }
+    }
+
+    .pro-step-one, .pro-step-two, .pro-step-three {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100vh - (var(--headerHeight) + 4px)); //4px progress bar height
+
+      .mb-30px {
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        margin: 60px 0 5px;
+        font-family: var(--fontNunitoBold);
+        font-size: 24px;
+        line-height: 33px;
+      }
+
+      h2 {
+        margin-bottom: 30px;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+      }
+
+      .was-validated .form-control:valid {
+        background-image: url("../../assets/images/valid.svg");
+      }
+
+      .full-address {
+        display: block;
+        font-size: 16px;
+        line-height: 22px;
+        padding: 12px 14px;
+        background: var(--bg-blue);
+        border-radius: 6px;
+        margin-bottom: 30px;
+      }
+
+      form {
+        width: 435px;
+
+        .recommendation {
+          display: block;
+          font-size: 12px;
+          line-height: 16px;
+          margin-bottom: 30px;
+        }
+
+        .form-block {
+          justify-content: space-between;
+
+          input {
+            max-width: 210px;
+          }
+        }
+
+        .form-check {
+          display: flex;
+          align-items: center;
+        }
+
+        input:not([type="checkbox"]) {
+          height: 46px;
+          border-radius: 6px;
+        }
+
+        input[type="checkbox"] {
+          margin-top: unset;
+        }
+
+        .next-step {
+          font-family: var(--fontNunitoBold);
+          font-size: 16px;
+          line-height: 22px;
+          padding: 14px 0;
+          width: 100%;
+          background: var(--colorBlue);
+          border-radius: 8px;
+        }
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: space-between;
+
+        .back-step {
+          font-family: var(--fontNunitoBold);
+          border: unset;
+          background-color: transparent;
+          width: unset;
+          color: var(--colorBlue);
+
+          img {
+            margin-right: 9px;
+          }
+        }
+
+        .next-step {
+          width: 218px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1439px) {
+    &__main-component {
+      .pro-step-one, .pro-step-two, .pro-step-three {
+        height: auto;
+
+        form {
+          margin-bottom: 50px;
+        }
+      }
+    }
+  }
+  @media (min-width: 320px) and (max-width: 767px) {
+    &__main-component {
+      .pro-step-one, .pro-step-two, .pro-step-three {
+        height: auto;
+        padding: 20px 16px 30px;
+
+        form {
+          width: 100%;
+          margin-bottom: 50px;
+
+          #first-name, #last-name, #streetNumber, #zipcode {
+            width: 161px;
+          }
+
+          .password-block {
+            flex-direction: column;
+
+            input {
+              max-width: unset;
+              width: 100%;
+            }
+          }
+
+          .button-group {
+            margin-top: 20px;
+            flex-direction: column-reverse;
+
+            button {
+              width: 100% !important;
+              margin-bottom: 10px;
+            }
+          }
+
+          .form-check {
+            align-items: flex-start;
+
+            input {
+              margin-top: .3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

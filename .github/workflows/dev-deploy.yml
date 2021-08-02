@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - testing-dev-branch
 jobs:
   deploy:
     name: Deploy to server
@@ -27,7 +27,7 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd /var/projects/immo_belgium_front
+            cd /var/projects/dev_frontend
             npm install
             npm run build
             pm2 stop dev_frontend; pm2 delete dev_frontend; pm2 start "npm run start:dev" --name "dev_frontend"
