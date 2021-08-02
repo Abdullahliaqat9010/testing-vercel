@@ -19,10 +19,14 @@ interface GoogleMapProps {
     lat?: number | string,
     lng?: number | string,
   },
-  agencyName?: string
+  coordsCurrentProperty?: {
+    lat?: number | string,
+    lng?: number | string,
+  },
+  agencyName?: string,
 }
 
-const GoogleMap = ({google, agencyLocation, agencyName}: GoogleMapProps) => {
+const GoogleMap = ({google, agencyLocation, agencyName, coordsCurrentProperty}: GoogleMapProps) => {
   const dispatch = useDispatch();
   const {location} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
   const {agencySimilarPropertiesList} = useSelector((state: RootState) => state.agency);
