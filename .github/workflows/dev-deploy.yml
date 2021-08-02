@@ -19,8 +19,8 @@ jobs:
           REMOTE_PORT: ${{ secrets.DEV_SERVER_PORT }}
           REACT_APP_GOOGLE_METRIC_KEY: ${{ secrets.REACT_APP_GOOGLE_METRIC_KEY }}
           COOKIE_KEY: ${{ secrets.REACT_APP_COOKIE_KEY }}
-          SOURCE: '.'
-          TARGET: '/var/projects/dev_frontend'
+          SOURCE: "."
+          TARGET: "/var/projects/dev_frontend"
           ARGS: "-rltgoDzvO --delete --exclude .git --exclude .env --exclude /node_modules/"
 
       - name: Executing remote ssh commands
@@ -30,7 +30,7 @@ jobs:
             cd /var/projects/dev_frontend
             npm install
             npm run build
-            pm2 stop dev_frontend; pm2 delete dev_frontend; pm2 start npm --name "dev_frontend" -- start
+            pm2 stop dev_frontend; pm2 delete dev_frontend; pm2 start "npm run start:dev" --name "dev_frontend"
           host: ${{ secrets.DEV_SERVER_IP }}
           user: ${{ secrets.DEV_SERVER_USERNAME }}
           key: ${{ secrets.DEV_PRIVATE_KEY }}
