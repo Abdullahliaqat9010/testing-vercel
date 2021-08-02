@@ -3,6 +3,5 @@ export interface NavBarLists {
   href: string,
   title: string,
   img: string,
-  activeImg: string,
-  activeTab: boolean
+  activeImg: string
 }
