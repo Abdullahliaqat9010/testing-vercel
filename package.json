@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3033",
-    "start:dev": "next start -p 3033"
+    "start": "next start",
+    "start:dev": "next start -p 3033",
+    "start:prod": "next start -p 3000"
   },
   "dependencies": {
     "@svgr/webpack": "^5.5.0",
