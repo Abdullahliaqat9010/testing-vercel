@@ -63,6 +63,12 @@ const userReducer = (state = initialState, action: any) => {
 				...state,
 				errors: "",
 			};
+		case actionType.UPDATE_USER_PROFILE:
+			return {
+				...state,
+				...action.payload,
+				errors: "",
+			};
 		case actionType.CREATE_PROPERTY_SUCCESS:
 		case actionType.LOGIN_USER_SUCCESS:
 			return {

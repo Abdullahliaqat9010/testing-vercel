@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, ButtonGroup, Form, Alert } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Button, Form, Alert } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 import HeaderContainer from "../../containers/Header";
@@ -16,8 +16,11 @@ import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
 import { config } from "../../config/siteConfigs";
 import { parseJwt } from "../../utils";
+import { UPDATE_USER_PROFILE } from "../../actions/actionTypes";
 
 const SettingsPage = () => {
+	const dispatch = useDispatch();
+
 	const [newPasswordData, setNewPasswordData] = useState({
 		newPass: "",
 		repeatNewPass: "",
@@ -113,6 +116,15 @@ const SettingsPage = () => {
 					},
 				}
 			);
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					userName: firstname,
+					userSurname: lastname,
+
+					userPhone: phoneNumber,
+				},
+			});
 			setIsProfileMessageVisible(true);
 		} catch (error) {
 			console.log(error);
