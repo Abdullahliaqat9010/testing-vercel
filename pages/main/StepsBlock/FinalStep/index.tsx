@@ -125,6 +125,8 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 					locale,
 				})
 			);
+			// console.log(JSON.stringify(propertyData()));
+			// console.log(newData);
 		}
 		return false;
 	};
@@ -341,7 +343,7 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 					<Form.Check
 						checked={data.agreement}
 						name="agreement"
-						required
+						//required
 						onChange={handleChecked}
 						label={
 							<Form.Label className="fs-16">
@@ -364,7 +366,7 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 					{t("button.back")}
 				</Button>
 				<Button
-					disabled={isLoading}
+					disabled={isLoading || !data.agreement}
 					className="next-step"
 					onClick={handleSubmit}
 				>

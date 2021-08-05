@@ -12,4 +12,4 @@ export const googleMapConfig = {
 };
 
 export const userToken =
-	typeof window === "object" && localStorage.getItem("auth");
+	typeof window === "object" && localStorage.getItem("access_token");
