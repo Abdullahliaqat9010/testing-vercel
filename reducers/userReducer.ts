@@ -13,12 +13,12 @@ let gender = "";
  * check [token] on expire
  */
 if (typeof localStorage !== "undefined") {
-	if (localStorage.getItem("auth")) {
+	if (localStorage.getItem("access_token")) {
 		const jwtToken = parseJwt(userToken);
 		const dateNow = +Date.now().toString().slice(0, -3);
 		exp = dateNow < jwtToken.exp;
 		if (!exp) {
-			localStorage.removeItem("auth");
+			localStorage.removeItem("access_token");
 		}
 
 		if (jwtToken.firstname && jwtToken.lastname) {

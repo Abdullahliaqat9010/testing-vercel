@@ -182,7 +182,8 @@ function* signupUserRequest({ payload }: any) {
 
 		if (res.status === 201) {
 			const { data } = yield res.json();
-			localStorage.setItem("auth", data.access_token);
+			localStorage.setItem("access_token", data.access_token);
+			localStorage.setItem("refresh_token", data.refresh_token);
 			yield signupUserSuccess(data, property);
 		}
 	} catch (error) {
@@ -234,7 +235,8 @@ function* loginUserRequest({ payload }: any) {
 		const data = yield res.json();
 
 		if (res.status === 201) {
-			localStorage.setItem("auth", data.access_token);
+			localStorage.setItem("access_token", data.access_token);
+			localStorage.setItem("refresh_token", data.refresh_token);
 			yield loginUserSuccess(data);
 		} else {
 			yield loginUserError(data.message);
@@ -269,7 +271,7 @@ function* loginUserError(error: string) {
 
 function* contactAgencyRequest({ payload }: any) {
 	try {
-		const token = localStorage.getItem("auth");
+		const token = localStorage.getItem("access_token");
 		const res = yield fetch(`${config.apiDomain}/agency/contact`, {
 			method: "POST",
 			headers: {

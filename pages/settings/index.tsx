@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, ButtonGroup, Form } from "react-bootstrap";
+import { Button, ButtonGroup, Form, Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
@@ -13,6 +14,8 @@ import LockIcon from "../../assets/images/lock-icon-blue.svg";
 import ValidPasswordIcon from "../../assets/images/valid.svg";
 import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
+import { config } from "../../config/siteConfigs";
+import { parseJwt } from "../../utils";
 
 const SettingsPage = () => {
 	const [newPasswordData, setNewPasswordData] = useState({
@@ -21,24 +24,33 @@ const SettingsPage = () => {
 	});
 	const [validated, setValidated] = useState<boolean>(false);
 	const [changePass, showChangePassBlock] = useState<boolean>(false);
+	const [currentPassword, setCurrentPassword] = useState<string>("");
+	const [isChangingPass, setIsChangingPass] = useState<boolean>(false);
+	const [isPasswordMessageVisible, setIsPasswordMessageVisible] =
+		useState<boolean>(false);
+	const [isUpdatingProfile, setIsUpdatingProfile] = useState<boolean>(false);
+	const [isProfileMessageVisible, setIsProfileMessageVisible] =
+		useState<boolean>(false);
 
-	const firstname = useSelector<RootState>((state) => state.userInfo.userName);
-	const lastname = useSelector<RootState>(
-		(state) => state.userInfo.userSurname
+	const _firstname = useSelector<RootState>(
+		(state) => state.userInfo.userName as string
 	);
-	const phoneNumber = useSelector<RootState>(
-		(state) => state.userInfo.userPhone
+	const _lastname = useSelector<RootState>(
+		(state) => state.userInfo.userSurname as string
+	);
+	const _phoneNumber = useSelector<RootState>(
+		(state) => state.userInfo.userPhone as string
 	);
 
-	console.log(firstname, lastname, phoneNumber);
+	const [firstname, setFirstname] = useState<string>(_firstname as string);
+	const [lastname, setLastname] = useState<string>(_lastname as string);
+	const [phoneNumber, setPhoneNumber] = useState<string>(
+		_phoneNumber as string
+	);
 
 	const showChangePasswordBlock = () => {
 		setNewPasswordData({ newPass: "", repeatNewPass: "" });
 		showChangePassBlock(!changePass);
-	};
-
-	const handleChangePassword = () => {
-		console.log("handleChangePassword");
 	};
 
 	const handleChangePasswordValue = (
@@ -58,6 +70,57 @@ const SettingsPage = () => {
 		);
 	};
 
+	const changePassword = async () => {
+		try {
+			setIsChangingPass(true);
+			await axios.post(
+				`${config.apiDomain}/auth/change-password`,
+				{
+					new_password: newPasswordData.newPass,
+					password: currentPassword,
+					token: localStorage.getItem("refresh_token"),
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+					},
+				}
+			);
+			setNewPasswordData({ newPass: "", repeatNewPass: "" });
+			setCurrentPassword("");
+			setIsPasswordMessageVisible(true);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsChangingPass(false);
+		}
+	};
+
+	const updateProfile = async () => {
+		const parsedData = parseJwt(localStorage.getItem("access_token"));
+		try {
+			setIsUpdatingProfile(true);
+			await axios.put(
+				`${config.apiDomain}/users/${parsedData.id}`,
+				{
+					firstname,
+					lastname,
+					phone_number: phoneNumber,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+					},
+				}
+			);
+			setIsProfileMessageVisible(true);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsUpdatingProfile(false);
+		}
+	};
+
 	return (
 		<>
 			<HeaderContainer title="Account Settings" />
@@ -66,17 +129,34 @@ const SettingsPage = () => {
 				<div className="SettingsPage__container w-100">
 					<div className="first-block">
 						<h1>Profile details</h1>
-						<Form noValidate validated={validated}>
+						<Form
+							onSubmit={(e) => {
+								e.preventDefault();
+								updateProfile();
+							}}
+						>
 							<Form.Group controlId="firstName">
 								<Form.Label>First name</Form.Label>
-								<Form.Control required name="firstName" type="text" />
+								<Form.Control
+									value={firstname}
+									onChange={(e) => setFirstname(e.target.value)}
+									required
+									name="firstName"
+									type="text"
+								/>
 								<Form.Control.Feedback type="invalid">
 									required
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group controlId="lastName">
 								<Form.Label>Last name</Form.Label>
-								<Form.Control required name="lastName" type="text" />
+								<Form.Control
+									value={lastname}
+									onChange={(e) => setLastname(e.target.value)}
+									required
+									name="lastName"
+									type="text"
+								/>
 								<Form.Control.Feedback type="invalid">
 									required
 								</Form.Control.Feedback>
@@ -94,32 +174,57 @@ const SettingsPage = () => {
               </Form.Group> */}
 							<Form.Group controlId="phone">
 								<Form.Label>Phone number</Form.Label>
-								<Form.Control required name="phone" type="text" />
+								<Form.Control
+									value={phoneNumber}
+									onChange={(e) => setPhoneNumber(e.target.value)}
+									//required
+									name="phone"
+									type="text"
+								/>
 								<Form.Control.Feedback type="invalid">
 									required
 								</Form.Control.Feedback>
 							</Form.Group>
-							<Form.Group className="d-flex flex-column mb-0">
+							{/* <Form.Group
+								controlId="gender"
+								className="d-flex flex-column mb-0"
+							>
 								<Form.Label>Gender</Form.Label>
-								<ButtonGroup className="custom-button-group">
-									<Button>Male</Button>
-									<Button>Female</Button>
-									<Button>Other</Button>
+								<ButtonGroup defaultValue="m" className="custom-button-group">
+									<Button value="m">Male</Button>
+									<Button value="f">Female</Button>
+									<Button value="others">Other</Button>
 								</ButtonGroup>
-							</Form.Group>
+							</Form.Group> */}
+							<Button
+								type="submit"
+								disabled={isUpdatingProfile}
+								style={{ padding: "14px 51px", borderRadius: 8, marginTop: 10 }}
+							>
+								{isUpdatingProfile ? "Loading..." : "Save changes"}
+							</Button>
+							<Alert
+								style={{ marginTop: 20 }}
+								variant="success"
+								dismissible
+								show={isProfileMessageVisible}
+								onClose={() => setIsProfileMessageVisible(false)}
+							>
+								Profile has been updated successfully!
+							</Alert>
+						</Form>
+						<Form
+							onSubmit={(e) => {
+								e.preventDefault();
+								changePassword();
+							}}
+						>
 							<div className="password-block">
 								<h2>Password</h2>
 								<p>
 									We strongly recommend to use strong password, with at least
 									one symbol and digit.
 								</p>
-								<Form.Group className="mb-0" controlId="password">
-									<Form.Label>Current password</Form.Label>
-									<Form.Control required name="password" type="password" />
-									<Form.Control.Feedback type="invalid">
-										required
-									</Form.Control.Feedback>
-								</Form.Group>
 								{!changePass ? (
 									<span
 										className="change-pass"
@@ -130,6 +235,18 @@ const SettingsPage = () => {
 									</span>
 								) : (
 									<div className="change-password-block">
+										<Form.Group controlId="password">
+											<Form.Label>Current password</Form.Label>
+											<Form.Control
+												onChange={(e) => setCurrentPassword(e.target.value)}
+												value={currentPassword}
+												name="password"
+												type="password"
+											/>
+											<Form.Control.Feedback type="invalid">
+												required
+											</Form.Control.Feedback>
+										</Form.Group>
 										<Form.Group controlId="new-pass">
 											<Form.Label>Enter new password</Form.Label>
 											<Form.Control
@@ -156,10 +273,11 @@ const SettingsPage = () => {
 										</Form.Group>
 										<div className="change-password-btns">
 											<Button
+												disabled={isChangingPass}
 												className="confirm"
-												onClick={handleChangePassword}
+												type="submit"
 											>
-												Confirm
+												{isChangingPass ? "Loading..." : "Confirm"}
 											</Button>
 											<Button
 												className="cancel"
@@ -168,9 +286,20 @@ const SettingsPage = () => {
 												Cancel
 											</Button>
 										</div>
+										<Alert
+											style={{ marginTop: 20 }}
+											variant="success"
+											dismissible
+											show={isPasswordMessageVisible}
+											onClose={() => setIsPasswordMessageVisible(false)}
+										>
+											Password has been changed successfully!
+										</Alert>
 									</div>
 								)}
 							</div>
+						</Form>
+						<Form>
 							<div className="notification-block">
 								<h3>Notifications</h3>
 								<p>
@@ -183,7 +312,6 @@ const SettingsPage = () => {
 										label="I allow Immo Belgium to send me updates about my market."
 									/>
 								</Form.Group>
-								<Button className="save">Save changes</Button>
 							</div>
 						</Form>
 					</div>
@@ -206,7 +334,7 @@ const SettingsPage = () => {
 						<span className="upload-btn">Upload photo</span>
 					</div>
 					<div className="user-short-info">
-						<span className="fullname">Anna Johns</span>
+						<span className="fullname">{`${firstname} ${lastname}`}</span>
 						<span className="status">Professional</span>
 					</div>
 					<span className="logout">

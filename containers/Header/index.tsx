@@ -79,7 +79,8 @@ const HeaderContainer = ({
 	};
 
 	const Logout = () => {
-		localStorage.removeItem("auth");
+		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token");
 		window.location.href = "/";
 	};
 
