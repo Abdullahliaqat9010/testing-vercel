@@ -28,19 +28,9 @@ const Blog = ({ blog }) => {
 					backgroundColor: "#1d2e5b",
 					display: "flex",
 					justifyContent: "center",
-					alignItems: "center",
 				}}
 			>
-				<h1
-					style={{
-						color: "white",
-						textAlign: "center",
-						fontWeight: "bold",
-						width: "70%",
-					}}
-				>
-					{blog.title}
-				</h1>
+				<h1 className="blog-title">{blog.title}</h1>
 			</div>
 			<div
 				style={{
@@ -55,6 +45,8 @@ const Blog = ({ blog }) => {
 					justifyContent: "center",
 				}}
 			>
+				<img className="blog-cover" src={blog.cover_image} alt="cover" />
+
 				<Editor
 					readOnly
 					toolbarHidden

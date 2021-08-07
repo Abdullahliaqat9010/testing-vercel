@@ -25,6 +25,7 @@ import { RootState } from "../../types/state";
 import navBarList from "../../config/navBarList";
 import { config } from "../../config/siteConfigs";
 import { clearStepsStateAction } from "../../actions";
+import { parseJwt } from "../../utils";
 
 const langList = [
 	{
@@ -96,6 +97,12 @@ const HeaderContainer = ({
 		dispatch(clearStepsStateAction());
 		router.push("/login", locale + "/login", { locale: locale });
 	};
+
+	const token = localStorage.getItem("access_token");
+	const isLoggedIn = localStorage.getItem("access_token") ? true : false;
+	const isAdmin = token ? parseJwt(token)?.account_type === "admin" : false;
+
+	console.log(isLoggedIn);
 
 	return (
 		<>
@@ -185,19 +192,28 @@ const HeaderContainer = ({
 						src={Logo}
 						alt="Logo"
 					/>
-					<div style={{ paddingLeft: 50 }}>
-						<a href="#" className="n-link-custom">
-							Price map
-						</a>
-						<a href="#" className="n-link-custom">
-							Estimate your home
-						</a>
-						<a href="#" className="n-link-custom">
-							Compare agencies
-						</a>
+					<div className="custom-nav-links-container">
+						{!isAdmin && (
+							<>
+								<a href="#" className="n-link-custom">
+									Price map
+								</a>
+								<a href="#" className="n-link-custom">
+									Estimate your home
+								</a>
+								<a href="#" className="n-link-custom">
+									Compare agencies
+								</a>
+							</>
+						)}
 						<a href="/blogs" className="n-link-custom">
-							Blog
+							Blogs
 						</a>
+						{isAdmin && (
+							<a href="/create-blog" className="n-link-custom">
+								Create Blog
+							</a>
+						)}
 					</div>
 				</div>
 				{mainBlocks && stepBlock.step <= 3 && (
@@ -268,13 +284,15 @@ const HeaderContainer = ({
 										id="header-dropdown"
 										onClick={isActive}
 									>
-										<NavDropdown.Item
-											href={"/" + locale + "/pro-workspace"}
-											className="pro-workspace"
-										>
-											<img src={ProIcon} alt="ProIcon" />
-											{t("li.pro-workspace")}
-										</NavDropdown.Item>
+										{!isAdmin && (
+											<NavDropdown.Item
+												href={"/" + locale + "/pro-workspace"}
+												className="pro-workspace"
+											>
+												<img src={ProIcon} alt="ProIcon" />
+												{t("li.pro-workspace")}
+											</NavDropdown.Item>
+										)}
 										{isMobileOnly && (
 											<Button
 												onClick={goToMainPage}
@@ -284,15 +302,16 @@ const HeaderContainer = ({
 												<span>{t("button.add-property")}</span>
 											</Button>
 										)}
-										{navBarList.map((list, index) => (
-											<NavDropdown.Item
-												href={"/" + locale + list.href}
-												key={index}
-											>
-												<img src={list.img} alt={list.title} />
-												{t(`nav-li.${list.id}`)}
-											</NavDropdown.Item>
-										))}
+										{!isAdmin &&
+											navBarList.map((list, index) => (
+												<NavDropdown.Item
+													href={"/" + locale + list.href}
+													key={index}
+												>
+													<img src={list.img} alt={list.title} />
+													{t(`nav-li.${list.id}`)}
+												</NavDropdown.Item>
+											))}
 										<NavDropdown.Item onClick={Logout}>
 											<img
 												className="logout-image"
@@ -353,10 +372,21 @@ const HeaderContainer = ({
 										</div>
 									)}
 									{!openMenu && (
-										<Button className="add-property" onClick={goToMainPage}>
-											<img src={AddIcon} alt="AddIcon" />
-											<span>{t("button.add-property")}</span>
-										</Button>
+										<>
+											{!isLoggedIn ? (
+												<Button className="add-property" onClick={goToMainPage}>
+													<img src={AddIcon} alt="AddIcon" />
+													<span>{t("button.add-property")}</span>
+												</Button>
+											) : isAdmin ? (
+												<div style={{ paddingLeft: 70 }} />
+											) : (
+												<Button className="add-property" onClick={goToMainPage}>
+													<img src={AddIcon} alt="AddIcon" />
+													<span>{t("button.add-property")}</span>
+												</Button>
+											)}
+										</>
 									)}
 								</>
 							)}

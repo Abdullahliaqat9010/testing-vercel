@@ -29,6 +29,7 @@ import "../styles/pages/pravicy-and-terms.scss";
 import "../styles/pages/pro-workspace.scss";
 import "../styles/pages/404.scss";
 import "../styles/pages/create-blog.scss";
+import "../styles/pages/blogs.scss";
 
 const tagManagerArgs = {
 	gtmId: config.metricKey,
