@@ -172,12 +172,34 @@ const HeaderContainer = ({
 				/>
 			</Head>
 			<div className="Header d-flex justify-content-between align-items-center">
-				<Image
-					onClick={() => goToMainPage()}
-					className={`logo ${auth ? "ml-67" : ""}`}
-					src={Logo}
-					alt="Logo"
-				/>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						alignItems: "center",
+					}}
+				>
+					<Image
+						onClick={() => goToMainPage()}
+						className={`logo ${auth ? "ml-67" : ""}`}
+						src={Logo}
+						alt="Logo"
+					/>
+					<div style={{ paddingLeft: 50 }}>
+						<a href="#" className="n-link-custom">
+							Price map
+						</a>
+						<a href="#" className="n-link-custom">
+							Estimate your home
+						</a>
+						<a href="#" className="n-link-custom">
+							Compare agencies
+						</a>
+						<a href="/blogs" className="n-link-custom">
+							Blog
+						</a>
+					</div>
+				</div>
 				{mainBlocks && stepBlock.step <= 3 && (
 					<div className="step-info">
 						<div

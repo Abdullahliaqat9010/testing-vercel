@@ -1,0 +1,84 @@
+.title-container {
+	height: 240px;
+	background-color: #1d2e5b;
+	display: flex;
+	justify-content: center;
+
+	@media only screen and (max-width: 600px) {
+		height: 200px !important;
+	}
+	textarea {
+		text-align: center;
+		color: white;
+		font-size: 30px;
+		background: transparent;
+		border-style: none;
+		border: none;
+		width: 70%;
+		resize: none;
+		overflow: hidden;
+		font-weight: bold;
+		outline: none;
+		padding-top: 30px;
+		font-family: sans-serif;
+		font-weight: 100;
+
+		@media only screen and (max-width: 600px) {
+			width: 95% !important;
+			font-size: 25px !important;
+		}
+	}
+}
+
+.cover-image-container {
+	width: 70%;
+	margin-top: -50px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	position: relative;
+
+	@media only screen and (max-width: 600px) {
+		width: 95% !important;
+	}
+}
+
+.editor-wrapper {
+	border: 1px solid rgb(200, 200, 200);
+	background-color: white;
+	border-radius: 8px;
+	width: 70%;
+	@media only screen and (max-width: 600px) {
+		width: 95% !important;
+	}
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+	font-size: 1.25em;
+	font-weight: 700;
+	color: white;
+	background-color: #1184ff;
+	display: inline-block;
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+	background-color: #007bff;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}

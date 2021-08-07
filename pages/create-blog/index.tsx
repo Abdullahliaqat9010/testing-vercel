@@ -8,9 +8,13 @@ import axios from "axios";
 import { config } from "../../config/siteConfigs";
 
 import HeaderContainer from "../../containers/Header";
-import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import { convertToRaw, EditorState } from "draft-js";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
+
+// const CoverImage = ({}) =>{
+// 	return()
+// }
 
 const Editor = dynamic(
 	() => {
@@ -26,6 +30,8 @@ const CreateBlog = () => {
 	const [editorState, setEditorState] = useState<EditorState>(
 		EditorState.createEmpty()
 	);
+	const [cover, setCover] = useState(null);
+	const [isUploadingCover, setIsUploadingCover] = useState<boolean>(false);
 
 	const router = useRouter();
 
@@ -36,7 +42,7 @@ const CreateBlog = () => {
 				title,
 				content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
 				text: editorState.getCurrentContent().getPlainText("\u0001"),
-				cover_image: "",
+				cover_image: cover,
 			});
 			router.replace("/blogs");
 		} catch (error) {
@@ -47,12 +53,33 @@ const CreateBlog = () => {
 	};
 
 	const handleImageUpload = (image) => {
-		return new Promise((res, rej) => {
+		return new Promise(async (res, rej) => {
 			try {
-				//axios.post()
+				const formData = new FormData();
+				formData.append("upload", image);
+				const { data } = await axios.post(
+					`${config.apiDomain}/image-upload`,
+					formData,
+					{
+						headers: {
+							"Content-Type": "multipart/form-data",
+						},
+					}
+				);
+				res(data);
+			} catch (error) {
+				rej(error);
+			}
+		});
+	};
+
+	const handleBlogImageUpload = (image) => {
+		return new Promise(async (res, rej) => {
+			try {
+				const link = await handleImageUpload(image);
 				res({
 					data: {
-						link: "https://img.freepik.com/free-photo/observation-urban-building-business-steel_1127-2397.jpg?size=626&ext=jpg",
+						link,
 					},
 				});
 			} catch (error) {
@@ -61,79 +88,103 @@ const CreateBlog = () => {
 		});
 	};
 
+	const handleCoverImageUpload = async (image) => {
+		try {
+			setIsUploadingCover(true);
+			const link = await handleImageUpload(image);
+			setCover(link);
+			setIsUploadingCover(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
-		<div style={{ height: "100vh" }}>
+		<div style={{ minHeight: "100vh", backgroundColor: "white" }}>
 			<HeaderContainer title={t("title")} />
-			<div
-				style={{
-					height: 240,
-					backgroundColor: "#1d2e5b",
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
+			<div className="title-container">
 				<textarea
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
 					placeholder="Add Title Here"
 					maxLength={100}
-					style={{
-						textAlign: "center",
-						color: "white",
-						fontSize: 35,
-						background: "transparent",
-						borderStyle: "none",
-						border: "none",
-						width: "70%",
-						resize: "none",
-						overflow: "hidden",
-						fontWeight: "bold",
-						outline: "none",
-					}}
 				/>
 			</div>
 			<div
 				style={{
 					minHeight: "calc(100vh - 267px)",
-					//backgroundColor: "red",
-					paddingTop: 20,
-					paddingLeft: 50,
-					paddingRight: 50,
-					paddingBottom: 20,
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
 					flexDirection: "column",
 				}}
 			>
+				<div
+					style={{
+						backgroundColor: cover ? "white" : "#ddedff",
+						height: cover ? "auto" : 240,
+					}}
+					className="cover-image-container"
+				>
+					{cover ? (
+						<div style={{ width: "100%", height: "100%" }}>
+							<img
+								src={cover}
+								style={{ width: "100%", height: 300, objectFit: "cover" }}
+								alt="cover"
+							/>
+							<Button
+								variant="danger"
+								onClick={() => setCover(null)}
+								style={{ float: "right", marginTop: 10 }}
+							>
+								Delete Cover
+							</Button>
+						</div>
+					) : (
+						<div>
+							<input
+								onChange={(e) => {
+									const files = e.target.files;
+									if (files.length > 0) {
+										handleCoverImageUpload(files[0]);
+									}
+								}}
+								type="file"
+								name="file"
+								multiple={false}
+								id="file"
+								accept="image/x-png,image/gif,image/jpeg"
+								className="inputfile"
+							/>
+							<label htmlFor="file">
+								{isUploadingCover ? "Uploading..." : "Choose a cover"}
+							</label>
+						</div>
+					)}
+				</div>
 				<Editor
 					placeholder="Start writing here"
 					editorState={editorState}
 					onEditorStateChange={(e) => {
 						setEditorState(e);
 					}}
-					wrapperStyle={{
-						border: "1px solid rgb(200,200,200)",
-						backgroundColor: "white",
-						borderRadius: 8,
-						width: "70%",
-					}}
+					wrapperClassName="editor-wrapper"
 					editorStyle={{ padding: 20 }}
 					toolbar={{
 						image: {
 							uploadEnabled: true,
-							uploadCallback: handleImageUpload,
+							uploadCallback: handleBlogImageUpload,
 						},
 					}}
 				/>
 
 				<Button
-					disabled={title.length === 0 || isSavingBlog}
+					disabled={title.length === 0 || isSavingBlog || !cover}
 					style={{ float: "right", margin: "20px 0px", padding: "10px 30px" }}
 					onClick={handleCreateBlog}
 				>
-					{isSavingBlog ? "Saving..." : "Save"}
+					{isSavingBlog ? "Saving..." : "Save Blog"}
 				</Button>
 			</div>
 		</div>
