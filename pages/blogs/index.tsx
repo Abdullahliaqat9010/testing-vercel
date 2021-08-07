@@ -5,24 +5,31 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 import HeaderContainer from "../../containers/Header";
 import { config } from "../../config/siteConfigs";
-import bg from "../../assets/images/login-bg.png";
+import bg from "../../assets/images/blog/blogs_cover.png";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 
 const BlogCard = ({ blog }) => {
 	const router = useRouter();
 	return (
-		<div
-			style={{
-				width: "50%",
-				paddingTop: "20px",
-				paddingBottom: "50px",
-				//height: 200,
-			}}
-		>
-			<h2 style={{ fontWeight: "bold" }}>{blog.title}</h2>
+		<div className="blog-container">
+			<text
+				style={{
+					fontWeight: 800,
+					fontFamily: "sans-serif",
+					fontSize: 32,
+					color: "#1d2e5b",
+				}}
+			>
+				{blog.title}
+			</text>
 			<div
-				style={{ display: "flex", alignItems: "center", flexDirection: "row" }}
+				style={{
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "row",
+					paddingTop: 20,
+				}}
 			>
 				<img
 					style={{ width: 30, borderRadius: 15 }}
@@ -37,15 +44,16 @@ const BlogCard = ({ blog }) => {
 				<text style={{ color: "#878fa4" }}>Updated on </text>
 				<text style={{ color: "#5183f1", paddingLeft: 10 }}>Jan 23 2021</text>
 			</div>
-			<img
-				style={{ width: "100%", paddingTop: 10 }}
-				src={
-					"https://images.unsplash.com/photo-1460472178825-e5240623afd5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVpbGRpbmdzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
-				}
-			/>
-			{/* {
-				"Sample text for the blog. It will be dynamic once retrieved from the database"
-			} */}
+			<img style={{ width: "100%", paddingTop: 10 }} src={blog?.cover_image} />
+			<div style={{ marginTop: 20, marginBottom: 20 }}>
+				<text style={{ fontSize: 20 }}>
+					{blog?.text
+						.replace(/[^a-zA-Z ]/g, " ")
+						.split(" ")
+						.slice(0, 80)
+						.join(" ") + " ..."}
+				</text>
+			</div>
 			<div>
 				<Button
 					onClick={() => router.push(`/blogs/${blog.id}`)}
@@ -66,16 +74,15 @@ const Blogs = ({ blogs }) => {
 			<HeaderContainer title={t("title")} />
 			<div
 				style={{
-					//background: bg,
 					width: "100%",
 					height: 250,
-					//backgroundColor: "red",
 					position: "relative",
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
 					flexDirection: "column",
 					zIndex: 2,
+					borderTop: "3px solid #3871ef",
 				}}
 			>
 				<img
@@ -87,8 +94,8 @@ const Blogs = ({ blogs }) => {
 						zIndex: -1,
 					}}
 				/>
-				<h1 style={{ fontWeight: "bold" }}>Belgium Immo Blog</h1>
-				<p style={{ fontSize: 18, paddingTop: 5 }}>
+				<h1 className="blogs-page-title">Belgium Immo Blog</h1>
+				<p className="blogs-page-subtitle">
 					Get the latest market trends and updates weekly. No Spam.
 				</p>
 			</div>

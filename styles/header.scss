@@ -404,3 +404,11 @@
 	text-decoration: none;
 	color: #3452a1;
 }
+
+.custom-nav-links-container {
+	padding-left: 50px;
+	display: block;
+	@media (max-width: 900px) {
+		display: none !important;
+	}
+}
