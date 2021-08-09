@@ -8,9 +8,14 @@ import { config } from "../../config/siteConfigs";
 import bg from "../../assets/images/blog/blogs_cover.png";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
+import { parseJwt } from "../../utils";
 
 const BlogCard = ({ blog }) => {
 	const router = useRouter();
+	const access_token = localStorage.getItem("access_token");
+	const isAdmin = access_token
+		? parseJwt(access_token)?.account_type === "admin"
+		: false;
 	return (
 		<div className="blog-container">
 			<text
@@ -61,6 +66,19 @@ const BlogCard = ({ blog }) => {
 				>
 					Continue Reading
 				</Button>
+				{isAdmin && (
+					<Button
+						onClick={() => router.push(`/edit-blog/${blog.id}`)}
+						style={{
+							float: "right",
+							padding: 10,
+							marginTop: 10,
+							marginRight: 20,
+						}}
+					>
+						Edit Blog
+					</Button>
+				)}
 			</div>
 		</div>
 	);
