@@ -31,9 +31,15 @@
 	color: white;
 	width: 70%;
 	text-align: center;
-	padding-top: 40px;
-	@media (max-width: 480px) {
-		font-size: 35px;
+	padding-top: 30px;
+	font-size: 35px;
+	@media (max-width: 600px) {
+		width: 95% !important;
+		font-size: 30px !important;
+		padding-top: 30px !important;
+	}
+	@media (max-width: 350px) {
+		padding-top: 20px !important;
 	}
 }
 
@@ -43,7 +49,33 @@
 	object-fit: cover;
 	margin-top: -50px;
 	margin-bottom: 20px;
+
+	@media (max-width: 386px) {
+		width: 95% !important;
+		height: 200px !important;
+	}
 	@media (max-width: 786px) {
-		width: 95%;
+		width: 95% !important;
+		//height: 300px !important;
+	}
+}
+
+.rdw-image-imagewrapper {
+	img {
+		max-width: 100%;
+	}
+}
+
+.blog-editor-container {
+	width: 70%;
+	@media (max-width: 786px) {
+		width: 90% !important;
+	}
+}
+
+.comments-container {
+	width: 60%;
+	@media (max-width: 600px) {
+		width: 90% !important;
 	}
 }

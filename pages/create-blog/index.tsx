@@ -175,6 +175,10 @@ const CreateBlog = () => {
 						image: {
 							uploadEnabled: true,
 							uploadCallback: handleBlogImageUpload,
+							defaultSize: {
+								width: "100%",
+								height: "auto",
+							},
 						},
 					}}
 				/>

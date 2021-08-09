@@ -191,6 +191,10 @@ const EditBlog = ({ blog, params }) => {
 						image: {
 							uploadEnabled: true,
 							uploadCallback: handleBlogImageUpload,
+							defaultSize: {
+								width: "100%",
+								height: "auto",
+							},
 						},
 					}}
 				/>
