@@ -12,6 +12,7 @@ import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { Button, Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import TextareaAutosize from "react-textarea-autosize";
 
 const Editor = dynamic(
 	() => {
@@ -118,74 +119,102 @@ const EditBlog = ({ blog, params }) => {
 	return (
 		<div style={{ minHeight: "100vh", backgroundColor: "white" }}>
 			<HeaderContainer title={t("title")} />
-			<div className="title-container">
-				<textarea
+			<div
+				style={{
+					backgroundColor: "#1d2e5b",
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					paddingBottom: 25,
+					paddingTop: 10,
+				}}
+			>
+				<TextareaAutosize
+					className="title-input blog-title"
+					maxLength={100}
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
 					placeholder="Add Title Here"
-					maxLength={100}
 				/>
 			</div>
 			<div
 				style={{
-					minHeight: "calc(100vh - 267px)",
+					width: "100%",
 					display: "flex",
-					alignItems: "center",
 					justifyContent: "center",
-					flexDirection: "column",
+					position: "relative",
+					backgroundColor: "transparent",
+					marginTop: -5,
 				}}
 			>
 				<div
 					style={{
-						backgroundColor: cover ? "white" : "#ddedff",
-						height: cover ? "auto" : 240,
+						height: "50%",
+						width: "100%",
+						position: "absolute",
+						backgroundColor: "#1d2e5b",
 					}}
-					className="cover-image-container"
-				>
-					{cover ? (
-						<div style={{ width: "100%", height: "100%" }}>
-							<img
-								src={cover}
-								style={{ width: "100%", height: 300, objectFit: "cover" }}
-								alt="cover"
-							/>
-							<Button
-								variant="danger"
-								onClick={() => setCover(null)}
-								style={{ float: "right", marginTop: 10 }}
-							>
-								Delete Cover
-							</Button>
-						</div>
-					) : (
-						<div>
-							<input
-								onChange={(e) => {
-									const files = e.target.files;
-									if (files.length > 0) {
-										handleCoverImageUpload(files[0]);
-									}
-								}}
-								type="file"
-								name="file"
-								multiple={false}
-								id="file"
-								accept="image/x-png,image/gif,image/jpeg"
-								className="inputfile"
-							/>
-							<label htmlFor="file">
-								{isUploadingCover ? "Uploading..." : "Choose a cover"}
-							</label>
-						</div>
-					)}
-				</div>
+				/>
+
+				{cover ? (
+					<div
+						style={{ zIndex: 2, position: "relative" }}
+						className="blog-cover-container"
+					>
+						<img className="blog-cover" src={cover} alt="cover" />
+						<Button
+							variant="danger"
+							onClick={() => setCover(null)}
+							style={{
+								position: "absolute",
+								bottom: 0,
+								right: 0,
+								margin: 5,
+							}}
+						>
+							Delete Cover
+						</Button>
+					</div>
+				) : (
+					<div className="upload-cover-placeholder">
+						<input
+							onChange={(e) => {
+								const files = e.target.files;
+								if (files.length > 0) {
+									handleCoverImageUpload(files[0]);
+								}
+							}}
+							type="file"
+							name="blogFile"
+							multiple={false}
+							id="blogFile"
+							accept="image/x-png,image/gif,image/jpeg"
+							className="inputfile"
+						/>
+						<label htmlFor="blogFile">
+							{isUploadingCover ? "Uploading..." : "Choose a cover"}
+						</label>
+					</div>
+				)}
+			</div>
+			<div
+				style={{
+					paddingTop: 20,
+					paddingBottom: 20,
+					width: "100%",
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					justifyContent: "center",
+				}}
+			>
 				<Editor
 					placeholder="Start writing here"
 					editorState={editorState}
 					onEditorStateChange={(e) => {
 						setEditorState(e);
 					}}
-					wrapperClassName="editor-wrapper"
+					wrapperClassName="blog-editor-container editor-wrapper"
 					editorStyle={{ padding: 20 }}
 					toolbar={{
 						image: {

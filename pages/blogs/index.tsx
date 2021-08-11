@@ -18,16 +18,7 @@ const BlogCard = ({ blog }) => {
 		: false;
 	return (
 		<div className="blog-container">
-			<text
-				style={{
-					fontWeight: 800,
-					fontFamily: "sans-serif",
-					fontSize: 32,
-					color: "#1d2e5b",
-				}}
-			>
-				{blog.title}
-			</text>
+			<text className="blog-preview-title">{blog.title}</text>
 			<div
 				style={{
 					display: "flex",
@@ -49,13 +40,29 @@ const BlogCard = ({ blog }) => {
 				<text style={{ color: "#878fa4" }}>Updated on </text>
 				<text style={{ color: "#5183f1", paddingLeft: 10 }}>Jan 23 2021</text>
 			</div>
-			<img style={{ width: "100%", paddingTop: 10 }} src={blog?.cover_image} />
+			<img
+				style={{
+					width: "100%",
+					marginTop: 20,
+					borderRadius: 8,
+					aspectRatio: "2/1",
+					objectFit: "cover",
+				}}
+				src={blog?.cover_image}
+			/>
 			<div style={{ marginTop: 20, marginBottom: 20 }}>
-				<text style={{ fontSize: 20 }}>
+				<text
+					style={{
+						fontSize: 17,
+						fontFamily: `"Cormorant", serif`,
+						fontWeight: 600,
+						// color: "black",
+					}}
+				>
 					{blog?.text
 						.replace(/[^a-zA-Z ]/g, " ")
 						.split(" ")
-						.slice(0, 80)
+						.slice(0, 40)
 						.join(" ") + " ..."}
 				</text>
 			</div>

@@ -11,6 +11,7 @@ import { EditorState, convertFromRaw } from "draft-js";
 import Footer from "../../containers/Footer";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import moment from "moment";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const AddCommentForm = ({ blog_id, onCommentAdded }) => {
 	const [name, setName] = useState<string>("");
@@ -211,13 +212,59 @@ const Blog = ({ blog, comments: _comments }) => {
 			<HeaderContainer title={t("title")} />
 			<div
 				style={{
-					height: 240,
 					backgroundColor: "#1d2e5b",
 					display: "flex",
-					justifyContent: "center",
+					alignItems: "center",
+					flexDirection: "column",
 				}}
 			>
-				<h1 className="blog-title">{blog.title}</h1>
+				<div className="blog-header-container">
+					<h1 className="blog-title">{blog.title}</h1>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							padding: "35px 0px",
+						}}
+					>
+						<img
+							src={"https://picsum.photos/200"}
+							style={{
+								width: 40,
+								height: 40,
+								borderRadius: 20,
+								marginRight: 20,
+							}}
+						/>
+						<text style={{ color: "white", fontSize: 14 }}>
+							By Belgium Immo . Updated{" "}
+							<span>{moment(blog?.updatedAt).format("MMM[.] DD[,] YYYY")}</span>{" "}
+						</text>
+					</div>
+				</div>
+			</div>
+			<div
+				style={{
+					width: "100%",
+					display: "flex",
+					justifyContent: "center",
+					position: "relative",
+					backgroundColor: "transparent",
+					marginTop: -5,
+				}}
+			>
+				<div
+					style={{
+						height: "50%",
+						width: "100%",
+						position: "absolute",
+						backgroundColor: "#1d2e5b",
+					}}
+				/>
+				<div style={{ zIndex: 2 }} className="blog-cover-container">
+					<img className="blog-cover" src={blog.cover_image} alt="cover" />
+				</div>
 			</div>
 			<div
 				style={{
@@ -230,8 +277,6 @@ const Blog = ({ blog, comments: _comments }) => {
 					justifyContent: "center",
 				}}
 			>
-				<img className="blog-cover" src={blog.cover_image} alt="cover" />
-
 				<Editor
 					readOnly
 					toolbarHidden
