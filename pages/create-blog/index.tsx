@@ -35,7 +35,7 @@ const CreateBlog = () => {
 	const handleCreateBlog = async () => {
 		try {
 			setIsSavingBlog(true);
-			await axios.post(`${config.apiDomain}/blogs`, {
+			await axios.post(`/blogs`, {
 				title,
 				content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
 				text: editorState.getCurrentContent().getPlainText("\u0001"),
@@ -54,15 +54,11 @@ const CreateBlog = () => {
 			try {
 				const formData = new FormData();
 				formData.append("upload", image);
-				const { data } = await axios.post(
-					`${config.apiDomain}/image-upload`,
-					formData,
-					{
-						headers: {
-							"Content-Type": "multipart/form-data",
-						},
-					}
-				);
+				const { data } = await axios.post(`/image-upload`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				});
 				res(data);
 			} catch (error) {
 				rej(error);

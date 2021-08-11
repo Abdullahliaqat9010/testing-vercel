@@ -28,8 +28,6 @@ const withAuth = (Component) => {
 	const Auth = (props) => {
 		// Login data added to props via redux-store (or use react context for example)
 		const isLoggedIn = localStorage.getItem("access_token");
-		console.log(isLoggedIn);
-		console.log(localStorage.getItem("access_token"));
 		// If user is not logged in, return login component
 		if (!isLoggedIn) {
 			return null;

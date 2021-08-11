@@ -22,7 +22,6 @@ const Editor = dynamic(
 ) as typeof _Editor;
 
 const EditBlog = ({ blog, params }) => {
-	console.log(params);
 	const { t } = useTranslation("login-page");
 	const [title, setTitle] = useState<string>(blog?.title);
 	const [isSavingBlog, setIsSavingBlog] = useState(false);
@@ -43,7 +42,7 @@ const EditBlog = ({ blog, params }) => {
 		try {
 			setIsSavingBlog(true);
 			setIsUpdateSuccessVisible(false);
-			await axios.patch(`${config.apiDomain}/blogs/${params?.id}`, {
+			await axios.patch(`/blogs/${params?.id}`, {
 				title,
 				content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
 				text: editorState.getCurrentContent().getPlainText("\u0001"),
@@ -60,7 +59,7 @@ const EditBlog = ({ blog, params }) => {
 	const handleDeleteBlog = async () => {
 		try {
 			setIsDeletingBlog(true);
-			await axios.delete(`${config.apiDomain}/blogs/${params?.id}`);
+			await axios.delete(`/blogs/${params?.id}`);
 			router.replace("/blogs");
 		} catch (error) {
 			console.log(error);
@@ -74,15 +73,11 @@ const EditBlog = ({ blog, params }) => {
 			try {
 				const formData = new FormData();
 				formData.append("upload", image);
-				const { data } = await axios.post(
-					`${config.apiDomain}/image-upload`,
-					formData,
-					{
-						headers: {
-							"Content-Type": "multipart/form-data",
-						},
-					}
-				);
+				const { data } = await axios.post(`/image-upload`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				});
 				res(data);
 			} catch (error) {
 				rej(error);
@@ -266,16 +261,27 @@ export const getServerSideProps: GetServerSideProps = async ({
 	params,
 	locale,
 }) => {
-	const { data } = await axios.get(`${config.apiDomain}/blogs/${params.id}`);
-	return {
-		props: {
-			blog: {
-				...data,
-			},
-			params,
-			...(await serverSideTranslations(locale, ["login-page", "header"])),
-		}, // will be passed to the page component as props
-	};
+	try {
+		const { data } = await axios.get(`/blogs/${params.id}`);
+		if (!data) {
+			return {
+				notFound: true,
+			};
+		}
+		return {
+			props: {
+				blog: {
+					...data,
+				},
+				params,
+				...(await serverSideTranslations(locale, ["login-page", "header"])),
+			}, // will be passed to the page component as props
+		};
+	} catch (error) {
+		return {
+			notFound: true,
+		};
+	}
 };
 
 export default EditBlog;

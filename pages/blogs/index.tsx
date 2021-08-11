@@ -141,7 +141,7 @@ const Blogs = ({ blogs }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-	const { data } = await axios.get(`${config.apiDomain}/blogs`);
+	const { data } = await axios.get(`/blogs`);
 	return {
 		props: {
 			blogs: [...data],

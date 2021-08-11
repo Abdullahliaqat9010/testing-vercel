@@ -77,7 +77,7 @@ const SettingsPage = () => {
 		try {
 			setIsChangingPass(true);
 			await axios.post(
-				`${config.apiDomain}/auth/change-password`,
+				`/auth/change-password`,
 				{
 					new_password: newPasswordData.newPass,
 					password: currentPassword,
@@ -104,7 +104,7 @@ const SettingsPage = () => {
 		try {
 			setIsUpdatingProfile(true);
 			await axios.put(
-				`${config.apiDomain}/users/${parsedData.id}`,
+				`/users/${parsedData.id}`,
 				{
 					firstname,
 					lastname,

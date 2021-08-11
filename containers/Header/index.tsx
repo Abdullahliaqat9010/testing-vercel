@@ -102,8 +102,6 @@ const HeaderContainer = ({
 	const isLoggedIn = localStorage.getItem("access_token") ? true : false;
 	const isAdmin = token ? parseJwt(token)?.account_type === "admin" : false;
 
-	console.log(isLoggedIn);
-
 	return (
 		<>
 			<Head>
