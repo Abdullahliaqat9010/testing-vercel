@@ -1,38 +1,23 @@
-.title-container {
-	height: 240px;
-	background-color: #1d2e5b;
-	display: flex;
-	justify-content: center;
-
-	@media only screen and (max-width: 600px) {
-		height: 200px !important;
-	}
-	textarea {
-		text-align: center;
-		color: white;
-		font-size: 30px;
-		background: transparent;
-		border-style: none;
-		border: none;
-		width: 70%;
-		resize: none;
-		overflow: hidden;
-		font-weight: bold;
-		outline: none;
-		padding-top: 30px;
-		font-family: sans-serif;
-		font-weight: 100;
-
-		@media only screen and (max-width: 600px) {
-			width: 95% !important;
-			font-size: 25px !important;
-		}
+.title-input {
+	text-align: center;
+	color: white;
+	background: transparent;
+	border-style: none;
+	border: none;
+	resize: none;
+	overflow: hidden;
+	outline: none;
+	width: 90%;
+	padding: 0px;
+	margin: 0px;
+	@media (min-width: 786px) {
+		width: 45%;
 	}
 }
 
 .cover-image-container {
 	width: 70%;
-	margin-top: -50px;
+	// margin-top: -50px;
 	margin-bottom: 20px;
 	display: flex;
 	align-items: center;
@@ -49,9 +34,21 @@
 	border: 1px solid rgb(200, 200, 200);
 	background-color: white;
 	border-radius: 8px;
-	width: 70%;
-	@media only screen and (max-width: 600px) {
-		width: 95% !important;
+}
+
+.upload-cover-placeholder {
+	background-color: #ecf0f5;
+	z-index: 2;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90%;
+	height: 45vw;
+	box-shadow: 1px 1px 8px rgba($color: #000000, $alpha: 0.2);
+	@media (min-width: 786px) {
+		width: 45%;
+		height: 22vw;
 	}
 }
 
@@ -70,8 +67,8 @@
 	color: white;
 	background-color: #1184ff;
 	display: inline-block;
-	padding: 10px;
-	border-radius: 8px;
+	padding: 5px 10px;
+	border-radius: 5px;
 }
 
 .inputfile:focus + label,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
@@ -11,6 +11,123 @@ import { EditorState, convertFromRaw } from "draft-js";
 import Footer from "../../containers/Footer";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import moment from "moment";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "antd/dist/antd.css";
+import { Affix } from "antd";
+import estimateCover from "../../assets/images/blog/estimationCardCover.png";
+import { useRouter } from "next/router";
+
+const EstimationCard = ({ onMinimize }) => {
+	const router = useRouter();
+	return (
+		<div className="estimation-card">
+			<div
+				style={{
+					width: "100%",
+					height: 150,
+					backgroundColor: "#6c768f",
+					borderTopLeftRadius: 8,
+					borderTopRightRadius: 8,
+					display: "flex",
+					justifyContent: "center",
+				}}
+			>
+				<img
+					src={estimateCover}
+					style={{
+						borderRadius: 8,
+						height: "auto",
+						width: "50%",
+						marginTop: -50,
+					}}
+				/>
+			</div>
+			<div
+				style={{
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+				}}
+			>
+				<text
+					style={{
+						fontSize: 20,
+						fontFamily: `"Nunito Sans", sans-serif`,
+						fontWeight: 700,
+						paddingTop: 20,
+					}}
+				>
+					Do you want
+				</text>
+				<text
+					style={{
+						fontSize: 20,
+						fontFamily: `"Nunito Sans", sans-serif`,
+						fontWeight: 700,
+						color: "#3871EF",
+					}}
+				>
+					Your Property Estimated?
+				</text>
+				<text
+					style={{
+						fontSize: 16,
+						fontFamily: `"Nunito Sans", sans-serif`,
+						fontWeight: 400,
+						color: "#6C768F",
+						paddingTop: 10,
+						textAlign: "center",
+						width: "80%",
+					}}
+				>
+					Hi, I’m Matteo. I’m Real Estate analyst and I have a property report
+					ready for you. Where should I send it?
+				</text>
+				<Button
+					style={{ padding: "10px 20px", borderRadius: 8, marginTop: 20 }}
+					onClick={() => router.push("/")}
+				>
+					Estimate Property
+				</Button>
+				<Button
+					style={{
+						padding: 15,
+						borderRadius: 8,
+						color: "#3871EF",
+						backgroundColor: "transparent",
+						border: "none",
+						outline: "none",
+					}}
+					onClick={onMinimize}
+				>
+					Minimize
+				</Button>
+			</div>
+		</div>
+	);
+};
+
+const EstimationOnScreenCard = ({ visible = false, onMinimize }) => {
+	return (
+		<div
+			style={{ display: visible ? "flex" : "none" }}
+			className="estimation-onscreen-card-container"
+		>
+			<EstimationCard onMinimize={onMinimize} />
+		</div>
+	);
+};
+
+const EstimationSideCard = () => {
+	return (
+		<Affix
+			className="estimation-side-card-container"
+			offsetTop={window.innerHeight / 2 - 200}
+		>
+			<EstimationCard onMinimize={() => null} />
+		</Affix>
+	);
+};
 
 const AddCommentForm = ({ blog_id, onCommentAdded }) => {
 	const [name, setName] = useState<string>("");
@@ -22,7 +139,7 @@ const AddCommentForm = ({ blog_id, onCommentAdded }) => {
 		e.preventDefault();
 		try {
 			setIsAddingComment(true);
-			await axios.post(`${config.apiDomain}/blog-comments`, {
+			await axios.post(`/blog-comments`, {
 				name,
 				email,
 				comment,
@@ -206,18 +323,82 @@ const Editor = dynamic(
 const Blog = ({ blog, comments: _comments }) => {
 	const { t } = useTranslation("login-page");
 	const [comments, setComments] = useState([..._comments]);
+	const [isOnscreenEstimateCardVisible, setIsOnscreenEstimateCardVisible] =
+		useState(false);
 	return (
 		<div style={{ minHeight: "100vh", backgroundColor: "white" }}>
 			<HeaderContainer title={t("title")} />
+			<EstimationSideCard />
+			<EstimationOnScreenCard
+				visible={isOnscreenEstimateCardVisible}
+				onMinimize={() => setIsOnscreenEstimateCardVisible(false)}
+			/>
+			{!isOnscreenEstimateCardVisible && (
+				<Button
+					className="estimation-onscreen-btn"
+					onClick={() => setIsOnscreenEstimateCardVisible(true)}
+				>
+					<text style={{ fontSize: 20 }}>
+						<span style={{ color: "#FE7F2D" }}>Click</span> to get special
+						offers!
+					</text>
+				</Button>
+			)}
 			<div
 				style={{
-					height: 240,
 					backgroundColor: "#1d2e5b",
 					display: "flex",
-					justifyContent: "center",
+					alignItems: "center",
+					flexDirection: "column",
 				}}
 			>
-				<h1 className="blog-title">{blog.title}</h1>
+				<div className="blog-header-container">
+					<h1 className="blog-title">{blog.title}</h1>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							padding: "35px 0px",
+						}}
+					>
+						<img
+							src={"https://picsum.photos/200"}
+							style={{
+								width: 40,
+								height: 40,
+								borderRadius: 20,
+								marginRight: 20,
+							}}
+						/>
+						<text style={{ color: "white", fontSize: 14 }}>
+							By Belgium Immo . Updated{" "}
+							<span>{moment(blog?.updatedAt).format("MMM[.] DD[,] YYYY")}</span>{" "}
+						</text>
+					</div>
+				</div>
+			</div>
+			<div
+				style={{
+					width: "100%",
+					display: "flex",
+					justifyContent: "center",
+					position: "relative",
+					backgroundColor: "transparent",
+					marginTop: -5,
+				}}
+			>
+				<div
+					style={{
+						height: "50%",
+						width: "100%",
+						position: "absolute",
+						backgroundColor: "#1d2e5b",
+					}}
+				/>
+				<div style={{ zIndex: 2 }} className="blog-cover-container">
+					<img className="blog-cover" src={blog.cover_image} alt="cover" />
+				</div>
 			</div>
 			<div
 				style={{
@@ -230,8 +411,6 @@ const Blog = ({ blog, comments: _comments }) => {
 					justifyContent: "center",
 				}}
 			>
-				<img className="blog-cover" src={blog.cover_image} alt="cover" />
-
 				<Editor
 					readOnly
 					toolbarHidden
@@ -255,27 +434,34 @@ const Blog = ({ blog, comments: _comments }) => {
 export const getServerSideProps: GetServerSideProps = async ({
 	params,
 	locale,
+	res,
 }) => {
-	const { data: blog } = await axios.get(
-		`${config.apiDomain}/blogs/${params.id}`
-	);
-	const { data: comments } = await axios.get(
-		`${config.apiDomain}/blog-comments`,
-		{
+	try {
+		const { data: blog } = await axios.get(`/blogs/${params.id}`);
+		if (!blog) {
+			return {
+				notFound: true,
+			};
+		}
+		const { data: comments } = await axios.get(`/blog-comments`, {
 			params: {
 				blog_id: params?.id,
 			},
-		}
-	);
-	return {
-		props: {
-			blog: {
-				...blog,
-			},
-			comments: [...comments],
-			...(await serverSideTranslations(locale, ["login-page", "header"])),
-		}, // will be passed to the page component as props
-	};
+		});
+		return {
+			props: {
+				blog: {
+					...blog,
+				},
+				comments: [...comments],
+				...(await serverSideTranslations(locale, ["login-page", "header"])),
+			}, // will be passed to the page component as props
+		};
+	} catch (error) {
+		return {
+			notFound: true,
+		};
+	}
 };
 
 export default Blog;

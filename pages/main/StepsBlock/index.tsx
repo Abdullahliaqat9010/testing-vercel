@@ -10,7 +10,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import GoogleMap from "../../../components/GoogleMap";
-import _3DMap from "../../../components/3dMap";
+// import _3DMap from "../../../components/3dMap";
 
 const stepsArr = [<StepOne />, <StepTwo />, <StepThree />, <StepFour />];
 
@@ -49,7 +49,7 @@ const StepsBlock = () => {
 				<div className="ml-156 w-50 mt-57">{stepsArr[step]}</div>
 				{!isMobile && (
 					<div className="w-50 position-relative">
-						{showBlock && <_3DMap />}
+						{showBlock && <GoogleMap />}
 					</div>
 				)}
 			</div>
