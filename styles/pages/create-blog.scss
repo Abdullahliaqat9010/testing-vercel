@@ -34,6 +34,7 @@
 	border: 1px solid rgb(200, 200, 200);
 	background-color: white;
 	border-radius: 8px;
+	position: relative;
 }
 
 .upload-cover-placeholder {
@@ -78,4 +79,10 @@
 
 .inputfile + label {
 	cursor: pointer; /* "hand" cursor */
+}
+
+.rdw-storybook-toolbar-absolute {
+  position: fixed;
+	width:100%;
+  top: 0px;
 }
