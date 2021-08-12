@@ -5,13 +5,15 @@ import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Editor as _Editor } from "react-draft-wysiwyg";
 import axios from "axios";
-import { config } from "../../config/siteConfigs";
 
 import HeaderContainer from "../../containers/Header";
-import { convertToRaw, EditorState } from "draft-js";
+import { convertToRaw, EditorState,Modifier, } from "draft-js";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import TextareaAutosize from "react-textarea-autosize";
+import {Html} from 'next/document';
+import Head from 'next/head';
+
 
 const Editor = dynamic(
 	() => {
@@ -19,6 +21,7 @@ const Editor = dynamic(
 	},
 	{ ssr: false }
 ) as typeof _Editor;
+
 
 const CreateBlog = () => {
 	const { t } = useTranslation("login-page");
@@ -93,7 +96,7 @@ const CreateBlog = () => {
 	};
 
 	return (
-		<div style={{ minHeight: "100vh", backgroundColor: "white" }}>
+				<div style={{ minHeight: "100vh", backgroundColor: "white" }}>
 			<HeaderContainer title={t("title")} />
 			<div
 				style={{
@@ -190,6 +193,7 @@ const CreateBlog = () => {
 					onEditorStateChange={(e) => {
 						setEditorState(e);
 					}}
+					// toolbarClassName="rdw-storybook-toolbar-absolute"
 					wrapperClassName="blog-editor-container editor-wrapper"
 					editorStyle={{ padding: 20 }}
 					toolbar={{
