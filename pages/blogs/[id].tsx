@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 
 const EstimationCard = ({ onMinimize }) => {
 	const router = useRouter();
+	const { t } = useTranslation("blog");
 	return (
 		<div className="estimation-card">
 			<div
@@ -57,7 +58,7 @@ const EstimationCard = ({ onMinimize }) => {
 						paddingTop: 20,
 					}}
 				>
-					Do you want
+					{t("text.do-you-want")}
 				</text>
 				<text
 					style={{
@@ -67,7 +68,7 @@ const EstimationCard = ({ onMinimize }) => {
 						color: "#3871EF",
 					}}
 				>
-					Your Property Estimated?
+					{t("text.property-estimated")}
 				</text>
 				<text
 					style={{
@@ -80,14 +81,13 @@ const EstimationCard = ({ onMinimize }) => {
 						width: "80%",
 					}}
 				>
-					Hi, I’m Matteo. I’m Real Estate analyst and I have a property report
-					ready for you. Where should I send it?
+					{t("text.property-estimated-caption")}
 				</text>
 				<Button
 					style={{ padding: "10px 20px", borderRadius: 8, marginTop: 20 }}
 					onClick={() => router.push("/")}
 				>
-					Estimate Property
+					{t("btn.estimate")}
 				</Button>
 				<Button
 					style={{
@@ -100,7 +100,7 @@ const EstimationCard = ({ onMinimize }) => {
 					}}
 					onClick={onMinimize}
 				>
-					Minimize
+					{t("btn.minimize")}
 				</Button>
 			</div>
 		</div>
@@ -134,6 +134,7 @@ const AddCommentForm = ({ blog_id, onCommentAdded }) => {
 	const [email, setEmail] = useState<string>("");
 	const [comment, setComment] = useState<string>("");
 	const [isAddingComment, setIsAddingComment] = useState(false);
+	const { t } = useTranslation("blog");
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -171,7 +172,7 @@ const AddCommentForm = ({ blog_id, onCommentAdded }) => {
 			}}
 		>
 			<p style={{ color: "#6c768f", fontWeight: "bold", fontSize: 24 }}>
-				Leave a comment
+				{t("text.leave-a-comment")}
 			</p>
 			<Form onSubmit={onSubmit}>
 				<Form.Group className="mb-3">
@@ -218,7 +219,7 @@ const AddCommentForm = ({ blog_id, onCommentAdded }) => {
 					style={{ width: "100%", padding: 10 }}
 					type="submit"
 				>
-					{isAddingComment ? "Loading..." : "Submit comment"}
+					{isAddingComment ? "Loading..." : t("btn.submit-comment")}
 				</Button>
 			</Form>
 		</div>
@@ -268,11 +269,11 @@ const Comment = ({ comment }) => {
 };
 
 const Comments = ({ comments, setComments, blog_id }) => {
+	const { t } = useTranslation("blog");
 	return (
 		<div
 			style={{
 				backgroundColor: "#f2f6ff",
-				//height: 200,
 				display: "flex",
 				alignItems: "center",
 				flexDirection: "column",
@@ -286,7 +287,7 @@ const Comments = ({ comments, setComments, blog_id }) => {
 							{" "}
 							{comments?.length}
 						</span>{" "}
-						{`Comment${comments.length === 1 ? "" : "s"}`}
+						{t(`${comments.length === 1 ? "text.comment" : "text.comments"}`)}
 					</p>
 				</div>
 				<div style={{ width: "100%" }}>
@@ -321,7 +322,7 @@ const Editor = dynamic(
 ) as typeof _Editor;
 
 const Blog = ({ blog, comments: _comments }) => {
-	const { t } = useTranslation("login-page");
+	const { t } = useTranslation("blog");
 	const [comments, setComments] = useState([..._comments]);
 	const [isOnscreenEstimateCardVisible, setIsOnscreenEstimateCardVisible] =
 		useState(false);
@@ -372,8 +373,10 @@ const Blog = ({ blog, comments: _comments }) => {
 							}}
 						/>
 						<text style={{ color: "white", fontSize: 14 }}>
-							By Belgium Immo . Updated{" "}
-							<span>{moment(blog?.updatedAt).format("MMM[.] DD[,] YYYY")}</span>{" "}
+							{`By Belgium Immo . ${t("text.update")} `}
+							<span>
+								{moment(blog?.updatedAt).format("MMM[.] DD[,] YYYY")}
+							</span>{" "}
 						</text>
 					</div>
 				</div>
@@ -422,7 +425,7 @@ const Blog = ({ blog, comments: _comments }) => {
 				/>
 			</div>
 			<Comments
-				blog_id={blog?.id}
+				blog_id={blog?.uuid}
 				comments={comments}
 				setComments={setComments}
 			/>
@@ -445,7 +448,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		}
 		const { data: comments } = await axios.get(`/blog-comments`, {
 			params: {
-				blog_id: params?.id,
+				blog_id: blog?.uuid,
 			},
 		});
 		return {
@@ -454,7 +457,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 					...blog,
 				},
 				comments: [...comments],
-				...(await serverSideTranslations(locale, ["login-page", "header"])),
+				...(await serverSideTranslations(locale, [
+					"login-page",
+					"header",
+					"blog",
+				])),
 			}, // will be passed to the page component as props
 		};
 	} catch (error) {
