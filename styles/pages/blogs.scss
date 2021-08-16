@@ -170,3 +170,26 @@
 		width: 50%;
 	}
 }
+
+.seo-settings-container {
+	margin-top: 20px;
+	padding: 20px;
+	width: 90%;
+	border: 1px solid rgb(200, 200, 200);
+	background-color: white;
+	border-radius: 8px;
+	@media (min-width: 786px) {
+		width: 45%;
+	}
+}
+
+.input-antd-custom {
+	width: 100%;
+	border-radius: 6px;
+	border: 1px solid rgb(200, 200, 200);
+	padding: 5px;
+}
+
+.input-antd-custom:focus {
+	outline-color: var(--colorLightBlue);
+}

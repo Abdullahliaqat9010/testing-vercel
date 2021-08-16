@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import axios from "axios";
 
 import { store, persistor } from "../store";

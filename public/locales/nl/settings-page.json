@@ -1,0 +1,10 @@
+{
+   "title": "Accountinstellingen",
+   "h1.title": "Profieldetails",
+   "label.firstName": "Voornaam",
+   "label.lastName": "Achternaam",
+   "label.email": "E-mail",
+   "label.phone": "Telefoonnummer",
+   "label.gender": "Geslacht",
+   "span.required": "verplicht"
+}

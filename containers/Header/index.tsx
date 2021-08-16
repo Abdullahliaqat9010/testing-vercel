@@ -38,6 +38,11 @@ const langList = [
 		tag: "fr",
 		label: "french",
 	},
+	{
+		id: "nl",
+		tag: "nl",
+		label: "dutch",
+	},
 ];
 
 const HeaderContainer = ({

@@ -12,6 +12,7 @@ import { parseJwt } from "../../utils";
 
 const BlogCard = ({ blog }) => {
 	const router = useRouter();
+	const { t } = useTranslation("blog");
 	const access_token = localStorage.getItem("access_token");
 	const isAdmin = access_token
 		? parseJwt(access_token)?.account_type === "admin"
@@ -68,14 +69,14 @@ const BlogCard = ({ blog }) => {
 			</div>
 			<div>
 				<Button
-					onClick={() => router.push(`/blogs/${blog.id}`)}
+					onClick={() => router.push(`/blogs/${blog?.slug}`)}
 					style={{ float: "right", padding: 10, marginTop: 10 }}
 				>
-					Continue Reading
+					{t("btn.continue-reading")}
 				</Button>
 				{isAdmin && (
 					<Button
-						onClick={() => router.push(`/edit-blog/${blog.id}`)}
+						onClick={() => router.push(`/edit-blog/${blog?.uuid}`)}
 						style={{
 							float: "right",
 							padding: 10,
@@ -92,7 +93,7 @@ const BlogCard = ({ blog }) => {
 };
 
 const Blogs = ({ blogs }) => {
-	const { t } = useTranslation("login-page");
+	const { t } = useTranslation("blog");
 
 	return (
 		<div style={{ minHeight: "100vh", backgroundColor: "white" }}>
@@ -120,9 +121,7 @@ const Blogs = ({ blogs }) => {
 					}}
 				/>
 				<h1 className="blogs-page-title">Belgium Immo Blog</h1>
-				<p className="blogs-page-subtitle">
-					Get the latest market trends and updates weekly. No Spam.
-				</p>
+				<p className="blogs-page-subtitle">{t("blog.subtitle")}</p>
 			</div>
 			<div
 				style={{
@@ -145,7 +144,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	return {
 		props: {
 			blogs: [...data],
-			...(await serverSideTranslations(locale, ["login-page", "header"])),
+			...(await serverSideTranslations(locale, ["blog", "header"])),
 		}, // will be passed to the page component as props
 	};
 };
