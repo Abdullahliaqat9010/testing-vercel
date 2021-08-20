@@ -184,7 +184,7 @@ function* signupUserRequest({ payload }: any) {
 			const { data } = yield res.json();
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("refresh_token", data.refresh_token);
-			yield fetch("/auth/login", {
+			yield fetch("/auth-api/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -247,7 +247,7 @@ function* loginUserRequest({ payload }: any) {
 		if (res.status === 201) {
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("refresh_token", data.refresh_token);
-			yield fetch("/api/login", {
+			yield fetch("/auth-api/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

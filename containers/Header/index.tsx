@@ -87,7 +87,7 @@ const HeaderContainer = ({
 	const Logout = async () => {
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
-		await fetch("/api/logout", {
+		await fetch("/auth-api/logout", {
 			method: "POST",
 		});
 		window.location.href = "/";
