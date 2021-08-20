@@ -33,14 +33,20 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (auth) {
-			window.location.href = "dashboard";
+			router.push(`${locale}/dashboard`);
 		}
+	}, [auth]);
+
+	useEffect(() => {
+		// if (auth) {
+		// 	window.location.href = "dashboard";
+		// }
 
 		if (errors.length) {
 			setData({ ...data, password: "" });
 			setErrors({ ...errorsData, noValid: true, password: errors });
 		}
-	}, [auth, errors, errorsData.noValid]);
+	}, [errors, errorsData.noValid]);
 
 	const handleChangeData = (el: React.ChangeEvent<HTMLInputElement>) => {
 		setData({

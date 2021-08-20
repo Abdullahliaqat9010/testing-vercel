@@ -69,7 +69,6 @@ const userReducer = (state = initialState, action: any) => {
 				...action.payload,
 				errors: "",
 			};
-		case actionType.CREATE_PROPERTY_SUCCESS:
 		case actionType.LOGIN_USER_SUCCESS:
 			return {
 				...state,

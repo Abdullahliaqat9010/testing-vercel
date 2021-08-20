@@ -3,10 +3,10 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import axios from "axios";
 
 import { store, persistor } from "../store";
 import { config } from "../config/siteConfigs";
+import axios from "axios";
 
 import TagManager from "react-gtm-module";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -38,6 +38,8 @@ const tagManagerArgs = {
 axios.interceptors.request.use(
 	(request) => {
 		if (request) {
+			console.log(request.headers["Authorization"]);
+			//console.log(store.getState());
 			request.baseURL = config.apiDomain;
 			// request.headers["Authorization"] =
 			// 	"Bearer " + window.localStorage.getItem("access_token");
@@ -64,13 +66,11 @@ const MyApp = ({ Component, pageProps }) => {
 	}, [locale]);
 
 	return (
-		<>
-			<Provider store={store}>
-				<PersistGate loading={null} persistor={persistor}>
-					<Component {...pageProps} />
-				</PersistGate>
-			</Provider>
-		</>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<Component {...pageProps} />
+			</PersistGate>
+		</Provider>
 	);
 };
 

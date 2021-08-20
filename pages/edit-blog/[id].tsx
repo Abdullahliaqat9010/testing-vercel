@@ -14,6 +14,8 @@ import { BlogEditor as _Editor } from "../../components/Editor";
 import { Typography, Form, Input } from "antd";
 import { useEffect } from "react";
 import { generateSlug } from "../../utils/generateSlug";
+import { parseJwt } from "../../utils";
+import jwt from "jsonwebtoken";
 
 const Editor = dynamic(
 	() => {
@@ -51,12 +53,22 @@ const EditBlog = ({ blog, params }) => {
 		try {
 			setIsSavingBlog(true);
 			setIsUpdateSuccessVisible(false);
-			await axios.patch(`/blogs/${params?.id}`, {
-				title,
-				content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-				text: editorState.getCurrentContent().getPlainText("\u0001"),
-				cover_image: cover,
-			});
+			await axios.patch(
+				`/blogs/${params?.id}`,
+				{
+					title,
+					content: JSON.stringify(
+						convertToRaw(editorState.getCurrentContent())
+					),
+					text: editorState.getCurrentContent().getPlainText("\u0001"),
+					cover_image: cover,
+				},
+				{
+					headers: {
+						Authorization: localStorage.getItem("access_token"),
+					},
+				}
+			);
 			setIsUpdateSuccessVisible(true);
 		} catch (error) {
 			console.log(error);
@@ -185,8 +197,24 @@ const EditBlog = ({ blog, params }) => {
 export const getServerSideProps: GetServerSideProps = async ({
 	params,
 	locale,
+	req,
 }) => {
 	try {
+		if (req.cookies?.access_token) {
+			const parsedAccessToken = jwt.decode(req.cookies?.access_token) as {
+				account_type: string;
+			};
+			const isAdmin = parsedAccessToken.account_type === "admin";
+			if (!isAdmin) {
+				return {
+					notFound: true,
+				};
+			}
+		} else {
+			return {
+				notFound: true,
+			};
+		}
 		const { data } = await axios.get(`/blogs/${params.id}`);
 		if (!data) {
 			return {

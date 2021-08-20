@@ -184,6 +184,16 @@ function* signupUserRequest({ payload }: any) {
 			const { data } = yield res.json();
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("refresh_token", data.refresh_token);
+			yield fetch("/api/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					access_token: data.access_token,
+					refresh_token: data.refresh_token,
+				}),
+			});
 			yield signupUserSuccess(data, property);
 		}
 	} catch (error) {
@@ -237,6 +247,16 @@ function* loginUserRequest({ payload }: any) {
 		if (res.status === 201) {
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("refresh_token", data.refresh_token);
+			yield fetch("/api/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					access_token: data.access_token,
+					refresh_token: data.refresh_token,
+				}),
+			});
 			yield loginUserSuccess(data);
 		} else {
 			yield loginUserError(data.message);

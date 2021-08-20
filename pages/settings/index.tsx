@@ -3,6 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import jwt from "jsonwebtoken";
 
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
@@ -14,9 +15,8 @@ import LockIcon from "../../assets/images/lock-icon-blue.svg";
 import ValidPasswordIcon from "../../assets/images/valid.svg";
 import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
-import { config } from "../../config/siteConfigs";
-import { parseJwt } from "../../utils";
 import { UPDATE_USER_PROFILE } from "../../actions/actionTypes";
+import { GetStaticProps } from "next";
 
 const SettingsPage = () => {
 	const dispatch = useDispatch();
@@ -100,7 +100,8 @@ const SettingsPage = () => {
 	};
 
 	const updateProfile = async () => {
-		const parsedData = parseJwt(localStorage.getItem("access_token"));
+		const parsedData = jwt.decode(localStorage.getItem("access_token")) as any;
+		console.log(parsedData);
 		try {
 			setIsUpdatingProfile(true);
 			await axios.put(
@@ -108,7 +109,7 @@ const SettingsPage = () => {
 				{
 					firstname,
 					lastname,
-					phone_number: phoneNumber,
+					phone_number: phoneNumber ? phoneNumber : undefined,
 				},
 				{
 					headers: {
@@ -121,7 +122,6 @@ const SettingsPage = () => {
 				payload: {
 					userName: firstname,
 					userSurname: lastname,
-
 					userPhone: phoneNumber,
 				},
 			});
@@ -359,7 +359,7 @@ const SettingsPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: {
 		...(await serverSideTranslations(locale, ["header", "common"])),
 	},
