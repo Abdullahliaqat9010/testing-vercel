@@ -84,9 +84,12 @@ const HeaderContainer = ({
 		window.location.href = "/" + locale;
 	};
 
-	const Logout = () => {
+	const Logout = async () => {
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
+		await fetch("/api/logout", {
+			method: "POST",
+		});
 		window.location.href = "/";
 	};
 
@@ -201,12 +204,12 @@ const HeaderContainer = ({
 								<a href="#" className="n-link-custom">
 									Price map
 								</a>
-								<a href="#" className="n-link-custom">
+								{/* <a href="#" className="n-link-custom">
 									Estimate your home
-								</a>
-								<a href="#" className="n-link-custom">
+								</a> */}
+								{/* <a href="#" className="n-link-custom">
 									Compare agencies
-								</a>
+								</a> */}
 							</>
 						)}
 						<a href="/blogs" className="n-link-custom">

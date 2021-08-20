@@ -103,4 +103,4 @@ const DashboardPageContainer = () => {
 	);
 };
 
-export default withAuth(DashboardPageContainer);
+export default DashboardPageContainer;

@@ -9,6 +9,8 @@ import { useRouter } from "next/router";
 
 import HeaderContainer from "../../containers/Header";
 import { BlogEditor as _Editor } from "../../components/Editor";
+import { GetServerSideProps } from "next";
+import jwt from "jsonwebtoken";
 
 const Editor = dynamic(
 	() => {
@@ -31,12 +33,22 @@ const CreateBlog = () => {
 	const handleCreateBlog = async () => {
 		try {
 			setIsSavingBlog(true);
-			await axios.post(`/blogs`, {
-				title,
-				content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-				text: editorState.getCurrentContent().getPlainText("\u0001"),
-				cover_image: cover,
-			});
+			await axios.post(
+				`/blogs`,
+				{
+					title,
+					content: JSON.stringify(
+						convertToRaw(editorState.getCurrentContent())
+					),
+					text: editorState.getCurrentContent().getPlainText("\u0001"),
+					cover_image: cover,
+				},
+				{
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("access_token"),
+					},
+				}
+			);
 			router.replace("/blogs");
 		} catch (error) {
 			console.log(error);
@@ -71,10 +83,35 @@ const CreateBlog = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale, ["login-page", "header", "blog"])),
-	},
-});
+export const getServerSideProps: GetServerSideProps = async ({
+	locale,
+	req,
+}) => {
+	if (req.cookies?.access_token) {
+		const parsedAccessToken = jwt.decode(req.cookies?.access_token) as {
+			account_type: string;
+		};
+		const isAdmin = parsedAccessToken.account_type === "admin";
+		if (!isAdmin) {
+			return {
+				notFound: true,
+			};
+		}
+	} else {
+		return {
+			notFound: true,
+		};
+	}
+
+	return {
+		props: {
+			...(await serverSideTranslations(locale, [
+				"login-page",
+				"header",
+				"blog",
+			])),
+		},
+	};
+};
 
 export default CreateBlog;

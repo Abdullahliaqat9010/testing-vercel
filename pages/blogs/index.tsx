@@ -38,7 +38,7 @@ const BlogCard = ({ blog }) => {
 				<text style={{ paddingLeft: 10, paddingRight: 10, color: "#ebf1fd" }}>
 					|
 				</text>
-				<text style={{ color: "#878fa4" }}>Updated on </text>
+				<text style={{ color: "#878fa4" }}>{t("text.update")} on </text>
 				<text style={{ color: "#5183f1", paddingLeft: 10 }}>Jan 23 2021</text>
 			</div>
 			<img
@@ -84,7 +84,7 @@ const BlogCard = ({ blog }) => {
 							marginRight: 20,
 						}}
 					>
-						Edit Blog
+						{t("btn.edit-blog")}
 					</Button>
 				)}
 			</div>

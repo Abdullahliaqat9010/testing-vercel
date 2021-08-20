@@ -23,5 +23,6 @@
 	"text.saving": "économie...",
 	"btn.save": "Sauver",
 	"text.ceo-settings": "Paramètres de référencement",
-	"text.blog-slug": "Blog limace"
+	"text.blog-slug": "Blog limace",
+	"btn.edit-blog": "Modifier le blog"
 }
