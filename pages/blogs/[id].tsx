@@ -437,16 +437,18 @@ const Blog = ({ blog, comments: _comments }) => {
 export const getServerSideProps: GetServerSideProps = async ({
 	params,
 	locale,
-	res,
 }) => {
+	const axiosInstance = axios.create({
+		baseURL: config.apiDomain,
+	});
 	try {
-		const { data: blog } = await axios.get(`/blogs/${params.id}`);
+		const { data: blog } = await axiosInstance.get(`/blogs/${params.id}`);
 		if (!blog) {
 			return {
 				notFound: true,
 			};
 		}
-		const { data: comments } = await axios.get(`/blog-comments`, {
+		const { data: comments } = await axiosInstance.get(`/blog-comments`, {
 			params: {
 				blog_id: blog?.uuid,
 			},
