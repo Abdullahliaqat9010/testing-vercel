@@ -181,7 +181,7 @@ function* signupUserRequest({ payload }: any) {
 		);
 
 		if (res.status === 201) {
-			const { data } = yield res.json();
+			const data = yield res.json();
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("refresh_token", data.refresh_token);
 			yield fetch("/auth-api/login", {
@@ -193,6 +193,21 @@ function* signupUserRequest({ payload }: any) {
 					access_token: data.access_token,
 					refresh_token: data.refresh_token,
 				}),
+			});
+			const parseData = parseJwt(data.access_token);
+			yield put({
+				type: actionType.LOGIN_USER_SUCCESS,
+				payload: {
+					userName: parseData?.firstname,
+					userSurname: parseData?.lastname,
+					userEmail: parseData?.email,
+					userPhone: parseData?.phone_number,
+					gender: parseData?.gender,
+					avatar: parseData?.avatar,
+					emailVerified: parseData?.email_verified,
+					accountType: parseData?.account_type,
+					id: parseData?.id,
+				},
 			});
 			yield signupUserSuccess(data, property);
 		}

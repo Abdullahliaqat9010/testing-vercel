@@ -63,8 +63,9 @@ function* updatePropertyError(error) {
 function* createPropertySuccess() {
 	window.sessionStorage.removeItem("forgotLogin");
 	yield put({
-		type: actionType.CREATE_PROPERTY_SUCCESS,
+		type: actionType.CLEAR_STEPS_STATE,
 	});
+	window.location.href = "/dashboard";
 }
 
 function* createPropertyError(error) {

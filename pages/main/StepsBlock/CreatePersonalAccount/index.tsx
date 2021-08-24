@@ -119,7 +119,6 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 	};
 
 	const disabledBtn = () => {
-		console.log(data);
 		return data.selectedItem.length === 0
 			? true
 			: data.selectedItem === "not-owner"
@@ -146,7 +145,8 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 					? String(data.howSell)
 					: undefined,
 				residence_type:
-					data.accountType === "professional"
+					data.accountType === "professional" ||
+					data.selectedItem === "not-owner"
 						? "other"
 						: String(data.selectedResidence),
 				...generatePropertyData(
