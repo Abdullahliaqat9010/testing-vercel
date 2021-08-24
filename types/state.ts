@@ -35,11 +35,14 @@ export interface RootState {
 			totalPages: number;
 			currentPage: number;
 		};
+		id: null | Number;
 		userName: string;
 		userSurname: string;
 		userEmail: string;
 		userPhone: string;
+		accountTye: string;
 		errors: string;
+		avatar: string;
 	};
 	stepsInfo: {
 		mainBlocks: boolean;

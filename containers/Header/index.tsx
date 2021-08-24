@@ -24,7 +24,7 @@ import SuccessStepIcon from "../../assets/images/header-step-success.svg";
 import { RootState } from "../../types/state";
 import navBarList from "../../config/navBarList";
 import { config } from "../../config/siteConfigs";
-import { clearStepsStateAction } from "../../actions";
+import { clearStepsStateAction, userLogoutAction } from "../../actions";
 import { parseJwt } from "../../utils";
 
 const langList = [
@@ -60,7 +60,7 @@ const HeaderContainer = ({
 	const { mainBlocks, stepBlock } = useSelector(
 		(state: RootState) => state.stepsInfo
 	);
-	const { auth, userName, userSurname } = useSelector(
+	const { auth, userName, userSurname, avatar } = useSelector(
 		(state: RootState) => state.userInfo
 	);
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -85,12 +85,7 @@ const HeaderContainer = ({
 	};
 
 	const Logout = async () => {
-		localStorage.removeItem("access_token");
-		localStorage.removeItem("refresh_token");
-		await fetch("/auth-api/logout", {
-			method: "POST",
-		});
-		window.location.href = "/";
+		dispatch(userLogoutAction());
 	};
 
 	const openSwitcherBlock = () => {
@@ -280,7 +275,7 @@ const HeaderContainer = ({
 									{!openMenu && (
 										<Image
 											className="user-avatar"
-											src={NoPhoto}
+											src={avatar ? avatar : NoPhoto}
 											alt="avatar"
 											roundedCircle
 										/>

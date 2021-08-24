@@ -1,40 +1,17 @@
 import * as actionType from "../actions/actionTypes";
-import { parseJwt } from "../utils";
-import { userToken } from "../config/siteConfigs";
-
-let exp = false;
-let userName = "";
-let userSurname = "";
-let userEmail = "";
-let userPhone = "";
-let gender = "";
-
-/**
- * check [token] on expire
- */
-if (typeof localStorage !== "undefined") {
-	if (localStorage.getItem("access_token")) {
-		const jwtToken = parseJwt(userToken);
-		const dateNow = +Date.now().toString().slice(0, -3);
-		exp = dateNow < jwtToken.exp;
-		if (!exp) {
-			localStorage.removeItem("access_token");
-		}
-
-		if (jwtToken.firstname && jwtToken.lastname) {
-			userName = jwtToken.firstname;
-			userSurname = jwtToken.lastname;
-			userEmail = jwtToken.email;
-			userPhone = jwtToken.phone_number;
-			gender = jwtToken.gender;
-		}
-	}
-}
 
 export const initialState = {
-	auth: exp,
-	existEmail: false,
+	id: null,
+	userName: "",
+	userSurname: "",
+	userEmail: "",
+	userPhone: "",
+	gender: "",
+	avatar: "",
 	emailVerified: false,
+	accountType: "",
+	auth: false,
+	existEmail: false,
 	noEstimation: false,
 	agencyContactInfo: {
 		title: "",
@@ -48,11 +25,6 @@ export const initialState = {
 	propertiesListInfo: {},
 	currentPropertyPrice: {},
 	mainProperty: {},
-	userName,
-	userSurname,
-	userEmail,
-	userPhone,
-	gender,
 	errors: "",
 };
 
@@ -63,6 +35,11 @@ const userReducer = (state = initialState, action: any) => {
 				...state,
 				errors: "",
 			};
+		case actionType.LOGOUT_USER_SUCCESS:
+			return {
+				...state,
+				auth: false,
+			};
 		case actionType.UPDATE_USER_PROFILE:
 			return {
 				...state,
@@ -72,6 +49,7 @@ const userReducer = (state = initialState, action: any) => {
 		case actionType.LOGIN_USER_SUCCESS:
 			return {
 				...state,
+				...action.payload,
 				auth: true,
 			};
 		case actionType.VERIFY_EMAIL_SUCCESS:
@@ -97,7 +75,6 @@ const userReducer = (state = initialState, action: any) => {
 				},
 			};
 		case actionType.CLOSE_MODAL_CONTACT_AGENT:
-			userPhone = "";
 			return {
 				...state,
 				agencyContactInfo: {
@@ -163,9 +140,7 @@ const userReducer = (state = initialState, action: any) => {
 			};
 		}
 		default:
-			return {
-				...state,
-			};
+			return state;
 	}
 };
 

@@ -15,6 +15,7 @@ import ArrowLink from "../../assets/images/arrow-blue.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
 import LockIcon from "../../assets/images/lock-icon.svg";
 import BackArrow from "../../assets/images/full-arrow.svg";
+import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
 
 const LoginPage = () => {
 	const { t } = useTranslation("login-page");
@@ -32,16 +33,6 @@ const LoginPage = () => {
 	});
 
 	useEffect(() => {
-		if (auth) {
-			router.push(`${locale}/dashboard`);
-		}
-	}, [auth]);
-
-	useEffect(() => {
-		// if (auth) {
-		// 	window.location.href = "dashboard";
-		// }
-
 		if (errors.length) {
 			setData({ ...data, password: "" });
 			setErrors({ ...errorsData, noValid: true, password: errors });
@@ -151,10 +142,12 @@ const LoginPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale, ["login-page", "header"])),
-	},
-});
+export const getServerSideProps = handleAlreadyAuthenticated(
+	async ({ locale }) => ({
+		props: {
+			...(await serverSideTranslations(locale, ["login-page", "header"])),
+		},
+	})
+);
 
 export default LoginPage;

@@ -119,6 +119,7 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 	};
 
 	const disabledBtn = () => {
+		console.log(data);
 		return data.selectedItem.length === 0
 			? true
 			: data.selectedItem === "not-owner"
