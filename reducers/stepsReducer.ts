@@ -50,8 +50,8 @@ const initData = {
 	personalAccount: {
 		accountType: "private",
 		selectedItem: "",
-		selectedResidence: "",
-		sellProperty: "",
+		selectedResidence: "other",
+		sellProperty: "asap",
 		howSell: "",
 		estimationReason: "",
 	},
