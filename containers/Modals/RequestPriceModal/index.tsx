@@ -157,7 +157,7 @@ const RequestPriceModal = ({ show, handleClose }) => {
 					<div className="property-location">
 						{/*@ts-ignore*/}
 						<GoogleMap
-							coordsCurrentProperty={{ lat: 50.4666086, lng: 4.0528334 }}
+						// coordsCurrentProperty={{ lat: 50.4666086, lng: 4.0528334 }}
 						/>
 					</div>
 					<div className="property-info">
