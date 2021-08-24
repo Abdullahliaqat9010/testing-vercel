@@ -84,7 +84,7 @@ function* sendStepsDataRequest({ payload }: any) {
 function* remindPasswordRequest({ payload }: any) {
 	const { email, locale } = payload;
 	try {
-		const res = yield fetch(`${config.apiDomain}/auth/recover`, {
+		const res = yield fetch(`${config.apiDomain}/auth/recover-password`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -122,7 +122,7 @@ function* remindPasswordError(error: string) {
 function* sendDataForUpdatePasswordRequest({ payload }: any) {
 	try {
 		const { token, password } = payload;
-		const res = yield fetch(`${config.apiDomain}/auth/reset`, {
+		const res = yield fetch(`${config.apiDomain}/auth/reset-password`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -212,7 +212,7 @@ function* signupUserSuccess(
 		type: actionType.CREATE_PROPERTY_REQUEST,
 		payload: {
 			...property,
-			leadId: parseData.id,
+			leadId: parseData?.id,
 		},
 	});
 }
@@ -267,18 +267,29 @@ function* loginUserRequest({ payload }: any) {
 }
 
 function* loginUserSuccess(userData) {
+	const parseData = parseJwt(userData.access_token);
 	if (window.sessionStorage.getItem("forgotLogin")) {
-		const parseData = parseJwt(userData.access_token);
 		const data = {
 			leadId: parseData.id,
 			...JSON.parse(window.sessionStorage.getItem("forgotLogin")),
 		};
 		yield createPropertyRequest({ payload: data });
 	}
-
 	yield put({
 		type: actionType.LOGIN_USER_SUCCESS,
+		payload: {
+			userName: parseData?.firstname,
+			userSurname: parseData?.lastname,
+			userEmail: parseData?.email,
+			userPhone: parseData?.phone_number,
+			gender: parseData?.gender,
+			avatar: parseData?.avatar,
+			emailVerified: parseData?.email_verified,
+			accountType: parseData?.account_type,
+			id: parseData?.id,
+		},
 	});
+	window.location.href = "/dashboard";
 }
 
 function* loginUserError(error: string) {
@@ -287,6 +298,22 @@ function* loginUserError(error: string) {
 		type: actionType.LOGIN_USER_ERROR,
 		payload: error,
 	});
+}
+
+function* logoutUserRequest() {
+	try {
+		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token");
+		yield fetch("/auth-api/logout", {
+			method: "POST",
+		});
+		yield put({
+			type: actionType.LOGOUT_USER_SUCCESS,
+		});
+		window.location.href = "/";
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 function* contactAgencyRequest({ payload }: any) {
@@ -327,6 +354,7 @@ export function* userSaga() {
 	yield takeLatest(actionType.SEND_STEPS_DATA_REQUEST, sendStepsDataRequest);
 	yield takeLatest(actionType.SIGNUP_USER_REQUEST, signupUserRequest);
 	yield takeLatest(actionType.LOGIN_USER_REQUEST, loginUserRequest);
+	yield takeLatest(actionType.LOGOUT_USER_REQUEST, logoutUserRequest);
 	yield takeLatest(actionType.CONTACT_AGENCY_REQUEST, contactAgencyRequest);
 	yield takeLatest(actionType.CHECK_IF_EXIST_EMAIL, checkExistEmail);
 	yield takeLatest(actionType.VERIFY_EMAIL, verifyEmail);

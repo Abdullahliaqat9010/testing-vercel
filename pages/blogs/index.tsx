@@ -4,7 +4,6 @@ import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import HeaderContainer from "../../containers/Header";
-import { config } from "../../config/siteConfigs";
 import bg from "../../assets/images/blog/blogs_cover.png";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";

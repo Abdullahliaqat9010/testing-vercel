@@ -5,14 +5,14 @@ export default (req, res) => {
 		cookie.serialize("access_token", req.body.access_token, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV !== "development",
-			maxAge: 60 * 60,
+			maxAge: 60 * 60 * 24 * 60,
 			sameSite: "strict",
 			path: "/",
 		}),
 		cookie.serialize("refresh_token", req.body.refresh_token, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV !== "development",
-			maxAge: 60 * 60,
+			maxAge: 60 * 60 * 24 * 60,
 			sameSite: "strict",
 			path: "/",
 		}),

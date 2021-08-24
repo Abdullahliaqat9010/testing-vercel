@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { isMobile } from "react-device-detect";
-import { useRouter } from "next/router";
 
 import { userToken } from "../../config/siteConfigs";
 
@@ -24,45 +23,10 @@ import {
 import { parseJwt } from "../../utils";
 import { RootState } from "../../types/state";
 
-const withAuth = (Component) => {
-	const Auth = (props) => {
-		// Login data added to props via redux-store (or use react context for example)
-		const isLoggedIn = localStorage.getItem("access_token");
-		// If user is not logged in, return login component
-		if (!isLoggedIn) {
-			return null;
-		}
-
-		// If user is logged in, return original component
-		return <Component {...props} />;
-	};
-
-	// Copy getInitial props so it will run as well
-	if (Component.getInitialProps) {
-		Auth.getInitialProps = Component.getInitialProps;
-	}
-
-	return Auth;
-};
-
 const DashboardPageContainer = () => {
 	const { t } = useTranslation("dashboard-page");
 	const dispatch = useDispatch();
-	const router = useRouter();
 	const { goToDashboard } = useSelector((state: RootState) => state.stepsInfo);
-
-	/**
-	 * @todo Add private routes
-	 */
-	// useEffect(() => {
-	// 	if (goToDashboard && !userToken) {
-	// 		router.reload();
-	// 	}
-
-	// 	if (!userToken && !goToDashboard) {
-	// 		window.location.href = "/";
-	// 	}
-	// }, [userToken, goToDashboard]);
 
 	useEffect(() => {
 		if (userToken) {

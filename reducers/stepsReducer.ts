@@ -211,9 +211,7 @@ const stepsReducer = (state = initialState, action: any) => {
 				mainBlocks: true,
 			};
 		default:
-			return {
-				...state,
-			};
+			return state;
 	}
 };
 

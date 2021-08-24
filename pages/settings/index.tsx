@@ -16,7 +16,9 @@ import ValidPasswordIcon from "../../assets/images/valid.svg";
 import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
 import { UPDATE_USER_PROFILE } from "../../actions/actionTypes";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
+import { userLogoutAction } from "../../actions";
+import { requireAuthentication } from "../../utils/requireAuthentication";
 
 const SettingsPage = () => {
 	const dispatch = useDispatch();
@@ -34,6 +36,7 @@ const SettingsPage = () => {
 	const [isUpdatingProfile, setIsUpdatingProfile] = useState<boolean>(false);
 	const [isProfileMessageVisible, setIsProfileMessageVisible] =
 		useState<boolean>(false);
+	const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false);
 
 	const _firstname = useSelector<RootState>(
 		(state) => state.userInfo.userName as string
@@ -44,6 +47,8 @@ const SettingsPage = () => {
 	const _phoneNumber = useSelector<RootState>(
 		(state) => state.userInfo.userPhone as string
 	);
+	const avatar = useSelector<RootState>((state) => state.userInfo.avatar);
+	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
 	const [firstname, setFirstname] = useState<string>(_firstname as string);
 	const [lastname, setLastname] = useState<string>(_lastname as string);
@@ -99,13 +104,56 @@ const SettingsPage = () => {
 		}
 	};
 
+	const handleImageUpload = (image: File): Promise<string> => {
+		return new Promise(async (res, rej) => {
+			try {
+				const formData = new FormData();
+				formData.append("upload", image);
+				const { data } = await axios.post(`/image-upload`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				});
+				res(data);
+			} catch (error) {
+				rej(error);
+			}
+		});
+	};
+
+	const updateAvatar = async (image: File) => {
+		try {
+			setIsAvatarUploading(true);
+			const newAvatarUrl = await handleImageUpload(image);
+			await axios.put(
+				`/users/${userId}`,
+				{
+					avatar: newAvatarUrl,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+					},
+				}
+			);
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					avatar: newAvatarUrl,
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsAvatarUploading(false);
+		}
+	};
+
 	const updateProfile = async () => {
-		const parsedData = jwt.decode(localStorage.getItem("access_token")) as any;
-		console.log(parsedData);
 		try {
 			setIsUpdatingProfile(true);
 			await axios.put(
-				`/users/${parsedData.id}`,
+				`/users/${userId}`,
 				{
 					firstname,
 					lastname,
@@ -342,14 +390,40 @@ const SettingsPage = () => {
 				</div>
 				<div className="user-info-block">
 					<div className="user-avatar">
-						<img src={NoPhoto} alt="NoPhoto" />
-						<span className="upload-btn">Upload photo</span>
+						<img src={avatar ? avatar : NoPhoto} alt="NoPhoto" />
+						<input
+							onChange={(e) => {
+								const files = e.target.files;
+								if (files.length > 0) {
+									updateAvatar(files[0]);
+								}
+							}}
+							type="file"
+							name="avatarFile"
+							multiple={false}
+							id="avatarFile"
+							accept="image/x-png,image/gif,image/jpeg"
+							className="inputAvatarfile"
+						/>
+						<label htmlFor="avatarFile">
+							{isAvatarUploading
+								? "Uploading..."
+								: avatar
+								? "Change Photo"
+								: "Upload Photo"}
+						</label>
+						{/* <span className="upload-btn">Upload photo</span> */}
 					</div>
 					<div className="user-short-info">
-						<span className="fullname">{`${firstname} ${lastname}`}</span>
+						<span className="fullname">{`${_firstname} ${_lastname}`}</span>
 						<span className="status">Professional</span>
 					</div>
-					<span className="logout">
+					<span
+						onClick={() => {
+							dispatch(userLogoutAction());
+						}}
+						className="logout"
+					>
 						Log out <img src={ArrowIcon} alt="ArrowIcon" />
 					</span>
 				</div>
@@ -359,10 +433,10 @@ const SettingsPage = () => {
 	);
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getServerSideProps = requireAuthentication(async ({ locale }) => ({
 	props: {
 		...(await serverSideTranslations(locale, ["header", "common"])),
 	},
-});
+}));
 
 export default SettingsPage;

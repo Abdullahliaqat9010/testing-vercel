@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import { store, persistor } from "../store";
 import { config } from "../config/siteConfigs";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 import TagManager from "react-gtm-module";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,23 +31,74 @@ import "../styles/pages/404.scss";
 import "../styles/pages/create-blog.scss";
 import "../styles/pages/blogs.scss";
 
+const refreshAccessToken = (): Promise<{ access_token: string }> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const access_token = localStorage.getItem("access_token");
+			const refresh_token = localStorage.getItem("refresh_token");
+			const req = await fetch(`${config.apiDomain}/auth/refresh-token`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					access_token,
+					refresh_token,
+				}),
+			});
+			const { access_token: _access_token } = await req.json();
+			localStorage.setItem("access_token", _access_token);
+			await fetch("/auth-api/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					access_token: _access_token,
+					refresh_token,
+				}),
+			});
+			res({ access_token: _access_token });
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
 const tagManagerArgs = {
 	gtmId: config.metricKey,
 };
 
 axios.interceptors.request.use(
-	(request) => {
-		if (request) {
-			console.log(request.headers["Authorization"]);
-			//console.log(store.getState());
+	async (request) => {
+		if (request && typeof window !== undefined) {
+			const access_token = localStorage.getItem("access_token");
 			request.baseURL = config.apiDomain;
-			// request.headers["Authorization"] =
-			// 	"Bearer " + window.localStorage.getItem("access_token");
+			request.headers["Authorization"] = `Bearer ${access_token}`;
 		}
 		return request;
 	},
 	(error) => {
 		Promise.reject(error);
+	}
+);
+
+axios.interceptors.response.use(
+	(response: AxiosResponse<any>) => {
+		return response;
+	},
+	async (error: AxiosError) => {
+		const originalRequest = error.config as any;
+		if (
+			error?.response?.status === 401 &&
+			!originalRequest._retry &&
+			typeof window !== undefined
+		) {
+			originalRequest._retry = true;
+			const { access_token } = await refreshAccessToken();
+			return axios(originalRequest);
+		}
+		return Promise.reject(error);
 	}
 );
 

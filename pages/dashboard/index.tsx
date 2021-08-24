@@ -2,7 +2,6 @@ import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import DashboardPageContainer from "../../containers/DashboardPageContainer";
-import { GetServerSideProps } from "next";
 import { requireAuthentication } from "../../utils/requireAuthentication";
 
 const DashboardPage = () => {
