@@ -8,6 +8,7 @@ import bg from "../../assets/images/blog/blogs_cover.png";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { parseJwt } from "../../utils";
+import { config } from "../../config/siteConfigs";
 
 const BlogCard = ({ blog }) => {
 	const router = useRouter();
@@ -139,7 +140,10 @@ const Blogs = ({ blogs }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-	const { data } = await axios.get(`/blogs`);
+	const axiosInstance = axios.create({
+		baseURL: config.apiDomain,
+	});
+	const { data } = await axiosInstance.get(`/blogs`);
 	return {
 		props: {
 			blogs: [...data],

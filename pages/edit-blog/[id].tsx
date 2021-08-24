@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { generateSlug } from "../../utils/generateSlug";
 import { parseJwt } from "../../utils";
 import jwt from "jsonwebtoken";
+import { config } from "../../config/siteConfigs";
 
 const Editor = dynamic(
 	() => {
@@ -200,6 +201,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 }) => {
 	try {
+		const axiosInstance = axios.create({
+			baseURL: config.apiDomain,
+		});
 		if (req.cookies?.access_token) {
 			const parsedAccessToken = jwt.decode(req.cookies?.access_token) as {
 				account_type: string;
@@ -215,7 +219,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				notFound: true,
 			};
 		}
-		const { data } = await axios.get(`/blogs/${params.id}`);
+		const { data } = await axiosInstance.get(`/blogs/${params.id}`);
 		if (!data) {
 			return {
 				notFound: true,
