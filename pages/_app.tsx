@@ -31,7 +31,7 @@ import "../styles/pages/404.scss";
 import "../styles/pages/create-blog.scss";
 import "../styles/pages/blogs.scss";
 
-const refreshAccessToken = (): Promise<{ access_token: string }> => {
+const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const access_token = localStorage.getItem("access_token");
@@ -55,10 +55,9 @@ const refreshAccessToken = (): Promise<{ access_token: string }> => {
 				},
 				body: JSON.stringify({
 					access_token: _access_token,
-					refresh_token,
 				}),
 			});
-			res({ access_token: _access_token });
+			res();
 		} catch (error) {
 			rej(error);
 		}
@@ -95,7 +94,7 @@ axios.interceptors.response.use(
 			typeof window !== undefined
 		) {
 			originalRequest._retry = true;
-			const { access_token } = await refreshAccessToken();
+			await refreshAccessToken();
 			return axios(originalRequest);
 		}
 		return Promise.reject(error);
