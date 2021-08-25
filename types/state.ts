@@ -41,6 +41,8 @@ export interface RootState {
 		userEmail: string;
 		userPhone: string;
 		accountTye: string;
+		t_c: boolean;
+		promo_mailing: boolean;
 		errors: string;
 		avatar: string;
 	};
