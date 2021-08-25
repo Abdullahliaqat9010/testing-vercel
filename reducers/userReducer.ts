@@ -10,6 +10,8 @@ export const initialState = {
 	avatar: "",
 	emailVerified: false,
 	accountType: "",
+	t_c: false,
+	promo_mailing: false,
 	auth: false,
 	existEmail: false,
 	noEstimation: false,

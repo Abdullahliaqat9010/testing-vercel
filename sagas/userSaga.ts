@@ -237,6 +237,8 @@ function* loginUserSuccess(userData) {
 			emailVerified: parseData?.email_verified,
 			accountType: parseData?.account_type,
 			id: parseData?.id,
+			t_c: parseData?.t_c,
+			promo_mailing: parseData?.promo_mailing,
 		},
 	});
 	window.location.href = "/dashboard";

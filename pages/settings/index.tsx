@@ -16,7 +16,6 @@ import ValidPasswordIcon from "../../assets/images/valid.svg";
 import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
 import { UPDATE_USER_PROFILE } from "../../actions/actionTypes";
-import { GetServerSideProps, GetStaticProps } from "next";
 import { userLogoutAction } from "../../actions";
 import { requireAuthentication } from "../../utils/requireAuthentication";
 
@@ -37,6 +36,10 @@ const SettingsPage = () => {
 	const [isProfileMessageVisible, setIsProfileMessageVisible] =
 		useState<boolean>(false);
 	const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false);
+	const [isChangingNotification, setIsChangingNotification] =
+		useState<boolean>(false);
+	const [isNotificationMessageVisible, setIsNotificationMessageVisible] =
+		useState<boolean>(false);
 	const [isInvalidPass, setIsInvalidPass] = useState<boolean>(false);
 
 	const _firstname = useSelector<RootState>(
@@ -51,6 +54,9 @@ const SettingsPage = () => {
 	const email = useSelector<RootState>(
 		(state) => state.userInfo.userEmail
 	) as string;
+	const promo_mailing = useSelector<RootState>(
+		(state) => state.userInfo.promo_mailing
+	) as boolean;
 	const avatar = useSelector<RootState>((state) => state.userInfo.avatar);
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
@@ -159,6 +165,26 @@ const SettingsPage = () => {
 			console.log(error);
 		} finally {
 			setIsUpdatingProfile(false);
+		}
+	};
+
+	const updateNotificationPreference = async (value) => {
+		try {
+			setIsChangingNotification(true);
+			await axios.put(`users/${userId}`, {
+				promo_mailing: value,
+			});
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					promo_mailing: value,
+				},
+			});
+			setIsNotificationMessageVisible(true);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsChangingNotification(false);
 		}
 	};
 
@@ -354,8 +380,22 @@ const SettingsPage = () => {
 									<Form.Check
 										type="checkbox"
 										label="I allow Immo Belgium to send me updates about my market."
+										checked={promo_mailing}
+										disabled={isChangingNotification}
+										onChange={(e) =>
+											updateNotificationPreference(e.target.checked)
+										}
 									/>
 								</Form.Group>
+								<Alert
+									style={{ marginTop: -20 }}
+									variant="success"
+									dismissible
+									show={isNotificationMessageVisible}
+									onClose={() => setIsNotificationMessageVisible(false)}
+								>
+									Notification preference has been updated successfully!
+								</Alert>
 							</div>
 						</Form>
 					</div>
