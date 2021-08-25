@@ -2,22 +2,14 @@ import { takeLatest, put } from "redux-saga/effects";
 import { config } from "../config/siteConfigs";
 
 import * as actionType from "../actions/actionTypes";
+import axios from "axios";
 
 export function* createPropertyRequest({ payload }: any) {
 	try {
-		const token = localStorage.getItem("access_token");
-		const res = yield fetch(`${config.apiDomain}/property`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "bearer " + token,
-			},
-			body: JSON.stringify(payload),
+		yield axios.post("property", {
+			...payload,
 		});
-
-		if (res.status === 201) {
-			yield createPropertySuccess();
-		}
+		yield createPropertySuccess();
 	} catch (error) {
 		console.error(error);
 		yield createPropertyError(error);
@@ -27,20 +19,10 @@ export function* createPropertyRequest({ payload }: any) {
 function* updatePropertyRequest({ payload }: any) {
 	try {
 		const { data, propertyId } = payload;
-
-		const token = localStorage.getItem("access_token");
-		const res = yield fetch(`${config.apiDomain}/property/${propertyId}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "bearer " + token,
-			},
-			body: JSON.stringify(data),
+		yield axios.put(`property/${propertyId}`, {
+			...data,
 		});
-
-		if (res.status === 200) {
-			yield updatePropertySuccess();
-		}
+		yield updatePropertySuccess();
 	} catch (error) {
 		console.error(error);
 		yield updatePropertyError(error);
@@ -51,6 +33,7 @@ function* updatePropertySuccess() {
 	yield put({
 		type: actionType.UPDATE_PROPERTY_SUCCESS,
 	});
+	window.location.href = "/dashboard";
 }
 
 function* updatePropertyError(error) {
@@ -78,19 +61,8 @@ function* createPropertyError(error) {
 function* getPropertyForCurrentUser({ payload }: any) {
 	const { userId, elementsOnPage } = payload;
 	try {
-		const token = localStorage.getItem("access_token");
-		const res = yield fetch(`${config.apiDomain}/users/${userId}/property`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "bearer " + token,
-			},
-		});
-
-		if (res.status === 200) {
-			const data = yield res.json();
-			yield getPropertyForCurrentUserSuccess(data.properties, elementsOnPage);
-		}
+		const { data } = yield axios.get(`users/${userId}/property`);
+		yield getPropertyForCurrentUserSuccess(data.properties, elementsOnPage);
 	} catch (error) {
 		yield getPropertyForCurrentUserError(error);
 	}
@@ -121,34 +93,24 @@ function* getSimilarPropertyRequest(
 	limit: number
 ) {
 	try {
-		const token = localStorage.getItem("access_token");
-		const res = yield fetch(
-			`${config.apiDomain}/property/${propertyId}/similar?page=${page}&limit=${limit}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "bearer " + token,
-				},
-			}
+		const { data } = yield axios.get(
+			`property/${propertyId}/similar?page=${page}&limit=${limit}`
 		);
 
-		if (res.status === 200) {
-			const similarPropertiesLocation = [];
-			const { data, meta, agencies } = yield res.json();
-			data.forEach((item) => {
-				similarPropertiesLocation.push({
-					id: Number(item.id),
-					lat: Number(item.lat),
-					lng: Number(item.lng),
-					activeOnMap: false,
-				});
+		const similarPropertiesLocation = [];
+		const { data: items, meta, agencies } = data;
+		items.forEach((item) => {
+			similarPropertiesLocation.push({
+				id: Number(item.id),
+				lat: Number(item.lat),
+				lng: Number(item.lng),
+				activeOnMap: false,
 			});
-			yield getSimilarPropertySuccess(data);
-			yield setSimilarPropertyPaginationInfo(meta);
-			yield setSimilarPropertyLocation(similarPropertiesLocation);
-			yield setSimilarPropertyByAgency(agencies);
-		}
+		});
+		yield getSimilarPropertySuccess(items);
+		yield setSimilarPropertyPaginationInfo(meta);
+		yield setSimilarPropertyLocation(similarPropertiesLocation);
+		yield setSimilarPropertyByAgency(agencies);
 	} catch (error) {
 		yield getSimilarPropertyError(error);
 	}
@@ -192,25 +154,12 @@ function* getSimilarPropertyError(error: string) {
 
 function* getPriceProperty({ payload }: any) {
 	try {
-		const token = localStorage.getItem("access_token");
-		const res = yield fetch(
-			`${config.apiDomain}/property/${payload}/estimation`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "bearer " + token,
-				},
-			}
-		);
-
-		if (res.status === 200) {
-			const { data } = yield res.json();
-			if (data.message !== "Not found") {
-				yield getPricePropertySuccess(data);
-			} else {
-				yield setNoEstimationProperty();
-			}
+		const { data: _data } = yield axios.get(`property/${payload}/estimation`);
+		const { data } = _data;
+		if (data.message !== "Not found") {
+			yield getPricePropertySuccess(data);
+		} else {
+			yield setNoEstimationProperty();
 		}
 	} catch (error) {
 		yield getPricePropertyError(error);
@@ -243,20 +192,11 @@ function* getMoreSimilarProperty({ payload }: any) {
 }
 
 function* getGoogleDataAgency() {
-	const token = localStorage.getItem("access_token");
 	try {
-		const res = yield fetch(`${config.apiDomain}/agency/reviews`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "bearer " + token,
-			},
-		});
+		const { data: _data } = yield axios.get("agency/reviews");
 
-		if (res.status === 200) {
-			const { data } = yield res.json();
-			yield getGoogleDataAgencySuccess(data.reviews);
-		}
+		const { data } = _data;
+		yield getGoogleDataAgencySuccess(data.reviews);
 	} catch (error) {
 		yield getGoogleDataAgencyError(error);
 	}
@@ -277,20 +217,10 @@ function* getGoogleDataAgencyError(error: string) {
 }
 
 function* getPropertyAgencyData() {
-	const token = localStorage.getItem("access_token");
 	try {
-		const res = yield fetch(`${config.apiDomain}/property/by-agency`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "bearer " + token,
-			},
-		});
-
-		if (res.status === 200) {
-			const { data } = yield res.json();
-			yield getPropertyAgencyDataSuccess(data);
-		}
+		const { data: _data } = yield axios.get("property/by-agency");
+		const { data } = _data;
+		yield getPropertyAgencyDataSuccess(data);
 	} catch (error) {
 		yield getPropertyAgencyDataError(error);
 	}
