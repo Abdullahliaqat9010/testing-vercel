@@ -49,6 +49,7 @@ const middlewares = reduxLogger
 
 export const store = createStore(
 	persistReducer(persistConfig, rootReducer),
+	{},
 	enchantedCompose(middlewares)
 );
 export const persistor = persistStore(store);
