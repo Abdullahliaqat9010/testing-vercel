@@ -14,6 +14,7 @@
   "p.password":"We strongly recommend to use strong password, with at least one symbol and digit.",
   "link.change-password":"Change password",
   "label.current-password": "Current password",
+  "message.invalid-current-password": "Invalid current password",
   "label.enter-new-password":"Enter new password",
   "label.repeat-password":"Repeat new password",
   "button.confirm": "Confirm",

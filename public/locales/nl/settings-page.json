@@ -14,6 +14,7 @@
    "p.password": "We raden ten zeerste aan om een sterk wachtwoord te gebruiken, met ten minste één symbool en cijfer.",
    "link.change-password": "Verander wachtwoord",
    "label.current-password": "Huidig wachtwoord",
+   "message.invalid-current-password": "Ongeldig huidig wachtwoord",
    "label.enter-new-password": "Voer nieuw wachtwoord in",
    "label.repeat-password": "Herhaal nieuw wachtwoord",
    "button.confirm": "Bevestigen",

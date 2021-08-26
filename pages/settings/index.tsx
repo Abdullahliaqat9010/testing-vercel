@@ -17,7 +17,6 @@ import ValidPasswordIcon from "../../assets/images/valid.svg";
 import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
 import { UPDATE_USER_PROFILE } from "../../actions/actionTypes";
-import { GetServerSideProps, GetStaticProps } from "next";
 import { userLogoutAction } from "../../actions";
 import { requireAuthentication } from "../../utils/requireAuthentication";
 
@@ -42,6 +41,11 @@ const SettingsPage = () => {
 	const [isProfileMessageVisible, setIsProfileMessageVisible] =
 		useState<boolean>(false);
 	const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false);
+	const [isChangingNotification, setIsChangingNotification] =
+		useState<boolean>(false);
+	const [isNotificationMessageVisible, setIsNotificationMessageVisible] =
+		useState<boolean>(false);
+	const [isInvalidPass, setIsInvalidPass] = useState<boolean>(false);
 
 	const _firstname = useSelector<RootState>(
 		(state) => state.userInfo.userName as string
@@ -52,6 +56,12 @@ const SettingsPage = () => {
 	const _phoneNumber = useSelector<RootState>(
 		(state) => state.userInfo.userPhone as string
 	);
+	const email = useSelector<RootState>(
+		(state) => state.userInfo.userEmail
+	) as string;
+	const promo_mailing = useSelector<RootState>(
+		(state) => state.userInfo.promo_mailing
+	) as boolean;
 	const avatar = useSelector<RootState>((state) => state.userInfo.avatar);
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
@@ -86,24 +96,17 @@ const SettingsPage = () => {
 	const changePassword = async () => {
 		try {
 			setIsChangingPass(true);
-			await axios.post(
-				`/auth/change-password`,
-				{
-					new_password: newPasswordData.newPass,
-					password: currentPassword,
-					token: localStorage.getItem("refresh_token"),
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-					},
-				}
-			);
+			setIsInvalidPass(false);
+			await axios.post(`auth/change-password`, {
+				new_password: newPasswordData.newPass,
+				password: currentPassword,
+				token: localStorage.getItem("refresh_token"),
+			});
 			setNewPasswordData({ newPass: "", repeatNewPass: "" });
 			setCurrentPassword("");
 			setIsPasswordMessageVisible(true);
 		} catch (error) {
-			console.log(error);
+			setIsInvalidPass(true);
 		} finally {
 			setIsChangingPass(false);
 		}
@@ -114,7 +117,7 @@ const SettingsPage = () => {
 			try {
 				const formData = new FormData();
 				formData.append("upload", image);
-				const { data } = await axios.post(`/image-upload`, formData, {
+				const { data } = await axios.post(`image-upload`, formData, {
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
@@ -130,17 +133,9 @@ const SettingsPage = () => {
 		try {
 			setIsAvatarUploading(true);
 			const newAvatarUrl = await handleImageUpload(image);
-			await axios.put(
-				`/users/${userId}`,
-				{
-					avatar: newAvatarUrl,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-					},
-				}
-			);
+			await axios.put(`users/${userId}`, {
+				avatar: newAvatarUrl,
+			});
 			dispatch({
 				type: UPDATE_USER_PROFILE,
 				payload: {
@@ -157,19 +152,11 @@ const SettingsPage = () => {
 	const updateProfile = async () => {
 		try {
 			setIsUpdatingProfile(true);
-			await axios.put(
-				`/users/${userId}`,
-				{
-					firstname,
-					lastname,
-					phone_number: phoneNumber ? phoneNumber : undefined,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-					},
-				}
-			);
+			await axios.put(`/users/${userId}`, {
+				firstname,
+				lastname,
+				phone_number: phoneNumber ? phoneNumber : undefined,
+			});
 			dispatch({
 				type: UPDATE_USER_PROFILE,
 				payload: {
@@ -183,6 +170,26 @@ const SettingsPage = () => {
 			console.log(error);
 		} finally {
 			setIsUpdatingProfile(false);
+		}
+	};
+
+	const updateNotificationPreference = async (value) => {
+		try {
+			setIsChangingNotification(true);
+			await axios.put(`users/${userId}`, {
+				promo_mailing: value,
+			});
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					promo_mailing: value,
+				},
+			});
+			setIsNotificationMessageVisible(true);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsChangingNotification(false);
 		}
 	};
 
@@ -226,17 +233,19 @@ const SettingsPage = () => {
 									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
-							{/* <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  required
-                  name='email'
-                  type="email"
-                />
-                <Form.Control.Feedback type="invalid">
-                  required
-                </Form.Control.Feedback>
-              </Form.Group> */}
+							<Form.Group controlId="email">
+								<Form.Label>Email</Form.Label>
+								<Form.Control
+									value={email}
+									disabled
+									required
+									name="email"
+									type="email"
+								/>
+								<Form.Control.Feedback type="invalid">
+									required
+								</Form.Control.Feedback>
+							</Form.Group>
 							<Form.Group controlId="phone">
 								<Form.Label>{t("label.phone")}</Form.Label>
 								<Form.Control
@@ -304,9 +313,10 @@ const SettingsPage = () => {
 												value={currentPassword}
 												name="password"
 												type="password"
+												isInvalid={isInvalidPass}
 											/>
 											<Form.Control.Feedback type="invalid">
-												{t("span.required")}
+												{t("message.invalid-current-password")}
 											</Form.Control.Feedback>
 										</Form.Group>
 										<Form.Group controlId="new-pass">
@@ -369,8 +379,22 @@ const SettingsPage = () => {
 									<Form.Check
 										type="checkbox"
 										label={t("label.checkbox")}
+										checked={promo_mailing}
+										disabled={isChangingNotification}
+										onChange={(e) =>
+											updateNotificationPreference(e.target.checked)
+										}
 									/>
 								</Form.Group>
+								<Alert
+									style={{ marginTop: -20 }}
+									variant="success"
+									dismissible
+									show={isNotificationMessageVisible}
+									onClose={() => setIsNotificationMessageVisible(false)}
+								>
+									Notification preference has been updated successfully!
+								</Alert>
 							</div>
 						</Form>
 					</div>

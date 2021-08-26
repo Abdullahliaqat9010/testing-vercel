@@ -14,6 +14,7 @@
     "p.password": "Nous vous recommandons fortement d'utiliser un mot de passe fort, avec au moins un symbole et un chiffre.",
     "link.change-password": "Changer le mot de passe",
     "label.current-password": "Mot de passe actuel",
+    "message.invalid-current-password": "Mot de passe actuel invalide",
     "label.enter-new-password": "Entrez un nouveau mot de passe",
     "label.repeat-password": "Répété le nouveau mot de passe",
     "button.confirm": "Confirmer",

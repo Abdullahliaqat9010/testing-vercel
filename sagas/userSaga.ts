@@ -5,17 +5,12 @@ import * as actionType from "../actions/actionTypes";
 import { parseJwt } from "../utils";
 import { config } from "../config/siteConfigs";
 import { createPropertyRequest } from "./propertySaga";
+import axios from "axios";
 
 function* checkExistEmail({ payload }: any) {
 	try {
-		const res = yield fetch(`${config.apiDomain}/users/${payload}/exist`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		const data = yield res.json();
-		yield checkExistEmailSuccess(data);
+		const { data: exists } = yield axios.get(`/users/${payload}/exist`);
+		yield checkExistEmailSuccess(exists);
 	} catch (error) {
 		yield checkExistEmailError(error);
 	}
@@ -38,29 +33,22 @@ function* checkExistEmailError(error: string) {
 
 function* verifyEmail({ payload }: any) {
 	try {
-		const res = yield fetch(`${config.apiDomain}/auth/verify-user/${payload}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-
-		const { data } = yield res.json();
-
-		if (res.status == 401) {
-			yield verifyEmailError(data.message);
-		}
-
-		if (res.status == 200) {
-			yield verifyEmailSuccess(data.access_token);
-		}
+		yield axios.post(
+			"auth/verify-email",
+			{},
+			{
+				params: {
+					token: payload,
+				},
+			}
+		);
+		yield verifyEmailSuccess();
 	} catch (error) {
 		yield verifyEmailError(error);
 	}
 }
 
-function* verifyEmailSuccess(token: string) {
-	localStorage.setItem("auth", token);
+function* verifyEmailSuccess() {
 	yield put({
 		type: actionType.VERIFY_EMAIL_SUCCESS,
 	});
@@ -84,22 +72,11 @@ function* sendStepsDataRequest({ payload }: any) {
 function* remindPasswordRequest({ payload }: any) {
 	const { email, locale } = payload;
 	try {
-		const res = yield fetch(`${config.apiDomain}/auth/recover-password`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				email,
-				locale,
-			}),
+		yield axios.post("auth/recover-password", {
+			email,
+			locale,
 		});
-
-		if (res.status === 204) {
-			yield remindPasswordSuccess();
-		} else {
-			yield remindPasswordError("something went wrong");
-		}
+		yield remindPasswordSuccess();
 	} catch (e) {
 		yield remindPasswordError(e);
 	}
@@ -122,23 +99,12 @@ function* remindPasswordError(error: string) {
 function* sendDataForUpdatePasswordRequest({ payload }: any) {
 	try {
 		const { token, password } = payload;
-		const res = yield fetch(`${config.apiDomain}/auth/reset-password`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				token,
-				password,
-			}),
+		yield axios.post("auth/reset-password", {
+			token,
+			password,
 		});
 
-		if (res.status === 204) {
-			yield sendDataForUpdatePasswordSuccess();
-		} else {
-			const data = yield res.json();
-			yield sendDataForUpdatePasswordError(data.message);
-		}
+		yield sendDataForUpdatePasswordSuccess();
 	} catch (e) {
 		yield sendDataForUpdatePasswordError(e);
 	}
@@ -161,56 +127,37 @@ function* sendDataForUpdatePasswordSuccess() {
 function* signupUserRequest({ payload }: any) {
 	const { user, property, locale } = payload;
 	try {
-		const res = yield fetch(
-			`${config.apiDomain}/auth/signup?locale=${locale}`,
+		const { data } = yield axios.post(
+			"auth/signup",
 			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
+				firstname: user.firstName,
+				lastname: user.lastName,
+				email: user.email,
+				phone_number: user.phone_number,
+				password: user.password,
+				promo_mailing: user.promotions,
+				t_c: user.agreement,
+			},
+			{
+				params: {
+					locale,
 				},
-				body: JSON.stringify({
-					firstname: user.firstName,
-					lastname: user.lastName,
-					email: user.email,
-					phone_number: user.phone_number,
-					password: user.password,
-					promo_mailing: user.promotions,
-					t_c: user.agreement,
-				}),
 			}
 		);
+		localStorage.setItem("access_token", data.access_token);
+		localStorage.setItem("refresh_token", data.refresh_token);
+		yield fetch("/auth-api/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				access_token: data.access_token,
+				refresh_token: data.refresh_token,
+			}),
+		});
 
-		if (res.status === 201) {
-			const data = yield res.json();
-			localStorage.setItem("access_token", data.access_token);
-			localStorage.setItem("refresh_token", data.refresh_token);
-			yield fetch("/auth-api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					access_token: data.access_token,
-					refresh_token: data.refresh_token,
-				}),
-			});
-			const parseData = parseJwt(data.access_token);
-			yield put({
-				type: actionType.LOGIN_USER_SUCCESS,
-				payload: {
-					userName: parseData?.firstname,
-					userSurname: parseData?.lastname,
-					userEmail: parseData?.email,
-					userPhone: parseData?.phone_number,
-					gender: parseData?.gender,
-					avatar: parseData?.avatar,
-					emailVerified: parseData?.email_verified,
-					accountType: parseData?.account_type,
-					id: parseData?.id,
-				},
-			});
-			yield signupUserSuccess(data, property);
-		}
+		yield signupUserSuccess(data, property);
 	} catch (error) {
 		console.error(error);
 		yield signupUserError(error);
@@ -221,7 +168,7 @@ function* signupUserSuccess(
 	userData: { access_token: string },
 	property: object
 ) {
-	yield put({ type: actionType.SIGNUP_USER_SUCCESS });
+	yield loginUserSuccess(userData);
 	const parseData = parseJwt(userData.access_token);
 	yield put({
 		type: actionType.CREATE_PROPERTY_REQUEST,
@@ -246,38 +193,26 @@ function* loginUserRequest({ payload }: any) {
 	};
 
 	try {
-		const res = yield fetch(`${config.apiDomain}/auth/login`, {
+		const { data } = yield axios.post("auth/login", {
+			email: user.email,
+			password: user.password,
+		});
+
+		localStorage.setItem("access_token", data.access_token);
+		localStorage.setItem("refresh_token", data.refresh_token);
+		yield fetch("/auth-api/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				email: user.email,
-				password: user.password,
+				access_token: data.access_token,
+				refresh_token: data.refresh_token,
 			}),
 		});
-
-		const data = yield res.json();
-
-		if (res.status === 201) {
-			localStorage.setItem("access_token", data.access_token);
-			localStorage.setItem("refresh_token", data.refresh_token);
-			yield fetch("/auth-api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					access_token: data.access_token,
-					refresh_token: data.refresh_token,
-				}),
-			});
-			yield loginUserSuccess(data);
-		} else {
-			yield loginUserError(data.message);
-		}
+		yield loginUserSuccess(data);
 	} catch (error) {
-		yield loginUserError(error);
+		yield loginUserError("Invalid email or password");
 	}
 }
 
@@ -302,6 +237,8 @@ function* loginUserSuccess(userData) {
 			emailVerified: parseData?.email_verified,
 			accountType: parseData?.account_type,
 			id: parseData?.id,
+			t_c: parseData?.t_c,
+			promo_mailing: parseData?.promo_mailing,
 		},
 	});
 	window.location.href = "/dashboard";
@@ -333,19 +270,10 @@ function* logoutUserRequest() {
 
 function* contactAgencyRequest({ payload }: any) {
 	try {
-		const token = localStorage.getItem("access_token");
-		const res = yield fetch(`${config.apiDomain}/agency/contact`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "bearer " + token,
-			},
-			body: JSON.stringify({ ...payload }),
+		yield axios.post("agency/contact", {
+			...payload,
 		});
-
-		if (res.status === 201) {
-			yield contactAgencySuccess();
-		}
+		yield contactAgencySuccess();
 	} catch (error) {
 		yield contactAgencyError(error);
 	}

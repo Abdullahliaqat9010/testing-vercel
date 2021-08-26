@@ -36,28 +36,32 @@ const refreshAccessToken = (): Promise<void> => {
 		try {
 			const access_token = localStorage.getItem("access_token");
 			const refresh_token = localStorage.getItem("refresh_token");
-			const req = await fetch(`${config.apiDomain}/auth/refresh-token`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					access_token,
-					refresh_token,
-				}),
-			});
-			const { access_token: _access_token } = await req.json();
-			localStorage.setItem("access_token", _access_token);
-			await fetch("/auth-api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					access_token: _access_token,
-				}),
-			});
-			res();
+			if (access_token && refresh_token) {
+				const req = await fetch(`${config.apiDomain}/auth/refresh-token`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						access_token,
+						refresh_token,
+					}),
+				});
+				const { access_token: _access_token } = await req.json();
+				localStorage.setItem("access_token", _access_token);
+				await fetch("/auth-api/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						access_token: _access_token,
+					}),
+				});
+				res();
+			} else {
+				rej("Invalid access_token or refresh_token");
+			}
 		} catch (error) {
 			rej(error);
 		}
@@ -94,7 +98,11 @@ axios.interceptors.response.use(
 			typeof window !== undefined
 		) {
 			originalRequest._retry = true;
-			await refreshAccessToken();
+			try {
+				await refreshAccessToken();
+			} catch (error) {
+				console.log(error);
+			}
 			return axios(originalRequest);
 		}
 		return Promise.reject(error);
