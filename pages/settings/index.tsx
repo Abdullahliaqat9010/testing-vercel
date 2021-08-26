@@ -4,7 +4,8 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
 import NavBarContainer from "../../containers/NavBar";
@@ -22,6 +23,10 @@ import { requireAuthentication } from "../../utils/requireAuthentication";
 
 const SettingsPage = () => {
 	const dispatch = useDispatch();
+	const router = useRouter();
+	const { locale } = router;
+
+	const { t } = useTranslation("settings-page")
 
 	const [newPasswordData, setNewPasswordData] = useState({
 		newPass: "",
@@ -183,12 +188,12 @@ const SettingsPage = () => {
 
 	return (
 		<>
-			<HeaderContainer title="Account Settings" />
+			<HeaderContainer title={t('title')} />
 			<div className="SettingsPage container">
 				<NavBarContainer />
 				<div className="SettingsPage__container w-100">
 					<div className="first-block">
-						<h1>Profile details</h1>
+						<h1>{t('h1.title')}</h1>
 						<Form
 							onSubmit={(e) => {
 								e.preventDefault();
@@ -196,7 +201,7 @@ const SettingsPage = () => {
 							}}
 						>
 							<Form.Group controlId="firstName">
-								<Form.Label>First name</Form.Label>
+								<Form.Label>{t("label.firstName")}</Form.Label>
 								<Form.Control
 									value={firstname}
 									onChange={(e) => setFirstname(e.target.value)}
@@ -205,11 +210,11 @@ const SettingsPage = () => {
 									type="text"
 								/>
 								<Form.Control.Feedback type="invalid">
-									required
+									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group controlId="lastName">
-								<Form.Label>Last name</Form.Label>
+								<Form.Label>{t("label.lastName")}</Form.Label>
 								<Form.Control
 									value={lastname}
 									onChange={(e) => setLastname(e.target.value)}
@@ -218,7 +223,7 @@ const SettingsPage = () => {
 									type="text"
 								/>
 								<Form.Control.Feedback type="invalid">
-									required
+									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
 							{/* <Form.Group controlId="email">
@@ -233,7 +238,7 @@ const SettingsPage = () => {
                 </Form.Control.Feedback>
               </Form.Group> */}
 							<Form.Group controlId="phone">
-								<Form.Label>Phone number</Form.Label>
+								<Form.Label>{t("label.phone")}</Form.Label>
 								<Form.Control
 									value={phoneNumber}
 									onChange={(e) => setPhoneNumber(e.target.value)}
@@ -242,7 +247,7 @@ const SettingsPage = () => {
 									type="text"
 								/>
 								<Form.Control.Feedback type="invalid">
-									required
+									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
 							{/* <Form.Group
@@ -261,7 +266,7 @@ const SettingsPage = () => {
 								disabled={isUpdatingProfile}
 								style={{ padding: "14px 51px", borderRadius: 8, marginTop: 10 }}
 							>
-								{isUpdatingProfile ? "Loading..." : "Save changes"}
+								{isUpdatingProfile ? t("button.loading") : t("button.save-chanes")}
 							</Button>
 							<Alert
 								style={{ marginTop: 20 }}
@@ -270,7 +275,7 @@ const SettingsPage = () => {
 								show={isProfileMessageVisible}
 								onClose={() => setIsProfileMessageVisible(false)}
 							>
-								Profile has been updated successfully!
+								{t("alert.save-changes")}
 							</Alert>
 						</Form>
 						<Form
@@ -280,23 +285,20 @@ const SettingsPage = () => {
 							}}
 						>
 							<div className="password-block">
-								<h2>Password</h2>
-								<p>
-									We strongly recommend to use strong password, with at least
-									one symbol and digit.
-								</p>
+								<h2>{t("label.password")}</h2>
+								<p>{t("p.password")}</p>
 								{!changePass ? (
 									<span
 										className="change-pass"
 										onClick={showChangePasswordBlock}
 									>
 										<img src={LockIcon} alt="LockIcon" />
-										Change password
+										{t("link.change-password")}
 									</span>
 								) : (
 									<div className="change-password-block">
 										<Form.Group controlId="password">
-											<Form.Label>Current password</Form.Label>
+											<Form.Label>{t("label.current-password")}</Form.Label>
 											<Form.Control
 												onChange={(e) => setCurrentPassword(e.target.value)}
 												value={currentPassword}
@@ -304,11 +306,11 @@ const SettingsPage = () => {
 												type="password"
 											/>
 											<Form.Control.Feedback type="invalid">
-												required
+												{t("span.required")}
 											</Form.Control.Feedback>
 										</Form.Group>
 										<Form.Group controlId="new-pass">
-											<Form.Label>Enter new password</Form.Label>
+											<Form.Label>{t("label.enter-new-password")}</Form.Label>
 											<Form.Control
 												onChange={handleChangePasswordValue}
 												value={newPasswordData.newPass}
@@ -320,7 +322,7 @@ const SettingsPage = () => {
 											)}
 										</Form.Group>
 										<Form.Group controlId="repeat-new-pass">
-											<Form.Label>Repeat new password</Form.Label>
+											<Form.Label>{t("label.repeat-password")}</Form.Label>
 											<Form.Control
 												onChange={handleChangePasswordValue}
 												value={newPasswordData.repeatNewPass}
@@ -337,13 +339,13 @@ const SettingsPage = () => {
 												className="confirm"
 												type="submit"
 											>
-												{isChangingPass ? "Loading..." : "Confirm"}
+												{isChangingPass ? t("button.loading") : t("button.confirm")}
 											</Button>
 											<Button
 												className="cancel"
 												onClick={showChangePasswordBlock}
 											>
-												Cancel
+												{t("button.cancel")}
 											</Button>
 										</div>
 										<Alert
@@ -353,7 +355,7 @@ const SettingsPage = () => {
 											show={isPasswordMessageVisible}
 											onClose={() => setIsPasswordMessageVisible(false)}
 										>
-											Password has been changed successfully!
+											{t("alert.change-password")}
 										</Alert>
 									</div>
 								)}
@@ -361,15 +363,12 @@ const SettingsPage = () => {
 						</Form>
 						<Form>
 							<div className="notification-block">
-								<h3>Notifications</h3>
-								<p>
-									Please check if you like to be notified about system updates,
-									new estimations.
-								</p>
+								<h3>{t("label.notification")}</h3>
+								<p>{t("p.notification")}</p>
 								<Form.Group className="mb-0">
 									<Form.Check
 										type="checkbox"
-										label="I allow Immo Belgium to send me updates about my market."
+										label={t("label.checkbox")}
 									/>
 								</Form.Group>
 							</div>
@@ -379,13 +378,13 @@ const SettingsPage = () => {
 						<div className="top-block d-flex">
 							<img src={AccountImage} alt="AccountImage" />
 							<div className="account-info d-flex flex-column">
-								<span className="title">Pro Account</span>
+								<span className="title">{t("label.pro")}</span>
 								<span className="desc">
-									Are you interested in becoming a PRO user?
+									{t("p.pro")}
 								</span>
 							</div>
 						</div>
-						<Button className="become-pro">Become PRO</Button>
+						<Button className="become-pro">{t("button.pro")}</Button>
 					</div>
 				</div>
 				<div className="user-info-block">
@@ -407,16 +406,16 @@ const SettingsPage = () => {
 						/>
 						<label htmlFor="avatarFile">
 							{isAvatarUploading
-								? "Uploading..."
+								? t("image.uploading")
 								: avatar
-								? "Change Photo"
-								: "Upload Photo"}
+									? t("image.change")
+									: t("image.placholder")}
 						</label>
 						{/* <span className="upload-btn">Upload photo</span> */}
 					</div>
 					<div className="user-short-info">
 						<span className="fullname">{`${_firstname} ${_lastname}`}</span>
-						<span className="status">Professional</span>
+						<span className="status">{t("acount-type")}</span>
 					</div>
 					<span
 						onClick={() => {
@@ -424,7 +423,7 @@ const SettingsPage = () => {
 						}}
 						className="logout"
 					>
-						Log out <img src={ArrowIcon} alt="ArrowIcon" />
+						{t("link.logout")} <img src={ArrowIcon} alt="ArrowIcon" />
 					</span>
 				</div>
 			</div>
@@ -435,7 +434,7 @@ const SettingsPage = () => {
 
 export const getServerSideProps = requireAuthentication(async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(locale, ["header", "common"])),
+		...(await serverSideTranslations(locale, ["settings-page", "header", "common"])),
 	},
 }));
 
