@@ -210,6 +210,10 @@ const stepsReducer = (state = initialState, action: any) => {
 				...state,
 				mainBlocks: true,
 			};
+		case actionType.LOGOUT_USER_SUCCESS:
+			return {
+				...initialState,
+			};
 		default:
 			return state;
 	}

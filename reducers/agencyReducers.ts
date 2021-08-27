@@ -36,6 +36,10 @@ const agencyReducers = (state = initialState, action: any) => {
 				...state,
 				error: action.payload,
 			};
+		case actionType.LOGOUT_USER_SUCCESS:
+			return {
+				...initialState,
+			};
 		default:
 			return state;
 	}
