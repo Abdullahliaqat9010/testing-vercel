@@ -9,7 +9,7 @@ import axios from "axios";
 
 function* checkExistEmail({ payload }: any) {
 	try {
-		const { data: exists } = yield axios.get(`/users/${payload}/exist`);
+		const { data: exists } = yield axios.get(`users/${payload}/exist`);
 		yield checkExistEmailSuccess(exists);
 	} catch (error) {
 		yield checkExistEmailError(error);
@@ -144,20 +144,9 @@ function* signupUserRequest({ payload }: any) {
 				},
 			}
 		);
-		localStorage.setItem("access_token", data.access_token);
-		localStorage.setItem("refresh_token", data.refresh_token);
-		yield fetch("/auth-api/login", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				access_token: data.access_token,
-				refresh_token: data.refresh_token,
-			}),
-		});
-
+		yield loginUserSuccess(data);
 		yield signupUserSuccess(data, property);
+		window.location.href = "/dashboard";
 	} catch (error) {
 		console.error(error);
 		yield signupUserError(error);
@@ -168,7 +157,6 @@ function* signupUserSuccess(
 	userData: { access_token: string },
 	property: object
 ) {
-	yield loginUserSuccess(userData);
 	const parseData = parseJwt(userData.access_token);
 	yield put({
 		type: actionType.CREATE_PROPERTY_REQUEST,
@@ -191,40 +179,38 @@ function* loginUserRequest({ payload }: any) {
 		email: payload.userData,
 		password: payload.password,
 	};
-
 	try {
 		const { data } = yield axios.post("auth/login", {
 			email: user.email,
 			password: user.password,
 		});
-
-		localStorage.setItem("access_token", data.access_token);
-		localStorage.setItem("refresh_token", data.refresh_token);
-		yield fetch("/auth-api/login", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				access_token: data.access_token,
-				refresh_token: data.refresh_token,
-			}),
-		});
 		yield loginUserSuccess(data);
+		window.location.href = "/dashboard";
 	} catch (error) {
 		yield loginUserError("Invalid email or password");
 	}
 }
 
-function* loginUserSuccess(userData) {
-	const parseData = parseJwt(userData.access_token);
-	if (window.sessionStorage.getItem("forgotLogin")) {
-		const data = {
-			leadId: parseData.id,
-			...JSON.parse(window.sessionStorage.getItem("forgotLogin")),
-		};
-		yield createPropertyRequest({ payload: data });
-	}
+function* loginUserSuccess({
+	access_token,
+	refresh_token,
+}: {
+	access_token: string;
+	refresh_token: string;
+}) {
+	const parseData = parseJwt(access_token);
+	localStorage.setItem("access_token", access_token);
+	localStorage.setItem("refresh_token", refresh_token);
+	yield fetch("/auth-api/login", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			access_token: access_token,
+			refresh_token: refresh_token,
+		}),
+	});
 	yield put({
 		type: actionType.LOGIN_USER_SUCCESS,
 		payload: {
@@ -241,7 +227,6 @@ function* loginUserSuccess(userData) {
 			promo_mailing: parseData?.promo_mailing,
 		},
 	});
-	window.location.href = "/dashboard";
 }
 
 function* loginUserError(error: string) {

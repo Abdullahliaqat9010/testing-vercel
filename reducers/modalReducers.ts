@@ -63,6 +63,10 @@ const modalReducer = (state = initialState, action: any) => {
 				changePasswordModal: true,
 				error: action.payload,
 			};
+		case actionType.LOGOUT_USER_SUCCESS:
+			return {
+				...initialState,
+			};
 		default:
 			return state;
 	}

@@ -39,7 +39,7 @@ const userReducer = (state = initialState, action: any) => {
 			};
 		case actionType.LOGOUT_USER_SUCCESS:
 			return {
-				...state,
+				...initialState,
 				auth: false,
 			};
 		case actionType.UPDATE_USER_PROFILE:
