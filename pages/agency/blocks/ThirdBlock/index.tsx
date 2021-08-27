@@ -14,7 +14,7 @@ import { isMobileOnly } from 'react-device-detect';
 
 const ThirdBlock = ({elementsOnPage, currentAgency}: { elementsOnPage: number, currentAgency: AgentsItem }) => {
 
-  const {t} = useTranslation('dashboard-page');
+  const {t} = useTranslation('agency-page');
 
   const [sizeArr, setSizeArr] = useState(elementsOnPage);
 
@@ -28,8 +28,8 @@ const ThirdBlock = ({elementsOnPage, currentAgency}: { elementsOnPage: number, c
   return (
     <div className="Agency__third-block">
       <div className="main-content">
-        <h3>Sold properties</h3>
-        <p>by { currentAgency.title }</p>
+        <h3>{t("h3.sold-properties")}</h3>
+        <p> {t("p.by") + " " + currentAgency.title }</p>
         <div className="properties-list">
           {
             !isMobileOnly &&
@@ -47,7 +47,7 @@ const ThirdBlock = ({elementsOnPage, currentAgency}: { elementsOnPage: number, c
               }
             </div>
             <Button className='load-more' onClick={loadMore}>
-              <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.load-more') }
+              <img src={ LoadMoreImage } alt="LoadMoreImage"/>{ t('button.learn-more') }
             </Button>
           </div>
         </div>

@@ -8,5 +8,6 @@
    "span.minimal": "Minimaal",
    "span.average": "Gemiddelde",
    "span.maximal": "Maximaal",
-   "p.property-estimation": "Eigendom schatting"
+   "p.property-estimation": "Eigendom schatting",
+   "span.price-unit": "per"
 }

@@ -8,13 +8,15 @@ import AgentFour from '../../../../assets/images/agency-page/temp/4.png';
 import AgentFive from '../../../../assets/images/agency-page/temp/5.png';
 import AgentSix from '../../../../assets/images/agency-page/temp/6.png';
 import LoadMoreImage from '../../../../assets/images/load-more.svg';
-
+import { useTranslation } from 'react-i18next';
 const SecondBlock = () => {
+  const { t } = useTranslation("agency-page")
+
   return (
     <div className="Agency__second-block">
       <div className="main-content">
-        <h3>Meet the team</h3>
-        <p>We found 1,205 agents that are near to youe property location.</p>
+        <h3>{t("h3.meat-team")}</h3>
+        <p> {t("p.found")}  1,205 {t("p.agents")}</p>
         <div className="agents-block">
           <div className="agent">
             <img src={ AgentOne } alt="avatar"/>
@@ -60,7 +62,7 @@ const SecondBlock = () => {
           </div>
         </div>
         <Button className='load-more'>
-          <img src={ LoadMoreImage } alt="LoadMoreImage"/> Load more
+          <img src={ LoadMoreImage } alt="LoadMoreImage"/> {t("button.learn-more")}
         </Button>
       </div>
     </div>

@@ -1,0 +1,38 @@
+{
+    "link.back-dashboard": "Back to dashboard",
+    "span.from": "from",
+    "span.reviews": "reviews",
+    "span.when-join":"With Immo Belgium since 2021",
+    "h2.title": "Contact details",
+    "span.address": "Address",
+    "span.contect-phone": "Contact Phone",
+    "span.show-pnone": "Show Phone",
+    "span.schedule": "Schedule",
+    "span.languages": "Languages",
+    "p.social-contact": "Connect on socials",
+    "h3.about-agency": "About agency",
+    "span.show-more": "Show more",
+    "button.contact-agency": "Contact this agency",
+    "h3.meat-team": "Meet the team",
+    "p.found": "We found",
+    "p.agents": "agents that are near to youe property location.",
+    "button.learn-more": "Load more",
+    "h3.sold-properties": "Sold properties",
+    "p.by": "by",
+    "h3.client-reviews": "Client reviews",
+    "p.for": "for",
+    "p.question": "Would you like to say a word about this agency?",
+    "span.leave-feedback": "Leave a feedback",
+    "option.all-reviews": "All reviews",
+    "option.populer": "Popular first",
+    "span.experience": "Very nice experience...",
+    "span.commented-on": "commented on",
+    "span.responsiveness": "Responsiveness",
+    "span.general-reception": "General reception",
+    "span.service-ratio": "Fee / service ratio",
+    "span.competences": "Competences",
+    "span.service-quality": "Service quality"
+
+
+
+}

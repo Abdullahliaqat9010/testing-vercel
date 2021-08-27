@@ -25,9 +25,11 @@ import YoutubeIcon from "../../../../assets/images/agency-page/social/youtube-ic
 import LinkedinIcon from "../../../../assets/images/agency-page/social/linkedin-icon.svg";
 import ArrowImage from "../../../../assets/images/arrow-blue.svg";
 import MailIcon from "../../../../assets/images/mail-white-icon.svg";
+import { useTranslation } from "react-i18next";
 
 const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 	const dispatch = useDispatch();
+	const { t } = useTranslation("agency-page")
 
 	const [show, setShowBlock] = useState<boolean>(false);
 
@@ -65,17 +67,17 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 									starCount={5}
 									value={5}
 								/>
-								<span className="from">from 120 reviews</span>
+								<span className="from"> {t('span.from')} 120 {t('span.reviews') }</span>
 							</div>
-							<span className="gray">With Immo Belgium since 2021</span>
+							<span className="gray">{t("span.when-join")}</span>
 						</div>
 					</div>
 					<div className="agency-info__contact-block">
-						<h2>Contact details</h2>
+						<h2>{t("h2.title")}</h2>
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
 								<img src={AddressImage} alt="AddressImage" />
-								<span>Address</span>
+								<span>{t("span.address")}</span>
 							</div>
 							<div className="contact-agency-list__info">
 								<span>{currentAgency.agencyAddress}</span>
@@ -84,14 +86,14 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
 								<img src={PhoneImage} alt="PhoneImage" />
-								<span>Contact Phone</span>
+								<span>{t("span.contect-phone")}</span>
 							</div>
 							<div className="contact-agency-list__info">
 								{show ? (
 									<span className="hidden-phone">3213 3213 321</span>
 								) : (
 									<span onClick={showPhone} className="show-phone">
-										Show Phone
+										{t("span.show-pnone")}
 									</span>
 								)}
 							</div>
@@ -99,7 +101,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
 								<img src={ScheduleImage} alt="ScheduleImage" />
-								<span>Schedule</span>
+								<span>{t("span.schedule")}</span>
 							</div>
 							<div className="contact-agency-list__info">
 								<span>Mon-Fri: 9AM-6PM, Sat: 11AM-4PM</span>
@@ -108,7 +110,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
 								<img src={LanguagesImage} alt="LanguagesImage" />
-								<span>Languages</span>
+								<span>{t("span.languages")}</span>
 							</div>
 							<div className="contact-agency-list__info">
 								<span>English, French, Deutsch</span>
@@ -116,7 +118,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						</div>
 					</div>
 					<div className="agency-info__social-links">
-						<p>Connect on socials</p>
+						<p>{t("p.social-contact")}</p>
 						<div className="social-block">
 							<img src={FacebookIcon} alt="FacebookIcon" />
 							<img src={TwitterIcon} alt="TwitterIcon" />
@@ -126,7 +128,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						</div>
 					</div>
 					<div className="agency-info__about_us">
-						<h3>About agency</h3>
+						<h3>{t("h3.about-agency")}</h3>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 							Suspendisse pharetra ante at tellus feugiat, ac consectetur erat
@@ -142,7 +144,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						</p>
 						<span className="show-more">
 							<img src={ArrowImage} alt="ArrowImage" />
-							Show more
+							{t("span.show-more")}
 						</span>
 					</div>
 
@@ -163,7 +165,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 							src={MailIcon}
 							alt="MailIcon"
 						/>
-						Contact this agency
+						{t("button.contact-agency")}
 					</Button>
 				</div>
 			</div>

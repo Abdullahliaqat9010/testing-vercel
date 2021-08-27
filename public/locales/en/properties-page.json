@@ -8,5 +8,6 @@
   "span.minimal": "Minimal",
   "span.average": "Average",
   "span.maximal": "Maximal",
-  "p.property-estimation": "Property estimation"
+  "p.property-estimation": "Property estimation",
+  "span.price-unit": "per"
 }
