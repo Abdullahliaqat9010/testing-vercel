@@ -54,7 +54,7 @@ const AgencyPage = () => {
           </span>
         </Link>
         <FirstBlock currentAgency={ currentAgency }/>
-        <SecondBlock/>
+        {/* <SecondBlock/> */}
         <ThirdBlock currentAgency={ currentAgency } elementsOnPage={ elementsOnPage }/>
         <FourthBlock currentAgency={ currentAgency }/>
       </div>
