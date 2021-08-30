@@ -201,6 +201,9 @@ export const agentsList: AgentsItem[] = [
     url: 'test-agency',
     rate: '5.0',
     reviews: '120',
+    schedule: "Mon-Fri: 9:30AM-1PM, 1PM by appointment, Sat: by appointment",
+    website: "https://www.renatomammo.be",
+    phone: "+32 4 372 07 20",
     logo: AgencyTest,
     logoMobile: AgencyTestMobile,
     count: 17,
@@ -215,7 +218,7 @@ export const agentsList: AgentsItem[] = [
       agentSurname: 'Agency',
       position: 'Agency owner',
       avatar: TestAvatar,
-      desc: ''
+      desc: 'test agency'
     }
   },
 ];
