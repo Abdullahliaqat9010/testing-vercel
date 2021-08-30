@@ -18,6 +18,7 @@ import AddressImage from "../../../../assets/images/agency-page/address-icon.svg
 import PhoneImage from "../../../../assets/images/agency-page/phone-icon.svg";
 import ScheduleImage from "../../../../assets/images/agency-page/schedule-icon.svg";
 import LanguagesImage from "../../../../assets/images/agency-page/langauges-icon.svg";
+import websiteImage from "../../../../assets/images/agency-page/website-image.png";
 import FacebookIcon from "../../../../assets/images/agency-page/social/facebook-icon.svg";
 import TwitterIcon from "../../../../assets/images/agency-page/social/twitter-icon.svg";
 import InstagramIcon from "../../../../assets/images/agency-page/social/instagram-icon.svg";
@@ -65,7 +66,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 										/>
 									)}
 									starCount={5}
-									value={5}
+									value={3}
 								/>
 								<span className="from"> {t('span.from')} 120 {t('span.reviews') }</span>
 							</div>
@@ -90,7 +91,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 							</div>
 							<div className="contact-agency-list__info">
 								{show ? (
-									<span className="hidden-phone">3213 3213 321</span>
+									<span className="hidden-phone">{currentAgency.phone}</span>
 								) : (
 									<span onClick={showPhone} className="show-phone">
 										{t("span.show-pnone")}
@@ -104,7 +105,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 								<span>{t("span.schedule")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<span>Mon-Fri: 9AM-6PM, Sat: 11AM-4PM</span>
+								<span>{currentAgency.schedule}</span>
 							</div>
 						</div>
 						<div className="contact-agency-list">
@@ -114,6 +115,15 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 							</div>
 							<div className="contact-agency-list__info">
 								<span>English, French, Deutsch</span>
+							</div>
+						</div>
+						<div className="contact-agency-list">
+							<div className="contact-agency-list__name">
+								<img className="website" src={websiteImage} alt="LanguagesImage" />
+								<span>{t("span.website")}</span>
+							</div>
+							<div className="contact-agency-list__info">
+								<a href={currentAgency.website}>{currentAgency.website.split("www.")[1]}</a>
 							</div>
 						</div>
 					</div>
@@ -129,19 +139,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 					</div>
 					<div className="agency-info__about_us">
 						<h3>{t("h3.about-agency")}</h3>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse pharetra ante at tellus feugiat, ac consectetur erat
-							ultricies. Aliquam facilisis tincidunt sem eu condimentum. Quisque
-							et nisi sed lorem lacinia ullamcorper. Integer eget euismod ante,
-							vel ullamcorper tellus. Maecenas mattis luctus est, sit amet
-							tincidunt est semper ut. Curabitur at mi commodo, sollicitudin
-							sapien eget, convallis massa. Proin dapibus sed urna eget ornare.
-							Sed suscipit ligula justo, et mollis arcu finibus id. Fusce id
-							blandit est. Sed dapibus egestas massa, at dignissim augue ornare
-							vel. Mauris porttitor lacus quis convallis pretium. Nullam quis
-							vestibulum mauris, ut hendrerit ex.
-						</p>
+						<p>{currentAgency.moreInfo.desc}</p>
 						<span className="show-more">
 							<img src={ArrowImage} alt="ArrowImage" />
 							{t("span.show-more")}
