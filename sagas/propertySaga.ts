@@ -156,11 +156,7 @@ function* getPriceProperty({ payload }: any) {
 	try {
 		const { data: _data } = yield axios.get(`property/${payload}/estimation`);
 		const { data } = _data;
-		if (data.message !== "Not found") {
-			yield getPricePropertySuccess(data);
-		} else {
-			yield setNoEstimationProperty();
-		}
+		yield getPricePropertySuccess(data);
 	} catch (error) {
 		yield getPricePropertyError(error);
 	}
