@@ -113,6 +113,8 @@
   "title.property-type": "Type eigendom",
   "error.zip": "gebruik een geldige Belgische postcode",
   "error.required": "Dit veld is verplicht",
+  "error.email-notValid": "E-mail niet geldig",
+  "error.phone-notValid": "Telefoonnummer niet geldig",
   "error.email-exists": "E-mail bestaat al. klik op Ik heb al een account om in te loggen",
   "error.more-then-5": "wachtwoord moet meer dan 5 symbolen bevatten",
   "error.only-latter": "kan alleen letters en spaties bevatten",
