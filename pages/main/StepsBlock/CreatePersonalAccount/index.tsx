@@ -213,7 +213,7 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 
 	return (
 		<div className="create-personal-account">
-			<span className="step-title">{t("title.great-job")}</span>
+			<span className="step-title title-in-mobile">{t("title.great-job")}</span>
 			<h4>{t("title.estimation-ready")}</h4>
 			<span className="step-title">{t("desc.finalized-estimation")}</span>
 			<span onClick={goToLogin} className="have-account">
