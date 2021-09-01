@@ -34,6 +34,7 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 		personalAccount,
 	} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 	const { existEmail } = useSelector((state: RootState) => state.userInfo);
+	const { errors: stepErrors } = useSelector((state: RootState) => state.stepsInfo);
 
 	const [data, setFormData] = useState({
 		firstName: "",
@@ -68,7 +69,11 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 				email: t("error.email-exists"),
 			});
 		}
-	}, [existEmail]);
+		if(stepErrors) {
+			setIsLoading(false)
+			window.confirm(stepErrors)
+		} 
+	}, [existEmail, stepErrors]);
 
 	const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
