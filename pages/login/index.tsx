@@ -16,6 +16,7 @@ import MailIcon from "../../assets/images/mail-icon.svg";
 import LockIcon from "../../assets/images/lock-icon.svg";
 import BackArrow from "../../assets/images/full-arrow.svg";
 import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
+import { regexp } from "../../utils";
 
 const LoginPage = () => {
 	const { t } = useTranslation("login-page");
@@ -28,8 +29,8 @@ const LoginPage = () => {
 	const [data, setData] = useState({ userData: "", password: "" });
 	const [errorsData, setErrors] = useState({
 		noValid: false,
-		userData: "this field is required",
-		password: "this field is required",
+		userData: "",
+		password: "",
 	});
 
 	useEffect(() => {
@@ -44,12 +45,18 @@ const LoginPage = () => {
 			...data,
 			[el.target.name]: el.target.value.trim(),
 		});
+		setErrors({
+			...errorsData,
+			noValid: true,
+			userData: "",
+			password: ""
+		})
 	};
 
 	const handleLogin = (event) => {
 		event.preventDefault();
 		if (data.userData.length === 0 || data.password.length === 0) {
-			setErrors({ ...errorsData, noValid: true });
+			setErrors({ ...errorsData, noValid: true, password: "Required", userData: "Required"  });
 		}
 
 		if (data.userData.length && data.password.length) {
@@ -65,6 +72,13 @@ const LoginPage = () => {
 		);
 		router.push("/", "/", { locale });
 	};
+	const emailValidater = (value) => {
+		if(!value.match(regexp.email)) {
+			setErrors({ ...errorsData, noValid: false, userData: "not valid" })
+			return false;
+		}
+		// return true
+	}
 
 	return (
 		<div className="Login">
@@ -89,7 +103,9 @@ const LoginPage = () => {
 						value={data.userData}
 						name="userData"
 						type="text"
+						onBlur={(el) => emailValidater(el.target.value) }
 						placeholder={t("placeholder.email-phone")}
+						isInvalid={errorsData.userData.length > 0}
 					/>
 					<Form.Control.Feedback type="invalid">
 						{errorsData.userData}
@@ -105,6 +121,7 @@ const LoginPage = () => {
 						name="password"
 						type="password"
 						placeholder={t("placeholder.password")}
+						isInvalid={errorsData.password.length > 0}
 					/>
 					<Form.Control.Feedback type="invalid">
 						{errorsData.password}
