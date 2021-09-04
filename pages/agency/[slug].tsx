@@ -18,13 +18,14 @@ import FirstBlock from './blocks/FirstBlock';
 import SecondBlock from './blocks/SecondBlock';
 import ThirdBlock from './blocks/ThirdBlock';
 import FourthBlock from './blocks/FourthBlock';
-
+import { useTranslation } from 'react-i18next';
 import { agentsList } from '../../templates/agentsList';
 
 const AgencyPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const {slug} = router.query;
+  const { t } = useTranslation("agency-page")
 
   const [currentAgency] = agentsList.filter(agency => agency.url === slug);
 
@@ -49,11 +50,11 @@ const AgencyPage = () => {
       <div className='Agency container'>
         <Link href={ '/dashboard' }>
           <span className='Agency__back'>
-            <img src={ ArrowImage } alt="ArrowImage"/> Back to dashboard
+            <img src={ ArrowImage } alt="ArrowImage"/> {t("link.back-dashboard")}
           </span>
         </Link>
         <FirstBlock currentAgency={ currentAgency }/>
-        <SecondBlock/>
+        {/* <SecondBlock/> */}
         <ThirdBlock currentAgency={ currentAgency } elementsOnPage={ elementsOnPage }/>
         <FourthBlock currentAgency={ currentAgency }/>
       </div>
@@ -71,7 +72,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({locale}) => ({
   props: {
-    ...await serverSideTranslations(locale, ['header', 'dashboard-page']),
+    ...await serverSideTranslations(locale, [ 'agency-page', 'header', 'dashboard-page']),
   },
 });
 

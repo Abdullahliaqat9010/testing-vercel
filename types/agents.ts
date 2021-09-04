@@ -1,3 +1,5 @@
+import { Tracing } from "trace_events";
+
 export interface AgentsItem {
   id: number,
   title: string,
@@ -14,6 +16,9 @@ export interface AgentsItem {
   logo: string,
   logoMobile: string,
   email: string,
+  schedule: string,
+  website: string,
+  phone:string,
   count: number,
   moreInfo: {
     agentName: string,

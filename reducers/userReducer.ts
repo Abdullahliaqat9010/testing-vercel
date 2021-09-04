@@ -1,40 +1,19 @@
 import * as actionType from "../actions/actionTypes";
-import { parseJwt } from "../utils";
-import { userToken } from "../config/siteConfigs";
-
-let exp = false;
-let userName = "";
-let userSurname = "";
-let userEmail = "";
-let userPhone = "";
-let gender = "";
-
-/**
- * check [token] on expire
- */
-if (typeof localStorage !== "undefined") {
-	if (localStorage.getItem("auth")) {
-		const jwtToken = parseJwt(userToken);
-		const dateNow = +Date.now().toString().slice(0, -3);
-		exp = dateNow < jwtToken.exp;
-		if (!exp) {
-			localStorage.removeItem("auth");
-		}
-
-		if (jwtToken.firstname && jwtToken.lastname) {
-			userName = jwtToken.firstname;
-			userSurname = jwtToken.lastname;
-			userEmail = jwtToken.email;
-			userPhone = jwtToken.phone_number;
-			gender = jwtToken.gender;
-		}
-	}
-}
 
 export const initialState = {
-	auth: exp,
-	existEmail: false,
+	id: null,
+	userName: "",
+	userSurname: "",
+	userEmail: "",
+	userPhone: "",
+	gender: "",
+	avatar: "",
 	emailVerified: false,
+	accountType: "",
+	t_c: false,
+	promo_mailing: false,
+	auth: false,
+	existEmail: false,
 	noEstimation: false,
 	agencyContactInfo: {
 		title: "",
@@ -48,11 +27,6 @@ export const initialState = {
 	propertiesListInfo: {},
 	currentPropertyPrice: {},
 	mainProperty: {},
-	userName,
-	userSurname,
-	userEmail,
-	userPhone,
-	gender,
 	errors: "",
 };
 
@@ -63,10 +37,21 @@ const userReducer = (state = initialState, action: any) => {
 				...state,
 				errors: "",
 			};
-		case actionType.CREATE_PROPERTY_SUCCESS:
+		case actionType.LOGOUT_USER_SUCCESS:
+			return {
+				...initialState,
+				auth: false,
+			};
+		case actionType.UPDATE_USER_PROFILE:
+			return {
+				...state,
+				...action.payload,
+				errors: "",
+			};
 		case actionType.LOGIN_USER_SUCCESS:
 			return {
 				...state,
+				...action.payload,
 				auth: true,
 			};
 		case actionType.VERIFY_EMAIL_SUCCESS:
@@ -92,7 +77,6 @@ const userReducer = (state = initialState, action: any) => {
 				},
 			};
 		case actionType.CLOSE_MODAL_CONTACT_AGENT:
-			userPhone = "";
 			return {
 				...state,
 				agencyContactInfo: {
@@ -158,9 +142,7 @@ const userReducer = (state = initialState, action: any) => {
 			};
 		}
 		default:
-			return {
-				...state,
-			};
+			return state;
 	}
 };
 

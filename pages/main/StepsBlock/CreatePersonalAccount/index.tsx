@@ -145,7 +145,8 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 					? String(data.howSell)
 					: undefined,
 				residence_type:
-					data.accountType === "professional"
+					data.accountType === "professional" ||
+					data.selectedItem === "not-owner"
 						? "other"
 						: String(data.selectedResidence),
 				...generatePropertyData(

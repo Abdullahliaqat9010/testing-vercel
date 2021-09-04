@@ -1,18 +1,34 @@
-import React  from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import DashboardPageContainer from '../../containers/DashboardPageContainer';
+import DashboardPageContainer from "../../containers/DashboardPageContainer";
+import { requireAuthentication } from "../../utils/requireAuthentication";
 
 const DashboardPage = () => {
-  return (
-    <DashboardPageContainer />
-  );
+	return <DashboardPageContainer />;
 };
 
-export const getStaticProps = async ({locale}) => ({
-  props: {
-    ...await serverSideTranslations(locale, ['dashboard-page', 'header', 'common']),
-  },
+export const getServerSideProps = requireAuthentication(async ({ locale }) => {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, [
+				"dashboard-page",
+				"header",
+				"common",
+			])),
+		},
+	};
 });
 
+// export const getStaticProps = async ({ locale }) => {
+// 	return {
+// 		props: {
+// 			...(await serverSideTranslations(locale, [
+// 				"dashboard-page",
+// 				"header",
+// 				"common",
+// 			])),
+// 		},
+// 	};
+// };
 export default DashboardPage;

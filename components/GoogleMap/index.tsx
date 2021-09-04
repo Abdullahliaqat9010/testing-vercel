@@ -135,7 +135,7 @@ const GoogleMap = ({google, agencyLocation, agencyName, coordsCurrentProperty}: 
     <Map
       fullscreenControl={ false }
       zoomControl={ false }
-      mapTypeControl={ false }
+      mapTypeControl={ true }
       streetViewControl={ false }
       styles={ googleMapStyle }
       zoom={ similarPropertiesLocation.length ? 11 : 13 }

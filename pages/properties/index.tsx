@@ -98,17 +98,17 @@ const PropertiesPage = () => {
                         <div className="minimal d-flex flex-column">
                           <span className="estimation-title">{ t('span.minimal') }</span>
                           <span className="estimation-desc">€1,007,500</span>
-                          <span className="estimation-per-metre">€1,007.500 per m²</span>
+                          <span className="estimation-per-metre">€1,007.500 {t("span.price-unit")} m²</span>
                         </div>
                         <div className="average d-flex flex-column">
                           <span className="estimation-title">{ t('span.average') }</span>
                           <span className="estimation-desc">€1,097,500</span>
-                          <span className="estimation-per-metre">€1,097.500 per m²</span>
+                          <span className="estimation-per-metre">€1,097.500 {t("span.price-unit")} m²</span>
                         </div>
                         <div className="maximal d-flex flex-column">
                           <span className="estimation-title">{ t('span.maximal') }</span>
                           <span className="estimation-desc">€1,197,500</span>
-                          <span className="estimation-per-metre">€1,197.500 per m²</span>
+                          <span className="estimation-per-metre">€1,197.500 {t("span.price-unit")} m²</span>
                         </div>
                       </div>
                     </div>

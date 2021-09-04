@@ -12,5 +12,8 @@ module.exports = withFonts(
 			GOOGLE_METRIC_KEY: process.env.REACT_APP_GOOGLE_METRIC_KEY,
 			COOKIE_KEY: process.env.REACT_APP_COOKIE_KEY,
 		},
+		rewrites: () => [
+			{ source: "/auth-api/:path*", destination: "/api/:path*" },
+		],
 	})
 );
