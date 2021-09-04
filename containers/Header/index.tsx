@@ -220,7 +220,7 @@ const HeaderContainer = ({
 						)}
 					</div>
 				</div>
-				{step && step <= 3 && (
+				{step != null && step <= 3 && (
 					<div className="step-info">
 						<div
 							className={`header-step-one ${step === 0 ? "active-step" : ""}`}
