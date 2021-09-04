@@ -16,26 +16,26 @@ const MainPageComponent = () => {
 
 	return (
 		<div className="main-page">
-			{mainBlocks ? (
+			{/* {mainBlocks ? (
 				<StepsBlock />
-			) : (
-				<>
-					<ImagesBlock />
-					<InfoBlock />
-					<TestimonialsBlock />
-					<div className="short-footer d-flex justify-content-between">
-						<p>
-							<span>Immo Belgium </span>
-							<span>{new Date().getFullYear()}. All Rights Reserved.</span>
-						</p>
-						<span className="link">
-							<a href={locale + "/privacy-policy"} target="_blank">
-								Politique de Confidentialité.
-							</a>
-						</span>
-					</div>
-				</>
-			)}
+			) : ( */}
+			<>
+				<ImagesBlock />
+				<InfoBlock />
+				<TestimonialsBlock />
+				<div className="short-footer d-flex justify-content-between">
+					<p>
+						<span>Immo Belgium </span>
+						<span>{new Date().getFullYear()}. All Rights Reserved.</span>
+					</p>
+					<span className="link">
+						<a href={locale + "/privacy-policy"} target="_blank">
+							Politique de Confidentialité.
+						</a>
+					</span>
+				</div>
+			</>
+			{/* )} */}
 		</div>
 	);
 };

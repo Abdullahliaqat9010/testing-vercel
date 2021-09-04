@@ -48,18 +48,21 @@ const langList = [
 const HeaderContainer = ({
 	title,
 	mainPage,
+	step,
 }: {
 	title: string;
 	mainPage?: boolean;
+	step?: number;
 }) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
 	const { locale } = router;
 	const { t } = useTranslation("header");
-	const { mainBlocks, stepBlock } = useSelector(
-		(state: RootState) => state.stepsInfo
-	);
+	// const { mainBlocks, stepBlock } = useSelector(
+	// 	(state: RootState) => state.stepsInfo
+	// );
+
 	const { auth, userName, userSurname, avatar } = useSelector(
 		(state: RootState) => state.userInfo
 	);
@@ -217,36 +220,26 @@ const HeaderContainer = ({
 						)}
 					</div>
 				</div>
-				{mainBlocks && stepBlock.step <= 3 && (
+				{step && step <= 3 && (
 					<div className="step-info">
 						<div
-							className={`header-step-one ${
-								stepBlock.step === 0 ? "active-step" : ""
-							}`}
+							className={`header-step-one ${step === 0 ? "active-step" : ""}`}
 						>
-							<div
-								className={`image-block ${
-									stepBlock.step !== 0 ? "success" : ""
-								}`}
-							>
+							<div className={`image-block ${step !== 0 ? "success" : ""}`}>
 								<img
-									src={stepBlock.step !== 0 ? SuccessStepIcon : CurrentStepIcon}
+									src={step !== 0 ? SuccessStepIcon : CurrentStepIcon}
 									alt="steps-icon"
 								/>
 							</div>
 							{t("span.step")} 1
 						</div>
 						<div
-							className={`header-step-two ${
-								stepBlock.step === 1 ? "active-step" : ""
-							}`}
+							className={`header-step-two ${step === 1 ? "active-step" : ""}`}
 						>
-							<div
-								className={`image-block ${stepBlock.step > 1 ? "success" : ""}`}
-							>
-								{stepBlock.step >= 1 && (
+							<div className={`image-block ${step > 1 ? "success" : ""}`}>
+								{step >= 1 && (
 									<img
-										src={stepBlock.step > 1 ? SuccessStepIcon : CurrentStepIcon}
+										src={step > 1 ? SuccessStepIcon : CurrentStepIcon}
 										alt="steps-icon"
 									/>
 								)}
@@ -254,14 +247,10 @@ const HeaderContainer = ({
 							{t("span.step")} 2
 						</div>
 						<div
-							className={`header-step-three ${
-								stepBlock.step > 1 ? "active-step" : ""
-							}`}
+							className={`header-step-three ${step > 1 ? "active-step" : ""}`}
 						>
 							<div className="image-block">
-								{stepBlock.step >= 2 && (
-									<img src={CurrentStepIcon} alt="steps-icon" />
-								)}
+								{step >= 2 && <img src={CurrentStepIcon} alt="steps-icon" />}
 							</div>
 							{t("span.step")} 3
 						</div>
@@ -270,7 +259,7 @@ const HeaderContainer = ({
 				<div className="d-flex align-items-center">
 					{auth ? (
 						<div className="right-block d-flex align-items-center">
-							{!mainBlocks && (
+							{!step && (
 								<>
 									{!openMenu && (
 										<Image
