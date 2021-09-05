@@ -1,0 +1,102 @@
+.form-container {
+	width: 30%;
+	@media (max-width: 768px) {
+		width: 60%;
+	}
+	@media (max-width: 600px) {
+		width: 100%;
+	}
+	padding: 15px;
+}
+
+.form-title-container {
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 10px;
+}
+
+.form-title {
+	font-size: 24px;
+	font-family: "Nunito", sans-serif;
+	font-weight: 700;
+	color: #1d2e5b;
+}
+
+.form-subtitle {
+	font-size: 14px;
+	font-family: "Nunito", sans-serif;
+	font-weight: 400;
+	color: #1d2e5b;
+	margin-top: -10px;
+}
+
+.register-page-container {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	flex-direction: column;
+	background-color: white;
+	min-height: calc(100vh - 67px);
+}
+
+.form-label {
+	font-size: 14px;
+	line-height: 22px;
+	// width: 70%;
+	// white-space: pre-wrap;
+	@media (min-width: 768px) {
+		font-size: 16px;
+	}
+}
+
+.form-button {
+	height: 50px;
+	border-radius: 8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.form-input {
+	height: 46px;
+	border: 1px solid var(--colorGray);
+	border-radius: 6px;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	padding: 0.375rem 0.75rem;
+	font-size: 400;
+	line-height: 1.5;
+	color: #495057;
+	background-color: white;
+	outline: 0;
+}
+
+.form-input:focus {
+	box-shadow: 0 0 0.5rem rgb(0 123 255 / 35%);
+}
+
+.form-input-block {
+	padding-bottom: 15px;
+}
+
+.form-error {
+	font-size: 11px;
+	color: #dc3545;
+	margin-top: 5px;
+}
+
+.form-password-disclaimer-container {
+	width: 100%;
+}
+
+.form-password-disclaimer {
+	font-size: 12px;
+	color: #1d2e5b;
+	width: 100%;
+	word-break: break-word;
+}
+
+.label-terms-condition {
+	font-size: 14px;
+	font-weight: 400;
+	font-family: "Nunito", sans-serif;
+	color: #1d2e5b;
+}

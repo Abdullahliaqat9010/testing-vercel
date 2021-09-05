@@ -30,6 +30,7 @@ import "../styles/pages/pro-workspace.scss";
 import "../styles/pages/404.scss";
 import "../styles/pages/create-blog.scss";
 import "../styles/pages/blogs.scss";
+import "../styles/pages/register.scss";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
