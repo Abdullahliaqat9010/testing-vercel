@@ -20,6 +20,7 @@ import ThirdSlide from "../../../assets/images/main-page/slider/third-slide.jpeg
 import ThirdSlideTablet from "../../../assets/images/main-page/slider/third-slide-tablet.jpeg";
 import ThirdSlideMobile from "../../../assets/images/main-page/slider/third-slide-mobile.jpeg";
 import { RootState } from "../../../types/state";
+import router from "next/router";
 
 const ImagesBlock = () => {
 	const { t } = useTranslation("main-page");
@@ -45,9 +46,8 @@ const ImagesBlock = () => {
 		};
 
 		dispatch(openMainStepsAction(data));
+		router.push("estimate/");
 	};
-
-	console.log(dataFromMapBox);
 
 	const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(el.target.value);

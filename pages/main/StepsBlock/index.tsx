@@ -12,12 +12,15 @@ import StepFour from "./StepFour";
 import GoogleMap from "../../../components/GoogleMap";
 // import _3DMap from "../../../components/3dMap";
 
-const stepsArr = [<StepOne />, <StepTwo />, <StepThree />, <StepFour />];
-
-const StepsBlock = () => {
-	const { step } = useSelector((state: RootState) => state.stepsInfo.stepBlock);
+const StepsBlock = ({ setStep, step }) => {
 	const [progressBar, setProgressBar] = useState<number>(33);
 	const [showBlock, setShowBlock] = useState<boolean>(false);
+	const stepsArr = [
+		<StepOne setStep={setStep} />,
+		<StepTwo setStep={setStep} />,
+		<StepThree setStep={setStep} />,
+		<StepFour setStep={setStep} />,
+	];
 
 	const changeProgressBar = () => {
 		if (step === 1) {
@@ -48,9 +51,7 @@ const StepsBlock = () => {
 			<div className="steps-block__main d-flex">
 				<div className="ml-156 w-50 mt-57">{stepsArr[step]}</div>
 				{!isMobile && (
-					<div className="w-50 position-relative">
-						{showBlock && <GoogleMap />}
-					</div>
+					<div className="steps-google-maps">{showBlock && <GoogleMap />}</div>
 				)}
 			</div>
 		</div>

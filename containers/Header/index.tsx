@@ -48,18 +48,21 @@ const langList = [
 const HeaderContainer = ({
 	title,
 	mainPage,
+	step,
 }: {
 	title: string;
 	mainPage?: boolean;
+	step?: number;
 }) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
 	const { locale } = router;
 	const { t } = useTranslation("header");
-	const { mainBlocks, stepBlock } = useSelector(
-		(state: RootState) => state.stepsInfo
-	);
+	// const { mainBlocks, stepBlock } = useSelector(
+	// 	(state: RootState) => state.stepsInfo
+	// );
+
 	const { auth, userName, userSurname, avatar } = useSelector(
 		(state: RootState) => state.userInfo
 	);
@@ -81,7 +84,8 @@ const HeaderContainer = ({
 	};
 
 	const goToMainPage = () => {
-		window.location.href = "/" + locale;
+		router.push(`/${locale}/estimate`);
+		// window.location.href = "/" + locale;
 	};
 
 	const Logout = async () => {
@@ -107,7 +111,7 @@ const HeaderContainer = ({
 
 	return (
 		<>
-			<Head>
+			{/* <Head>
 				<title>{title}</title>
 				<link rel="icon" href={"/favicon.ico"} />
 				<link
@@ -178,7 +182,7 @@ const HeaderContainer = ({
        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
 					}}
 				/>
-			</Head>
+			</Head> */}
 			<div className="Header d-flex justify-content-between align-items-center">
 				<div
 					style={{
@@ -188,65 +192,59 @@ const HeaderContainer = ({
 					}}
 				>
 					<Image
-						onClick={() => goToMainPage()}
+						onClick={() => {
+							router.push("/" + locale);
+						}}
 						className={`logo ${auth ? "ml-67" : ""}`}
 						src={Logo}
 						alt="Logo"
 					/>
-					<div className="custom-nav-links-container">
-						{!isAdmin && (
-							<>
-								<a href="#" className="n-link-custom">
-									Price map
-								</a>
-								{/* <a href="#" className="n-link-custom">
+					{!step && step != 0 && (
+						<div className="custom-nav-links-container">
+							{!isAdmin && (
+								<>
+									<a href="#" className="n-link-custom">
+										Price map
+									</a>
+									{/* <a href="#" className="n-link-custom">
 									Estimate your home
 								</a> */}
-								{/* <a href="#" className="n-link-custom">
+									{/* <a href="#" className="n-link-custom">
 									Compare agencies
 								</a> */}
-							</>
-						)}
-						<a href="/blogs" className="n-link-custom">
-							Blogs
-						</a>
-						{isAdmin && (
-							<a href="/create-blog" className="n-link-custom">
-								Create Blog
+								</>
+							)}
+							<a href="/blogs" className="n-link-custom">
+								Blogs
 							</a>
-						)}
-					</div>
+							{isAdmin && (
+								<a href="/create-blog" className="n-link-custom">
+									Create Blog
+								</a>
+							)}
+						</div>
+					)}
 				</div>
-				{mainBlocks && stepBlock.step <= 3 && (
+				{step != null && step <= 3 && (
 					<div className="step-info">
 						<div
-							className={`header-step-one ${
-								stepBlock.step === 0 ? "active-step" : ""
-							}`}
+							className={`header-step-one ${step === 0 ? "active-step" : ""}`}
 						>
-							<div
-								className={`image-block ${
-									stepBlock.step !== 0 ? "success" : ""
-								}`}
-							>
+							<div className={`image-block ${step !== 0 ? "success" : ""}`}>
 								<img
-									src={stepBlock.step !== 0 ? SuccessStepIcon : CurrentStepIcon}
+									src={step !== 0 ? SuccessStepIcon : CurrentStepIcon}
 									alt="steps-icon"
 								/>
 							</div>
 							{t("span.step")} 1
 						</div>
 						<div
-							className={`header-step-two ${
-								stepBlock.step === 1 ? "active-step" : ""
-							}`}
+							className={`header-step-two ${step === 1 ? "active-step" : ""}`}
 						>
-							<div
-								className={`image-block ${stepBlock.step > 1 ? "success" : ""}`}
-							>
-								{stepBlock.step >= 1 && (
+							<div className={`image-block ${step > 1 ? "success" : ""}`}>
+								{step >= 1 && (
 									<img
-										src={stepBlock.step > 1 ? SuccessStepIcon : CurrentStepIcon}
+										src={step > 1 ? SuccessStepIcon : CurrentStepIcon}
 										alt="steps-icon"
 									/>
 								)}
@@ -254,14 +252,10 @@ const HeaderContainer = ({
 							{t("span.step")} 2
 						</div>
 						<div
-							className={`header-step-three ${
-								stepBlock.step > 1 ? "active-step" : ""
-							}`}
+							className={`header-step-three ${step > 1 ? "active-step" : ""}`}
 						>
 							<div className="image-block">
-								{stepBlock.step >= 2 && (
-									<img src={CurrentStepIcon} alt="steps-icon" />
-								)}
+								{step >= 2 && <img src={CurrentStepIcon} alt="steps-icon" />}
 							</div>
 							{t("span.step")} 3
 						</div>
@@ -270,7 +264,7 @@ const HeaderContainer = ({
 				<div className="d-flex align-items-center">
 					{auth ? (
 						<div className="right-block d-flex align-items-center">
-							{!mainBlocks && (
+							{!step && (
 								<>
 									{!openMenu && (
 										<Image
@@ -294,7 +288,8 @@ const HeaderContainer = ({
 												{t("li.pro-workspace")}
 											</NavDropdown.Item>
 										)}
-										{isMobileOnly && (
+										{/* {isMobileOnly && ( */}
+										<div>
 											<Button
 												onClick={goToMainPage}
 												className="add-property-mobile"
@@ -302,7 +297,8 @@ const HeaderContainer = ({
 												<img src={AddIcon} alt="AddIcon" />
 												<span>{t("button.add-property")}</span>
 											</Button>
-										)}
+										</div>
+										{/* )} */}
 										{!isAdmin &&
 											navBarList.map((list, index) => (
 												<NavDropdown.Item
