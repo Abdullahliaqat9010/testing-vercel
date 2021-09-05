@@ -51,9 +51,7 @@ const StepsBlock = ({ setStep, step }) => {
 			<div className="steps-block__main d-flex">
 				<div className="ml-156 w-50 mt-57">{stepsArr[step]}</div>
 				{!isMobile && (
-					<div className="w-50 position-relative">
-						{showBlock && <GoogleMap />}
-					</div>
+					<div className="steps-google-maps">{showBlock && <GoogleMap />}</div>
 				)}
 			</div>
 		</div>

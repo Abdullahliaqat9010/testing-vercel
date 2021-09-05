@@ -84,7 +84,8 @@ const HeaderContainer = ({
 	};
 
 	const goToMainPage = () => {
-		window.location.href = "/" + locale;
+		router.push(`/${locale}/estimate`);
+		// window.location.href = "/" + locale;
 	};
 
 	const Logout = async () => {
@@ -110,7 +111,7 @@ const HeaderContainer = ({
 
 	return (
 		<>
-			<Head>
+			{/* <Head>
 				<title>{title}</title>
 				<link rel="icon" href={"/favicon.ico"} />
 				<link
@@ -181,7 +182,7 @@ const HeaderContainer = ({
        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
 					}}
 				/>
-			</Head>
+			</Head> */}
 			<div className="Header d-flex justify-content-between align-items-center">
 				<div
 					style={{
@@ -191,34 +192,38 @@ const HeaderContainer = ({
 					}}
 				>
 					<Image
-						onClick={() => goToMainPage()}
+						onClick={() => {
+							router.push("/" + locale);
+						}}
 						className={`logo ${auth ? "ml-67" : ""}`}
 						src={Logo}
 						alt="Logo"
 					/>
-					<div className="custom-nav-links-container">
-						{!isAdmin && (
-							<>
-								<a href="#" className="n-link-custom">
-									Price map
-								</a>
-								{/* <a href="#" className="n-link-custom">
+					{!step && step != 0 && (
+						<div className="custom-nav-links-container">
+							{!isAdmin && (
+								<>
+									<a href="#" className="n-link-custom">
+										Price map
+									</a>
+									{/* <a href="#" className="n-link-custom">
 									Estimate your home
 								</a> */}
-								{/* <a href="#" className="n-link-custom">
+									{/* <a href="#" className="n-link-custom">
 									Compare agencies
 								</a> */}
-							</>
-						)}
-						<a href="/blogs" className="n-link-custom">
-							Blogs
-						</a>
-						{isAdmin && (
-							<a href="/create-blog" className="n-link-custom">
-								Create Blog
+								</>
+							)}
+							<a href="/blogs" className="n-link-custom">
+								Blogs
 							</a>
-						)}
-					</div>
+							{isAdmin && (
+								<a href="/create-blog" className="n-link-custom">
+									Create Blog
+								</a>
+							)}
+						</div>
+					)}
 				</div>
 				{step != null && step <= 3 && (
 					<div className="step-info">
@@ -283,7 +288,8 @@ const HeaderContainer = ({
 												{t("li.pro-workspace")}
 											</NavDropdown.Item>
 										)}
-										{isMobileOnly && (
+										{/* {isMobileOnly && ( */}
+										<div>
 											<Button
 												onClick={goToMainPage}
 												className="add-property-mobile"
@@ -291,7 +297,8 @@ const HeaderContainer = ({
 												<img src={AddIcon} alt="AddIcon" />
 												<span>{t("button.add-property")}</span>
 											</Button>
-										)}
+										</div>
+										{/* )} */}
 										{!isAdmin &&
 											navBarList.map((list, index) => (
 												<NavDropdown.Item
