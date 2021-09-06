@@ -11,8 +11,15 @@ import CompanyDetails from "./CompanyDetails";
 const Register = () => {
 	const { t } = useTranslation("header");
 
-	const [step, setStep] = useState(2);
+	const [step, setStep] = useState(1);
 	const [agencyInfo, setAgencyInfo] = useState(null);
+
+	const registerAgencyOwner = () => {
+		return new Promise((res, rej) => {
+			try {
+			} catch (error) {}
+		});
+	};
 
 	const onRegister = () => {
 		setStep(step + 1);
@@ -23,9 +30,16 @@ const Register = () => {
 		setStep(step + 1);
 	};
 
+	const onCompanyDetails = (companyDetails) => {
+		console.log({
+			...agencyInfo,
+			...companyDetails,
+		});
+	};
+
 	return (
 		<>
-			<HeaderContainer mainPage title={t("title")} />
+			<HeaderContainer step={step - 1} mainPage title={t("title")} />
 			<div className="register-page-container">
 				<ProgressBar
 					style={{ width: "100%", height: 4 }}
@@ -37,7 +51,7 @@ const Register = () => {
 					<AgencyInfo onSubmit={onAgencyInfo} />
 				) : (
 					<CompanyDetails
-						onSubmit={() => null}
+						onSubmit={onCompanyDetails}
 						onBack={() => setStep(step - 1)}
 						address={{
 							city: agencyInfo?.city,

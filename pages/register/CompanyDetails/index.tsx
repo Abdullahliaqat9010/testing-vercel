@@ -38,7 +38,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 					onSubmit={onSubmit}
 					validationSchema={validationSchema}
 				>
-					{() => (
+					{({ resetForm, values }) => (
 						<Form>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="ipi_number">
@@ -77,7 +77,18 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 								<div className="mr-2">
 									<input
 										checked={sameBillingAddress}
-										onChange={(e) => setSameBillingAddress(e.target.checked)}
+										onChange={(e) => {
+											setSameBillingAddress(e.target.checked);
+											resetForm({
+												values: {
+													...values,
+													billing_city: address?.city,
+													billing_street: address?.street,
+													billing_street_number: address?.street_number,
+													billing_zip: address?.zip,
+												},
+											});
+										}}
 										type="checkbox"
 									/>
 								</div>
@@ -166,12 +177,15 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 								<Button
 									style={{ width: "49%" }}
 									className="form-back-button"
-									type="submit"
 									onClick={onBack}
 								>
 									Back
 								</Button>
-								<Button style={{ width: "49%" }} className="form-button">
+								<Button
+									style={{ width: "49%" }}
+									type="submit"
+									className="form-button"
+								>
 									Next
 								</Button>
 							</div>
