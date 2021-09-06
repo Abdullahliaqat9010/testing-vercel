@@ -42,11 +42,6 @@
 .form-label {
 	font-size: 14px;
 	line-height: 22px;
-	// width: 70%;
-	// white-space: pre-wrap;
-	@media (min-width: 768px) {
-		font-size: 16px;
-	}
 }
 
 .form-button {
@@ -54,6 +49,22 @@
 	border-radius: 8px;
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+
+.form-back-button {
+	height: 50px;
+	border-radius: 8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: white;
+	color: var(--colorBlue);
+	border: none;
+	outline: none;
+}
+
+.form-back-button:hover {
+	background-color: white;
+	color: var(--colorBlue);
 }
 
 .form-input {

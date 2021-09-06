@@ -2,7 +2,6 @@ import React from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import * as Yup from "yup";
-import axios from "axios";
 
 const AgencyInfo = ({ onSubmit }) => {
 	const validationSchema = Yup.object().shape({
@@ -74,7 +73,7 @@ const AgencyInfo = ({ onSubmit }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="street_number">
-										Street Number
+										Street number
 									</label>
 									<Field
 										className="form-input form-input-error"

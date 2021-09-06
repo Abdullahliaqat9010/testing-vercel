@@ -6,11 +6,22 @@ import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "next-i18next";
 import SignupForm from "../../components/SignupForm";
 import AgencyInfo from "./AgencyInfo";
+import CompanyDetails from "./CompanyDetails";
 
 const Register = () => {
 	const { t } = useTranslation("header");
 
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(2);
+	const [agencyInfo, setAgencyInfo] = useState(null);
+
+	const onRegister = () => {
+		setStep(step + 1);
+	};
+
+	const onAgencyInfo = (_agencyInfo) => {
+		setAgencyInfo({ ..._agencyInfo });
+		setStep(step + 1);
+	};
 
 	return (
 		<>
@@ -21,13 +32,21 @@ const Register = () => {
 					now={(step * 100) / 3}
 				/>
 				{step === 1 ? (
-					<SignupForm
-						accountType="professional"
-						onRegister={(values) => console.log(values)}
-					/>
+					<SignupForm accountType="professional" onRegister={onRegister} />
 				) : step === 2 ? (
-					<AgencyInfo onSubmit={() => null} />
-				) : null}
+					<AgencyInfo onSubmit={onAgencyInfo} />
+				) : (
+					<CompanyDetails
+						onSubmit={() => null}
+						onBack={() => setStep(step - 1)}
+						address={{
+							city: agencyInfo?.city,
+							street: agencyInfo?.street,
+							street_number: agencyInfo?.street_number,
+							zip: agencyInfo?.zip,
+						}}
+					/>
+				)}
 			</div>
 		</>
 	);
