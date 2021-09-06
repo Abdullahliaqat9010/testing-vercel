@@ -13,6 +13,8 @@ import FinalStep from "../main/StepsBlock/FinalStep";
 
 import { RootState } from "../../types/state";
 import { userToken } from "../../config/siteConfigs";
+import { GetServerSideProps } from "next";
+import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
 
 const FinalStepsPage = () => {
 	const { t } = useTranslation("header");
@@ -63,10 +65,16 @@ const FinalStepsPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale, ["main-page", "header", "steps"])),
-	},
-});
+export const getServerSideProps = handleAlreadyAuthenticated(
+	async ({ locale }) => ({
+		props: {
+			...(await serverSideTranslations(locale, [
+				"main-page",
+				"header",
+				"steps",
+			])),
+		},
+	})
+);
 
 export default FinalStepsPage;

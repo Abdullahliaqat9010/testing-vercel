@@ -46,7 +46,9 @@ const Register = () => {
 					now={(step * 100) / 3}
 				/>
 				{step === 1 ? (
-					<SignupForm accountType="professional" onRegister={onRegister} />
+					<div className="signup-form-container">
+						<SignupForm accountType="professional" onRegister={onRegister} />
+					</div>
 				) : step === 2 ? (
 					<AgencyInfo onSubmit={onAgencyInfo} />
 				) : (

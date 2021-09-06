@@ -4,7 +4,12 @@ import { Button } from "react-bootstrap";
 import * as Yup from "yup";
 import axios from "axios";
 
-const SignupForm = ({ onRegister, accountType = "personal" }) => {
+const SignupForm = ({
+	onRegister,
+	accountType = "personal",
+	showTitle = true,
+	onBack = null,
+}) => {
 	const checkForDuplicateEmail = (email: string): Promise<boolean> => {
 		return new Promise(async (res, rej) => {
 			try {
@@ -55,12 +60,14 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 
 	return (
 		<div className="form-container">
-			<div className="form-title-container">
-				<p className="form-title">Create {accountType} account</p>
-				<p className="form-subtitle">
-					Benefit from using ImmoBelgium for your agency
-				</p>
-			</div>
+			{showTitle && (
+				<div className="form-title-container">
+					<p className="form-title">Create {accountType} account</p>
+					<p className="form-subtitle">
+						Benefit from using ImmoBelgium for your agency
+					</p>
+				</div>
+			)}
 			<div>
 				<Formik
 					initialValues={{
@@ -76,7 +83,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 					onSubmit={onRegister}
 					validationSchema={validationSchema}
 				>
-					{() => (
+					{({ isSubmitting }) => (
 						<Form>
 							<div className="d-flex flex-row justify-content-between">
 								<div
@@ -200,9 +207,32 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									name="t_c"
 								/>
 							</div>
-							<Button className="form-button" block type="submit">
-								Next
-							</Button>
+							<div className="my-4">
+								{onBack ? (
+									<div className="d-flex flex-row justify-content-between align-items-center">
+										<Button
+											style={{ width: "49%" }}
+											className="form-back-button"
+											block
+											onClick={onBack}
+										>
+											Back
+										</Button>
+										<Button
+											style={{ width: "49%" }}
+											className="form-button"
+											block
+											type="submit"
+										>
+											{isSubmitting ? "Loading..." : "Next"}
+										</Button>
+									</div>
+								) : (
+									<Button className="form-button" block type="submit">
+										{isSubmitting ? "Loading..." : "Next"}
+									</Button>
+								)}
+							</div>
 						</Form>
 					)}
 				</Formik>

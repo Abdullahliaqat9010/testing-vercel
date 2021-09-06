@@ -15,6 +15,7 @@ import { RootState } from "../../../../types/state";
 import IconBack from "../../../../assets/images/long-arrow.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
 import { regexp } from "../../../../utils";
+import SignupForm from "../../../../components/SignupForm";
 
 const FinalStep = ({ handleSwitchSteps }: any) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -267,7 +268,12 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 				{t("link.already-have-account")}
 				<img src={ArrowIcon} alt="ArrowIcon" />
 			</span>
-			<Form validated={errors.noValid}>
+			<SignupForm
+				onBack={handleClickPrevBtn}
+				showTitle={false}
+				onRegister={handleSubmit}
+			/>
+			{/* <Form validated={errors.noValid}>
 				<Form.Row className="mb-4">
 					<Form.Group>
 						<Form.Label>{t("label.first-name")}</Form.Label>
@@ -406,7 +412,7 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 				>
 					{isLoading ? `${t("button.loading")}...` : t("button.create-account")}
 				</Button>
-			</div>
+			</div> */}
 		</div>
 	);
 };
