@@ -95,6 +95,7 @@ const userReducer = (state = initialState, action: any) => {
 		case actionType.GET_PRICE_PROPERTY_SUCCESS:
 			return {
 				...state,
+				noEstimation: false,
 				currentPropertyPrice: { ...action.payload },
 			};
 		case actionType.CHECK_IF_EXIST_EMAIL_SUCCESS:

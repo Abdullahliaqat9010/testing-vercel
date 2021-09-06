@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "next-i18next";
-
 import ArrowIcon from "../../../../assets/images/arrow-blue.svg";
 
 import {
@@ -35,12 +34,15 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 		personalAccount,
 	} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 	const { existEmail } = useSelector((state: RootState) => state.userInfo);
+	const { errors: stepErrors } = useSelector(
+		(state: RootState) => state.stepsInfo
+	);
 
 	const [data, setFormData] = useState({
 		firstName: "",
 		lastName: "",
 		email: "",
-		phone_number: "",
+		phone_number: "+33",
 		password: "",
 		confirmPassword: "",
 		promotions: false,
@@ -69,7 +71,11 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 				email: t("error.email-exists"),
 			});
 		}
-	}, [existEmail]);
+		if (stepErrors) {
+			setIsLoading(false);
+			window.confirm(stepErrors);
+		}
+	}, [existEmail, stepErrors]);
 
 	const handleChangeVal = (el: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
@@ -206,7 +212,6 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 			});
 			return false;
 		}
-
 		return true;
 	};
 
@@ -224,6 +229,33 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 			JSON.stringify(propertyData())
 		);
 		router.push("/login");
+	};
+	const validatePasword = (value) => {
+		if (!value.match(regexp.phone)) {
+			setErrors({
+				...errors,
+				phone_number: t("error.phone-notValid"),
+			});
+			return false;
+		}
+	};
+	const validateEmail = async (value) => {
+		console.log("hasd", value);
+		if (data.email === "") {
+			setErrors({
+				...errors,
+				email: t("error.required"),
+			});
+			return false;
+		} else if (!data.email.match(regexp.email)) {
+			setErrors({
+				...errors,
+				email: t("error.email-notValid"),
+			});
+			return false;
+		}
+		checkIfEmailExist(value);
+		// return true
 	};
 
 	return (
@@ -276,9 +308,10 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 						value={data.email}
 						name="email"
 						required
-						onBlur={(el) => checkIfEmailExist(el.target.value)}
+						// onBlur={(el) => validateEmail(el.target.value)}
+						// onBlur={(el) => checkIfEmailExist(el.target.value)}
 						onChange={handleChangeVal}
-						type="text"
+						type="email"
 						isInvalid={errors.email.length > 0}
 					/>
 					<Form.Control.Feedback type="invalid">
@@ -292,6 +325,7 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 					<Form.Control
 						value={data.phone_number}
 						name="phone_number"
+						onBlur={(el) => validatePasword(el.target.value)}
 						onChange={handleChangeVal}
 						type="text"
 						isInvalid={errors.phone_number.length > 0}

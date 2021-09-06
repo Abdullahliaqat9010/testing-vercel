@@ -39,7 +39,7 @@ import NorthWestActive from "../../../../assets/images/steps/orientation/nw-acti
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
 
-const StepFour = () => {
+const StepFour = ({ setStep }) => {
 	const { t } = useTranslation("steps");
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -95,7 +95,7 @@ const StepFour = () => {
 	}, []);
 
 	const handleClickPrevBtn = () => {
-		dispatch(goToPrevStepAction());
+		setStep(2);
 	};
 
 	const checkIfCheckbox = (name: string) => {

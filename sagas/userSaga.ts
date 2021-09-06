@@ -3,8 +3,6 @@ import { takeLatest, put } from "redux-saga/effects";
 import * as actionType from "../actions/actionTypes";
 
 import { parseJwt } from "../utils";
-import { config } from "../config/siteConfigs";
-import { createPropertyRequest } from "./propertySaga";
 import axios from "axios";
 
 function* checkExistEmail({ payload }: any) {
