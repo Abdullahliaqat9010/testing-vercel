@@ -38,7 +38,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 					onSubmit={onSubmit}
 					validationSchema={validationSchema}
 				>
-					{({ resetForm, values }) => (
+					{({ resetForm, values, isSubmitting }) => (
 						<Form>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="ipi_number">
@@ -186,7 +186,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 									type="submit"
 									className="form-button"
 								>
-									Next
+									{isSubmitting ? "Loading..." : "Next"}
 								</Button>
 							</div>
 						</Form>
