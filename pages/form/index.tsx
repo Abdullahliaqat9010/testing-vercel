@@ -1,8 +1,8 @@
 import React from "react";
 import { Upload, message } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
+import { FacebookFilled, InboxOutlined } from "@ant-design/icons";
 import { QuestionCircleFilled } from "@ant-design/icons";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
@@ -51,13 +51,18 @@ const Formpage = () => {
 								firstName: "",
 								lastName: "",
 								email: "",
+								facebookUrl: "",
+								instagramUrl: "",
+								twitterUrl: "",
+								linkedinUrl: "",
+								youtubeUrl: "",
 							}}
 							// validationSchema={SignupSchema}
 							onSubmit={(values) => {
 								console.log(values);
 							}}
 						>
-							{({ errors, touched }) => (
+							{({ errors, touched, values }) => (
 								<Form>
 									<div className="password-block2">
 										<h2>{"Photo d’en-tete"}</h2>
@@ -76,25 +81,45 @@ const Formpage = () => {
 												largeur et 350 pl.. de hauteur.
 											</div>
 										</div>
-									</div>
-									<Dragger {...draggerProps}>
-										<div className="Dragger">
-											<p className="ant-upload-drag-icon">
-												<InboxOutlined
-													style={{
-														fontSize: 50,
-													}}
+										<Dragger {...draggerProps}>
+											<div className="Dragger">
+												<div className="child-Dragger">
+													<p className="ant-upload-drag-icon">
+														<InboxOutlined
+															style={{
+																fontSize: 50,
+															}}
+														/>
+													</p>
+													<p className="ant-upload-text">
+														Click or drag file to this area to upload
+													</p>
+													<p className="ant-upload-hint">
+														Support for a single or bulk upload. Strictly
+														prohibit from uploading company data or other band
+														files
+													</p>
+												</div>
+											</div>
+										</Dragger>
+										<div className="password-block2">
+											<h2>Socials</h2>
+											<div className="social-container">
+												<FacebookFilled style={{ fontSize: 35 }} />
+
+												<Field
+													className="input-field"
+													type="url"
+													name="facebookUrl"
+													placeholder={
+														values?.facebookUrl
+															? values?.facebookUrl
+															: "https://facebook.com/yourcompany"
+													}
 												/>
-											</p>
-											<p className="ant-upload-text">
-												Click or drag file to this area to upload
-											</p>
-											<p className="ant-upload-hint">
-												Support for a single or bulk upload. Strictly prohibit
-												from uploading company data or other band files
-											</p>
+											</div>
 										</div>
-									</Dragger>
+									</div>
 								</Form>
 							)}
 						</Formik>
