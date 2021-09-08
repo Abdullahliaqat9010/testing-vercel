@@ -1,5 +1,6 @@
 import React from "react";
-import {} from "antd";
+import { Upload, message } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 import { QuestionCircleFilled } from "@ant-design/icons";
 import { Formik, Form } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -7,7 +8,29 @@ import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
 import NavBarContainer from "../../containers/NavBar";
 
+const { Dragger } = Upload;
+
 const Formpage = () => {
+	const draggerProps = {
+		name: "file",
+		multiple: true,
+
+		onChange: (info) => {
+			const { status } = info.file;
+			if (status !== "uploading") {
+				console.log(info.file, info.fileList);
+			}
+			if (status === "done") {
+				message.success(`${info.file.name} file uploaded successfully.`);
+			} else if (status === "error") {
+				message.error(`${info.file.name} file upload failed.`);
+			}
+		},
+		onDrop: (e) => {
+			console.log("Dropped files", e.dataTransfer.files);
+		},
+	};
+
 	const { t } = useTranslation();
 	return (
 		<div>
@@ -36,7 +59,7 @@ const Formpage = () => {
 						>
 							{({ errors, touched }) => (
 								<Form>
-									<div className="password-block">
+									<div className="password-block2">
 										<h2>{"Photo d’en-tete"}</h2>
 										<div>
 											La photo de votre vitrine est un reflet de votre
@@ -54,6 +77,24 @@ const Formpage = () => {
 											</div>
 										</div>
 									</div>
+									<Dragger {...draggerProps}>
+										<div className="Dragger">
+											<p className="ant-upload-drag-icon">
+												<InboxOutlined
+													style={{
+														fontSize: 50,
+													}}
+												/>
+											</p>
+											<p className="ant-upload-text">
+												Click or drag file to this area to upload
+											</p>
+											<p className="ant-upload-hint">
+												Support for a single or bulk upload. Strictly prohibit
+												from uploading company data or other band files
+											</p>
+										</div>
+									</Dragger>
 								</Form>
 							)}
 						</Formik>

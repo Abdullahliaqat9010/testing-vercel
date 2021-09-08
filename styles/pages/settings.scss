@@ -63,6 +63,99 @@
 				}
 			}
 
+			.Dragger {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 10px;
+				border-radius: 20px;
+				border: 1px dashed lightgrey;
+				background-color: #d3d3d3;
+			}
+
+			.password-block2 {
+				margin-top: 30px;
+				padding: 30px 0;
+				border-top: 1px solid rgba(56, 113, 239, 0.2);
+				// border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+
+				.alert-block {
+					border: 1px solid lightgrey;
+					border-radius: 12px;
+					padding: 10px;
+					margin: 10px;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: space-between;
+
+					.text-block {
+						width: calc(100% - 50px);
+					}
+				}
+
+				h2 {
+					font-family: var(--fontNunitoBold);
+					font-size: 20px;
+					line-height: 27px;
+				}
+
+				p {
+					font-size: 12px;
+					line-height: 16px;
+					margin-bottom: 20px;
+				}
+
+				.change-pass {
+					cursor: pointer;
+					color: var(--colorBlue);
+					font-size: 14px;
+					line-height: 19px;
+					margin-top: 10px;
+					display: flex;
+					align-items: center;
+
+					img {
+						margin-right: 6px;
+					}
+				}
+
+				.change-password-block {
+					margin-top: 30px;
+
+					.form-group {
+						position: relative;
+
+						img {
+							position: absolute;
+							bottom: 15px;
+							right: 12px;
+						}
+					}
+
+					.change-password-btns {
+						.confirm {
+							margin-right: 16px;
+						}
+
+						.cancel {
+							border: unset;
+							color: var(--colorBlue);
+							background: transparent;
+						}
+
+						button {
+							font-family: var(--fontNunitoBold);
+							font-size: 16px;
+							line-height: 22px;
+							padding: 14px 51px;
+							background: var(--colorBlue);
+							border-radius: 8px;
+						}
+					}
+				}
+			}
+
 			.password-block {
 				margin-top: 30px;
 				padding: 30px 0;
