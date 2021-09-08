@@ -32,12 +32,11 @@
 			border-bottom: 1px solid rgba(56, 113, 239, 0.25);
 
 			.action-block {
-				span {
-					width: 38px;
-					height: 38px;
+				Button {
 					border-radius: 6px;
 					padding: 10px;
 					background-color: var(--bg-blue);
+                    border: none;
 				}
 			}
 			img {
@@ -49,6 +48,7 @@
 			border-bottom: 1px solid rgba(56, 113, 239, 0.25);
 			padding: 1.5rem 0rem;
 			.property-images-block {
+                width: 40%;
 				input {
 					align-self: center;
 				}
@@ -59,12 +59,12 @@
 
 				.first-image {
 					height: 90px;
-					width: 90px;
+					width: 70%;
 					border-radius: 6px;
 					// margin: 0px 2px;
 				}
 				.second-images {
-					width: 43px;
+					width: 95%;
 					height: 43px;
 					margin: 2px 0px;
 					border-radius: 6px;
@@ -104,14 +104,13 @@
 			.view-property {
 				order: 2;
 				margin-left: auto;
-				span {
+				Button {
 					padding: 14px;
-					width: 46px;
 					height: 46px;
 					border-radius: 6px;
 					font-size: 18px;
 					line-height: 18px;
-					border: 1px solid var(--colorLightBlue);
+                    background: var(--colorWhite);
 				}
 				img {
 					width: 18px;
@@ -163,13 +162,13 @@
 				.property-images-block {
 					width: 100%;
 					.first-image {
-						width: 200px;
+						width: 75%;
 						height: 120px;
 						border-radius: 6px;
 						margin: 0px 2px;
 					}
 					.second-images {
-						width: 69px;
+						width: 100%;
 						height: 58px;
 						margin: 2px 0px;
 						border-radius: 6px;

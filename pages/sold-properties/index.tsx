@@ -18,6 +18,7 @@ import Eye from "../../assets/images/gray-eye.svg";
 import blackeye from "../../assets/images/black-eye.svg";
 import loadMoreImage from "../../assets/images/load-more.svg";
 import image from "../../assets/images/agency-page/bg-agency.jpeg";
+import blackCross from "../../assets/images/black-eye-cross.svg";
 import { userToken } from "../../config/siteConfigs";
 import { parseJwt } from "../../utils";
 
@@ -31,6 +32,7 @@ const SoldPropertiesPage = () => {
 			total_area: 32,
 			bedrooms: 3,
 			bathrooms: 1,
+            status: "active",
 			sold_date: "june 2020",
 		},
 		{
@@ -40,6 +42,7 @@ const SoldPropertiesPage = () => {
 			bedrooms: 3,
 			bathrooms: 1,
 			sold_date: "june 2020",
+            status: "block",
 		},
 	];
 	const { t } = useTranslation("properties-page");
@@ -91,18 +94,18 @@ const SoldPropertiesPage = () => {
 								<span className=" total-listings pl-2"> 2 Listings </span>{" "}
 							</div>
 							<div className="action-block">
-								<span className="mx-1">
+                                <Button className="mx-1">
 									{" "}
 									<img src={Eye} alt="eye" />
-								</span>
-								<span className="mx-1">
+								</Button>
+								<Button className="mx-1">
 									{" "}
 									<img src={EyeCross} alt="eye" />
-								</span>
-								<span className="ml-1">
+								</Button>
+								<Button className="ml-1">
 									{" "}
 									<img src={Delete} alt="eye" />
-								</span>
+								</Button>
 							</div>
 						</div>
 
@@ -123,11 +126,11 @@ const SoldPropertiesPage = () => {
 										<div className="proprty-info">
 											<div>
 												<span className="address">
-													ja aksdha akjsdhaks askjdhaksj
+													{property.search_address }
 												</span>
 											</div>
 											<div>
-												<span className="sold-property">sold date </span>
+												<span className="sold-property">{property.sold_date} </span>
 											</div>
 											<div className=" property-props mt-2 d-flex">
 												<span className="mr-1">
@@ -142,11 +145,18 @@ const SoldPropertiesPage = () => {
 											</div>
 										</div>
 										<div className=" d-flex view-property">
-											{" "}
-											<span>
-												{" "}
-												<img src={blackeye} alt="eye" />
-											</span>
+                                            {property.status=== 'active' ?
+                                                // {" "}
+                                                <Button>
+                                                    {" "}
+                                                    <img src={blackeye} alt="eye" />
+                                                </Button>
+                                                :
+<Button>
+                                                    {" "}
+                                                    <img src={blackCross} alt="eye" />
+                                                </Button>
+                                            }
 										</div>
 									</div>
 								</div>
