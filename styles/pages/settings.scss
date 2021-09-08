@@ -69,6 +69,21 @@
 				border-top: 1px solid rgba(56, 113, 239, 0.2);
 				border-bottom: 1px solid rgba(56, 113, 239, 0.2);
 
+				.alert-block {
+					border: 1px solid lightgrey;
+					border-radius: 12px;
+					padding: 10px;
+					margin: 10px;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: space-between;
+
+					.text-block {
+						width: calc(100% - 50px);
+					}
+				}
+
 				h2 {
 					font-family: var(--fontNunitoBold);
 					font-size: 20px;

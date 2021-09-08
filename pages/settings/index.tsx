@@ -25,7 +25,7 @@ const SettingsPage = () => {
 	const router = useRouter();
 	const { locale } = router;
 
-	const { t } = useTranslation("settings-page")
+	const { t } = useTranslation("settings-page");
 
 	const [newPasswordData, setNewPasswordData] = useState({
 		newPass: "",
@@ -195,12 +195,12 @@ const SettingsPage = () => {
 
 	return (
 		<>
-			<HeaderContainer title={t('title')} />
+			<HeaderContainer title={t("title")} />
 			<div className="SettingsPage container">
 				<NavBarContainer />
 				<div className="SettingsPage__container w-100">
 					<div className="first-block">
-						<h1>{t('h1.title')}</h1>
+						<h1>{t("h1.title")}</h1>
 						<Form
 							onSubmit={(e) => {
 								e.preventDefault();
@@ -275,7 +275,9 @@ const SettingsPage = () => {
 								disabled={isUpdatingProfile}
 								style={{ padding: "14px 51px", borderRadius: 8, marginTop: 10 }}
 							>
-								{isUpdatingProfile ? t("button.loading") : t("button.save-chanes")}
+								{isUpdatingProfile
+									? t("button.loading")
+									: t("button.save-chanes")}
 							</Button>
 							<Alert
 								style={{ marginTop: 20 }}
@@ -349,7 +351,9 @@ const SettingsPage = () => {
 												className="confirm"
 												type="submit"
 											>
-												{isChangingPass ? t("button.loading") : t("button.confirm")}
+												{isChangingPass
+													? t("button.loading")
+													: t("button.confirm")}
 											</Button>
 											<Button
 												className="cancel"
@@ -403,9 +407,7 @@ const SettingsPage = () => {
 							<img src={AccountImage} alt="AccountImage" />
 							<div className="account-info d-flex flex-column">
 								<span className="title">{t("label.pro")}</span>
-								<span className="desc">
-									{t("p.pro")}
-								</span>
+								<span className="desc">{t("p.pro")}</span>
 							</div>
 						</div>
 						<Button className="become-pro">{t("button.pro")}</Button>
@@ -432,8 +434,8 @@ const SettingsPage = () => {
 							{isAvatarUploading
 								? t("image.uploading")
 								: avatar
-									? t("image.change")
-									: t("image.placholder")}
+								? t("image.change")
+								: t("image.placholder")}
 						</label>
 						{/* <span className="upload-btn">Upload photo</span> */}
 					</div>
@@ -458,7 +460,11 @@ const SettingsPage = () => {
 
 export const getServerSideProps = requireAuthentication(async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(locale, ["settings-page", "header", "common"])),
+		...(await serverSideTranslations(locale, [
+			"settings-page",
+			"header",
+			"common",
+		])),
 	},
 }));
 

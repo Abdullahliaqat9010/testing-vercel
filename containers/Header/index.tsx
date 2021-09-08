@@ -85,7 +85,6 @@ const HeaderContainer = ({
 
 	const goToMainPage = () => {
 		router.push(`/${locale}/estimate`);
-		// window.location.href = "/" + locale;
 	};
 
 	const Logout = async () => {
@@ -288,7 +287,7 @@ const HeaderContainer = ({
 												{t("li.pro-workspace")}
 											</NavDropdown.Item>
 										)}
-										{/* {isMobileOnly && ( */}
+										{isMobileOnly && (
 										<div>
 											<Button
 												onClick={goToMainPage}
@@ -298,7 +297,7 @@ const HeaderContainer = ({
 												<span>{t("button.add-property")}</span>
 											</Button>
 										</div>
-										{/* )} */}
+										)}
 										{!isAdmin &&
 											navBarList.map((list, index) => (
 												<NavDropdown.Item
