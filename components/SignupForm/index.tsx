@@ -38,7 +38,7 @@ const SignupForm = ({
 				"email already exists",
 				checkForDuplicateEmail
 			),
-		phone: Yup.string().optional(),
+		phone_number: Yup.string().optional(),
 		password: Yup.string()
 			.required("Required")
 			.matches(
@@ -120,14 +120,14 @@ const SignupForm = ({
 								</div>
 							</div>
 							<div className="d-flex flex-column form-input-block">
-								<label className="form-label" htmlFor="phone">
+								<label className="form-label" htmlFor="phone_number">
 									Phone number
 								</label>
-								<Field className="form-input" name="phone" type="text" />
+								<Field className="form-input" name="phone_number" type="text" />
 								<ErrorMessage
 									className="form-error"
 									component="div"
-									name="phone"
+									name="phone_number"
 								/>
 							</div>
 							<div className="d-flex flex-column form-input-block">

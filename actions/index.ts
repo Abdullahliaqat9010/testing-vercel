@@ -5,6 +5,11 @@ export const userLoginAction = (data: object) => ({
 	payload: data,
 });
 
+export const userSignupAction = (data: object) => ({
+	type: actionType.LOGIN_USER_SUCCESS,
+	payload: data,
+});
+
 export const userLogoutAction = () => ({
 	type: actionType.LOGOUT_USER_REQUEST,
 });
