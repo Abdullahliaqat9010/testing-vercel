@@ -116,7 +116,7 @@ const SoldPropertiesPage = () => {
 										<input type="checkBox" className="mr-2"></input>
 										<div className="d-flex flex-row align-items-center">
 											<img className="first-image" src={image} alt="eye" />
-											<div className="d-flex align-items-center flex-column">
+											<div className="d-flex align-items-center flex-column ml-1">
 												<img className="second-images" src={image} alt="eye" />
 												<img className="second-images" src={image} alt="eye" />
 											</div>
