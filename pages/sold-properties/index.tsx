@@ -83,7 +83,7 @@ const SoldPropertiesPage = () => {
                             </div>
                         </div>
                         <div className="w-100 py-4 whole-selecter-block justify-content-between d-flex">
-                            <div> <input type="checkBox" ></input> <span className="pl-2"> 2 Listings </span> </div>
+                            <div> <input type="checkBox" ></input> <span className=" total-listings pl-2"> 2 Listings </span> </div>
                             <div className="action-block">
                                 <span className="mx-1"> <img src={Eye} alt="eye" /></span>
                                 <span className="mx-1" > <img src={EyeCross} alt="eye" /></span>

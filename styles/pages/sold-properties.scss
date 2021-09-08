@@ -55,6 +55,10 @@
                 
                 align-self: center;
               }
+              .total-listings {
+                font-size: 14px;
+                line-height: 19px;
+              }
               
               .first-image {
                   height: 90px;
@@ -81,6 +85,8 @@
                 line-height: 22px;
                 margin: 6px 0px;
                 font-weight: bold;
+                font-size: 16px;
+                line-height: 22px;
                }
             .sold-property {
                 color: var(--colorGrayTwo);
@@ -92,6 +98,8 @@
                     padding: 6px 8px;
                     border-radius: 10px;
                     background-color: var( --bg-blue);
+                    font-size: 14px;
+                    line-height: 19px;
                 }
             }
           }
@@ -128,6 +136,8 @@
                 height: 47px;
                 width: 224px;
                 border: unset;
+                font-size: 14px;
+                line-height: 19px;
                 color: var(--colorBlue)
             }
             img {
@@ -174,6 +184,7 @@
                       }
                 }
                 .property-discription {
+                    margin-top: 10px;
                     width: 100%;
                     padding-left: 20px;
                 }
