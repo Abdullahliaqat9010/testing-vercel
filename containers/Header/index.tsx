@@ -63,7 +63,7 @@ const HeaderContainer = ({
 	// 	(state: RootState) => state.stepsInfo
 	// );
 
-	const { auth, userName, userSurname, avatar } = useSelector(
+	const { auth, firstname, lastname, avatar } = useSelector(
 		(state: RootState) => state.userInfo
 	);
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -275,7 +275,7 @@ const HeaderContainer = ({
 										/>
 									)}
 									<NavDropdown
-										title={isMobileOnly ? "" : userName + " " + userSurname}
+										title={isMobileOnly ? "" : firstname + " " + lastname}
 										id="header-dropdown"
 										onClick={isActive}
 									>
@@ -326,7 +326,7 @@ const HeaderContainer = ({
 													roundedCircle
 												/>
 												<span className="user-name">
-													{userName + " " + userSurname}
+													{firstname + " " + lastname}
 												</span>
 												{/*<span className="pro">PRO</span>*/}
 												<div className="mobile-lang-list">

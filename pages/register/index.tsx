@@ -7,10 +7,10 @@ import { useRouter } from "next/router";
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "next-i18next";
 import SignupForm from "../../components/SignupForm";
-import AgencyInfo from "./AgencyInfo";
-import CompanyDetails from "./CompanyDetails";
+import AgencyInfo from "./AgencyInfo/index.component";
+import CompanyDetails from "./CompanyDetails/index.component";
 import { createAgencyProfile, signup } from "../../network-requests";
-import { userSignupAction } from "../../actions";
+import { setUserProfile } from "../../actions";
 import { RootState } from "../../types/state";
 
 const Register = () => {
@@ -30,23 +30,16 @@ const Register = () => {
 		}
 	}, []);
 
-	const registerAgencyOwner = (userData, actions) => {
+	const registerAgencyOwner = (userData) => {
 		return new Promise(async (res, rej) => {
 			try {
-				const parsedData = await signup({ ...userData, account_type: "agent" });
+				const userProfile = await signup({
+					...userData,
+					account_type: "agent",
+				});
 				dispatch(
-					userSignupAction({
-						userName: parsedData?.firstname,
-						userSurname: parsedData?.lastname,
-						userEmail: parsedData?.email,
-						userPhone: parsedData?.phone_number,
-						gender: parsedData?.gender,
-						avatar: parsedData?.avatar,
-						emailVerified: parsedData?.email_verified,
-						accountType: parsedData?.account_type,
-						id: parsedData?.id,
-						t_c: parsedData?.t_c,
-						promo_mailing: parsedData?.promo_mailing,
+					setUserProfile({
+						...userProfile,
 						account_type: "agent",
 					})
 				);

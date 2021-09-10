@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { UserProfile } from "../types/profile";
 
 const setTokens = (access_token, refresh_token) => {
 	return new Promise(async (res, rej) => {
@@ -29,7 +30,23 @@ export const signup = (userData): Promise<any> => {
 			const { data } = await axios.post("auth/signup", {
 				...userData,
 			});
-			const parsedData = jwt.decode(data?.access_token) as any;
+			const parsedData = jwt.decode(data?.access_token) as UserProfile;
+			await setTokens(data?.access_token, data?.refresh_token);
+			res(parsedData);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const login = (email, password): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.post("auth/login", {
+				email,
+				password,
+			});
+			const parsedData = jwt.decode(data?.access_token) as UserProfile;
 			await setTokens(data?.access_token, data?.refresh_token);
 			res(parsedData);
 		} catch (error) {

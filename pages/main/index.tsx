@@ -5,7 +5,7 @@ import { RootState } from "../../types/state";
 
 import ImagesBlock from "./ImagesBlock";
 import TestimonialsBlock from "./TestimonialsBlock";
-import StepsBlock from "./StepsBlock";
+import StepsBlock from "../estimate/StepsBlock/index.component";
 import InfoBlock from "./InfoBlock";
 
 const MainPageComponent = () => {

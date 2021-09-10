@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import { isMobile } from "react-device-detect";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
 
 import HeaderContainer from "../../containers/Header";
 import GoogleMap from "../../components/GoogleMap";
-import CreatePersonalAccount from "../main/StepsBlock/CreatePersonalAccount";
-import FinalStep from "../main/StepsBlock/FinalStep";
+import CreatePersonalAccount from "../estimate/StepsBlock/CreatePersonalAccount";
+import FinalStep from "../estimate/StepsBlock/FinalStep";
 
 import { RootState } from "../../types/state";
-import { userToken } from "../../config/siteConfigs";
-import { GetServerSideProps } from "next";
 import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
 
 const FinalStepsPage = () => {
 	const { t } = useTranslation("header");
-	const router = useRouter();
-	const { locale } = router;
-
-	const { goToDashboard } = useSelector((state: RootState) => state.stepsInfo);
+	const location = useSelector<RootState>(
+		(state) => state.stepsInfo.stepBlock.location
+	) as any;
 
 	const [step, changeStep] = useState<boolean>(false);
 
-	// useEffect(() => {
-	//   if (goToDashboard) {
-	//     router.push(
-	//       '/dashboard',
-	//       userToken !== null ? locale + '/dashboard' : locale + '/success',
-	//       {locale: locale}
-	//       );
-	//   }
-	// }, [userToken, goToDashboard]);
-
 	const handleSwitchSteps = () => {
 		return changeStep(!step);
+	};
+
+	const mapProps = {
+		markers: [
+			{
+				position: {
+					lat: location?.lat,
+					lng: location?.lng,
+				},
+				type: "home",
+				id: null,
+			},
+		],
 	};
 
 	return (
@@ -55,7 +54,7 @@ const FinalStepsPage = () => {
 						</div>
 						{!isMobile && (
 							<div className="w-50 position-relative">
-								<GoogleMap />
+								<GoogleMap {...mapProps} />
 							</div>
 						)}
 					</div>

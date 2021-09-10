@@ -1,13 +1,27 @@
+import { UserProfile } from "../types/profile";
 import * as actionType from "./actionTypes";
 
-export const userLoginAction = (data: object) => ({
-	type: actionType.LOGIN_USER_REQUEST,
-	payload: data,
+export const userLoginSuccess = () => ({
+	type: actionType.LOGIN_USER_SUCCESS,
 });
 
-export const userSignupAction = (data: object) => ({
+export const userLogoutSuccess = () => ({
+	type: actionType.LOGOUT_USER_SUCCESS,
+});
+
+export const setUserProfile = (profile: UserProfile) => ({
+	type: actionType.SET_USER_PROFILE,
+	payload: profile,
+});
+
+export const updateUserProfile = (profile: UserProfile) => ({
 	type: actionType.LOGIN_USER_SUCCESS,
-	payload: data,
+	payload: profile,
+});
+
+export const setUserProfileAction = (profile: object) => ({
+	type: actionType.SET_USER_PROFILE,
+	payload: profile,
 });
 
 export const userLogoutAction = () => ({

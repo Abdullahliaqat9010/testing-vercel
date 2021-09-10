@@ -2,7 +2,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import HeaderContainer from "../../containers/Header";
-import StepsBlock from "../main/StepsBlock";
+import StepsBlock from "./StepsBlock/index.component";
 
 const Estimate = () => {
 	const { t } = useTranslation();

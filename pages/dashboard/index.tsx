@@ -20,15 +20,4 @@ export const getServerSideProps = requireAuthentication(async ({ locale }) => {
 	};
 });
 
-// export const getStaticProps = async ({ locale }) => {
-// 	return {
-// 		props: {
-// 			...(await serverSideTranslations(locale, [
-// 				"dashboard-page",
-// 				"header",
-// 				"common",
-// 			])),
-// 		},
-// 	};
-// };
 export default DashboardPage;

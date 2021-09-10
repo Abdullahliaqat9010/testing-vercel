@@ -3,6 +3,9 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import * as Yup from "yup";
 import axios from "axios";
+import { useTranslation } from "next-i18next";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SignupForm = ({
 	onRegister,
@@ -10,6 +13,16 @@ const SignupForm = ({
 	showTitle = true,
 	onBack = null,
 }) => {
+	const { t } = useTranslation("steps");
+
+	const router = useRouter();
+	const { locale } = router;
+
+	const linkProps = {
+		target: "_blank",
+		locale,
+	};
+
 	const checkForDuplicateEmail = (email: string): Promise<boolean> => {
 		return new Promise(async (res, rej) => {
 			try {
@@ -91,7 +104,7 @@ const SignupForm = ({
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="firstname">
-										First name
+										{t("label.first-name")}
 									</label>
 									<Field
 										className="form-input form-input-error"
@@ -109,7 +122,7 @@ const SignupForm = ({
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="lastname">
-										Last name
+										{t("label.last-name")}
 									</label>
 									<Field className="form-input" name="lastname" type="text" />
 									<ErrorMessage
@@ -121,7 +134,7 @@ const SignupForm = ({
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="phone_number">
-									Phone number
+									{`${t("label.phone")} (${t("title.optional")})`}
 								</label>
 								<Field className="form-input" name="phone_number" type="text" />
 								<ErrorMessage
@@ -132,7 +145,7 @@ const SignupForm = ({
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="email">
-									Email
+									{t("label.email")}
 								</label>
 								<Field className="form-input" name="email" type="email" />
 								<ErrorMessage
@@ -147,7 +160,7 @@ const SignupForm = ({
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="password">
-										Password
+										{t("label.password")}
 									</label>
 									<Field
 										className="form-input form-input-error"
@@ -165,7 +178,7 @@ const SignupForm = ({
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="confirm_password">
-										Confirm Password
+										{t("label.confirm-password")}
 									</label>
 									<Field
 										className="form-input"
@@ -180,8 +193,7 @@ const SignupForm = ({
 								</div>
 							</div>
 							<div className="form-password-disclaimer">
-								We strongly recommend to use strong password, with at least one
-								symbol and digit.
+								{t("desc.strongly-recommend")}
 							</div>
 							<div className="d-flex flex-row mt-4">
 								<Field
@@ -190,14 +202,20 @@ const SignupForm = ({
 									className="mr-2 mt-1"
 								/>
 								<label className="label-terms-condition">
-									I’d like to receive occassional promotions by email.
+									{t("label.promotions")}
 								</label>
 							</div>
 							<div className="d-flex flex-row mt-1">
 								<Field name="t_c" type="checkbox" className="mr-2 mt-1" />
 								<label className="label-terms-condition">
-									I have read and agree to service Privacy Policy and Terms and
-									conditions
+									{t("label.read-privacy")}
+									<a href={"/privacy-policy"} {...linkProps}>
+										{t("label.privacy")}
+									</a>
+									{t("label.and")}
+									<a href={"/terms-and-condition"} {...linkProps}>
+										{t("label.terms")}
+									</a>
 								</label>
 							</div>
 							<div style={{ marginTop: -10 }}>
@@ -216,7 +234,7 @@ const SignupForm = ({
 											block
 											onClick={onBack}
 										>
-											Back
+											{t("button.back")}
 										</Button>
 										<Button
 											style={{ width: "49%" }}
@@ -224,12 +242,16 @@ const SignupForm = ({
 											block
 											type="submit"
 										>
-											{isSubmitting ? "Loading..." : "Next"}
+											{isSubmitting
+												? `${t("button.loading")}...`
+												: t("button.create-account")}
 										</Button>
 									</div>
 								) : (
 									<Button className="form-button" block type="submit">
-										{isSubmitting ? "Loading..." : "Next"}
+										{isSubmitting
+											? `${t("button.loading")}...`
+											: t("button.create-account")}
 									</Button>
 								)}
 							</div>

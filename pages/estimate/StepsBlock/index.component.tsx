@@ -13,8 +13,10 @@ import GoogleMap from "../../../components/GoogleMap";
 // import _3DMap from "../../../components/3dMap";
 
 const StepsBlock = ({ setStep, step }) => {
-	const [progressBar, setProgressBar] = useState<number>(33);
-	const [showBlock, setShowBlock] = useState<boolean>(false);
+	const location = useSelector<RootState>(
+		(state) => state.stepsInfo.stepBlock.location
+	) as any;
+
 	const stepsArr = [
 		<StepOne setStep={setStep} />,
 		<StepTwo setStep={setStep} />,
@@ -22,36 +24,28 @@ const StepsBlock = ({ setStep, step }) => {
 		<StepFour setStep={setStep} />,
 	];
 
-	const changeProgressBar = () => {
-		if (step === 1) {
-			return setProgressBar(67);
-		}
-
-		if (step === 2) {
-			return setProgressBar(83);
-		}
-
-		if (step === 3) {
-			return setProgressBar(100);
-		}
-
-		return;
+	const mapProps = {
+		markers: [
+			{
+				position: {
+					lat: location?.lat,
+					lng: location?.lng,
+				},
+				type: "home",
+				id: null,
+			},
+		],
 	};
-	useEffect(() => {
-		setTimeout(() => setShowBlock(true), 500);
-	}, []);
-
-	useEffect(() => {
-		changeProgressBar();
-	}, [step]);
 
 	return (
 		<div className="steps-block">
-			<ProgressBar className="steps-block__progress-bar" now={progressBar} />
+			<ProgressBar className="steps-block__progress-bar" now={step * 33.34} />
 			<div className="steps-block__main d-flex">
 				<div className="ml-156 w-50 mt-57">{stepsArr[step]}</div>
 				{!isMobile && (
-					<div className="steps-google-maps">{showBlock && <GoogleMap />}</div>
+					<div className="steps-google-maps">
+						<GoogleMap {...mapProps} />
+					</div>
 				)}
 			</div>
 		</div>

@@ -98,6 +98,7 @@ axios.interceptors.response.use(
 		if (
 			error?.response?.status === 401 &&
 			!originalRequest._retry &&
+			error?.response?.data?.message !== "auth/invalid" &&
 			typeof window !== undefined
 		) {
 			originalRequest._retry = true;
