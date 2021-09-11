@@ -72,6 +72,7 @@ const SoldPropertiesPage = () => {
 		<>
 			<HeaderContainer title={t("title")} />
 			<div className="SoldPropertiesPage container d-flex">
+				<NavBarContainer />
 				<div className="SoldPropertiesPage__container w-100">
 					<div className="controler-block ">
 						<div className=" title-button-block justify-content-between d-flex">

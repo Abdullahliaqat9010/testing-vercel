@@ -324,7 +324,24 @@ const Formpage = () => {
 							</div>
 							<div className="user-info-block">
 								<div className="Dragger">
-									<div className="child-Dragger">Zahan</div>
+									<Dragger {...draggerProps}>
+										<div className="child-Dragger">
+											<p className="ant-upload-drag-icon">
+												<InboxOutlined
+													style={{
+														fontSize: 50,
+													}}
+												/>
+											</p>
+											<p className="ant-upload-text small">
+												Click or drag file to this area to upload
+											</p>
+											<p className="ant-upload-hint small">
+												Support for a single or bulk upload. Strictly prohibit
+												from uploading company data or other band files
+											</p>
+										</div>
+									</Dragger>
 								</div>
 							</div>
 						</div>
