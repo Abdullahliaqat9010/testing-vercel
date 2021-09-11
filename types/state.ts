@@ -15,7 +15,7 @@ export interface RootState {
 		lastname: string;
 		email: string;
 		phone_number: string;
-		account_tye: string;
+		account_type: string;
 		t_c: boolean;
 		promo_mailing: boolean;
 		avatar: string;

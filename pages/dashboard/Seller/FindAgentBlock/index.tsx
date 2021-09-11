@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 
 import { Button } from "react-bootstrap";
-import LoadMoreImage from "../../../assets/images/load-more.svg";
+import LoadMoreImage from "../../../../assets/images/load-more.svg";
 
-import Agency from "../../../containers/Agency";
+import Agency from "../../../../containers/Agency";
 
-import { agentsList } from "../../../templates/agentsList";
+import { agentsList } from "../../../../templates/agentsList";
 
-import { RootState } from "../../../types/state";
+import { RootState } from "../../../../types/state";
 import {
 	getAgencyPropertyDataAction,
 	getInfoAgencyAction,
-} from "../../../actions";
+} from "../../../../actions";
 
 const FindAgentBlock = ({ mainProperty, properties }) => {
 	const { t } = useTranslation("dashboard-page");
