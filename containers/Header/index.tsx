@@ -288,17 +288,17 @@ const HeaderContainer = ({
 												{t("li.pro-workspace")}
 											</NavDropdown.Item>
 										)}
-										{/* {isMobileOnly && ( */}
-										<div>
-											<Button
-												onClick={goToMainPage}
-												className="add-property-mobile"
-											>
-												<img src={AddIcon} alt="AddIcon" />
-												<span>{t("button.add-property")}</span>
-											</Button>
-										</div>
-										{/* )} */}
+										{isMobileOnly && (
+											<div>
+												<Button
+													onClick={goToMainPage}
+													className="add-property-mobile"
+												>
+													<img src={AddIcon} alt="AddIcon" />
+													<span>{t("button.add-property")}</span>
+												</Button>
+											</div>
+										)}
 										{!isAdmin &&
 											navBarList.map((list, index) => (
 												<NavDropdown.Item
