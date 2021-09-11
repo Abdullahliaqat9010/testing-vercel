@@ -3,12 +3,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
-import navBarList from "../../config/navBarList";
+import { agencyNavBarList, sellerNavBarList } from "../../config/navBarList";
+import { useSelector } from "react-redux";
+import { RootState } from "../../types/state";
 
 const NavBarContainer = () => {
 	const { t } = useTranslation("header");
 	const router = useRouter();
 	const { locale } = router;
+	const account_type = useSelector(
+		(state: RootState) => state?.userInfo?.account_type
+	);
+	const navBarList =
+		account_type === "seller" ? sellerNavBarList : agencyNavBarList;
 
 	return (
 		<div className="nav-bar">
