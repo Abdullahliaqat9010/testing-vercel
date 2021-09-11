@@ -11,11 +11,10 @@ import {
 import { QuestionCircleFilled } from "@ant-design/icons";
 import { Formik, Form, Field } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import "antd/dist/antd.css";
-
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
 import NavBarContainer from "../../containers/NavBar";
+import UploadImage from "../../assets/images/upload-img.svg";
 
 const { Dragger } = Upload;
 
@@ -139,11 +138,7 @@ const Formpage = () => {
 											<div className="Dragger">
 												<div className="child-Dragger">
 													<p className="ant-upload-drag-icon">
-														<InboxOutlined
-															style={{
-																fontSize: 50,
-															}}
-														/>
+														<img src={UploadImage} alt="LogoFooter" />
 													</p>
 													<p className="ant-upload-text">
 														Click or drag file to this area to upload

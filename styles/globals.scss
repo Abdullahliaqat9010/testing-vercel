@@ -1,6 +1,17 @@
 @import "styles/scss-variables";
 @import "antd/dist/antd.css";
 
+.ant-upload.ant-upload-drag {
+	border: 1px dashed #40a9ff;
+	padding: 8px;
+	border-radius: 8px;
+}
+
+.ant-upload {
+	background: #f2f6ff;
+	border-radius: 8px;
+}
+
 body {
 	margin: unset;
 	background-color: var(--bg-blue);

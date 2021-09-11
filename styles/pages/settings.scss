@@ -64,16 +64,15 @@
 			}
 
 			.Dragger {
-				border-radius: 8px;
-				border: 2px dashed #3871ef;
-				padding: 8px;
+				// border-radius: 8px;
+				// padding: 8px;
 
 				.child-Dragger {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					padding: 10px;
-					background-color: #f2f6ff;
+					// display: flex;
+					// flex-direction: column;
+					// align-items: center;
+
+					// background-color: #f2f6ff;
 				}
 			}
 
@@ -457,7 +456,7 @@
 
 		.Dragger {
 			border-radius: 8px;
-			border: 2px dashed #3871ef;
+			// border: 2px dashed #3871ef;
 			padding: 8px;
 			height: auto;
 			width: 100%;
