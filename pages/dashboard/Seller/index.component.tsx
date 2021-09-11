@@ -2,25 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 
-import NavBarContainer from "../../containers/NavBar";
-import MainInfoBlock from "../../containers/DashboardPageContainer/MainInfoBlock";
-import EstimateBlock from "../../containers/DashboardPageContainer/EstimateBlock";
-import PropertiesBlock from "../../containers/DashboardPageContainer/PropertiesBlock";
-import FindAgentBlock from "../../containers/DashboardPageContainer/FindAgentBlock";
-import FooterContainer from "../../containers/Footer";
-import HeaderContainer from "../../containers/Header";
-import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
-// import VerifyEmailModal from "../../containers/Modals/VerifyEmailModal";
-import Loading from "../../components/Loading";
+import NavBarContainer from "../../../containers/NavBar";
+import MainInfoBlock from "./MainInfoBlock";
+import EstimateBlock from "./EstimateBlock";
+import PropertiesBlock from "./PropertiesBlock";
+import FindAgentBlock from "./FindAgentBlock";
+import FooterContainer from "../../../containers/Footer";
+import HeaderContainer from "../../../containers/Header";
+import Loading from "../../../components/Loading";
 
-import { RootState } from "../../types/state";
+import { RootState } from "../../../types/state";
 import {
 	getEstimation,
 	getProperties,
 	getSimilarProperties,
-} from "../../network-requests";
+} from "../../../network-requests";
 
-const DashboardPageContainer = () => {
+const SellerDashboard = () => {
 	const { t } = useTranslation("dashboard-page");
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
@@ -79,4 +77,4 @@ const DashboardPageContainer = () => {
 	);
 };
 
-export default DashboardPageContainer;
+export default SellerDashboard;

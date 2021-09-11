@@ -5,14 +5,14 @@ import { isMobileOnly } from "react-device-detect";
 
 import { Button } from "react-bootstrap";
 
-import { RootState } from "../../../types/state";
+import { RootState } from "../../../../types/state";
 // import { getMoreSimilarPropertyAction } from '../../../actions';
 
-import GoogleMap from "../../../components/GoogleMap";
-import PropertyBlock from "../../../containers/Property";
+import GoogleMap from "../../../../components/GoogleMap";
+import PropertyBlock from "../../../../containers/Property";
 
-import LoadMoreImage from "../../../assets/images/load-more.svg";
-import NoEstimationImage from "../../../assets/images/no-estimation.svg";
+import LoadMoreImage from "../../../../assets/images/load-more.svg";
+import NoEstimationImage from "../../../../assets/images/no-estimation.svg";
 
 const PropertiesBlock = ({ similarProperties, mainProperty }) => {
 	const { t } = useTranslation("dashboard-page");

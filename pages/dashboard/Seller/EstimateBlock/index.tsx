@@ -12,12 +12,12 @@ import {
 	Tooltip,
 } from "react-bootstrap";
 
-import { getPriceForPropertyAction } from "../../../actions";
-import { RootState } from "../../../types/state";
+import { getPriceForPropertyAction } from "../../../../actions";
+import { RootState } from "../../../../types/state";
 
-import SuccessImage from "../../../assets/images/success.png";
-import NoEstimationImage from "../../../assets/images/no-estimation.svg";
-import { estimationButtonsList } from "../../../templates/estimationButtonsList";
+import SuccessImage from "../../../../assets/images/success.png";
+import NoEstimationImage from "../../../../assets/images/no-estimation.svg";
+import { estimationButtonsList } from "../../../../templates/estimationButtonsList";
 
 const EstimateBlock = ({ estimation, mainProperty }) => {
 	const { t } = useTranslation("dashboard-page");
