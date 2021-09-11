@@ -2,8 +2,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../types/state";
-import SellerProperties from "./seller/index.component";
-import AgencyProperties from "./agency/index.component";
+import SellerProperties from "./Seller/index.component";
+import AgencyProperties from "./Agency/index.component";
 
 const Properties = () => {
 	const accountType = useSelector(

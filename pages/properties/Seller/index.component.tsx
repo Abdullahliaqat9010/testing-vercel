@@ -10,11 +10,11 @@ import NavBarContainer from "../../../containers/NavBar";
 import FooterContainer from "../../../containers/Footer";
 import HeaderContainer from "../../../containers/Header";
 
-import AddIcon from "../../assets/images/icon-plus.svg";
-import ArrowIcon from "../../assets/images/arrow-blue.svg";
-import SquareIcon from "../../assets/images/square.svg";
-import BedsIcon from "../../assets/images/beds.svg";
-import BathIcon from "../../assets/images/bath.svg";
+import AddIcon from "../../../assets/images/icon-plus.svg";
+import ArrowIcon from "../../../assets/images/arrow-blue.svg";
+import SquareIcon from "../../../assets/images/square.svg";
+import BedsIcon from "../../../assets/images/beds.svg";
+import BathIcon from "../../../assets/images/bath.svg";
 
 import { RootState } from "../../../types/state";
 import { getProperties } from "../../../network-requests";

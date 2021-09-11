@@ -6,24 +6,24 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button, Row, Col } from "react-bootstrap";
 
-import NavBarContainer from "../../containers/NavBar";
-import FooterContainer from "../../containers/Footer";
-import HeaderContainer from "../../containers/Header";
+import NavBarContainer from "../../../containers/NavBar";
+import FooterContainer from "../../../containers/Footer";
+import HeaderContainer from "../../../containers/Header";
 
-import AddIcon from "../../assets/images/icon-plus.svg";
-import Upload from "../../assets/images/upload.svg";
-import EyeCross from "../../assets/images/gray-eye-cross.svg";
-import Delete from "../../assets/images/delete.svg";
-import Eye from "../../assets/images/gray-eye.svg";
-import blackeye from "../../assets/images/black-eye.svg";
-import loadMoreImage from "../../assets/images/load-more.svg";
-import image from "../../assets/images/agency-page/bg-agency.jpeg";
-import blackCross from "../../assets/images/black-eye-cross.svg";
-import { userToken } from "../../config/siteConfigs";
-import { parseJwt } from "../../utils";
+import AddIcon from "../../../assets/images/icon-plus.svg";
+import Upload from "../../../assets/images/upload.svg";
+import EyeCross from "../../../assets/images/gray-eye-cross.svg";
+import Delete from "../../../assets/images/delete.svg";
+import Eye from "../../../assets/images/gray-eye.svg";
+import blackeye from "../../../assets/images/black-eye.svg";
+import loadMoreImage from "../../../assets/images/load-more.svg";
+import image from "../../../assets/images/agency-page/bg-agency.jpeg";
+import blackCross from "../../../assets/images/black-eye-cross.svg";
+import { userToken } from "../../../config/siteConfigs";
+import { parseJwt } from "../../../utils";
 
-import { getPropertyForCurrentUserAction } from "../../actions";
-import { RootState } from "../../types/state";
+import { getPropertyForCurrentUserAction } from "../../../actions";
+import { RootState } from "../../../types/state";
 const SoldPropertiesPage = () => {
 	const properties = [
 		{
