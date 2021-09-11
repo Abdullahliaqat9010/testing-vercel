@@ -1,14 +1,15 @@
 {
-  "title": "Login",
-  "button.back": "Back",
-  "button.login": "Login",
-  "desc.create-here-link": "you can create it here",
-  "desc.dont-have-account": "If you don’t have an account yet",
-  "label.email-phone": "Email or Phone number",
-  "label.password": "Password",
-  "link.remind-password": "Remind password",
-  "placeholder.email-phone": "Enter your email",
-  "placeholder.password": "Enter your password",
-  "title.login": "Log in",
-  "footer.copyright": "All rights reserved"
+	"title": "Login",
+	"button.back": "Back",
+	"button.login": "Login",
+	"button.loading": "Loading...",
+	"desc.create-here-link": "you can create it here",
+	"desc.dont-have-account": "If you don’t have an account yet",
+	"label.email-phone": "Email or Phone number",
+	"label.password": "Password",
+	"link.remind-password": "Remind password",
+	"placeholder.email-phone": "Enter your email",
+	"placeholder.password": "Enter your password",
+	"title.login": "Log in",
+	"footer.copyright": "All rights reserved"
 }

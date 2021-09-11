@@ -19,9 +19,6 @@ import bedsIcon from "../../assets/images/beds-gray.svg";
 import bathIcon from "../../assets/images/bath-gray.svg";
 import MailIcon from "../../assets/images/mail-white-icon.svg";
 
-import FirstImage from "../../assets/images/template/first-image.png";
-import SecondImage from "../../assets/images/template/second-image.png";
-import ThirdImage from "../../assets/images/template/third-image.png";
 import NoImage from "../../assets/images/no-image-available.svg";
 import Map from "../../assets/images/template/map-img.png";
 import Stars from "../../assets/images/template/stars.png";
@@ -63,10 +60,15 @@ const PropertyPage = ({ property }) => {
 	return (
 		<>
 			<HeaderContainer title={t("title")} />
-			<GoogleMapModal show={showMapModal} handleClose={handleCloseMapModal} />
+			<GoogleMapModal
+				property={property}
+				show={showMapModal}
+				handleClose={handleCloseMapModal}
+			/>
 			<RequestPriceModal
 				show={showRequestPriceModal}
 				handleClose={handleCloseRequestPriceModal}
+				property={property}
 			/>
 			<div className="PropertyPage container">
 				<Link href={"/dashboard"} locale={locale}>
@@ -132,7 +134,10 @@ const PropertyPage = ({ property }) => {
 									</div>
 								</div>
 							</div>
-							<div className="property-content__map">
+							<div
+								className="property-content__map"
+								style={{ cursor: "pointer" }}
+							>
 								<img onClick={handleShowMapModal} src={Map} alt="Map" />
 							</div>
 						</div>
@@ -195,7 +200,7 @@ export const getServerSideProps = async ({ params, locale }) => {
 		return {
 			props: {
 				property: {
-					...property?.data,
+					...property,
 				},
 				...(await serverSideTranslations(locale, [
 					"header",

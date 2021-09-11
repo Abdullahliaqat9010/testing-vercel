@@ -3,8 +3,26 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import * as Yup from "yup";
 import axios from "axios";
+import { useTranslation } from "next-i18next";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const SignupForm = ({ onRegister, accountType = "personal" }) => {
+const SignupForm = ({
+	onRegister,
+	accountType = "personal",
+	showTitle = true,
+	onBack = null,
+}) => {
+	const { t } = useTranslation("steps");
+
+	const router = useRouter();
+	const { locale } = router;
+
+	const linkProps = {
+		target: "_blank",
+		locale,
+	};
+
 	const checkForDuplicateEmail = (email: string): Promise<boolean> => {
 		return new Promise(async (res, rej) => {
 			try {
@@ -33,7 +51,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 				"email already exists",
 				checkForDuplicateEmail
 			),
-		phone: Yup.string().optional(),
+		phone_number: Yup.string().optional(),
 		password: Yup.string()
 			.required("Required")
 			.matches(
@@ -55,12 +73,14 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 
 	return (
 		<div className="form-container">
-			<div className="form-title-container">
-				<p className="form-title">Create {accountType} account</p>
-				<p className="form-subtitle">
-					Benefit from using ImmoBelgium for your agency
-				</p>
-			</div>
+			{showTitle && (
+				<div className="form-title-container">
+					<p className="form-title">Create {accountType} account</p>
+					<p className="form-subtitle">
+						Benefit from using ImmoBelgium for your agency
+					</p>
+				</div>
+			)}
 			<div>
 				<Formik
 					initialValues={{
@@ -76,7 +96,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 					onSubmit={onRegister}
 					validationSchema={validationSchema}
 				>
-					{() => (
+					{({ isSubmitting }) => (
 						<Form>
 							<div className="d-flex flex-row justify-content-between">
 								<div
@@ -84,7 +104,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="firstname">
-										First name
+										{t("label.first-name")}
 									</label>
 									<Field
 										className="form-input form-input-error"
@@ -102,7 +122,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="lastname">
-										Last name
+										{t("label.last-name")}
 									</label>
 									<Field className="form-input" name="lastname" type="text" />
 									<ErrorMessage
@@ -113,19 +133,19 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 								</div>
 							</div>
 							<div className="d-flex flex-column form-input-block">
-								<label className="form-label" htmlFor="phone">
-									Phone number
+								<label className="form-label" htmlFor="phone_number">
+									{`${t("label.phone")} (${t("title.optional")})`}
 								</label>
-								<Field className="form-input" name="phone" type="text" />
+								<Field className="form-input" name="phone_number" type="text" />
 								<ErrorMessage
 									className="form-error"
 									component="div"
-									name="phone"
+									name="phone_number"
 								/>
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="email">
-									Email
+									{t("label.email")}
 								</label>
 								<Field className="form-input" name="email" type="email" />
 								<ErrorMessage
@@ -140,7 +160,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="password">
-										Password
+										{t("label.password")}
 									</label>
 									<Field
 										className="form-input form-input-error"
@@ -158,7 +178,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="confirm_password">
-										Confirm Password
+										{t("label.confirm-password")}
 									</label>
 									<Field
 										className="form-input"
@@ -173,8 +193,7 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 								</div>
 							</div>
 							<div className="form-password-disclaimer">
-								We strongly recommend to use strong password, with at least one
-								symbol and digit.
+								{t("desc.strongly-recommend")}
 							</div>
 							<div className="d-flex flex-row mt-4">
 								<Field
@@ -183,14 +202,20 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									className="mr-2 mt-1"
 								/>
 								<label className="label-terms-condition">
-									I’d like to receive occassional promotions by email.
+									{t("label.promotions")}
 								</label>
 							</div>
 							<div className="d-flex flex-row mt-1">
 								<Field name="t_c" type="checkbox" className="mr-2 mt-1" />
 								<label className="label-terms-condition">
-									I have read and agree to service Privacy Policy and Terms and
-									conditions
+									{t("label.read-privacy")}
+									<a href={"/privacy-policy"} {...linkProps}>
+										{t("label.privacy")}
+									</a>
+									{t("label.and")}
+									<a href={"/terms-and-condition"} {...linkProps}>
+										{t("label.terms")}
+									</a>
 								</label>
 							</div>
 							<div style={{ marginTop: -10 }}>
@@ -200,9 +225,36 @@ const SignupForm = ({ onRegister, accountType = "personal" }) => {
 									name="t_c"
 								/>
 							</div>
-							<Button className="form-button" block type="submit">
-								Next
-							</Button>
+							<div className="my-4">
+								{onBack ? (
+									<div className="d-flex flex-row justify-content-between align-items-center">
+										<Button
+											style={{ width: "49%" }}
+											className="form-back-button"
+											block
+											onClick={onBack}
+										>
+											{t("button.back")}
+										</Button>
+										<Button
+											style={{ width: "49%" }}
+											className="form-button"
+											block
+											type="submit"
+										>
+											{isSubmitting
+												? `${t("button.loading")}...`
+												: t("button.create-account")}
+										</Button>
+									</div>
+								) : (
+									<Button className="form-button" block type="submit">
+										{isSubmitting
+											? `${t("button.loading")}...`
+											: t("button.create-account")}
+									</Button>
+								)}
+							</div>
 						</Form>
 					)}
 				</Formik>

@@ -1,4 +1,4 @@
-.form-container {
+.signup-form-container {
 	width: 30%;
 	@media (max-width: 768px) {
 		width: 60%;
@@ -7,6 +7,10 @@
 		width: 100%;
 	}
 	padding: 15px;
+}
+
+.form-container {
+	width: 100%;
 }
 
 .form-title-container {
@@ -47,15 +51,15 @@
 .form-button {
 	height: 50px;
 	border-radius: 8px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	// margin-top: 20px;
+	// margin-bottom: 20px;
 }
 
 .form-back-button {
 	height: 50px;
 	border-radius: 8px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	// margin-top: 20px;
+	// margin-bottom: 20px;
 	background-color: white;
 	color: var(--colorBlue);
 	border: none;

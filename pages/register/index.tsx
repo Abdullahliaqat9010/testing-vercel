@@ -1,40 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ProgressBar } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "next-i18next";
 import SignupForm from "../../components/SignupForm";
-import AgencyInfo from "./AgencyInfo";
-import CompanyDetails from "./CompanyDetails";
+import AgencyInfo from "./AgencyInfo/index.component";
+import CompanyDetails from "./CompanyDetails/index.component";
+import { createAgencyProfile, signup } from "../../network-requests";
+import { setUserProfile } from "../../actions";
+import { RootState } from "../../types/state";
 
 const Register = () => {
 	const { t } = useTranslation("header");
+	const dispatch = useDispatch();
+	const router = useRouter();
+
+	const isLoggedIn = useSelector<RootState>((state) => state.userInfo.auth);
+	const agency_owner = useSelector<RootState>((state) => state.userInfo.id);
 
 	const [step, setStep] = useState(1);
 	const [agencyInfo, setAgencyInfo] = useState(null);
 
-	const registerAgencyOwner = () => {
-		return new Promise((res, rej) => {
+	useEffect(() => {
+		if (isLoggedIn) {
+			setStep(2);
+		}
+	}, []);
+
+	const registerAgencyOwner = (userData) => {
+		return new Promise(async (res, rej) => {
 			try {
-			} catch (error) {}
+				const userProfile = await signup({
+					...userData,
+					account_type: "agent",
+				});
+				dispatch(
+					setUserProfile({
+						...userProfile,
+						account_type: "agent",
+					})
+				);
+				setStep((step) => step + 1);
+				res("");
+			} catch (error) {
+				rej(error);
+			}
 		});
 	};
 
-	const onRegister = () => {
-		setStep(step + 1);
+	const setAgencyProfile = (companyDetails) => {
+		return new Promise(async (res, rej) => {
+			try {
+				await createAgencyProfile({
+					...agencyInfo,
+					...companyDetails,
+					agency_owner,
+				});
+				res("");
+				router.push("/dashboard");
+			} catch (error) {
+				rej(error);
+			}
+		});
 	};
 
 	const onAgencyInfo = (_agencyInfo) => {
 		setAgencyInfo({ ..._agencyInfo });
 		setStep(step + 1);
-	};
-
-	const onCompanyDetails = (companyDetails) => {
-		console.log({
-			...agencyInfo,
-			...companyDetails,
-		});
 	};
 
 	return (
@@ -45,22 +80,27 @@ const Register = () => {
 					style={{ width: "100%", height: 4 }}
 					now={(step * 100) / 3}
 				/>
-				{step === 1 ? (
-					<SignupForm accountType="professional" onRegister={onRegister} />
-				) : step === 2 ? (
-					<AgencyInfo onSubmit={onAgencyInfo} />
-				) : (
-					<CompanyDetails
-						onSubmit={onCompanyDetails}
-						onBack={() => setStep(step - 1)}
-						address={{
-							city: agencyInfo?.city,
-							street: agencyInfo?.street,
-							street_number: agencyInfo?.street_number,
-							zip: agencyInfo?.zip,
-						}}
-					/>
-				)}
+				<div className="signup-form-container">
+					{step === 1 ? (
+						<SignupForm
+							accountType="professional"
+							onRegister={registerAgencyOwner}
+						/>
+					) : step === 2 ? (
+						<AgencyInfo onSubmit={onAgencyInfo} />
+					) : (
+						<CompanyDetails
+							onSubmit={setAgencyProfile}
+							onBack={() => setStep(step - 1)}
+							address={{
+								city: agencyInfo?.city,
+								street: agencyInfo?.street,
+								street_number: agencyInfo?.street_number,
+								zip: agencyInfo?.zip,
+							}}
+						/>
+					)}
+				</div>
 			</div>
 		</>
 	);

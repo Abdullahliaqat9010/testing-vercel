@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { isMobile } from "react-device-detect";
 import { Button } from "react-bootstrap";
 
 import StarRatingComponent from "react-star-rating-component";
@@ -9,7 +7,6 @@ import ContactAgentModal from "../../../../containers/Modals/ContactAgentModal";
 import ContactAgencyBlock from "../../../../components/ContactAgencyBlock";
 
 import { AgentsItem } from "../../../../types/agents";
-import { modalWindowContactAgentAction } from "../../../../actions";
 
 import BGImage from "../../../../assets/images/agency-page/bg-agency.jpeg";
 import RatingStar from "../../../../assets/images/rating/full-star.svg";
@@ -28,23 +25,30 @@ import ArrowImage from "../../../../assets/images/arrow-blue.svg";
 import MailIcon from "../../../../assets/images/mail-white-icon.svg";
 import { useTranslation } from "react-i18next";
 
-const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
-	const dispatch = useDispatch();
-	const { t } = useTranslation("agency-page")
+const FirstBlock = ({
+	currentAgency,
+	properties,
+}: {
+	currentAgency: AgentsItem;
+	properties: any[];
+}) => {
+	const { t } = useTranslation("agency-page");
 
 	const [show, setShowBlock] = useState<boolean>(false);
+	const [showContactModal, setShowContactModal] = useState<boolean>(false);
 
 	const showPhone = () => {
 		setShowBlock(true);
 	};
 
-	const openContactModal = (data: object) => {
-		dispatch(modalWindowContactAgentAction(data));
-	};
-
 	return (
 		<div className="Agency__first-block">
-			<ContactAgentModal />
+			<ContactAgentModal
+				show={showContactModal}
+				onClose={() => setShowContactModal(false)}
+				properties={properties}
+				agencyInfo={currentAgency.moreInfo}
+			/>
 			<div className="main-content">
 				<img className="main-content__bg" src={BGImage} alt="BGImage" />
 				<div className="agency-info">
@@ -68,7 +72,10 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 									starCount={5}
 									value={3}
 								/>
-								<span className="from"> {t('span.from')} 120 {t('span.reviews') }</span>
+								<span className="from">
+									{" "}
+									{t("span.from")} 120 {t("span.reviews")}
+								</span>
 							</div>
 							<span className="gray">{t("span.when-join")}</span>
 						</div>
@@ -119,11 +126,17 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 						</div>
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
-								<img className="website" src={websiteImage} alt="LanguagesImage" />
+								<img
+									className="website"
+									src={websiteImage}
+									alt="LanguagesImage"
+								/>
 								<span>{t("span.website")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<a href={currentAgency.website}>{currentAgency.website.split("www.")[1]}</a>
+								<a href={currentAgency.website}>
+									{currentAgency.website.split("www.")[1]}
+								</a>
 							</div>
 						</div>
 					</div>
@@ -149,14 +162,7 @@ const FirstBlock = ({ currentAgency }: { currentAgency: AgentsItem }) => {
 					<Button
 						className="contact"
 						style={{ marginBottom: 30 }}
-						onClick={() =>
-							openContactModal({
-								title: currentAgency.title,
-								agencyId: currentAgency.id,
-								agentName: currentAgency.moreInfo.agentName,
-								agentSurname: currentAgency.moreInfo.agentSurname,
-							})
-						}
+						onClick={() => setShowContactModal(true)}
 					>
 						<img
 							style={{ marginRight: 10, paddingBottom: 5 }}

@@ -32,6 +32,7 @@ import "../styles/pages/create-blog.scss";
 import "../styles/pages/blogs.scss";
 import "../styles/pages/register.scss";
 import "../styles/pages/estimate.scss";
+import "../styles/pages/sold-properties.scss";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
@@ -97,6 +98,7 @@ axios.interceptors.response.use(
 		if (
 			error?.response?.status === 401 &&
 			!originalRequest._retry &&
+			error?.response?.data?.message !== "auth/invalid" &&
 			typeof window !== undefined
 		) {
 			originalRequest._retry = true;
