@@ -1,161 +1,101 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
+import React, { useState, useRef } from "react";
+import { GoogleApiWrapper, Map, Marker } from "google-maps-react";
 
-import { RootState } from '../../types/state';
+import { googleMapStyle } from "../../config/googleMapStyle";
+import { googleMapConfig } from "../../config/siteConfigs";
 
-import { googleMapStyle } from '../../config/googleMapStyle';
-import { googleMapConfig } from '../../config/siteConfigs';
+import MarkerHomeIcon from "../../assets/images/marker.svg";
+import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
+import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
+import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
+import { useEffect } from "react";
 
-import MarkerHomeIcon from '../../assets/images/marker.svg';
-import MarkerAgencyIcon from '../../assets/images/marker-agency.svg';
-import MarkerPropertyIcon from '../../assets/images/similar-property-marker.svg';
-import MarkerPropertyActiveIcon from '../../assets/images/similar-property-marker-active.svg';
-import { setActivePropertyFromMapAction } from '../../actions';
+type MarkerType = "home" | "agency" | "property" | "property-active";
 
-interface GoogleMapProps {
-  google?: any,
-  agencyLocation?: {
-    lat?: number | string,
-    lng?: number | string,
-  },
-  coordsCurrentProperty?: {
-    lat?: number | string,
-    lng?: number | string,
-  },
-  agencyName?: string,
+interface MarkerI {
+	type: MarkerType;
+	position: {
+		lat: number;
+		lng: number;
+	};
+	id: null | number | string;
 }
 
-const GoogleMap = ({google, agencyLocation, agencyName, coordsCurrentProperty}: GoogleMapProps) => {
-  const dispatch = useDispatch();
-  const {location} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
-  const {agencySimilarPropertiesList} = useSelector((state: RootState) => state.agency);
-  const [similarProperties] = agencySimilarPropertiesList.filter(list => list.name === agencyName);
-  const {similarPropertiesLocation, mainProperty} = useSelector((state: RootState) => state.userInfo);
-  const [useLocation, setUseLocation] = useState({lat: null, lng: null});
+interface GoogleMapProps {
+	google?: any;
+	markers?: MarkerI[];
+}
 
-  useEffect(() => {
-    if (location.lng && location.lat) {
-      setUseLocation({
-        lat: location.lat,
-        lng: location.lng,
-      });
-    }
+const GoogleMap = ({ google, markers = [] }: GoogleMapProps) => {
+	const [center, setCenter] = useState({
+		lat: markers.length > 0 ? markers[0].position.lat : 51.260197,
+		lng: markers.length > 0 ? markers[0].position.lng : 4.402771,
+	});
 
-    if (mainProperty?.lng && mainProperty?.lat) {
-      setUseLocation({
-        lat: mainProperty.lat,
-        lng: mainProperty.lng,
-      });
-    }
-  }, [location, mainProperty, agencyLocation]);
+	const mapRef = useRef(null);
 
-  const setActiveMarker = (propertyId) => {
-    if (propertyId) {
-      dispatch(setActivePropertyFromMapAction(propertyId));
-    }
-    return;
-  };
+	const setActiveMarker = (marker: MarkerI) => {
+		setCenter({
+			lat: marker.position.lat,
+			lng: marker.position.lng,
+		});
+		mapRef.current?.map?.setZoom(20);
+	};
 
-  const RenderMarkers = () => {
-    if (!agencyLocation && similarPropertiesLocation.length && mainProperty) {
-      const markerList = [...similarPropertiesLocation,
-        {
-          mainProperty: true,
-          activeOnMap: false,
-          lat: mainProperty.lat,
-          lng: mainProperty.lng,
-        }];
+	useEffect(() => {
+		setCenter({
+			lat: markers.length > 0 ? markers[0].position.lat : 51.260197,
+			lng: markers.length > 0 ? markers[0].position.lng : 4.402771,
+		});
+	}, [markers]);
 
-      return markerList.map((property, index) =>
-        <Marker
-          key={ index }
-          icon={ property.mainProperty
-            ? MarkerHomeIcon : property.activeOnMap
-              ? MarkerPropertyActiveIcon : MarkerPropertyIcon
-          }
-          onClick={ () => setActiveMarker(property.id) }
-          position={ {
-            lat: property.lat,
-            lng: property.lng,
-          } }
-        />,
-      );
-    }
+	useEffect(() => {
+		mapRef.current?.map?.setMapTypeId("satellite");
+	}, [mapRef]);
 
-    if(agencyLocation && mainProperty.lat && mainProperty.lng) {
-      const markerList = [
-        {
-          agencyMarker: false,
-          similar: false,
-          lat: mainProperty.lat,
-          lng: mainProperty.lng,
-        },
-        {
-          agencyMarker: true,
-          similar: false,
-          lat: agencyLocation.lat,
-          lng: agencyLocation.lng,
-        }
-      ]
-
-      if (similarProperties && similarProperties.estates && similarProperties.estates.length > 0) {
-        similarProperties.estates.map(estate => markerList.push({
-          agencyMarker: false,
-          similar: true,
-          lat: estate.lat,
-          lng: estate.lng
-        }));
-      }
-
-      return markerList.map((property, index) =>
-        <Marker
-          key={ index }
-          icon={ property.agencyMarker ? MarkerAgencyIcon : property.similar ? MarkerPropertyIcon : MarkerHomeIcon }
-          position={ {
-            lat: property.lat,
-            lng: property.lng,
-          } }
-        />,
-      );
-    }
-
-    return <Marker
-      icon={  agencyLocation ? MarkerAgencyIcon : MarkerHomeIcon }
-      position={
-        {
-          lat: useLocation.lat || 51.260197,
-          lng: useLocation.lng || 4.402771,
-        }
-      }
-    />;
-  };
-
-  return (
-    <Map
-      fullscreenControl={ false }
-      zoomControl={ false }
-      mapTypeControl={ true }
-      streetViewControl={ false }
-      styles={ googleMapStyle }
-      zoom={ similarPropertiesLocation.length ? 11 : 13 }
-      google={ google }
-      initialCenter={ {
-        lat: useLocation.lat || 51.260197,
-        lng: useLocation.lng || 4.402771,
-      } }
-      center={ {
-        lat: useLocation.lat,
-        lng: useLocation.lng,
-      } }
-    >
-      {
-        RenderMarkers()
-      }
-    </Map>
-  );
+	return (
+		<Map
+			ref={mapRef}
+			fullscreenControl={false}
+			zoomControl={false}
+			mapTypeControl={false}
+			streetViewControl={false}
+			zoom={20}
+			google={google}
+			mapTypeId="satellite"
+			initialCenter={{
+				lat: 51.260197,
+				lng: 4.402771,
+			}}
+			center={{ ...center }}
+		>
+			{markers.map((marker, index) => {
+				return (
+					<Marker
+						key={index}
+						icon={
+							marker.type === "home" ? (
+								MarkerHomeIcon
+							) : marker.type === "agency" ? (
+								<MarkerAgencyIcon />
+							) : marker.type === "property" ? (
+								MarkerPropertyIcon
+							) : (
+								MarkerPropertyActiveIcon
+							)
+						}
+						onClick={() => setActiveMarker(marker)}
+						position={{
+							lat: marker.position.lat,
+							lng: marker.position.lng,
+						}}
+					/>
+				);
+			})}
+		</Map>
+	);
 };
 
 export default GoogleApiWrapper({
-  apiKey: (googleMapConfig.apiKey),
+	apiKey: googleMapConfig.apiKey,
 })(GoogleMap);

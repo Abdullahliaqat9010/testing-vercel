@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import * as Yup from "yup";
 
-import { RootState } from "../../types/state";
-import { userLoginAction } from "../../actions";
-
+import { setUserProfile } from "../../actions";
 import HeaderContainer from "../../containers/Header";
+
+import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
+import { login } from "../../network-requests";
 
 import ArrowLink from "../../assets/images/arrow-blue.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
 import LockIcon from "../../assets/images/lock-icon.svg";
-import BackArrow from "../../assets/images/full-arrow.svg";
-import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
-import { regexp } from "../../utils";
 
 const LoginPage = () => {
 	const { t } = useTranslation("login-page");
@@ -25,60 +24,34 @@ const LoginPage = () => {
 	const router = useRouter();
 	const { locale } = router;
 
-	const { auth, errors } = useSelector((state: RootState) => state.userInfo);
-	const [data, setData] = useState({ userData: "", password: "" });
-	const [errorsData, setErrors] = useState({
-		noValid: false,
-		userData: "",
-		password: "",
+	const validationSchema = Yup.object().shape({
+		email: Yup.string().email("Invalid email").required("Required"),
+		password: Yup.string().required("Required"),
 	});
 
-	useEffect(() => {
-		if (errors.length) {
-			setData({ ...data, password: "" });
-			setErrors({ ...errorsData, noValid: true, password: errors });
-		}
-	}, [errors, errorsData.noValid]);
-
-	const handleChangeData = (el: React.ChangeEvent<HTMLInputElement>) => {
-		setData({
-			...data,
-			[el.target.name]: el.target.value.trim(),
+	const handleLogin = ({ email, password }, actions) => {
+		return new Promise(async (res, rej) => {
+			try {
+				const userProfile = await login(email, password);
+				dispatch(
+					setUserProfile({
+						...userProfile,
+					})
+				);
+				res("");
+				router.push("/dashboard");
+			} catch (error) {
+				actions.setErrors({
+					password: "Invalid email or password",
+				});
+				rej(error);
+			}
 		});
-		setErrors({
-			...errorsData,
-			noValid: true,
-			userData: "",
-			password: ""
-		})
-	};
-
-	const handleLogin = (event) => {
-		event.preventDefault();
-		if (data.userData.length === 0 || data.password.length === 0) {
-			setErrors({ ...errorsData, noValid: true, password: "Required", userData: "Required"  });
-		}
-
-		if (data.userData.length && data.password.length) {
-			setErrors({ noValid: false, userData: "", password: "" });
-			dispatch(userLoginAction(data));
-		}
 	};
 
 	const handleRegister = () => {
-		window.sessionStorage.setItem(
-			"modify",
-			JSON.stringify({ mainBlocks: true })
-		);
-		router.push("/", "/", { locale });
+		router.push("/estimate");
 	};
-	const emailValidater = (value) => {
-		if(!value.match(regexp.email)) {
-			setErrors({ ...errorsData, noValid: false, userData: "not valid" })
-			return false;
-		}
-		// return true
-	}
 
 	return (
 		<div className="Login">
@@ -93,55 +66,84 @@ const LoginPage = () => {
 					{t("desc.create-here-link")} <img src={ArrowLink} alt="ArrowLink" />
 				</span>
 			</p>
-			<Form noValidate validated={errorsData.noValid}>
-				<Form.Group controlId="email-or-phone">
-					<Form.Label>{t("label.email-phone")}</Form.Label>
-					<img src={MailIcon} alt="MailIcon" />
-					<Form.Control
-						onChange={handleChangeData}
-						required
-						value={data.userData}
-						name="userData"
-						type="text"
-						onBlur={(el) => emailValidater(el.target.value) }
-						placeholder={t("placeholder.email-phone")}
-						isInvalid={errorsData.userData.length > 0}
-					/>
-					<Form.Control.Feedback type="invalid">
-						{errorsData.userData}
-					</Form.Control.Feedback>
-				</Form.Group>
-				<Form.Group controlId="password">
-					<Form.Label>{t("label.password")}</Form.Label>
-					<img src={LockIcon} alt="LockIcon" />
-					<Form.Control
-						onChange={handleChangeData}
-						value={data.password}
-						required
-						name="password"
-						type="password"
-						placeholder={t("placeholder.password")}
-						isInvalid={errorsData.password.length > 0}
-					/>
-					<Form.Control.Feedback type="invalid">
-						{errorsData.password}
-					</Form.Control.Feedback>
-				</Form.Group>
-				<Link href={"/forgot-password"} locale={locale}>
-					<span className="link">{t("link.remind-password")}</span>
-				</Link>
-				<div className="group-btn">
-					<Button type="submit" onClick={handleLogin}>
-						{t("button.login")}
-					</Button>
-					<Link href="/" locale={locale}>
-						<span>
-							<img src={BackArrow} alt="BackArrow" />
-							{t("button.back")}
-						</span>
-					</Link>
-				</div>
-			</Form>
+			<Formik
+				initialValues={{
+					email: "",
+					password: "",
+				}}
+				onSubmit={handleLogin}
+				validationSchema={validationSchema}
+			>
+				{({ isSubmitting }) => (
+					<Form>
+						<div className="d-flex flex-column form-input-block">
+							<label className="form-label" htmlFor="email">
+								{t("label.email-phone")}
+							</label>
+							<div
+								style={{
+									position: "relative",
+								}}
+							>
+								<img
+									style={{ position: "absolute", top: 15, left: 10 }}
+									src={MailIcon}
+									alt="MailIcon"
+								/>
+								<Field
+									className="form-input"
+									name="email"
+									type="email"
+									placeholder={t("placeholder.email-phone")}
+									style={{ width: "100%" }}
+								/>
+							</div>
+							<ErrorMessage
+								className="form-error"
+								component="div"
+								name="email"
+							/>
+						</div>
+						<div
+							style={{ marginTop: -15 }}
+							className="d-flex flex-column form-input-block"
+						>
+							<label className="form-label" htmlFor="password">
+								{t("placeholder.password")}
+							</label>
+							<div
+								style={{
+									position: "relative",
+								}}
+							>
+								<img
+									style={{ position: "absolute", top: 15, left: 10 }}
+									src={LockIcon}
+									alt="LockIcon"
+								/>
+								<Field
+									className="form-input form-input-error"
+									name="password"
+									type="password"
+									placeholder={t("placeholder.password")}
+									style={{ width: "100%" }}
+								/>
+							</div>
+							<ErrorMessage
+								className="form-error"
+								component="div"
+								name="password"
+							/>
+						</div>
+						<div className="form-remind-button">
+							{t("link.remind-password")}
+						</div>
+						<Button className="form-button mt-5" block type="submit">
+							{isSubmitting ? t("button.loading") : t("button.login")}
+						</Button>
+					</Form>
+				)}
+			</Formik>
 			<div className="short-footer d-flex justify-content-between">
 				<p>
 					<span>Immo Belgium </span>

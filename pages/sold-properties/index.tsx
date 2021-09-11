@@ -32,7 +32,7 @@ const SoldPropertiesPage = () => {
 			total_area: 32,
 			bedrooms: 3,
 			bathrooms: 1,
-            status: "active",
+			status: "active",
 			sold_date: "june 2020",
 		},
 		{
@@ -42,7 +42,7 @@ const SoldPropertiesPage = () => {
 			bedrooms: 3,
 			bathrooms: 1,
 			sold_date: "june 2020",
-            status: "block",
+			status: "block",
 		},
 	];
 	const { t } = useTranslation("properties-page");
@@ -94,7 +94,7 @@ const SoldPropertiesPage = () => {
 								<span className=" total-listings pl-2"> 2 Listings </span>{" "}
 							</div>
 							<div className="action-block">
-                                <Button className="mx-1">
+								<Button className="mx-1">
 									{" "}
 									<img src={Eye} alt="eye" />
 								</Button>
@@ -126,11 +126,13 @@ const SoldPropertiesPage = () => {
 										<div className="proprty-info">
 											<div>
 												<span className="address">
-													{property.search_address }
+													{property.search_address}
 												</span>
 											</div>
 											<div>
-												<span className="sold-property">{property.sold_date} </span>
+												<span className="sold-property">
+													{property.sold_date}{" "}
+												</span>
 											</div>
 											<div className=" property-props mt-2 d-flex">
 												<span className="mr-1">
@@ -145,18 +147,18 @@ const SoldPropertiesPage = () => {
 											</div>
 										</div>
 										<div className=" d-flex view-property">
-                                            {property.status=== 'active' ?
-                                                // {" "}
-                                                <Button>
-                                                    {" "}
-                                                    <img src={blackeye} alt="eye" />
-                                                </Button>
-                                                :
-<Button>
-                                                    {" "}
-                                                    <img src={blackCross} alt="eye" />
-                                                </Button>
-                                            }
+											{property.status === "active" ? (
+												// {" "}
+												<Button>
+													{" "}
+													<img src={blackeye} alt="eye" />
+												</Button>
+											) : (
+												<Button>
+													{" "}
+													<img src={blackCross} alt="eye" />
+												</Button>
+											)}
 										</div>
 									</div>
 								</div>

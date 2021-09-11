@@ -9,41 +9,15 @@ export interface RootState {
 	};
 	userInfo: {
 		auth: boolean;
-		emailVerified: boolean;
-		noEstimation: boolean;
-		existEmail: boolean;
-		agencyContactInfo: {
-			title: string;
-			agentName: string;
-			agentSurname: string;
-			agencyId: number;
-		};
-		properties: any; //@todo add interface
-		similarProperty: any; //@todo add interface
-		similarPropertiesLocation: any; //@todo add interface
-		mainProperty: any; //@todo add interface
-		currentPropertyPrice: {
-			totalValue: number;
-			pricePerM: number;
-			min: number;
-			max: number;
-		};
-		propertiesListInfo: {
-			totalItems: number;
-			itemCount: number;
-			itemsPerPage: number;
-			totalPages: number;
-			currentPage: number;
-		};
+		email_verified: boolean;
 		id: null | Number;
-		userName: string;
-		userSurname: string;
-		userEmail: string;
-		userPhone: string;
-		accountTye: string;
+		firstname: string;
+		lastname: string;
+		email: string;
+		phone_number: string;
+		account_tye: string;
 		t_c: boolean;
 		promo_mailing: boolean;
-		errors: string;
 		avatar: string;
 	};
 	stepsInfo: {

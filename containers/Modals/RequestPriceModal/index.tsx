@@ -10,7 +10,7 @@ import BedsImage from "../../../assets/images/beds-gray.svg";
 import SquareImage from "../../../assets/images/square-gray.svg";
 import LivingSquareImage from "../../../assets/images/living-square-gray.svg";
 
-const RequestPriceModal = ({ show, handleClose }) => {
+const RequestPriceModal = ({ show, handleClose, property }) => {
 	const { t } = useTranslation("property-page");
 	const [validated, setValidated] = useState(false);
 
@@ -18,7 +18,7 @@ const RequestPriceModal = ({ show, handleClose }) => {
 		fullName: "",
 		phone: "",
 		email: "",
-		desc: `${t("desc.have-seen")} [2464 Royal Ln. Mesa, New Jersey 45463] ${t(
+		desc: `${t("desc.have-seen")} [${property?.search_address}] ${t(
 			"desc.sold-price"
 		)}`,
 		agree: false,
@@ -62,6 +62,19 @@ const RequestPriceModal = ({ show, handleClose }) => {
 		handleClose();
 	};
 
+	const mapProps = {
+		markers: [
+			{
+				type: "home",
+				position: {
+					lat: property?.lat,
+					lng: property?.lng,
+				},
+				id: property?.id,
+			},
+		],
+	};
+
 	// @ts-ignore
 	return (
 		<Modal
@@ -79,9 +92,7 @@ const RequestPriceModal = ({ show, handleClose }) => {
 			</Modal.Header>
 			<Modal.Body className="custom-req-price-modal">
 				{isMobileOnly && (
-					<span className="mobile-address">
-						2464 Royal Ln. Mesa, New Jersey 45463
-					</span>
+					<span className="mobile-address">{property?.search_address}</span>
 				)}
 				<div className="left-block">
 					<Form noValidate validated={validated}>
@@ -151,13 +162,12 @@ const RequestPriceModal = ({ show, handleClose }) => {
 					</Form>
 				</div>
 				<div className="right-block">
-					<p className="property-address">
-						2464 Royal Ln. Mesa, New Jersey 45463
-					</p>
+					<p className="property-address">{property?.search_address}</p>
 					<div className="property-location">
 						{/*@ts-ignore*/}
 						<GoogleMap
-						// coordsCurrentProperty={{ lat: 50.4666086, lng: 4.0528334 }}
+							{...mapProps}
+							// coordsCurrentProperty={{ lat: 50.4666086, lng: 4.0528334 }}
 						/>
 					</div>
 					<div className="property-info">
@@ -165,28 +175,28 @@ const RequestPriceModal = ({ show, handleClose }) => {
 							<img src={SquareImage} alt="SquareImage" />
 							<div className="info-block">
 								<span className="gray">{t("span.total-square")}</span>
-								<span className="nunito-bold">100m²</span>
+								<span className="nunito-bold">{`${property?.total_area}m²`}</span>
 							</div>
 						</div>
 						<div className="property-info__item">
 							<img src={BedsImage} alt="BedsImage" />
 							<div className="info-block">
 								<span className="gray">{t("span.beds")}</span>
-								<span className="nunito-bold">3</span>
+								<span className="nunito-bold">{property?.bedrooms}</span>
 							</div>
 						</div>
 						<div className="property-info__item living-square">
 							<img src={LivingSquareImage} alt="LivingSquareImage" />
 							<div className="info-block">
 								<span className="gray">{t("span.living-square")}</span>
-								<span className="nunito-bold">65m²</span>
+								<span className="nunito-bold">{property?.live_area}</span>
 							</div>
 						</div>
 						<div className="property-info__item">
 							<img src={BathImage} alt="BathImage" />
 							<div className="info-block">
 								<span className="gray">{t("span.baths")}</span>
-								<span className="nunito-bold">2</span>
+								<span className="nunito-bold">{property?.bathrooms}</span>
 							</div>
 						</div>
 					</div>

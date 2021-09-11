@@ -48,16 +48,16 @@ const SettingsPage = () => {
 	const [isInvalidPass, setIsInvalidPass] = useState<boolean>(false);
 
 	const _firstname = useSelector<RootState>(
-		(state) => state.userInfo.userName as string
+		(state) => state.userInfo.firstname as string
 	);
 	const _lastname = useSelector<RootState>(
-		(state) => state.userInfo.userSurname as string
+		(state) => state.userInfo.lastname as string
 	);
 	const _phoneNumber = useSelector<RootState>(
-		(state) => state.userInfo.userPhone as string
+		(state) => state.userInfo.phone_number as string
 	);
 	const email = useSelector<RootState>(
-		(state) => state.userInfo.userEmail
+		(state) => state.userInfo.email
 	) as string;
 	const promo_mailing = useSelector<RootState>(
 		(state) => state.userInfo.promo_mailing
@@ -160,9 +160,9 @@ const SettingsPage = () => {
 			dispatch({
 				type: UPDATE_USER_PROFILE,
 				payload: {
-					userName: firstname,
-					userSurname: lastname,
-					userPhone: phoneNumber,
+					firstname,
+					lastname,
+					phoneNumber,
 				},
 			});
 			setIsProfileMessageVisible(true);

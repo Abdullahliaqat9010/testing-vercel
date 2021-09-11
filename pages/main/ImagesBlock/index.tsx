@@ -46,7 +46,7 @@ const ImagesBlock = () => {
 		};
 
 		dispatch(openMainStepsAction(data));
-		router.push("estimate/");
+		router.push("/estimate");
 	};
 
 	const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {

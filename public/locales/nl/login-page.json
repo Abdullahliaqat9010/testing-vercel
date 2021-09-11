@@ -1,14 +1,15 @@
 {
-  "title": "Login",
-  "button.back": "Terug",
-  "button.login": "Inloggen",
-  "desc.create-here-link": "U kunt het hier maken",
-  "desc.dont-have-account": "Als je nog geen account hebt",
-  "label.email-phone": "E-mail of telefoonnummer",
-  "label.password": "Wachtwoord",
-  "link.remind-password": "Herinner wachtwoord",
-  "placeholder.email-phone": "Voer uw e-mailadres in",
-  "placeholder.password": "Voer uw wachtwoord in",
-  "title.login": "Inloggen",
-  "footer.copyright": "Alle rechten voorbehouden"
+	"title": "Login",
+	"button.back": "Terug",
+	"button.login": "Inloggen",
+	"button.loading": "Bezig met laden...",
+	"desc.create-here-link": "U kunt het hier maken",
+	"desc.dont-have-account": "Als je nog geen account hebt",
+	"label.email-phone": "E-mail of telefoonnummer",
+	"label.password": "Wachtwoord",
+	"link.remind-password": "Herinner wachtwoord",
+	"placeholder.email-phone": "Voer uw e-mailadres in",
+	"placeholder.password": "Voer uw wachtwoord in",
+	"title.login": "Inloggen",
+	"footer.copyright": "Alle rechten voorbehouden"
 }
