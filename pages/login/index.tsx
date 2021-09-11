@@ -135,7 +135,10 @@ const LoginPage = () => {
 								name="password"
 							/>
 						</div>
-						<div className="form-remind-button">
+						<div
+							onClick={() => router.push("/forgot-password")}
+							className="form-remind-button"
+						>
 							{t("link.remind-password")}
 						</div>
 						<Button className="form-button mt-5" block type="submit">

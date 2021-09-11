@@ -71,3 +71,31 @@ export const createAgencyProfile = (profile) => {
 		}
 	});
 };
+
+export const recoverPassword = (email, locale) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.post("auth/recover-password", {
+				email,
+				locale,
+			});
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const resetPassword = (token, password) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.post("auth/reset-password", {
+				token,
+				password,
+			});
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
