@@ -26,7 +26,7 @@ interface GoogleMapProps {
 	markers?: MarkerI[];
 }
 
-const GoogleMap = ({ google, markers }: GoogleMapProps) => {
+const GoogleMap = ({ google, markers = [] }: GoogleMapProps) => {
 	const [center, setCenter] = useState({
 		lat: markers.length > 0 ? markers[0].position.lat : 51.260197,
 		lng: markers.length > 0 ? markers[0].position.lng : 4.402771,

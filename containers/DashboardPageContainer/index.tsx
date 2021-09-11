@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
-import { isMobile } from "react-device-detect";
-
-import { userToken } from "../../config/siteConfigs";
 
 import NavBarContainer from "../../containers/NavBar";
 import MainInfoBlock from "../../containers/DashboardPageContainer/MainInfoBlock";
@@ -13,51 +10,44 @@ import FindAgentBlock from "../../containers/DashboardPageContainer/FindAgentBlo
 import FooterContainer from "../../containers/Footer";
 import HeaderContainer from "../../containers/Header";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
-import VerifyEmailModal from "../../containers/Modals/VerifyEmailModal";
+// import VerifyEmailModal from "../../containers/Modals/VerifyEmailModal";
+import Loading from "../../components/Loading";
 
-import {
-	clearStepsStateAction,
-	getPropertyForCurrentUserAction,
-	setUserDataAction,
-} from "../../actions";
-import { parseJwt } from "../../utils";
 import { RootState } from "../../types/state";
-import { getEstimation, getProperties } from "../../network-requests";
+import {
+	getEstimation,
+	getProperties,
+	getSimilarProperties,
+} from "../../network-requests";
 
 const DashboardPageContainer = () => {
 	const { t } = useTranslation("dashboard-page");
-	const dispatch = useDispatch();
-	const { goToDashboard } = useSelector((state: RootState) => state.stepsInfo);
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
-	const [isLoading, setIsLoading] = useState(false);
-	const [properties, setProperties] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const [mainProperty, setMainProperty] = useState(null);
 	const [estimation, setEstimation] = useState(null);
+	const [similarProperties, setSimilarProperties] = useState([]);
+	const [properties, setProperties] = useState([]);
 
 	useEffect(() => {
-		fetchAll();
+		_getProperties();
 	}, []);
 
 	const _getProperties = async () => {
 		try {
+			setIsLoading(true);
 			const _properties = await getProperties(userId);
 			setProperties([..._properties]);
 			if (_properties.length > 0) {
 				setMainProperty(_properties[0]);
 				const estimate = await getEstimation(_properties[0]?.id);
 				setEstimation(estimate);
+				const _similarProperties = await getSimilarProperties(
+					_properties[0]?.id
+				);
+				setSimilarProperties([..._similarProperties]);
 			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const fetchAll = async () => {
-		try {
-			setIsLoading(true);
-			const promises = [_getProperties()];
-			await Promise.all(promises);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -65,32 +55,11 @@ const DashboardPageContainer = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (userToken) {
-			const parseData = parseJwt(userToken);
-			const elementsOnPage = isMobile ? 3 : 6;
-			dispatch(
-				setUserDataAction({
-					firstName: parseData.firstName,
-					lastName: parseData.lastName,
-				})
-			);
-			dispatch(
-				getPropertyForCurrentUserAction({
-					userId: parseData.id,
-					elementsOnPage,
-				})
-			);
-			dispatch(clearStepsStateAction());
-		}
-	}, [goToDashboard]);
-
 	if (isLoading) {
-		return <p>Loading...</p>;
+		return <Loading />;
 	}
 	return (
 		<>
-			{/* <ContactAgentModal /> */}
 			{/* <VerifyEmailModal /> */}
 			<HeaderContainer title={t("title")} />
 			<div className="Dashboard container d-flex">
@@ -98,8 +67,11 @@ const DashboardPageContainer = () => {
 				<div className="Dashboard__container">
 					<MainInfoBlock mainProperty={mainProperty} />
 					<EstimateBlock estimation={estimation} mainProperty={mainProperty} />
-					{/* <PropertiesBlock /> */}
-					{/* <FindAgentBlock /> */}
+					<PropertiesBlock
+						similarProperties={similarProperties}
+						mainProperty={mainProperty}
+					/>
+					<FindAgentBlock properties={properties} mainProperty={mainProperty} />
 				</div>
 			</div>
 			<FooterContainer />

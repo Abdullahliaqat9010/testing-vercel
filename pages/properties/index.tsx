@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -16,12 +16,9 @@ import SquareIcon from "../../assets/images/square.svg";
 import BedsIcon from "../../assets/images/beds.svg";
 import BathIcon from "../../assets/images/bath.svg";
 
-import { userToken } from "../../config/siteConfigs";
-import { parseJwt } from "../../utils";
-
-import { getPropertyForCurrentUserAction } from "../../actions";
 import { RootState } from "../../types/state";
 import { getProperties } from "../../network-requests";
+import Loading from "../../components/Loading";
 
 const PropertiesPage = () => {
 	const { t } = useTranslation("properties-page");
@@ -29,11 +26,15 @@ const PropertiesPage = () => {
 	const { locale } = router;
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
+	const [isLoading, setIsLoading] = useState(true);
+
 	const [properties, setProperties] = useState([]);
 	const _getProperties = async () => {
 		try {
+			setIsLoading(true);
 			const _properties = await getProperties(userId);
 			setProperties([..._properties]);
+			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -43,9 +44,13 @@ const PropertiesPage = () => {
 		_getProperties();
 	}, []);
 
-	const goToMainPage = () => {
-		window.location.href = "/" + locale;
+	const gotToEstimate = () => {
+		router.push("/estimate");
 	};
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<>
@@ -55,7 +60,7 @@ const PropertiesPage = () => {
 				<div className="PropertiesPage__container w-100">
 					<div className="title-block d-flex justify-content-between">
 						<h1>{t("title")}</h1>
-						<Button className="new-estimate" onClick={goToMainPage}>
+						<Button className="new-estimate" onClick={gotToEstimate}>
 							<img src={AddIcon} alt="AddIcon" />
 							<span>{t("button.new-estimate")}</span>
 						</Button>

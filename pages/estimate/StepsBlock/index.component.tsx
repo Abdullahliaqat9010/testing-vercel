@@ -25,16 +25,18 @@ const StepsBlock = ({ setStep, step }) => {
 	];
 
 	const mapProps = {
-		markers: [
-			{
-				position: {
-					lat: location?.lat,
-					lng: location?.lng,
-				},
-				type: "home",
-				id: null,
-			},
-		],
+		markers: location.lat
+			? [
+					{
+						position: {
+							lat: location?.lat,
+							lng: location?.lng,
+						},
+						type: "home",
+						id: null,
+					},
+			  ]
+			: [],
 	};
 
 	return (

@@ -11,23 +11,24 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 	const dispatch = useDispatch();
 	const [validated, setValidated] = useState(false);
 
-	const { userName, userSurname, userEmail, userPhone, properties } =
-		useSelector((state: RootState) => state.userInfo);
+	const { firstname, lastname, email, phone_number } = useSelector(
+		(state: RootState) => state.userInfo
+	);
 
 	const [data, setData] = useState({
-		fullName: userName + " " + userSurname,
-		phone: userPhone,
-		email: userEmail,
+		fullName: firstname + " " + lastname,
+		phone: phone_number,
+		email: email,
 		desc: t("placeholder.message"),
 		selectedProperty: "",
 		freeCharge: false,
 	});
 
-	useEffect(() => {
-		if (properties.length > 0) {
-			setData({ ...data, selectedProperty: properties[0].search_address });
-		}
-	}, [properties]);
+	// useEffect(() => {
+	// 	if (properties.length > 0) {
+	// 		setData({ ...data, selectedProperty: properties[0].search_address });
+	// 	}
+	// }, [properties]);
 
 	const handleOnChange = (el: React.ChangeEvent<HTMLInputElement>) => {
 		setData({
@@ -48,18 +49,17 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 
 	const sendToAgency = () => {
 		if (validation()) {
-			const findProp = properties.find(
-				(property) => property.search_address === data.selectedProperty
-			);
-
-			const dataInfo = {
-				agentId: agencyInfo.id,
-				phone: data.phone,
-				message: data.desc.length > 0 ? data.desc : t("placeholder.message"),
-				propertyId: findProp.id,
-				free_evaluated: data.freeCharge,
-			};
-			dispatch(contactAgencyAction(dataInfo));
+			// const findProp = properties.find(
+			// 	(property) => property.search_address === data.selectedProperty
+			// );
+			// const dataInfo = {
+			// 	agentId: agencyInfo.id,
+			// 	phone: data.phone,
+			// 	message: data.desc.length > 0 ? data.desc : t("placeholder.message"),
+			// 	propertyId: findProp.id,
+			// 	free_evaluated: data.freeCharge,
+			// };
+			// dispatch(contactAgencyAction(dataInfo));
 		}
 
 		setValidated(true);
@@ -130,9 +130,9 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 							as="select"
 							value={data.selectedProperty}
 						>
-							{properties.map((property, index) => (
+							{/* {properties.map((property, index) => (
 								<option key={index}>{property.search_address}</option>
-							))}
+							))} */}
 						</Form.Control>
 					</Form.Group>
 					<Form.Group controlId="freeCharge">

@@ -22,6 +22,10 @@ const PropertyContainer = ({ property }: PropertyContainerProps) => {
 
 	const dispatch = useDispatch();
 
+	// React.useEffect(() => {
+	// 	console.log(property);
+	// }, []);
+
 	const intervals = [
 		{ label: "year", seconds: 31536000 },
 		{ label: "month", seconds: 2592000 },
@@ -30,13 +34,6 @@ const PropertyContainer = ({ property }: PropertyContainerProps) => {
 		{ label: "minute", seconds: 60 },
 		{ label: "second", seconds: 0 },
 	];
-
-	const { similarPropertiesLocation } = useSelector(
-		(state: RootState) => state.userInfo
-	);
-	const [activePropertyOnMap] = similarPropertiesLocation.filter(
-		(property) => property.activeOnMap
-	);
 
 	const [currentAgency] = agentsList.filter(
 		(agency) => agency.tag === property.company_name
@@ -64,7 +61,6 @@ const PropertyContainer = ({ property }: PropertyContainerProps) => {
 		if (property.images.length) {
 			return property.images[0].url_small;
 		}
-
 		return locale === "fr" ? NoImageFr : NoImage;
 	};
 
@@ -82,9 +78,7 @@ const PropertyContainer = ({ property }: PropertyContainerProps) => {
 	return (
 		<div
 			onClick={() => setActiveMarker(property.id)}
-			className={`property-block d-flex ${
-				activePropertyOnMap?.id === property.id ? "active-block" : ""
-			}`}
+			className={`property-block d-flex active-block`}
 		>
 			<div className="property-block__image">
 				<Image src={getImageLink()} rounded />

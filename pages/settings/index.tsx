@@ -160,9 +160,9 @@ const SettingsPage = () => {
 			dispatch({
 				type: UPDATE_USER_PROFILE,
 				payload: {
-					userName: firstname,
-					userSurname: lastname,
-					userPhone: phoneNumber,
+					firstname,
+					lastname,
+					phoneNumber,
 				},
 			});
 			setIsProfileMessageVisible(true);

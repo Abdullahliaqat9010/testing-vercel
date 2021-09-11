@@ -13,7 +13,7 @@ export const createProperty = (property) => {
 	});
 };
 
-export const getProperties = (userId): Promise<any> => {
+export const getProperties = (userId): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: properties } = await axios.get(`users/${userId}/property`);
@@ -31,6 +31,23 @@ export const getEstimation = (propertyId) => {
 				`property/${propertyId}/estimation`
 			);
 			res(estimate);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const getSimilarProperties = (
+	propertyId,
+	page = 1,
+	limit = 10
+): Promise<any[]> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data: properties } = await axios.get(
+				`property/${propertyId}/similar?page=${page}&limit=${limit}`
+			);
+			res(properties);
 		} catch (error) {
 			rej(error);
 		}
