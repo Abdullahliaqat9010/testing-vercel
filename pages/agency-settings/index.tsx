@@ -11,6 +11,8 @@ import {
 import { QuestionCircleFilled } from "@ant-design/icons";
 import { Formik, Form, Field } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import "antd/dist/antd.css";
+
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
 import NavBarContainer from "../../containers/NavBar";
