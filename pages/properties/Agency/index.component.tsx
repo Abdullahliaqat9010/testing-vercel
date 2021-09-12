@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -24,7 +24,9 @@ import { parseJwt } from "../../../utils";
 
 import { getPropertyForCurrentUserAction } from "../../../actions";
 import { RootState } from "../../../types/state";
+import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
 const SoldPropertiesPage = () => {
+	const [modalVisible, setModalVisible] = useState(false);
 	const properties = [
 		{
 			search_address: "lahote ajksh ajs aksh aksh",
@@ -71,6 +73,7 @@ const SoldPropertiesPage = () => {
 	return (
 		<>
 			<HeaderContainer title={t("title")} />
+			<PropertyDetailsModal show onClose={() => {}} />
 			<div className="SoldPropertiesPage container d-flex">
 				<NavBarContainer />
 				<div className="SoldPropertiesPage__container w-100">
