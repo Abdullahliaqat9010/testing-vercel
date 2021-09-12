@@ -1,5 +1,5 @@
 import React from "react";
-import { Upload, message, Checkbox } from "antd";
+import { Upload, message } from "antd";
 import {
 	FacebookFilled,
 	InboxOutlined,
@@ -15,6 +15,8 @@ import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
 import NavBarContainer from "../../containers/NavBar";
 import UploadImage from "../../assets/images/upload-img.svg";
+import UploadPicture from "../../assets/images/upload-picture.svg";
+import * as Yup from "yup";
 
 const { Dragger } = Upload;
 
@@ -86,17 +88,15 @@ const Formpage = () => {
 		<div>
 			<Formik
 				initialValues={{
-					firstName: "",
-					lastName: "",
-					email: "",
 					facebookUrl: "",
 					instagramUrl: "",
 					twitterUrl: "",
 					linkedinUrl: "",
 					youtubeUrl: "",
-					langauges: [],
+					languages: [],
 					notificationEmails: [],
 					profilePic: "",
+					coverPic: "",
 				}}
 				// validationSchema={SignupSchema}
 				onSubmit={(values) => {
@@ -106,24 +106,48 @@ const Formpage = () => {
 				{({ errors, touched, values, setFieldValue }) => (
 					<Form>
 						<HeaderContainer title={t("title")} />
-						<div className="SettingsPage container">
+						<div className="SettingsPage container d-flex">
 							<NavBarContainer />
 							<div className="SettingsPage__container w-100">
 								<div className="first-block">
 									<h1>{"Votre vitrine"}</h1>
 									<div>
-										{
-											"Votre vitrine présente votre savoir-faire auprès de L'ensemble des visiteurs du site Meneur. Agen., acheteurs et vendeurs. Comp... un in.iinurn d'in.rrnations et nuit.% vos atts °lien. et biens vendus en avant pour mettre en valeur votre expertise."
-										}
+										Votre vitrine présente votre savoir-faire auprès de
+										L'ensemble des visiteurs du site Meneur. Agen., acheteurs et
+										vendeurs. Comp... un in.iinurn d'in.rrnations et nuit.% vos
+										atts °lien. et biens vendus en avant pour mettre en valeur
+										votre expertise.
 									</div>
 
 									<div className="password-block2">
-										<h2>{"Photo d’en-tete"}</h2>
-										<div>
-											La photo de votre vitrine est un reflet de votre
-											professionnaLisme. PersonnaLisez-la Le pLus rapidement
-											possible avec une photo de votre agence (vitrine ou
-											intérieur).
+										<div className="photo-container">
+											<div>
+												<h2>{"Photo d’en-tete"}</h2>
+												<div>
+													La photo de votre vitrine est un reflet de votre
+													professionnaLisme. PersonnaLisez-la Le pLus rapidement
+													possible avec une photo de votre agence (vitrine ou
+													intérieur).
+												</div>
+											</div>
+											<div className="user-info-block">
+												<Dragger {...draggerProps} className="w-100">
+													<div className="Dragger">
+														<div className="child-Dragger">
+															<p>
+																<img src={UploadImage} alt="LogoFooter" />
+															</p>
+
+															<div className="d-flex justify-content-center">
+																<button>
+																	<img src={UploadPicture} alt="LogoFooter" />
+																	<div className="upload">Upload</div>
+																</button>
+															</div>
+														</div>
+													</div>
+												</Dragger>
+											</div>
 										</div>
 										<div className="alert-block">
 											<QuestionCircleFilled color={"#d3d3d3"} />
@@ -134,23 +158,24 @@ const Formpage = () => {
 												largeur et 350 pl.. de hauteur.
 											</div>
 										</div>
-										<Dragger {...draggerProps}>
+										{/* <Dragger {...draggerProps}>
 											<div className="Dragger">
 												<div className="child-Dragger">
 													<p className="ant-upload-drag-icon">
 														<img src={UploadImage} alt="LogoFooter" />
 													</p>
-													<p className="ant-upload-text">
-														Click or drag file to this area to upload
+													<p className="upload-text">
+														Drag’n’drop to upload your cover image or click
 													</p>
-													<p className="ant-upload-hint">
-														Support for a single or bulk upload. Strictly
-														prohibit from uploading company data or other band
-														files
-													</p>
+													<div className="d-flex justify-content-center">
+														<button>
+															<img src={UploadPicture} alt="LogoFooter" />
+															<div className="upload">Upload</div>
+														</button>
+													</div>
 												</div>
 											</div>
-										</Dragger>
+										</Dragger> */}
 										<div className="password-block2">
 											<h2>Socials</h2>
 											<div className="social-container">
@@ -224,35 +249,59 @@ const Formpage = () => {
 											<div className="pb-3 pt-1 small">
 												Please select any that apply.
 											</div>
-											<Checkbox.Group style={{ width: "100%" }}>
+											<div
+												role="group"
+												aria-labelledby="checkbox-group"
+												style={{ width: "100%" }}
+											>
 												<div className="d-flex flex-row align-items-center">
 													<div className="w-50">
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Arabe" value="Arabe" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Arabe"
+															/>
 															<label className="ml-2" htmlFor="Arabe">
 																Arabe
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Allemand" value="Allemand" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Allemand"
+															/>
 															<label className="ml-2" htmlFor="Allemand">
 																Allemand
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Coreen" value="Coreen" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Coreen"
+															/>
 															<label className="ml-2" htmlFor="Coreen">
 																Coreen
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Hebreu" value="Hebreu" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Hebreu"
+															/>
 															<label className="ml-2" htmlFor="Hebreu">
 																Hebreu
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Portugais" value="Portugais" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Portugais"
+															/>
 															<label className="ml-2" htmlFor="Portugais">
 																Portugais
 															</label>
@@ -260,38 +309,58 @@ const Formpage = () => {
 													</div>
 													<div className="w-50">
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Anglais" value="Anglais" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Anglais"
+															/>
 															<label className="ml-2" htmlFor="Anglais">
 																Anglais
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Chinois" value="Chinois" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Chinois"
+															/>
 															<label className="ml-2" htmlFor="Chinois">
 																Chinois
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Espagnol" value="Espagnol" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Espagnol"
+															/>
 															<label className="ml-2" htmlFor="Espagnol">
 																Espagnol
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Italien" value="Italien" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Italien"
+															/>
 															<label className="ml-2" htmlFor="Italien">
 																Italien
 															</label>
 														</div>
 														<div className="w-25 my-2 d-flex align-items-center">
-															<Checkbox name="Russe" value="Russe" />
+															<Field
+																type="checkbox"
+																name="languages"
+																value="Russe"
+															/>
 															<label className="ml-2" htmlFor="Russe">
 																Russe
 															</label>
 														</div>
 													</div>
 												</div>
-											</Checkbox.Group>
+											</div>
 										</div>
 										<div className="password-block2">
 											<h2>Email notifications</h2>
@@ -308,37 +377,19 @@ const Formpage = () => {
 												}}
 											/>
 										</div>
-										<div className="password-block2 d-flex flex-row">
-											<button className="save-button" onClick={() => {}}>
-												Save Changes
-											</button>
-											<button className="view-my-agency" onClick={() => {}}>
-												Visualise my agency
-											</button>
+										<div className="button-container">
+											<div className="button-container2">
+												<button className="save-button" type="submit">
+													Save Changes
+												</button>
+											</div>
+											<div className="button-container2">
+												<button className="view-my-agency" onClick={() => {}}>
+													Visualise my agency
+												</button>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-							<div className="user-info-block">
-								<div className="Dragger">
-									<Dragger {...draggerProps}>
-										<div className="child-Dragger">
-											<p className="ant-upload-drag-icon">
-												<InboxOutlined
-													style={{
-														fontSize: 50,
-													}}
-												/>
-											</p>
-											<p className="ant-upload-text small">
-												Click or drag file to this area to upload
-											</p>
-											<p className="ant-upload-hint small">
-												Support for a single or bulk upload. Strictly prohibit
-												from uploading company data or other band files
-											</p>
-										</div>
-									</Dragger>
 								</div>
 							</div>
 						</div>
