@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -6,25 +6,28 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button, Row, Col } from "react-bootstrap";
 
-import NavBarContainer from "../../containers/NavBar";
-import FooterContainer from "../../containers/Footer";
-import HeaderContainer from "../../containers/Header";
+import NavBarContainer from "../../../containers/NavBar";
+import FooterContainer from "../../../containers/Footer";
+import HeaderContainer from "../../../containers/Header";
 
-import AddIcon from "../../assets/images/icon-plus.svg";
-import Upload from "../../assets/images/upload.svg";
-import EyeCross from "../../assets/images/gray-eye-cross.svg";
-import Delete from "../../assets/images/delete.svg";
-import Eye from "../../assets/images/gray-eye.svg";
-import blackeye from "../../assets/images/black-eye.svg";
-import loadMoreImage from "../../assets/images/load-more.svg";
-import image from "../../assets/images/agency-page/bg-agency.jpeg";
-import blackCross from "../../assets/images/black-eye-cross.svg";
-import { userToken } from "../../config/siteConfigs";
-import { parseJwt } from "../../utils";
+import AddIcon from "../../../assets/images/icon-plus.svg";
+import Upload from "../../../assets/images/upload.svg";
+import EyeCross from "../../../assets/images/gray-eye-cross.svg";
+import Delete from "../../../assets/images/delete.svg";
+import Eye from "../../../assets/images/gray-eye.svg";
+import blackeye from "../../../assets/images/black-eye.svg";
+import loadMoreImage from "../../../assets/images/load-more.svg";
+import image from "../../../assets/images/agency-page/bg-agency.jpeg";
+import blackCross from "../../../assets/images/black-eye-cross.svg";
+import { userToken } from "../../../config/siteConfigs";
+import { parseJwt } from "../../../utils";
 
-import { getPropertyForCurrentUserAction } from "../../actions";
-import { RootState } from "../../types/state";
+import { getPropertyForCurrentUserAction } from "../../../actions";
+import { RootState } from "../../../types/state";
+import { getAgencyProperties } from "../../../network-requests";
+import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
 const SoldPropertiesPage = () => {
+	const [modalVisible, setModalVisible] = useState(false);
 	const properties = [
 		{
 			search_address: "lahote ajksh ajs aksh aksh",
@@ -68,10 +71,28 @@ const SoldPropertiesPage = () => {
 	//     window.location.href = '/' + locale;
 	//   };
 
+	const _getAgencyProperties = async () => {
+		try {
+			const _properties = await getAgencyProperties();
+			console.log(_properties);
+		} catch (error) {}
+	};
+
+	useEffect(() => {
+		_getAgencyProperties();
+	}, []);
+
 	return (
 		<>
 			<HeaderContainer title={t("title")} />
+			<PropertyDetailsModal
+				show={modalVisible}
+				onClose={() => {
+					setModalVisible(false);
+				}}
+			/>
 			<div className="SoldPropertiesPage container d-flex">
+				<NavBarContainer />
 				<div className="SoldPropertiesPage__container w-100">
 					<div className="controler-block ">
 						<div className=" title-button-block justify-content-between d-flex">

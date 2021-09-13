@@ -135,7 +135,10 @@ const LoginPage = () => {
 								name="password"
 							/>
 						</div>
-						<div className="form-remind-button">
+						<div
+							onClick={() => router.push("/forgot-password")}
+							className="form-remind-button"
+						>
 							{t("link.remind-password")}
 						</div>
 						<Button className="form-button mt-5" block type="submit">
@@ -162,11 +165,23 @@ const LoginPage = () => {
 };
 
 export const getServerSideProps = handleAlreadyAuthenticated(
-	async ({ locale }) => ({
-		props: {
-			...(await serverSideTranslations(locale, ["login-page", "header"])),
-		},
-	})
+	async ({ locale }) => {
+		console.log("testing1");
+		return {
+			props: {
+				...(await serverSideTranslations(locale, ["login-page", "header"])),
+			},
+		};
+	}
 );
+
+// export const getServerSideProps = async ({ locale }) => {
+// 	console.log("testing12");
+// 	return {
+// 		props: {
+// 			...(await serverSideTranslations(locale, ["login-page", "header"])),
+// 		},
+// 	};
+// };
 
 export default LoginPage;

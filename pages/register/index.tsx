@@ -19,7 +19,6 @@ const Register = () => {
 	const router = useRouter();
 
 	const isLoggedIn = useSelector<RootState>((state) => state.userInfo.auth);
-	const agency_owner = useSelector<RootState>((state) => state.userInfo.id);
 
 	const [step, setStep] = useState(1);
 	const [agencyInfo, setAgencyInfo] = useState(null);
@@ -57,10 +56,9 @@ const Register = () => {
 				await createAgencyProfile({
 					...agencyInfo,
 					...companyDetails,
-					agency_owner,
 				});
 				res("");
-				router.push("/dashboard");
+				router.push("/properties");
 			} catch (error) {
 				rej(error);
 			}

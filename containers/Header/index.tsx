@@ -22,7 +22,7 @@ import CurrentStepIcon from "../../assets/images/header-step-current.svg";
 import SuccessStepIcon from "../../assets/images/header-step-success.svg";
 
 import { RootState } from "../../types/state";
-import navBarList from "../../config/navBarList";
+import { agencyNavBarList, sellerNavBarList } from "../../config/navBarList";
 import { config } from "../../config/siteConfigs";
 import { clearStepsStateAction, userLogoutAction } from "../../actions";
 import { parseJwt } from "../../utils";
@@ -59,6 +59,11 @@ const HeaderContainer = ({
 
 	const { locale } = router;
 	const { t } = useTranslation("header");
+	const account_type = useSelector(
+		(state: RootState) => state?.userInfo?.account_type
+	);
+	const navBarList =
+		account_type === "seller" ? sellerNavBarList : agencyNavBarList;
 	// const { mainBlocks, stepBlock } = useSelector(
 	// 	(state: RootState) => state.stepsInfo
 	// );
@@ -85,7 +90,6 @@ const HeaderContainer = ({
 
 	const goToMainPage = () => {
 		router.push(`/${locale}/estimate`);
-		// window.location.href = "/" + locale;
 	};
 
 	const Logout = async () => {

@@ -12,3 +12,14 @@ export const contactAgency = (contactInfo) => {
 		}
 	});
 };
+
+export const getAgencyProperties = (): Promise<any[]> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data: properties } = await axios.get("agency/properties/all");
+			res(properties);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};

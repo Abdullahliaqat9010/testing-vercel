@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 import Link from "next/link";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import * as Yup from "yup";
+import { notification } from "antd";
 
 import RemindPasswordModal from "../../containers/Modals/RemindPasswordModal";
 import HeaderContainer from "../../containers/Header";
@@ -13,35 +15,32 @@ import ArrowLink from "../../assets/images/arrow-blue.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
 import BackArrow from "../../assets/images/full-arrow.svg";
 
-import { remindPasswordAction } from "../../actions";
-
-const emailRegex = RegExp(
-	/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
+import { recoverPassword } from "../../network-requests";
+import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
 
 const ForgotPasswordPage = () => {
 	const { t } = useTranslation("login-page");
-	const [email, setEmail] = useState("");
-	const [isValidEmail, setIsValidEmail] = useState(true);
+	const { t: t2 } = useTranslation("common");
 	const router = useRouter();
-	const dispatch = useDispatch();
 	const { locale } = router;
 
-	const handleChangeData = (el: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(el.target.value.trim());
-	};
+	const validationSchema = Yup.object().shape({
+		email: Yup.string().email("Invalid email").required("Required"),
+	});
 
-	const handleSendData = (event) => {
-		event.preventDefault();
-		if (emailRegex.test(email)) {
-			setIsValidEmail(true);
-			dispatch(remindPasswordAction(email, locale));
-		} else {
-			setIsValidEmail(false);
-		}
-		// if (userData.length) {
-		//   dispatch(remindPasswordAction(userData, locale));
-		// }
+	const onSubmit = (values) => {
+		return new Promise(async (res, rej) => {
+			try {
+				await recoverPassword(values?.email, locale);
+				notification.success({
+					message:
+						"We have sent instructions to your mailbox with the following steps, please check it.",
+				});
+				res("");
+			} catch (error) {
+				rej(error);
+			}
+		});
 	};
 
 	return (
@@ -60,39 +59,55 @@ const ForgotPasswordPage = () => {
 					</span>
 				</Link>
 			</p>
-			<Form noValidate onSubmit={handleSendData}>
-				<Form.Group controlId="email-or-phone">
-					<Form.Label>{t("label.email-phone")}</Form.Label>
-					<img src={MailIcon} alt="MailIcon" />
-					<Form.Control
-						required
-						type="email"
-						name="email"
-						value={email}
-						isInvalid={!isValidEmail}
-						onChange={handleChangeData}
-						placeholder={t("placeholder.email-phone")}
-					/>
-					<Form.Control.Feedback type="invalid">
-						Please enter a valid email address
-					</Form.Control.Feedback>
-				</Form.Group>
-				<div className="group-btn">
-					<Button
-						type="submit"
-						className="send-reminder"
-						// onClick={handleSendData}
-					>
-						Send a reminder
-					</Button>
-					<Link href="/" locale={locale}>
-						<span>
-							<img src={BackArrow} alt="BackArrow" />
-							{t("button.back")}
-						</span>
-					</Link>
-				</div>
-			</Form>
+			<Formik
+				initialValues={{ email: "" }}
+				validationSchema={validationSchema}
+				onSubmit={onSubmit}
+			>
+				{({ isSubmitting }) => (
+					<Form>
+						<div className="d-flex flex-column form-input-block">
+							<label className="form-label" htmlFor="email">
+								{t("label.email-phone")}
+							</label>
+							<div
+								style={{
+									position: "relative",
+								}}
+							>
+								<img
+									style={{ position: "absolute", top: 15, left: 10 }}
+									src={MailIcon}
+									alt="MailIcon"
+								/>
+								<Field
+									className="form-input"
+									name="email"
+									type="email"
+									placeholder={t("placeholder.email-phone")}
+									style={{ width: "100%" }}
+								/>
+							</div>
+							<ErrorMessage
+								className="form-error"
+								component="div"
+								name="email"
+							/>
+						</div>
+						<div style={{ marginTop: -15 }} className="group-btn">
+							<Button type="submit" className="send-reminder">
+								{isSubmitting ? t2("text.loading") : "Send a reminder"}
+							</Button>
+							<Link href="/" locale={locale}>
+								<span>
+									<img src={BackArrow} alt="BackArrow" />
+									{t("button.back")}
+								</span>
+							</Link>
+						</div>
+					</Form>
+				)}
+			</Formik>
 			<div className="short-footer d-flex justify-content-between">
 				<p>
 					<span>Immo Belgium </span>
@@ -108,10 +123,16 @@ const ForgotPasswordPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale, ["login-page", "header"])),
-	},
-});
+export const getServerSideProps = handleAlreadyAuthenticated(
+	async ({ locale }) => ({
+		props: {
+			...(await serverSideTranslations(locale, [
+				"login-page",
+				"header",
+				"common",
+			])),
+		},
+	})
+);
 
 export default ForgotPasswordPage;

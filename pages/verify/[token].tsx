@@ -6,7 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { verifyEmailAction } from "../../actions";
 import { RootState } from "../../types/state";
-import { Spinner } from "react-bootstrap";
+import Loading from "../../components/Loading";
 
 const Token = () => {
 	const router = useRouter();
@@ -25,11 +25,7 @@ const Token = () => {
 		}
 	}, [email_verified]);
 
-	return (
-		<Spinner animation="border" role="status">
-			<span className="sr-only">Loading...</span>
-		</Spinner>
-	);
+	return <Loading />;
 };
 
 export const getStaticPaths = async () => {

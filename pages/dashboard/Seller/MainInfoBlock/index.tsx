@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
-import { RootState } from "../../../types/state";
+import { RootState } from "../../../../types/state";
 
-import arrowIcon from "../../../assets/images/arrow-blue.svg";
-import squareIcon from "../../../assets/images/square.svg";
-import bedsIcon from "../../../assets/images/beds.svg";
-import bathIcon from "../../../assets/images/bath.svg";
+import arrowIcon from "../../../../assets/images/arrow-blue.svg";
+import squareIcon from "../../../../assets/images/square.svg";
+import bedsIcon from "../../../../assets/images/beds.svg";
+import bathIcon from "../../../../assets/images/bath.svg";
 
 const MainInfoBlock = ({ mainProperty }) => {
 	const router = useRouter();
