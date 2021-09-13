@@ -73,7 +73,12 @@ const SoldPropertiesPage = () => {
 	return (
 		<>
 			<HeaderContainer title={t("title")} />
-			<PropertyDetailsModal show onClose={() => {}} />
+			<PropertyDetailsModal
+				show={modalVisible}
+				onClose={() => {
+					setModalVisible(false);
+				}}
+			/>
 			<div className="SoldPropertiesPage container d-flex">
 				<NavBarContainer />
 				<div className="SoldPropertiesPage__container w-100">
