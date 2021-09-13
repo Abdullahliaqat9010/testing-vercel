@@ -24,7 +24,7 @@ export interface PropertyContainerProps {
 	//   sold_date: string,
 	//   source: string,
 	// }
-	property: any;
-	active: boolean;
-	onClickProperty: (id) => void;
+	property?: any;
+	active?: boolean;
+	onClickProperty?: (id) => void;
 }
