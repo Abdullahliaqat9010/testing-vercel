@@ -27,7 +27,7 @@ import { RootState } from "../../../types/state";
 import { getAgencyProperties } from "../../../network-requests";
 import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
 const SoldPropertiesPage = () => {
-	const [modalVisible, setModalVisible] = useState(false);
+	const [modalVisible, setModalVisible] = useState(true);
 	const properties = [
 		{
 			search_address: "lahote ajksh ajs aksh aksh",
