@@ -12,7 +12,6 @@ import Footer from "../../containers/Footer";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import moment from "moment";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "antd/dist/antd.css";
 import { Affix } from "antd";
 import estimateCover from "../../assets/images/blog/estimationCardCover.png";
 import { useRouter } from "next/router";

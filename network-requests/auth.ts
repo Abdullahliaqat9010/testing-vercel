@@ -58,7 +58,7 @@ export const login = (email, password): Promise<any> => {
 export const createAgencyProfile = (profile) => {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.post("agency", {
+			await axios.put("agency", {
 				...profile,
 				zip: String(profile?.zip),
 				billing_zip: String(profile?.billing_zip),

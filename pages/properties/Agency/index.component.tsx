@@ -24,6 +24,7 @@ import { parseJwt } from "../../../utils";
 
 import { getPropertyForCurrentUserAction } from "../../../actions";
 import { RootState } from "../../../types/state";
+import { getAgencyProperties } from "../../../network-requests";
 const SoldPropertiesPage = () => {
 	const properties = [
 		{
@@ -67,6 +68,17 @@ const SoldPropertiesPage = () => {
 	//   const goToMainPage = () => {
 	//     window.location.href = '/' + locale;
 	//   };
+
+	const _getAgencyProperties = async () => {
+		try {
+			const _properties = await getAgencyProperties();
+			console.log(_properties);
+		} catch (error) {}
+	};
+
+	useEffect(() => {
+		_getAgencyProperties();
+	}, []);
 
 	return (
 		<>

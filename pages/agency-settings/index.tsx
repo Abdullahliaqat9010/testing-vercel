@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Upload, message, Checkbox } from "antd";
 import {
 	FacebookFilled,
@@ -11,7 +11,6 @@ import {
 import { QuestionCircleFilled } from "@ant-design/icons";
 import { Formik, Form, Field } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import "antd/dist/antd.css";
 
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
@@ -32,9 +31,11 @@ const TagInput = ({ tags, setTags }) => {
 			event.target.value = "";
 		}
 	};
-	React.useEffect(() => {
+
+	useEffect(() => {
 		setTags(tagData);
 	}, [tagData]);
+
 	return (
 		<div className="tag-input">
 			<ul className="tags">
@@ -104,7 +105,7 @@ const Formpage = () => {
 					console.log(values);
 				}}
 			>
-				{({ errors, touched, values, setFieldValue }) => (
+				{({ values, setFieldValue }) => (
 					<Form>
 						<HeaderContainer title={t("title")} />
 						<div className="SettingsPage container">

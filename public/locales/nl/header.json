@@ -1,10 +1,12 @@
 {
-  "title": "Evalueer uw huis",
-  "button.add-property": "Voeg een woning toe",
-  "button.login": "Login",
-  "nav-li.dashboard": "Dashboard",
-  "nav-li.myProperties": "Mijn Woningen",
-  "nav-li.settings": "Accountinstellingen",
-  "li.pro-workspace": "Ga naar mijn professionele werkruimte",
-  "span.step": "Stap"
+	"title": "Evalueer uw huis",
+	"button.add-property": "Voeg een woning toe",
+	"button.login": "Login",
+	"nav-li.dashboard": "Dashboard",
+	"nav-li.myProperties": "Mijn Woningen",
+	"nav-li.agency-settings": "Instellingen Bureau",
+	"nav-li.competitive-report": "Concurrerend Rapport",
+	"nav-li.settings": "Accountinstellingen",
+	"li.pro-workspace": "Ga naar mijn professionele werkruimte",
+	"span.step": "Stap"
 }

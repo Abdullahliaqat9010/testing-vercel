@@ -7,7 +7,6 @@ import { Button } from "react-bootstrap";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { notification } from "antd";
-import "antd/dist/antd.css";
 
 import RemindPasswordModal from "../../containers/Modals/RemindPasswordModal";
 import HeaderContainer from "../../containers/Header";
@@ -17,6 +16,7 @@ import MailIcon from "../../assets/images/mail-icon.svg";
 import BackArrow from "../../assets/images/full-arrow.svg";
 
 import { recoverPassword } from "../../network-requests";
+import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
 
 const ForgotPasswordPage = () => {
 	const { t } = useTranslation("login-page");
@@ -123,14 +123,16 @@ const ForgotPasswordPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale, [
-			"login-page",
-			"header",
-			"common",
-		])),
-	},
-});
+export const getServerSideProps = handleAlreadyAuthenticated(
+	async ({ locale }) => ({
+		props: {
+			...(await serverSideTranslations(locale, [
+				"login-page",
+				"header",
+				"common",
+			])),
+		},
+	})
+);
 
 export default ForgotPasswordPage;

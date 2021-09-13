@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -8,7 +7,6 @@ import Link from "next/link";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { notification } from "antd";
-import "antd/dist/antd.css";
 
 import HeaderContainer from "../../containers/Header";
 
@@ -16,13 +14,8 @@ import ArrowLink from "../../assets/images/arrow-blue.svg";
 import LockIcon from "../../assets/images/lock-icon.svg";
 import BackArrow from "../../assets/images/full-arrow.svg";
 
-import {
-	closeChangePasswordModalAction,
-	sendDataForUpdatePasswordAction,
-} from "../../actions";
-import { RootState } from "../../types/state";
-import { regexp } from "../../utils";
 import { resetPassword } from "../../network-requests";
+import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
 
 const ResetPasswordPage = () => {
 	const { t } = useTranslation("login-page");
@@ -174,15 +167,17 @@ const ResetPasswordPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale, [
-			"login-page",
-			"header",
-			"steps",
-			"common",
-		])),
-	},
-});
+export const getServerSideProps = handleAlreadyAuthenticated(
+	async ({ locale }) => ({
+		props: {
+			...(await serverSideTranslations(locale, [
+				"login-page",
+				"header",
+				"steps",
+				"common",
+			])),
+		},
+	})
+);
 
 export default ResetPasswordPage;

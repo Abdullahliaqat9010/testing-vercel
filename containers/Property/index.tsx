@@ -15,7 +15,11 @@ import NoImageFr from "../../assets/images/no-image-available-fr.svg";
 import { agentsList } from "../../templates/agentsList";
 import { RootState } from "../../types/state";
 
-const PropertyContainer = ({ property }: PropertyContainerProps) => {
+const PropertyContainer = ({
+	property,
+	active,
+	onClickProperty,
+}: PropertyContainerProps) => {
 	const { t } = useTranslation("dashboard-page");
 	const router = useRouter();
 	const { locale } = router;
@@ -64,21 +68,11 @@ const PropertyContainer = ({ property }: PropertyContainerProps) => {
 		return locale === "fr" ? NoImageFr : NoImage;
 	};
 
-	// const openContactModal = (data: object) => {
-	//   dispatch(modalWindowContactAgentAction(data));
-	// };
-
-	const setActiveMarker = (propertyId) => {
-		if (propertyId) {
-			dispatch(setActivePropertyFromMapAction(propertyId));
-		}
-		return;
-	};
-
 	return (
 		<div
-			onClick={() => setActiveMarker(property.id)}
-			className={`property-block d-flex active-block`}
+			style={{ cursor: "pointer" }}
+			onClick={() => onClickProperty(property.id)}
+			className={`property-block d-flex ${active ? "active-block" : ""}`}
 		>
 			<div className="property-block__image">
 				<Image src={getImageLink()} rounded />

@@ -25,4 +25,6 @@ export interface PropertyContainerProps {
 	//   source: string,
 	// }
 	property: any;
+	active: boolean;
+	onClickProperty: (id) => void;
 }
