@@ -108,9 +108,9 @@ const Formpage = () => {
 				{({ values, setFieldValue }) => (
 					<Form>
 						<HeaderContainer title={t("title")} />
-						<div className="SettingsPage container d-flex">
+						<div className="AgencySettingsPage container d-flex">
 							<NavBarContainer />
-							<div className="SettingsPage__container w-100">
+							<div className="AgencySettingsPage__container w-100">
 								<div className="first-block">
 									<h1>{"Votre vitrine"}</h1>
 									<div>

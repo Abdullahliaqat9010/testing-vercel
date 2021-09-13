@@ -3,17 +3,19 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import HeaderContainer from '../../containers/Header';
 import { Table } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const PrivacyPolicyPage = () => {
+  const {t} = useTranslation("privacy-policy")
   return (
     <>
       <HeaderContainer title='Our privacy policy' />
       <div className="PrivacyPolicy">
         <div className="blue-line"/>
         <div className="main-content">
-          <h4>Politique de confidentialité et de cookies</h4>
-          <span className="data">Dernière mise à jour 09/04/2021</span>
-          <p>
+          <h4>{t("title")}</h4>
+          <span className="data">{t("updatedDate") }</span>
+          {/* <p>
             Cette «Politique de confidentialité et de cookies» régit le traitement de vos données à caractère
             personnel par le responsable du traitement: Winleads, opérant sous le nom “BelgiumImmo”, avec son
             siège social basé au 101, rue des champs, 7100 La Louvière à et numéro BCE 0751 533 333 (ci-après:
@@ -27,192 +29,148 @@ const PrivacyPolicyPage = () => {
             www.winleads.eu</a> ou <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a> En nous
             contactant par e-mail / téléphone ou en soumettant une question / plainte, vous déclarez que vous avez lu
             cette politique de confidentialité et de cookies et que vous acceptez expressément son contenu.
-          </p>
+          </p> */}
           {/*TOP SEGMENT*/}
           <div className='new-segment'>
-            <span>Table des matières</span>
+            <span>{t("content-title") }</span>
           </div>
           <div>
-            <span>Article 1 - Quelles données nous traitons à votre sujet</span>
+            <span>{t("artical-one")}</span>
           </div>
           <div>
-            <span>Article 2 - Comment nous utilisons vos données à caractère personnel</span>
+            <span>{t("artical-two")}</span>
           </div>
           <div>
-            <span>Article 3 - Qui reçoit vos données à caractère personnel</span>
+            <span>{t("artical-three")}</span>
           </div>
           <div>
-            <span>Article 4 - Durée du traitement</span>
+            <span>{t("artical-four")}</span>
           </div>
           <div>
-            <span>Article 5 - Vos droits</span>
+            <span>{t("artical-five")}</span>
           </div>
           <div>
-            <span>Article 6 - Comment nous protéger vos données à caractère personnel</span>
+            <span>{t("artical-six")}</span>
           </div>
           <div>
-            <span>Article 7 - Cookies</span>
+            <span>{t("artical-seven")}</span>
           </div>
           {/*SEGMENT 1*/}
           <div className='new-segment'>
-            <span>Article 1	Quelles données nous traitons à votre sujet</span>
+            <span>{t("artical-one")}</span>
           </div>
           <div className="double-block">
             <span className="double-block__label">1.1</span>
             <div className="double-block__text">
               <span>
-                Winleads-BelgiumImmo traite les données à caractère personnel suivantes dans le cadre de ses activités:
+                {t("span-artical-one")}
               </span>
               <ul>
                 <li>
-                  <b>Cookies et pixels</b> - Chaque fois que vous utilisez notre site web ou notre application,
-                  différentes informations personnelles vous concernant peuvent être recueillies par le biais de
-                  cookies et de technologies similaires, en particulier votre adresse IP, lieu, âge, sexe, type
-                  d’appareil et votre comportement de navigation;
+                  <b>{t("artical-one-li1.b")}</b> {t("artical-one-li1")}
                 </li>
                 <li>
-                  <b>Données des agents immobilier</b> - Lorsque vous utilisez les fonctionnalités de notre site web,
-                  remplissez le formulaire de contact ou que vous demandez une service, nous pouvons recueillir les
-                  données suivantes à votre sujet: vos nom, prénom, adresse, adresse électronique, numéro de téléphone,
-                  nom de votre société, votre siège social, numéro de TVA, le numéro de votre compte bancaire, le numéro
-                  de votre carte de crédit, la région dans laquelle vous opérez et toute autre information que vous nous
-                  fournissez;
+                  <b>{t("artical-one-li2.b")}</b> {t("artical-one-li2")}
                 </li>
                 <li>
-                  <b>Données des vendeurs (potentiels) de biens immobiliers</b> - Lorsque vous utilisez les
-                  fonctionnalités de notre site web, remplissez le formulaire de contact ou que vous demandez une
-                  service (comme une évaluation de la valeur de votre bien immobilier), nous pouvons recueillir les
-                  données à caractère personnel suivantes: vos nom, prénom, numéro de téléphone, adresse, adresse
-                  électronique, détails concernant la vente/l’achat de la maison;
+                  <b>{t("artical-one-li3.b")}</b>{t("artical-one-li3")}
                 </li>
                 <li>
-                  <b>Données sur les biens immobiliers vendus</b> - le prix de vente effectif, le prix de vente publié,
-                  la surface habitable, la surface non habitable, le nombre de salles de bain, le nombre de chambres,
-                  le nombre de garages (extérieur ou intérieur), l'ascenseur, le nombre de façades, le nombre d'étages
-                  (ou à quel étage si appartement), l'adresse, les photos, la description, la valeur EPC, l'année de
-                  construction, l'année de rénovation, l'état de la maison, l'orientation de la terrasse/du jardin, la
-                  piscine, les panneaux solaires, le prestige, la cave, la surface de toutes les pièces, etc.
+                  <b>{t("artical-one-li4.b")}</b> {t("artical-one-li4.b")}
                 </li>
                 <li>
-                  <b>Données des fournisseurs</b> - Si vous êtes un fournisseur (potentiel), nous traiterons les données
-                  à caractère personnel suivantes à votre sujet: vos nom, prénom, adresse, adresse électronique, numéro
-                  de téléphone, nom commercial, numéro de TVA, siège social, numéro de votre compte bancaire et toute
-                  autre donnée que vous nous fournissez;
+                  <b>{t("artical-one-li5.b")}</b>{t("artical-one-li5.b")}
                 </li>
                 <li>
-                  <b>Données de communication</b> - Si vous nous appelez, nous envoyer un courriel ou remplissez un
-                  formulaire de contact, nous pouvons recueillir les données à caractère personnel suivantes: vos nom
-                  et prénom, adresse électronique, votre numéro de téléphone, ainsi que les données que vous fournissez
-                  vous-même.
+                  <b>{t("artical-one-li6.b")}</b> {t("artical-one-li6")}
                 </li>
               </ul>
             </div>
           </div>
           {/*SEGMENT 2*/}
           <div className='new-segment'>
-            <span>Article 2	Comment nous utilisons vos données à caractère personnel</span>
+            <span>{t("artical-two")}</span>
           </div>
           <div className="double-block">
-            <span className="double-block__label">2.1</span>
+            <span className="double-block__label">2.1  </span>
             <div className="double-block__text">
+            <span>
+            {t("artical-two-discription")}
+              </span>
               <span>
-                Winleads-BelgiumImmo utilisera uniquement vos données à caractère personnel que pour:
+              {t("span-artical-two")}
               </span>
               <ul>
                 <li>
-                  <b>Cookies et pixels</b> - maintenir et améliorer notre site web et notre application et pour
-                  inclure des données à caractère personnel dans les statistiques sur la base juridique de votre
-                  consentement explicite et préalable;
+                  <b>{t("artical-two-li1.b")}</b> {t("artical-two-li1")}
                 </li>
                 <li>
-                  <b>Données des agents immobilier</b> - gérer votre compte sur notre site Web et pour la livraison et
-                  la facturation des services que vous avez commandés, sur la base juridique de la nécessité d’exécuter
-                  un contrat que vous avez demandé et de pouvoir tenir nos comptes, la base juridique étant une
-                  obligation légale;
+                  <b>{t("artical-two-li2.b")}</b> {t("artical-two-li2")}
                 </li>
                 <li>
-                  <b>Données des vendeurs (potentiels) de biens immobiliers</b> - pouvoir générer des prospects en tant
-                  que sous-traitant pour le compte de nos clients (agents immobiliers), pour collecter des données de
-                  contact de notre propre initiative en tant que sous-traitant et les transmettre ensuite à des tiers
-                  et pour la livraison des services que vous avez demandé, avec votre consentement explicite et
-                  préalable comme base juridique;
+                  <b>{t("artical-two-li3.b")}</b> {t("artical-two-li3")}
                 </li>
                 <li>
-                  <b>Données sur les biens immobiliers vendus</b> - le bon fonctionnement de la calculatrice en ligne,
-                  pour être en mesure d'estimer la valeur d'une propriété et pour ermettre aux agents d'exporter des
-                  rapports de marché concurrentiels contenant des données sur leurs maisons vendues et celles d'autres
-                  agents, avec le consentement explicite et préalable comme base juridique;
+                  <b>{t("artical-two-li4.b")}</b>{t("artical-two-li4")}
                 </li>
                 <li>
-                  <b>Données des fournisseurs</b> - vous envoyer une demande de devis, passer une commande, payer vos
-                  factures et communiquer avec vous, sur la base juridique de la nécessité d’exécuter un contrat et de
-                  pouvoir tenir nos comptes, la base juridique étant une obligation légale;
+                  <b>{t("artical-two-li5.b")}</b> {t("artical-two-li5")}
                 </li>
                 <li>
-                  <b>Données de communication</b> - pouvoir répondre à la question que vous avez posée sur la base
-                  juridique de votre consentement explicite et préalable en ligne et notre intérêt légitime à vous
-                  contacter par téléphone.
+                  <b>{t("artical-two-li6.b")}</b>{t("artical-two-li6")}
                 </li>
               </ul>
             </div>
           </div>
           <div className="double-block">
-            <span className="double-block__label">2.2</span>
+            <span className="double-block__label">2.2 </span>
             <div className="double-block__text">
-              <p>
-                Nous utilisons également vos données à caractère personnel pour le marketing direct, les newsletters,
-                les promotions et les promotions, dont la base juridique est notre intérêt légitime à l'égard des
-                clients existants, ou votre consentement préalable explicite dans tous les autres cas.
+            <p>
+            {t("artical-two.2-description")}
               </p>
               <p>
-                Si vous ne souhaitez plus recevoir de telles communications et que nous cessons de traiter vos données
-                à caractère personnel à des fins de marketing direct, vous pouvez le faire sans frais et sans avoir à
-                donner de raison en cliquant sur le lien dans chacun de nos mailings directs.ou par en nous contactant
-                directement par e-mail ou par téléphone.
+                {t("artical-two.2-p1")}
+              </p>
+              <p>
+               {t("artical-two.2-p2")}
               </p>
             </div>
           </div>
           {/*SEGMENT 3*/}
           <div className='new-segment'>
-            <span>Article 3	Qui reçoit vos données à caractère personnel</span>
+            <span>{t("artical-three")}</span>
           </div>
           <div className="double-block">
             <span className="double-block__label">3.1</span>
             <span className="double-block__text">
-              Les agents immobiliers s'appuient sur Winleads-BelgiumImmo en tant que fournisseur de services tiers
-              pour entrer en contact avec des vendeurs (potentiels) et faire calculer la valeur des biens immobiliers
-              par le calculateur. Dans ce cas, Winleads-BelgiumImmo est un sous-traitant au sens du RGPD et ne traitera
-              vos données à caractère personnel que conformément aux instructions des agents immobiliers.
+              {t("artical-three.1-p1")}
             </span>
           </div>
           <div className="double-block">
             <span className="double-block__label">3.2</span>
             <span className="double-block__text">
-              Si un agent immobilier annule son abonnement à Winleads-BelgiumImmo, Winleads-BelgiumImmo reçoit une
-              copie des données sur les biens immobiliers vendus, que l'agent immobilier a partagées avec Winleads
-              pendant son abonnement. Dans ce cas, Winleads est le responsable du traitement des données.
+              {t("artical-three.2-p1")}
             </span>
           </div>
           <div className="double-block">
             <span className="double-block__label">3.3</span>
             <div className="double-block__text">
               <span>
-                Winleads-BelgiumImmo peut partager vos données à caractère personnel avec:
+                {t("artical-three.3-p1")}
               </span>
               <ul>
                 <li>
-                  les autorités gouvernementales, les tribunaux et les forces de police sur la base d'une décision de
-                  justice ou pour se conformer à d'autres lois ou réglementations obligatoires,
+                  {t("artical-three.3-li1")}
                 </li>
-                <li>des institutions financières,</li>
-                <li>des travailleurs indépendants externes</li>
-                <li>le comptable</li>
-                <li>des agents immobiliers qui ont souscrit à Winleads-BelgiumImmo</li>
-                <li>les services de paiement, en particulier PayPal</li>
-                <li>
+                <li>{t("artical-three.3-li2")}</li>
+                <li>{t("artical-three.3-li3")}</li>
+                <li>{t("artical-three.3-li4")}</li>
+                <li>{t("artical-three.3-li5")}</li>
+                <li>{t("artical-three.3-li6")}</li>
+                {/* <li>
                   des prestataires de services tiers, en particulier Hubspot, Chargebee, Quickbooks, Supermetrics,
                   Zoho, Google et Facebook.
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -220,171 +178,123 @@ const PrivacyPolicyPage = () => {
             <span className="double-block__label">3.4</span>
             <div className="double-block__text">
               <span>
-                Winleads-BelgiumImmo fait appel régulièrement à des tiers qui stockent des données à caractère
-                personnel en dehors de l’Espace économique européen. Ce faisant, nous prenons toutes les mesures
-                possibles afin de garantir la sécurité de vos données à caractère personnel et exigeons de ces tiers
-                qu’ils traitent vos données de matière aussi sûre que nous le faisons nous-mêmes:
+               {t("artical-three.4")}
               </span>
               <ul>
                 <li>
-                  Zoho (Etats-Unis) a un accord commercial de groupe basé sur les clauses contractuelles types de la
-                  Commission européenne,
+                  {t("artical-three.4-li1")}
                 </li>
                 <li>
-                  au sein du groupe Paypal, ils existent des règles d’entreprise contraignantes,
+                  {t("artical-three.4-li2")}
                 </li>
                 <li>
-                  Winleads-BelgiumImmo a conclu un accord de traitement avec chaque freelance (Inde) sur la base des
-                  clauses contractuelles types de la Commission européenne,
+                  {t("artical-three.4-li3")}
                 </li>
                 <li>
-                  un accord de traitement a été conclu avec Supermetrics (Etats-Unis) sur la base des clauses
-                  contractuelles types de la Commission européenne
+                  {t("artical-three.4-li4")}
                 </li>
                 <li>
-                  un accord de traitement a été conclu avec Facebook (Etats-Unis) sur la base des clauses contractuelles
-                  types de la Commission européenne.
+                  {t("artical-three.4-li5")}
                 </li>
                 <li>
-                  un accord de traitement a été conclu avec Hubspot (Etats-Unis) sur la base des clauses contractuelles
-                  types de la Commission européenne.
+                 {t("artical-three.4-li6")}
                 </li>
                 <li>
-                  un accord de traitement a été conclu avec Chargebee (Etats-Unis) sur la base des clauses
-                  contractuelles types de la Commission européenne.
+                  {t("artical-three.4-li7")}
                 </li>
                 <li>
-                  un accord de traitement a été conclu avec Quickbooks (Etats-Unis) sur la base des clauses
-                  contractuelles types de la Commission européenne.
+                  {t("artical-three.4-li8")}
                 </li>
               </ul>
             </div>
           </div>
           <div className="double-block">
             <span className="double-block__label">3.5</span>
-            <span className="double-block__text">
-              Si nous cessons nos activités ou les transférons à quelqu’un d’autre, par exemple parce que nous
-              faisons faillite ou vendons notre entreprise, cela pourrait signifier que vos données à caractères
-              personnel seront transférées à des tiers qui reprendront tout ou partie de notre entreprise. Dans ce cas,
-              nous vous informerons toujours à l’avance, dans la mesure du possible, mais vous comprenez que cela ne
-              sera pas toujours possible d’un point de vue technique ou commercial.
-            </span>
+            <span className="double-block__text">{t("artical-three.5")}</span>
           </div>
           {/*SEGMENT 4*/}
           <div className='new-segment'>
-            <span>Article 4	Durée du traitement</span>
+            <span>{t("artical-four")}</span>
           </div>
           <p>
-            Nous conserverons vos données à caractère personnel aussi longtemps que cela sera nécessaire,
-            conformément aux objectifs du traitement et aux prescriptions légales:
+            {t("artical-four-p")}
           </p>
           <ul>
             <li>
-              Les données des clients sont conservées pendant la durée de la relation avec ce client et pendant
-              cinq ans au maximum par la suite. En raison d’obligations légales, nous conservons certaines données
-              comptables pendant dix ans;
+             {t("artical-four-li1")}
             </li>
             <li>
-              Les données des fournisseurs sont conservées pendant la relation avec le fournisseur et pendant cinq
-              ans au maximum par la suite, sauf opposition du fournisseur. En raison d’obligations légales, nous
-              conservons certaines données comptables pendant dix ans;
+              {t("artical-four-li2")}
             </li>
             <li>
-              Les données de communication sont conservées aussi longtemps que nécessaire pour répondre à la
-              question ou à la demande et pendant cinq ans au maximum par la suite;
+              {t("artical-four-li3")}
             </li>
             <li>
-              Les données sur les biens immobiliers vendus sont conservées pendant dix ans, sauf opposition du
-              fournisseur.
+             {t("artical-four-li4")}
+            </li>
+            <li>
+             {t("artical-four-li5")}
             </li>
           </ul>
           {/*SEGMENT 5*/}
           <div className='new-segment'>
-            <span>Article 5	Vos droits</span>
+            <span>{t("artical-five")}</span>
           </div>
           <p>
-            Vous avez le droit d’accéder à tout moment et gratuitement à vos données à caractère personnel et à la
-            manière dont nous les utilisons. Vous avez le droit de nous demander de rectifier, de compléter ou
-            d’effacer vos données à caractère personnel. Dans un certain nombre de cas énumérés dans le RGDP,
-            vous pouvez également nous demander de limiter le traitement de vos données à caractère personnel.
-            Vous avez le droit de vous opposer au traitement de vos données à caractère personnel si vous avez
-            des motifs légitimes et impérieux qui dépassent notre intérêt à traiter vos données. Vous avez également
-            le droit de vous opposer à tout moment à l’utilisation des données à caractère personnel à des fins de
-            marketing direct, même sans donner une raison. Vous avez le droit de demander que vos données à
-            caractère personnel vous soient communiquées sous forme numérique et lisible et/ou de les faire
-            transmettre à un autre fournisseur de services de votre choix. Dans la mesure où notre traitement est
-            fondé sur votre consentement préalable, vous avez le droit de révoquer ce consentement à tout moment.
+            {t("artical-five-p1")}
           </p>
           <p>
-            Vous pouvez exercer vos droits par e-mail à , par courrier à <a href="mailto:matteo@winleads.be">
+           {t("artical-five-p2")} <a href="mailto:matteo@winleads.be">
             matteo@winleads.be</a>
           </p>
           <p>
-            Vous avez le droit de déposer une plainte auprès de l’Autorité belge de protection des données:
+           {t("artical-five-p3")}
           </p>
-          <p className='mb-0'>Rue de la presse 35</p>
-          <p className='mb-0'>1000 Bruxelles</p>
-          <p className='mb-0'>Tél: +32 (0) 2 274 48 00</p>
+          <p className='mb-0'>{t("artical-five-p4")}</p>
+          <p className='mb-0'>{t("artical-five-p5")}</p>
+          <p className='mb-0'>{t("artical-five-p6")}</p>
           <p className='mb-0'>
-            <a href="mailto:contact@apd-gba.be">contact@apd-gba.be</a>
+            <a href="mailto:contact@apd-gba.be">{t("artical-five-p7")}</a>
           </p>
           <p>
-            Si nécessaire, vous pouvez également vous adresser au tribunal civil pour demander des dommages et
-            intérêts.
+           {t("artical-five-p8")}
           </p>
           {/*SEGMENT 6*/}
           <div className='new-segment'>
-            <span>Article 6	Comment nous sécurisons vos données à caractère personnel</span>
+            <span>{t("artical-six")}</span>
           </div>
           <p>
-            Nous avons pris les mesures de sécurité techniques et organisationnelles appropriées pour garantir la
-            sécurité de vos données à caractère personnel. Chacun de nos systèmes est sécurisé avec un login et un mot
-            de passe. Les pare-feu, le cryptage des données et les logiciels antivirus sont toujours à jour.
+           {t("artical-six-p1")}
           </p>
           <p>
-            En aucun cas, Winleads-BelgiumImmo, opérant sous le nom “Immo-Belgium’peut être tenue responsable de tout
-            dommage direct ou indirect résultant de l’utilisation fautive ou illégale de votre données à caractère
-            personnel par des tiers.
+            {t("artical-six-p2")}
           </p>
           {/*SEGMENT 7*/}
           <div className='new-segment'>
-            <span>Article 7	Cookies</span>
+            <span>{t("artical-seven")}</span>
           </div>
           <p>
-            Notre site web utilise des cookies et des technologies similaires. Cela nous aide à vous offrir une
-            meilleure expérience d’utilisation quand vous visitez notre site web et nous permet également d’optimiser
-            notre site web. Nous ne plaçons que les cookies strictement nécessaires sans votre consentement préalable.
-            Pour tous les autres cookies, nous vous demandons votre consentement préalable.
+           {t("artical-seven-p1")}
           </p>
           <p>
-            La liste des cookies ci-dessous vous donne un aperçu des cookies que notre site web utilise.
+            {t("artical-seven-p2")}
           </p>
-          <p><b>Liste de</b></p>
+          <p><b>{t("artical-seven-section-one")}</b></p>
           <p>
-            Un cookie est un petit fichier texte contenant des données qu’un site web (lorsqu’un utilisateur le visite)
-            souhaite stocker sur votre appareil afin de mémoriser des informations qui vous concernent, telles que
-            votre préférence linguistique ou vos informations de connexion. Ces cookies sont placés par nos soins et
-            sont appelés cookies internes. Nous utilisons également des cookies externes, c’est-à-dire des cookies
-            provenant d’un domaine différent de celui où vous vous trouvez. Nous utilisons des cookies et d’autres
-            technologies de tracking aux fins suivantes:
+            {t("artical-seven-section-one-p1")}
           </p>
-          <p><b>Cookies strictement nécessaires</b></p>
+          <p><b>{t("artical-seven-section-two")}</b></p>
           <p>
-            Ces cookies ne stockent aucune information personnelle identifiable, mais sont nécessaires au
-            fonctionnement de notre site web et ne peuvent être désactivés pour cette raison. Dans la plupart des cas,
-            ces cookies ne sont utilisés que lorsque vous demandez un service, par exemple pour enregistrer vos
-            paramètres de confidentialité, vous connecter à notre site web ou remplir une fiche. Vous pouvez configurer
-            votre navigateur pour qu’il bloque ces cookies ou vous en avertisse, mais certaines parties de notre site
-            web ne fonctionneront pas.
+           {t("artical-seven-section-two-p1")}
           </p>
           <div>
             <Table responsive bordered>
               <thead>
               <tr>
-                <th>Nom</th>
-                <th>Origine</th>
-                <th>Fonction</th>
-                <th>Temps de rétention</th>
+                <th>{t("artical-seven-section-two-table-cl1")}</th>
+                <th>{t("artical-seven-section-two-table-cl2")}</th>
+                <th>{t("artical-seven-section-two-table-cl3")}</th>
+                <th>{t("artical-seven-section-two-table-cl4")}</th>
               </tr>
               </thead>
               <tbody>
@@ -394,150 +304,128 @@ const PrivacyPolicyPage = () => {
               </tbody>
             </Table>
           </div>
-          <p><b>Cookies analytiques</b></p>
+          <p><b>{t("artical-seven-section-three")}</b></p>
           <p>
-            Ces cookies nous permettent de compter les visiteurs et leur origine afin de pouvoir analyser et améliorer
-            les performances de notre site web. Ils nous aident à comprendre quelles sont les pages les plus et les
-            moins populaires et comment les visiteurs se déplacent sur le site. Toutes les informations collectées par
-            ces cookies sont agrégées et donc anonymes. Si vous n’autorisez pas ces cookies, nous ne saurons pas quand
-            vous avez visité notre site.
+            {t("artical-seven-section-three-p1")}
           </p>
           <div>
             <Table responsive bordered>
               <thead>
               <tr>
-                <th>Nom</th>
-                <th>Domaine</th>
-                <th>Origine</th>
-                <th>Fonction</th>
-                <th>Temps de rétention</th>
+                <th>{t("artical-seven-section-three-table-cl1")}</th>
+                <th>{t("artical-seven-section-three-table-cl2")}</th>
+                <th>{t("artical-seven-section-three-table-cl3")}</th>
+                <th>{t("artical-seven-section-three-table-cl4")}</th>
+                <th>{t("artical-seven-section-three-table-cl5")}</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td>rétention _ga</td>
-                <td>.winleads.eu</td>
-                <td>Google Analytics</td>
+                <td>{t("artical-seven-section-three-table-r1c1")}</td>
+                <td>{t("artical-seven-section-three-table-r1c2")}</td>
+                <td>{t("artical-seven-section-three-table-r1c3")}</td>
                 <td>
-                  Ce cookie est utilisé pour distinguer les utilisateurs uniques en attribuant un numéro généré
-                  aléatoirement comme identifiant client. Il est inclus dans chaque demande de page sur un site et
-                  utilisé pour calculer les données de visiteur, de session et de campagne pour les rapports analytiques
-                  des sites.
+                 {t("artical-seven-section-three-table-r1c4")}
                 </td>
-                <td>2 ans</td>
+                <td>{t("artical-seven-section-three-table-r1c5")}</td>
               </tr>
               <tr>
-                <td>_gat</td>
-                <td>.winleads.eu</td>
-                <td>Google Analytics</td>
+                <td>{t("artical-seven-section-three-table-r2c1")}</td>
+                <td>{t("artical-seven-section-three-table-r1c2")}</td>
+                <td>{t("artical-seven-section-three-table-r1c3")}</td>
                 <td>
-                  Ce cookie est utilisé pour supprimer les requêtes à Google Analytics afin d'augmenter l'efficacité
-                  des appels réseau
+                  {t("artical-seven-section-three-table-r2c4")}
                 </td>
-                <td>Jusqu'à la fin de la session</td>
+                <td>{t("artical-seven-section-three-table-r2c5")}</td>
               </tr>
               <tr>
-                <td>_gid</td>
-                <td>.winleads.eu</td>
-                <td>Google Analytics</td>
+                <td>{t("artical-seven-section-three-table-r3c1")}</td>
+                <td>{t("artical-seven-section-three-table-r1c2")}</td>
+                <td>{t("artical-seven-section-three-table-r1c3")}</td>
                 <td>
-                  Ce cookie semble stocker et mettre à jour une valeur unique pour chaque page visitée.
+                  {t("artical-seven-section-three-table-r3c4")}
                 </td>
-                <td>1 jour</td>
+                <td>{t("artical-seven-section-three-table-r3c5")}</td>
               </tr>
               </tbody>
             </Table>
-            <p><b>Cookies fonctionnels</b></p>
+            <p><b>{t("artical-seven-section-four")}</b></p>
             <p>
-              Ces cookies permettent à notre site web d’offrir des fonctionnalités supplémentaires et des paramètres
-              personnels. Elles peuvent être fixées par nous ou par des fournisseurs de services que nous avons placés
-              sur nos pages. Si vous n’autorisez pas ces cookies, ces services ou certains d’entre eux ne peuvent pas
-              fonctionner correctement.
+              {t("artical-seven-section-four-p1")}
             </p>
           </div>
           <div>
             <Table responsive bordered>
               <thead>
               <tr>
-                <th>Nom</th>
-                <th>Domaine</th>
-                <th>Origine</th>
-                <th>Fonction</th>
-                <th>Temps de rétention</th>
+                <th>{t("artical-seven-section-four-table-cl1")}</th>
+                <th>{t("artical-seven-section-four-table-cl2")}</th>
+                <th>{t("artical-seven-section-four-table-cl3")}</th>
+                <th>{t("artical-seven-section-four-table-cl4")}</th>
+                <th>{t("artical-seven-section-four-table-cl5")}</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td>rétention __cfduid</td>
-                <td>.winleads.eu</td>
-                <td>Cloudflare</td>
-                <td>Ce cookie est utilisé pour identifier un trafic Web fiable.</td>
-                <td>1 mois</td>
+                <td>{t("artical-seven-section-four-table-r1c1")}</td>
+                <td>{t("artical-seven-section-four-table-r1c2")}</td>
+                <td>{t("artical-seven-section-four-table-r1c3")}</td>
+                <td>{t("artical-seven-section-four-table-r1c4")}</td>
+                <td>{t("artical-seven-section-four-table-r1c5")}</td>
               </tr>
               </tbody>
             </Table>
           </div>
-          <p><b>Marketing cookies</b></p>
-          <p>
-            Les marketing cookies sont placés à des fins de marketing et sont utilisés pour suivre votre comportement
-            sur Internet après que vous avez visité notre site et/ou pour vous montrer des publicités personnalisées.
-            Ces cookies peuvent être placés sur notre site web par nous ou par des tiers. C’est à vous qu’il revient
-            de donner l’autorisation de placer ces marketing cookies.
+          <p><b>{t("artical-seven-section-five-markeeting")}</b></p>
+          <p>{t("artical-seven-section-five-markeeting-p1")}
           </p>
           <div>
             <Table responsive bordered>
               <thead>
               <tr>
-                <th>Nom</th>
-                <th>Domaine</th>
-                <th>Origine</th>
-                <th>Fonction</th>
-                <th>Temps de rétention</th>
+                <th>{t("artical-seven-section-five-table-cl1")}</th>
+                <th>{t("artical-seven-section-four-table-cl2")}</th>
+                <th>{t("artical-seven-section-four-table-cl3")}</th>
+                <th>{t("artical-seven-section-four-table-cl4")}</th>
+                <th>{t("artical-seven-section-four-table-cl5")}</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td>rétention _fbp</td>
-                <td>.winleads.eu</td>
-                <td>Facebook</td>
+                <td>{t("artical-seven-section-five-table-r1c1")}</td>
+                <td>{t("artical-seven-section-five-table-r1c2")}</td>
+                <td>{t("artical-seven-section-five-table-r1c3")}</td>
                 <td>
-                  Ce cookie est utilisé par Facebook pour fournir une gamme de produits publicitaires, tels que les
-                  enchères en temps réel d'annonceurs tiers.
+                  {t("artical-seven-section-five-table-r1c4")}
                 </td>
-                <td>3 mois</td>
+                <td>{t("artical-seven-section-five-table-r1c5")}</td>
               </tr>
               </tbody>
             </Table>
           </div>
           <p>
-            Si vous constatez que d’autres cookies sont placés sur notre site web, nous vous remercions de nous en
-            informer immédiatement afin que nous puissions apporter les modifications nécessaires.
+            {t("artical-seven-section-five-p1")}
           </p>
           <p>
-            Nous vous donnerons autant d’informations que possible sur les cookies placés par des tiers. Toutefois, si
-            vous souhaitez en savoir plus, veuillez vous référer aux déclarations de confidentialité de ces parties
-            sur leurs sites web respectifs. Veuillez noter que nous n’avons aucune influence sur le contenu de ces
-            déclarations, ni sur le contenu des cookies de ces tiers.
+           {t("artical-seven-section-five-p2")}
           </p>
           <p>
-            Lors de votre première visite sur notre site web, il vous sera demandé d’accepter nos cookies. Vous pouvez
-            gérer vos choix à tout moment par la suite.
+            {t("artical-seven-section-five-p3")}
           </p>
           <p>
-            Si vous avez d’autres questions ou commentaires concernant le traitement de vos données à caractère 
-            personnel, veuillez nous contacter par courriel à matteo@winleads.eu, par courrier à l’adresse 101, 
-            rue des champs, 7100 La Louvière (BE) ou via les formulaires de contact sur notre site 
-            Web <a href='http://www.winleads.eu/' target='_blank'>
-            www.winleads.eu</a> ou <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
+            {t("artical-seven-section-five-p4")} <a href='http://www.winleads.eu/' target='_blank'>
+            www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
           </p>
           <p>
-            Vous trouverez également de plus amples informations sur les cookies à l’adresse
-            suivante: <a href="http://www.allaboutcookies.org" target='_blank'>http://www.allaboutcookies.org</a>.
+           {t("artical-seven-section-five-p5")} <a href="http://www.allaboutcookies.org" target='_blank'>http://www.allaboutcookies.org</a>.
           </p>
           <p>
-            Pour plus d’informations sur la publicité comportementale en ligne et la protection de la vie privée en
-            ligne, voir: <a href="http://www.youronlinechoices.eu" target='_blank'>http://www.youronlinechoices.eu</a>.
+            {t("artical-seven-section-five-p6")} <a href="http://www.youronlinechoices.eu" target='_blank'>http://www.youronlinechoices.eu</a>.
           </p>
+          <p> {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
+            www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
+            {t("artical-seven-section-five-p7-2")}
+            </p>
         </div>
       </div>
     </>
@@ -546,7 +434,7 @@ const PrivacyPolicyPage = () => {
 
 export const getStaticProps = async ({locale}) => ({
   props: {
-    ...await serverSideTranslations(locale, []),
+    ...await serverSideTranslations(locale, ["privacy-policy"]),
   },
 });
 

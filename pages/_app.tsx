@@ -34,6 +34,7 @@ import "../styles/pages/register.scss";
 import "../styles/pages/estimate.scss";
 import "../styles/pages/sold-properties.scss";
 import "../styles/PropertyDetailsModal.scss";
+import "../styles/pages/agency-settings.scss";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
