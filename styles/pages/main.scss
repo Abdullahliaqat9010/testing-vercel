@@ -1329,7 +1329,7 @@
 				border-radius: 10px;
 				object-fit: cover;
 			}
-
+			
 			&__popup {
 				box-shadow: 0 4px 12px rgba(56, 114, 239, 0.3);
 				top: 180px;
@@ -1397,6 +1397,11 @@
 	}
 
 	@media (min-width: 320px) and (max-width: 767px) {
+		.create-personal-account {
+			.title-in-mobile {
+				margin-top: 60px;
+			}
+		}
 		.image-carousel {
 			img {
 				border-radius: unset;

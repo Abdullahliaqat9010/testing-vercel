@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, ButtonGroup, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
-
+import { Button, Form, Alert } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import jwt from "jsonwebtoken";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
 import NavBarContainer from "../../containers/NavBar";
@@ -13,32 +16,64 @@ import LockIcon from "../../assets/images/lock-icon-blue.svg";
 import ValidPasswordIcon from "../../assets/images/valid.svg";
 import AccountImage from "../../assets/images/account-image.png";
 import { RootState } from "../../types/state";
+import { UPDATE_USER_PROFILE } from "../../actions/actionTypes";
+import { userLogoutAction } from "../../actions";
+import { requireAuthentication } from "../../utils/requireAuthentication";
 
 const SettingsPage = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const { locale } = router;
+
+	const { t } = useTranslation("settings-page");
+
 	const [newPasswordData, setNewPasswordData] = useState({
 		newPass: "",
 		repeatNewPass: "",
 	});
 	const [validated, setValidated] = useState<boolean>(false);
 	const [changePass, showChangePassBlock] = useState<boolean>(false);
+	const [currentPassword, setCurrentPassword] = useState<string>("");
+	const [isChangingPass, setIsChangingPass] = useState<boolean>(false);
+	const [isPasswordMessageVisible, setIsPasswordMessageVisible] =
+		useState<boolean>(false);
+	const [isUpdatingProfile, setIsUpdatingProfile] = useState<boolean>(false);
+	const [isProfileMessageVisible, setIsProfileMessageVisible] =
+		useState<boolean>(false);
+	const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false);
+	const [isChangingNotification, setIsChangingNotification] =
+		useState<boolean>(false);
+	const [isNotificationMessageVisible, setIsNotificationMessageVisible] =
+		useState<boolean>(false);
+	const [isInvalidPass, setIsInvalidPass] = useState<boolean>(false);
 
-	const firstname = useSelector<RootState>((state) => state.userInfo.userName);
-	const lastname = useSelector<RootState>(
-		(state) => state.userInfo.userSurname
+	const _firstname = useSelector<RootState>(
+		(state) => state.userInfo.firstname as string
 	);
-	const phoneNumber = useSelector<RootState>(
-		(state) => state.userInfo.userPhone
+	const _lastname = useSelector<RootState>(
+		(state) => state.userInfo.lastname as string
 	);
+	const _phoneNumber = useSelector<RootState>(
+		(state) => state.userInfo.phone_number as string
+	);
+	const email = useSelector<RootState>(
+		(state) => state.userInfo.email
+	) as string;
+	const promo_mailing = useSelector<RootState>(
+		(state) => state.userInfo.promo_mailing
+	) as boolean;
+	const avatar = useSelector<RootState>((state) => state.userInfo.avatar);
+	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
-	console.log(firstname, lastname, phoneNumber);
+	const [firstname, setFirstname] = useState<string>(_firstname as string);
+	const [lastname, setLastname] = useState<string>(_lastname as string);
+	const [phoneNumber, setPhoneNumber] = useState<string>(
+		_phoneNumber as string
+	);
 
 	const showChangePasswordBlock = () => {
 		setNewPasswordData({ newPass: "", repeatNewPass: "" });
 		showChangePassBlock(!changePass);
-	};
-
-	const handleChangePassword = () => {
-		console.log("handleChangePassword");
 	};
 
 	const handleChangePasswordValue = (
@@ -58,80 +93,236 @@ const SettingsPage = () => {
 		);
 	};
 
+	const changePassword = async () => {
+		try {
+			setIsChangingPass(true);
+			setIsInvalidPass(false);
+			await axios.post(`auth/change-password`, {
+				new_password: newPasswordData.newPass,
+				password: currentPassword,
+				token: localStorage.getItem("refresh_token"),
+			});
+			setNewPasswordData({ newPass: "", repeatNewPass: "" });
+			setCurrentPassword("");
+			setIsPasswordMessageVisible(true);
+		} catch (error) {
+			setIsInvalidPass(true);
+		} finally {
+			setIsChangingPass(false);
+		}
+	};
+
+	const handleImageUpload = (image: File): Promise<string> => {
+		return new Promise(async (res, rej) => {
+			try {
+				const formData = new FormData();
+				formData.append("upload", image);
+				const { data } = await axios.post(`image-upload`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				});
+				res(data);
+			} catch (error) {
+				rej(error);
+			}
+		});
+	};
+
+	const updateAvatar = async (image: File) => {
+		try {
+			setIsAvatarUploading(true);
+			const newAvatarUrl = await handleImageUpload(image);
+			await axios.put(`users/${userId}`, {
+				avatar: newAvatarUrl,
+			});
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					avatar: newAvatarUrl,
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsAvatarUploading(false);
+		}
+	};
+
+	const updateProfile = async () => {
+		try {
+			setIsUpdatingProfile(true);
+			await axios.put(`/users/${userId}`, {
+				firstname,
+				lastname,
+				phone_number: phoneNumber ? phoneNumber : undefined,
+			});
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					firstname,
+					lastname,
+					phoneNumber,
+				},
+			});
+			setIsProfileMessageVisible(true);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsUpdatingProfile(false);
+		}
+	};
+
+	const updateNotificationPreference = async (value) => {
+		try {
+			setIsChangingNotification(true);
+			await axios.put(`users/${userId}`, {
+				promo_mailing: value,
+			});
+			dispatch({
+				type: UPDATE_USER_PROFILE,
+				payload: {
+					promo_mailing: value,
+				},
+			});
+			setIsNotificationMessageVisible(true);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsChangingNotification(false);
+		}
+	};
+
 	return (
 		<>
-			<HeaderContainer title="Account Settings" />
+			<HeaderContainer title={t("title")} />
 			<div className="SettingsPage container">
 				<NavBarContainer />
 				<div className="SettingsPage__container w-100">
 					<div className="first-block">
-						<h1>Profile details</h1>
-						<Form noValidate validated={validated}>
+						<h1>{t("h1.title")}</h1>
+						<Form
+							onSubmit={(e) => {
+								e.preventDefault();
+								updateProfile();
+							}}
+						>
 							<Form.Group controlId="firstName">
-								<Form.Label>First name</Form.Label>
-								<Form.Control required name="firstName" type="text" />
-								<Form.Control.Feedback type="invalid">
+								<Form.Label>{t("label.firstName")}</Form.Label>
+								<Form.Control
+									value={firstname}
+									onChange={(e) => setFirstname(e.target.value)}
 									required
+									name="firstName"
+									type="text"
+								/>
+								<Form.Control.Feedback type="invalid">
+									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group controlId="lastName">
-								<Form.Label>Last name</Form.Label>
-								<Form.Control required name="lastName" type="text" />
+								<Form.Label>{t("label.lastName")}</Form.Label>
+								<Form.Control
+									value={lastname}
+									onChange={(e) => setLastname(e.target.value)}
+									required
+									name="lastName"
+									type="text"
+								/>
+								<Form.Control.Feedback type="invalid">
+									{t("span.required")}
+								</Form.Control.Feedback>
+							</Form.Group>
+							<Form.Group controlId="email">
+								<Form.Label>Email</Form.Label>
+								<Form.Control
+									value={email}
+									disabled
+									required
+									name="email"
+									type="email"
+								/>
 								<Form.Control.Feedback type="invalid">
 									required
 								</Form.Control.Feedback>
 							</Form.Group>
-							{/* <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  required
-                  name='email'
-                  type="email"
-                />
-                <Form.Control.Feedback type="invalid">
-                  required
-                </Form.Control.Feedback>
-              </Form.Group> */}
 							<Form.Group controlId="phone">
-								<Form.Label>Phone number</Form.Label>
-								<Form.Control required name="phone" type="text" />
+								<Form.Label>{t("label.phone")}</Form.Label>
+								<Form.Control
+									value={phoneNumber}
+									onChange={(e) => setPhoneNumber(e.target.value)}
+									//required
+									name="phone"
+									type="text"
+								/>
 								<Form.Control.Feedback type="invalid">
-									required
+									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
-							<Form.Group className="d-flex flex-column mb-0">
+							{/* <Form.Group
+								controlId="gender"
+								className="d-flex flex-column mb-0"
+							>
 								<Form.Label>Gender</Form.Label>
-								<ButtonGroup className="custom-button-group">
-									<Button>Male</Button>
-									<Button>Female</Button>
-									<Button>Other</Button>
+								<ButtonGroup defaultValue="m" className="custom-button-group">
+									<Button value="m">Male</Button>
+									<Button value="f">Female</Button>
+									<Button value="others">Other</Button>
 								</ButtonGroup>
-							</Form.Group>
+							</Form.Group> */}
+							<Button
+								type="submit"
+								disabled={isUpdatingProfile}
+								style={{ padding: "14px 51px", borderRadius: 8, marginTop: 10 }}
+							>
+								{isUpdatingProfile
+									? t("button.loading")
+									: t("button.save-chanes")}
+							</Button>
+							<Alert
+								style={{ marginTop: 20 }}
+								variant="success"
+								dismissible
+								show={isProfileMessageVisible}
+								onClose={() => setIsProfileMessageVisible(false)}
+							>
+								{t("alert.save-changes")}
+							</Alert>
+						</Form>
+						<Form
+							onSubmit={(e) => {
+								e.preventDefault();
+								changePassword();
+							}}
+						>
 							<div className="password-block">
-								<h2>Password</h2>
-								<p>
-									We strongly recommend to use strong password, with at least
-									one symbol and digit.
-								</p>
-								<Form.Group className="mb-0" controlId="password">
-									<Form.Label>Current password</Form.Label>
-									<Form.Control required name="password" type="password" />
-									<Form.Control.Feedback type="invalid">
-										required
-									</Form.Control.Feedback>
-								</Form.Group>
+								<h2>{t("label.password")}</h2>
+								<p>{t("p.password")}</p>
 								{!changePass ? (
 									<span
 										className="change-pass"
 										onClick={showChangePasswordBlock}
 									>
 										<img src={LockIcon} alt="LockIcon" />
-										Change password
+										{t("link.change-password")}
 									</span>
 								) : (
 									<div className="change-password-block">
+										<Form.Group controlId="password">
+											<Form.Label>{t("label.current-password")}</Form.Label>
+											<Form.Control
+												onChange={(e) => setCurrentPassword(e.target.value)}
+												value={currentPassword}
+												name="password"
+												type="password"
+												isInvalid={isInvalidPass}
+											/>
+											<Form.Control.Feedback type="invalid">
+												{t("message.invalid-current-password")}
+											</Form.Control.Feedback>
+										</Form.Group>
 										<Form.Group controlId="new-pass">
-											<Form.Label>Enter new password</Form.Label>
+											<Form.Label>{t("label.enter-new-password")}</Form.Label>
 											<Form.Control
 												onChange={handleChangePasswordValue}
 												value={newPasswordData.newPass}
@@ -143,7 +334,7 @@ const SettingsPage = () => {
 											)}
 										</Form.Group>
 										<Form.Group controlId="repeat-new-pass">
-											<Form.Label>Repeat new password</Form.Label>
+											<Form.Label>{t("label.repeat-password")}</Form.Label>
 											<Form.Control
 												onChange={handleChangePasswordValue}
 												value={newPasswordData.repeatNewPass}
@@ -156,34 +347,58 @@ const SettingsPage = () => {
 										</Form.Group>
 										<div className="change-password-btns">
 											<Button
+												disabled={isChangingPass}
 												className="confirm"
-												onClick={handleChangePassword}
+												type="submit"
 											>
-												Confirm
+												{isChangingPass
+													? t("button.loading")
+													: t("button.confirm")}
 											</Button>
 											<Button
 												className="cancel"
 												onClick={showChangePasswordBlock}
 											>
-												Cancel
+												{t("button.cancel")}
 											</Button>
 										</div>
+										<Alert
+											style={{ marginTop: 20 }}
+											variant="success"
+											dismissible
+											show={isPasswordMessageVisible}
+											onClose={() => setIsPasswordMessageVisible(false)}
+										>
+											{t("alert.change-password")}
+										</Alert>
 									</div>
 								)}
 							</div>
+						</Form>
+						<Form>
 							<div className="notification-block">
-								<h3>Notifications</h3>
-								<p>
-									Please check if you like to be notified about system updates,
-									new estimations.
-								</p>
+								<h3>{t("label.notification")}</h3>
+								<p>{t("p.notification")}</p>
 								<Form.Group className="mb-0">
 									<Form.Check
 										type="checkbox"
-										label="I allow Immo Belgium to send me updates about my market."
+										label={t("label.checkbox")}
+										checked={promo_mailing}
+										disabled={isChangingNotification}
+										onChange={(e) =>
+											updateNotificationPreference(e.target.checked)
+										}
 									/>
 								</Form.Group>
-								<Button className="save">Save changes</Button>
+								<Alert
+									style={{ marginTop: -20 }}
+									variant="success"
+									dismissible
+									show={isNotificationMessageVisible}
+									onClose={() => setIsNotificationMessageVisible(false)}
+								>
+									Notification preference has been updated successfully!
+								</Alert>
 							</div>
 						</Form>
 					</div>
@@ -191,26 +406,50 @@ const SettingsPage = () => {
 						<div className="top-block d-flex">
 							<img src={AccountImage} alt="AccountImage" />
 							<div className="account-info d-flex flex-column">
-								<span className="title">Pro Account</span>
-								<span className="desc">
-									Are you interested in becoming a PRO user?
-								</span>
+								<span className="title">{t("label.pro")}</span>
+								<span className="desc">{t("p.pro")}</span>
 							</div>
 						</div>
-						<Button className="become-pro">Become PRO</Button>
+						<Button className="become-pro">{t("button.pro")}</Button>
 					</div>
 				</div>
 				<div className="user-info-block">
 					<div className="user-avatar">
-						<img src={NoPhoto} alt="NoPhoto" />
-						<span className="upload-btn">Upload photo</span>
+						<img src={avatar ? avatar : NoPhoto} alt="NoPhoto" />
+						<input
+							onChange={(e) => {
+								const files = e.target.files;
+								if (files.length > 0) {
+									updateAvatar(files[0]);
+								}
+							}}
+							type="file"
+							name="avatarFile"
+							multiple={false}
+							id="avatarFile"
+							accept="image/x-png,image/gif,image/jpeg"
+							className="inputAvatarfile"
+						/>
+						<label htmlFor="avatarFile">
+							{isAvatarUploading
+								? t("image.uploading")
+								: avatar
+								? t("image.change")
+								: t("image.placholder")}
+						</label>
+						{/* <span className="upload-btn">Upload photo</span> */}
 					</div>
 					<div className="user-short-info">
-						<span className="fullname">Anna Johns</span>
-						<span className="status">Professional</span>
+						<span className="fullname">{`${_firstname} ${_lastname}`}</span>
+						<span className="status">{t("acount-type")}</span>
 					</div>
-					<span className="logout">
-						Log out <img src={ArrowIcon} alt="ArrowIcon" />
+					<span
+						onClick={() => {
+							dispatch(userLogoutAction());
+						}}
+						className="logout"
+					>
+						{t("link.logout")} <img src={ArrowIcon} alt="ArrowIcon" />
 					</span>
 				</div>
 			</div>
@@ -219,10 +458,14 @@ const SettingsPage = () => {
 	);
 };
 
-export const getStaticProps = async ({ locale }) => ({
+export const getServerSideProps = requireAuthentication(async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(locale, ["header", "common"])),
+		...(await serverSideTranslations(locale, [
+			"settings-page",
+			"header",
+			"common",
+		])),
 	},
-});
+}));
 
 export default SettingsPage;

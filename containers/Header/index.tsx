@@ -22,9 +22,10 @@ import CurrentStepIcon from "../../assets/images/header-step-current.svg";
 import SuccessStepIcon from "../../assets/images/header-step-success.svg";
 
 import { RootState } from "../../types/state";
-import navBarList from "../../config/navBarList";
+import { agencyNavBarList, sellerNavBarList } from "../../config/navBarList";
 import { config } from "../../config/siteConfigs";
-import { clearStepsStateAction } from "../../actions";
+import { clearStepsStateAction, userLogoutAction } from "../../actions";
+import { parseJwt } from "../../utils";
 
 const langList = [
 	{
@@ -37,24 +38,37 @@ const langList = [
 		tag: "fr",
 		label: "french",
 	},
+	{
+		id: "nl",
+		tag: "nl",
+		label: "dutch",
+	},
 ];
 
 const HeaderContainer = ({
 	title,
 	mainPage,
+	step,
 }: {
 	title: string;
 	mainPage?: boolean;
+	step?: number;
 }) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 
 	const { locale } = router;
 	const { t } = useTranslation("header");
-	const { mainBlocks, stepBlock } = useSelector(
-		(state: RootState) => state.stepsInfo
+	const account_type = useSelector(
+		(state: RootState) => state?.userInfo?.account_type
 	);
-	const { auth, userName, userSurname } = useSelector(
+	const navBarList =
+		account_type === "seller" ? sellerNavBarList : agencyNavBarList;
+	// const { mainBlocks, stepBlock } = useSelector(
+	// 	(state: RootState) => state.stepsInfo
+	// );
+
+	const { auth, firstname, lastname, avatar } = useSelector(
 		(state: RootState) => state.userInfo
 	);
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -75,12 +89,11 @@ const HeaderContainer = ({
 	};
 
 	const goToMainPage = () => {
-		window.location.href = "/" + locale;
+		router.push(`/${locale}/estimate`);
 	};
 
-	const Logout = () => {
-		localStorage.removeItem("auth");
-		window.location.href = "/";
+	const Logout = async () => {
+		dispatch(userLogoutAction());
 	};
 
 	const openSwitcherBlock = () => {
@@ -96,9 +109,13 @@ const HeaderContainer = ({
 		router.push("/login", locale + "/login", { locale: locale });
 	};
 
+	const token = localStorage.getItem("access_token");
+	const isLoggedIn = localStorage.getItem("access_token") ? true : false;
+	const isAdmin = token ? parseJwt(token)?.account_type === "admin" : false;
+
 	return (
 		<>
-			<Head>
+			{/* <Head>
 				<title>{title}</title>
 				<link rel="icon" href={"/favicon.ico"} />
 				<link
@@ -169,44 +186,69 @@ const HeaderContainer = ({
        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
 					}}
 				/>
-			</Head>
+			</Head> */}
 			<div className="Header d-flex justify-content-between align-items-center">
-				<Image
-					onClick={() => goToMainPage()}
-					className={`logo ${auth ? "ml-67" : ""}`}
-					src={Logo}
-					alt="Logo"
-				/>
-				{mainBlocks && stepBlock.step <= 3 && (
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						alignItems: "center",
+					}}
+				>
+					<Image
+						onClick={() => {
+							router.push("/" + locale);
+						}}
+						className={`logo ${auth ? "ml-67" : ""}`}
+						src={Logo}
+						alt="Logo"
+					/>
+					{!step && step != 0 && (
+						<div className="custom-nav-links-container">
+							{!isAdmin && (
+								<>
+									<a href="#" className="n-link-custom">
+										Price map
+									</a>
+									{/* <a href="#" className="n-link-custom">
+									Estimate your home
+								</a> */}
+									{/* <a href="#" className="n-link-custom">
+									Compare agencies
+								</a> */}
+								</>
+							)}
+							<a href="/blogs" className="n-link-custom">
+								Blogs
+							</a>
+							{isAdmin && (
+								<a href="/create-blog" className="n-link-custom">
+									Create Blog
+								</a>
+							)}
+						</div>
+					)}
+				</div>
+				{step != null && step <= 3 && (
 					<div className="step-info">
 						<div
-							className={`header-step-one ${
-								stepBlock.step === 0 ? "active-step" : ""
-							}`}
+							className={`header-step-one ${step === 0 ? "active-step" : ""}`}
 						>
-							<div
-								className={`image-block ${
-									stepBlock.step !== 0 ? "success" : ""
-								}`}
-							>
+							<div className={`image-block ${step !== 0 ? "success" : ""}`}>
 								<img
-									src={stepBlock.step !== 0 ? SuccessStepIcon : CurrentStepIcon}
+									src={step !== 0 ? SuccessStepIcon : CurrentStepIcon}
 									alt="steps-icon"
 								/>
 							</div>
 							{t("span.step")} 1
 						</div>
 						<div
-							className={`header-step-two ${
-								stepBlock.step === 1 ? "active-step" : ""
-							}`}
+							className={`header-step-two ${step === 1 ? "active-step" : ""}`}
 						>
-							<div
-								className={`image-block ${stepBlock.step > 1 ? "success" : ""}`}
-							>
-								{stepBlock.step >= 1 && (
+							<div className={`image-block ${step > 1 ? "success" : ""}`}>
+								{step >= 1 && (
 									<img
-										src={stepBlock.step > 1 ? SuccessStepIcon : CurrentStepIcon}
+										src={step > 1 ? SuccessStepIcon : CurrentStepIcon}
 										alt="steps-icon"
 									/>
 								)}
@@ -214,14 +256,10 @@ const HeaderContainer = ({
 							{t("span.step")} 2
 						</div>
 						<div
-							className={`header-step-three ${
-								stepBlock.step > 1 ? "active-step" : ""
-							}`}
+							className={`header-step-three ${step > 1 ? "active-step" : ""}`}
 						>
 							<div className="image-block">
-								{stepBlock.step >= 2 && (
-									<img src={CurrentStepIcon} alt="steps-icon" />
-								)}
+								{step >= 2 && <img src={CurrentStepIcon} alt="steps-icon" />}
 							</div>
 							{t("span.step")} 3
 						</div>
@@ -230,46 +268,51 @@ const HeaderContainer = ({
 				<div className="d-flex align-items-center">
 					{auth ? (
 						<div className="right-block d-flex align-items-center">
-							{!mainBlocks && (
+							{!step && (
 								<>
 									{!openMenu && (
 										<Image
 											className="user-avatar"
-											src={NoPhoto}
+											src={avatar ? avatar : NoPhoto}
 											alt="avatar"
 											roundedCircle
 										/>
 									)}
 									<NavDropdown
-										title={isMobileOnly ? "" : userName + " " + userSurname}
+										title={isMobileOnly ? "" : firstname + " " + lastname}
 										id="header-dropdown"
 										onClick={isActive}
 									>
-										<NavDropdown.Item
-											href={"/" + locale + "/pro-workspace"}
-											className="pro-workspace"
-										>
-											<img src={ProIcon} alt="ProIcon" />
-											{t("li.pro-workspace")}
-										</NavDropdown.Item>
-										{isMobileOnly && (
-											<Button
-												onClick={goToMainPage}
-												className="add-property-mobile"
-											>
-												<img src={AddIcon} alt="AddIcon" />
-												<span>{t("button.add-property")}</span>
-											</Button>
-										)}
-										{navBarList.map((list, index) => (
+										{!isAdmin && (
 											<NavDropdown.Item
-												href={"/" + locale + list.href}
-												key={index}
+												href={"/" + locale + "/pro-workspace"}
+												className="pro-workspace"
 											>
-												<img src={list.img} alt={list.title} />
-												{t(`nav-li.${list.id}`)}
+												<img src={ProIcon} alt="ProIcon" />
+												{t("li.pro-workspace")}
 											</NavDropdown.Item>
-										))}
+										)}
+										{isMobileOnly && (
+											<div>
+												<Button
+													onClick={goToMainPage}
+													className="add-property-mobile"
+												>
+													<img src={AddIcon} alt="AddIcon" />
+													<span>{t("button.add-property")}</span>
+												</Button>
+											</div>
+										)}
+										{!isAdmin &&
+											navBarList.map((list, index) => (
+												<NavDropdown.Item
+													href={"/" + locale + list.href}
+													key={index}
+												>
+													<img src={list.img} alt={list.title} />
+													{t(`nav-li.${list.id}`)}
+												</NavDropdown.Item>
+											))}
 										<NavDropdown.Item onClick={Logout}>
 											<img
 												className="logout-image"
@@ -287,7 +330,7 @@ const HeaderContainer = ({
 													roundedCircle
 												/>
 												<span className="user-name">
-													{userName + " " + userSurname}
+													{firstname + " " + lastname}
 												</span>
 												{/*<span className="pro">PRO</span>*/}
 												<div className="mobile-lang-list">
@@ -330,10 +373,21 @@ const HeaderContainer = ({
 										</div>
 									)}
 									{!openMenu && (
-										<Button className="add-property" onClick={goToMainPage}>
-											<img src={AddIcon} alt="AddIcon" />
-											<span>{t("button.add-property")}</span>
-										</Button>
+										<>
+											{!isLoggedIn ? (
+												<Button className="add-property" onClick={goToMainPage}>
+													<img src={AddIcon} alt="AddIcon" />
+													<span>{t("button.add-property")}</span>
+												</Button>
+											) : isAdmin ? (
+												<div style={{ paddingLeft: 70 }} />
+											) : (
+												<Button className="add-property" onClick={goToMainPage}>
+													<img src={AddIcon} alt="AddIcon" />
+													<span>{t("button.add-property")}</span>
+												</Button>
+											)}
+										</>
 									)}
 								</>
 							)}

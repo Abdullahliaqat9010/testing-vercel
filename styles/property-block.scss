@@ -1,78 +1,79 @@
 .property-block {
-  margin: 0 20px 6px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+	margin: 0 20px 6px;
+	padding: 10px 0px;
+	border-bottom: 1px solid rgba(56, 113, 239, 0.2);
 
-  &__image {
-    margin-right: 20px;
+	&__image {
+		margin-right: 20px;
 
-    img {
-      width: 140px;
-      height: 140px;
-    }
-  }
+		img {
+			width: 140px;
+			height: 140px;
+		}
+	}
 
-  &__info {
-    width: 100%;
-    font-size: 12px;
+	&__info {
+		width: 100%;
+		font-size: 12px;
 
-    .address {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
+		.address {
+			display: flex;
+			justify-content: space-between;
+			font-size: 14px;
+			margin-bottom: 6px;
+		}
 
-    .house-info {
-      margin-bottom: 10px;
+		.house-info {
+			margin-bottom: 10px;
 
-      span {
-        padding: 4px 8px;
-        background: var(--bg-blue);
-        border-radius: 8px;
-        margin-right: 6px;
-      }
-    }
+			span {
+				padding: 4px 8px;
+				background: var(--bg-blue);
+				border-radius: 8px;
+				margin-right: 6px;
+			}
+		}
 
-    .time {
-      margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
+		.time {
+			margin-bottom: 10px;
+			display: flex;
+			flex-direction: column;
 
-      span {
-        opacity: 0.6;
-      }
+			span {
+				opacity: 0.6;
+			}
 
-      a {
-        font-family: var(--fontNunitoBold);
-        text-transform: capitalize;
-        color: var(--colorBlue);
-      }
-    }
+			a {
+				font-family: var(--fontNunitoBold);
+				text-transform: capitalize;
+				color: var(--colorBlue);
+			}
+		}
 
-    button {
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-      color: var(--colorBlue);
-      border-color: var(--colorBlue);
-      border-radius: 6px;
+		button {
+			display: flex;
+			align-items: center;
+			font-size: 12px;
+			color: var(--colorBlue);
+			border-color: var(--colorBlue);
+			border-radius: 6px;
 
-      &:hover, &:active {
-        color: var(--colorBlue) !important;
-        background-color: transparent !important;
-      }
+			&:hover,
+			&:active {
+				color: var(--colorBlue) !important;
+				background-color: transparent !important;
+			}
 
-      img {
-        transform: rotate(270deg);
-      }
-    }
-  }
+			img {
+				transform: rotate(270deg);
+			}
+		}
+	}
 }
 .active-block {
-  box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
-  margin: 0 5px 6px;
-  padding: 0 15px;
-  height: 197px;
-  align-items: center;
+	box-shadow: 0px 1px 12px rgb(56 114 239 / 30%);
+	// margin: 0 5px 6px;
+	padding: 0 20px;
+	height: 197px;
+	align-items: center;
 }

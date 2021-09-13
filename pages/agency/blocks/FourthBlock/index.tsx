@@ -9,13 +9,14 @@ import MessageIcon from '../../../../assets/images/message-icon.svg';
 // import FlagIcon from '../../../../assets/images/flag.svg';
 import Avatar from '../../../../assets/images/no-photo.png';
 import { AgentsItem } from '../../../../types/agents';
-
+import { useTranslation } from 'react-i18next';
 const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
+  const { t } = useTranslation("agency-page")
   return (
-    <div className="Agency__fourth-block">
+    <div className= "Agency__fourth-block">
       <div className="main-content">
-        <h3>Client reviews</h3>
-        <p>for { currentAgency.title }</p>
+        <h3>{t("h3.client-reviews")}</h3>
+        <p> { t("p.for") + " " +  currentAgency.title }</p>
         <div className="main-rate-info">
           <div className="total-info">
             <div className="total-info__main">
@@ -29,7 +30,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                     <img src={ ActiveStar } alt="ActiveStar"/>
                     <img src={ ActiveStar } alt="ActiveStar"/>
                   </div>
-                  <span className="from">From 125 reviews</span>
+                  <span className="from">{t("span.from")} 125 {t("span.reviews")}</span>
                 </div>
               </div>
               <div className="right-block">
@@ -66,21 +67,21 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
               </div>
             </div>
             <div className="total-info__feedback">
-              <p>Would you like to say a word about this agency?</p>
+              <p>{t("p.question")}</p>
               <span className='leave-feedback'>
                 <img src={ MessageIcon } alt="MessageIcon"/>
-                Leave a feedback
+                {t("span.leave-feedback")}
               </span>
             </div>
           </div>
           <div className="sort-block">
             <Form.Control className='custom-select' as="select" defaultValue="All reviews">
-              <option>All reviews</option>
+              <option>{ t("option.all-reviews") }</option>
               <option>...</option>
               <option>...</option>
             </Form.Control>
             <Form.Control className='custom-select' as="select" defaultValue="Popular first">
-              <option>Popular first</option>
+              <option>{t("option.populer")}</option>
               <option>...</option>
               <option>...</option>
             </Form.Control>
@@ -96,7 +97,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                     <img src={ ActiveStar } alt="ActiveStar"/>
                     <img src={ ActiveStar } alt="ActiveStar"/>
                   </div>
-                  <span className="bold">Very nice experience...</span>
+                  <span className="bold">{t("span.experience")}</span>
                 </div>
                 {/*<img src={ FlagIcon } alt="FlagIcon" className="flag"/>*/}
               </div>
@@ -111,7 +112,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                   <div className="author-block">
                     <img src={ Avatar } alt="Avatar"/>
                     <span className="full-name">Leslie Alexander</span>
-                    <span className="commented">commented on</span>
+                    <span className="commented">{t("span.commented-on")}</span>
                     <span className="commented-date">10/03/2021</span>
                   </div>
                 </div>
@@ -124,7 +125,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                       <img src={ ActiveStar } alt="ActiveStar"/>
                       <img src={ ActiveStar } alt="ActiveStar"/>
                     </div>
-                    <span className="rating-name">Responsiveness</span>
+                    <span className="rating-name">{t("span.responsiveness")}</span>
                   </div>
                   <div className="rate-block">
                     <div className="rating">
@@ -134,17 +135,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                       <img src={ ActiveStar } alt="ActiveStar"/>
                       <img src={ ActiveStar } alt="ActiveStar"/>
                     </div>
-                    <span className="rating-name">General reception</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Fee / service ratio</span>
+                    <span className="rating-name">{t("span.general-reception")}</span>
                   </div>
                   <div className="rate-block">
                     <div className="rating">
@@ -154,7 +145,7 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                       <img src={ ActiveStar } alt="ActiveStar"/>
                       <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
                     </div>
-                    <span className="rating-name">Competences </span>
+                    <span className="rating-name">{t("span.service-ratio")}</span>
                   </div>
                   <div className="rate-block">
                     <div className="rating">
@@ -164,181 +155,25 @@ const FourthBlock = ({currentAgency}: { currentAgency: AgentsItem }) => {
                       <img src={ ActiveStar } alt="ActiveStar"/>
                       <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
                     </div>
-                    <span className="rating-name">Service quality</span>
+                    <span className="rating-name">{t("span.competences")} </span>
+                  </div>
+                  <div className="rate-block">
+                    <div className="rating">
+                      <img src={ ActiveStar } alt="ActiveStar"/>
+                      <img src={ ActiveStar } alt="ActiveStar"/>
+                      <img src={ ActiveStar } alt="ActiveStar"/>
+                      <img src={ ActiveStar } alt="ActiveStar"/>
+                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
+                    </div>
+                    <span className="rating-name">{t("span.service-quality")}</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="review">
-              <div className="review__head">
-                <div className="review-title">
-                  <div className="stars-block">
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                  </div>
-                  <span className="bold">Very nice experience...</span>
-                </div>
-                {/*<img src={ FlagIcon } alt="FlagIcon" className="flag"/>*/}
-              </div>
-              <div className="review__content">
-                <div className="left-side">
-                  <p className="desc">
-                    Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-                    duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non
-                    deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                    Exercitation veniam consequat sunt nostrud amet.
-                  </p>
-                  <div className="author-block">
-                    <img src={ Avatar } alt="Avatar"/>
-                    <span className="full-name">Leslie Alexander</span>
-                    <span className="commented">commented on</span>
-                    <span className="commented-date">10/03/2021</span>
-                  </div>
-                </div>
-                <div className="right-side">
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                    </div>
-                    <span className="rating-name">Responsiveness</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                    </div>
-                    <span className="rating-name">General reception</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Fee / service ratio</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Competences </span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Service quality</span>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div className="review">
-              <div className="review__head">
-                <div className="review-title">
-                  <div className="stars-block">
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                    <img src={ ActiveStar } alt="ActiveStar"/>
-                  </div>
-                  <span className="bold">Very nice experience...</span>
-                </div>
-                {/*<img src={ FlagIcon } alt="FlagIcon" className="flag"/>*/}
-              </div>
-              <div className="review__content">
-                <div className="left-side">
-                  <p className="desc">
-                    Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-                    duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.Amet minim mollit non
-                    deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                    Exercitation veniam consequat sunt nostrud amet.
-                  </p>
-                  <div className="author-block">
-                    <img src={ Avatar } alt="Avatar"/>
-                    <span className="full-name">Leslie Alexander</span>
-                    <span className="commented">commented on</span>
-                    <span className="commented-date">10/03/2021</span>
-                  </div>
-                </div>
-                <div className="right-side">
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                    </div>
-                    <span className="rating-name">Responsiveness</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                    </div>
-                    <span className="rating-name">General reception</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Fee / service ratio</span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Competences </span>
-                  </div>
-                  <div className="rate-block">
-                    <div className="rating">
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ ActiveStar } alt="ActiveStar"/>
-                      <img src={ NoActiveLightStar } alt="NoActiveLightStar"/>
-                    </div>
-                    <span className="rating-name">Service quality</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <Button className='load-more'>
-          <img src={ LoadMoreImage } alt="LoadMoreImage"/> Load more
+          <img src={ LoadMoreImage } alt="LoadMoreImage"/> {t("button.learn-more")}
         </Button>
       </div>
     </div>

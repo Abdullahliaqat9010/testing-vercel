@@ -1,207 +1,205 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'next-i18next';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "next-i18next";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import * as Yup from "yup";
 
-import { Button, Form, Modal } from 'react-bootstrap';
-import { RootState } from '../../../types/state';
-import { closeModalWindowContactAgentAction, contactAgencyAction } from '../../../actions';
-import SendSuccess from '../../../assets/images/message-send.svg';
+import { Button, Modal } from "react-bootstrap";
+import { RootState } from "../../../types/state";
+import SendSuccess from "../../../assets/images/message-send.svg";
+import { contactAgency } from "../../../network-requests";
 
-const ContactAgentModal = () => {
-  const {t} = useTranslation('dashboard-page');
-  const dispatch = useDispatch();
-  const {
-    agencyContactInfo,
-    userName,
-    userSurname,
-    userEmail,
-    userPhone,
-    properties,
-  } = useSelector((state: RootState) => state.userInfo);
-  const {showAgentModal, showSuccessModal} = useSelector((state: RootState) => state.modals);
+const ContactAgentModal = ({ show, onClose, properties = [], agencyInfo }) => {
+	const { t } = useTranslation("dashboard-page");
+	const { t: t2 } = useTranslation("common");
+	const { firstname, lastname, email, phone_number } = useSelector(
+		(state: RootState) => state.userInfo
+	);
+	const [isSuccessModalVisible, setIsSuccessModalVisible] =
+		useState<boolean>(false);
 
-  const [data, setData] = useState({
-    fullName: userName + ' ' + userSurname,
-    phone: userPhone,
-    email: userEmail,
-    desc: t('placeholder.message'),
-    selectedProperty: '',
-    agree: false,
-  });
+	const validationSchema = Yup.object().shape({
+		fullname: Yup.string()
+			.min(2, "Too Short!")
+			.max(50, "Too Long!")
+			.required("Required"),
+		email: Yup.string().email("Invalid email").required("Required"),
+		phone: Yup.string().required(),
+		message: Yup.string().required("Required"),
+		free_evaluated: Yup.bool(),
+		propertyId: Yup.number().required(),
+	});
 
-  const [validated, setValidated] = useState(false);
+	const handleClose = () => {
+		onClose();
+		setIsSuccessModalVisible(false);
+	};
 
-  useEffect(() => {
-    if (properties.length > 0) {
-      setData({...data, selectedProperty: properties[0].search_address});
-    }
-  }, [properties]);
+	const sendToAgency = (contactInfo) => {
+		return new Promise(async (res, rej) => {
+			try {
+				await contactAgency({
+					...contactInfo,
+					agencyId: 3, // hard coded for now
+				});
+				res("");
+				setIsSuccessModalVisible(true);
+			} catch (error) {
+				rej(error);
+			}
+		});
+	};
 
-  const handleCloseModal = () => {
-    dispatch(closeModalWindowContactAgentAction());
-  };
+	return (
+		<Modal className="contact-agent-modal" show={show} onHide={handleClose}>
+			{!isSuccessModalVisible ? (
+				<>
+					<Modal.Header closeButton>
+						<Modal.Title className="d-flex flex-column">
+							{t("button.contact")}{" "}
+							{agencyInfo.agentName + " " + agencyInfo.agentSurname}
+							<p>{agencyInfo.title}</p>
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Formik
+							initialValues={{
+								fullname: `${firstname} ${lastname}`,
+								phone: phone_number ? phone_number : "",
+								email,
+								message: t("placeholder.message"),
+								free_evaluated: true,
+								propertyId: properties.length > 0 ? properties[0]?.id : "",
+							}}
+							onSubmit={sendToAgency}
+							validationSchema={validationSchema}
+						>
+							{({ isSubmitting }) => (
+								<Form>
+									<div className="d-flex flex-column form-input-block">
+										<label className="form-label" htmlFor="fullname">
+											{t("label.fullname")}
+										</label>
+										<Field className="form-input" name="fullname" type="text" />
+										<ErrorMessage
+											className="form-error"
+											component="div"
+											name="fullname"
+										/>
+									</div>
+									<div className="d-flex flex-column form-input-block">
+										<label className="form-label" htmlFor="phone">
+											{t("label.phone")}
+										</label>
+										<Field className="form-input" name="phone" type="text" />
+										<ErrorMessage
+											className="form-error"
+											component="div"
+											name="phone"
+										/>
+									</div>
+									<div className="d-flex flex-column form-input-block">
+										<label className="form-label" htmlFor="email">
+											{t("label.email")}
+										</label>
+										<Field className="form-input" name="email" type="email" />
+										<ErrorMessage
+											className="form-error"
+											component="div"
+											name="email"
+										/>
+									</div>
+									<div className="d-flex flex-column form-input-block">
+										<label className="form-label" htmlFor="message">
+											{t("label.message")}
+										</label>
+										<Field
+											className="form-input"
+											name="message"
+											type="text"
+											as="textarea"
+											style={{ height: "auto" }}
+											rows={5}
+										/>
+										<ErrorMessage
+											className="form-error"
+											component="div"
+											name="message"
+										/>
+									</div>
+									<div className="d-flex flex-column form-input-block">
+										<label className="form-label" htmlFor="propertyId">
+											{t("label.select")}
+										</label>
+										<Field
+											className="custom-select"
+											name="propertyId"
+											type="text"
+											as="select"
+											style={{ paddingRight: 40 }}
+										>
+											{properties.map((property) => (
+												<option key={property?.id} value={property?.id}>
+													{property?.search_address}
+												</option>
+											))}
+										</Field>
+										<ErrorMessage
+											className="form-error"
+											component="div"
+											name="propertyId"
+										/>
+									</div>
 
-  const handleOnChange = (el: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
-      [el.target.name]: el.target.name === 'agree' ? el.target.checked : el.target.value,
-    });
-  };
-
-  const validation = () => {
-    return data.fullName.length > 0
-      && data.phone.length > 0
-      && data.email.length > 0
-      && data.selectedProperty.length > 0;
-  };
-
-  const sendToAgency = () => {
-    if (validation()) {
-
-      const findProp = properties.find(property => property.search_address === data.selectedProperty);
-
-      const dataInfo = {
-        agentId: agencyContactInfo.agencyId,
-        phone: data.phone,
-        message: data.desc.length > 0 ? data.desc : t('placeholder.message'),
-        propertyId: findProp.id,
-        free_evaluated: data.agree,
-      };
-
-      dispatch(contactAgencyAction(dataInfo));
-    }
-
-    setValidated(true);
-  };
-
-  return (
-    <Modal
-      className='contact-agent-modal'
-      show={ showAgentModal }
-      onHide={ handleCloseModal }
-    >
-      {
-        !showSuccessModal ?
-          <>
-            <Modal.Header closeButton>
-              <Modal.Title className='d-flex flex-column'>
-                { t('button.contact') } { agencyContactInfo.agentName + ' ' + agencyContactInfo.agentSurname }
-                <p>{ agencyContactInfo.title }</p>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form noValidate validated={ validated }>
-                <Form.Group controlId="fullName">
-                  <Form.Label>{ t('label.fullname') }</Form.Label>
-                  <Form.Control
-                    required
-                    onChange={ handleOnChange }
-                    name='fullName'
-                    type="text"
-                    value={ data.fullName }
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    { t('error.required') }
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="phone">
-                  <Form.Label>{ t('label.phone') }</Form.Label>
-                  <Form.Control
-                    required
-                    onChange={ handleOnChange }
-                    name='phone'
-                    type="text"
-                    placeholder="Please enter"
-                    value={ data.phone }
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    { t('error.required') }
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="email">
-                  <Form.Label>{ t('label.email') }</Form.Label>
-                  <Form.Control
-                    required
-                    onChange={ handleOnChange }
-                    name='email'
-                    type="email"
-                    value={ data.email }
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    { t('error.required') }
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="desc">
-                  <Form.Label>{ t('label.message') }</Form.Label>
-                  <Form.Control
-                    placeholder={t('placeholder.message')}
-                    value={ data.desc }
-                    as="textarea"
-                    rows={ 5 }
-                    name='desc'
-                    onChange={ handleOnChange }
-                  />
-                </Form.Group>
-                <Form.Group controlId="select-property">
-                  <Form.Label>{ t('label.select') }</Form.Label>
-                  <Form.Control
-                    onChange={ handleOnChange }
-                    name='selectedProperty'
-                    className='custom-select'
-                    as="select"
-                    value={ data.selectedProperty }
-                  >
-                    {
-                      properties.map((property, index) =>
-                        <option key={ index }>{ property.search_address }</option>,
-                      )
-                    }
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="agree">
-                  <Form.Check
-                    name='agree'
-                    onChange={ handleOnChange }
-                    type="checkbox"
-                    label={ t('label.free-charge') }
-                    checked={ data.agree }
-                  />
-                </Form.Group>
-                <div className="modal-btn-group">
-                  <Button className='confirm' onClick={ sendToAgency }>
-                    { t('button.confirm') }
-                  </Button>
-                  <Button className='cancel' onClick={ handleCloseModal }>
-                    { t('button.cancel') }
-                  </Button>
-                </div>
-              </Form>
-            </Modal.Body>
-          </> :
-          <>
-            <Modal.Header closeButton/>
-            <Modal.Body>
-              <div className="main-content">
-                <img src={ SendSuccess } alt="SendSuccess"/>
-                <h3>
-                  { t('title.message-sent-successfully') }
-                </h3>
-                <p>
-                  <span>{ t('desc.agency') } { agencyContactInfo.title } { t('desc.soon') }</span>
-                </p>
-                <Button className='close' onClick={ handleCloseModal }>
-                  { t('button.close') }
-                </Button>
-              </div>
-            </Modal.Body>
-          </>
-      }
-
-    </Modal>
-  );
+									<div className="d-flex flex-row">
+										<Field
+											name="free_evaluated"
+											type="checkbox"
+											className="mr-2 mt-1"
+										/>
+										<label className="label-terms-condition">
+											{t("label.free-charge")}
+										</label>
+										<ErrorMessage
+											className="form-error"
+											component="div"
+											name="free_evaluated"
+										/>
+									</div>
+									<div className="modal-btn-group mt-4">
+										<Button className="confirm" type="submit">
+											{isSubmitting ? t2("text.loading") : t("button.confirm")}
+										</Button>
+										<Button className="cancel" onClick={handleClose}>
+											{t("button.cancel")}
+										</Button>
+									</div>
+								</Form>
+							)}
+						</Formik>
+					</Modal.Body>
+				</>
+			) : (
+				<>
+					<Modal.Header closeButton />
+					<Modal.Body>
+						<div className="main-content">
+							<img src={SendSuccess} alt="SendSuccess" />
+							<h3>{t("title.message-sent-successfully")}</h3>
+							<p>
+								<span>
+									{t("desc.agency")} {agencyInfo?.title} {t("desc.soon")}
+								</span>
+							</p>
+							<Button className="close" onClick={handleClose}>
+								{t("button.close")}
+							</Button>
+						</div>
+					</Modal.Body>
+				</>
+			)}
+		</Modal>
+	);
 };
 
 export default ContactAgentModal;

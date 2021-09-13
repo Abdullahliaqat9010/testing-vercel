@@ -8,5 +8,6 @@
   "span.minimal": "Minimal",
   "span.average": "Moyenne",
   "span.maximal": "Maximal",
-  "p.property-estimation": "Estimation des biens"
+  "p.property-estimation": "Estimation des biens",
+  "span.price-unit": "par"
 }

@@ -1,161 +1,165 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'next-i18next';
-import { Button, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "next-i18next";
+import { Button, Form } from "react-bootstrap";
 
-import { contactAgencyAction } from '../../actions';
-import { RootState } from '../../types/state';
+import { contactAgencyAction } from "../../actions";
+import { RootState } from "../../types/state";
 
-const ContactAgencyBlock = ({agencyInfo}) => {
-  const {t} = useTranslation('dashboard-page');
-  const dispatch = useDispatch();
-  const [validated, setValidated] = useState(false);
+const ContactAgencyBlock = ({ agencyInfo }) => {
+	const { t } = useTranslation("dashboard-page");
+	const dispatch = useDispatch();
+	const [validated, setValidated] = useState(false);
 
-  const {
-    userName,
-    userSurname,
-    userEmail,
-    userPhone,
-    properties,
-  } = useSelector((state: RootState) => state.userInfo);
+	const { firstname, lastname, email, phone_number } = useSelector(
+		(state: RootState) => state.userInfo
+	);
 
-  const [data, setData] = useState({
-    fullName: userName + ' ' + userSurname,
-    phone: userPhone,
-    email: userEmail,
-    desc: t('placeholder.message'),
-    selectedProperty: '',
-    freeCharge: false,
-  });
+	const [data, setData] = useState({
+		fullName: firstname + " " + lastname,
+		phone: phone_number,
+		email: email,
+		desc: t("placeholder.message"),
+		selectedProperty: "",
+		freeCharge: false,
+	});
 
-  const handleOnChange = (el: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
-      [el.target.name]: el.target.name === 'freeCharge' ? el.target.checked : el.target.value,
-    });
-  };
+	// useEffect(() => {
+	// 	if (properties.length > 0) {
+	// 		setData({ ...data, selectedProperty: properties[0].search_address });
+	// 	}
+	// }, [properties]);
 
-  const validation = () => {
-    return data.fullName.length > 0
-      && data.phone.length > 0
-      && data.email.length > 0
-      && data.selectedProperty.length > 0;
-  };
+	const handleOnChange = (el: React.ChangeEvent<HTMLInputElement>) => {
+		setData({
+			...data,
+			[el.target.name]:
+				el.target.name === "freeCharge" ? el.target.checked : el.target.value,
+		});
+	};
 
-  const sendToAgency = () => {
-    if (validation()) {
+	const validation = () => {
+		return (
+			data?.fullName?.length > 0 &&
+			data?.phone?.length > 0 &&
+			data?.email?.length > 0 &&
+			data?.selectedProperty?.length > 0
+		);
+	};
 
-      const findProp = properties.find(property => property.search_address === data.selectedProperty);
+	const sendToAgency = () => {
+		if (validation()) {
+			// const findProp = properties.find(
+			// 	(property) => property.search_address === data.selectedProperty
+			// );
+			// const dataInfo = {
+			// 	agentId: agencyInfo.id,
+			// 	phone: data.phone,
+			// 	message: data.desc.length > 0 ? data.desc : t("placeholder.message"),
+			// 	propertyId: findProp.id,
+			// 	free_evaluated: data.freeCharge,
+			// };
+			// dispatch(contactAgencyAction(dataInfo));
+		}
 
-      const dataInfo = {
-        agentId: agencyInfo.id,
-        phone: data.phone,
-        message: data.desc.length > 0 ? data.desc : t('placeholder.message'),
-        propertyId: findProp.id,
-        free_evaluated: data.freeCharge,
-      };
+		setValidated(true);
+	};
 
-      dispatch(contactAgencyAction(dataInfo));
-    }
+	return (
+		<div className="contact-agency-block">
+			<div className="contact-agency">
+				<h4>{t("title.contact-agency")}</h4>
+				<p>{agencyInfo.title}</p>
+				<Form noValidate validated={validated}>
+					<Form.Group controlId="fullName">
+						<Form.Control
+							required
+							onChange={handleOnChange}
+							name="fullName"
+							type="text"
+							value={data.fullName}
+						/>
+						<Form.Control.Feedback type="invalid">
+							{t("error.required")}
+						</Form.Control.Feedback>
+					</Form.Group>
 
-    setValidated(true);
-  };
+					<Form.Group controlId="phone">
+						<Form.Control
+							required
+							onChange={handleOnChange}
+							name="phone"
+							type="text"
+							placeholder={t("placeholder.enter")}
+							value={data.phone}
+						/>
+						<Form.Control.Feedback type="invalid">
+							{t("error.required")}
+						</Form.Control.Feedback>
+					</Form.Group>
 
-  return (
-    <div className='contact-agency-block'>
-      <div className='contact-agency'>
-        <h4>{t('title.contact-agency')}</h4>
-        <p>{ agencyInfo.title }</p>
-        <Form noValidate validated={ validated }>
-          <Form.Group controlId="fullName">
-            <Form.Control
-              required
-              onChange={ handleOnChange }
-              name='fullName'
-              type="text"
-              value={ data.fullName }
-            />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
-          </Form.Group>
+					<Form.Group controlId="email">
+						<Form.Control
+							required
+							onChange={handleOnChange}
+							name="email"
+							type="email"
+							value={data.email}
+						/>
+						<Form.Control.Feedback type="invalid">
+							{t("error.required")}
+						</Form.Control.Feedback>
+					</Form.Group>
 
-          <Form.Group controlId="phone">
-            <Form.Control
-              required
-              onChange={ handleOnChange }
-              name='phone'
-              type="text"
-              placeholder={ t('placeholder.enter') }
-              value={ data.phone }
-            />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="email">
-            <Form.Control
-              required
-              onChange={ handleOnChange }
-              name='email'
-              type="email"
-              value={ data.email }
-            />
-            <Form.Control.Feedback type="invalid">
-              { t('error.required') }
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="desc">
-            <Form.Control
-              placeholder={ t('placeholder.message') }
-              value={ data.desc }
-              as="textarea"
-              rows={ 5 }
-              name='desc'
-              onChange={ handleOnChange }
-            />
-          </Form.Group>
-          <Form.Group controlId="select-property">
-            <Form.Control
-              onChange={ handleOnChange }
-              name='selectedProperty'
-              className='custom-select'
-              as="select"
-              value={ data.selectedProperty }
-            >
-              {
-                properties.map((property, index) =>
-                  <option key={ index }>{ property.search_address }</option>,
-                )
-              }
-            </Form.Control>
-          </Form.Group>
-          <Form.Group controlId="freeCharge">
-            <Form.Check
-              name='freeCharge'
-              onChange={ handleOnChange }
-              type="checkbox"
-              label={ t('label.free-charge') }
-              checked={ data.freeCharge }
-            />
-          </Form.Group>
-          <div className="modal-btn-group">
-            <Button className='confirm' onClick={ sendToAgency }>
-              { t('button.confirm') }
-            </Button>
-          </div>
-        </Form>
-      </div>
-      <div className="contact-agency-block__desc">
-        <p>
-          { t('p.desc-part1') } <span className='link'>{ t('span.link1') }</span> { t('p.desc-part2') }&nbsp;
-          <span className='link'>{ t('span.link2') }</span> { t('p.desc-part3') }
-        </p>
-      </div>
-    </div>
-  );
+					<Form.Group controlId="desc">
+						<Form.Control
+							placeholder={t("placeholder.message")}
+							value={data.desc}
+							as="textarea"
+							rows={5}
+							name="desc"
+							onChange={handleOnChange}
+						/>
+					</Form.Group>
+					<Form.Group controlId="select-property">
+						<Form.Control
+							onChange={handleOnChange}
+							onSelect={(e) => console.log(e)}
+							name="selectedProperty"
+							className="custom-select"
+							as="select"
+							value={data.selectedProperty}
+						>
+							{/* {properties.map((property, index) => (
+								<option key={index}>{property.search_address}</option>
+							))} */}
+						</Form.Control>
+					</Form.Group>
+					<Form.Group controlId="freeCharge">
+						<Form.Check
+							name="freeCharge"
+							onChange={handleOnChange}
+							type="checkbox"
+							label={t("label.free-charge")}
+							checked={data.freeCharge}
+						/>
+					</Form.Group>
+					<div className="modal-btn-group">
+						<Button className="confirm" onClick={sendToAgency}>
+							{t("button.confirm")}
+						</Button>
+					</div>
+				</Form>
+			</div>
+			<div className="contact-agency-block__desc">
+				<p>
+					{t("p.desc-part1")} <span className="link">{t("span.link1")}</span>{" "}
+					{t("p.desc-part2")}&nbsp;
+					<span className="link">{t("span.link2")}</span> {t("p.desc-part3")}
+				</p>
+			</div>
+		</div>
+	);
 };
 
 export default ContactAgencyBlock;

@@ -1,18 +1,33 @@
-import React  from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useSelector } from "react-redux";
 
-import DashboardPageContainer from '../../containers/DashboardPageContainer';
+import SellerDashboard from "./Seller/index.component";
+import { requireAuthentication } from "../../utils/requireAuthentication";
+import { RootState } from "../../types/state";
 
 const DashboardPage = () => {
-  return (
-    <DashboardPageContainer />
-  );
+	const account_type = useSelector<RootState>(
+		(state) => state.userInfo.account_type
+	);
+
+	return (
+		<React.Fragment>
+			{account_type === "seller" ? <SellerDashboard /> : <SellerDashboard />}
+		</React.Fragment>
+	);
 };
 
-export const getStaticProps = async ({locale}) => ({
-  props: {
-    ...await serverSideTranslations(locale, ['dashboard-page', 'header', 'common']),
-  },
+export const getServerSideProps = requireAuthentication(async ({ locale }) => {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, [
+				"dashboard-page",
+				"header",
+				"common",
+			])),
+		},
+	};
 });
 
 export default DashboardPage;

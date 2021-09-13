@@ -1,0 +1,13 @@
+{
+"title": "Mijn eigendommen",
+   "button.new-estimate": "Nieuwe schatting",
+   "link.view": "Bekijken",
+   "span.square": "Vierkante",
+   "span.beds": "Bedden",
+   "span.baths": "Baden",
+   "span.minimal": "Minimaal",
+   "span.average": "Gemiddelde",
+   "span.maximal": "Maximaal",
+   "p.property-estimation": "Eigendom schatting",
+   "span.price-unit": "per"
+}

@@ -50,8 +50,8 @@ const initData = {
 	personalAccount: {
 		accountType: "private",
 		selectedItem: "",
-		selectedResidence: "",
-		sellProperty: "",
+		selectedResidence: "other",
+		sellProperty: "asap",
 		howSell: "",
 		estimationReason: "",
 	},
@@ -210,10 +210,12 @@ const stepsReducer = (state = initialState, action: any) => {
 				...state,
 				mainBlocks: true,
 			};
-		default:
+		case actionType.LOGOUT_USER_SUCCESS:
 			return {
-				...state,
+				...initialState,
 			};
+		default:
+			return state;
 	}
 };
 
