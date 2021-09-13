@@ -9,12 +9,6 @@ import Agency from "../../../../containers/Agency";
 
 import { agentsList } from "../../../../templates/agentsList";
 
-import { RootState } from "../../../../types/state";
-import {
-	getAgencyPropertyDataAction,
-	getInfoAgencyAction,
-} from "../../../../actions";
-
 const FindAgentBlock = ({ mainProperty, properties }) => {
 	const { t } = useTranslation("dashboard-page");
 	const dispatch = useDispatch();
@@ -47,11 +41,6 @@ const FindAgentBlock = ({ mainProperty, properties }) => {
 			setSortAgencyList([...newSortAgencyList]);
 		}
 	}, [mainProperty]);
-
-	useEffect(() => {
-		dispatch(getInfoAgencyAction());
-		dispatch(getAgencyPropertyDataAction());
-	}, []);
 
 	const calcCrow = (lat1, lon1, lat2, lon2) => {
 		const R = 6371; // km

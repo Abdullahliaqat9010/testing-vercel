@@ -160,7 +160,7 @@ const Formpage = () => {
 												largeur et 350 pl.. de hauteur.
 											</div>
 										</div>
-										{/* <Dragger {...draggerProps}>
+										<Dragger {...draggerProps}>
 											<div className="Dragger">
 												<div className="child-Dragger">
 													<p className="ant-upload-drag-icon">
@@ -177,7 +177,7 @@ const Formpage = () => {
 													</div>
 												</div>
 											</div>
-										</Dragger> */}
+										</Dragger>
 										<div className="password-block2">
 											<h2>Socials</h2>
 											<div className="social-container">

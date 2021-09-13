@@ -10,10 +10,6 @@ import FooterContainer from "../../containers/Footer";
 
 import ArrowImage from "../../assets/images/arrow-blue.svg";
 
-import { userToken } from "../../config/siteConfigs";
-import { parseJwt } from "../../utils";
-import { getPropertyForCurrentUserAction } from "../../actions";
-
 import FirstBlock from "./blocks/FirstBlock";
 import SecondBlock from "./blocks/SecondBlock";
 import ThirdBlock from "./blocks/ThirdBlock";
