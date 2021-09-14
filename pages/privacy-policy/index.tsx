@@ -4,35 +4,32 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import HeaderContainer from '../../containers/Header';
 import { Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
 
 const PrivacyPolicyPage = () => {
-  const {t} = useTranslation("privacy-policy")
+  const { t } = useTranslation("privacy-policy")
+  const router = useRouter();
+  const { locale } = router;
   return (
     <>
       <HeaderContainer title='Our privacy policy' />
       <div className="PrivacyPolicy">
-        <div className="blue-line"/>
+        <div className="blue-line" />
         <div className="main-content">
           <h4>{t("title")}</h4>
-          <span className="data">{t("updatedDate") }</span>
-          {/* <p>
-            Cette «Politique de confidentialité et de cookies» régit le traitement de vos données à caractère
-            personnel par le responsable du traitement: Winleads, opérant sous le nom “BelgiumImmo”, avec son
-            siège social basé au 101, rue des champs, 7100 La Louvière à et numéro BCE 0751 533 333 (ci-après:
-            Winleads-BelgiumImmo) ou nos partenaires respectifs.
-          </p>
-          <p>
-            Lisez attentivement cette politique de confidentialité et de cookies. Il contient des informations
-            essentielles sur la manière dont vos données à caractère personnel sont traitées et les cookies utilisés.
-            En partageant vos données à caractère personnel sur notre site
-            Internet <a href='http://www.winleads.eu/' target='_blank'>
-            www.winleads.eu</a> ou <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a> En nous
-            contactant par e-mail / téléphone ou en soumettant une question / plainte, vous déclarez que vous avez lu
-            cette politique de confidentialité et de cookies et que vous acceptez expressément son contenu.
-          </p> */}
+          <span className="data">{t("updatedDate")}</span>
+          {locale === 'nl' ? (<>
+            <p>
+              {t("app-description-p1")}
+            </p>
+            <p>
+              {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
+                www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a> {t("artical-seven-section-five-p7-2")}
+            </p></>) : " "
+          }
           {/*TOP SEGMENT*/}
           <div className='new-segment'>
-            <span>{t("content-title") }</span>
+            <span>{t("content-title")}</span>
           </div>
           <div>
             <span>{t("artical-one")}</span>
@@ -94,11 +91,11 @@ const PrivacyPolicyPage = () => {
           <div className="double-block">
             <span className="double-block__label">2.1  </span>
             <div className="double-block__text">
-            <span>
-            {t("artical-two-discription")}
-              </span>
+              <p>
+                {t("artical-two-discription")}
+              </p>
               <span>
-              {t("span-artical-two")}
+                {t("span-artical-two")}
               </span>
               <ul>
                 <li>
@@ -125,14 +122,14 @@ const PrivacyPolicyPage = () => {
           <div className="double-block">
             <span className="double-block__label">2.2 </span>
             <div className="double-block__text">
-            <p>
-            {t("artical-two.2-description")}
+              <p>
+                {t("artical-two.2-description")}
               </p>
               <p>
                 {t("artical-two.2-p1")}
               </p>
               <p>
-               {t("artical-two.2-p2")}
+                {t("artical-two.2-p2")}
               </p>
             </div>
           </div>
@@ -178,7 +175,7 @@ const PrivacyPolicyPage = () => {
             <span className="double-block__label">3.4</span>
             <div className="double-block__text">
               <span>
-               {t("artical-three.4")}
+                {t("artical-three.4")}
               </span>
               <ul>
                 <li>
@@ -197,14 +194,16 @@ const PrivacyPolicyPage = () => {
                   {t("artical-three.4-li5")}
                 </li>
                 <li>
-                 {t("artical-three.4-li6")}
+                  {t("artical-three.4-li6")}
                 </li>
                 <li>
                   {t("artical-three.4-li7")}
                 </li>
-                <li>
-                  {t("artical-three.4-li8")}
-                </li>
+                {locale !== "nl" ? (
+                  <li>
+                    {t("artical-three.4-li8")}
+                  </li>) : ""
+                }
               </ul>
             </div>
           </div>
@@ -221,7 +220,7 @@ const PrivacyPolicyPage = () => {
           </p>
           <ul>
             <li>
-             {t("artical-four-li1")}
+              {t("artical-four-li1")}
             </li>
             <li>
               {t("artical-four-li2")}
@@ -230,11 +229,13 @@ const PrivacyPolicyPage = () => {
               {t("artical-four-li3")}
             </li>
             <li>
-             {t("artical-four-li4")}
+              {t("artical-four-li4")}
             </li>
-            <li>
-             {t("artical-four-li5")}
-            </li>
+            {locale !== "nl" ? (
+              <li>
+                {t("artical-four-li5")}
+              </li>) : ""
+            }
           </ul>
           {/*SEGMENT 5*/}
           <div className='new-segment'>
@@ -244,11 +245,11 @@ const PrivacyPolicyPage = () => {
             {t("artical-five-p1")}
           </p>
           <p>
-           {t("artical-five-p2")} <a href="mailto:matteo@winleads.be">
-            matteo@winleads.be</a>
+            {t("artical-five-p2")} <a href="mailto:matteo@winleads.be">
+              matteo@winleads.be</a>
           </p>
           <p>
-           {t("artical-five-p3")}
+            {t("artical-five-p3")}
           </p>
           <p className='mb-0'>{t("artical-five-p4")}</p>
           <p className='mb-0'>{t("artical-five-p5")}</p>
@@ -257,14 +258,14 @@ const PrivacyPolicyPage = () => {
             <a href="mailto:contact@apd-gba.be">{t("artical-five-p7")}</a>
           </p>
           <p>
-           {t("artical-five-p8")}
+            {t("artical-five-p8")}
           </p>
           {/*SEGMENT 6*/}
           <div className='new-segment'>
             <span>{t("artical-six")}</span>
           </div>
           <p>
-           {t("artical-six-p1")}
+            {t("artical-six-p1")}
           </p>
           <p>
             {t("artical-six-p2")}
@@ -274,7 +275,7 @@ const PrivacyPolicyPage = () => {
             <span>{t("artical-seven")}</span>
           </div>
           <p>
-           {t("artical-seven-p1")}
+            {t("artical-seven-p1")}
           </p>
           <p>
             {t("artical-seven-p2")}
@@ -285,22 +286,22 @@ const PrivacyPolicyPage = () => {
           </p>
           <p><b>{t("artical-seven-section-two")}</b></p>
           <p>
-           {t("artical-seven-section-two-p1")}
+            {t("artical-seven-section-two-p1")}
           </p>
           <div>
             <Table responsive bordered>
               <thead>
-              <tr>
-                <th>{t("artical-seven-section-two-table-cl1")}</th>
-                <th>{t("artical-seven-section-two-table-cl2")}</th>
-                <th>{t("artical-seven-section-two-table-cl3")}</th>
-                <th>{t("artical-seven-section-two-table-cl4")}</th>
-              </tr>
+                <tr>
+                  <th>{t("artical-seven-section-two-table-cl1")}</th>
+                  <th>{t("artical-seven-section-two-table-cl2")}</th>
+                  <th>{t("artical-seven-section-two-table-cl3")}</th>
+                  <th>{t("artical-seven-section-two-table-cl4")}</th>
+                </tr>
               </thead>
               <tbody>
-              <tr><td/><td/><td/><td/></tr>
-              <tr><td/><td/><td/><td/></tr>
-              <tr><td/><td/><td/><td/></tr>
+                <tr><td /><td /><td /><td /></tr>
+                <tr><td /><td /><td /><td /></tr>
+                <tr><td /><td /><td /><td /></tr>
               </tbody>
             </Table>
           </div>
@@ -311,42 +312,42 @@ const PrivacyPolicyPage = () => {
           <div>
             <Table responsive bordered>
               <thead>
-              <tr>
-                <th>{t("artical-seven-section-three-table-cl1")}</th>
-                <th>{t("artical-seven-section-three-table-cl2")}</th>
-                <th>{t("artical-seven-section-three-table-cl3")}</th>
-                <th>{t("artical-seven-section-three-table-cl4")}</th>
-                <th>{t("artical-seven-section-three-table-cl5")}</th>
-              </tr>
+                <tr>
+                  <th>{t("artical-seven-section-three-table-cl1")}</th>
+                  <th>{t("artical-seven-section-three-table-cl2")}</th>
+                  <th>{t("artical-seven-section-three-table-cl3")}</th>
+                  <th>{t("artical-seven-section-three-table-cl4")}</th>
+                  <th>{t("artical-seven-section-three-table-cl5")}</th>
+                </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>{t("artical-seven-section-three-table-r1c1")}</td>
-                <td>{t("artical-seven-section-three-table-r1c2")}</td>
-                <td>{t("artical-seven-section-three-table-r1c3")}</td>
-                <td>
-                 {t("artical-seven-section-three-table-r1c4")}
-                </td>
-                <td>{t("artical-seven-section-three-table-r1c5")}</td>
-              </tr>
-              <tr>
-                <td>{t("artical-seven-section-three-table-r2c1")}</td>
-                <td>{t("artical-seven-section-three-table-r1c2")}</td>
-                <td>{t("artical-seven-section-three-table-r1c3")}</td>
-                <td>
-                  {t("artical-seven-section-three-table-r2c4")}
-                </td>
-                <td>{t("artical-seven-section-three-table-r2c5")}</td>
-              </tr>
-              <tr>
-                <td>{t("artical-seven-section-three-table-r3c1")}</td>
-                <td>{t("artical-seven-section-three-table-r1c2")}</td>
-                <td>{t("artical-seven-section-three-table-r1c3")}</td>
-                <td>
-                  {t("artical-seven-section-three-table-r3c4")}
-                </td>
-                <td>{t("artical-seven-section-three-table-r3c5")}</td>
-              </tr>
+                <tr>
+                  <td>{t("artical-seven-section-three-table-r1c1")}</td>
+                  <td>{t("artical-seven-section-three-table-r1c2")}</td>
+                  <td>{t("artical-seven-section-three-table-r1c3")}</td>
+                  <td>
+                    {t("artical-seven-section-three-table-r1c4")}
+                  </td>
+                  <td>{t("artical-seven-section-three-table-r1c5")}</td>
+                </tr>
+                <tr>
+                  <td>{t("artical-seven-section-three-table-r2c1")}</td>
+                  <td>{t("artical-seven-section-three-table-r1c2")}</td>
+                  <td>{t("artical-seven-section-three-table-r1c3")}</td>
+                  <td>
+                    {t("artical-seven-section-three-table-r2c4")}
+                  </td>
+                  <td>{t("artical-seven-section-three-table-r2c5")}</td>
+                </tr>
+                <tr>
+                  <td>{t("artical-seven-section-three-table-r3c1")}</td>
+                  <td>{t("artical-seven-section-three-table-r1c2")}</td>
+                  <td>{t("artical-seven-section-three-table-r1c3")}</td>
+                  <td>
+                    {t("artical-seven-section-three-table-r3c4")}
+                  </td>
+                  <td>{t("artical-seven-section-three-table-r3c5")}</td>
+                </tr>
               </tbody>
             </Table>
             <p><b>{t("artical-seven-section-four")}</b></p>
@@ -357,22 +358,22 @@ const PrivacyPolicyPage = () => {
           <div>
             <Table responsive bordered>
               <thead>
-              <tr>
-                <th>{t("artical-seven-section-four-table-cl1")}</th>
-                <th>{t("artical-seven-section-four-table-cl2")}</th>
-                <th>{t("artical-seven-section-four-table-cl3")}</th>
-                <th>{t("artical-seven-section-four-table-cl4")}</th>
-                <th>{t("artical-seven-section-four-table-cl5")}</th>
-              </tr>
+                <tr>
+                  <th>{t("artical-seven-section-four-table-cl1")}</th>
+                  <th>{t("artical-seven-section-four-table-cl2")}</th>
+                  <th>{t("artical-seven-section-four-table-cl3")}</th>
+                  <th>{t("artical-seven-section-four-table-cl4")}</th>
+                  <th>{t("artical-seven-section-four-table-cl5")}</th>
+                </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>{t("artical-seven-section-four-table-r1c1")}</td>
-                <td>{t("artical-seven-section-four-table-r1c2")}</td>
-                <td>{t("artical-seven-section-four-table-r1c3")}</td>
-                <td>{t("artical-seven-section-four-table-r1c4")}</td>
-                <td>{t("artical-seven-section-four-table-r1c5")}</td>
-              </tr>
+                <tr>
+                  <td>{t("artical-seven-section-four-table-r1c1")}</td>
+                  <td>{t("artical-seven-section-four-table-r1c2")}</td>
+                  <td>{t("artical-seven-section-four-table-r1c3")}</td>
+                  <td>{t("artical-seven-section-four-table-r1c4")}</td>
+                  <td>{t("artical-seven-section-four-table-r1c5")}</td>
+                </tr>
               </tbody>
             </Table>
           </div>
@@ -382,24 +383,24 @@ const PrivacyPolicyPage = () => {
           <div>
             <Table responsive bordered>
               <thead>
-              <tr>
-                <th>{t("artical-seven-section-five-table-cl1")}</th>
-                <th>{t("artical-seven-section-four-table-cl2")}</th>
-                <th>{t("artical-seven-section-four-table-cl3")}</th>
-                <th>{t("artical-seven-section-four-table-cl4")}</th>
-                <th>{t("artical-seven-section-four-table-cl5")}</th>
-              </tr>
+                <tr>
+                  <th>{t("artical-seven-section-five-table-cl1")}</th>
+                  <th>{t("artical-seven-section-four-table-cl2")}</th>
+                  <th>{t("artical-seven-section-four-table-cl3")}</th>
+                  <th>{t("artical-seven-section-four-table-cl4")}</th>
+                  <th>{t("artical-seven-section-four-table-cl5")}</th>
+                </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>{t("artical-seven-section-five-table-r1c1")}</td>
-                <td>{t("artical-seven-section-five-table-r1c2")}</td>
-                <td>{t("artical-seven-section-five-table-r1c3")}</td>
-                <td>
-                  {t("artical-seven-section-five-table-r1c4")}
-                </td>
-                <td>{t("artical-seven-section-five-table-r1c5")}</td>
-              </tr>
+                <tr>
+                  <td>{t("artical-seven-section-five-table-r1c1")}</td>
+                  <td>{t("artical-seven-section-five-table-r1c2")}</td>
+                  <td>{t("artical-seven-section-five-table-r1c3")}</td>
+                  <td>
+                    {t("artical-seven-section-five-table-r1c4")}
+                  </td>
+                  <td>{t("artical-seven-section-five-table-r1c5")}</td>
+                </tr>
               </tbody>
             </Table>
           </div>
@@ -407,32 +408,33 @@ const PrivacyPolicyPage = () => {
             {t("artical-seven-section-five-p1")}
           </p>
           <p>
-           {t("artical-seven-section-five-p2")}
+            {t("artical-seven-section-five-p2")}
           </p>
           <p>
             {t("artical-seven-section-five-p3")}
           </p>
           <p>
             {t("artical-seven-section-five-p4")} <a href='http://www.winleads.eu/' target='_blank'>
-            www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
+              www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
           </p>
           <p>
-           {t("artical-seven-section-five-p5")} <a href="http://www.allaboutcookies.org" target='_blank'>http://www.allaboutcookies.org</a>.
+            {t("artical-seven-section-five-p5")} <a href="http://www.allaboutcookies.org" target='_blank'>http://www.allaboutcookies.org</a>.
           </p>
           <p>
             {t("artical-seven-section-five-p6")} <a href="http://www.youronlinechoices.eu" target='_blank'>http://www.youronlinechoices.eu</a>.
           </p>
-          <p> {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
-            www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
-            {t("artical-seven-section-five-p7-2")}
-            </p>
+          {locale !== "nl" ? (
+            <p> {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
+              www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
+              {t("artical-seven-section-five-p7-2")}
+            </p>) : ""}
         </div>
       </div>
     </>
   )
 }
 
-export const getStaticProps = async ({locale}) => ({
+export const getStaticProps = async ({ locale }) => ({
   props: {
     ...await serverSideTranslations(locale, ["privacy-policy"]),
   },
