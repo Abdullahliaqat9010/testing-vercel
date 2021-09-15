@@ -13,6 +13,19 @@ export const createProperty = (property) => {
 	});
 };
 
+export const getProperty = (id?: number | null): Promise<any> => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { data: property } = await axios.get("property", {
+				params: { id },
+			});
+			resolve(property);
+		} catch (error) {
+			reject(error);
+		}
+	});
+};
+
 export const getProperties = (userId): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {

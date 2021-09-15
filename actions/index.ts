@@ -95,3 +95,14 @@ export const clearAutocompleteItems = () => ({
 export const clearSimilarPropertiesLocation = () => ({
 	type: actionType.CLEAR_SIMILAR_PROPERTIES_LIST,
 });
+
+export const showStepsOnTheHeaderAction = () => ({
+	type: actionType.SHOW_STEPS_ON_HEADER,
+});
+
+export const setMainProperty = (id: number) => ({
+	type: actionType.SET_MAIN_PROPERTY,
+	payload: {
+		id,
+	},
+});
