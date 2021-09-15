@@ -212,3 +212,10 @@ export const clearSimilarPropertiesLocation = () => ({
 export const showStepsOnTheHeaderAction = () => ({
 	type: actionType.SHOW_STEPS_ON_HEADER,
 });
+
+export const setMainProperty = (id: number) => ({
+	type: actionType.SET_MAIN_PROPERTY,
+	payload: {
+		id,
+	},
+});

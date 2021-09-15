@@ -112,4 +112,7 @@ export interface RootState {
 		}[];
 		error: string;
 	};
+	property: {
+		mainPropertyId: number;
+	};
 }
