@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Upload, message } from "antd";
 import {
 	FacebookFilled,
@@ -8,7 +8,7 @@ import {
 	YoutubeFilled,
 } from "@ant-design/icons";
 import { QuestionCircleFilled } from "@ant-design/icons";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
@@ -16,8 +16,7 @@ import NavBarContainer from "../../containers/NavBar";
 import UploadImage from "../../assets/images/upload-img.svg";
 import UploadPicture from "../../assets/images/upload-picture.svg";
 import * as Yup from "yup";
-
-const { Dragger } = Upload;
+import { Button } from "react-bootstrap";
 
 const socialIconsProps = { style: { fontSize: 38, color: "#8F99B4" } };
 
@@ -113,6 +112,10 @@ function getBase64(file) {
 
 const Formpage = () => {
 	const { t } = useTranslation();
+
+	const [logoImage, setLogoImage] = useState("");
+	const [coverImage, setCoverImage] = useState("");
+
 	return (
 		<div>
 			<HeaderContainer title={t("title")} />
@@ -141,8 +144,10 @@ const Formpage = () => {
 							Russe: false,
 						},
 						notification_emails: [],
-						logo_image: "https://via.placeholder.com/150",
+						logo_image: "",
 						cover_image: "",
+						description: "",
+						website: "",
 					}}
 					// validationSchema={SignupSchema}
 					onSubmit={(values) => {
@@ -184,19 +189,32 @@ const Formpage = () => {
 													listType="picture-card"
 													showUploadList={false}
 													onChange={async ({ file }) => {
-														const _base64 = await getBase64(file);
-														setFieldValue("logo_image", _base64);
+														const _base64 = (await getBase64(file)) as string;
+														setLogoImage(_base64);
+														setFieldValue("logo_image", file);
 													}}
 												>
-													{/* <div></div> */}
-													<img
-														style={{
-															objectFit: "cover",
-															width: "100%",
-															height: "100%",
-														}}
-														src={values.logo_image}
-													/>
+													{values.logo_image ? (
+														<img
+															style={{
+																objectFit: "cover",
+																width: "100%",
+																height: "100%",
+															}}
+															src={logoImage}
+														/>
+													) : (
+														<div>
+															<img src={UploadImage} />
+															<Button className="upload-btn">
+																<img
+																	className="mr-1 pb-1"
+																	src={UploadPicture}
+																/>
+																Upload
+															</Button>
+														</div>
+													)}
 												</Upload>
 											</div>
 										</div>
@@ -216,11 +234,70 @@ const Formpage = () => {
 											<Upload
 												className="cover_uploader"
 												listType="picture-card"
+												id="cover"
+												beforeUpload={() => false}
 												showUploadList={false}
+												onChange={async ({ file }) => {
+													const _base64 = (await getBase64(file)) as string;
+													setCoverImage(_base64);
+													setFieldValue("cover_image", file);
+												}}
 											>
-												{/* <div></div> */}
-												Upload
+												{values.cover_image ? (
+													<img
+														style={{
+															objectFit: "cover",
+															width: "100%",
+															height: "100%",
+														}}
+														src={coverImage}
+													/>
+												) : (
+													<div className="d-flex flex-column">
+														<img src={UploadImage} />
+														<Button className="upload-btn">
+															<img className="mr-1 pb-1" src={UploadPicture} />
+															Upload
+														</Button>
+													</div>
+												)}
 											</Upload>
+											<div className="d-flex flex-column form-input-block mt-4">
+												<label
+													className="form-label fs-2"
+													htmlFor="description"
+												>
+													Description
+												</label>
+												<Field
+													className="form-input"
+													name="description"
+													type="text"
+													as="textarea"
+													style={{ height: "auto" }}
+													rows={5}
+												/>
+												<ErrorMessage
+													className="form-error"
+													component="div"
+													name="description"
+												/>
+											</div>
+											<div className="d-flex flex-column form-input-block mt-4">
+												<label className="form-label fs-2" htmlFor="website">
+													Link to your website
+												</label>
+												<Field
+													className="form-input"
+													name="website"
+													type="text"
+												/>
+												<ErrorMessage
+													className="form-error"
+													component="div"
+													name="website"
+												/>
+											</div>
 										</div>
 										<div className="password-block2 pb-0">
 											<h2>Socials</h2>
