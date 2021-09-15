@@ -18,7 +18,7 @@ const PrivacyPolicyPage = () => {
         <div className="main-content">
           <h4>{t("title")}</h4>
           <span className="data">{t("updatedDate")}</span>
-          {locale === 'nl' ? (<>
+          {locale !== 'nl' ? (<>
             <p>
               {t("app-description-p1")}
             </p>
@@ -199,7 +199,7 @@ const PrivacyPolicyPage = () => {
                 <li>
                   {t("artical-three.4-li7")}
                 </li>
-                {locale !== "nl" ? (
+                {locale === "nl" ? (
                   <li>
                     {t("artical-three.4-li8")}
                   </li>) : ""
@@ -231,7 +231,7 @@ const PrivacyPolicyPage = () => {
             <li>
               {t("artical-four-li4")}
             </li>
-            {locale !== "nl" ? (
+            {locale === "nl" ? (
               <li>
                 {t("artical-four-li5")}
               </li>) : ""
@@ -423,7 +423,7 @@ const PrivacyPolicyPage = () => {
           <p>
             {t("artical-seven-section-five-p6")} <a href="http://www.youronlinechoices.eu" target='_blank'>http://www.youronlinechoices.eu</a>.
           </p>
-          {locale !== "nl" ? (
+          {locale === "nl" ? (
             <p> {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
               www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
               {t("artical-seven-section-five-p7-2")}
