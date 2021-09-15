@@ -436,7 +436,7 @@ const PrivacyPolicyPage = () => {
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale, ["privacy-policy"]),
+    ...await serverSideTranslations(locale, ["privacy-policy", "header"]),
   },
 });
 
