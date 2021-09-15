@@ -13,8 +13,6 @@ import RatingStarEmpty from "../../assets/images/rating/star.svg";
 import ArrowImage from "../../assets/images/arrow-blue.svg";
 import AgencyStarImage from "../../assets/images/star-blue.svg";
 
-import { modalWindowContactAgentAction } from "../../actions";
-
 import { RootState } from "../../types/state";
 import { AgencyProps } from "../../types/agents";
 

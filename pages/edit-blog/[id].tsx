@@ -159,7 +159,9 @@ const EditBlog = ({ blog, params }) => {
 								<div style={{ display: "flex", flexDirection: "row" }}>
 									<Input
 										value={blogSlug}
-										onChange={(e) => setBlogSlug(e.target.value)}
+										onChange={(e) =>
+											setBlogSlug(e.target.value.replace(/\W+/g, " "))
+										}
 										maxLength={60}
 										placeholder={blog?.slug}
 										className="input-antd-custom"

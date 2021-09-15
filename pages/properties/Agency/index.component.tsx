@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import NavBarContainer from "../../../containers/NavBar";
 import FooterContainer from "../../../containers/Footer";
@@ -19,13 +17,9 @@ import blackeye from "../../../assets/images/black-eye.svg";
 import loadMoreImage from "../../../assets/images/load-more.svg";
 import image from "../../../assets/images/agency-page/bg-agency.jpeg";
 import blackCross from "../../../assets/images/black-eye-cross.svg";
-import { userToken } from "../../../config/siteConfigs";
-import { parseJwt } from "../../../utils";
-
-import { getPropertyForCurrentUserAction } from "../../../actions";
-import { RootState } from "../../../types/state";
 import { getAgencyProperties } from "../../../network-requests";
 import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
+
 const SoldPropertiesPage = () => {
 	const [modalVisible, setModalVisible] = useState(true);
 	const properties = [
@@ -51,25 +45,6 @@ const SoldPropertiesPage = () => {
 	const { t } = useTranslation("properties-page");
 	const router = useRouter();
 	const { locale } = router;
-	//   const dispatch = useDispatch();
-
-	//   const {properties} = useSelector((state: RootState) => state.userInfo);
-	//   console.log("properties", properties)
-	//   useEffect(() => {
-	//     if (!userToken) {
-	//       window.location.href = '/';
-	//     }
-
-	//     if (userToken) {
-	//       const parseData = parseJwt(userToken);
-	//       const elementsOnPage = 6;
-	//       dispatch(getPropertyForCurrentUserAction({userId: parseData.id, elementsOnPage}));
-	//     }
-	//   }, []);
-
-	//   const goToMainPage = () => {
-	//     window.location.href = '/' + locale;
-	//   };
 
 	const _getAgencyProperties = async () => {
 		try {
