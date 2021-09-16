@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next";
 
 import { Button } from "react-bootstrap";
 import LoadMoreImage from "../../../../assets/images/load-more.svg";
-
+import { getAgencies } from "../../../../network-requests";
 import Agency from "../../../../containers/Agency";
 
 import { agentsList } from "../../../../templates/agentsList";
@@ -17,6 +17,20 @@ const FindAgentBlock = ({ mainProperty, properties }) => {
 	const [sizeArr, setSizeArr] = useState(elementsOnPage);
 	const [sortedAgencyList, setSortAgencyList] = useState([...agentsList]);
 	const agencyList = sortedAgencyList.slice(0, sizeArr);
+
+	const getData = async () => {
+		try {
+			const agencies = await getAgencies();
+			setSortAgencyList(agencies);
+			console.log(agencies);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getData();
+	}, []);
 
 	useEffect(() => {
 		if (mainProperty?.lat && mainProperty?.lng) {

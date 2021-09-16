@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Upload, message } from "antd";
+import { Upload, message, notification } from "antd";
 import {
 	FacebookFilled,
 	InstagramFilled,
@@ -17,6 +17,12 @@ import UploadImage from "../../assets/images/upload-img.svg";
 import UploadPicture from "../../assets/images/upload-picture.svg";
 import * as Yup from "yup";
 import { Button } from "react-bootstrap";
+import {
+	getAgencyProfile,
+	handleImageUpload,
+	updateAgencyProfile,
+} from "../../network-requests";
+import Loading from "../../components/Loading";
 
 const socialIconsProps = { style: { fontSize: 38, color: "#8F99B4" } };
 
@@ -93,7 +99,6 @@ const TagInput = ({ tags, setTags }) => {
 			<input
 				type="text"
 				onKeyUp={(event: any) => {
-					console.log(event.key);
 					event.key === " " ? addTagData(event) : null;
 				}}
 			/>
@@ -115,6 +120,62 @@ const Formpage = () => {
 
 	const [logoImage, setLogoImage] = useState("");
 	const [coverImage, setCoverImage] = useState("");
+	const [agencyProfile, setAgencyProfile] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+
+	const onSubmit = (values) => {
+		return new Promise(async (res, rej) => {
+			try {
+				const coverImagePromise =
+					values.cover_image instanceof File
+						? handleImageUpload(values.cover_image)
+						: Promise.resolve(values?.cover_image);
+				const logoImagePromise =
+					values.logo_image instanceof File
+						? handleImageUpload(values.logo_image)
+						: Promise.resolve(values?.logo_image);
+				const imageUploadPromise = [coverImagePromise, logoImagePromise];
+				message.info("Uploading images...");
+				const [cover_image, logo_image] = await Promise.all(imageUploadPromise);
+				await updateAgencyProfile({
+					...values,
+					notification_emails: values.notification_emails.join(),
+					social_links: JSON.stringify(values.social_links),
+					languages: JSON.stringify(values.languages),
+					cover_image,
+					logo_image,
+				});
+				notification.success({
+					description: "Changes are made successfully",
+					message: "Success",
+				});
+				res("");
+			} catch (error) {
+				rej(error);
+			}
+		});
+	};
+
+	const _getAgencyProfile = async () => {
+		try {
+			setIsLoading(true);
+			const _agencyProfile = await getAgencyProfile();
+			setAgencyProfile({ ..._agencyProfile });
+			setCoverImage(_agencyProfile?.cover_image);
+			setLogoImage(_agencyProfile?.logo_image);
+			setIsLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		_getAgencyProfile();
+	}, []);
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<div>
@@ -124,37 +185,47 @@ const Formpage = () => {
 
 				<Formik
 					initialValues={{
-						social_links: {
-							facebook: "",
-							twitter: "",
-							instagram: "",
-							youtube: "",
-							linkedin: "",
-						},
-						languages: {
-							Arabe: false,
-							Allemand: false,
-							Coreen: false,
-							Hebreu: false,
-							Portugais: false,
-							Anglais: false,
-							Chinois: false,
-							Espagnol: false,
-							Italien: false,
-							Russe: false,
-						},
-						notification_emails: [],
-						logo_image: "",
-						cover_image: "",
-						description: "",
-						website: "",
+						social_links: agencyProfile?.social_links
+							? JSON.parse(agencyProfile?.social_links)
+							: {
+									facebook: "",
+									twitter: "",
+									instagram: "",
+									youtube: "",
+									linkedin: "",
+							  },
+						languages: agencyProfile?.languages
+							? JSON.parse(agencyProfile?.languages)
+							: {
+									arabe: false,
+									allemand: false,
+									coreen: false,
+									hebreu: false,
+									portugais: false,
+									anglais: false,
+									chinois: false,
+									espagnol: false,
+									italien: false,
+									russe: false,
+							  },
+						notification_emails: agencyProfile?.notification_emails
+							? agencyProfile?.notification_emails.split(",")
+							: [],
+						logo_image: agencyProfile?.logo_image
+							? agencyProfile?.logo_image
+							: "",
+						cover_image: agencyProfile?.cover_image
+							? agencyProfile?.cover_image
+							: "",
+						description: agencyProfile?.description
+							? agencyProfile?.description
+							: "",
+						website: agencyProfile?.website ? agencyProfile?.website : "",
 					}}
 					// validationSchema={SignupSchema}
-					onSubmit={(values) => {
-						console.log(values);
-					}}
+					onSubmit={onSubmit}
 				>
-					{({ values, setFieldValue, submitForm }) => (
+					{({ values, setFieldValue, submitForm, isSubmitting }) => (
 						<Form>
 							<div className="AgencySettingsPage__container w-100">
 								<div className="first-block">
@@ -333,7 +404,7 @@ const Formpage = () => {
 														>
 															<Field
 																type="checkbox"
-																name={`languages.${language}`}
+																name={`languages.${language.toLowerCase()}`}
 															/>
 															<label className="ml-3 mb-0" htmlFor={language}>
 																{language}
@@ -362,7 +433,7 @@ const Formpage = () => {
 													type="button"
 													onClick={() => submitForm()}
 												>
-													Save Changes
+													{isSubmitting ? "Loading..." : "Save Changes"}
 												</button>
 											</div>
 											<div className="button-container2">

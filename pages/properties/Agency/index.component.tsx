@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button } from "react-bootstrap";
+import { Pagination } from "antd";
+import moment from "moment";
 
 import NavBarContainer from "../../../containers/NavBar";
 import FooterContainer from "../../../containers/Footer";
@@ -15,52 +16,127 @@ import Delete from "../../../assets/images/delete.svg";
 import Eye from "../../../assets/images/gray-eye.svg";
 import blackeye from "../../../assets/images/black-eye.svg";
 import loadMoreImage from "../../../assets/images/load-more.svg";
-import image from "../../../assets/images/agency-page/bg-agency.jpeg";
+import NoImage from "../../../assets/images/no-image-available.svg";
 import blackCross from "../../../assets/images/black-eye-cross.svg";
 import { getAgencyProperties } from "../../../network-requests";
 import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
 
-const SoldPropertiesPage = () => {
-	const [modalVisible, setModalVisible] = useState(true);
-	const properties = [
-		{
-			search_address: "lahote ajksh ajs aksh aksh",
-			id: 13443,
-			total_area: 32,
-			bedrooms: 3,
-			bathrooms: 1,
-			status: "active",
-			sold_date: "june 2020",
-		},
-		{
-			search_address: "lahote ajksh ajs aksh aksh",
-			id: 13443,
-			total_area: 32,
-			bedrooms: 3,
-			bathrooms: 1,
-			sold_date: "june 2020",
-			status: "block",
-		},
-	];
+const PropertyCard = ({ property, onClick }) => {
 	const { t } = useTranslation("properties-page");
-	const router = useRouter();
-	const { locale } = router;
+	return (
+		<div
+			style={{ cursor: "pointer" }}
+			className="w-100 property-container d-flex"
+			onClick={() => onClick({ ...property })}
+		>
+			<div className="property-images-block d-flex">
+				<input type="checkBox" className="mr-2"></input>
+				<div className="d-flex flex-row align-items-center">
+					<img
+						className="first-image"
+						src={
+							property?.images[0]?.url_large
+								? property?.images[0]?.url_large
+								: NoImage
+						}
+						alt="eye"
+					/>
+					<div className="d-flex align-items-center flex-column ml-1">
+						<img
+							className="second-images"
+							src={
+								property?.images[1]?.url_large
+									? property?.images[1]?.url_large
+									: NoImage
+							}
+							alt="eye"
+						/>
+						<img
+							className="second-images"
+							src={
+								property?.images[2]?.url_large
+									? property?.images[2]?.url_large
+									: NoImage
+							}
+							alt="eye"
+						/>
+					</div>
+				</div>
+			</div>
+			<div className=" property-discription  d-flex">
+				<div className="proprty-info">
+					<div>
+						<span className="address">{property.search_address}</span>
+					</div>
+					<div>
+						<span className="sold-property">
+							{`Sold on ${
+								property?.sold_rent_date
+									? moment(property?.sold_rent_date).format("MMM DD, YYYY")
+									: moment().format("MMM DD, YYYY")
+							}`}{" "}
+						</span>
+					</div>
+					<div className=" property-props mt-2 d-flex">
+						<span className="mr-1">{property.live_area + " " + "sq m"}</span>
+						<span className="mx-1">
+							{property.bedrooms + " " + t("span.beds")}
+						</span>
+						<span className="mx-1">
+							{property.bathrooms + " " + t("span.baths")}
+						</span>
+					</div>
+				</div>
+				<div className=" d-flex view-property">
+					{property.status === "active" ? (
+						// {" "}
+						<Button>
+							{" "}
+							<img src={blackeye} alt="eye" />
+						</Button>
+					) : (
+						<Button>
+							{" "}
+							<img src={blackCross} alt="eye" />
+						</Button>
+					)}
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const SoldPropertiesPage = () => {
+	const [modalVisible, setModalVisible] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	const [selectedProperty, setSelectedProperty] = useState(null);
+	const [properties, setProperties] = useState([]);
+
+	const { t } = useTranslation("properties-page");
 
 	const _getAgencyProperties = async () => {
 		try {
-			const _properties = await getAgencyProperties();
-			console.log(_properties);
-		} catch (error) {}
+			const { items, meta } = await getAgencyProperties(currentPage, pageSize);
+			console.log(items);
+			setProperties([...items]);
+			setTotalPages(meta?.totalItems);
+			setCurrentPage(meta?.currentPage);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
 		_getAgencyProperties();
-	}, []);
+	}, [currentPage, pageSize]);
 
 	return (
 		<>
 			<HeaderContainer title={t("title")} />
 			<PropertyDetailsModal
+				property={selectedProperty}
 				show={modalVisible}
 				onClose={() => {
 					setModalVisible(false);
@@ -107,63 +183,26 @@ const SoldPropertiesPage = () => {
 
 						{properties.length > 0 &&
 							properties.map((property, index) => (
-								<div className="w-100 property-container d-flex" key={index}>
-									<div className="property-images-block d-flex">
-										<input type="checkBox" className="mr-2"></input>
-										<div className="d-flex flex-row align-items-center">
-											<img className="first-image" src={image} alt="eye" />
-											<div className="d-flex align-items-center flex-column ml-1">
-												<img className="second-images" src={image} alt="eye" />
-												<img className="second-images" src={image} alt="eye" />
-											</div>
-										</div>
-									</div>
-									<div className=" property-discription  d-flex">
-										<div className="proprty-info">
-											<div>
-												<span className="address">
-													{property.search_address}
-												</span>
-											</div>
-											<div>
-												<span className="sold-property">
-													{property.sold_date}{" "}
-												</span>
-											</div>
-											<div className=" property-props mt-2 d-flex">
-												<span className="mr-1">
-													{property.total_area + " " + "sq m"}
-												</span>
-												<span className="mx-1">
-													{property.bedrooms + " " + t("span.beds")}
-												</span>
-												<span className="mx-1">
-													{property.bathrooms + " " + t("span.baths")}
-												</span>
-											</div>
-										</div>
-										<div className=" d-flex view-property">
-											{property.status === "active" ? (
-												// {" "}
-												<Button>
-													{" "}
-													<img src={blackeye} alt="eye" />
-												</Button>
-											) : (
-												<Button>
-													{" "}
-													<img src={blackCross} alt="eye" />
-												</Button>
-											)}
-										</div>
-									</div>
-								</div>
+								<PropertyCard
+									onClick={(_property) => {
+										setSelectedProperty({ ..._property });
+										setModalVisible(true);
+									}}
+									key={index}
+									property={property}
+								/>
 							))}
 						<div className="load-more-block d-flex ">
-							<Button className="load-more">
-								{" "}
-								<img src={loadMoreImage} alt="loadMore" /> load more
-							</Button>
+							<Pagination
+								current={currentPage}
+								total={totalPages}
+								pageSize={pageSize}
+								onChange={(page, _pageSize) => {
+									setCurrentPage(page);
+									setPageSize(_pageSize);
+								}}
+								pageSizeOptions={["5", "10", "20", "50"]}
+							/>
 						</div>
 					</div>
 				</div>
