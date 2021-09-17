@@ -39,7 +39,7 @@ export const signup = (userData): Promise<any> => {
 	});
 };
 
-export const login = (email, password): Promise<any> => {
+export const login = (email, password): Promise<UserProfile> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data } = await axios.post("auth/login", {
