@@ -40,6 +40,17 @@ export const getAgencyProfile = (): Promise<any> => {
 	});
 };
 
+export const getAgencyById = (id: number): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.get(`agency/profile/${id}`);
+			res(data);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
 export const createAgencyProfile = (profile) => {
 	return new Promise(async (res, rej) => {
 		try {
@@ -71,12 +82,12 @@ export const updateAgencyProfile = (profile) => {
 };
 
 export const getAgencies = (): Promise<any> => {
-	return new Promise(async (resolve, reject) => {
+	return new Promise(async (res, rej) => {
 		try {
 			const { data: agencies } = await axios.get("agency");
-			resolve(agencies);
+			res(agencies);
 		} catch (error) {
-			reject(reject);
+			rej(error);
 		}
 	});
 };

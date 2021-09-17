@@ -9,7 +9,13 @@ import { RootState } from "../../../types/state";
 import SendSuccess from "../../../assets/images/message-send.svg";
 import { contactAgency } from "../../../network-requests";
 
-const ContactAgentModal = ({ show, onClose, properties = [], agencyInfo }) => {
+const ContactAgentModal = ({
+	show,
+	onClose,
+	properties = [],
+	agencyOwner,
+	agencyName,
+}) => {
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
 	const { firstname, lastname, email, phone_number } = useSelector(
@@ -57,8 +63,8 @@ const ContactAgentModal = ({ show, onClose, properties = [], agencyInfo }) => {
 					<Modal.Header closeButton>
 						<Modal.Title className="d-flex flex-column">
 							{t("button.contact")}{" "}
-							{agencyInfo.agentName + " " + agencyInfo.agentSurname}
-							<p>{agencyInfo.title}</p>
+							{agencyOwner?.firstname + " " + agencyOwner.lastname}
+							<p>{agencyName}</p>
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
@@ -188,7 +194,7 @@ const ContactAgentModal = ({ show, onClose, properties = [], agencyInfo }) => {
 							<h3>{t("title.message-sent-successfully")}</h3>
 							<p>
 								<span>
-									{t("desc.agency")} {agencyInfo?.title} {t("desc.soon")}
+									{t("desc.agency")} {agencyName} {t("desc.soon")}
 								</span>
 							</p>
 							<Button className="close" onClick={handleClose}>

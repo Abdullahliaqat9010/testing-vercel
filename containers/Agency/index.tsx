@@ -21,36 +21,28 @@ import ContactAgentModal from "../Modals/ContactAgentModal";
 
 // import { parseJwt } from '../../utils';
 
-const Agency = ({
-	nearest,
-	agency,
-	mainProperty,
-	properties = [],
-}: AgencyProps) => {
+const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 	const router = useRouter();
 	const { locale } = router;
 	const { t } = useTranslation("dashboard-page");
 
-	const dispatch = useDispatch();
-
 	const [showContactModal, setShowContactModal] = useState<boolean>(false);
 
-	// const {mainProperty} = useSelector((state: RootState) => state.userInfo);
-	const {
-		agencyInfoList,
-		agencyCountPropertiesList,
-		agencySimilarPropertiesList,
-	} = useSelector((state: RootState) => state.agency);
+	// const {
+	// 	agencyInfoList,
+	// 	agencyCountPropertiesList,
+	// 	agencySimilarPropertiesList,
+	// } = useSelector((state: RootState) => state.agency);
 
-	const [agencyReviews] = agencyInfoList.filter(
-		(list) => list?.place_id === agency?.place_id
-	);
-	const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(
-		(list) => list.company_name === agency.tag
-	);
-	const [agencySimilarProperties] = agencySimilarPropertiesList.filter(
-		(list) => list.name === agency.title
-	);
+	// const [agencyReviews] = agencyInfoList.filter(
+	// 	(list) => list?.place_id === agency?.place_id
+	// );
+	// const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(
+	// 	(list) => list.company_name === agency.tag
+	// );
+	// const [agencySimilarProperties] = agencySimilarPropertiesList.filter(
+	// 	(list) => list.name === agency.title
+	// );
 	const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
 	const openMoreInfo = () => {
@@ -84,10 +76,10 @@ const Agency = ({
 				return {
 					__html: `During the last 24 months, our agency has sold 
                    <span class="bold">${
-											countProperties || 0
+											agency?.properties?.length || 0
 										} properties</span> nearby including <span class="bold">
                    ${
-											similarProperties.length
+											agency?.properties?.length
 										} similar to yours</span>. Our team is at your disposal to manage your 
                    project`,
 				};
@@ -95,18 +87,18 @@ const Agency = ({
 			return {
 				__html: `During the last 24 months, our agency has sold 
                  <span class="bold">${
-										countProperties || 0
+										agency?.properties?.length || 0
 									} properties</span> nearby. Our team is at your disposal 
                  to manage your project`,
 			};
 		}
 
 		if (locale === "fr") {
-			if (Number(countProperties) === 1) {
+			if (Number(agency?.properties?.length) === 1) {
 				return {
 					__html: `Au cours des 24 derniers mois, notre agence a vendu 
                  <span class="bold">${
-										countProperties || 0
+										agency?.properties?.length || 0
 									} bien</span> à proximité. Nous sommes à votre disposition 
                  pour gérer votre projet immobilier`,
 				};
@@ -140,7 +132,26 @@ const Agency = ({
 	};
 
 	const mapProps = {
-		markers: [],
+		markers: [
+			{
+				type: "home",
+				position: {
+					lat: mainProperty?.lat,
+					lng: mainProperty?.lng,
+				},
+				id: "home",
+			},
+			...agency?.properties?.map((prop) => {
+				return {
+					type: "property",
+					position: {
+						lat: prop?.lat,
+						lng: prop?.lng,
+					},
+					id: prop?.id,
+				};
+			}),
+		],
 	};
 
 	return (
@@ -149,7 +160,8 @@ const Agency = ({
 				show={showContactModal}
 				onClose={() => setShowContactModal(false)}
 				properties={properties}
-				agencyInfo={agency?.moreInfo}
+				agencyOwner={agency?.owner}
+				agencyName={agency?.company_name}
 			/>
 			<div
 				className="short-info d-flex align-items-center"
@@ -158,16 +170,15 @@ const Agency = ({
 				<div className="short-info__left d-flex align-items-center w-55">
 					<div className="logo-block">
 						<img
-							src={isMobile ? agency.logoMobile : agency.logo}
-							alt={agency.title}
+							style={{ width: "100%", height: "100%", objectFit: "cover" }}
+							src={agency.logo_image}
+							alt={agency.company_name}
 						/>
 					</div>
 					<div className="info">
-						<span className="agency-name">{agency.title}</span>
+						<span className="agency-name">{agency.company_name}</span>
 						<div className="rating-block d-flex align-items-center">
-							<span className="total">
-								{agencyRating(agencyReviews?.rating)}
-							</span>
+							<span className="total">{agencyRating("4.4")}</span>
 							<StarRatingComponent
 								name="rate"
 								className="custom-rate"
@@ -179,12 +190,10 @@ const Agency = ({
 									/>
 								)}
 								starCount={5}
-								value={Number(agencyRating(agencyReviews?.rating))}
+								value={Number(agencyRating("4.4"))}
 							/>
 							<span className="from">
-								{t("span.from")}{" "}
-								{agencyTotalUserReview(agencyReviews?.user_ratings_total)}{" "}
-								{t("span.reviews")}
+								{t("span.from")} {agencyTotalUserReview(50)} {t("span.reviews")}
 							</span>
 						</div>
 						{agency.id === nearest && (
@@ -194,9 +203,7 @@ const Agency = ({
 				</div>
 				<div className="agency-border" />
 				<div className="short-info__right d-flex align-items-center w-45">
-					<span className="count-block">
-						{agencySimilarProperties?.estates?.length || 0}
-					</span>
+					<span className="count-block">{agency.properties?.length || 0}</span>
 					<div className="address">
 						<p>{t("p.similar-properties-sold")}</p>
 						<p className="d-flex">
@@ -213,25 +220,25 @@ const Agency = ({
 				<div className="more-info d-flex justify-content-between">
 					<div className="agent-block">
 						<div className="agent-info d-flex">
-							<Image src={agency.moreInfo.avatar} roundedCircle />
+							<Image src={agency?.owner?.avatar} roundedCircle />
 							<div className="d-flex flex-column">
 								<span className="bold">
-									{agency.moreInfo.agentName} {agency.moreInfo.agentSurname}
+									{agency?.owner?.firstname} {agency?.owner?.lastname}
 								</span>
-								<span>{agency.moreInfo.position}</span>
+								<span>{"Owner"}</span>
 							</div>
 						</div>
 						<div
 							className="desc"
 							dangerouslySetInnerHTML={agencyDesc(
-								agencyPropertiesInfo?.countSold,
-								agencySimilarProperties?.estates
+								"10",
+								agency?.properties?.length
 							)}
 						></div>
 						<Button className="contact" onClick={() => openContactModal()}>
-							{t("button.contact")} {agency.moreInfo.agentName}
+							{t("button.contact")} {agency?.owner?.firstname}
 						</Button>
-						<Link href={`/agency/${agency.url}`} locale={locale}>
+						<Link href={`/agency/${agency.id}`} locale={locale}>
 							<span className="details">
 								{t("button.agency-details")}{" "}
 								<img src={ArrowImage} alt="ArrowImage" />
@@ -242,14 +249,7 @@ const Agency = ({
 						<div className="map-block d-flex flex-column">
 							<div className="agency-map position-relative">
 								{/*@ts-ignore*/}
-								<GoogleMap
-									{...mapProps}
-									// agencyName={agency.title}
-									// agencyLocation={{
-									// 	lat: agency.location.lat,
-									// 	lng: agency.location.lng,
-									// }}
-								/>
+								<GoogleMap {...mapProps} />
 							</div>
 							<div className="agency-map__info d-flex justify-content-between">
 								<div className="your-property d-flex align-items-center">
