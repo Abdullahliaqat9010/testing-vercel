@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Image } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Image } from "antd";
 
 import { PropertyContainerProps } from "../../types/properties";
 import ArrowImage from "../../assets/images/arrow-blue.svg";
@@ -15,11 +16,13 @@ import { agentsList } from "../../templates/agentsList";
 const PropertyContainer = ({
 	property,
 	active,
-	onClickProperty,
+	onClickProperty = (id) => null,
 }: PropertyContainerProps) => {
 	const { t } = useTranslation("dashboard-page");
 	const router = useRouter();
 	const { locale } = router;
+
+	console.log(property);
 
 	const intervals = [
 		{ label: "year", seconds: 31536000 },
@@ -35,21 +38,22 @@ const PropertyContainer = ({
 	);
 
 	const timeSince = (date) => {
-		const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-		const interval = intervals.find((i) => i.seconds < seconds);
-		const count = Math.floor(seconds / interval.seconds);
+		// const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+		// const interval = intervals.find((i) => i.seconds < seconds);
+		// const count = Math.floor(seconds / interval.seconds);
 
-		if (interval.label === "year" && locale === "fr") {
-			return `${count} ${t(`span.${interval.label}`)} ${t("sold.ago")}${
-				count !== 1 ? "s" : ""
-			}`;
-		}
-		if (interval.label === "month" && locale === "fr") {
-			return `${count} ${t(`span.${interval.label}`)} ${t("sold.ago")}`;
-		}
-		return `${count} ${t(`span.${interval.label}`)}${
-			count !== 1 ? "s" : ""
-		} ${t("sold.ago")}`;
+		// if (interval.label === "year" && locale === "fr") {
+		// 	return `${count} ${t(`span.${interval.label}`)} ${t("sold.ago")}${
+		// 		count !== 1 ? "s" : ""
+		// 	}`;
+		// }
+		// if (interval.label === "month" && locale === "fr") {
+		// 	return `${count} ${t(`span.${interval.label}`)} ${t("sold.ago")}`;
+		// }
+		// return `${count} ${t(`span.${interval.label}`)}${
+		// 	count !== 1 ? "s" : ""
+		// } ${t("sold.ago")}`;
+		return "15 days ago";
 	};
 
 	const getImageLink = () => {
@@ -66,7 +70,7 @@ const PropertyContainer = ({
 			className={`property-block d-flex ${active ? "active-block" : ""}`}
 		>
 			<div className="property-block__image">
-				<Image src={getImageLink()} rounded />
+				<Image src={getImageLink()} preview={false} fallback={NoImage} />
 			</div>
 			<div className="property-block__info">
 				<div className="address">
@@ -75,10 +79,10 @@ const PropertyContainer = ({
 				<div className="short-desc">
 					<div className="time">
 						<span>
-							{t("desc.sold")} {timeSince(new Date(property.sold_date))}{" "}
+							{t("desc.sold")} {timeSince(new Date(property.sold_rent_date))}{" "}
 						</span>
 						{property.company_name && (
-							<Link href={`/agency/${currentAgency?.url}`} locale={locale}>
+							<Link href={`/agency/${currentAgency?.id}`} locale={locale}>
 								{property.company_name}
 							</Link>
 						)}
