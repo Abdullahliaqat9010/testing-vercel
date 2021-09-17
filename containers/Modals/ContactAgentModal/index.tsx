@@ -63,7 +63,7 @@ const ContactAgentModal = ({
 					<Modal.Header closeButton>
 						<Modal.Title className="d-flex flex-column">
 							{t("button.contact")}{" "}
-							{agencyOwner?.firstname + " " + agencyOwner.lastname}
+							{agencyOwner?.firstname + " " + agencyOwner?.lastname}
 							<p>{agencyName}</p>
 						</Modal.Title>
 					</Modal.Header>
