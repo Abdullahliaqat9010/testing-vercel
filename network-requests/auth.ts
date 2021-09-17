@@ -55,23 +55,6 @@ export const login = (email, password): Promise<any> => {
 	});
 };
 
-export const createAgencyProfile = (profile) => {
-	return new Promise(async (res, rej) => {
-		try {
-			await axios.put("agency", {
-				...profile,
-				zip: String(profile?.zip),
-				billing_zip: String(profile?.billing_zip),
-				street_number: String(profile?.street_number),
-				billing_street_number: String(profile?.billing_street_number),
-			});
-			res("");
-		} catch (error) {
-			rej(error);
-		}
-	});
-};
-
 export const recoverPassword = (email, locale) => {
 	return new Promise(async (res, rej) => {
 		try {

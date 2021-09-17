@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
-import { Upload, message } from "antd";
+import React, { useEffect, useState } from "react";
+import { Upload, message, notification } from "antd";
 import {
 	FacebookFilled,
-	InboxOutlined,
 	InstagramFilled,
 	LinkedinFilled,
 	TwitterCircleFilled,
 	YoutubeFilled,
 } from "@ant-design/icons";
 import { QuestionCircleFilled } from "@ant-design/icons";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "react-i18next";
@@ -17,8 +16,51 @@ import NavBarContainer from "../../containers/NavBar";
 import UploadImage from "../../assets/images/upload-img.svg";
 import UploadPicture from "../../assets/images/upload-picture.svg";
 import * as Yup from "yup";
+import { Button } from "react-bootstrap";
+import {
+	getAgencyProfile,
+	handleImageUpload,
+	updateAgencyProfile,
+} from "../../network-requests";
+import Loading from "../../components/Loading";
 
-const { Dragger } = Upload;
+const socialIconsProps = { style: { fontSize: 38, color: "#8F99B4" } };
+
+const socialLinks = [
+	{
+		id: "facebook",
+		icon: <FacebookFilled {...socialIconsProps} />,
+	},
+	{
+		id: "twitter",
+		icon: <TwitterCircleFilled {...socialIconsProps} />,
+	},
+	{
+		id: "instagram",
+		icon: <InstagramFilled {...socialIconsProps} />,
+	},
+	{
+		id: "linkedin",
+		icon: <LinkedinFilled {...socialIconsProps} />,
+	},
+	{
+		id: "youtube",
+		icon: <YoutubeFilled {...socialIconsProps} />,
+	},
+];
+
+const languages = [
+	"Arabe",
+	"Allemand",
+	"Coreen",
+	"Hebreu",
+	"Portugais",
+	"Anglais",
+	"Chinois",
+	"Espagnol",
+	"Italien",
+	"Russe",
+];
 
 const TagInput = ({ tags, setTags }) => {
 	const [tagData, setTagData] = React.useState(tags);
@@ -56,60 +98,135 @@ const TagInput = ({ tags, setTags }) => {
 
 			<input
 				type="text"
-				onKeyUp={(event: any) =>
-					event.key === "Enter" ? addTagData(event) : null
-				}
+				onKeyUp={(event: any) => {
+					event.key === " " ? addTagData(event) : null;
+				}}
 			/>
 		</div>
 	);
 };
 
-const Formpage = () => {
-	const draggerProps = {
-		name: "file",
-		multiple: true,
+function getBase64(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = (error) => reject(error);
+	});
+}
 
-		onChange: (info) => {
-			const { status } = info.file;
-			if (status !== "uploading") {
-				console.log(info.file, info.fileList);
+const Formpage = () => {
+	const { t } = useTranslation();
+
+	const [logoImage, setLogoImage] = useState("");
+	const [coverImage, setCoverImage] = useState("");
+	const [agencyProfile, setAgencyProfile] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+
+	const onSubmit = (values) => {
+		return new Promise(async (res, rej) => {
+			try {
+				const coverImagePromise =
+					values.cover_image instanceof File
+						? handleImageUpload(values.cover_image)
+						: Promise.resolve(values?.cover_image);
+				const logoImagePromise =
+					values.logo_image instanceof File
+						? handleImageUpload(values.logo_image)
+						: Promise.resolve(values?.logo_image);
+				const imageUploadPromise = [coverImagePromise, logoImagePromise];
+				message.info("Uploading images...");
+				const [cover_image, logo_image] = await Promise.all(imageUploadPromise);
+				await updateAgencyProfile({
+					...values,
+					notification_emails: values.notification_emails.join(),
+					social_links: JSON.stringify(values.social_links),
+					languages: JSON.stringify(values.languages),
+					cover_image,
+					logo_image,
+				});
+				notification.success({
+					description: "Changes are made successfully",
+					message: "Success",
+				});
+				res("");
+			} catch (error) {
+				rej(error);
 			}
-			if (status === "done") {
-				message.success(`${info.file.name} file uploaded successfully.`);
-			} else if (status === "error") {
-				message.error(`${info.file.name} file upload failed.`);
-			}
-		},
-		onDrop: (e) => {
-			console.log("Dropped files", e.dataTransfer.files);
-		},
+		});
 	};
 
-	const { t } = useTranslation();
+	const _getAgencyProfile = async () => {
+		try {
+			setIsLoading(true);
+			const _agencyProfile = await getAgencyProfile();
+			setAgencyProfile({ ..._agencyProfile });
+			setCoverImage(_agencyProfile?.cover_image);
+			setLogoImage(_agencyProfile?.logo_image);
+			setIsLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		_getAgencyProfile();
+	}, []);
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<div>
-			<Formik
-				initialValues={{
-					facebookUrl: "",
-					instagramUrl: "",
-					twitterUrl: "",
-					linkedinUrl: "",
-					youtubeUrl: "",
-					languages: [],
-					notificationEmails: [],
-					profilePic: "",
-					coverPic: "",
-				}}
-				// validationSchema={SignupSchema}
-				onSubmit={(values) => {
-					console.log(values);
-				}}
-			>
-				{({ values, setFieldValue }) => (
-					<Form>
-						<HeaderContainer title={t("title")} />
-						<div className="AgencySettingsPage container d-flex">
-							<NavBarContainer />
+			<HeaderContainer title={t("title")} />
+			<div className="AgencySettingsPage container d-flex">
+				<NavBarContainer />
+
+				<Formik
+					initialValues={{
+						social_links: agencyProfile?.social_links
+							? JSON.parse(agencyProfile?.social_links)
+							: {
+									facebook: "",
+									twitter: "",
+									instagram: "",
+									youtube: "",
+									linkedin: "",
+							  },
+						languages: agencyProfile?.languages
+							? JSON.parse(agencyProfile?.languages)
+							: {
+									arabe: false,
+									allemand: false,
+									coreen: false,
+									hebreu: false,
+									portugais: false,
+									anglais: false,
+									chinois: false,
+									espagnol: false,
+									italien: false,
+									russe: false,
+							  },
+						notification_emails: agencyProfile?.notification_emails
+							? agencyProfile?.notification_emails.split(",")
+							: [],
+						logo_image: agencyProfile?.logo_image
+							? agencyProfile?.logo_image
+							: "",
+						cover_image: agencyProfile?.cover_image
+							? agencyProfile?.cover_image
+							: "",
+						description: agencyProfile?.description
+							? agencyProfile?.description
+							: "",
+						website: agencyProfile?.website ? agencyProfile?.website : "",
+					}}
+					// validationSchema={SignupSchema}
+					onSubmit={onSubmit}
+				>
+					{({ values, setFieldValue, submitForm, isSubmitting }) => (
+						<Form>
 							<div className="AgencySettingsPage__container w-100">
 								<div className="first-block">
 									<h1>{"Votre vitrine"}</h1>
@@ -122,8 +239,8 @@ const Formpage = () => {
 									</div>
 
 									<div className="password-block2">
-										<div className="photo-container">
-											<div>
+										<div className="d-flex flex-row justify-content-between pb-4">
+											<div className="pr-3">
 												<h2>{"Photo d’en-tete"}</h2>
 												<div>
 													La photo de votre vitrine est un reflet de votre
@@ -132,123 +249,146 @@ const Formpage = () => {
 													intérieur).
 												</div>
 											</div>
-											<div className="user-info-block">
-												<Dragger {...draggerProps} className="w-100">
-													<div className="Dragger">
-														<div className="child-Dragger">
-															<p>
-																<img src={UploadImage} alt="LogoFooter" />
-															</p>
-
-															<div className="d-flex justify-content-center">
-																<button>
-																	<img src={UploadPicture} alt="LogoFooter" />
-																	<div className="upload">Upload</div>
-																</button>
-															</div>
+											<div
+												style={{ width: 160 }}
+												className="d-flex flex-row-reverse"
+											>
+												<Upload
+													className="logo_uploader"
+													id="logo"
+													beforeUpload={() => false}
+													listType="picture-card"
+													showUploadList={false}
+													onChange={async ({ file }) => {
+														const _base64 = (await getBase64(file)) as string;
+														setLogoImage(_base64);
+														setFieldValue("logo_image", file);
+													}}
+												>
+													{values.logo_image ? (
+														<img
+															style={{
+																objectFit: "cover",
+																width: "100%",
+																height: "100%",
+															}}
+															src={logoImage}
+														/>
+													) : (
+														<div>
+															<img src={UploadImage} />
+															<Button className="upload-btn">
+																<img
+																	className="mr-1 pb-1"
+																	src={UploadPicture}
+																/>
+																Upload
+															</Button>
 														</div>
-													</div>
-												</Dragger>
+													)}
+												</Upload>
 											</div>
 										</div>
 										<div className="alert-block">
-											<QuestionCircleFilled color={"#d3d3d3"} />
-											<div className="text-block">
+											<QuestionCircleFilled
+												style={{ paddingTop: 5, paddingRight: 10 }}
+												color={"#d3d3d3"}
+											/>
+											<div>
 												Astuce: Pour un rendu optimal prenez une photo de votre
 												agence avec votre smartphone en position horizontale. La
 												dImension idêale de la photo est de 1135 pixels de
 												largeur et 350 pl.. de hauteur.
 											</div>
 										</div>
-										{/* <Dragger {...draggerProps}>
-											<div className="Dragger">
-												<div className="child-Dragger">
-													<p className="ant-upload-drag-icon">
-														<img src={UploadImage} alt="LogoFooter" />
-													</p>
-													<p className="upload-text">
-														Drag’n’drop to upload your cover image or click
-													</p>
-													<div className="d-flex justify-content-center">
-														<button>
-															<img src={UploadPicture} alt="LogoFooter" />
-															<div className="upload">Upload</div>
-														</button>
+										<div className="w-100">
+											<Upload
+												className="cover_uploader"
+												listType="picture-card"
+												id="cover"
+												beforeUpload={() => false}
+												showUploadList={false}
+												onChange={async ({ file }) => {
+													const _base64 = (await getBase64(file)) as string;
+													setCoverImage(_base64);
+													setFieldValue("cover_image", file);
+												}}
+											>
+												{values.cover_image ? (
+													<img
+														style={{
+															objectFit: "cover",
+															width: "100%",
+															height: "100%",
+														}}
+														src={coverImage}
+													/>
+												) : (
+													<div className="d-flex flex-column">
+														<img src={UploadImage} />
+														<Button className="upload-btn">
+															<img className="mr-1 pb-1" src={UploadPicture} />
+															Upload
+														</Button>
 													</div>
-												</div>
-											</div>
-										</Dragger> */}
-										<div className="password-block2">
-											<h2>Socials</h2>
-											<div className="social-container">
-												<FacebookFilled
-													style={{ fontSize: 35, color: "#8F99B4" }}
-												/>
-
+												)}
+											</Upload>
+											<div className="d-flex flex-column form-input-block mt-4">
+												<label
+													className="form-label fs-2"
+													htmlFor="description"
+												>
+													Description
+												</label>
 												<Field
-													className="input-field"
-													type="url"
-													name="facebookUrl"
-													value={values.facebookUrl}
-													placeholder={"https://facebook.com/yourcompany"}
+													className="form-input"
+													name="description"
+													type="text"
+													as="textarea"
+													style={{ height: "auto" }}
+													rows={5}
 												/>
-											</div>
-											<div className="social-container">
-												<TwitterCircleFilled
-													style={{ fontSize: 35, color: "#8F99B4" }}
-												/>
-
-												<Field
-													className="input-field"
-													type="url"
-													name="twitterUrl"
-													value={values.twitterUrl}
-													placeholder={"https://twitter.com/yourcompany"}
+												<ErrorMessage
+													className="form-error"
+													component="div"
+													name="description"
 												/>
 											</div>
-											<div className="social-container">
-												<InstagramFilled
-													style={{ fontSize: 35, color: "#8F99B4" }}
-												/>
-
+											<div className="d-flex flex-column form-input-block mt-4">
+												<label className="form-label fs-2" htmlFor="website">
+													Link to your website
+												</label>
 												<Field
-													className="input-field"
-													type="url"
-													name="instagramUrl"
-													value={values.instagramUrl}
-													placeholder={"https://instagram.com/yourcompany"}
+													className="form-input"
+													name="website"
+													type="text"
 												/>
-											</div>
-											<div className="social-container">
-												<LinkedinFilled
-													style={{ fontSize: 35, color: "#8F99B4" }}
-												/>
-
-												<Field
-													className="input-field"
-													type="url"
-													name="linkedinUrl"
-													value={values.linkedinUrl}
-													placeholder={"https://linkedin.com/yourcompany"}
-												/>
-											</div>
-											<div className="social-container">
-												<YoutubeFilled
-													style={{ fontSize: 35, color: "#8F99B4" }}
-												/>
-
-												<Field
-													className="input-field"
-													type="url"
-													name="youtubeUrl"
-													value={values.youtubeUrl}
-													placeholder={"https://youtube.com/yourcompany"}
+												<ErrorMessage
+													className="form-error"
+													component="div"
+													name="website"
 												/>
 											</div>
 										</div>
+										<div className="password-block2 pb-0">
+											<h2>Socials</h2>
+											{socialLinks.map(({ icon, id }) => (
+												<div key={id} className="social-container">
+													{icon}
+													<div className="ml-4 w-100">
+														<Field
+															className="form-input w-100 h-auto"
+															type="text"
+															name={`social_links.${id}`}
+															placeholder={`https://${id}.com/yourcompany`}
+														/>
+													</div>
+												</div>
+											))}
+										</div>
 										<div className="password-block2">
 											<h2>Languages</h2>
-											<div className="pb-3 pt-1 small">
+											<div className="pb-3 small">
 												Please select any that apply.
 											</div>
 											<div
@@ -256,133 +396,44 @@ const Formpage = () => {
 												aria-labelledby="checkbox-group"
 												style={{ width: "100%" }}
 											>
-												<div className="d-flex flex-row align-items-center">
-													<div className="w-50">
-														<div className="w-25 my-2 d-flex align-items-center">
+												<div className="d-flex flex-row align-items-center flex-wrap">
+													{languages.map((language) => (
+														<div
+															key={language}
+															className="w-50 my-2 d-flex flex-row justify-content-start align-items-center"
+														>
 															<Field
 																type="checkbox"
-																name="languages"
-																value="Arabe"
+																name={`languages.${language.toLowerCase()}`}
 															/>
-															<label className="ml-2" htmlFor="Arabe">
-																Arabe
+															<label className="ml-3 mb-0" htmlFor={language}>
+																{language}
 															</label>
 														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Allemand"
-															/>
-															<label className="ml-2" htmlFor="Allemand">
-																Allemand
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Coreen"
-															/>
-															<label className="ml-2" htmlFor="Coreen">
-																Coreen
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Hebreu"
-															/>
-															<label className="ml-2" htmlFor="Hebreu">
-																Hebreu
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Portugais"
-															/>
-															<label className="ml-2" htmlFor="Portugais">
-																Portugais
-															</label>
-														</div>
-													</div>
-													<div className="w-50">
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Anglais"
-															/>
-															<label className="ml-2" htmlFor="Anglais">
-																Anglais
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Chinois"
-															/>
-															<label className="ml-2" htmlFor="Chinois">
-																Chinois
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Espagnol"
-															/>
-															<label className="ml-2" htmlFor="Espagnol">
-																Espagnol
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Italien"
-															/>
-															<label className="ml-2" htmlFor="Italien">
-																Italien
-															</label>
-														</div>
-														<div className="w-25 my-2 d-flex align-items-center">
-															<Field
-																type="checkbox"
-																name="languages"
-																value="Russe"
-															/>
-															<label className="ml-2" htmlFor="Russe">
-																Russe
-															</label>
-														</div>
-													</div>
+													))}
 												</div>
 											</div>
 										</div>
 										<div className="password-block2">
 											<h2>Email notifications</h2>
-											<div className="small pb-1 pt-3">
+											<div style={{ fontSize: 14 }} className="pb-1 pt-3">
 												Enter email you’d like to receive system notifications
 											</div>
-											<div className="small pb-3 pt-1">
-												You can indicate several emails here.
-											</div>
 											<TagInput
-												tags={values.notificationEmails}
+												tags={values.notification_emails}
 												setTags={(tags) => {
-													setFieldValue("notificationEmails", tags);
+													setFieldValue("notification_emails", tags);
 												}}
 											/>
 										</div>
 										<div className="button-container">
 											<div className="button-container2">
-												<button className="save-button" type="submit">
-													Save Changes
+												<button
+													className="save-button"
+													type="button"
+													onClick={() => submitForm()}
+												>
+													{isSubmitting ? "Loading..." : "Save Changes"}
 												</button>
 											</div>
 											<div className="button-container2">
@@ -394,10 +445,10 @@ const Formpage = () => {
 									</div>
 								</div>
 							</div>
-						</div>
-					</Form>
-				)}
-			</Formik>
+						</Form>
+					)}
+				</Formik>
+			</div>
 		</div>
 	);
 };

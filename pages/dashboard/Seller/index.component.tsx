@@ -16,9 +16,13 @@ import {
 	getEstimation,
 	getProperties,
 	getSimilarProperties,
+	getProperty,
 } from "../../../network-requests";
 
 const SellerDashboard = () => {
+	const mainPropertyId = useSelector(
+		(state: RootState) => state.property.mainPropertyId
+	);
 	const { t } = useTranslation("dashboard-page");
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
@@ -26,7 +30,7 @@ const SellerDashboard = () => {
 	const [mainProperty, setMainProperty] = useState(null);
 	const [estimation, setEstimation] = useState(null);
 	const [similarProperties, setSimilarProperties] = useState([]);
-	const [properties, setProperties] = useState([]);
+	// const [properties, setProperties] = useState([]);
 
 	useEffect(() => {
 		_getProperties();
@@ -35,15 +39,13 @@ const SellerDashboard = () => {
 	const _getProperties = async () => {
 		try {
 			setIsLoading(true);
-			const _properties = await getProperties(userId);
-			setProperties([..._properties]);
-			if (_properties.length > 0) {
-				setMainProperty(_properties[0]);
-				const estimate = await getEstimation(_properties[0]?.id);
+			const _properties = await getProperty(mainPropertyId);
+			setMainProperty(_properties);
+			if (_properties) {
+				setMainProperty(_properties);
+				const estimate = await getEstimation(_properties?.id);
 				setEstimation(estimate);
-				const _similarProperties = await getSimilarProperties(
-					_properties[0]?.id
-				);
+				const _similarProperties = await getSimilarProperties(_properties?.id);
 				setSimilarProperties([..._similarProperties]);
 			}
 		} catch (error) {
@@ -69,7 +71,10 @@ const SellerDashboard = () => {
 						similarProperties={similarProperties}
 						mainProperty={mainProperty}
 					/>
-					<FindAgentBlock properties={properties} mainProperty={mainProperty} />
+					<FindAgentBlock
+						properties={[mainProperty]}
+						mainProperty={mainProperty}
+					/>
 				</div>
 			</div>
 			<FooterContainer />

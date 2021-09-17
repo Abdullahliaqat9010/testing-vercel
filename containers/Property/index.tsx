@@ -1,11 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, Image } from "react-bootstrap";
-
-import { setActivePropertyFromMapAction } from "../../actions";
 
 import { PropertyContainerProps } from "../../types/properties";
 import ArrowImage from "../../assets/images/arrow-blue.svg";
@@ -13,7 +11,6 @@ import NoImage from "../../assets/images/no-image-available.svg";
 import NoImageFr from "../../assets/images/no-image-available-fr.svg";
 
 import { agentsList } from "../../templates/agentsList";
-import { RootState } from "../../types/state";
 
 const PropertyContainer = ({
 	property,
@@ -23,12 +20,6 @@ const PropertyContainer = ({
 	const { t } = useTranslation("dashboard-page");
 	const router = useRouter();
 	const { locale } = router;
-
-	const dispatch = useDispatch();
-
-	// React.useEffect(() => {
-	// 	console.log(property);
-	// }, []);
 
 	const intervals = [
 		{ label: "year", seconds: 31536000 },

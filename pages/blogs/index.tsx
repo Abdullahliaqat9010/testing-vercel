@@ -9,6 +9,8 @@ import { Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { parseJwt } from "../../utils";
 import { config } from "../../config/siteConfigs";
+import moment from "moment";
+import FooterContainer from "../../containers/Footer";
 
 const BlogCard = ({ blog }) => {
 	const router = useRouter();
@@ -23,23 +25,26 @@ const BlogCard = ({ blog }) => {
 			<div
 				style={{
 					display: "flex",
-					alignItems: "center",
 					flexDirection: "row",
+					alignItems: "center",
 					paddingTop: 20,
 				}}
 			>
 				<img
-					style={{ width: 30, borderRadius: 15 }}
-					src={
-						"https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png"
-					}
+					src={"https://picsum.photos/200"}
+					style={{
+						width: 30,
+						height: 30,
+						borderRadius: 20,
+						marginRight: 10,
+					}}
 				/>
-				<text style={{ paddingLeft: 10, color: "#5183f1" }}>James Doe</text>
-				<text style={{ paddingLeft: 10, paddingRight: 10, color: "#ebf1fd" }}>
-					|
+				<text style={{ fontSize: 14 }}>
+					{`By Belgium Immo . ${t("text.update")} `}
+					<span>
+						{moment(blog?.updatedAt).format("MMM[.] DD[,] YYYY")}
+					</span>{" "}
 				</text>
-				<text style={{ color: "#878fa4" }}>{t("text.update")} on </text>
-				<text style={{ color: "#5183f1", paddingLeft: 10 }}>Jan 23 2021</text>
 			</div>
 			<img
 				style={{
@@ -135,6 +140,7 @@ const Blogs = ({ blogs }) => {
 					return <BlogCard key={blog.id} blog={blog} />;
 				})}
 			</div>
+			<FooterContainer />
 		</div>
 	);
 };
