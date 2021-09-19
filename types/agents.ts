@@ -31,31 +31,7 @@ export interface AgentsItem {
 
 export interface AgencyProps {
 	nearest: number | undefined;
-	agency: {
-		id: number;
-		title: string;
-		tag: string;
-		agencyAddress: string;
-		url: string;
-		location: {
-			lat: number;
-			lng: number;
-		};
-		rate?: string;
-		reviews?: string;
-		place_id?: string;
-		logo: string;
-		logoMobile: string;
-		count: number;
-		email: string;
-		moreInfo: {
-			agentName: string;
-			agentSurname: string;
-			position: string;
-			avatar: string;
-			desc: string;
-		};
-	};
+	agency: any;
 	mainProperty: any;
 	properties: any[];
 }

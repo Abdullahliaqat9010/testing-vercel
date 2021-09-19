@@ -36,7 +36,7 @@
 					border-radius: 6px;
 					padding: 10px;
 					background-color: var(--bg-blue);
-                    border: none;
+					border: none;
 				}
 			}
 			img {
@@ -48,7 +48,7 @@
 			border-bottom: 1px solid rgba(56, 113, 239, 0.25);
 			padding: 1.5rem 0rem;
 			.property-images-block {
-                width: 40%;
+				width: 40%;
 				input {
 					align-self: center;
 				}
@@ -58,16 +58,17 @@
 				}
 
 				.first-image {
-					height: 90px;
-					width: 70%;
+					height: 100px;
+					width: 100px;
 					border-radius: 6px;
-					// margin: 0px 2px;
+					object-fit: cover;
 				}
 				.second-images {
-					width: 95%;
-					height: 43px;
+					width: 48px;
+					height: 48px;
 					margin: 2px 0px;
 					border-radius: 6px;
+					object-fit: cover;
 				}
 			}
 			.property-discription {
@@ -110,7 +111,7 @@
 					border-radius: 6px;
 					font-size: 18px;
 					line-height: 18px;
-                    background: var(--colorWhite);
+					background: var(--colorWhite);
 				}
 				img {
 					width: 18px;

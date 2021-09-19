@@ -66,7 +66,7 @@
 				.Dragger {
 					.child-Dragger {
 						.upload-text {
-							font-family: Nunito Sans;
+							font-family: var(--fontNunito);
 							font-style: normal;
 							font-weight: normal;
 							font-size: 14px;
@@ -90,7 +90,7 @@
 							border-radius: 6px;
 
 							.upload {
-								font-family: Nunito Sans;
+								font-family: var(--fontNunito);
 								font-style: normal;
 								font-weight: normal;
 								font-size: 14px;
@@ -133,7 +133,7 @@
 									border-radius: 6px;
 
 									.upload {
-										font-family: Nunito Sans;
+										font-family: var(--fontNunito);
 										font-style: normal;
 										font-weight: normal;
 										font-size: 14px;
@@ -176,7 +176,7 @@
 				.tag-input {
 					display: flex;
 					flex-wrap: wrap;
-					min-height: 48px;
+					//min-height: 48px;
 					padding: 0 8px;
 					border: 2px solid #8f99b4;
 					border-radius: 6px;
@@ -185,7 +185,7 @@
 				.tag-input input {
 					flex: 1;
 					border: none;
-					height: 46px;
+					height: 40px;
 					font-size: 14px;
 					padding: 4px 0 0;
 				}
@@ -239,12 +239,6 @@
 					margin-bottom: 20px;
 					display: flex;
 					flex-direction: row;
-					align-items: center;
-					justify-content: space-between;
-
-					.text-block {
-						width: calc(100% - 50px);
-					}
 				}
 
 				h2 {
@@ -313,10 +307,9 @@
 					flex-direction: row;
 					.button-container2 {
 						padding: 10px 0;
-						flex: 1;
 						display: flex;
 						align-items: center;
-						justify-content: center;
+						justify-content: flex-start;
 						.save-button {
 							color: #fff;
 							display: flex;
@@ -327,7 +320,7 @@
 							background: #3871ef;
 							border-radius: 8px;
 							border: none;
-							margin: 0 10px;
+							//margin: 0 10px;
 							width: 250px;
 						}
 
@@ -363,12 +356,6 @@
 					margin: 10px;
 					display: flex;
 					flex-direction: row;
-					align-items: center;
-					justify-content: space-between;
-
-					.text-block {
-						width: calc(100% - 50px);
-					}
 				}
 
 				h2 {
@@ -538,7 +525,7 @@
 					border-radius: 6px;
 
 					.upload {
-						font-family: Nunito Sans;
+						font-family: var(--fontNunito);
 						font-style: normal;
 						font-weight: normal;
 						font-size: 14px;
@@ -572,14 +559,6 @@
 				border-radius: 80px;
 				border: 1px solid rgba(56, 113, 239, 0.2);
 				object-fit: cover;
-			}
-
-			.upload-btn {
-				cursor: pointer;
-				margin-top: 10px;
-				font-size: 14px;
-				line-height: 19px;
-				color: var(--colorBlue);
 			}
 		}
 
@@ -829,6 +808,17 @@
 				.password-block2 {
 					.button-container {
 						flex-direction: column;
+						.button-container2 {
+							width: 100%;
+							.save-button {
+								width: 100%;
+								margin: 0px;
+							}
+							.view-my-agency {
+								width: 100%;
+								margin: 0px;
+							}
+						}
 					}
 					.photo-container {
 						flex-direction: column;
@@ -925,4 +915,40 @@
 
 .inputAvatarfile + label {
 	cursor: pointer; /* "hand" cursor */
+}
+
+.logo_uploader > .ant-upload {
+	width: 160px;
+	height: 160px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	border-radius: 6px;
+	padding: 5px;
+}
+
+.cover_uploader > .ant-upload {
+	width: 100%;
+	height: 230px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	border-radius: 6px;
+	padding: 5px;
+}
+
+.ant-upload-picture-card-wrapper {
+	width: 100%;
+}
+
+.upload-btn {
+	cursor: pointer;
+	margin-top: 10px;
+	font-size: 14px;
+	line-height: 19px;
+	color: var(--colorBlue);
+	background-color: white;
+}
+
+.upload-btn:hover {
+	color: var(--colorBlue);
+	background-color: white;
 }

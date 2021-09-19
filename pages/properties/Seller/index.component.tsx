@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -19,10 +19,12 @@ import BathIcon from "../../../assets/images/bath.svg";
 import { RootState } from "../../../types/state";
 import { getProperties } from "../../../network-requests";
 import Loading from "../../../components/Loading";
+import { setMainProperty } from "../../../actions";
 
 const PropertiesPage = () => {
 	const { t } = useTranslation("properties-page");
 	const router = useRouter();
+	const dispatch = useDispatch();
 	const { locale } = router;
 	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
@@ -70,11 +72,17 @@ const PropertiesPage = () => {
 							<div className="property" key={index}>
 								<div className="property__head">
 									<span className="address">{property.search_address}</span>
-									<Link href={`/property/${property.id}`} locale={locale}>
+									<button
+										style={{ border: 0, backgroundColor: "white" }}
+										onClick={() => {
+											dispatch(setMainProperty(property.id));
+											router.push("/dashboard");
+										}}
+									>
 										<span className="blue">
 											{t("link.view")} <img src={ArrowIcon} alt="ArrowIcon" />
 										</span>
-									</Link>
+									</button>
 								</div>
 								<div className="property__body">
 									<div className="short-info">

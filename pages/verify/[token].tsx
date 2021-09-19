@@ -4,20 +4,14 @@ import { useRouter } from "next/router";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import { verifyEmailAction } from "../../actions";
 import { RootState } from "../../types/state";
 import Loading from "../../components/Loading";
 
 const Token = () => {
 	const router = useRouter();
 	const { locale } = router;
-	const dispatch = useDispatch();
 	const { email_verified } = useSelector((state: RootState) => state.userInfo);
 	const { token } = router.query;
-
-	useEffect(() => {
-		dispatch(verifyEmailAction(token));
-	}, []);
 
 	useEffect(() => {
 		if (email_verified) {
