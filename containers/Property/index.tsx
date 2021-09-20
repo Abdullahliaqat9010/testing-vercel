@@ -22,8 +22,6 @@ const PropertyContainer = ({
 	const router = useRouter();
 	const { locale } = router;
 
-	console.log(property);
-
 	const intervals = [
 		{ label: "year", seconds: 31536000 },
 		{ label: "month", seconds: 2592000 },
