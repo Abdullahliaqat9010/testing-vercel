@@ -30,7 +30,7 @@ interface GoogleMapProps {
 const GoogleMap = ({
 	google,
 	markers = [],
-	onActiveMarker,
+	onActiveMarker = (id) => null,
 }: GoogleMapProps) => {
 	const [center, setCenter] = useState({
 		lat: markers.length > 0 ? markers[0].position.lat : 51.260197,

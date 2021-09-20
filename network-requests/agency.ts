@@ -13,11 +13,79 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
-export const getAgencyProperties = (): Promise<any[]> => {
+export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: properties } = await axios.get("agency/properties/all");
+			const { data: properties } = await axios.get("agency/properties/all", {
+				params: {
+					page,
+					limit,
+				},
+			});
 			res(properties);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const getAgencyProfile = (): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.get("agency/profile");
+			res(data);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const getAgencyById = (id: number): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.get(`agency/profile/${id}`);
+			res(data);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const createAgencyProfile = (profile) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.put("agency", {
+				...profile,
+				zip: String(profile?.zip),
+				billing_zip: String(profile?.billing_zip),
+				street_number: String(profile?.street_number),
+				billing_street_number: String(profile?.billing_street_number),
+			});
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const updateAgencyProfile = (profile) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.put("agency", {
+				...profile,
+			});
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const getAgencies = (): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data: agencies } = await axios.get("agency");
+			res(agencies);
 		} catch (error) {
 			rej(error);
 		}

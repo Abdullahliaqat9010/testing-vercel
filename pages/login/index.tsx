@@ -39,7 +39,11 @@ const LoginPage = () => {
 					})
 				);
 				res("");
-				router.push("/dashboard");
+				if (userProfile.account_type === "agent") {
+					router.push("/properties");
+				} else {
+					router.push("/dashboard");
+				}
 			} catch (error) {
 				actions.setErrors({
 					password: "Invalid email or password",
@@ -166,7 +170,6 @@ const LoginPage = () => {
 
 export const getServerSideProps = handleAlreadyAuthenticated(
 	async ({ locale }) => {
-		console.log("testing1");
 		return {
 			props: {
 				...(await serverSideTranslations(locale, ["login-page", "header"])),

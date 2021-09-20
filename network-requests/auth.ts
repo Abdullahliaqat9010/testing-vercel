@@ -39,7 +39,7 @@ export const signup = (userData): Promise<any> => {
 	});
 };
 
-export const login = (email, password): Promise<any> => {
+export const login = (email, password): Promise<UserProfile> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data } = await axios.post("auth/login", {
@@ -49,23 +49,6 @@ export const login = (email, password): Promise<any> => {
 			const parsedData = jwt.decode(data?.access_token) as UserProfile;
 			await setTokens(data?.access_token, data?.refresh_token);
 			res(parsedData);
-		} catch (error) {
-			rej(error);
-		}
-	});
-};
-
-export const createAgencyProfile = (profile) => {
-	return new Promise(async (res, rej) => {
-		try {
-			await axios.put("agency", {
-				...profile,
-				zip: String(profile?.zip),
-				billing_zip: String(profile?.billing_zip),
-				street_number: String(profile?.street_number),
-				billing_street_number: String(profile?.billing_street_number),
-			});
-			res("");
 		} catch (error) {
 			rej(error);
 		}

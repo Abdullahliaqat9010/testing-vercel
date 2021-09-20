@@ -87,7 +87,7 @@ const SignupForm = ({
 						firstname: "",
 						lastname: "",
 						email: "",
-						phone: "",
+						phone_number: "",
 						password: "",
 						confirm_password: "",
 						t_c: false,

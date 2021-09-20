@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
 
 import {
@@ -12,11 +12,7 @@ import {
 	Tooltip,
 } from "react-bootstrap";
 
-import { getPriceForPropertyAction } from "../../../../actions";
-import { RootState } from "../../../../types/state";
-
 import SuccessImage from "../../../../assets/images/success.png";
-import NoEstimationImage from "../../../../assets/images/no-estimation.svg";
 import { estimationButtonsList } from "../../../../templates/estimationButtonsList";
 
 const EstimateBlock = ({ estimation, mainProperty }) => {
@@ -49,12 +45,6 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 
 	const [estimationPopup, setEstimationPopup] = useState<boolean>(false);
 	const [thanksPopup, setThanksPopup] = useState<boolean>(false);
-
-	useEffect(() => {
-		if (mainProperty && mainProperty.id) {
-			dispatch(getPriceForPropertyAction(mainProperty.id));
-		}
-	}, [mainProperty]);
 
 	useEffect(() => {
 		if (estimation?.totalValue && mainProperty.live_area) {

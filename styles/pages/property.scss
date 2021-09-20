@@ -266,7 +266,7 @@
 		}
 	}
 
-	@media (min-width: 768px) and (max-width: 1439px) {
+	@media (max-width: 768px) {
 		&__main-content {
 			.property-info {
 				max-height: unset;
@@ -366,7 +366,7 @@
 		}
 	}
 
-	@media (min-width: 320px) and (max-width: 767px) {
+	@media (max-width: 320px) {
 		padding: 30px 20px 40px;
 
 		&__main-content {
