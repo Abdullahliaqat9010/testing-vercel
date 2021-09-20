@@ -35,6 +35,8 @@ import "../styles/pages/estimate.scss";
 import "../styles/pages/sold-properties.scss";
 import "../styles/PropertyDetailsModal.scss";
 import "../styles/pages/agency-settings.scss";
+import "../styles/pages/compare-agency.scss"
+import "../styles/pages/compare-agency-result.scss"
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
