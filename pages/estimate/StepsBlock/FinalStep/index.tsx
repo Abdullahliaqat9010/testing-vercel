@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "next-i18next";
 import ArrowIcon from "../../../../assets/images/arrow-blue.svg";
 
-import {
-	checkIfEmailExistAction,
-	sendStepsDataRequestAction,
-	setUserDataAction,
-	setUserProfile,
-} from "../../../../actions";
+import { setUserProfile } from "../../../../actions";
 import { RootState } from "../../../../types/state";
 
-import IconBack from "../../../../assets/images/long-arrow.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
-import { regexp } from "../../../../utils";
 import SignupForm from "../../../../components/SignupForm";
 import { createProperty, signup } from "../../../../network-requests";
 

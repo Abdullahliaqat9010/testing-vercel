@@ -1,13 +1,16 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useTranslation } from "next-i18next";
+import moment from "moment";
+
 import StaticImage1 from "../../../assets/images/template/first-image.png";
 import StaticImage2 from "../../../assets/images/template/second-image.png";
 import StaticImage3 from "../../../assets/images/template/third-image.png";
 import MapImage from "../../../assets/images/agency-page/bg-agency.jpeg";
 import TotalSquareImage from "../../../assets/images/total-square.svg";
+import NoImage from "../../../assets/images/no-image-available.svg";
 
-const PropertyDetailsModal = ({ show, onClose }) => {
+const PropertyDetailsModal = ({ show, onClose, property }) => {
 	const onHideModal = () => {
 		onClose();
 	};
@@ -21,8 +24,12 @@ const PropertyDetailsModal = ({ show, onClose }) => {
 		>
 			<Modal.Header closeButton>
 				<Modal.Title className="d-flex flex-column">
-					<div className="title">€1,100,000</div>
-					<p className="subtitle">Sold on May 14, 2020</p>
+					<div className="title">{`€${property?.price}`}</div>
+					<p className="subtitle">{`Sold on ${
+						property?.sold_rent_date
+							? moment(property?.sold_rent_date).format("MMM DD, YYYY")
+							: moment().format("MMM DD, YYYY")
+					}`}</p>
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
@@ -30,20 +37,32 @@ const PropertyDetailsModal = ({ show, onClose }) => {
 					<div className="main-container">
 						<div className="image-container2">
 							<img
-								src={StaticImage1}
+								src={
+									property?.images[0]?.url_large
+										? property?.images[0]?.url_large
+										: NoImage
+								}
 								style={{ height: "100%", width: "100%" }}
 								alt=""
 							/>
 							<div className="subimage-container">
 								<img
 									className="img1"
-									src={StaticImage2}
+									src={
+										property?.images[1]?.url_large
+											? property?.images[1]?.url_large
+											: NoImage
+									}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
 								<img
 									className="img2"
-									src={StaticImage3}
+									src={
+										property?.images[2]?.url_large
+											? property?.images[2]?.url_large
+											: NoImage
+									}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
@@ -52,8 +71,7 @@ const PropertyDetailsModal = ({ show, onClose }) => {
 						<div className="info-container">
 							<div className="address-and-map">
 								<div className="address">
-									<div>2464 Royal Ln. Mesa,</div>
-									<div>New Jersey 45463</div>
+									<div className="w-70">{property?.search_address}</div>
 								</div>
 
 								<div className="map">
@@ -66,14 +84,14 @@ const PropertyDetailsModal = ({ show, onClose }) => {
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
 											<div className="heading">Total Square</div>
-											<div className="info">100m²</div>
+											<div className="info">{`${property?.total_area}m²`}</div>
 										</div>
 									</div>
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Total Square</div>
-											<div className="info">100m²</div>
+											<div className="heading">Living Square</div>
+											<div className="info">{`${property?.live_area}m²`}</div>
 										</div>
 									</div>
 								</div>
@@ -81,15 +99,15 @@ const PropertyDetailsModal = ({ show, onClose }) => {
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Total Square</div>
-											<div className="info">100m²</div>
+											<div className="heading">Beds</div>
+											<div className="info">{`${property?.bedrooms}`}</div>
 										</div>
 									</div>
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Total Square</div>
-											<div className="info">100m²</div>
+											<div className="heading">Baths</div>
+											<div className="info">{`${property?.bathrooms}`}</div>
 										</div>
 									</div>
 								</div>
@@ -97,20 +115,32 @@ const PropertyDetailsModal = ({ show, onClose }) => {
 						</div>
 						<div className="image-container">
 							<img
-								src={StaticImage1}
+								src={
+									property?.images[0]?.url_large
+										? property?.images[0]?.url_large
+										: NoImage
+								}
 								style={{ height: "100%", width: "100%" }}
 								alt=""
 							/>
 							<div className="subimage-container">
 								<img
 									className="img1"
-									src={StaticImage2}
+									src={
+										property?.images[1]?.url_large
+											? property?.images[1]?.url_large
+											: NoImage
+									}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
 								<img
 									className="img2"
-									src={StaticImage3}
+									src={
+										property?.images[2]?.url_large
+											? property?.images[2]?.url_large
+											: NoImage
+									}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>

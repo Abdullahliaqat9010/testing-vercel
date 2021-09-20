@@ -29,7 +29,7 @@ const FirstBlock = ({
 	currentAgency,
 	properties,
 }: {
-	currentAgency: AgentsItem;
+	currentAgency: any;
 	properties: any[];
 }) => {
 	const { t } = useTranslation("agency-page");
@@ -41,23 +41,40 @@ const FirstBlock = ({
 		setShowBlock(true);
 	};
 
+	const getLanguages = (languages) => {
+		let langs = [];
+		for (const key in languages) {
+			if (languages[key] === true) {
+				langs.push(key);
+			}
+		}
+		return langs.join(", ");
+	};
+
 	return (
 		<div className="Agency__first-block">
 			<ContactAgentModal
 				show={showContactModal}
 				onClose={() => setShowContactModal(false)}
 				properties={properties}
-				agencyInfo={currentAgency.moreInfo}
+				agencyOwner={currentAgency?.owner}
+				agencyName={currentAgency?.company_name}
 			/>
 			<div className="main-content">
-				<img className="main-content__bg" src={BGImage} alt="BGImage" />
+				<img
+					className="main-content__bg"
+					src={
+						currentAgency?.cover_image ? currentAgency?.cover_image : BGImage
+					}
+					alt="BGImage"
+				/>
 				<div className="agency-info">
 					<div className="d-flex agency-info__title">
 						<div className="logo-block">
-							<img src={currentAgency.logo} alt="logo" />
+							<img src={currentAgency?.logo_image} alt="logo" />
 						</div>
 						<div className="agency-info__block">
-							<h1 className="agency-name">{currentAgency.title}</h1>
+							<h1 className="agency-name">{currentAgency?.company_name}</h1>
 							<div className="rating-block d-flex align-items-center">
 								<span className="total">5.0</span>
 								<StarRatingComponent
@@ -88,7 +105,7 @@ const FirstBlock = ({
 								<span>{t("span.address")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<span>{currentAgency.agencyAddress}</span>
+								<span>{`${currentAgency?.street} ${currentAgency?.street_number}, ${currentAgency?.city}, Belgium`}</span>
 							</div>
 						</div>
 						<div className="contact-agency-list">
@@ -98,7 +115,9 @@ const FirstBlock = ({
 							</div>
 							<div className="contact-agency-list__info">
 								{show ? (
-									<span className="hidden-phone">{currentAgency.phone}</span>
+									<span className="hidden-phone">
+										{currentAgency?.owner?.phone_number}
+									</span>
 								) : (
 									<span onClick={showPhone} className="show-phone">
 										{t("span.show-pnone")}
@@ -112,7 +131,7 @@ const FirstBlock = ({
 								<span>{t("span.schedule")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<span>{currentAgency.schedule}</span>
+								<span>{"Mon-Fri: 9:30AM-12:30PM, 1:30PM-5PM"}</span>
 							</div>
 						</div>
 						<div className="contact-agency-list">
@@ -121,7 +140,9 @@ const FirstBlock = ({
 								<span>{t("span.languages")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<span>English, French, Deutsch</span>
+								<span style={{ textTransform: "capitalize" }}>
+									{getLanguages(JSON.parse(currentAgency?.languages))}
+								</span>
 							</div>
 						</div>
 						<div className="contact-agency-list">
@@ -134,9 +155,7 @@ const FirstBlock = ({
 								<span>{t("span.website")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<a href={currentAgency.website}>
-									{currentAgency.website.split("www.")[1]}
-								</a>
+								<a href={currentAgency?.website}>{currentAgency?.website}</a>
 							</div>
 						</div>
 					</div>
@@ -152,11 +171,11 @@ const FirstBlock = ({
 					</div>
 					<div className="agency-info__about_us">
 						<h3>{t("h3.about-agency")}</h3>
-						<p>{currentAgency.moreInfo.desc}</p>
-						<span className="show-more">
+						<p>{currentAgency?.description}</p>
+						{/* <span className="show-more">
 							<img src={ArrowImage} alt="ArrowImage" />
 							{t("span.show-more")}
-						</span>
+						</span> */}
 					</div>
 
 					<Button

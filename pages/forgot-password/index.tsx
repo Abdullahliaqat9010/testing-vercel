@@ -8,7 +8,6 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { notification } from "antd";
 
-import RemindPasswordModal from "../../containers/Modals/RemindPasswordModal";
 import HeaderContainer from "../../containers/Header";
 
 import ArrowLink from "../../assets/images/arrow-blue.svg";
@@ -45,7 +44,6 @@ const ForgotPasswordPage = () => {
 
 	return (
 		<div className="ForgotPassword">
-			<RemindPasswordModal />
 			<HeaderContainer title="Remind password" />
 			<div className="bg-image">
 				<h1 className="h4">Remind password</h1>
