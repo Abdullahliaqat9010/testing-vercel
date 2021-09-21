@@ -243,7 +243,7 @@ const SettingsPage = () => {
 									type="email"
 								/>
 								<Form.Control.Feedback type="invalid">
-									required
+								{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group controlId="phone">
@@ -397,7 +397,7 @@ const SettingsPage = () => {
 									show={isNotificationMessageVisible}
 									onClose={() => setIsNotificationMessageVisible(false)}
 								>
-									Notification preference has been updated successfully!
+									{t("alert.success")}
 								</Alert>
 							</div>
 						</Form>

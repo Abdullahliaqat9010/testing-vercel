@@ -31,11 +31,11 @@ const ResetPasswordPage = () => {
 			.required("Required")
 			.matches(
 				/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-				"Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+				t("error.password-rules")
 			),
 		confirm_password: Yup.string().test(
-			"passwords-match",
-			"Passwords must match",
+			t("error.password-mismatch"),
+			t("error.confirm-password"),
 			function (value) {
 				return this.parent.password === value;
 			}
@@ -47,7 +47,7 @@ const ResetPasswordPage = () => {
 			try {
 				await resetPassword(token, values?.password);
 				notification.success({
-					message: "Your password has been changed successfully",
+					message: t("notification.success"),
 				});
 				router.push("/login");
 				res("");
@@ -61,14 +61,14 @@ const ResetPasswordPage = () => {
 		<div className="ResetPassword">
 			<HeaderContainer title="Reset your password" />
 			<div className="bg-image">
-				<h1 className="h4">Reset password</h1>
+				<h1 className="h4">{t("h1.rest-password")}</h1>
 			</div>
 			<p className="desc">
-				If you know your password please
+				{t("p.label-already-register")}
 				<Link href={"/login"} locale={locale}>
 					<span className="link">
 						{" "}
-						go back to login <img src={ArrowLink} alt="ArrowLink" />
+						{t("p.goto-login")} <img src={ArrowLink} alt="ArrowLink" />
 					</span>
 				</Link>
 			</p>

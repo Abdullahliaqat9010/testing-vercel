@@ -30,5 +30,6 @@
     "image.uploading": "Téléchargement...",
     "image.change": "Changer la photo",
     "acount-type": "Professionnelle",
-    "link.logout": "Se déconnecter"
+    "link.logout": "Se déconnecter",
+    "alert.success": "Notification preference has been updated successfully!"
 }

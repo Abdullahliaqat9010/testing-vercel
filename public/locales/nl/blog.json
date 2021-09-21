@@ -24,5 +24,6 @@
 	"btn.save": "Sparen",
 	"text.ceo-settings": "SEO-instellingen",
 	"text.blog-slug": "Blog slak",
-	"btn.edit-blog": "Bewerk blog"
+	"btn.edit-blog": "Bewerk blog",
+	"alert.success": "Changes have been made successfully"
 }
