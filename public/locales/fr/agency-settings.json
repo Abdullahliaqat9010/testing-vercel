@@ -1,0 +1,19 @@
+{
+    "h1.votre": "Votre vitrine",
+    "votre.description":"Votre vitrine présente votre savoir-faire auprès de L'ensemble des visiteurs du site Meneur. Agen., acheteurs et vendeurs. Comp... un in.iinurn d'in.rrnations et nuit.% vos atts °lien. et biens vendus en avant pour mettre en valeur votre expertise.",
+    "h2.photo": "Photo d’en-tete",
+    "photo.description": "La photo de votre vitrine est un reflet de votre professionnaLisme. PersonnaLisez-la Le pLus rapidement possible avec une photo de votre agence (vitrine ou intérieur).",
+    "upload.photo": "Upload",
+    "question.description":"Astuce: Pour un rendu optimal prenez une photo de votre agence avec votre smartphone en position horizontale. La dImension idêale de la photo est de 1135 pixels de largeur et 350 pl.. de hauteur.",
+    "label.description": "Description",
+    "label.website": "Link to your website",
+    "h2.social": "Socials",
+    "h2.language": "Languages",
+    "div.select-language": "Please select any that apply.",
+    "h2.email-notification": "Email notifications",
+    "dev.write-emails": "Enter email you’d like to receive system notifications",
+    "button.loading": "Loading...",
+    "button.save": "Save Changes",
+    "button.view": "Visualise my agency"
+
+}
