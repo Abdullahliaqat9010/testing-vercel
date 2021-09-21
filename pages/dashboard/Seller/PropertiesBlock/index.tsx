@@ -50,6 +50,9 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 
 	const onClickProperty = (propertyId) => {
 		setActiveMarker(propertyId);
+		if (propertyId === "home") {
+			return;
+		}
 		const properties = [
 			similarProperties.find(({ id }) => id === propertyId),
 			...similarProperties.filter(({ id }) => id !== propertyId),

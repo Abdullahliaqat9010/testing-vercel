@@ -19,7 +19,7 @@ import BathIcon from "../../../assets/images/bath.svg";
 import { RootState } from "../../../types/state";
 import { getProperties } from "../../../network-requests";
 import Loading from "../../../components/Loading";
-import { setMainProperty } from "../../../actions";
+import { setMainPropertyId } from "../../../actions";
 
 const PropertiesPage = () => {
 	const { t } = useTranslation("properties-page");
@@ -75,7 +75,7 @@ const PropertiesPage = () => {
 									<button
 										style={{ border: 0, backgroundColor: "white" }}
 										onClick={() => {
-											dispatch(setMainProperty(property.id));
+											dispatch(setMainPropertyId(property.id));
 											router.push("/dashboard");
 										}}
 									>
