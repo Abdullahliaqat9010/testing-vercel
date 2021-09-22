@@ -3,12 +3,20 @@
     .price-content-view {
         width: 50%;
         padding: 10px;
+
+        p {
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 33px;
+            align-items: center;
+        }
         input {
-            width: 622px;
+            width: calc(100% - 68px);
+
+            // width: 622px;
             height: 46px;
             box-shadow: 0px 4px 10px rgba(56, 114, 239, 0.15);
             border-radius: 6px;
-            margin: 0px 10px;
             border: none;
             padding-left: 10px;
 
@@ -20,23 +28,194 @@
             margin: 0px 10px;
         }
 
-        Button {
+        .city-price-content-span {
+            color: var( --colorGray);
+            font-size: 14px;
+            line-height: 19px;
+            margin: 0px 4px;
+        }
+
+        .search-button {
             width: 48px;
             height: 48px;
             justify-content: center;
             align-items: center;
-            padding: 12px 20px;
             border-radius: 8px;
             margin: 0px 10px;
-        }
-        h1 {
-            font-weight: bold;
         }
         .city-price-block {
             padding: 20px 20px 10px;
             margin: 10px 0px;
             border-radius: 8px;
             background-color: var(--colorWhite);
+
+            p {
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 25px;
+                align-items: center;
+                margin:10px;
+            }
+
+            th {
+                text-align: center;
+                font-size: 12px;
+                line-height: 16px;
+                color: var(--mainColor);
+            }
+            td {
+                margin: 0px 4px;
+                font-size: 14px;
+                line-height: 19px;
+                text-align: center;
+                color: var(--mainColor);
+            }
+            .city-name {
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 19px;
+                margin: 0px 10px;
+                color: var(--colorBlue);
+            }
+        }
+
+        .city-price-content-map {
+            padding: 20px 20px 10px;
+            margin: 10px 0px;
+            border-radius: 8px;
+            background-color: var(--colorWhite);
+
+            .title-block {
+                text-align: center;
+                span {
+                    width: 50%;
+                    font-weight: bold;
+                    font-size: 14px;
+                    line-height: 19px;
+                    text-align: center;
+                    padding-bottom: 10px;
+                    cursor: pointer;
+                }
+
+                .active {
+                    border-bottom: 1px solid var(--colorBlue);
+                }
+            }
+
+            .city-price-date {
+                margin: 10px 0px;
+                border-radius: 6px;
+                border: 1px solid var(--bg-blue) ;
+                padding: 10px 30px 10px 10px;
+
+                .home-type {
+                    padding: 10px;
+                    border-radius: 6px;
+                    background-color: var(--bg-blue);
+                    margin: 0px 30px;
+
+                    span {
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: var(--colorGrayTwo);
+                        margin: 10px 0px;
+                    }
+                }
+
+                .prices-block {
+                    p {
+                        font-weight: bold;
+                        font-size: 32px;
+                        line-height: 44px;
+                        color: var( --mainColor);
+                        margin-bottom: 0px;
+                    }
+                    span {
+                        color: var(--colorGrayTwo);
+                        font-size: 14px;
+                        line-height: 19px;
+                        margin: 4px 0px;
+                    }
+                    .price {
+                        color: var( --mainColor);
+                        margin: 0px;
+                    }
+                }
+                .progress-block {
+                    span {
+                        color: var(--colorGray);
+                        font-size: 14px;
+                        line-height: 19px;
+                        margin: 6px 0px;
+                    }
+                }
+            }
+        }
+
+        .estimate-links-block {
+            padding: 20px 20px 10px;
+            // margin: 10px 0px;
+            border-radius: 8px;
+            background-color: var(--colorWhite);
+            .links-block {
+                width: calc(50% - 10px);
+
+                border: 1px solid var(--bg-blue);
+                border-radius: 6px;
+
+                Button {
+                    border-radius: 8px;
+                    margin: 20px 0px;
+                    padding: 14px 20px;
+                }
+
+            }
+            .estmates-buttons {
+                margin-right: 10px;
+
+                p {
+                    align-items: center;
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 16px;
+                    line-height: 22px;
+                    margin: 20px 0px;
+                }
+
+            }
+            .get-prices {
+                margin-left: 10px;
+
+                p{
+                    font-size: 14px;
+                    line-height: 19px;
+                    margin: 20px 0px;
+                    color: var(--mainColor);
+                    font-weight: normal;
+                }
+                Button {
+                    background-color: var(--colorWhite);
+                    color: var(--colorBlue);
+                }
+            }
+
+            Link {
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 19px;
+                margin: 0px 3px;
+            }
+
+        }
+
+
+    }
+
+    .price-map {
+        width: 50%;
+        img {
+            width: 100%;
+            height: 80vh;
         }
     }
 }
