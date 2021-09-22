@@ -234,7 +234,7 @@ const SettingsPage = () => {
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group controlId="email">
-								<Form.Label>Email</Form.Label>
+								<Form.Label>{t("label.email")}</Form.Label>
 								<Form.Control
 									value={email}
 									disabled
