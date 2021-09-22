@@ -1,14 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { GoogleApiWrapper, Map, Marker } from "google-maps-react";
 
-import { googleMapStyle } from "../../config/googleMapStyle";
 import { googleMapConfig } from "../../config/siteConfigs";
 
 import MarkerHomeIcon from "../../assets/images/marker.svg";
 import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
 import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
 import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
-import { useEffect } from "react";
 
 type MarkerType = "home" | "agency" | "property" | "property-active";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
 
 import NavBarContainer from "../../../containers/NavBar";
@@ -19,6 +19,7 @@ import {
 	getProperty,
 	getAgencies,
 } from "../../../network-requests";
+import { setMainPropertyId } from "../../../actions";
 
 const SellerDashboard = () => {
 	const mainPropertyId = useSelector(
@@ -33,6 +34,8 @@ const SellerDashboard = () => {
 	const [similarProperties, setSimilarProperties] = useState([]);
 	const [properties, setProperties] = useState([]);
 	const [agencies, setAgencies] = useState([]);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		fetchAll();
@@ -63,6 +66,7 @@ const SellerDashboard = () => {
 			const _property = await getProperty(mainPropertyId);
 			if (_property) {
 				setMainProperty(_property);
+				dispatch(setMainPropertyId(_property.id));
 				const estimate = await getEstimation(_property?.id);
 				setEstimation(estimate);
 				const _similarProperties = await getSimilarProperties(_property?.id);
