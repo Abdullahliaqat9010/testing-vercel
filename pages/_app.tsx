@@ -37,6 +37,7 @@ import "../styles/PropertyDetailsModal.scss";
 import "../styles/pages/agency-settings.scss";
 import "../styles/pages/compare-agency.scss"
 import "../styles/pages/compare-agency-result.scss"
+import "../styles/pages/price-map.scss"
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
