@@ -10,9 +10,11 @@ import {
 	OverlayTrigger,
 	Tooltip,
 } from "react-bootstrap";
+import { message } from "antd";
 
 import {
 	goToPrevStepAction,
+	setMainPropertyId,
 	setUtilitiesDataAction,
 	updatePropertyRequestAction,
 } from "../../../../actions";
@@ -38,6 +40,7 @@ import NorthWestInactive from "../../../../assets/images/steps/orientation/nw-in
 import NorthWestActive from "../../../../assets/images/steps/orientation/nw-active.svg";
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
+import { createProperty } from "../../../../network-requests";
 
 const StepFour = ({ setStep }) => {
 	const { t } = useTranslation("steps");
@@ -71,6 +74,8 @@ const StepFour = ({ setStep }) => {
 		details,
 	} = useSelector((state: RootState) => state.stepsInfo.stepBlock);
 	const { propertyId } = useSelector((state: RootState) => state.stepsInfo);
+	const isLoggedIn = useSelector<RootState>((state) => state.userInfo.auth);
+	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
 	const [data, setFormData] = useState({
 		epc,
@@ -150,8 +155,27 @@ const StepFour = ({ setStep }) => {
 		});
 	};
 
-	const handleClickNextBtn = () => {
-		if (propertyId) {
+	const handleClickNextBtn = async () => {
+		// if (propertyId) {
+		// 	const utilities = { ...data };
+		// 	const sendData = {
+		// 		...generatePropertyData(
+		// 			addressFromStepOne,
+		// 			additionalAddress,
+		// 			selectedProperty,
+		// 			propertyDetails,
+		// 			details,
+		// 			utilities,
+		// 			location
+		// 		),
+		// 	};
+		// 	dispatch(updatePropertyRequestAction({ ...sendData }, propertyId));
+		// } else {
+		// 	dispatch(setUtilitiesDataAction(data));
+		// 	router.push("/final-steps", locale + "/final-steps", { locale: locale });
+		// }
+		if (isLoggedIn) {
+			message.info("Adding property");
 			const utilities = { ...data };
 			const sendData = {
 				...generatePropertyData(
@@ -164,11 +188,18 @@ const StepFour = ({ setStep }) => {
 					location
 				),
 			};
-			dispatch(updatePropertyRequestAction({ ...sendData }, propertyId));
+			const { id: propertyId } = await createProperty({
+				...sendData,
+				leadId: userId,
+				residence_type: "other",
+				interest: "asap",
+			});
+			dispatch(setMainPropertyId(propertyId));
+			message.success("Property has been added successfully");
 		} else {
 			dispatch(setUtilitiesDataAction(data));
-			router.push("/final-steps", locale + "/final-steps", { locale: locale });
 		}
+		router.push("/final-steps", locale + "/final-steps", { locale: locale });
 	};
 
 	return (

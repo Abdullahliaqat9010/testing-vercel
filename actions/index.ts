@@ -100,7 +100,7 @@ export const showStepsOnTheHeaderAction = () => ({
 	type: actionType.SHOW_STEPS_ON_HEADER,
 });
 
-export const setMainProperty = (id: number) => ({
+export const setMainPropertyId = (id: number) => ({
 	type: actionType.SET_MAIN_PROPERTY,
 	payload: {
 		id,
