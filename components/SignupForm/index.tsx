@@ -70,14 +70,15 @@ const SignupForm = ({
 			"You must accept Privacy Policy and Terms & Conditions"
 		),
 	});
+	const createAccount = t("button.create-account").split(" ")
 
 	return (
 		<div className="form-container">
 			{showTitle && (
 				<div className="form-title-container">
-					<p className="form-title">Create {accountType} account</p>
+					<p className="form-title">  { createAccount[0] + " " + accountType +" " + createAccount[1]} </p>
 					<p className="form-subtitle">
-						Benefit from using ImmoBelgium for your agency
+						{t("p.sub-title")}
 					</p>
 				</div>
 			)}
