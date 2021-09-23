@@ -1,17 +1,19 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, ProgressBar } from "react-bootstrap";
 import Link from "next/link";
 import React, { useState } from "react";
 import HeaderContainer from "../../containers/Header";
 import SearchImage from "../../assets/images/search.svg"
 import priceMapImage from "../../assets/images/compare-agency/price-map.png";
-import HomeownerIconActive from "../../assets/images/home-active.svg";
+
+import HomeownerIcon from "../../assets/images/home-noactive.svg";
+import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
+
 import { CircularProgressbar } from 'react-circular-progressbar';
-import ApartmentImageActive from "../../assets/images/apartment-active.svg";
 import 'react-circular-progressbar/dist/styles.css';
 const priceMap = () => {
 
-    const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
+    const [cityPriceMap, setCityPriceMap] = useState<boolean>(true)
     const [activeTab, setActiveTab] = useState<string>("price");
 
     const citiesData = [
@@ -41,12 +43,16 @@ const priceMap = () => {
         setActiveTab(name);
     };
 
+    const progressBarStyle = {
+        height: "5px"
+    }
+
     return (
         <>
             <HeaderContainer title="price pam" />
             <div className="w-100 d-flex price-map-main">
                 <div className="price-content-view">
-                    <div className="d-flex">
+                    <div className="d-flex mb-3">
                         <input type="search" placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
                         <Button className="search-button"  > <img src={SearchImage} alt="SearchImage" /> </Button>
                     </div>
@@ -72,53 +78,47 @@ const priceMap = () => {
                                             Loyer au m²
                                         </span>
                                     </div>
-                                    <div className=" city-price-date d-flex justify-content-between">
-                                        <div className="d-flex ">
+                                    <div className=" city-price-date d-flex ">
+                                        <div className="d-flex justify-content-center main-block">
                                             <div className="text-center home-type" >
-                                                <img src={ApartmentImageActive} alt="ApartmentImageActive" /><br></br>
-                                                <span>APPARTEMENT</span>
+                                                <div>
+                                                    <img src={ApartmentImageNoActive} alt="ApartmentImageNoActive" /><br></br>
+                                                    <span>APPARTEMENT</span>
+                                                </div>
+                                            </div>
+                                            <div className="prices-block ">
+                                                <span>Prix m² moyen </span>
+                                                <p>1 845 €</p>
+                                                <span className="price">de 1 383 € a 2 767 € </span>
+                                                <br></br>
+                                                <span >Indice de cinfiance</span>
+                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle}/>
+                                            </div>
+                                        </div>
+
+                                        <div className="d-flex justify-content-center main-block">
+                                            <div className="text-center home-type" >
+                                                <div>
+                                                    <img src={HomeownerIcon} alt="HomeownerIcon" /><br></br>
+                                                    <span>APPARTEMENT</span>
+                                                </div>
 
                                             </div>
                                             <div className="prices-block">
                                                 <span>Prix m² moyen </span>
                                                 <p>1 845 €</p>
                                                 <span className="price">de 1 383 € a 2 767 € </span>
+                                                <br></br>
+                                                <span >Indice de cinfiance</span>
+                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle}/>
                                             </div>
                                         </div>
-                                        <div className="text-center progress-block">
-                                            <div style={{ height: "50px", width: "50px" }}>
-                                                <CircularProgressbar value={55} text={`${55}%`} />
-                                            </div>
-                                            <span>Indice de cinfiance</span>
-                                        </div>
+                                        
 
                                     </div>
-                                    <div className=" city-price-date d-flex justify-content-between">
-                                        <div className="d-flex ">
-                                            <div className="text-center home-type" >
-                                                <img src={HomeownerIconActive} alt="HomeownerIconActive" /><br></br>
-                                                <span>APPARTEMENT</span>
-
-                                            </div>
-                                            <div className="prices-block">
-                                                <span>Prix m² moyen </span>
-                                                <p>1 845 €</p>
-                                                <span className="price">de 1 383 € a 2 767 € </span>
-                                            </div>
-                                        </div>
-                                        <div className="text-center progress-block">
-                                            <div style={{ height: "50px", width: "50px" }}>
-                                                <CircularProgressbar value={55} text={`${55}%`} />
-                                            </div>
-                                            <span>Indice de cinfiance</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div className="estimate-links-block text-center">
-                                    <div className="d-flex" >
+                                   
+                                    <div className="estimate-links-block text-center d-flex flex-column">
+                                       
                                         <div className="links-block estmates-buttons">
                                             <p>Estimez votre vien en fonction de sec caracteristiques</p>
                                             <Button>Estimer un bien en ligne</Button>
@@ -128,10 +128,13 @@ const priceMap = () => {
                                             <p>Ou obtenez les prix de vente des blens a proximite</p>
                                             <Button>Obtenir les prix de vente</Button>
                                         </div>
+                                        <Link href="#">Comparer les professionnels en fonction de leur nombre de ventes</Link>
+
                                     </div>
-                                    <Link href="#">Comparer les professionnels en fonction de leur nombre de ventes</Link>
 
                                 </div>
+
+
                             </div>
                         </>
                     )}
@@ -151,11 +154,11 @@ const priceMap = () => {
                                 <tbody>
                                     {citiesData.map(city => {
                                         return (
-                                        <tr onClick={gotoCityData}>
-                                            <td className="city-name">{city.name}</td>
-                                            <td>{city.minPrice}</td>
-                                            <td>{city.maxPrice}</td>
-                                        </tr>)
+                                            <tr onClick={gotoCityData}>
+                                                <td className="city-name">{city.name}</td>
+                                                <td>{city.minPrice}</td>
+                                                <td>{city.maxPrice}</td>
+                                            </tr>)
                                     })}
                                 </tbody>
 

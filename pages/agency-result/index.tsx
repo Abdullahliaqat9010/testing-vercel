@@ -112,7 +112,7 @@ const compareAgency = ({ onSubmit }) => {
                                             }
                                             starCount={5}
                                             value={Number(4)}
-                                        /> <span className="from-totla-reviews"> from 120 reviews </span></p>
+                                        /> <span className="from-totla-reviews "> from 120 reviews </span></p>
                                 </div>
                             </div>
                             <div className="  sold-by-agency justify-content-between">

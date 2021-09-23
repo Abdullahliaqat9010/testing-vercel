@@ -80,6 +80,15 @@
                     }
                     .rating-row {
                         margin: 5px 0px;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        label {
+                            margin-bottom: 3px;
+                        }
+                        .dv-star-rating {
+                            margin: 0px 5px;
+                        }
                     }
                     .rating {
                         font-size: 14px;

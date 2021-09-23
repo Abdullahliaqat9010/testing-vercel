@@ -3,15 +3,20 @@ import React from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import HeaderContainer from "../../containers/Header"
 import FooterContainer from "../../containers/Footer"
-import { Button } from "react-bootstrap"
+import { Button, Carousel } from "react-bootstrap"
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg"
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png"
 import locationImage from "../../assets/images/compare-agency/location-image.png"
 import homeImage from "../../assets/images/compare-agency/home-image.png"
 import compareAgencyImage from "../../assets/images/compare-agency/agency-main-page-image.jpg"
-
+import StarRatingComponent from "react-star-rating-component"
+import RatingStar from '../../assets/images/rating/full-star.svg';
+import RatingStarEmpty from '../../assets/images/rating/star.svg';
+import HomeownerIcon from "../../assets/images/home-noactive.svg";
 
 const compareAgency = () => {
+
+
     return (
         <>
             <HeaderContainer title="compare agency" />
@@ -54,8 +59,108 @@ const compareAgency = () => {
                     </div>
                 </div>
                 <div className="top-agencys d-flex" >
-                    <div className="reviews-container">
-                        <img src={reviewImage} alt="reviewImage" />
+                    <div className="d-flex top-agencies-view">
+
+                        <div className="agency-card ">
+                            <img className="profile-image" src={homeImage} alt="reviewImage" />
+                            <h3> <b>Compare similar </b> </h3>
+                            <span className="agent-title">Real estate agency name goes here</span>
+                            <StarRatingComponent
+                                name="rate"
+                                renderStarIcon={
+                                    (index, value) =>
+                                        <img
+                                            className='rating-star'
+                                            src={index <= value ? RatingStar : RatingStarEmpty}
+                                            alt={'RatingStar' + index}
+                                        />
+                                }
+                                starCount={5}
+                                value={Number(4)}
+                            />
+                            <div className=" percentage-description-block d-flex flex-row justify-content-between">
+                                <div className="d-flex flex-column">
+                                    <b>2.5%</b>
+                                    <span>Listing Agent Commission</span>
+                                </div>
+                                <img src={HomeownerIcon} alt="HomeownerIcon" />
+                            </div>
+                            <div className=" sales-description-block d-flex flex-row justify-content-between">
+                                <div className="d-flex flex-column">
+                                    <b>€2,400</b>
+                                    <span>Est. Commission Savings</span>
+                                </div>
+                                <img src={HomeownerIcon} alt="HomeownerIcon" />
+                            </div>
+                        </div>
+
+                        <div className="agency-card ">
+                            <img className="profile-image" src={homeImage} alt="reviewImage" />
+                            <h3> <b>Compare similar </b> </h3>
+                            <span className="agent-title">Real estate agency name goes here</span>
+                            <StarRatingComponent
+                                name="rate"
+                                renderStarIcon={
+                                    (index, value) =>
+                                        <img
+                                            className='rating-star'
+                                            src={index <= value ? RatingStar : RatingStarEmpty}
+                                            alt={'RatingStar' + index}
+                                        />
+                                }
+                                starCount={5}
+                                value={Number(4)}
+                            />
+                            <div className=" percentage-description-block d-flex flex-row justify-content-between">
+                                <div className="d-flex flex-column">
+                                    <b>2.5%</b>
+                                    <span>Listing Agent Commission</span>
+                                </div>
+                                <img src={HomeownerIcon} alt="HomeownerIcon" />
+                            </div>
+                            <div className=" sales-description-block d-flex flex-row justify-content-between">
+                                <div className="d-flex flex-column">
+                                    <b>€2,400</b>
+                                    <span>Est. Commission Savings</span>
+                                </div>
+                                <img src={HomeownerIcon} alt="HomeownerIcon" />
+                            </div>
+                        </div>
+{/*
+                        <div className="agency-card ">
+                            <img className="profile-image" src={homeImage} alt="reviewImage" />
+                            <h3> <b>Compare similar </b> </h3>
+                            <span className="agent-title">Real estate agency name goes here</span>
+                            <StarRatingComponent
+                                name="rate"
+                                renderStarIcon={
+                                    (index, value) =>
+                                        <img
+                                            className='rating-star'
+                                            src={index <= value ? RatingStar : RatingStarEmpty}
+                                            alt={'RatingStar' + index}
+                                        />
+                                }
+                                starCount={5}
+                                value={Number(4)}
+                            />
+                            <div className=" percentage-description-block d-flex flex-row justify-content-between">
+                                <div className="d-flex flex-column">
+                                    <b>2.5%</b>
+                                    <span>Listing Agent Commission</span>
+                                </div>
+                                <img src={HomeownerIcon} alt="HomeownerIcon" />
+                            </div>
+                            <div className=" sales-description-block d-flex flex-row justify-content-between">
+                                <div className="d-flex flex-column">
+                                    <b>€2,400</b>
+                                    <span>Est. Commission Savings</span>
+                                </div>
+                                <img src={HomeownerIcon} alt="HomeownerIcon" />
+                            </div>
+                        </div> */}
+
+
                     </div>
                     <div className="compare-top-agency" >
                         <p> <span> Compare Real Estate <br></br>Agencies in your neighbourhood.</span></p>
