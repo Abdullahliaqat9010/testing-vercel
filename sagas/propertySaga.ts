@@ -246,7 +246,6 @@ function* getDataFromMapBox({ payload }: any) {
 		if (res.status === 200) {
 			const listArr = [];
 			const { features } = yield res.json();
-
 			if (features.length > 0) {
 				features.map((item) => {
 					listArr.push({

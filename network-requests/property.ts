@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export const createProperty = (property) => {
+export const createProperty = (property): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.post("property", {
+			const { data } = await axios.post("property", {
 				...property,
 			});
-			res("");
+			res(data);
 		} catch (error) {
 			rej(error);
 		}
