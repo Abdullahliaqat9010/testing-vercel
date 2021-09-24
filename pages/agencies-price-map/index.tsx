@@ -5,13 +5,13 @@ import React, { useState } from "react";
 import HeaderContainer from "../../containers/Header";
 import SearchImage from "../../assets/images/search.svg"
 import priceMapImage from "../../assets/images/compare-agency/price-map.png";
-
+import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 
 const priceMap = () => {
 
-    const [cityPriceMap, setCityPriceMap] = useState<boolean>(true)
+    const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
     const [activeTab, setActiveTab] = useState<string>("price");
 
     const citiesData = [
@@ -171,7 +171,9 @@ const priceMap = () => {
 
                 </div>
                 <div className="price-map">
-                    <img src={priceMapImage} alt="priceMapImage" />
+                    <CustomScrollbar>
+                        <img src={priceMapImage} alt="priceMapImage" />
+                    </CustomScrollbar>
                 </div>
 
             </div>
