@@ -46,7 +46,7 @@ const LoginPage = () => {
 				}
 			} catch (error) {
 				actions.setErrors({
-					password: "Invalid email or password",
+					password: t("error.message"),
 				});
 				rej(error);
 			}

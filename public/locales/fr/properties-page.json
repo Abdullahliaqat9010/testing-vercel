@@ -9,5 +9,9 @@
   "span.average": "Moyenne",
   "span.maximal": "Maximal",
   "p.property-estimation": "Estimation des biens",
-  "span.price-unit": "par"
+  "span.price-unit": "par",
+  "button.import": "Import",
+  "button.add":"Add",
+  "span.listings": "Listings"
+
 }

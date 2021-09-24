@@ -30,5 +30,6 @@
   "image.uploading": "Uploading...", 
   "image.change": "Change Photo",
   "acount-type": "Professional",
-  "link.logout": "Log out"
+  "link.logout": "Log out",
+  "alert.success": "Notification preference has been updated successfully!"
 }

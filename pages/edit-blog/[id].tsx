@@ -124,7 +124,7 @@ const EditBlog = ({ blog, params }) => {
 							onClose={() => setIsUpdateSuccessVisible(false)}
 							style={{ marginBottom: 0, marginTop: 20 }}
 						>
-							Changes have been made successfully
+							{t("alert.success")}
 						</Alert>
 						<div style={{ marginTop: 20, marginBottom: 20 }}>
 							<Button
@@ -188,7 +188,7 @@ const EditBlog = ({ blog, params }) => {
 							onClose={() => setIsSlugUpdateSuccessVisible(false)}
 							style={{ marginBottom: 0, marginTop: 20 }}
 						>
-							Changes have been made successfully
+							{t("alert.success")}
 						</Alert>
 					</div>
 				}
