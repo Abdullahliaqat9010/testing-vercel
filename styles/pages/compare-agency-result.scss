@@ -76,7 +76,11 @@
                     border-radius: 8px;
                 }
                 .agency-basicInfo {
+                    margin-left: 10px;
                     height: 82px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
 
                     .agency-name {
                         font-weight: bold;
