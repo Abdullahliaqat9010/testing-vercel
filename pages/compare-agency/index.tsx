@@ -3,6 +3,7 @@ import React from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import HeaderContainer from "../../containers/Header"
 import FooterContainer from "../../containers/Footer"
+import Link  from "next/link"
 import { Button, Carousel } from "react-bootstrap"
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg"
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png"
@@ -172,6 +173,14 @@ const compareAgency = () => {
 
                     </div>
 
+                </div>
+            
+                <div className="campare-agency-footer">
+                    <span>Immo Belgium ©2021. All Rights Reserved.</span>
+                    <div>
+                        <Link href="#" >Blog</Link>
+                        <Link href="#" >Politique de Confidentialité.</Link>
+                    </div>
                 </div>
             </div>
             {/* <FooterContainer/> */}
