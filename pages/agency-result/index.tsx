@@ -18,7 +18,7 @@ import mapImage from "../../assets/images/compare-agency/map-image.png"
 import blueStar from "../../assets/images/compare-agency/blue-star.svg"
 import loadMore from "../../assets/images/load-more.svg"
 import Link from "next/link"
-import closePage from '../../assets/images/burger-menu-close.svg'
+import BlueGoAhead from '../../assets/images/blue-goAhead.svg'
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal"
@@ -38,7 +38,7 @@ const compareAgency = ({ onSubmit }) => {
 
     const [open, setOpen] = useState<boolean>(false);
     const [openContactForm, setOpenContactForm] = useState<boolean>(false);
-    const [ selctedIdex, setSelctedIdex ] = useState<Number>(-1)
+    const [selctedIdex, setSelctedIdex] = useState<Number>(-1)
 
     const agencyData = [
         {
@@ -65,7 +65,7 @@ const compareAgency = ({ onSubmit }) => {
             owner: "hajahd",
             rating: 3,
             totalRevies: 12,
-            soldProperties: 23,
+            soldProperties: 0,
             company_name: "abcd_abcd",
             agency_agent: {
                 firstname: "abcd",
@@ -104,64 +104,68 @@ const compareAgency = ({ onSubmit }) => {
                     <div className="agency-container" >
                         {agencyData?.length && agencyData.map((agency, index) => {
                             return (
-                            <div key={index}>
-                                <div className="agency d-flex"  >
-                                    <div className="image-bassicInfo ">
-                                        <img src={reviewImage} alt="reviewImage" />
-                                        <div className="agency-basicInfo" >
-                                            <span className="agency-name">name</span>
-                                            <p className="rating-row" > <span className="rating"  > 5.6 </span>
-                                                <StarRatingComponent
-                                                    name="rate"
-                                                    renderStarIcon={
-                                                        (index, value) =>
-                                                            <img
-                                                                className='rating-star'
-                                                                src={index <= value ? RatingStar : RatingStarEmpty}
-                                                                alt={'RatingStar' + index}
-                                                            />
-                                                    }
-                                                    starCount={5}
-                                                    value={Number(4)}
-                                                /> <span className="from-totla-reviews "> from 120 reviews </span></p>
+                                <div key={index}>
+                                    <div className="agency d-flex"  >
+                                        <div className="image-bassicInfo ">
+                                            <img src={reviewImage} alt="reviewImage" />
+                                            <div className="agency-basicInfo" >
+                                                <span className="agency-name">name</span>
+                                                <p className="rating-row" > <span className="rating"  > 5.6 </span>
+                                                    <StarRatingComponent
+                                                        name="rate"
+                                                        renderStarIcon={
+                                                            (index, value) =>
+                                                                <img
+                                                                    className='rating-star'
+                                                                    src={index <= value ? RatingStar : RatingStarEmpty}
+                                                                    alt={'RatingStar' + index}
+                                                                />
+                                                        }
+                                                        starCount={5}
+                                                        value={Number(4)}
+                                                    /> <span className="from-totla-reviews "> from 120 reviews </span></p>
+                                            </div>
+                                        </div>
+                                        <div className="  sold-by-agency justify-content-between">
+                                            {agency.soldProperties > 0 ? (
+                                                <p>
+                                                    <span className="noof-sold"> 67 </span> <span className="sold-title">Recent sales nearby</span>
+                                                </p>
+                                            ) : (
+                                                <p className="no-sold-properties">No information available</p>
+                                            )}
+                                            <img onClick={() => openDetail(index)} src={open && selctedIdex === index ? closeArrow : openArrow} alt="arrows" />
+
                                         </div>
                                     </div>
-                                    <div className="  sold-by-agency justify-content-between">
-                                        <p>
-                                            <span className="noof-sold"> 67 </span> <span className="sold-title">Recent sales nearby</span>
-                                        </p>
-                                        <img onClick={ ()=> openDetail(index)} src={open && selctedIdex === index ? closeArrow : openArrow} alt="arrows" />
 
-                                    </div>
-                                </div>
-
-                                {open && selctedIdex === index && (
-                                    <div key={index} className="aency-detail-container" >
-                                        <div className="agency-detail-container-left" >
-                                            <div className="agency-owner-box">
-                                                <img src={reviewImage} alt="agentImage" />
-                                                <div>
-                                                    <p className="agent-name">name</p>
-                                                    <p className="agent-title">agency owner</p>
+                                    {open && selctedIdex === index && (
+                                        <div key={index} className="aency-detail-container" >
+                                            <div className="agency-detail-container-left" >
+                                                <div className="agency-owner-box">
+                                                    <img src={reviewImage} alt="agentImage" />
+                                                    <div>
+                                                        <p className="agent-name">name</p>
+                                                        <p className="agent-title">agency owner</p>
+                                                    </div>
+                                                </div>
+                                                <p className="agency-description">During the last 24 months, our agency has sold 39 properties nearby including 18 similar to yours. Our team is at your disposal to manage your project</p>
+                                                <Button onClick={closeContactForm} >Contact Thierry</Button>
+                                                <div className="d-flex">
+                                                    <Link href="#">Agency details </Link> <img className="" src={BlueGoAhead} alt="BlueGoAhead" />
                                                 </div>
                                             </div>
-                                            <p className="agency-description">During the last 24 months, our agency has sold 39 properties nearby including 18 similar to yours. Our team is at your disposal to manage your project</p>
-                                            <Button onClick={closeContactForm} >Contact Thierry</Button>
-
-                                            <Link href="#">Agency details </Link> <img className="go-forword" src={goAhead} alt="goAhead" />
-
-                                        </div>
-                                        <div className="agency-map-container" >
-                                            <img src={mapImage} alt="map" />
-                                            <div className="map-description">
-                                                <p> <span></span> Properties sold by the agency </p>
-                                                <p> <img className="blue-star" src={blueStar} alt="blueStar" />  agency </p>
+                                            <div className="agency-map-container" >
+                                                <img src={mapImage} alt="map" />
+                                                <div className="map-description">
+                                                    <p> <span></span> Properties sold by the agency </p>
+                                                    <p> <img className="blue-star" src={blueStar} alt="blueStar" />  agency </p>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                    </div>
-                                )}
-                            </div>)
+                                        </div>
+                                    )}
+                                </div>)
                         })}
 
                         <div className="w-100 justify-content-center text-center">

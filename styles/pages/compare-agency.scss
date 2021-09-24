@@ -1,6 +1,17 @@
 .compare-agency {
     background-color: var(--colorWhite);
     padding: 10px;
+    input::placeholder {
+        
+        margin: 0px 10px;
+        color: var(--colorGray);
+        // padding-left: 10px;
+    }
+    input:focus , input:active , input:hover {
+        box-shadow: unset;
+        border: unset;
+        outline:none
+    }
 
     .imageContanter {
         .main-image {
@@ -33,13 +44,20 @@
             box-shadow: 0px 4px 10px rgba(56, 114, 239, 0.15);
             border-radius: 8px;
             margin-right: 10px;
-        }
-        input::placeholder {
+            color: var(--mainColor);
             font-size: 16px;
+            padding-left: 10px;
             line-height: 22px;
-            margin: 0px 10px;
-            color: var(--colorGray);
         }
+        // input::placeholder {
+        //     font-size: 16px;
+        //     line-height: 22px;
+        //     margin: 0px 10px;
+        //     color: var(--colorGray);
+        // }
+
+        
+
 
         Button {
             width: 200px;
@@ -181,12 +199,15 @@
                 margin: 20px 0px;
             }
             input {
+                padding-left: 10px;
                 width: 288px;
                 height: 50px;
                 border: 1px solid var(--colorLightGrey);
                 box-shadow: 0px 4px 10px rgba(56, 114, 239, 0.15);
                 border-radius: 8px;
                 margin-right: 10px;
+                font-size: 16px;
+                line-height: 22px;
             }
 
 

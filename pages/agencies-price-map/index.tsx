@@ -64,14 +64,14 @@ const priceMap = () => {
                                 <div className="city-price-content-map">
                                     <div className="title-block d-flex flex-row">
                                         <span
-                                            onClick={() => switchTab("private")}
-                                            className={activeTab === "price" ? "active" : ""}
+                                            onClick={() => switchTab("price")}
+                                            className={activeTab === "price" ? "active" : "inactive"}
                                         >
                                             Prix au m²
                                         </span>
                                         <span
-                                            onClick={() => switchTab("professional")}
-                                            className={activeTab === "rent" ? "active" : ""}
+                                            onClick={() => switchTab("rent")}
+                                            className={activeTab === "rent" ? "active" : "inactive"}
                                         >
                                             Loyer au m²
                                         </span>
@@ -85,12 +85,12 @@ const priceMap = () => {
                                                 </div>
                                             </div>
                                             <div className="prices-block ">
-                                                <span>Prix m² moyen </span>
-                                                <p>1 845 €</p>
-                                                <span className="price">de 1 383 € a 2 767 € </span>
+                                                <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
+                                                <p> {activeTab === "price" ? 1845 : 1335} € </p>
+                                                <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
                                                 <br></br>
                                                 <span >Indice de cinfiance</span>
-                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle}/>
+                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                             </div>
                                         </div>
 
@@ -103,20 +103,20 @@ const priceMap = () => {
 
                                             </div>
                                             <div className="prices-block">
-                                                <span>Prix m² moyen </span>
-                                                <p>1 845 €</p>
-                                                <span className="price">de 1 383 € a 2 767 € </span>
+                                                <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
+                                                <p> {activeTab === "price" ? 1845 : 1335} € </p>
+                                                <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
                                                 <br></br>
                                                 <span >Indice de cinfiance</span>
-                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle}/>
+                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                             </div>
                                         </div>
-                                        
+
 
                                     </div>
-                                   
+
                                     <div className="estimate-links-block text-center d-flex flex-column">
-                                       
+
                                         <div className="links-block estmates-buttons">
                                             <p>Estimez votre vien en fonction de sec caracteristiques</p>
                                             <Button>Estimer un bien en ligne</Button>

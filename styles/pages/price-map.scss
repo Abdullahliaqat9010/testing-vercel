@@ -1,5 +1,11 @@
 .price-map-main {
     background: var(--bg-gray);
+
+    input:focus , input:active , input:hover {
+        box-shadow: unset;
+        border: unset;
+        outline:none
+    }
     .price-content-view {
         width: 50%;
         padding: 10px;
@@ -100,10 +106,15 @@
                     text-align: center;
                     padding-bottom: 10px;
                     cursor: pointer;
+                    
                 }
 
                 .active {
                     border-bottom: 1px solid var(--colorBlue);
+                }
+                .inactive {
+                    border-bottom: 1px solid var(--colorWhite);
+
                 }
             }
 
