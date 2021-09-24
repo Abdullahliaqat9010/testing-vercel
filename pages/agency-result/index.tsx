@@ -38,6 +38,7 @@ const compareAgency = ({ onSubmit }) => {
 
     const [open, setOpen] = useState<boolean>(false);
     const [openContactForm, setOpenContactForm] = useState<boolean>(false);
+    const [ selctedIdex, setSelctedIdex ] = useState<Number>(-1)
 
     const agencyData = [
         {
@@ -78,13 +79,13 @@ const compareAgency = ({ onSubmit }) => {
     ]
 
 
-    const openDetail = () => {
+    const openDetail = (index) => {
+        setSelctedIdex(index)
         setOpen(!open)
     }
     const closeContactForm = () => {
         setOpenContactForm(!openContactForm)
     }
-
     return (
         <>
             <HeaderContainer title="compare agency result" />
@@ -102,7 +103,8 @@ const compareAgency = ({ onSubmit }) => {
                     </div>
                     <div className="agency-container" >
                         {agencyData?.length && agencyData.map((agency, index) => {
-                            return (<>
+                            return (
+                            <div key={index}>
                                 <div className="agency d-flex"  >
                                     <div className="image-bassicInfo ">
                                         <img src={reviewImage} alt="reviewImage" />
@@ -128,13 +130,13 @@ const compareAgency = ({ onSubmit }) => {
                                         <p>
                                             <span className="noof-sold"> 67 </span> <span className="sold-title">Recent sales nearby</span>
                                         </p>
-                                        <img onClick={openDetail} src={open ? closeArrow : openArrow} alt="arrows" />
+                                        <img onClick={ ()=> openDetail(index)} src={open && selctedIdex === index ? closeArrow : openArrow} alt="arrows" />
 
                                     </div>
                                 </div>
 
-                                {open && (
-                                    <div className="aency-detail-container" >
+                                {open && selctedIdex === index && (
+                                    <div key={index} className="aency-detail-container" >
                                         <div className="agency-detail-container-left" >
                                             <div className="agency-owner-box">
                                                 <img src={reviewImage} alt="agentImage" />
@@ -159,7 +161,7 @@ const compareAgency = ({ onSubmit }) => {
 
                                     </div>
                                 )}
-                            </>)
+                            </div>)
                         })}
 
                         <div className="w-100 justify-content-center text-center">
