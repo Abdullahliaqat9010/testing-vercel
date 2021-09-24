@@ -21,8 +21,9 @@ import Link from "next/link"
 import closePage from '../../assets/images/burger-menu-close.svg'
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import ContactAgentModal from "../../containers/Modals/ContactAgentModal"
 
-// import FooterContainer from "../../containers/Footer"
+// import FooterContainer from "../../containers/Footer"ContactAgentModal
 const compareAgency = ({ onSubmit }) => {
 
     const validationSchema = Yup.object().shape({
@@ -45,8 +46,12 @@ const compareAgency = ({ onSubmit }) => {
             rating: 3,
             totalRevies: 12,
             soldProperties: 23,
+            owner: "hajahd",
+            company_name: "abcd_abcd",
+
             agency_agent: {
-                name: "abcd abcd",
+                firstname: "abcd",
+                lastname: "hahs",
                 role: "agency owner",
             },
             description: "asjd amsdajs asdasjd asdjkashdj asjkdhasjda  sdajkhd",
@@ -56,11 +61,14 @@ const compareAgency = ({ onSubmit }) => {
         {
             profile_image: locationImage,
             name: "aa bb cc",
+            owner: "hajahd",
             rating: 3,
             totalRevies: 12,
             soldProperties: 23,
+            company_name: "abcd_abcd",
             agency_agent: {
-                name: "abcd abcd",
+                firstname: "abcd",
+                lastname: "hahs",
                 role: "agency owner",
             },
             description: "asjd amsdajs asdasjd asdjkashdj asjkdhasjda  sdajkhd",
@@ -80,7 +88,7 @@ const compareAgency = ({ onSubmit }) => {
     return (
         <>
             <HeaderContainer title="compare agency result" />
-            <div className=  " w-100 compare-agency-result" >
+            <div className=" w-100 compare-agency-result" >
                 <div className="imageContanter d-flex" >
                     <img className="main-image" src={compareAgencyImage} alt="compareAgencyImage" />
                 </div>
@@ -93,70 +101,70 @@ const compareAgency = ({ onSubmit }) => {
                         </div>
                     </div>
                     <div className="agency-container" >
-                        {/* {agencyData?.length && agencyData.map((agency, index) => { */}
-                        <div className="agency d-flex"  >
-                            <div className="image-bassicInfo ">
-                                <img src={reviewImage} alt="reviewImage" />
-                                <div className="agency-basicInfo" >
-                                    <span className="agency-name">name</span>
-                                    <p className="rating-row" > <span className="rating"  > 5.6 </span>
-                                        <StarRatingComponent
-                                            name="rate"
-                                            renderStarIcon={
-                                                (index, value) =>
-                                                    <img
-                                                        className='rating-star'
-                                                        src={index <= value ? RatingStar : RatingStarEmpty}
-                                                        alt={'RatingStar' + index}
-                                                    />
-                                            }
-                                            starCount={5}
-                                            value={Number(4)}
-                                        /> <span className="from-totla-reviews "> from 120 reviews </span></p>
+                        {agencyData?.length && agencyData.map((agency, index) => {
+                            return (<>
+                                <div className="agency d-flex"  >
+                                    <div className="image-bassicInfo ">
+                                        <img src={reviewImage} alt="reviewImage" />
+                                        <div className="agency-basicInfo" >
+                                            <span className="agency-name">name</span>
+                                            <p className="rating-row" > <span className="rating"  > 5.6 </span>
+                                                <StarRatingComponent
+                                                    name="rate"
+                                                    renderStarIcon={
+                                                        (index, value) =>
+                                                            <img
+                                                                className='rating-star'
+                                                                src={index <= value ? RatingStar : RatingStarEmpty}
+                                                                alt={'RatingStar' + index}
+                                                            />
+                                                    }
+                                                    starCount={5}
+                                                    value={Number(4)}
+                                                /> <span className="from-totla-reviews "> from 120 reviews </span></p>
+                                        </div>
+                                    </div>
+                                    <div className="  sold-by-agency justify-content-between">
+                                        <p>
+                                            <span className="noof-sold"> 67 </span> <span className="sold-title">Recent sales nearby</span>
+                                        </p>
+                                        <img onClick={openDetail} src={open ? closeArrow : openArrow} alt="arrows" />
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="  sold-by-agency justify-content-between">
-                                <p>
-                                    <span className="noof-sold"> 67 </span> <span className="sold-title">Recent sales nearby</span>
-                                </p>
-                                <img onClick={openDetail} src={open ? closeArrow : openArrow} alt="arrows" />
 
-                            </div>
-                        </div>
+                                {open && (
+                                    <div className="aency-detail-container" >
+                                        <div className="agency-detail-container-left" >
+                                            <div className="agency-owner-box">
+                                                <img src={reviewImage} alt="agentImage" />
+                                                <div>
+                                                    <p className="agent-name">name</p>
+                                                    <p className="agent-title">agency owner</p>
+                                                </div>
+                                            </div>
+                                            <p className="agency-description">During the last 24 months, our agency has sold 39 properties nearby including 18 similar to yours. Our team is at your disposal to manage your project</p>
+                                            <Button onClick={closeContactForm} >Contact Thierry</Button>
 
-                        {
-                            open && (
-                                <div className="aency-detail-container" >
-                                    <div className="agency-detail-container-left" >
-                                        <div className="agency-owner-box">
-                                            <img src={reviewImage} alt="agentImage" />
-                                            <div>
-                                                <p className="agent-name">name</p>
-                                                <p className="agent-title">agency owner</p>
+                                            <Link href="#">Agency details </Link> <img className="go-forword" src={goAhead} alt="goAhead" />
+
+                                        </div>
+                                        <div className="agency-map-container" >
+                                            <img src={mapImage} alt="map" />
+                                            <div className="map-description">
+                                                <p> <span></span> Properties sold by the agency </p>
+                                                <p> <img className="blue-star" src={blueStar} alt="blueStar" />  agency </p>
                                             </div>
                                         </div>
-                                        <p className="agency-description">During the last 24 months, our agency has sold 39 properties nearby including 18 similar to yours. Our team is at your disposal to manage your project</p>
-                                        <Button onClick={closeContactForm} >Contact Thierry</Button>
-
-                                        <Link href="#">Agency details </Link> <img className="go-forword" src={goAhead} alt="goAhead" />
 
                                     </div>
-                                    <div className="agency-map-container" >
-                                        <img src={mapImage} alt="map" />
-                                        <div className="map-description">
-                                            <p> <span></span> Properties sold by the agency </p>
-                                            <p> <img className="blue-star" src={blueStar} alt="blueStar" />  agency </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            )
-                        }
-                        {/* })} */}
+                                )}
+                            </>)
+                        })}
 
                         <div className="w-100 justify-content-center text-center">
 
-                        <Button className="load-more"><img src={loadMore} alt="loadMore" /> load more  </Button>
+                            <Button className="load-more"><img src={loadMore} alt="loadMore" /> load more  </Button>
                         </div>
                     </div>
 
@@ -165,132 +173,13 @@ const compareAgency = ({ onSubmit }) => {
 
             </div>
             {openContactForm && (
-                <div className="contact-form" >
-                    <div className="page-title">
-                        <p className="content-agency-name">Contact Thierry Deviers </p>
-                        <img onClick={closeContactForm} src={closePage} alt="close" />
-                    </div>
-                    <p> Century 21 - PATRIMOINE 24 </p>
-
-                    <div>
-                        <Formik
-                            initialValues={{
-                                full_name: "",
-                                phone_number: "",
-                                email: "",
-                                description: "",
-                                projet: "",
-                                evaluate: false
-                            }}
-                            onSubmit={onSubmit}
-                            validationSchema={validationSchema}
-                        >
-                            {() => (
-                                <Form>
-                                    <div className="d-flex flex-column form-input-block">
-                                        <label className="form-label" htmlFor="full_name">
-                                            First and Last name
-                                        </label>
-                                        <Field className="form-input" name="full_name" type="text" />
-                                        <ErrorMessage
-                                            className="form-error"
-                                            component="div"
-                                            name="full_name"
-                                        />
-                                    </div>
-                                    <div className="d-flex flex-column form-input-block">
-                                        <label className="form-label" htmlFor="phone_number">
-                                            Phone Number
-                                        </label>
-                                        <Field className="form-input" name="phone_number" type="text" />
-                                        <ErrorMessage
-                                            className="form-error"
-                                            component="div"
-                                            name="phone_number"
-                                        />
-                                    </div>
-                                    <div className="d-flex flex-column form-input-block">
-                                        <label className="form-label" htmlFor="email">
-                                            Email Address
-                                        </label>
-                                        <Field className="form-input" name="email" type="text" />
-                                        <ErrorMessage
-                                            className="form-error"
-                                            component="div"
-                                            name="email"
-                                        />
-                                    </div>
-                                    {/* <div className="d-flex flex-column form-input-block"> */}
-                                    <div
-                                        className="d-flex flex-column form-input-block"
-                                    >
-                                        <label className="form-label" htmlFor="description">
-                                            description
-                                        </label>
-                                        <Field
-                                            className="form-input description-field form-input-error"
-                                            name="description"
-                                            as="textarea"
-                                        />
-                                        <ErrorMessage
-                                            className="form-error"
-                                            component="div"
-                                            name="description"
-                                        />
-                                    </div>
-                                    <div
-                                        className="d-flex flex-column form-input-block"
-                                    >
-                                        <label className="form-label" htmlFor="projet">
-                                            Your real estate project
-                                        </label>
-                                        <Field
-                                            className="form-input"
-                                            name="projet"
-                                            component="select"
-                                        >
-                                            <option value="red">I want to sell</option>
-                                            <option value="green">I want to buy</option>
-                                            <option value="blue">I want to sell & buy</option>
-                                            <option value="blue">I want to rent</option>
-                                            <option value="blue">Other</option>
-                                        </Field>
-                                        <ErrorMessage
-                                            className="form-error"
-                                            component="div"
-                                            name="projet"
-                                        />
-                                    </div>
-                                    <div
-                                        className="d-flex flex-column form-input-block"
-                                    >
-                                        <label >
-                                            <Field
-
-                                                className="form-input checkmark"
-                                                name="evaluate"
-                                                type="checkbox"
-                                            />I would like to have my property evaluated free of charge</label>
-                                        <ErrorMessage
-                                            className="form-error"
-                                            component="div"
-                                            name="evaluate"
-                                        />
-                                    </div>
-                                    {/* </div> */}
-                                    <div className=" contact-form-buttons d-flex form-input-block">
-                                        <Button style={{ width: '49%' }} className="form-button" block type="submit">
-                                            Confirm
-                                        </Button>
-                                        <Button onClick={closeContactForm} className="form-button cancel-button" style={{ width: '49%' }} type="cancel" > Cancel </Button>
-                                    </div>
-                                </Form>
-                            )}
-                        </Formik>
-                    </div>
-
-                </div>
-
+                <ContactAgentModal
+                    show={true}
+                    onClose={() => setOpenContactForm(false)}
+                    // properties={properties}
+                    agencyOwner={agencyData[0]?.agency_agent}
+                    agencyName={agencyData[0]?.company_name}
+                />
             )}
             {/* <FooterContainer/> */}
         </>
@@ -300,7 +189,7 @@ const compareAgency = ({ onSubmit }) => {
 export const getServerSideProps = async ({ locale }) => {
     return {
         props: {
-            ...(await serverSideTranslations(locale, ["header", "footer"])),
+            ...(await serverSideTranslations(locale, ["dashboard-page", "header", "footer"])),
         },
     };
 }
