@@ -12,9 +12,7 @@ const propertyReducer = (state = initialState, action: any) => {
 				mainPropertyId: action.payload.id,
 			};
 		default:
-			return {
-				...state,
-			};
+			return state;
 	}
 };
 

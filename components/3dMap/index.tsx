@@ -1,25 +1,173 @@
-import React from "react";
-import dynamic from "next/dynamic";
-import { MapContainer as _MapContainer } from "react-leaflet";
-import Head from "next/head";
+import React, { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
+import "mapbox-gl/dist/mapbox-gl.css";
 
-const Map = dynamic(() => import("./components/map"), {
-	ssr: false,
-}) as typeof _MapContainer;
+import MarkerHomeIcon from "../../assets/images/marker.svg";
+import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
+import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
+import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
 
-const _3dMap = () => {
+mapboxgl.Marker.prototype.onClick = function (handleClick) {
+	this._handleClick = handleClick;
+	return this;
+};
+mapboxgl.Marker.prototype._onMapClick = function (t) {
+	const targetElement = t.originalEvent.target;
+	const element = this._element;
+	if (
+		this._handleClick &&
+		(targetElement === element || element.contains(targetElement))
+	) {
+		this.togglePopup();
+		this._handleClick();
+	}
+};
+
+interface MarkerI {
+	type: string;
+	position: {
+		lat: number;
+		lng: number;
+	};
+	id: null | number | string;
+}
+
+interface MapProps {
+	markers?: MarkerI[];
+	onActiveMarker?: (id: any) => void;
+}
+
+const Mapbox3dMap = ({
+	markers = [],
+	onActiveMarker = (id) => null,
+}: MapProps) => {
+	const [center, setCenter] = useState([
+		markers.length > 0 ? markers[0].position.lng : 51.260197,
+		markers.length > 0 ? markers[0].position.lat : 4.402771,
+	]);
+
+	const mapRef = useRef(null);
+
+	useEffect(() => {
+		mapboxgl.accessToken =
+			"pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ";
+
+		mapRef.current = new mapboxgl.Map({
+			style: "mapbox://styles/mapbox/satellite-streets-v11",
+			center: [...center],
+			zoom: 15,
+			pitch: 45,
+			bearing: -17.6,
+			container: "map",
+			antialias: true,
+		});
+		mapRef.current?.addControl(new mapboxgl.NavigationControl());
+	}, [mapRef]);
+
+	useEffect(() => {
+		var map = mapRef.current;
+		if (map) {
+			map?.on("load", () => {
+				const layers = map?.getStyle().layers;
+				const labelLayerId = layers.find(
+					(layer) => layer.type === "symbol" && layer.layout["text-field"]
+				).id;
+
+				map?.addLayer(
+					{
+						id: "add-3d-buildings",
+						source: "composite",
+						"source-layer": "building",
+						filter: ["==", "extrude", "true"],
+						type: "fill-extrusion",
+						minzoom: 15,
+						paint: {
+							"fill-extrusion-color": "#ddcfb2",
+							"fill-extrusion-height": [
+								"interpolate",
+								["linear"],
+								["zoom"],
+								15,
+								0,
+								15.05,
+								["get", "height"],
+							],
+							"fill-extrusion-base": [
+								"interpolate",
+								["linear"],
+								["zoom"],
+								15,
+								0,
+								15.05,
+								["get", "min_height"],
+							],
+							"fill-extrusion-opacity": 1,
+						},
+					},
+					labelLayerId
+				);
+			});
+
+			map?.touchZoomRotate.enable();
+			map?.touchZoomRotate.enableRotation();
+		}
+	}, [mapRef]);
+
+	useEffect(() => {
+		var map = mapRef.current;
+		map?.flyTo({
+			center: [...center],
+			zoom: 20,
+			essential: true,
+		});
+	}, [center]);
+
+	useEffect(() => {
+		var map = mapRef.current;
+		const prevMarkers = document.getElementsByClassName(
+			"marker"
+		) as unknown as any[];
+		for (const marker of prevMarkers) {
+			marker?.remove();
+		}
+		markers.forEach((marker) => {
+			var el = document.createElement("img");
+			el.src =
+				marker.type === "home" ? (
+					MarkerHomeIcon
+				) : marker.type === "agency" ? (
+					<MarkerAgencyIcon />
+				) : marker.type === "property" ? (
+					MarkerPropertyIcon
+				) : (
+					MarkerPropertyActiveIcon
+				);
+			el.className = "marker";
+
+			new mapboxgl.Marker(el)
+				.setLngLat([marker.position.lng, marker.position.lat])
+				.onClick(() => {
+					setActiveMarker(marker);
+				})
+				.addTo(map);
+		});
+	}, [markers]);
+
+	useEffect(() => {
+		setCenter([
+			markers.length > 0 ? markers[0].position.lng : 51.260197,
+			markers.length > 0 ? markers[0].position.lat : 4.402771,
+		]);
+	}, [markers]);
+
+	const setActiveMarker = (marker: MarkerI) => {
+		setCenter([marker.position.lng, marker.position.lat]);
+		onActiveMarker(marker?.id);
+	};
+
 	return (
-		<>
-			{/* <Head></Head> */}
-			<link
-				href="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
-				rel="stylesheet"
-			/>
-			<script src="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js" />
-			<script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js" />
-			<Map />
-		</>
+		<div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
 	);
 };
 
-export default _3dMap;
+export default Mapbox3dMap;

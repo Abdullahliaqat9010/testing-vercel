@@ -8,6 +8,7 @@ import PropertyBlock from "../../../../containers/Property";
 //import LoadMoreImage from "../../../../assets/images/load-more.svg";
 import NoEstimationImage from "../../../../assets/images/no-estimation.svg";
 import { CustomScrollbar } from "../../../../components/Scrollbar";
+import Mapbox3dMap from "../../../../components/3dMap";
 
 const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 	const { t } = useTranslation("dashboard-page");
@@ -49,6 +50,9 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 
 	const onClickProperty = (propertyId) => {
 		setActiveMarker(propertyId);
+		if (propertyId === "home") {
+			return;
+		}
 		const properties = [
 			similarProperties.find(({ id }) => id === propertyId),
 			...similarProperties.filter(({ id }) => id !== propertyId),
@@ -80,7 +84,8 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 			{!isMobileOnly && (
 				<div className="w-50 position-relative">
 					{mainProperty && mainProperty.lng && mainProperty.lat && (
-						<GoogleMap {...mapProps} />
+						<Mapbox3dMap {...mapProps} />
+						// <GoogleMap {...mapProps} />
 					)}
 				</div>
 			)}
