@@ -9,8 +9,6 @@ import priceMapImage from "../../assets/images/compare-agency/price-map.png";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 const priceMap = () => {
 
     const [cityPriceMap, setCityPriceMap] = useState<boolean>(true)
