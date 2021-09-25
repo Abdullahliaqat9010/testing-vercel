@@ -8,7 +8,7 @@ export function handleAlreadyAuthenticated(gssp: GetServerSideProps) {
 			// Redirect to login page
 			return {
 				redirect: {
-					destination: `${context.locale}/dashboard`,
+					destination: `/dashboard`,
 					permanent: true,
 				},
 			};
