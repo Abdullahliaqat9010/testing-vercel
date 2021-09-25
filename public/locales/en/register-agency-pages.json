@@ -1,0 +1,20 @@
+{
+    "p.heading": "Tell us about agency",
+    "p.sub-heading": "You will be able to customize agency profile from your dashboard.",
+    "label.vitrine-name": "Name of the vitrine",
+    "label.city": "City",
+    "label.street": "Street",
+    "label.street-number": "Street number",
+    "label.zipcode": "Zipcode",
+    "button.next": "Next",
+
+    "p.company-heading": "Company Details",
+    "p.company-sub-heading": "Benefit from using ImmoBelgium for your agency",
+    "label.ipi-number": "IPI number",
+    "label.company-name": "Company name",
+    "label.vat-number": "VAT number",
+    "label.checkmark": "Use the same billing address as a company address",
+    "button.back": "Back",
+    "button.loading": "Loading..."
+
+}

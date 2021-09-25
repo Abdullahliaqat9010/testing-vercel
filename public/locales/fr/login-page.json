@@ -11,5 +11,15 @@
 	"placeholder.email-phone": "Entrez votre adresse e-mail",
 	"placeholder.password": "Entrez votre mot de passe",
 	"title.login": "Connexion",
-	"footer.copyright": "Tous droits réservés"
+	"footer.copyright": "Tous droits réservés",
+	"error.message": "Invalid email or password",
+	"h1.rest-password": "Reset password",
+    "p.label-already-register": "If you know your password please",
+    "p.goto-login": "go back to login",
+	"notification.success": "Your password has been changed successfully",
+	"error.password-rules": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
+	"error.password-mismatch": "passwords-match",
+	"error.confirm-password": "Passwords must match"
+
+
 }

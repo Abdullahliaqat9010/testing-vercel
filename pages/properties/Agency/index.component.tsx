@@ -151,11 +151,11 @@ const SoldPropertiesPage = () => {
 							<div className="bottons">
 								<Button className="import-button">
 									<img src={Upload} alt="AddIcon" />
-									<span className="import-bt-text">Import</span>
+									<span className="import-bt-text">{t("button.import")}</span>
 								</Button>
 								<Button>
 									<img src={AddIcon} alt="AddIcon" />
-									<span className="add-bt-text">Add</span>
+									<span className="add-bt-text">{t("button.add")}</span>
 								</Button>
 							</div>
 						</div>
@@ -163,7 +163,7 @@ const SoldPropertiesPage = () => {
 							<div>
 								{" "}
 								<input type="checkBox"></input>{" "}
-								<span className=" total-listings pl-2"> 2 Listings </span>{" "}
+								<span className=" total-listings pl-2"> {properties.length} {t("span.listings")} </span>{" "}
 							</div>
 							<div className="action-block">
 								<Button className="mx-1">

@@ -24,5 +24,6 @@
 	"btn.save": "Save",
 	"text.ceo-settings": "SEO settings",
 	"text.blog-slug": "Blog slug",
-	"btn.edit-blog": "Edit blog"
+	"btn.edit-blog": "Edit blog",
+	"alert.success": "Changes have been made successfully"
 }

@@ -18,14 +18,16 @@ const PrivacyPolicyPage = () => {
         <div className="main-content">
           <h4>{t("title")}</h4>
           <span className="data">{t("updatedDate")}</span>
-          {locale !== 'nl' ? (<>
-            <p>
-              {t("app-description-p1")}
-            </p>
-            <p>
-              {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
+          <p>
+            {t("app-description-p1")}
+          </p>
+          {locale === 'nl' ? (
+            <p> {t("app-description-p2")} </p>
+          ) :
+            (<p>
+              {t("artical-seven-section-five-p7-1")}<a href='http://www.winleads.eu/' target='_blank'>
                 www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a> {t("artical-seven-section-five-p7-2")}
-            </p></>) : " "
+            </p>)
           }
           {/*TOP SEGMENT*/}
           <div className='new-segment'>
@@ -199,11 +201,9 @@ const PrivacyPolicyPage = () => {
                 <li>
                   {t("artical-three.4-li7")}
                 </li>
-                {locale === "nl" ? (
-                  <li>
-                    {t("artical-three.4-li8")}
-                  </li>) : ""
-                }
+                <li>
+                  {t("artical-three.4-li8")}
+                </li>
               </ul>
             </div>
           </div>
@@ -231,11 +231,9 @@ const PrivacyPolicyPage = () => {
             <li>
               {t("artical-four-li4")}
             </li>
-            {locale === "nl" ? (
-              <li>
-                {t("artical-four-li5")}
-              </li>) : ""
-            }
+            <li>
+              {t("artical-four-li5")}
+            </li>
           </ul>
           {/*SEGMENT 5*/}
           <div className='new-segment'>
@@ -426,7 +424,7 @@ const PrivacyPolicyPage = () => {
           {locale === "nl" ? (
             <p> {t("artical-seven-section-five-p7-1")} <a href='http://www.winleads.eu/' target='_blank'>
               www.winleads.eu</a> {t("of")} <a href="https://BelgiumImmo.be" target='_blank'>https://BelgiumImmo.be</a>
-              {t("artical-seven-section-five-p7-2")}
+               {t("artical-seven-section-five-p7-2")}
             </p>) : ""}
         </div>
       </div>
@@ -436,7 +434,7 @@ const PrivacyPolicyPage = () => {
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale, ["privacy-policy"]),
+    ...await serverSideTranslations(locale, ["privacy-policy", "header"]),
   },
 });
 

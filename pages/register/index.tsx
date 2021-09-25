@@ -106,7 +106,7 @@ const Register = () => {
 
 export const getStaticProps = async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(locale, ["main-page", "header", "steps"])),
+		...(await serverSideTranslations(locale, ["register-agency-pages", "header", "steps"])),
 	},
 });
 

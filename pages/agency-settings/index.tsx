@@ -116,7 +116,7 @@ function getBase64(file) {
 }
 
 const Formpage = () => {
-	const { t } = useTranslation();
+	const { t } = useTranslation("agency-settings");
 
 	const [logoImage, setLogoImage] = useState("");
 	const [coverImage, setCoverImage] = useState("");
@@ -229,24 +229,15 @@ const Formpage = () => {
 						<Form>
 							<div className="AgencySettingsPage__container w-100">
 								<div className="first-block">
-									<h1>{"Votre vitrine"}</h1>
-									<div>
-										Votre vitrine présente votre savoir-faire auprès de
-										L'ensemble des visiteurs du site Meneur. Agen., acheteurs et
-										vendeurs. Comp... un in.iinurn d'in.rrnations et nuit.% vos
-										atts °lien. et biens vendus en avant pour mettre en valeur
-										votre expertise.
+									<h1>{t("h1.votre")}</h1>
+									<div>{t("votre.description")}
 									</div>
 
 									<div className="password-block2">
 										<div className="d-flex flex-row justify-content-between pb-4">
 											<div className="pr-3">
-												<h2>{"Photo d’en-tete"}</h2>
-												<div>
-													La photo de votre vitrine est un reflet de votre
-													professionnaLisme. PersonnaLisez-la Le pLus rapidement
-													possible avec une photo de votre agence (vitrine ou
-													intérieur).
+												<h2>{t("h2.photo")}</h2>
+												<div>{t("photo.description")}
 												</div>
 											</div>
 											<div
@@ -282,7 +273,7 @@ const Formpage = () => {
 																	className="mr-1 pb-1"
 																	src={UploadPicture}
 																/>
-																Upload
+																{t("upload.photo")}
 															</Button>
 														</div>
 													)}
@@ -294,11 +285,7 @@ const Formpage = () => {
 												style={{ paddingTop: 5, paddingRight: 10 }}
 												color={"#d3d3d3"}
 											/>
-											<div>
-												Astuce: Pour un rendu optimal prenez une photo de votre
-												agence avec votre smartphone en position horizontale. La
-												dImension idêale de la photo est de 1135 pixels de
-												largeur et 350 pl.. de hauteur.
+											<div>{t("question.description")}
 											</div>
 										</div>
 										<div className="w-100">
@@ -328,7 +315,7 @@ const Formpage = () => {
 														<img src={UploadImage} />
 														<Button className="upload-btn">
 															<img className="mr-1 pb-1" src={UploadPicture} />
-															Upload
+															{t("upload.photo")}
 														</Button>
 													</div>
 												)}
@@ -338,7 +325,7 @@ const Formpage = () => {
 													className="form-label fs-2"
 													htmlFor="description"
 												>
-													Description
+													{t("label.description")}
 												</label>
 												<Field
 													className="form-input"
@@ -356,7 +343,7 @@ const Formpage = () => {
 											</div>
 											<div className="d-flex flex-column form-input-block mt-4">
 												<label className="form-label fs-2" htmlFor="website">
-													Link to your website
+													{t("label.website")}
 												</label>
 												<Field
 													className="form-input"
@@ -371,7 +358,7 @@ const Formpage = () => {
 											</div>
 										</div>
 										<div className="password-block2 pb-0">
-											<h2>Socials</h2>
+											<h2>{t("h2.social")}</h2>
 											{socialLinks.map(({ icon, id }) => (
 												<div key={id} className="social-container">
 													{icon}
@@ -387,9 +374,9 @@ const Formpage = () => {
 											))}
 										</div>
 										<div className="password-block2">
-											<h2>Languages</h2>
+											<h2>{t("h2.language")}</h2>
 											<div className="pb-3 small">
-												Please select any that apply.
+												{t("div.select-language")}
 											</div>
 											<div
 												role="group"
@@ -415,9 +402,9 @@ const Formpage = () => {
 											</div>
 										</div>
 										<div className="password-block2">
-											<h2>Email notifications</h2>
+											<h2>{t("h2.email-notification")}</h2>
 											<div style={{ fontSize: 14 }} className="pb-1 pt-3">
-												Enter email you’d like to receive system notifications
+												{t("dev.write-emails")}
 											</div>
 											<TagInput
 												tags={values.notification_emails}
@@ -433,12 +420,12 @@ const Formpage = () => {
 													type="button"
 													onClick={() => submitForm()}
 												>
-													{isSubmitting ? "Loading..." : "Save Changes"}
+													{isSubmitting ? t("button.loading") : t("button.save")}
 												</button>
 											</div>
 											<div className="button-container2">
 												<button className="view-my-agency" onClick={() => {}}>
-													Visualise my agency
+													{t("button.view")}
 												</button>
 											</div>
 										</div>
@@ -456,7 +443,7 @@ const Formpage = () => {
 export const getServerSideProps = async ({ locale }) => {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ["steps", "header", "common"])),
+			...(await serverSideTranslations(locale, ["agency-settings", "header", "common"])),
 		},
 	};
 };
