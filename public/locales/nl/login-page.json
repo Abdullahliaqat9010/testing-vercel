@@ -11,5 +11,15 @@
 	"placeholder.email-phone": "Voer uw e-mailadres in",
 	"placeholder.password": "Voer uw wachtwoord in",
 	"title.login": "Inloggen",
-	"footer.copyright": "Alle rechten voorbehouden"
+	"footer.copyright": "Alle rechten voorbehouden",
+	"error.message": "Invalid email or password",
+	"h1.rest-password": "Reset password",
+    "p.label-already-register": "If you know your password please",
+    "p.goto-login": "go back to login",
+	"notification.success": "Your password has been changed successfully",
+	"error.password-rules": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
+	"error.password-mismatch": "passwords-match",
+	"error.confirm-password": "Passwords must match"
+
+
 }

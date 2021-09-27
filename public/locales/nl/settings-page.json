@@ -30,5 +30,6 @@
    "image.uploading": "Uploaden...",
    "image.change": "Verander foto",
    "acount-type": "Professioneel",
-   "link.logout": "Uitloggen"
+   "link.logout": "Uitloggen",
+   "alert.success": "Notification preference has been updated successfully!"
 }

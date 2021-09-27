@@ -2,6 +2,7 @@ import React from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const AgencyInfo = ({ onSubmit }) => {
 	const validationSchema = Yup.object().shape({
@@ -12,12 +13,14 @@ const AgencyInfo = ({ onSubmit }) => {
 		zip: Yup.number().required("Required").min(1000).max(9999),
 	});
 
+	const { t } = useTranslation("register-agency-pages")
+
 	return (
 		<div className="form-container">
 			<div className="form-title-container">
-				<p className="form-title">Tell us about agency</p>
+				<p className="form-title">{t("p.heading")}</p>
 				<p className="form-subtitle">
-					You will be able to customize agency profile from your dashboard.
+					{t("p.sub-heading")}
 				</p>
 			</div>
 			<div>
@@ -36,7 +39,7 @@ const AgencyInfo = ({ onSubmit }) => {
 						<Form>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="vitrine_name">
-									Name of the vitrine
+									{t("label.vitrine-name")}
 								</label>
 								<Field className="form-input" name="vitrine_name" type="text" />
 								<ErrorMessage
@@ -47,7 +50,7 @@ const AgencyInfo = ({ onSubmit }) => {
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="city">
-									City
+									{t("label.city")}
 								</label>
 								<Field className="form-input" name="city" type="text" />
 								<ErrorMessage
@@ -58,7 +61,7 @@ const AgencyInfo = ({ onSubmit }) => {
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="street">
-									Street
+									{t("label.street")}
 								</label>
 								<Field className="form-input" name="street" type="text" />
 								<ErrorMessage
@@ -73,7 +76,7 @@ const AgencyInfo = ({ onSubmit }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="street_number">
-										Street number
+										{t("label.street-number")}
 									</label>
 									<Field
 										className="form-input form-input-error"
@@ -91,7 +94,7 @@ const AgencyInfo = ({ onSubmit }) => {
 									className="d-flex flex-column form-input-block"
 								>
 									<label className="form-label" htmlFor="zip">
-										Zipcode
+										{t("label.zipcode")}
 									</label>
 									<Field
 										className="form-input"
@@ -108,7 +111,7 @@ const AgencyInfo = ({ onSubmit }) => {
 								</div>
 							</div>
 							<Button className="form-button" block type="submit">
-								Next
+								{t("button.next")}
 							</Button>
 						</Form>
 					)}

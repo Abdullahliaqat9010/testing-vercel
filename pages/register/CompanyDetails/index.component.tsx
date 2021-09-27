@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 
 const CompanyDetails = ({ onSubmit, onBack, address }) => {
@@ -16,12 +17,14 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 		billing_zip: Yup.number().required("Required").min(1000).max(9999),
 	});
 
+	const { t } = useTranslation("register-agency-pages")
+
 	return (
 		<div className="form-container">
 			<div className="form-title-container">
-				<p className="form-title">Company Details</p>
+				<p className="form-title">{t("p.company-heading")}</p>
 				<p className="form-subtitle">
-					Benefit from using ImmoBelgium for your agency
+					{t("p.company-sub-heading")}
 				</p>
 			</div>
 			<div>
@@ -42,7 +45,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 						<Form>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="ipi_number">
-									IPI number
+									{t("label.ipi-number")}
 								</label>
 								<Field className="form-input" name="ipi_number" type="number" />
 								<ErrorMessage
@@ -53,7 +56,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="company_name">
-									Company name
+									{t("label.company-name")}
 								</label>
 								<Field className="form-input" name="company_name" type="text" />
 								<ErrorMessage
@@ -64,7 +67,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 							</div>
 							<div className="d-flex flex-column form-input-block">
 								<label className="form-label" htmlFor="vat_number">
-									VAT number
+									{t("label.vat-number")}
 								</label>
 								<Field className="form-input" name="vat_number" type="number" />
 								<ErrorMessage
@@ -93,14 +96,14 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 									/>
 								</div>
 								<label style={{ fontSize: 15, paddingTop: 5 }}>
-									Use the same billing address as a company address
+									{t("label.checkmark")}
 								</label>
 							</div>
 							{!sameBillingAddress && (
 								<>
 									<div className="d-flex flex-column form-input-block">
 										<label className="form-label" htmlFor="billing_city">
-											City
+											{t("label.city")}
 										</label>
 										<Field
 											className="form-input"
@@ -115,7 +118,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 									</div>
 									<div className="d-flex flex-column form-input-block">
 										<label className="form-label" htmlFor="billing_street">
-											Street
+											{t("label.street")}
 										</label>
 										<Field
 											className="form-input"
@@ -137,7 +140,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 												className="form-label"
 												htmlFor="billing_street_number"
 											>
-												Street number
+												{t("label.street-number")}
 											</label>
 											<Field
 												className="form-input form-input-error"
@@ -155,7 +158,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 											className="d-flex flex-column form-input-block"
 										>
 											<label className="form-label" htmlFor="billing_zip">
-												Zipcode
+												{t("label.zipcode")}
 											</label>
 											<Field
 												className="form-input"
@@ -179,14 +182,14 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 									className="form-back-button"
 									onClick={onBack}
 								>
-									Back
+									{t("button.back")}
 								</Button>
 								<Button
 									style={{ width: "49%" }}
 									type="submit"
 									className="form-button"
 								>
-									{isSubmitting ? "Loading..." : "Next"}
+									{isSubmitting ? t("button.loading") : t("button.next")}
 								</Button>
 							</div>
 						</Form>
