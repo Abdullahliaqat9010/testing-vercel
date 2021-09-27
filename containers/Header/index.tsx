@@ -207,15 +207,15 @@ const HeaderContainer = ({
 						<div className="custom-nav-links-container">
 							{!isAdmin && (
 								<>
-									<a href="#" className="n-link-custom">
+									<a href="/agencies-price-map" className="n-link-custom">
 										Price map
 									</a>
 									{/* <a href="#" className="n-link-custom">
 									Estimate your home
 								</a> */}
-									{/* <a href="#" className="n-link-custom">
+									<a href="/compare-agency" className="n-link-custom">
 									Compare agencies
-								</a> */}
+								</a>
 								</>
 							)}
 							<a href="/blogs" className="n-link-custom">

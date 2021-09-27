@@ -14,9 +14,15 @@ import StarRatingComponent from "react-star-rating-component"
 import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
+import { useRouter } from "next/router"
 
 const compareAgency = () => {
 
+    const router = useRouter()
+
+    const gotoAgenciesPages = () => {
+        router.push("/agency-result")
+    }
 
     return (
         <>
@@ -30,7 +36,7 @@ const compareAgency = () => {
                     <p>We analyze thousands of local agents and find <br></br>the best to compete you!</p>
                     <div className="search-form d-flex" >
                         <input type='search' placeholder="City and State or ZIP" ></input>
-                        <Button>Compare Agents  <img src={goAhead} alt="goAhead" /></Button>
+                        <Button onClick={gotoAgenciesPages} >Compare Agents  <img src={goAhead} alt="goAhead" /></Button>
                     </div>
                 </div>
 
@@ -168,7 +174,7 @@ const compareAgency = () => {
                         <p>We analyze thousands of local agents and find <br></br>the best to compete you!</p>
                         <div className="search-form d-flex" >
                             <input type='search' placeholder="City and State or ZIP" ></input>
-                            <Button>Compare Agents  <img src={goAhead} alt="goAhead" /></Button>
+                            <Button onClick={gotoAgenciesPages} >Compare Agents  <img src={goAhead} alt="goAhead" /></Button>
                         </div>
 
                     </div>
