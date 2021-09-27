@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
-import { Button, ButtonGroup, InputGroup } from "react-bootstrap";
+import { Button, ButtonGroup, InputGroup,Form } from "react-bootstrap";
 import IconBack from "../../../../assets/images/long-arrow.svg";
 import {
   goToNextStepAction,
@@ -9,13 +9,7 @@ import {
   setDetailsAction,
 } from "../../../../actions";
 import { RootState } from "../../../../types/state";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-const FormSchema = Yup.object().shape({
-  constructionYear: Yup.string().required("Required"),
-  renovationYear: Yup.string().required("Required"),
-  renovationLevel: Yup.string().required("Required"),
-});
+
 
 const StepThree = ({ setStep }) => {
   const { t } = useTranslation("steps");
@@ -47,7 +41,7 @@ const StepThree = ({ setStep }) => {
   }, []);
 
   const handleClickPrevBtn = () => {
-    // dispatch(goToPrevStepAction());
+     dispatch(goToPrevStepAction());
     setStep(1);
   };
 
@@ -163,154 +157,8 @@ const StepThree = ({ setStep }) => {
         details <span className="optional">({t("title.optional")})</span>
       </h4>
 
-      <Formik
-        initialValues={{
-          prestige: "",
-          condition: "",
-          constructionYear: "",
-          renovationYear: "",
-          renovationLevel: "",
-        }}
-        validationSchema={FormSchema}
-        onSubmit={handleClickNextBtn} 
-         
-      >
-        {({ errors, touched, values }) => (
-          <Form>
-            <label className="Prestige-label form-label">
-                {t("Prestige / quality of the home")}
-              </label>
-            <div
-              className="radio-toolbar "
-              role="group"
-              aria-labelledby="my-radio-group"
-            >
-              <Field type="radio" name="prestige" value="Basic" />
-            <label className="border-start">Basic</label>
 
-              <Field type="radio" name="prestige" value="Average" />
-              <label>Average +</label>
-
-              <Field type="radio" name="prestige" value="Luxury" />
-              <label className="border-end">Luxury</label>
-            </div>
-            <label className="condition-label form-label">
-                {t("Property condition")}
-              </label>
-            <div  className="radio-tool" role="group" aria-labelledby="my-radio">
-              <Field type="radio" name="condition" value="renovated" />
-              <label className="border-start ">To renovated</label>
-
-              <Field type="radio" name="condition" value="Good" />
-              <label>Good</label>
-
-              <Field type="radio" name="condition" value="New" />
-              <label className="border-end">New</label>
-            </div>
-
-            <br />
-            <div className="input-group">
-              <label className="construction-year-label form-label">
-                {t("label.construction-year")}
-              </label>
-              <div className="input-block">
-                <Field
-                  style={{ width: "83%" }}
-                  name="constructionYear"
-                  min="1800"
-                  max={new Date().getFullYear()}
-                  value={values.constructionYear}
-                  type="number"
-                  className="constructionYear form-input "
-                />
-              </div>
-              <ErrorMessage
-                className="form-error show-right"
-                component="div"
-                name="constructionYear"
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="renovationYear-label form-label">
-                Renovated
-              </label>
-              <div className="input-block">
-                <Field
-                  style={{ width: "83%" }}
-                  name="renovationYear"
-                  min="1920"
-                  type="number"
-                  className="renovationYear form-control"
-                />
-              </div>
-              <ErrorMessage
-                className="form-error show-right"
-                component="div"
-                name="renovationYear"
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="renovation-level-label form-label">
-                Renovation level
-              </label>
-
-              <div className="input-block">
-                <Field
-                  style={{ width: "61%" }}
-                  min="0"
-                  name="renovationLevel"
-                  type="number"
-                  className=" renovationLevel form-control"
-                  value={values.renovationLevel}
-                />
-                <div className="input-group-append  ">
-                  <span className="input-group-text">%</span>
-                </div>
-              </div>
-              <ErrorMessage
-                className="form-error show-right"
-                component="div"
-                name="renovationLevel"
-              />
-            </div>
-
-            <div                 style={{ width: "95%" }}
- className="range input-group">
-              <div
-                className="prepend input-group-prepend"
-              >
-                <span  className="input-group-text">0%</span>
-              </div>
-              <Field
-
-                name="renovationLevel"
-                min="0"
-                max="100"
-                type="range"
-                className="form-control-range"
-              />
-
-              <div className="append input-group-append">
-                <span className="input-group-text">100%</span>
-              </div>
-            </div>
-
-            <div className="steps-btn-group d-flex justify-content-between">
-              <Button onClick={handleClickPrevBtn} className="prev-step">
-                <img src={IconBack} alt="IconBack" />
-                {t("button.back")}
-              </Button>
-              <Button type="submit" className="next-step">
-                {t("button.next")}
-              </Button>
-            </div>
-          </Form>
-        )}
-      </Formik>
-
-      {/* <div className="group-block d-flex flex-column">
+       <div className="group-block d-flex flex-column">
 				<span className="form-label">{t("title.prestige")}</span>
 				<ButtonGroup aria-label="prestige" className="custom-btn-group">
 					<Button
@@ -451,7 +299,7 @@ const StepThree = ({ setStep }) => {
 				<Button onClick={handleClickNextBtn} className="next-step">
 					{t("button.next")}
 				</Button>
-			</div> */}
+			</div> 
     </div>
   );
 };
