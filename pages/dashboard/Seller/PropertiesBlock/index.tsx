@@ -119,7 +119,7 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 					) : (
 						<div className="property-main-block__no-items">
 							<img src={NoEstimationImage} alt="NoEstimationImage" />
-							<span>{t("desc.no-items")}</span>
+							<span className="property-description">{t("desc.no-items")}</span>
 						</div>
 					)}
 				</div>
