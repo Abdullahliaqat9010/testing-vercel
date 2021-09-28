@@ -112,7 +112,7 @@ const RequestPriceModal = ({ show, handleClose, property }) => {
 							<Form.Control
 								required
 								name="phone"
-								type="text"
+								type="number"
 								value={data.phone}
 								placeholder="Please enter"
 								onChange={handleChange}
