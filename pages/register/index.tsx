@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import HeaderContainer from "../../containers/Header";
 import { useTranslation } from "next-i18next";
-import SignupForm from "../../components/SignupForm";
+import SignupForm from "./SignupForm";
 import AgencyInfo from "./AgencyInfo/index.component";
 import CompanyDetails from "./CompanyDetails/index.component";
 import { createAgencyProfile, signup } from "../../network-requests";
@@ -14,7 +14,7 @@ import { setUserProfile } from "../../actions";
 import { RootState } from "../../types/state";
 
 const Register = () => {
-	const { t } = useTranslation("header");
+	const { t } = useTranslation("register-agency-pages");
 	const dispatch = useDispatch();
 	const router = useRouter();
 
@@ -106,7 +106,7 @@ const Register = () => {
 
 export const getStaticProps = async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(locale, ["register-agency-pages", "header", "steps"])),
+		...(await serverSideTranslations(locale, ["register-agency-pages", "header"])),
 	},
 });
 
