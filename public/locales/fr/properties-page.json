@@ -12,6 +12,9 @@
   "span.price-unit": "par",
   "button.import": "Import",
   "button.add":"Add",
-  "span.listings": "Listings"
+  "span.listings": "Listings",
+  "span.meter-square":"m²",
+  "span.sold-on":"Vendu sur"
+
 
 }

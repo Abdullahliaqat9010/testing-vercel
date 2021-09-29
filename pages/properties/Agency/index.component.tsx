@@ -70,7 +70,7 @@ const PropertyCard = ({ property, onClick }) => {
 					</div>
 					<div>
 						<span className="sold-property">
-							{`Sold on ${
+							{`${t("span.sold-on")} ${
 								property?.sold_rent_date
 									? moment(property?.sold_rent_date).format("MMM DD, YYYY")
 									: moment().format("MMM DD, YYYY")
@@ -78,7 +78,7 @@ const PropertyCard = ({ property, onClick }) => {
 						</span>
 					</div>
 					<div className=" property-props mt-2 d-flex">
-						<span className="mr-1">{property.live_area + " " + "sq m"}</span>
+						<span className="mr-1">{property.live_area + " " + t("span.meter-square")}</span>
 						<span className="mx-1">
 							{property.bedrooms + " " + t("span.beds")}
 						</span>

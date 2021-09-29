@@ -16,7 +16,7 @@
     "label.checkmark": "Use the same billing address as a company address",
     "button.back": "Back",
     "button.loading": "Loading...",
-
+    "label.zip":"Zip must ge greater than or equal to 1000",
     "button.create-account": "Create account",
   "p.sub-title":"Benefit from using ImmoBelgium for your agency",
   "button.enclosed": "Enclosed",

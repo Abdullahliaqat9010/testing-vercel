@@ -38,14 +38,14 @@ const SignupForm = ({
 		firstname: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
-			.required("Required"),
+			.required(t("p.error")),
 		lastname: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
-			.required("Required"),
+			.required(t("p.error")),
 		email: Yup.string()
 			.email("Invalid email")
-			.required("Required")
+			.required(t("p.error"))
 			.test(
 				"checkForDuplicate",
 				"email already exists",
@@ -53,14 +53,14 @@ const SignupForm = ({
 			),
 		phone_number: Yup.string().optional(),
 		password: Yup.string()
-			.required("Required")
-			.matches(
+		.required(t("p.error"))			
+		.matches(
 				/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-				"Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+				(t("label.password-message"))
 			),
 		confirm_password: Yup.string().test(
 			"passwords-match",
-			"Passwords must match",
+			(t("label.password-match")),
 			function (value) {
 				return this.parent.password === value;
 			}
@@ -76,7 +76,7 @@ const SignupForm = ({
 		<div className="form-container">
 			{showTitle && (
 				<div className="form-title-container">
-					<p className="form-title">  { createAccount[0] + " " + accountType +" " + createAccount[1]} </p>
+					<p className="form-title">  {t("p.title")} </p>
 					<p className="form-subtitle">
 						{t("p.sub-title")}
 					</p>
