@@ -54,7 +54,10 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 					...user,
 					account_type: "seller",
 				});
-				await createProperty({ ...propertyData(), leadId: userProfile.id });
+				await createProperty(
+					{ ...propertyData(), leadId: userProfile.id },
+					router.locale
+				);
 				dispatch(
 					setUserProfile({
 						...userProfile,

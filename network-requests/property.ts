@@ -1,11 +1,19 @@
 import axios from "axios";
 
-export const createProperty = (property): Promise<any> => {
+export const createProperty = (property, locale: string): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data } = await axios.post("property", {
-				...property,
-			});
+			const { data } = await axios.post(
+				"property",
+				{
+					...property,
+				},
+				{
+					params: {
+						locale,
+					},
+				}
+			);
 			res(data);
 		} catch (error) {
 			rej(error);
