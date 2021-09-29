@@ -65,7 +65,7 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 	};
 
 	return (
-		<div className="c">
+		<div className="contact-agency-block">
 			<div className="contact-agency">
 				<h4>{t("title.contact-agency")}</h4>
 				<p>{agencyInfo.title}</p>
