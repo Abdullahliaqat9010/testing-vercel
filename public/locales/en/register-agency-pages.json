@@ -72,6 +72,14 @@
   "title.optional": "Optional",
   "label.terms": "Terms and conditions",
   "label.and": " and ",
-  "label.privacy": "Privacy Policy"
+  "label.privacy": "Privacy Policy",
+  "error.zip-validation": "Zip must be greater than or equal to 1000",
+  "error.t-c": "You must accept Privacy Policy and Terms & Conditions",
+  "error.email-exists": "email already exists",
+  "error.invalid-email": "Invalid email",
+  "p.title":"Professioneel account aanmaken",
+  "label.password-message": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Characte"
+
+
 
 }

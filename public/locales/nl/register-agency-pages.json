@@ -28,7 +28,7 @@
     "p.error":"Verplicht",
     "label.zip":"Postcode ligt tussen 1000 en 9999",
     "label.password-match":"wachtwoorden moeten overeenkomen ",
-    "label.password-message":" Moet tenminste 8 tekens bevatten: één hoofdletter, één kleine letter, één cijfer en één speciaal teken",
+    "label.password-message":"Moet tenminste 8 tekens bevatten: één hoofdletter, één kleine letter, één cijfer en één speciaal teken ",
     "button.renovate": "Te renoveren",
     "knop.uniek": "Uniek",
     "desc.finalized-estimation": "We hebben uw schatting en persoonlijk rapport afgerond. U moet een account aanmaken of een bestaand account gebruiken om het te bekijken.",
@@ -77,5 +77,14 @@
     "label.and": " en ",
     "label.terms": "Algemene voorwaarden",
     "label.privacy": "Privacybeleid",
-    "title.optional": "Optioneel"
+    "title.optional": "Optioneel",
+    "error.zip-validation": "Postcode ligt tussen 1000 en 9999",
+  "error.t-c": "U moet het privacybeleid en de algemene voorwaarden accepteren",
+  "error.email-exists": "e-mail bestaat al",
+  "error.invalid-email": "Ongeldig e-mail",
+  "p.title":"Professioneel account aanmaken "
+
+
+
+
 }

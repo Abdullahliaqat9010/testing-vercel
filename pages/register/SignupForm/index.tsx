@@ -44,11 +44,11 @@ const SignupForm = ({
 			.max(50, "Too Long!")
 			.required(t("p.error")),
 		email: Yup.string()
-			.email("Invalid email")
+			.email(t("error.invalid-email"))
 			.required(t("p.error"))
 			.test(
 				"checkForDuplicate",
-				"email already exists",
+				t("error.email-exists"),
 				checkForDuplicateEmail
 			),
 		phone_number: Yup.string().optional(),
@@ -67,7 +67,7 @@ const SignupForm = ({
 		),
 		t_c: Yup.bool().oneOf(
 			[true],
-			"You must accept Privacy Policy and Terms & Conditions"
+			t("error.t-c")
 		),
 	});
 	const createAccount = t("button.create-account").split(" ")

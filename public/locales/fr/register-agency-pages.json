@@ -43,7 +43,7 @@
   "label.step-4-elevator.home": "Ascenseur dans la maison",
   "label.email": "Courriel",
   "label.password-match":"Les mots de passe doivent correspondre ",
-    "label.password-message":"Doit contenir au moins 8 caractères : une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
+  "label.password-message":"Doit contenir au moins 8 caractères : une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
   "label.epc": "PEB",
   "tooltip.epc": "La performance énergétique des bâtiments (PEB)",
   "label.facades": "Façades",
@@ -76,6 +76,12 @@
   "title.optional": "Optionnel",
   "label.terms": "conditions générales du service.",
   "label.and": " et les ",
-  "label.privacy": "Politique de Confidentialité"
+  "label.privacy": "Politique de Confidentialité",
+  "error.zip-validation": "Zip must be greater than or equal to 1000",
+  "error.t-c": "Vous devez accepter la politique de confidentialité et les conditions générales",
+  "error.email-exists": "l'email existe déjà",
+  "error.invalid-email": "Email invalide"
+
+
 
 }

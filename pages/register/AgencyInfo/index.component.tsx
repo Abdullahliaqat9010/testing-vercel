@@ -12,7 +12,7 @@ const AgencyInfo = ({ onSubmit }) => {
 		city: Yup.string().required(t("p.error")),
 		street: Yup.string().required(t("p.error")),
 		street_number: Yup.number().required(t("p.error")),
-		zip: Yup.number().required(t("p.error")).min(1000).max(9999),
+		zip: Yup.number().required(t("p.error")).min(1000, t("error.zip-validation")).max(9999, t("error.zip-validation")),
 	});
 
 
