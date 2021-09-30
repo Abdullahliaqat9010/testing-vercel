@@ -80,10 +80,10 @@ const PropertyCard = ({ property, onClick }) => {
 					<div className=" property-props mt-2 d-flex">
 						<span className="mr-1">{property.live_area + " " + t("span.meter-square")}</span>
 						<span className="mx-1">
-							{property.bedrooms + " " + t("span.beds") } {property.bedrooms > 1 ? "(s)": ""}
+							{property.bedrooms + " " + t("span.beds") }{property.bedrooms > 1 ? "s": ""}
 						</span>
 						<span className="mx-1">
-							{property.bathrooms + " " + t("span.baths")} {property.bathrooms > 1 ? "(s)": ""}
+							{property.bathrooms + " " + t("span.baths")}{property.bathrooms > 1 ? "s": ""}
 						</span>
 					</div>
 				</div>
