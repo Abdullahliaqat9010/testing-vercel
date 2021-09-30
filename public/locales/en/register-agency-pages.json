@@ -73,6 +73,7 @@
   "label.terms": "Terms and conditions",
   "label.and": " and ",
   "label.privacy": "Privacy Policy",
+  "label.password-match":"Passwords must match",
   "error.zip-validation": "Zip must be greater than or equal to 1000",
   "error.t-c": "You must accept Privacy Policy and Terms & Conditions",
   "error.email-exists": "email already exists",
