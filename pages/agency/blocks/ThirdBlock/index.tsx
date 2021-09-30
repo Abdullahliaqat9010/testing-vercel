@@ -20,8 +20,7 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 
 	// const { similarProperty } = useSelector((state: RootState) => state.userInfo);
 	// const properties = similarProperty.slice(0, elementsOnPage);
-
-	const [properties] = useState([...currentAgency?.properties]);
+	const [properties] = useState(currentAgency?.properties ? [currentAgency?.properties] : [])
 	const [activeMarker, setActiveMarker] = useState<number>(
 		properties.length > 0 ? properties[0]?.id : 0
 	);

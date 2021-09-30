@@ -188,12 +188,15 @@ const StepFour = ({ setStep }) => {
 					location
 				),
 			};
-			const { id: propertyId } = await createProperty({
-				...sendData,
-				leadId: userId,
-				residence_type: "other",
-				interest: "asap",
-			});
+			const { id: propertyId } = await createProperty(
+				{
+					...sendData,
+					leadId: userId,
+					residence_type: "other",
+					interest: "asap",
+				},
+				router.locale
+			);
 			dispatch(setMainPropertyId(propertyId));
 			message.success("Property has been added successfully");
 		} else {

@@ -49,18 +49,6 @@ const socialLinks = [
 	},
 ];
 
-const languages = [
-	"Arabe",
-	"Allemand",
-	"Coreen",
-	"Hebreu",
-	"Portugais",
-	"Anglais",
-	"Chinois",
-	"Espagnol",
-	"Italien",
-	"Russe",
-];
 
 const TagInput = ({ tags, setTags }) => {
 	const [tagData, setTagData] = React.useState(tags);
@@ -117,6 +105,30 @@ function getBase64(file) {
 
 const Formpage = () => {
 	const { t } = useTranslation("agency-settings");
+	const languages = [
+		t("language.Naderland"),
+		t("language.Frans"),
+         t("language.Duits"),
+		 t("language.Engels"),
+		 t("language.Spaans"),
+		 t("language.Italien"),
+		 t("language.Pools"),
+		 t("language.Russisch"),	
+		 t("language.Turk"),
+		t("language.Arabe"),
+		t("language.Coreen"),
+		t("language.Herbreu"),
+		t("language.Portugais"),
+		t("language.Anaglas"),
+		t("language.Chinois"),
+	];
+
+	
+ 
+
+
+
+	
 
 	const [logoImage, setLogoImage] = useState("");
 	const [coverImage, setCoverImage] = useState("");

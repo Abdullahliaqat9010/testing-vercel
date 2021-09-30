@@ -16,7 +16,7 @@
     "label.checkmark": "Use the same billing address as a company address",
     "button.back": "Back",
     "button.loading": "Loading...",
-
+    "label.zip":"Zip must ge greater than or equal to 1000",
     "button.create-account": "Create account",
   "p.sub-title":"Benefit from using ImmoBelgium for your agency",
   "button.enclosed": "Enclosed",
@@ -72,6 +72,15 @@
   "title.optional": "Optional",
   "label.terms": "Terms and conditions",
   "label.and": " and ",
-  "label.privacy": "Privacy Policy"
+  "label.privacy": "Privacy Policy",
+  "label.password-match":"Passwords must match",
+  "error.zip-validation": "Zip must be greater than or equal to 1000",
+  "error.t-c": "You must accept Privacy Policy and Terms & Conditions",
+  "error.email-exists": "email already exists",
+  "error.invalid-email": "Invalid email",
+  "p.title":"Professioneel account aanmaken",
+  "label.password-message": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Characte"
+
+
 
 }

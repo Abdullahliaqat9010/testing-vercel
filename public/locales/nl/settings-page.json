@@ -1,6 +1,6 @@
 {
    "title": "Accountinstellingen",
-   "h1.title": "Profieldetails",
+   "h1.title": "Profiel details",
    "label.firstName": "Voornaam",
    "label.lastName": "Achternaam",
    "label.email": "E-mail",
@@ -28,7 +28,7 @@
    "button.pro": "Word PRO",
    "image.placholder": "Upload foto",
    "image.uploading": "Uploaden...",
-   "image.change": "Verander foto",
+   "image.change": "Foto wijzigen",
    "acount-type": "Professioneel",
    "link.logout": "Uitloggen",
    "alert.success": "Notification preference has been updated successfully!"

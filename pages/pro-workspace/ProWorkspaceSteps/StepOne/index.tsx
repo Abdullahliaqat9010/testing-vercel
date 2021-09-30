@@ -47,12 +47,12 @@ const StepOnePro = () => {
           <InputGroup hasValidation>
             <Form.Control
               required
-              type="text"
+              type="number"
               placeholder="Phone number"
               defaultValue="(239) 555-0108"
             />
             <Form.Control.Feedback type="invalid">
-              Please choose a username.
+              Please Enter Phone Number.
             </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>

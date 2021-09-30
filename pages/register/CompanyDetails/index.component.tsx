@@ -6,18 +6,18 @@ import * as Yup from "yup";
 
 const CompanyDetails = ({ onSubmit, onBack, address }) => {
 	const [sameBillingAddress, setSameBillingAddress] = useState(true);
+	const { t } = useTranslation("register-agency-pages")
 
 	const validationSchema = Yup.object().shape({
-		ipi_number: Yup.number().required("Required").min(0),
-		company_name: Yup.string().required("Required"),
-		vat_number: Yup.number().required("Required").min(0),
-		billing_city: Yup.string().required("Required"),
-		billing_street: Yup.string().required("Required"),
-		billing_street_number: Yup.number().required("Required"),
-		billing_zip: Yup.number().required("Required").min(1000).max(9999),
+		ipi_number: Yup.number().required(t("p.error")).min(0),
+		company_name: Yup.string().required(t("p.error")),
+		vat_number: Yup.string().required(t("p.error")),
+		billing_city: Yup.string().required(t("p.error")),
+		billing_street: Yup.string().required(t("p.error")),
+		billing_street_number: Yup.number().required(t("p.error")),
+		billing_zip: Yup.number().required(t("p.error")).min(1000, t("error.zip-validation")).max(9999, t("error.zip-validation")),
 	});
 
-	const { t } = useTranslation("register-agency-pages")
 
 	return (
 		<div className="form-container">
@@ -69,7 +69,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 								<label className="form-label" htmlFor="vat_number">
 									{t("label.vat-number")}
 								</label>
-								<Field className="form-input" name="vat_number" type="number" />
+								<Field className="form-input" name="vat_number" type="text" />
 								<ErrorMessage
 									className="form-error"
 									component="div"

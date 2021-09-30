@@ -97,7 +97,7 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="phone">
 											{t("label.phone")}
 										</label>
-										<Field className="form-input" name="phone" type="text" />
+										<Field className="form-input" name="phone" type="number" />
 										<ErrorMessage
 											className="form-error"
 											component="div"

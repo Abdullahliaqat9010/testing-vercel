@@ -12,7 +12,7 @@
 
         p {
             font-weight: bold;
-            font-size: 24px;
+            font-size: 20px;
             line-height: 33px;
             align-items: center;
             margin: 10px;
@@ -52,7 +52,6 @@
         }
         .city-price-block {
             padding: 20px 20px 10px;
-            margin: 10px 0px;
             border-radius: 8px;
             background-color: var(--colorWhite);
 
@@ -60,6 +59,8 @@
                 font-weight: bold;
                 font-size: 18px;
                 line-height: 25px;
+                margin-left: 20px;
+
                 align-items: center;
                 margin:10px 10px 20px ;
             }
@@ -174,7 +175,7 @@
         }
 
         .estimate-links-block {
-            padding: 20px;
+            // padding: 20px;
             // margin: 10px 0px;
             border-radius: 8px;
             background-color: var(--colorWhite);
@@ -237,7 +238,174 @@
         width: 50%;
         img {
             width: 100%;
-            height: 80vh;
+            margin-left: 10px;
         }
     }
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .city-price-block {
+        padding: 20px 20px 10px;
+        margin: 10px -34px;
+        border-radius: 8px;
+        background-color: var(--colorWhite);
+    
+        p {
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 25px;
+            align-items: center;
+            margin:10px 10px 20px ;
+        }
+        tr {
+            height: 39px;
+            margin: 6px 0px;
+        }
+    
+        th {
+            text-align: center;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--mainColor);
+        }
+        td {
+            margin: 0px 4px;
+            font-size: 14px;
+            line-height: 19px;
+            text-align: center;
+            color: var(--mainColor);
+        }
+        .city-name {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 19px;
+            margin: 0px 10px;
+            color: var(--colorBlue);
+        }
+        .price-map {
+            width: 50%;
+            img {
+                width: 100%;
+                margin-left: 20px;
+            }
+        }
+     
+    }
+    .price-map-main .price-content-view .estimate-links-block .estmates-buttons p {
+      
+        font-size: 11px;
+        line-height: 22px;
+        margin-top: 20px;
+        display: flex;
+        width: auto;
+        flex-direction: column;
+    }
+
+
+
+     .links-block Button {
+        border-radius: 8px;
+        margin-bottom: 25px;
+    
+    }
+    .price-map-main .price-content-view .estimate-links-block .get-prices p{
+        font-size: 11px;
+        line-height: 22px;
+        margin-top: 20px;
+        display: flex;
+        width: auto;
+        flex-direction: column;
+     }
+     .city-price-content-map {
+        padding: 20px 20px 10px;
+        margin: 10px 0px;
+        border-radius: 8px;
+        width: min-content;
+        background-color: var(--colorWhite);
+
+        .title-block {
+            text-align: center;
+            span {
+                width: 50%;
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 19px;
+                text-align: center;
+                padding-bottom: 10px;
+                cursor: pointer;
+                
+            }
+
+            .active {
+                border-bottom: 1px solid var(--colorBlue);
+            }
+            .inactive {
+                border-bottom: 1px solid var(--colorWhite);
+
+            }
+        }
+
+        .city-price-date {
+            margin: 10px 0px;
+            border-radius: 6px;
+            padding: 10px;
+
+            .main-block {
+                width: 50%;
+            }
+
+            .home-type {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border-radius: 6px;
+                margin: 0px 30px;
+
+                span {
+                    font-size: 12px;
+                    line-height: 16px;
+                    color: var(--colorGrayTwo);
+                    margin: 10px 0px;
+                }
+            }
+
+            .prices-block {
+                p {
+                    font-weight: bold;
+                    font-size: 25px;
+                    line-height: 44px;
+                    color: var( --mainColor);
+                    margin: 0px;
+                }
+                span {
+                    color: var(--colorGrayTwo);
+                    font-size: 14px;
+                    line-height: 19px;
+                    margin: 4px 0px;
+                }
+                .price {
+                    color: var( --mainColor);
+                }
+            }
+            .progress-block {
+                span {
+                    color: var(--colorGray);
+                    font-size: 14px;
+                    line-height: 19px;
+                    margin: 6px 0px;
+                }
+            }
+        }
+    }
+
 }
