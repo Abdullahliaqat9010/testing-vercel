@@ -78,7 +78,7 @@
   "error.t-c": "You must accept Privacy Policy and Terms & Conditions",
   "error.email-exists": "email already exists",
   "error.invalid-email": "Invalid email",
-  "p.title":"Professioneel account aanmaken",
+  "p.title":"Create professional account",
   "label.password-message": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Characte"
 
 
