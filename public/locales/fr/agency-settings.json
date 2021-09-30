@@ -15,7 +15,7 @@
     "button.loading": "Loading...",
     "button.save": "Save Changes",
     "button.view": "Visualise my agency",
-    "language.Naderland":"les Pays-Bas",
+    "language.Nederlands":"les Pays-Bas",
     "language.Frans":"français",
     "language.Duits":"Allemand",
     "language.Engels":"Anglais",
@@ -25,9 +25,8 @@
     "language.Turk":"Turc",
     "language.Russisch":"russe",
     "language.Arabe": "arabe ",
-    "language.Coreen":"Coreen",
-    "language.Hebreu":"hébreu",
     "language.Portugais":"Portugais",
-    "language.Anaglas":"anaglas",
-    "language.Chinois":" Chinoise"
+    "language.Chinois":" Chinoise",
+    "language.Herbreu":"Herbreu"
+
 }

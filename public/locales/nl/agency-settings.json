@@ -15,8 +15,8 @@
     "button.loading": "Bezig met laden...",
     "button.save": "Wijzigingen opslaan",
     "button.view": "Visualiseer mijn vitrine",
-    "language.Naderland":"Naderland",
-    "language.Frans":"frans",
+    "language.Nederlands":"Nederlands",
+    "language.Frans":"Frans",
     "language.Duits":"Duits",
     "language.Engels":"Engels",
     "language.Spaans":"Spaans",
@@ -25,10 +25,9 @@
     "language.Turk":"Turk",
     "language.Russisch":"Russisch",
     "language.Arabe": "Arabisch ",
-    "language.Coreen":"Coreen",
-    "language.Hebreu":"Hebreeuws",
     "language.Portugais":"Portugees",
-    "language.Anaglas":"Anaglas",
     "language.Chinois":" Chinese",
-   "language.Russe":"Russe"
+   "language.Herbreu":"Herbreu"
 }
+
+
