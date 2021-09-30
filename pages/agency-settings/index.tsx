@@ -106,29 +106,20 @@ function getBase64(file) {
 const Formpage = () => {
 	const { t } = useTranslation("agency-settings");
 	const languages = [
-		t("language.Naderland"),
+		t("language.Nederlands"),
+		t("language.Italien"),
 		t("language.Frans"),
-         t("language.Duits"),
-		 t("language.Engels"),
-		 t("language.Spaans"),
-		 t("language.Italien"),
-		 t("language.Pools"),
-		 t("language.Russisch"),	
-		 t("language.Turk"),
 		t("language.Arabe"),
-		t("language.Coreen"),
-		t("language.Herbreu"),
+		t("language.Duits"),
+		t("language.Pools"),
+		t("language.Engels"),
+		t("language.Turk"),
+		t("language.Spaans"),
+		t("language.Russisch"),
 		t("language.Portugais"),
-		t("language.Anaglas"),
 		t("language.Chinois"),
+		t("language.Herbreu"),
 	];
-
-	
- 
-
-
-
-	
 
 	const [logoImage, setLogoImage] = useState("");
 	const [coverImage, setCoverImage] = useState("");
