@@ -57,7 +57,7 @@ const StepThreePro = () => {
                 placeholder="Enter your company VAT"
               />
               <Form.Control.Feedback type="invalid">
-                Please choose a username.
+                Please Enter VAT Number.
               </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
