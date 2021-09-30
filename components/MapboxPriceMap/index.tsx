@@ -6,7 +6,7 @@ import MarkerHomeIcon from "../../assets/images/marker.svg";
 import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
 import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
 import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
-import province from "./province.json"
+import province from "./provinces.json"
 
 mapboxgl.Marker.prototype.onClick = function (handleClick) {
     this._handleClick = handleClick;
@@ -55,21 +55,21 @@ const Mapbox3dMap = ({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/light-v10', // style URL
             center: [4.402771, 51.260197], // starting position
-            zoom: 5 // starting zoom
+            zoom: 8 // starting zoom
         });
 
         map.on('load', () => {
             // Add a data source containing GeoJSON data.
-            map.addSource('ADMIN', {
+            map.addSource('provice_geojson', {
                 'type': 'geojson',
                 'data': province
             });
 
             // Add a new layer to visualize the polygon.
             map.addLayer({
-                'id': 'maine',
+                'id': 'province',
                 'type': 'fill',
-                'source': 'ADMIN', // reference the data source
+                'source': 'provice_geojson', // reference the data source
                 'layout': {},
                 'paint': {
                     'fill-color': '#0080ff', // blue color fill
@@ -80,11 +80,11 @@ const Mapbox3dMap = ({
             map.addLayer({
                 'id': 'outline',
                 'type': 'line',
-                'source': 'ADMIN',
+                'source': 'provice_geojson',
                 'layout': {},
                 'paint': {
                     'line-color': '#000',
-                    'line-width': 3
+                    'line-width': 1
                 }
             });
         });
