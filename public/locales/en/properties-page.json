@@ -12,7 +12,8 @@
   "span.price-unit": "per",
   "button.import": "Import",
   "button.add":"Add",
-  "span.listings": "Listings",
+  "span.select": "Select",
+  "span.properties": "properties",
   "span.meter-square":"m²"
 
 }

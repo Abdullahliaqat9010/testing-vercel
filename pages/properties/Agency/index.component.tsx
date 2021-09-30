@@ -163,7 +163,7 @@ const SoldPropertiesPage = () => {
 							<div>
 								{" "}
 								<input type="checkBox"></input>{" "}
-								<span className=" total-listings pl-2"> {properties.length} {t("span.listings")} </span>{" "}
+								<span className=" total-listings pl-2"> {t("span.select")} {properties.length} {t("span.properties")} </span>{" "}
 							</div>
 							<div className="action-block">
 								<Button className="mx-1">

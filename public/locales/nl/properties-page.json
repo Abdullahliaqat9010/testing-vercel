@@ -12,7 +12,8 @@
    "span.price-unit": "per",
    "button.import": "Importeren ",
    "button.add":"Toevoegen",
-   "span.listings": "Selecteer 5 eigendommen",
+   "span.select": "Selecteer",
+   "span.properties": "eigendommen",
    "span.meter-square":"m²",
    "span.sold-on":"Verkocht op "
  
