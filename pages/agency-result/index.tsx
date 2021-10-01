@@ -22,17 +22,14 @@ import BlueGoAhead from "../../assets/images/blue-goAhead.svg";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
+import { useRouter } from "next/router";
 
 // import FooterContainer from "../../containers/Footer"ContactAgentModal
-const compareAgency = ({ onSubmit }) => {
-	const validationSchema = Yup.object().shape({
-		full_name: Yup.string().required("Required"),
-		city: Yup.string().required("Required"),
-		email: Yup.string().email("Invalid email").required("Required"),
-		description: Yup.string().required("Required"),
-		projet: Yup.string().required("Required"),
-		evaluate: Yup.boolean().required("Required"),
-	});
+const compareAgency = () => {
+
+	const router = useRouter()
+	const { query } = router
+	console.log("query", query)
 
 	const [open, setOpen] = useState<boolean>(false);
 	const [openContactForm, setOpenContactForm] = useState<boolean>(false);

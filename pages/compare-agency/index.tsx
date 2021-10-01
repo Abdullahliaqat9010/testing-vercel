@@ -202,6 +202,7 @@ const compareAgency = () => {
     )
 }
 
+
 export const getServerSideProps = async ({ locale }) => {
     return {
         props: {
