@@ -276,7 +276,7 @@
     .compare-agency .search-area 
     span {
         font-weight: bold;
-        font-size: 21px;
+        font-size: 19px;
         line-height: 120%;
     }
     .search-form {
@@ -293,7 +293,7 @@
         margin-top: 20px;
     }
     .compare-agency .search-area p {
-        font-size: 15px;
+        font-size: 13px;
         line-height: 25px;
     }
     
@@ -331,10 +331,8 @@ font-weight: bold;
 }
 .compare-agency .top-agencys .compare-top-agency span {
     font-weight: bold;
-   font-size: 12px;
-  
+   font-size: 15px;
     display: flex;
-    margin-left: 25px;
 }
 .compare-agency .top-agencys .compare-top-agency p {
     font-size: 12px;
@@ -344,7 +342,6 @@ font-weight: bold;
 }
 .compare-agency .top-agencys .compare-top-agency input {
     padding-left: 10px;
-    width: 133px;
     height: 43px;
     border: 1px solid var(--colorLightGrey);
     box-shadow: 0px 4px 10px rgb(56 114 239 / 15%);
@@ -354,14 +351,26 @@ font-weight: bold;
     line-height: 22px;
 }
 .btn {
-    width: 128px;
     cursor: pointer;
     margin: auto;
     margin-top: 20px;
-    margin-left: 41px;
+}
+.compare-agency .top-agencys {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 580px;
+    background: linear-gradient(
+263.66deg, rgba(56, 113, 239, 0.1) 21.3%, rgba(56, 113, 239, 0.011) 72.32%);
+}
+.compare-agency .top-agencys .top-agencies-view {
+     width: 100%;
+}
+.compare-agency .top-agencys .compare-top-agency {
+    width: 100%;
 }
 }
-
 
 
 
