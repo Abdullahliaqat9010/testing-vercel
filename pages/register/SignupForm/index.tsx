@@ -211,11 +211,11 @@ const SignupForm = ({
 								<label className="label-terms-condition">
 									{t("label.read-privacy")}
 									<a href={"/privacy-policy"} {...linkProps}>
-										{/* {t("label.privacy")} */}
+										{t("label.privacy")}
 									</a>
-									{/* {t("label.and")} */}
+									{t("label.and")}
 									<a href={"/terms-and-condition"} {...linkProps}>
-										{/* {t("label.terms")} */}
+										{t("label.terms")}
 									</a>
 								</label>
 							</div>
