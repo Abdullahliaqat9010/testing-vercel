@@ -13,6 +13,19 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
+export const getAgenciesByAddress = (address) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.post("agency/search", {
+				...address,
+			});
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
 export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {

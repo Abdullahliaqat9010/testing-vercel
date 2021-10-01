@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import HeaderContainer from "../../containers/Header"
@@ -19,9 +19,16 @@ import { useRouter } from "next/router"
 const compareAgency = () => {
 
     const router = useRouter()
+    const {locale} = router
+    const [address, setAddress] = useState("")
 
     const gotoAgenciesPages = () => {
-        router.push("/agency-result")
+        router.push({
+            pathname: locale + "/agency-result",
+            query: {address} })
+    }
+    const onChange = (target) => {
+        setAddress(target.value)
     }
 
     return (
@@ -35,7 +42,7 @@ const compareAgency = () => {
                     <p> <span> Compare Real Estate <br></br>Agencies in your neighbourhood.</span></p>
                     <p>We analyze thousands of local agents and find <br></br>the best to compete you!</p>
                     <div className="search-form d-flex" >
-                        <input type='search' placeholder="City and State or ZIP" ></input>
+                        <input type='search' onChange={(e) => onChange(e.target)} placeholder="City and State or ZIP" ></input>
                         <Button onClick={gotoAgenciesPages} >Compare Agents  <img src={goAhead} alt="goAhead" /></Button>
                     </div>
                 </div>
