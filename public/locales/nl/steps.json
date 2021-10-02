@@ -1,4 +1,3 @@
-
 {
   "button.average": "Gemiddeld +",
   "button.back": "Terug",
@@ -120,6 +119,6 @@
   "error.more-then-5": "wachtwoord moet meer dan 5 symbolen bevatten",
   "error.only-latter": "kan alleen letters en spaties bevatten",
   "error.password": "Wachtwoord moet ten minste één grote letter, één kleine letter, en cijfer bevatten",
-   "error.dont-match": "Wachtwoorden komen niet overeen",
-   "placeholder.epc": "Voer in"
+  "error.dont-match": "Wachtwoorden komen niet overeen",
+  "placeholder.epc": "Voer in"
 }

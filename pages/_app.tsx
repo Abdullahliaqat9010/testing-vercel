@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { appWithTranslation, useTranslation } from "next-i18next";
+import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 
 import { store, persistor } from "../store";
@@ -35,10 +35,11 @@ import "../styles/pages/estimate.scss";
 import "../styles/pages/sold-properties.scss";
 import "../styles/PropertyDetailsModal.scss";
 import "../styles/pages/agency-settings.scss";
-import "../styles/pages/compare-agency.scss"
-import "../styles/pages/compare-agency-result.scss"
-import "../styles/pages/price-map.scss"
+// import "../styles/pages/compare-agency.scss";
+// import "../styles/pages/compare-agency-result.scss";
+// import "../styles/pages/price-map.scss";
 import "../styles/map.scss";
+import Loading from "../components/Loading";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
@@ -119,24 +120,51 @@ axios.interceptors.response.use(
 	}
 );
 
+const protected_routes = [
+	"/dashboard",
+	"/settings",
+	"/properties",
+	"/agency-settings",
+];
+
 const MyApp = ({ Component, pageProps }) => {
+	const [isLoading, setIsLoading] = useState(false);
+
 	const router = useRouter();
 
-	const { locale } = router;
-	const { i18n } = useTranslation();
+	const logout = async () => {
+		try {
+			setIsLoading(true);
+			await fetch("/auth-api/logout", {
+				method: "POST",
+			});
+			window.localStorage.removeItem("access_token");
+			window.localStorage.removeItem("refresh_token");
+			setIsLoading(false);
+			if (protected_routes.includes(router.pathname)) {
+				router.push("/login");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		const access_token = window.localStorage.getItem("access_token");
+		const refresh_token = window.localStorage.getItem("refresh_token");
+		if (!access_token || !refresh_token) {
+			logout();
+		}
+	}, [router]);
 
 	useEffect(() => {
 		TagManager.initialize(tagManagerArgs);
 	}, []);
 
-	useEffect(() => {
-		i18n.changeLanguage(locale);
-	}, [locale]);
-
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<Component {...pageProps} />
+				{isLoading ? <Loading /> : <Component {...pageProps} />}
 			</PersistGate>
 		</Provider>
 	);
