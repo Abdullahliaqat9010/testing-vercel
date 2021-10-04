@@ -2,6 +2,7 @@
 	height: var(--headerHeight);
 	padding: 0 20px;
 	background-color: var(--colorWhite);
+	transition: all 0.3s;
 
 	img {
 		cursor: pointer;

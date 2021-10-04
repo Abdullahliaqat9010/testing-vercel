@@ -11,6 +11,8 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import TagManager from "react-gtm-module";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Loading from "../components/Loading";
+
 import "../styles/globals.scss";
 import "../styles/header.scss";
 import "../styles/footer.scss";
@@ -35,11 +37,10 @@ import "../styles/pages/estimate.scss";
 import "../styles/pages/sold-properties.scss";
 import "../styles/PropertyDetailsModal.scss";
 import "../styles/pages/agency-settings.scss";
-// import "../styles/pages/compare-agency.scss";
-// import "../styles/pages/compare-agency-result.scss";
-// import "../styles/pages/price-map.scss";
+import "../styles/pages/compare-agency.scss";
+import "../styles/pages/compare-agency-result.scss";
+import "../styles/pages/price-map.scss";
 import "../styles/map.scss";
-import Loading from "../components/Loading";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
