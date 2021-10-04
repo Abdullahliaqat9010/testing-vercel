@@ -16,6 +16,10 @@ body {
 	margin: unset;
 	background-color: var(--bg-blue);
 	font-family: var(--fontNunito);
+	padding-top: var(--headerHeight);
+	@media (max-width: 768px) {
+		padding-top: var(--headerHeightMobile);
+	}
 }
 
 .nunito-bold {
