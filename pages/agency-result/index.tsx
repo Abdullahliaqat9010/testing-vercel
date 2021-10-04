@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
@@ -23,7 +23,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import { useRouter } from "next/router";
-
+import { getAgenciesByAddress } from "../../network-requests";
 // import FooterContainer from "../../containers/Footer"ContactAgentModal
 const compareAgency = () => {
 
@@ -34,6 +34,21 @@ const compareAgency = () => {
 	const [open, setOpen] = useState<boolean>(false);
 	const [openContactForm, setOpenContactForm] = useState<boolean>(false);
 	const [selctedIdex, setSelctedIdex] = useState<Number>(-1);
+
+	useEffect(()=> {
+		getAgencies()
+	},[])
+
+	const getAgencies = async ()=> {
+		try{
+			const city = query.address
+			const agencies = await getAgenciesByAddress( city)
+			console.log("agencies", agencies)
+		}catch (error) {
+			console.log(error)
+		}
+		
+	}
 
 	const agencyData = [
 		{

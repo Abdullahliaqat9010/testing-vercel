@@ -13,13 +13,14 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
-export const getAgenciesByAddress = (address) => {
+export const getAgenciesByAddress = (city)=> {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.post("agency/search", {
-				...address,
-			});
-			res("");
+			console.log("adress", city)
+			const {data: agencies } = await axios.get("agency/search?city="+ city)
+			console.log("agencies", agencies)
+
+			res(agencies);
 		} catch (error) {
 			rej(error);
 		}
