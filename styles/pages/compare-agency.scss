@@ -242,16 +242,16 @@
 	.search-form {
 		flex-direction: column;
 	}
-	Button {
-		width: 200px;
-		height: 50px;
-		align-items: center;
-		padding: 14px 20px;
-		border-radius: 8px;
-		background: var(--colorBlue);
-		border-radius: 8px;
-		margin-top: 20px;
-	}
+	// Button {
+	// 	width: 200px;
+	// 	height: 50px;
+	// 	align-items: center;
+	// 	padding: 14px 20px;
+	// 	border-radius: 8px;
+	// 	background: var(--colorBlue);
+	// 	border-radius: 8px;
+	// 	margin-top: 20px;
+	// }
 	.compare-agency .search-area p {
 		font-size: 15px;
 		line-height: 25px;
@@ -260,9 +260,9 @@
 		width: 50%;
 	}
 
-	.d-flex {
-		display: flex !important;
-	}
+	// .d-flex {
+	// 	display: flex !important;
+	// }
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
@@ -305,10 +305,10 @@
 		border-radius: 8px;
 		background: linear-gradient(26.91deg, #f2f6ff 0%, #ffffff 76.42%);
 	}
-	h3 {
-		font-size: 20px;
-		font-weight: bold;
-	}
+	// h3 {
+	// 	font-size: 20px;
+	// 	font-weight: bold;
+	// }
 	.compare-agency
 		.top-agencys
 		.top-agencies-view
@@ -324,9 +324,9 @@
 		margin: 10px 0px;
 		color: var(--colorWhite);
 	}
-	.d-flex {
-		display: flex !important;
-	}
+	// .d-flex {
+	// 	display: flex !important;
+	// }
 	.compare-agency .top-agencys .compare-top-agency span {
 		font-weight: bold;
 		font-size: 12px;
@@ -351,11 +351,11 @@
 		font-size: 16px;
 		line-height: 22px;
 	}
-	.btn {
-		width: 128px;
-		cursor: pointer;
-		margin: auto;
-		margin-top: 20px;
-		margin-left: 41px;
-	}
+	// .btn {
+	// 	width: 128px;
+	// 	cursor: pointer;
+	// 	margin: auto;
+	// 	margin-top: 20px;
+	// 	margin-left: 41px;
+	// }
 }

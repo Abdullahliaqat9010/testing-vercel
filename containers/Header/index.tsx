@@ -62,6 +62,7 @@ const HeaderContainer = ({
 	const account_type = useSelector(
 		(state: RootState) => state?.userInfo?.account_type
 	);
+	const [scrollHeight, setScrollHeight] = useState<number>(0);
 	const navBarList =
 		account_type === "seller" ? sellerNavBarList : agencyNavBarList;
 	// const { mainBlocks, stepBlock } = useSelector(
@@ -113,9 +114,21 @@ const HeaderContainer = ({
 	const isLoggedIn = localStorage.getItem("access_token") ? true : false;
 	const isAdmin = token ? parseJwt(token)?.account_type === "admin" : false;
 
+	const onScroll = () => {
+		setScrollHeight(window.pageYOffset);
+	};
+
 	useEffect(() => {
 		i18n.changeLanguage(locale);
 	}, [locale]);
+
+	useEffect(() => {
+		window.addEventListener("scroll", onScroll);
+
+		return () => {
+			window.removeEventListener("scroll", onScroll);
+		};
+	}, []);
 
 	return (
 		<>
@@ -191,7 +204,11 @@ const HeaderContainer = ({
 					}}
 				/>
 			</Head> */}
-			<div className="Header d-flex justify-content-between align-items-center">
+			<div
+				className={`Header d-flex justify-content-between align-items-center fixed-top ${
+					scrollHeight > 30 ? "shadow" : ""
+				}`}
+			>
 				<div
 					style={{
 						display: "flex",
