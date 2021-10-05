@@ -55,7 +55,7 @@ const PropertyContainer = ({
 	};
 
 	const getImageLink = () => {
-		if (property.images.length) {
+		if (property?.images?.length) {
 			return property.images[0].url_small;
 		}
 		return locale === "fr" ? NoImageFr : NoImage;
