@@ -1,5 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, Table, ProgressBar } from "react-bootstrap";
+import { Button, Table, ProgressBar, ListGroup } from "react-bootstrap";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import HeaderContainer from "../../containers/Header";
@@ -9,7 +9,6 @@ import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 import GoogleMap from "../../components/MapboxPriceMap";
-
 
 const priceMap = () => {
     const citiesData = [
@@ -2964,7 +2963,8 @@ const priceMap = () => {
     const [activeTab, setActiveTab] = useState<string>("price");
     const [data, setData] = useState(citiesData)
     const [suggesstions, setSuggestions] = useState([])
-
+    const [updatesearch, setCity] = useState([]);
+    const [textToSearch, setTextToSearch] = useState("")
 
 
     const gotoCityData = () => {
@@ -2990,6 +2990,16 @@ const priceMap = () => {
 
 
 
+    useEffect(() => {
+        const citydata = citiesData;
+        const inputValue = textToSearch.trim().toLowerCase();
+        const inputLength = inputValue.length;
+        const fitertUser = inputLength === 0 ? [] : citydata.filter(city =>
+            city.name.toLowerCase().slice(0, inputLength) === inputValue
+        );
+        setCity(fitertUser)
+    }, [textToSearch])
+
     const switchTab = (name: string) => {
         setActiveTab(name);
     };
@@ -3010,13 +3020,31 @@ const priceMap = () => {
 
     }
 
+
+
+
+    const filterCities = (value) => {
+        setTextToSearch(value)
+
+    }
+
+
     return (
         <>
             <HeaderContainer title="price pam" />
             <div className="w-100 d-flex price-map-main">
                 <div className="price-content-view">
                     <div className="d-flex mb-3">
-                        <input type="search" onChange={(el) => fiterData(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
+                        <input type="search" onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
+                        <ListGroup as="ul" className="position-absolute" style={{marginTop: "45px", width: "calc(48.533% - 58px)"}}>
+                        
+                        {updatesearch.map((cityData) => {
+                        return (
+                            <ListGroup.Item as="li">{cityData.name}</ListGroup.Item>
+                            )
+                        })}
+                        </ListGroup>
+                        
                         <Button className="search-button"  > <img src={SearchImage} alt="SearchImage" /> </Button>
                     </div>
                     <p> {cityPriceMap ? "Prix immobilier dans le Centre-Val de Loire" : "Prix immobilier partout en France"} </p>
