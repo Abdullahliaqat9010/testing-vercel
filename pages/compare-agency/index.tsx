@@ -3,8 +3,8 @@ import React, { useState } from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import HeaderContainer from "../../containers/Header"
 import FooterContainer from "../../containers/Footer"
-import Link  from "next/link"
-import { Button, Carousel } from "react-bootstrap"
+import Link from "next/link"
+import { Button, InputGroup, FormControl, Carousel } from "react-bootstrap"
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg"
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png"
 import locationImage from "../../assets/images/compare-agency/location-image.png"
@@ -15,21 +15,58 @@ import RatingStar from '../../assets/images/rating/full-star.svg';
 import RatingStarEmpty from '../../assets/images/rating/star.svg';
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import { useRouter } from "next/router"
+import { useDispatch, useSelector } from "react-redux"
+import { getAutocompleteItemsAction, clearAutocompleteItems } from "../../actions"
+import { RootState } from "../../types/state"
 
 const compareAgency = () => {
 
+    const dispatch = useDispatch()
     const router = useRouter()
-    const {locale} = router
-    const [address, setAddress] = useState("")
+    const { locale } = router
+    const [value, setValue] = useState("");
+    const [dataInfo, setData] = useState({});
+    const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
+
 
     const gotoAgenciesPages = () => {
         router.push({
-            pathname: locale + "/agency-result",
-            query: {address} })
+            pathname: locale + "/agency-result"
+        })
     }
-    const onChange = (target) => {
-        setAddress(target.value)
-    }
+    const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(el.target.value);
+        if (el.target.value.length > 0) {
+            dispatch(getAutocompleteItemsAction(el.target.value, el.target.name));
+        } else {
+            dispatch(clearAutocompleteItems());
+        }
+    };
+
+    const handleSelectAddress = (addressId: string) => {
+        const [currentAddress] = dataFromMapBox.filter(
+            (list) => list.id === addressId
+        );
+        setValue(currentAddress.fullAddress);
+
+        const dataForNextStep = {
+            locality:
+                currentAddress.locality.length > 1
+                    ? currentAddress.locality
+                    : currentAddress.place,
+            number: currentAddress.number,
+            street: currentAddress.street,
+            zip: currentAddress.postcode,
+            country: currentAddress.country,
+        };
+
+        localStorage.setItem("address", JSON.stringify(dataForNextStep) )
+
+        setData({ ...dataForNextStep });
+        dispatch(clearAutocompleteItems());
+    };
+
+    console.log("dataInfo",dataInfo)
 
     return (
         <>
@@ -42,7 +79,27 @@ const compareAgency = () => {
                     <p> <span> Compare Real Estate <br></br>Agencies in your neighbourhood.</span></p>
                     <p>We analyze thousands of local agents and find <br></br>the best to compete you!</p>
                     <div className="search-form d-flex" >
-                        <input type='search' onChange={(e) => onChange(e.target)} placeholder="City and State or ZIP" ></input>
+                        <div className="d-flex flex-collumn">
+                            <InputGroup>
+                                <FormControl
+                                    placeholder="City and State or ZIP"
+                                    name="address"
+                                    onChange={handleAutocomplete}
+                                    value={value}
+                                    autoComplete="off"
+                                />
+                            </InputGroup>
+                            {dataFromMapBox.length > 0 && (
+                                <ul className="autocomplete-list">
+                                    {dataFromMapBox.map((item, index) => (
+                                        <li onClick={() => handleSelectAddress(item.id)} key={index}>
+                                            {item.fullAddress}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        {/* <input type='search' onChange={(e) => onChange(e.target)} placeholder="City and State or ZIP" ></input> */}
                         <Button onClick={gotoAgenciesPages} >Compare Agents  <img src={goAhead} alt="goAhead" /></Button>
                     </div>
                 </div>
@@ -140,7 +197,7 @@ const compareAgency = () => {
                                 <img src={HomeownerIcon} alt="HomeownerIcon" />
                             </div>
                         </div>
-{/*
+                        {/*
                         <div className="agency-card ">
                             <img className="profile-image" src={homeImage} alt="reviewImage" />
                             <h3> <b>Compare similar </b> </h3>
@@ -187,7 +244,7 @@ const compareAgency = () => {
                     </div>
 
                 </div>
-            
+
                 <div className="campare-agency-footer">
                     <span>Immo Belgium ©2021. All Rights Reserved.</span>
                     <div>

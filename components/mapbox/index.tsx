@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect } from "react";
 
-const mapboxContainer = () => {
+export const mapboxContainer = () => {
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ';
         const map = new mapboxgl.Map({
@@ -18,5 +18,3 @@ const mapboxContainer = () => {
         <div id="Map" style={{ height:'300px' , width: "100%" }} />
     )
 }
-
-export default mapboxContainer

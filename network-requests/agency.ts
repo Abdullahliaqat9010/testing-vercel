@@ -13,11 +13,11 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
-export const getAgenciesByAddress = (city): Promise<any[]>=> {
+export const getAgenciesByAddress = (address): Promise<any[]>=> {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", city)
-			const {data: agencies } = await axios.get("agency/search?city="+ city, {
+			console.log("adress", address)
+			const {data: agencies } = await axios.get("agency/search?city="+ address.locality+ "&zip=" +"3234" , {
 				headers: {
 					"Content-Type": "application/json"
 				}

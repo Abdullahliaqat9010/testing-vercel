@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
-import { Button } from "react-bootstrap";
+import { Button, InputGroup ,FormControl } from "react-bootstrap";
 import { Pagination } from "antd";
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg";
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png";
@@ -27,35 +27,39 @@ import { useRouter } from "next/router";
 import { getAgenciesByAddress } from "../../network-requests";
 import Loading from "../../components/Loading"
 import { CustomScrollbar } from "../../components/Scrollbar";
-
+import { mapboxContainer } from "../../components/mapbox"
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../types/state";
+import { getAutocompleteItemsAction, clearAutocompleteItems } from "../../actions";
 // import FooterContainer from "../../containers/Footer"ContactAgentModal
 const compareAgency = () => {
 
-	const router = useRouter()
-	const { query } = router
-	console.log("query", query)
 	const [isLoading, setIsLoading] = useState(true);
-
+	let address = JSON.parse(localStorage.getItem("address"))
 	const [open, setOpen] = useState<boolean>(false);
 	const [openContactForm, setOpenContactForm] = useState<boolean>(false);
 	const [selctedIdex, setSelctedIdex] = useState(-1);
-	const [agenciesWithProperties, setAgencyData] = useState([])
 	const [filteredAgencies, setFiltereAgencies] = useState([])
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
+	const dispatch = useDispatch()
+	const [value, setValue] = useState("");
+	const [dataInfo, setData] = useState({});
+	if(dataInfo) {
+		address = dataInfo
+	}
+	const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
 	useEffect(() => {
 		getAgencies()
-	}, [])
+	}, [dataInfo])
 
 	const getAgencies = async () => {
 		try {
-			const city = query.address
-			const agencies = await getAgenciesByAddress(city)
+			const agencies = await getAgenciesByAddress(address)
 			setFiltereAgencies(agencies)
-			const totalPages = agencies.length > pageSize ?Math.ceil(agencies.length /agencies.length) : 1
+			const totalPages = agencies.length > pageSize ? Math.ceil(agencies.length / agencies.length) : 1
 			setTotalPages(totalPages)
-			setAgencyData([...agencies])
 			setIsLoading(false);
 		} catch (error) {
 			console.log(error)
@@ -67,6 +71,38 @@ const compareAgency = () => {
 	const fiterAgencies = (value) => {
 		console.log("")
 	}
+
+	const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(el.target.value);
+		if (el.target.value.length > 0) {
+			dispatch(getAutocompleteItemsAction(el.target.value, el.target.name));
+		} else {
+			dispatch(clearAutocompleteItems());
+		}
+	};
+
+	const handleSelectAddress = (addressId: string) => {
+		const [currentAddress] = dataFromMapBox.filter(
+			(list) => list.id === addressId
+		);
+		setValue(currentAddress.fullAddress);
+
+		const dataForNextStep = {
+			locality:
+				currentAddress.locality.length > 1
+					? currentAddress.locality
+					: currentAddress.place,
+			number: currentAddress.number,
+			street: currentAddress.street,
+			zip: currentAddress.postcode,
+			country: currentAddress.country,
+		};
+
+		localStorage.setItem("address", JSON.stringify(dataForNextStep))
+
+		setData({ ...dataForNextStep });
+		dispatch(clearAutocompleteItems());
+	};
 
 	const openDetail = (index) => {
 		setSelctedIdex(index);
@@ -96,7 +132,27 @@ const compareAgency = () => {
 							you!
 						</p>
 						<div className="search-form d-flex">
-							<input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input>
+							<div className="d-flex flex-collumn">
+								<InputGroup>
+									<FormControl
+										placeholder="City and State or ZIP"
+										name="address"
+										onChange={handleAutocomplete}
+										value={value}
+										autoComplete="off"
+									/>
+								</InputGroup>
+								{dataFromMapBox.length > 0 && (
+									<ul className="autocomplete-list">
+										{dataFromMapBox.map((item, index) => (
+											<li onClick={() => handleSelectAddress(item.id)} key={index}>
+												{item.fullAddress}
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+							{/* <input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input> */}
 							<Button>
 								Search <img src={goAhead} alt="goAhead" />
 							</Button>
@@ -152,7 +208,7 @@ const compareAgency = () => {
 													</p>
 												)}
 												<img
-													
+
 													src={
 														open && selctedIdex === index
 															? closeArrow
@@ -169,7 +225,7 @@ const compareAgency = () => {
 													<div className="agency-owner-box">
 														<img src={mapImage} alt="mapImage" />
 														<div>
-															<p className="agent-name">name</p>
+															<p className="agent-name">{agency.owner?.firstname}</p>
 															<p className="agent-title">agency owner</p>
 														</div>
 													</div>
@@ -191,6 +247,9 @@ const compareAgency = () => {
 													</div>
 												</div>
 												<div className="agency-map-container">
+													{/* <CustomScrollbar>
+														<mapboxContainer/>
+													</CustomScrollbar> */}
 													<img src={reviewImage} alt="agentImage" />
 													<div className="map-description">
 														<p>
@@ -215,7 +274,7 @@ const compareAgency = () => {
 							})}
 
 						<div className="w-100 justify-content-center text-center">
-						<Pagination
+							<Pagination
 								current={currentPage}
 								total={totalPages}
 								pageSize={pageSize}
@@ -239,7 +298,7 @@ const compareAgency = () => {
 					// properties={properties}
 					agencyOwner={filteredAgencies[selctedIdex]?.owner?.name}
 					agencyName={filteredAgencies[selctedIdex]?.company_name}
-					agencyId= {filteredAgencies[selctedIdex]?.id}
+					agencyId={filteredAgencies[selctedIdex]?.id}
 				/>
 			)}
 			{/* <FooterContainer/> */}
