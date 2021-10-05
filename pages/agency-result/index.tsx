@@ -4,6 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
 import { Button } from "react-bootstrap";
+import { Pagination } from "antd";
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg";
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png";
 import locationImage from "../../assets/images/compare-agency/location-image.png";
@@ -24,67 +25,48 @@ import * as Yup from "yup";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import { useRouter } from "next/router";
 import { getAgenciesByAddress } from "../../network-requests";
+import Loading from "../../components/Loading"
+import { CustomScrollbar } from "../../components/Scrollbar";
+
 // import FooterContainer from "../../containers/Footer"ContactAgentModal
 const compareAgency = () => {
 
 	const router = useRouter()
 	const { query } = router
 	console.log("query", query)
+	const [isLoading, setIsLoading] = useState(true);
 
 	const [open, setOpen] = useState<boolean>(false);
 	const [openContactForm, setOpenContactForm] = useState<boolean>(false);
-	const [selctedIdex, setSelctedIdex] = useState<Number>(-1);
-
-	useEffect(()=> {
+	const [selctedIdex, setSelctedIdex] = useState(-1);
+	const [agenciesWithProperties, setAgencyData] = useState([])
+	const [filteredAgencies, setFiltereAgencies] = useState([])
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	useEffect(() => {
 		getAgencies()
-	},[])
+	}, [])
 
-	const getAgencies = async ()=> {
-		try{
+	const getAgencies = async () => {
+		try {
 			const city = query.address
-			const agencies = await getAgenciesByAddress( city)
-			console.log("agencies", agencies)
-		}catch (error) {
+			const agencies = await getAgenciesByAddress(city)
+			setFiltereAgencies(agencies)
+			const totalPages = agencies.length > pageSize ?Math.ceil(agencies.length /agencies.length) : 1
+			setTotalPages(totalPages)
+			setAgencyData([...agencies])
+			setIsLoading(false);
+		} catch (error) {
 			console.log(error)
 		}
-		
+
 	}
 
-	const agencyData = [
-		{
-			profile_image: reviewImage,
-			name: "aa bb cc",
-			rating: 3,
-			totalRevies: 12,
-			soldProperties: 23,
-			owner: "hajahd",
-			company_name: "abcd_abcd",
 
-			agency_agent: {
-				firstname: "abcd",
-				lastname: "hahs",
-				role: "agency owner",
-			},
-			description: "asjd amsdajs asdasjd asdjkashdj asjkdhasjda  sdajkhd",
-			profile_link: "google.com",
-		},
-		{
-			profile_image: locationImage,
-			name: "aa bb cc",
-			owner: "hajahd",
-			rating: 3,
-			totalRevies: 12,
-			soldProperties: 0,
-			company_name: "abcd_abcd",
-			agency_agent: {
-				firstname: "abcd",
-				lastname: "hahs",
-				role: "agency owner",
-			},
-			description: "asjd amsdajs asdasjd asdjkashdj asjkdhasjda  sdajkhd",
-			profile_link: "google.com",
-		},
-	];
+	const fiterAgencies = (value) => {
+		console.log("")
+	}
 
 	const openDetail = (index) => {
 		setSelctedIdex(index);
@@ -93,6 +75,9 @@ const compareAgency = () => {
 	const closeContactForm = () => {
 		setOpenContactForm(!openContactForm);
 	};
+	if (isLoading) {
+		return <Loading />;
+	}
 	return (
 		<>
 			<HeaderContainer title="compare agency result" />
@@ -111,22 +96,22 @@ const compareAgency = () => {
 							you!
 						</p>
 						<div className="search-form d-flex">
-							<input type="search" placeholder="City and State or ZIP"></input>
+							<input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input>
 							<Button>
-								Compare Agents <img src={goAhead} alt="goAhead" />
+								Search <img src={goAhead} alt="goAhead" />
 							</Button>
 						</div>
 					</div>
 					<div className="agency-container">
-						{agencyData?.length &&
-							agencyData.map((agency, index) => {
+						{filteredAgencies?.length &&
+							filteredAgencies.map((agency, index) => {
 								return (
 									<div key={index}>
-										<div className="agency d-flex">
+										<div onClick={() => openDetail(index)} className="agency d-flex">
 											<div className="image-bassicInfo ">
-												<img src={reviewImage} alt="reviewImage" />
+												<img src={agency.logo_image} alt="reviewImage" />
 												<div className="agency-basicInfo">
-													<span className="agency-name">name</span>
+													<span className="agency-name">{agency.company_name}</span>
 													<p className="rating-row">
 														{" "}
 														<span className="rating"> 5.6 </span>
@@ -154,9 +139,9 @@ const compareAgency = () => {
 												</div>
 											</div>
 											<div className="  sold-by-agency justify-content-between">
-												{agency.soldProperties > 0 ? (
+												{agency.properties > 0 ? (
 													<p>
-														<span className="noof-sold"> 67 </span>{" "}
+														<span className="noof-sold"> {agency.properties.length} </span>{" "}
 														<span className="sold-title">
 															Recent sales nearby
 														</span>
@@ -167,7 +152,7 @@ const compareAgency = () => {
 													</p>
 												)}
 												<img
-													onClick={() => openDetail(index)}
+													
 													src={
 														open && selctedIdex === index
 															? closeArrow
@@ -182,7 +167,7 @@ const compareAgency = () => {
 											<div key={index} className="aency-detail-container">
 												<div className="agency-detail-container-left">
 													<div className="agency-owner-box">
-														<img src={reviewImage} alt="agentImage" />
+														<img src={mapImage} alt="mapImage" />
 														<div>
 															<p className="agent-name">name</p>
 															<p className="agent-title">agency owner</p>
@@ -197,7 +182,7 @@ const compareAgency = () => {
 														Contact Thierry
 													</Button>
 													<div className="d-flex">
-														<Link href="#">Agency details </Link>{" "}
+														<Link href={agency?.website ? agency.website : "https://google.com"}>Agency details </Link>{" "}
 														<img
 															className=""
 															src={BlueGoAhead}
@@ -206,7 +191,7 @@ const compareAgency = () => {
 													</div>
 												</div>
 												<div className="agency-map-container">
-													<img src={mapImage} alt="map" />
+													<img src={reviewImage} alt="agentImage" />
 													<div className="map-description">
 														<p>
 															{" "}
@@ -230,9 +215,19 @@ const compareAgency = () => {
 							})}
 
 						<div className="w-100 justify-content-center text-center">
-							<Button className="load-more">
+						<Pagination
+								current={currentPage}
+								total={totalPages}
+								pageSize={pageSize}
+								onChange={(page, _pageSize) => {
+									setCurrentPage(page);
+									setPageSize(_pageSize);
+								}}
+								pageSizeOptions={["5", "10", "20", "50"]}
+							/>
+							{/* <Button   className="load-more">
 								<img src={loadMore} alt="loadMore" /> load more{" "}
-							</Button>
+							</Button> */}
 						</div>
 					</div>
 				</div>
@@ -242,8 +237,9 @@ const compareAgency = () => {
 					show={true}
 					onClose={() => setOpenContactForm(false)}
 					// properties={properties}
-					agencyOwner={agencyData[0]?.agency_agent}
-					agencyName={agencyData[0]?.company_name}
+					agencyOwner={filteredAgencies[selctedIdex]?.owner?.name}
+					agencyName={filteredAgencies[selctedIdex]?.company_name}
+					agencyId= {filteredAgencies[selctedIdex]?.id}
 				/>
 			)}
 			{/* <FooterContainer/> */}

@@ -15,7 +15,9 @@ const ContactAgentModal = ({
 	properties = [],
 	agencyOwner,
 	agencyName,
+	agencyId= 3
 }) => {
+	console.log("agencyId", agencyId)
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
 	const { firstname, lastname, email, phone_number } = useSelector(
@@ -46,7 +48,7 @@ const ContactAgentModal = ({
 			try {
 				await contactAgency({
 					...contactInfo,
-					agencyId: 3, // hard coded for now
+					agencyId // hard coded for now
 				});
 				res("");
 				setIsSuccessModalVisible(true);
