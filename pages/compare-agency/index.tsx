@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import HeaderContainer from "../../containers/Header"
 import FooterContainer from "../../containers/Footer"
 import Link from "next/link"
-import { Button, InputGroup, FormControl, Carousel } from "react-bootstrap"
+import { Button, InputGroup, FormControl, Carousel, ListGroup } from "react-bootstrap"
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg"
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png"
 import locationImage from "../../assets/images/compare-agency/location-image.png"
@@ -60,13 +60,13 @@ const compareAgency = () => {
             country: currentAddress.country,
         };
 
-        localStorage.setItem("address", JSON.stringify(dataForNextStep) )
+        localStorage.setItem("address", JSON.stringify(dataForNextStep))
 
         setData({ ...dataForNextStep });
         dispatch(clearAutocompleteItems());
     };
 
-    console.log("dataInfo",dataInfo)
+    console.log("dataInfo", dataInfo)
 
     return (
         <>
@@ -90,13 +90,13 @@ const compareAgency = () => {
                                 />
                             </InputGroup>
                             {dataFromMapBox.length > 0 && (
-                                <ul className="autocomplete-list">
+                                <ListGroup as="ul" className="position-absolute" style={{ marginTop: "45px", width: "54.533%" }}>
                                     {dataFromMapBox.map((item, index) => (
-                                        <li onClick={() => handleSelectAddress(item.id)} key={index}>
+                                         <ListGroup.Item  className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>
                                             {item.fullAddress}
-                                        </li>
+                                            </ListGroup.Item>
                                     ))}
-                                </ul>
+                               </ListGroup>
                             )}
                         </div>
                         {/* <input type='search' onChange={(e) => onChange(e.target)} placeholder="City and State or ZIP" ></input> */}
