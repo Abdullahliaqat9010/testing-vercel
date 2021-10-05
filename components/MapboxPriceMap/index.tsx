@@ -64,13 +64,13 @@ const Mapbox3dMap = ({
         const matchExpression = [];
 
         // Calculate color values for each country based on 'hdi' value
-        for (const row of province.features) {
-            // Convert the range of data values to a suitable color
-            // let theRandomNumber = Math.floor(Math.random() * 4)
-            let color = colorsArra[row.price]
-            matchExpression.push([row["price"], color]);
-        }
-        // matchExpression.push('rgb(112 26 26)')
+        // for (const row of province.features) {
+        //     // Convert the range of data values to a suitable color
+        //     // let theRandomNumber = Math.floor(Math.random() * 4)
+        //     let color = colorsArra[row.properties[]]
+        //     matchExpression.push([row["price"], color]);
+        // }
+        // // matchExpression.push('rgb(112 26 26)')
         console.log("matchExpression", matchExpression)
 
 
@@ -88,10 +88,7 @@ const Mapbox3dMap = ({
                 'source': 'provice_geojson', // reference the data source
                 'layout': {},
                 'paint': {
-                    'fill-color': {
-                        property: 'price',
-                        stops: matchExpression
-                    } // blue color fill
+                    'fill-color': "#FE7F2D" // blue color fill
                     
                 }
             },'waterway-label',);

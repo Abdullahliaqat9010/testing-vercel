@@ -3036,15 +3036,15 @@ const priceMap = () => {
                 <div className="price-content-view">
                     <div className="d-flex mb-3">
                         <input type="search" onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
-                        <ListGroup as="ul" className="position-absolute" style={{marginTop: "45px", width: "calc(48.533% - 58px)"}}>
-                        
-                        {updatesearch.map((cityData) => {
-                        return (
-                            <ListGroup.Item as="li">{cityData.name}</ListGroup.Item>
-                            )
-                        })}
+                        <ListGroup as="ul" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
+
+                            {updatesearch.map((cityData) => {
+                                return (
+                                    <ListGroup.Item as="li">{cityData.name}</ListGroup.Item>
+                                )
+                            })}
                         </ListGroup>
-                        
+
                         <Button className="search-button"  > <img src={SearchImage} alt="SearchImage" /> </Button>
                     </div>
                     <p> {cityPriceMap ? "Prix immobilier dans le Centre-Val de Loire" : "Prix immobilier partout en France"} </p>
