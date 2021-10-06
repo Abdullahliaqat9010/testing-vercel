@@ -1059,8 +1059,8 @@ const priceMap = () => {
         {
             name: "Kapellen",
             zipcode: "3381",
-            appartment: 0,
-            house: 0,
+            appartment: 1675.49,
+            house: 1365.34,
         },
         {
             name: "Tielt-Winge",
@@ -1233,8 +1233,8 @@ const priceMap = () => {
         {
             name: "Herstappe",
             zipcode: "3717",
-            appartment: 0,
-            house: 0,
+            appartment: 2456.61,
+            house: 2053.45,
         },
         {
             name: "Kortessem",
@@ -1263,8 +1263,8 @@ const priceMap = () => {
         {
             name: "Voeren",
             zipcode: "3790",
-            appartment: 0,
-            house: 0,
+            appartment: 1977.27,
+            house: 1489.34,
         },
         {
             name: "Sint-Truiden",
@@ -1948,7 +1948,7 @@ const priceMap = () => {
             name: "Hamois",
             zipcode: "5360",
             appartment: 962.7399,
-            house: 0,
+            house: 590.45,
         },
         {
             name: "Havelange",
@@ -1977,8 +1977,8 @@ const priceMap = () => {
         {
             name: "Onhaye",
             zipcode: "5520",
-            appartment: 0,
-            house: 0,
+            appartment: 2335.86,
+            house: 2012.23,
         },
         {
             name: "Yvoir",
@@ -2422,7 +2422,7 @@ const priceMap = () => {
             name: "Wellin",
             zipcode: "6920",
             appartment: 1169.733,
-            house: 0,
+            house: 950.34,
         },
         {
             name: "Tellin",
@@ -2499,8 +2499,8 @@ const priceMap = () => {
         {
             name: "Gent",
             zipcode: "9000",
-            appartment: 0,
-            house: 0,
+            appartment: 2226.10,
+            house: 1958.23,
         },
         {
             name: "Quévy",
@@ -3147,8 +3147,8 @@ const priceMap = () => {
         {
             name: "Mesen",
             zipcode: "8957",
-            appartment: 0,
-            house: 0,
+            appartment: 1740.34,
+            house: 1356.45,
         },
         {
             name: "Poperinge",
@@ -3547,7 +3547,6 @@ const priceMap = () => {
             house: 1738.406956,
         }
     ]
-
     const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
     const [activeTab, setActiveTab] = useState<string>("price");
     const [data, setData] = useState(citiesData)
@@ -3728,8 +3727,8 @@ const priceMap = () => {
                                         return (
                                             <tr onClick={gotoCityData}>
                                                 <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
-                                                <td>{city.appartment}</td>
-                                                <td>{city.house}</td>
+                                                <td>{city.appartment.toFixed(2)}</td>
+                                                <td>{city.house.toFixed(2)}</td>
                                             </tr>)
                                     })}
                                 </tbody>
