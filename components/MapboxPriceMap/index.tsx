@@ -59,20 +59,6 @@ const Mapbox3dMap = ({
             center: [4.402771, 51.260197], // starting position
             zoom: 8 // starting zoom
         });
-        const colorsArra = ['#8F99B4', "#FE7F2D", "#3871EF", "#1D2E5B", '#8F99B4', "#FE7F2D", "#3871EF", "#1D2E5B", "#FE7F2D", "#1D2E5B"]
-
-        const matchExpression = [];
-
-        // Calculate color values for each country based on 'hdi' value
-        // for (const row of province.features) {
-        //     // Convert the range of data values to a suitable color
-        //     // let theRandomNumber = Math.floor(Math.random() * 4)
-        //     let color = colorsArra[row.properties[]]
-        //     matchExpression.push([row["price"], color]);
-        // }
-        // // matchExpression.push('rgb(112 26 26)')
-        console.log("matchExpression", matchExpression)
-
 
         map.on('load', () => {
             // Add a data source containing GeoJSON data.
@@ -88,41 +74,24 @@ const Mapbox3dMap = ({
                 'source': 'provice_geojson', // reference the data source
                 'layout': {},
                 'paint': {
-                    'fill-color': "#FE7F2D" // blue color fill
-                    
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'price'],
+                        0,
+                        '#7ca971',
+                        4,
+                        "#849251",
+                        7,
+                        "#af4d41",
+                        9,
+                        "#872233"
+
+
+                    ]
                 }
-            },'waterway-label',);
+            }, 'waterway-label');
 
-            // function setStates() {
-            //     for (let index = 0; index < province.features.length; index++) {
-            //         const { NAME_4 } = province.features[index];
-            //         map.setFeatureState(
-            //             {
-            //                 id: index
-            //             },
-            //             {
-            //                 NAME_4: NAME_4
-            //             }
-            //         );
-
-            //     }
-            // }
-
-            // // Check if `statesData` source is loaded.
-            // function setAfterLoad({ sourceID, isSourceLoaded }) {
-            //     if (sourceID !== 'provice_geojson' && !isSourceLoaded) return;
-            //     setStates();
-            //     map.off('sourcedata', setAfterLoad);
-            // }
-
-            // // If `statesData` source is loaded, call `setStates()`.
-            // if (map.isSourceLoaded('provice_geojson')) {
-            //     setStates();
-            // } else {
-            //     map.on('sourcedata', setAfterLoad);
-            // }
-
-            // Add a black outline around the polygon.
             map.addLayer({
                 'id': 'outline',
                 'type': 'line',
@@ -134,19 +103,6 @@ const Mapbox3dMap = ({
                 }
             });
         });
-        // mapboxgl.accessToken =
-        // 	"pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ";
-
-        // mapRef.current = new mapboxgl.Map({
-        // 	style: "mapbox://styles/mapbox/light-v10",
-        // 	center: [...center],
-        // 	zoom: 15,
-        // 	container: "map"
-        // });
-        // mapRef.current?.addControl(new mapboxgl.NavigationControl());
-        // mapRef.on('load', ()=> {
-
-        // })
     });
 
 
