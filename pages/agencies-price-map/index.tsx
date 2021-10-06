@@ -3551,7 +3551,6 @@ const priceMap = () => {
     const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
     const [activeTab, setActiveTab] = useState<string>("price");
     const [data, setData] = useState(citiesData)
-    const [suggesstions, setSuggestions] = useState([])
     const [updatesearch, setCity] = useState([]);
     const [textToSearch, setTextToSearch] = useState("")
 
@@ -3596,17 +3595,12 @@ const priceMap = () => {
     const progressBarStyle = {
         height: "5px"
     }
-    const fiterData = (value) => {
-        console.log("values", data.length)
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-        const fitertData = inputLength === 0 ? data : data.filter(city =>
-            city.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
-        // console.log("fitertData", fitertData)
 
-        setSuggestions(fitertData)
-
+    const onSuggesstionClick = (index)=> {
+        const cityName = updatesearch[index].name
+        console.log("cityName", cityName)
+        setTextToSearch(cityName)
+        setCity([])
     }
 
 
@@ -3624,12 +3618,12 @@ const priceMap = () => {
             <div className="w-100 d-flex price-map-main">
                 <div className="price-content-view">
                     <div className="d-flex mb-3">
-                        <input type="search" onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
+                        <input type="search" value={textToSearch} onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
                         <ListGroup as="ul" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
 
-                            {updatesearch.map((cityData) => {
+                            {updatesearch.map((cityData, index) => {
                                 return (
-                                    <ListGroup.Item as="li">{cityData.name}</ListGroup.Item>
+                                    <ListGroup.Item key={index} as="li"style={{ cursor: 'pointer' }} onClick={()=> onSuggesstionClick(index)}>{cityData.name}</ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
@@ -3735,7 +3729,7 @@ const priceMap = () => {
                                     {data.map(city => {
                                         return (
                                             <tr onClick={gotoCityData}>
-                                                <td className="city-name" style={{ textAlign: "left" }}>{city.name}</td>
+                                                <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
                                                 <td>{city.appartment}</td>
                                                 <td>{city.house}</td>
                                             </tr>)
