@@ -219,10 +219,7 @@ const PropertyInfoForm = () => {
 				note: "",
 				sold_date: null,
 				sale_price: "",
-				images: [
-					"https://immobelgium.s3.eu-west-1.amazonaws.com/1633450795205%20-%20Screenshot%20from%202021-10-05%2016-51-15.png",
-					"https://immobelgium.s3.eu-west-1.amazonaws.com/1633450801461%20-%20Screenshot%20from%202021-10-02%2023-00-01.png",
-				],
+				images: [],
 			}}
 		>
 			{({ handleChange, values, setFieldValue, isSubmitting }) => {
