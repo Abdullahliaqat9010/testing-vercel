@@ -402,7 +402,7 @@ const SettingsPage = () => {
 							</div>
 						</Form>
 					</div>
-					<div className="second-block">
+					{/* <div className="second-block">
 						<div className="top-block d-flex">
 							<img src={AccountImage} alt="AccountImage" />
 							<div className="account-info d-flex flex-column">
@@ -411,7 +411,7 @@ const SettingsPage = () => {
 							</div>
 						</div>
 						<Button className="become-pro">{t("button.pro")}</Button>
-					</div>
+					</div> */}
 				</div>
 				<div className="user-info-block">
 					<div className="user-avatar">

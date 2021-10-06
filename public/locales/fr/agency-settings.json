@@ -14,6 +14,19 @@
     "dev.write-emails": "Enter email you’d like to receive system notifications",
     "button.loading": "Loading...",
     "button.save": "Save Changes",
-    "button.view": "Visualise my agency"
+    "button.view": "Visualise my agency",
+    "language.Nederlands":"les Pays-Bas",
+    "language.Frans":"français",
+    "language.Duits":"Allemand",
+    "language.Engels":"Anglais",
+    "language.Spaans":"Spaans",
+    "language.Italien":"Italie ",
+    "language.Pools":"polonais",
+    "language.Turk":"Turc",
+    "language.Russisch":"russe",
+    "language.Arabe": "arabe ",
+    "language.Portugais":"Portugais",
+    "language.Chinois":" Chinoise",
+    "language.Herbreu":"Herbreu"
 
 }

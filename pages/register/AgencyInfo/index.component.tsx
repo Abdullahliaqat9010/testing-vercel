@@ -5,15 +5,16 @@ import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 
 const AgencyInfo = ({ onSubmit }) => {
+	const { t } = useTranslation("register-agency-pages")
+
 	const validationSchema = Yup.object().shape({
-		vitrine_name: Yup.string().required("Required"),
-		city: Yup.string().required("Required"),
-		street: Yup.string().required("Required"),
-		street_number: Yup.number().required("Required"),
-		zip: Yup.number().required("Required").min(1000).max(9999),
+		vitrine_name: Yup.string().required(t("p.error")),
+		city: Yup.string().required(t("p.error")),
+		street: Yup.string().required(t("p.error")),
+		street_number: Yup.number().required(t("p.error")),
+		zip: Yup.number().required(t("p.error")).min(1000, t("error.zip-validation")).max(9999, t("error.zip-validation")),
 	});
 
-	const { t } = useTranslation("register-agency-pages")
 
 	return (
 		<div className="form-container">

@@ -70,7 +70,7 @@ const PropertyCard = ({ property, onClick }) => {
 					</div>
 					<div>
 						<span className="sold-property">
-							{`Sold on ${
+							{`${t("span.sold-on")} ${
 								property?.sold_rent_date
 									? moment(property?.sold_rent_date).format("MMM DD, YYYY")
 									: moment().format("MMM DD, YYYY")
@@ -78,12 +78,12 @@ const PropertyCard = ({ property, onClick }) => {
 						</span>
 					</div>
 					<div className=" property-props mt-2 d-flex">
-						<span className="mr-1">{property.live_area + " " + "sq m"}</span>
+						<span className="mr-1">{property.live_area + " " + t("span.meter-square")}</span>
 						<span className="mx-1">
-							{property.bedrooms + " " + t("span.beds")}
+							{property.bedrooms + " " + t("span.beds") }{property.bedrooms > 1 ? "s": ""}
 						</span>
 						<span className="mx-1">
-							{property.bathrooms + " " + t("span.baths")}
+							{property.bathrooms + " " + t("span.baths")}{property.bathrooms > 1 ? "s": ""}
 						</span>
 					</div>
 				</div>
@@ -163,7 +163,7 @@ const SoldPropertiesPage = () => {
 							<div>
 								{" "}
 								<input type="checkBox"></input>{" "}
-								<span className=" total-listings pl-2"> {properties.length} {t("span.listings")} </span>{" "}
+								<span className=" total-listings pl-2"> {t("span.select")} {properties.length} {t("span.properties")} </span>{" "}
 							</div>
 							<div className="action-block">
 								<Button className="mx-1">

@@ -16,8 +16,9 @@
     "label.checkmark": "Use the same billing address as a company address",
     "button.back": "Back",
     "button.loading": "Loading...",
-
+    "label.zip":"Le code postal est compris entre 1000 et 9999",
     "button.create-account": "Créer un compte",
+    "p.title":"Créer un compte professionnel",
   "p.sub-title":"Bénéficiez d'ImmoBelgium pour votre agence.",
   "button.enclosed": "Renfermée",
   "button.good": "Bonne",
@@ -32,6 +33,7 @@
   "label.bathrooms": "Salle(s) de Bain",
   "label.bedrooms": "Chambres",
   "label.box": "Boîte",
+  "p.error":"Obligatoire",
   "label.carport": "Abri Voiture",
   "label.cellar": "Cave",
   "label.confirm-password": "Confirmer le mot de passe",
@@ -40,6 +42,8 @@
   "label.step-4-elevator.appartment": "Ascenseur dans l'appartement",
   "label.step-4-elevator.home": "Ascenseur dans la maison",
   "label.email": "Courriel",
+  "label.password-match":"Les mots de passe doivent correspondre ",
+  "label.password-message":"Doit contenir au moins 8 caractères : une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
   "label.epc": "PEB",
   "tooltip.epc": "La performance énergétique des bâtiments (PEB)",
   "label.facades": "Façades",
@@ -68,10 +72,16 @@
   "label.private-account": "Compte particulier",
   "label.professional-account": "Compte professionnel",
   "label.promotions": "Je souhaite recevoir des promotions occasionnelles par courrier électronique.",
-  "label.read-privacy": "J'ai lu et j'accepte la ",
+  "label.read-privacy": "J'ai lu la ",
   "title.optional": "Optionnel",
   "label.terms": "conditions générales du service.",
   "label.and": " et les ",
-  "label.privacy": "Politique de Confidentialité"
+  "label.privacy": "Politique de Confidentialité",
+  "error.zip-validation": "Zip must be greater than or equal to 1000",
+  "error.t-c": "Vous devez accepter la politique de confidentialité et les conditions générales",
+  "error.email-exists": "l'email existe déjà",
+  "error.invalid-email": "Email invalide"
+
+
 
 }
