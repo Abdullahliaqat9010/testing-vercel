@@ -251,10 +251,28 @@
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .price-map-main {
+display: flex;
+flex-wrap: wrap;
+    }
+
+    .price-map-main {
+        flex-wrap: wrap;
+        display: flex;
+    }
+    .price-map-main .price-content-view {
+        width: 100%;
+    }
+
+    .price-map-main .price-map {
+        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
     .city-price-block {
         padding: 20px 20px 10px;
-        margin: 10px -34px;
         border-radius: 8px;
         background-color: var(--colorWhite);
     
@@ -291,11 +309,12 @@
             color: var(--colorBlue);
         }
         .price-map {
-            width: 50%;
+            width:50%
             img {
                 width: 100%;
                 margin-left: 20px;
             }
+            
         }
      
     }
@@ -409,3 +428,50 @@
     }
 
 }
+
+
+
+
+
+
+
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .price-map-main {
+        display: flex;
+        flex-wrap: wrap;
+            }
+        
+    .search-button {
+        margin-top: auto;
+        width: 48px;
+        height: 48px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        margin-left:10px;
+    }
+
+
+    .price-map-main .price-content-view p {
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 33px;
+        align-items: center;
+        margin: 10px;
+    }
+    .price-map-main .price-content-view .city-price-block p {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 25px;
+        margin-left: 20px;
+        align-items: center;
+        margin: 10px 20px 20px;
+    }
+
+}
+
+
+
+

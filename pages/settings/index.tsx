@@ -273,7 +273,7 @@ const SettingsPage = () => {
 							<Button
 								type="submit"
 								disabled={isUpdatingProfile}
-								style={{ padding: "14px 51px", borderRadius: 8, marginTop: 10 }}
+								style={{ width:"150px",height:"50px", borderRadius: 8, marginTop: 10 }}
 							>
 								{isUpdatingProfile
 									? t("button.loading")

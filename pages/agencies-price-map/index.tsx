@@ -149,7 +149,7 @@ const priceMap = () => {
     return (
         <>
             <HeaderContainer title="price pam" />
-            <div className="w-100 d-flex price-map-main">
+            <div className=" d-flex price-map-main">
                 <div className="price-content-view">
                     <div className="d-flex mb-3">
                         <input type="search" placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
