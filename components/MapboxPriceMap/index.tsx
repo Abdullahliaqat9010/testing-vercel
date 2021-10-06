@@ -35,40 +35,44 @@ interface MarkerI {
 
 interface MapProps {
     markers?: MarkerI[];
-    onActiveMarker?: (id: any) => void;
 }
 
 const Mapbox3dMap = ({
     markers = [],
-    onActiveMarker = (id) => null,
 }: MapProps) => {
-    const [center, setCenter] = useState([
-        markers.length > 0 ? markers[0].position.lng : 51.260197,
-        markers.length > 0 ? markers[0].position.lat : 4.402771,
-    ]);
 
-    // const mapRef = useRef(null);
-    console.log("features", province.features.length)
+    const [center, setCenter] = useState([4.402771, 51.260197,]);
+    const [first, setFirst] = useState(false);
 
+    let mapRef = useRef(null);
+    useEffect(() => {
+        if (markers.length > 0) {
+            setCenter([
+                markers[0].position.lat,
+                markers[0].position.lng,
+
+            ]);
+        }
+    }, [markers]);
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ';
-        const map = new mapboxgl.Map({
+        mapRef.current = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/light-v10', // style URL
-            center: [4.402771, 51.260197], // starting position
-            zoom: 8 // starting zoom
+            center: [4.402771, 51.260197,], // starting position
+            zoom: 6 // starting zoom
         });
 
-        map.on('load', () => {
+        mapRef.current.on('load', () => {
             // Add a data source containing GeoJSON data.
-            map.addSource('provice_geojson', {
+            mapRef.current.addSource('provice_geojson', {
                 'type': 'geojson',
                 'data': province
             });
 
             // Add a new layer to visualize the polygon.
-            map.addLayer({
+            mapRef.current.addLayer({
                 'id': 'province',
                 'type': 'fill',
                 'source': 'provice_geojson', // reference the data source
@@ -92,22 +96,33 @@ const Mapbox3dMap = ({
                 }
             }, 'waterway-label');
 
-            map.addLayer({
-                'id': 'outline',
-                'type': 'line',
-                'source': 'provice_geojson',
-                'layout': {},
-                'paint': {
-                    'line-color': '#000',
-                    'line-width': 1
-                }
-            });
+            // mapRef.current.addLayer({
+            //     'id': 'outline',
+            //     'type': 'line',
+            //     'source': 'provice_geojson',
+            //     'layout': {},
+            //     'paint': {
+            //         'line-color': '#000',
+            //         'line-width': 1
+            //     }
+            // });
         });
-    });
+    }, [mapRef]);
+
+    useEffect(() => {
+        if (first) {
+            var map = mapRef.current;
+            map?.flyTo({
+                center: [...center],
+                zoom: 10,
+                // essential: true,
+            });
+        } else { setFirst(true) }
+    }, [center]);
 
 
     return (
-        <div style={{ height: "100vh", width: "100%" }} id="map" />
+        <div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
     );
 };
 

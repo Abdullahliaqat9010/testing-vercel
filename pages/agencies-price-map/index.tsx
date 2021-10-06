@@ -9,7 +9,8 @@ import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 import GoogleMap from "../../components/MapboxPriceMap";
-
+import province from "../../components/MapboxPriceMap/provinces.json"
+import axios from 'axios';
 const priceMap = () => {
     const citiesData = [
         {
@@ -3553,9 +3554,20 @@ const priceMap = () => {
     const [data, setData] = useState(citiesData)
     const [updatesearch, setCity] = useState([]);
     const [textToSearch, setTextToSearch] = useState("")
+    const [selectedCity, setSelectedCity] = useState(-1)
+    const [markers, setMarkers] = useState([]);
+    const [prices, setPrices]= useState( {
+        name: "",
+        zipcode: "",
+        appartment: 0,
+        house: 0,
+    })
 
 
-    const gotoCityData = () => {
+
+    const gotoCityData = (index) => {
+        let getObj = data[index]
+        setPrices(getObj)
         setCityPriceMap(!cityPriceMap)
 
     }
@@ -3564,18 +3576,8 @@ const priceMap = () => {
     }, [data])
 
     const mapProps = {
-        markers: [
-            {
-                position: {
-                    lat: 51.260197,
-                    lng: 4.402771
-                },
-                type: "country",
-                id: null,
-            },
-        ],
+        markers: markers,
     };
-
 
 
     useEffect(() => {
@@ -3596,10 +3598,25 @@ const priceMap = () => {
         height: "5px"
     }
 
-    const onSuggesstionClick = (index)=> {
+    const onSuggesstionClick = (index) => {
         const cityName = updatesearch[index].name
-        console.log("cityName", cityName)
+        const getIndex = citiesData.findIndex(object => object.name.toLocaleLowerCase() === cityName.toLocaleLowerCase())
+
+        const getRegion = province.features.find(feature => feature.properties.NAME_4.toLocaleLowerCase() === cityName.toLocaleLowerCase())
+        const region = getRegion.geometry.coordinates[0]
+        const boundries = region[0]
+        const getLatLong = boundries[0]
+        const position = {
+            type: "home",
+            position: {
+                lat: getLatLong[0],
+                lng: getLatLong[1],
+            },
+            id: "home",
+        }
+        setMarkers([{...position}])
         setTextToSearch(cityName)
+        setSelectedCity(getIndex)
         setCity([])
     }
 
@@ -3619,11 +3636,11 @@ const priceMap = () => {
                 <div className="price-content-view">
                     <div className="d-flex mb-3">
                         <input type="search" value={textToSearch} onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
-                        <ListGroup as="ul" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
+                        <ListGroup as="ul" id="navbar-example2" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
 
                             {updatesearch.map((cityData, index) => {
                                 return (
-                                    <ListGroup.Item key={index} as="li"style={{ cursor: 'pointer' }} onClick={()=> onSuggesstionClick(index)}>{cityData.name}</ListGroup.Item>
+                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a href={"#"+cityData.name}>{cityData.name}</a></ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
@@ -3662,7 +3679,7 @@ const priceMap = () => {
                                             </div>
                                             <div className="prices-block ">
                                                 <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
-                                                <p> {activeTab === "price" ? 1845 : 1335} € </p>
+                                                <p> {activeTab === "price" ? prices.house.toFixed(2) : prices.house.toFixed(2)} € </p>
                                                 <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
                                                 <br></br>
                                                 <span >Indice de cinfiance</span>
@@ -3680,7 +3697,7 @@ const priceMap = () => {
                                             </div>
                                             <div className="prices-block">
                                                 <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
-                                                <p> {activeTab === "price" ? 1845 : 1335} € </p>
+                                                <p> {activeTab === "price" ? prices.appartment.toFixed(2) : prices.appartment.toFixed(2)} € </p>
                                                 <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
                                                 <br></br>
                                                 <span >Indice de cinfiance</span>
@@ -3725,10 +3742,10 @@ const priceMap = () => {
                                         <th>Prix m² moyen maison</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {data.map(city => {
+                                <tbody data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" className="scrollspy-example" >
+                                    {data.map((city, index) => {
                                         return (
-                                            <tr onClick={gotoCityData}>
+                                            <tr  id={city.name} key={index} onClick={() => gotoCityData(index)}>
                                                 <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
                                                 <td>{city.appartment}</td>
                                                 <td>{city.house}</td>
