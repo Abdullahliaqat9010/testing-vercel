@@ -155,7 +155,7 @@ const StepTwo = ({ setStep }) => {
 						<Form.Label>{t("label.living-area")}*</Form.Label>
 						<div className="input-block">
 							<Form.Control
-								min={1}
+								min={0}
 								max={1000}
 								name="livingArea"
 								value={data.livingArea}

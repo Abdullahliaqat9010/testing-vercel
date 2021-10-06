@@ -216,7 +216,7 @@ const SoldPropertiesPage = () => {
 					</div>
 				</div>
 			</div>
-			<FooterContainer />
+			< FooterContainer  />
 		</>
 	);
 };
