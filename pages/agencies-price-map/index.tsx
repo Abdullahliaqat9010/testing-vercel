@@ -9,8 +9,9 @@ import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 import GoogleMap from "../../components/MapboxPriceMap";
-import province from "../../components/MapboxPriceMap/provinces.json"
+import * as province from "../../components/MapboxPriceMap/provinces.json"
 import axios from 'axios';
+import { any } from "prop-types";
 const priceMap = () => {
     const citiesData = [
         {
@@ -1060,8 +1061,8 @@ const priceMap = () => {
         {
             name: "Kapellen",
             zipcode: "3381",
-            appartment: 0,
-            house: 0,
+            appartment: 1675.49,
+            house: 1365.34,
         },
         {
             name: "Tielt-Winge",
@@ -1234,8 +1235,8 @@ const priceMap = () => {
         {
             name: "Herstappe",
             zipcode: "3717",
-            appartment: 0,
-            house: 0,
+            appartment: 2456.61,
+            house: 2053.45,
         },
         {
             name: "Kortessem",
@@ -1264,8 +1265,8 @@ const priceMap = () => {
         {
             name: "Voeren",
             zipcode: "3790",
-            appartment: 0,
-            house: 0,
+            appartment: 1977.27,
+            house: 1489.34,
         },
         {
             name: "Sint-Truiden",
@@ -1949,7 +1950,7 @@ const priceMap = () => {
             name: "Hamois",
             zipcode: "5360",
             appartment: 962.7399,
-            house: 0,
+            house: 590.45,
         },
         {
             name: "Havelange",
@@ -1978,8 +1979,8 @@ const priceMap = () => {
         {
             name: "Onhaye",
             zipcode: "5520",
-            appartment: 0,
-            house: 0,
+            appartment: 2335.86,
+            house: 2012.23,
         },
         {
             name: "Yvoir",
@@ -2423,7 +2424,7 @@ const priceMap = () => {
             name: "Wellin",
             zipcode: "6920",
             appartment: 1169.733,
-            house: 0,
+            house: 950.34,
         },
         {
             name: "Tellin",
@@ -2500,8 +2501,8 @@ const priceMap = () => {
         {
             name: "Gent",
             zipcode: "9000",
-            appartment: 0,
-            house: 0,
+            appartment: 2226.10,
+            house: 1958.23,
         },
         {
             name: "Quévy",
@@ -3148,8 +3149,8 @@ const priceMap = () => {
         {
             name: "Mesen",
             zipcode: "8957",
-            appartment: 0,
-            house: 0,
+            appartment: 1740.34,
+            house: 1356.45,
         },
         {
             name: "Poperinge",
@@ -3548,20 +3549,20 @@ const priceMap = () => {
             house: 1738.406956,
         }
     ]
-
     const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
     const [activeTab, setActiveTab] = useState<string>("price");
     const [data, setData] = useState(citiesData)
     const [updatesearch, setCity] = useState([]);
     const [textToSearch, setTextToSearch] = useState("")
-    const [selectedCity, setSelectedCity] = useState(-1)
+    const [selectedCity, setSelectedCity] = useState(false)
     const [markers, setMarkers] = useState([]);
-    const [prices, setPrices]= useState( {
+    const [prices, setPrices] = useState({
         name: "",
         zipcode: "",
         appartment: 0,
         house: 0,
     })
+
 
 
 
@@ -3601,8 +3602,8 @@ const priceMap = () => {
     const onSuggesstionClick = (index) => {
         const cityName = updatesearch[index].name
         const getIndex = citiesData.findIndex(object => object.name.toLocaleLowerCase() === cityName.toLocaleLowerCase())
-
-        const getRegion = province.features.find(feature => feature.properties.NAME_4.toLocaleLowerCase() === cityName.toLocaleLowerCase())
+        const _provinces = province as any
+        const getRegion = _provinces?.default?.features.find(feature => feature.properties.NAME_4.toLocaleLowerCase() === cityName.toLocaleLowerCase())
         const region = getRegion.geometry.coordinates[0]
         const boundries = region[0]
         const getLatLong = boundries[0]
@@ -3614,9 +3615,9 @@ const priceMap = () => {
             },
             id: "home",
         }
-        setMarkers([{...position}])
+        setMarkers([{ ...position }])
         setTextToSearch(cityName)
-        setSelectedCity(getIndex)
+        setSelectedCity(true)
         setCity([])
     }
 
@@ -3624,6 +3625,7 @@ const priceMap = () => {
 
 
     const filterCities = (value) => {
+        setSelectedCity(false)
         setTextToSearch(value)
 
     }
@@ -3638,9 +3640,9 @@ const priceMap = () => {
                         <input type="search" value={textToSearch} onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
                         <ListGroup as="ul" id="navbar-example2" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
 
-                            {updatesearch.map((cityData, index) => {
+                            {!selectedCity && updatesearch.map((cityData, index) => {
                                 return (
-                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a href={"#"+cityData.name}>{cityData.name}</a></ListGroup.Item>
+                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a href={"#" + cityData.name}>{cityData.name}</a></ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
@@ -3681,8 +3683,9 @@ const priceMap = () => {
                                                 <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
                                                 <p> {activeTab === "price" ? prices.house.toFixed(2) : prices.house.toFixed(2)} € </p>
                                                 <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
-                                                <br></br>
+
                                                 <span >Indice de cinfiance</span>
+                                                <span><p style={{ paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)" }}>Indice de cinfiance</p></span>
                                                 <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                             </div>
                                         </div>
@@ -3699,8 +3702,7 @@ const priceMap = () => {
                                                 <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
                                                 <p> {activeTab === "price" ? prices.appartment.toFixed(2) : prices.appartment.toFixed(2)} € </p>
                                                 <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
-                                                <br></br>
-                                                <span >Indice de cinfiance</span>
+                                                <span><p style={{ paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)" }}>Indice de cinfiance</p></span>
                                                 <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                             </div>
                                         </div>
@@ -3745,10 +3747,10 @@ const priceMap = () => {
                                 <tbody data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" className="scrollspy-example" >
                                     {data.map((city, index) => {
                                         return (
-                                            <tr  id={city.name} key={index} onClick={() => gotoCityData(index)}>
+                                            <tr id={city.name} key={index} onClick={() => gotoCityData(index)}>
                                                 <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
-                                                <td>{city.appartment}</td>
-                                                <td>{city.house}</td>
+                                                <td>{city.appartment.toFixed(2)}</td>
+                                                <td>{city.house.toFixed(2)}</td>
                                             </tr>)
                                     })}
                                 </tbody>

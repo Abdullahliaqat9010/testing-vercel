@@ -83,29 +83,30 @@ const Mapbox3dMap = ({
                         ['linear'],
                         ['get', 'price'],
                         0,
-                        '#7ca971',
-                        4,
-                        "#849251",
-                        7,
-                        "#af4d41",
-                        9,
-                        "#872233"
-
-
+                        "#22b804",
+                        2000,
+                        "#f2f20c",
+                        2500,
+                        '#ed5807',
+                        5000,
+                        '#e60b0b',
+                        7500,
+                        '#e60b0b'                  
                     ]
                 }
             }, 'waterway-label');
 
-            // mapRef.current.addLayer({
-            //     'id': 'outline',
-            //     'type': 'line',
-            //     'source': 'provice_geojson',
-            //     'layout': {},
-            //     'paint': {
-            //         'line-color': '#000',
-            //         'line-width': 1
-            //     }
-            // });
+            mapRef.current.addLayer({
+                'id': 'outline',
+                'type': 'line',
+                'source': 'provice_geojson',
+                'layout': {},
+                'paint': {
+                    'line-color': '#000',
+                    'line-opacity': 0.3,
+                    'line-width': 1
+                }
+            });
         });
     }, [mapRef]);
 

@@ -1,19 +1,33 @@
 {
     "h1.votre": "Uw vitrine",
-    "votre.description":"Uw vitrine presenteert uw knowhow aan alle bezoekers van de BelgiumImmo website. Kopers en verkopers. Comp ... een in.iinurn van in.rrnaties en nacht.% Vos atts ° link. en goederen die worden verkocht om uw expertise te laten zien.",
+    "votre.description":"De vitrine presenteert uw expertise aan BelgiumImmo’s bezoekers. Hoe meer informatie u geeft, hoe groter de kans dat bezoekers u contacteren. De links naar jullie website en sociale media verhogen uw positie in Google’s zoekresultaten.",
     "h2.photo": "Vitrine foto",
     "photo.description": "De foto van uw vitrine is een weerspiegeling van uw professionaliteit. Pas het zo snel mogelijk aan met een foto van uw team of kantoor (etalage of interieur).",
     "upload.photo": "Uploaden",
-    "question.description":"Tip: maak voor het beste resultaat een foto van uw bureau met uw smartphone in een horizontale positie.",
+    "question.description":"Tip: U bekomt het beste resultaat met een foto in horizontale positie.",
     "label.description": "Beschrijving",
     "label.website": "Link naar jullie website",
     "h2.social": "Sociale media",
     "h2.language": "Talen",
-    "div.select-language": "Selecteer a.u.b. die van toepassing zijn.",
+    "div.select-language": "Selecteer a.u.b de talen die in uw kantoor van toepassing zijn.",
     "h2.email-notification": "E-mail notificaties",
     "dev.write-emails": "Voer het e-mailadres in waarop u systeemmeldingen wilt ontvangen",
     "button.loading": "Bezig met laden...",
     "button.save": "Wijzigingen opslaan",
-    "button.view": "Visualiseer mijn vitrine"
-
+    "button.view": "Visualiseer mijn vitrine",
+    "language.Nederlands":"Nederlands",
+    "language.Frans":"Frans",
+    "language.Duits":"Duits",
+    "language.Engels":"Engels",
+    "language.Spaans":"Spaans",
+    "language.Italien":"Italien ",
+    "language.Pools":"Pools",
+    "language.Turk":"Turk",
+    "language.Russisch":"Russisch",
+    "language.Arabe": "Arabisch ",
+    "language.Portugais":"Portugees",
+    "language.Chinois":" Chinese",
+   "language.Herbreu":"Herbreu"
 }
+
+
