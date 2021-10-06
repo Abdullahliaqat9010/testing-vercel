@@ -3669,9 +3669,8 @@ const priceMap = () => {
                                             <div className="prices-block ">
                                                 <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
                                                 <p> {activeTab === "price" ? 1845 : 1335} € </p>
-                                                <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
-                                                <br></br>
-                                                <span >Indice de cinfiance</span>
+                                                <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>                                            
+                                                <span><p style={{paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)"}}>Indice de cinfiance</p></span>
                                                 <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                             </div>
                                         </div>
@@ -3688,8 +3687,7 @@ const priceMap = () => {
                                                 <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
                                                 <p> {activeTab === "price" ? 1845 : 1335} € </p>
                                                 <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
-                                                <br></br>
-                                                <span >Indice de cinfiance</span>
+                                                <span><p style={{paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)"}}>Indice de cinfiance</p></span>
                                                 <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                             </div>
                                         </div>
