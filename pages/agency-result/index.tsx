@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
-import { Button, InputGroup ,FormControl } from "react-bootstrap";
+import { Button, InputGroup ,FormControl, ListGroup } from "react-bootstrap";
 import { Pagination } from "antd";
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg";
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png";
@@ -143,13 +143,13 @@ const compareAgency = () => {
 									/>
 								</InputGroup>
 								{dataFromMapBox.length > 0 && (
-									<ul className="autocomplete-list">
+							   <ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "616px"}}>
 										{dataFromMapBox.map((item, index) => (
-											<li onClick={() => handleSelectAddress(item.id)} key={index}>
+											<ListGroup.Item  className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>
 												{item.fullAddress}
-											</li>
+												</ListGroup.Item>
 										))}
-									</ul>
+									</ListGroup>
 								)}
 							</div>
 							{/* <input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input> */}
