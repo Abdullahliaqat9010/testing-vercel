@@ -4,6 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Button } from "react-bootstrap";
 import { Pagination } from "antd";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 import NavBarContainer from "../../../containers/NavBar";
 import FooterContainer from "../../../containers/Footer";
@@ -78,12 +79,16 @@ const PropertyCard = ({ property, onClick }) => {
 						</span>
 					</div>
 					<div className=" property-props mt-2 d-flex">
-						<span className="mr-1">{property.live_area + " " + t("span.meter-square")}</span>
-						<span className="mx-1">
-							{property.bedrooms + " " + t("span.beds") }{property.bedrooms > 1 ? "s": ""}
+						<span className="mr-1">
+							{property.live_area + " " + t("span.meter-square")}
 						</span>
 						<span className="mx-1">
-							{property.bathrooms + " " + t("span.baths")}{property.bathrooms > 1 ? "s": ""}
+							{property.bedrooms + " " + t("span.beds")}
+							{property.bedrooms > 1 ? "s" : ""}
+						</span>
+						<span className="mx-1">
+							{property.bathrooms + " " + t("span.baths")}
+							{property.bathrooms > 1 ? "s" : ""}
 						</span>
 					</div>
 				</div>
@@ -115,6 +120,7 @@ const SoldPropertiesPage = () => {
 	const [properties, setProperties] = useState([]);
 
 	const { t } = useTranslation("properties-page");
+	const router = useRouter();
 
 	const _getAgencyProperties = async () => {
 		try {
@@ -153,7 +159,7 @@ const SoldPropertiesPage = () => {
 									<img src={Upload} alt="AddIcon" />
 									<span className="import-bt-text">{t("button.import")}</span>
 								</Button>
-								<Button>
+								<Button onClick={() => router.push("/add-property")}>
 									<img src={AddIcon} alt="AddIcon" />
 									<span className="add-bt-text">{t("button.add")}</span>
 								</Button>
@@ -163,7 +169,10 @@ const SoldPropertiesPage = () => {
 							<div>
 								{" "}
 								<input type="checkBox"></input>{" "}
-								<span className=" total-listings pl-2"> {t("span.select")} {properties.length} {t("span.properties")} </span>{" "}
+								<span className=" total-listings pl-2">
+									{" "}
+									{t("span.select")} {properties.length} {t("span.properties")}{" "}
+								</span>{" "}
 							</div>
 							<div className="action-block">
 								<Button className="mx-1">
