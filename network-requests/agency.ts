@@ -13,6 +13,24 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
+export const getAgenciesByAddress = (address): Promise<any[]>=> {
+	return new Promise(async (res, rej) => {
+		try {
+			console.log("adress", address)
+			const {data: agencies } = await axios.get("agency/search?city="+ address.locality+ "&zip=" +"3234" , {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}) 
+			console.log("agencies", agencies)
+
+			res(agencies);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
 export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {

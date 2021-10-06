@@ -376,6 +376,7 @@ const HeaderContainer = ({
 										>
 											<span onClick={openSwitcherBlock}>{locale}</span>
 											{openLangList && (
+												
 												<div className="lang-list">
 													{langList.map((lang, index) => (
 														<span
