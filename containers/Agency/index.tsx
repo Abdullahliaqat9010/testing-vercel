@@ -12,6 +12,8 @@ import RatingStar from "../../assets/images/rating/full-star.svg";
 import RatingStarEmpty from "../../assets/images/rating/star.svg";
 import ArrowImage from "../../assets/images/arrow-blue.svg";
 import AgencyStarImage from "../../assets/images/star-blue.svg";
+import noLogo from "../../assets/images/no-photo.png";
+import noAgencyLogo from "../../assets/images/no-image-available.svg";
 
 import { RootState } from "../../types/state";
 import { AgencyProps } from "../../types/agents";
@@ -27,22 +29,6 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 	const { t } = useTranslation("dashboard-page");
 
 	const [showContactModal, setShowContactModal] = useState<boolean>(false);
-
-	// const {
-	// 	agencyInfoList,
-	// 	agencyCountPropertiesList,
-	// 	agencySimilarPropertiesList,
-	// } = useSelector((state: RootState) => state.agency);
-
-	// const [agencyReviews] = agencyInfoList.filter(
-	// 	(list) => list?.place_id === agency?.place_id
-	// );
-	// const [agencyPropertiesInfo] = agencyCountPropertiesList.filter(
-	// 	(list) => list.company_name === agency.tag
-	// );
-	// const [agencySimilarProperties] = agencySimilarPropertiesList.filter(
-	// 	(list) => list.name === agency.title
-	// );
 	const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
 	const openMoreInfo = () => {
@@ -171,8 +157,8 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 					<div className="logo-block">
 						<img
 							style={{ width: "100%", height: "100%", objectFit: "cover" }}
-							src={agency.logo_image}
-							alt={agency.company_name}
+							src={agency?.logo_image ? agency?.logo_image : noAgencyLogo}
+							alt={agency?.company_name}
 						/>
 					</div>
 					<div className="info">
@@ -220,7 +206,10 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				<div className="more-info d-flex justify-content-between">
 					<div className="agent-block">
 						<div className="agent-info d-flex">
-							<Image src={agency?.owner?.avatar} roundedCircle />
+							<Image
+								src={agency?.owner?.avatar ? agency?.owner?.avatar : noLogo}
+								roundedCircle
+							/>
 							<div className="d-flex flex-column">
 								<span className="bold">
 									{agency?.owner?.firstname} {agency?.owner?.lastname}
