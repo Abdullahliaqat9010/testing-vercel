@@ -27,10 +27,11 @@ import { useRouter } from "next/router";
 import { getAgenciesByAddress } from "../../network-requests";
 import Loading from "../../components/Loading"
 import { CustomScrollbar } from "../../components/Scrollbar";
-import { mapboxContainer } from "../../components/mapbox"
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../types/state";
 import { getAutocompleteItemsAction, clearAutocompleteItems } from "../../actions";
+import MapboxContainer from "../../components/2dMapbox";
+ 
 // import FooterContainer from "../../containers/Footer"ContactAgentModal
 const compareAgency = () => {
 
@@ -247,10 +248,7 @@ const compareAgency = () => {
 													</div>
 												</div>
 												<div className="agency-map-container">
-													{/* <CustomScrollbar>
-														<mapboxContainer/>
-													</CustomScrollbar> */}
-													<img src={reviewImage} alt="agentImage" />
+													<MapboxContainer />
 													<div className="map-description">
 														<p>
 															{" "}
