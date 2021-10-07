@@ -7,6 +7,7 @@ import MarkerHomeIcon from "../../assets/images/marker.svg";
 import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
 import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
 import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
+import { config } from "../../config/siteConfigs";
 
 mapboxgl.Marker.prototype.onClick = function (handleClick) {
 	this._handleClick = handleClick;
@@ -133,7 +134,7 @@ const Mapbox3dMap = ({
 									if (!mapSource) {
 										map.addSource(geohash, {
 											type: "geojson",
-											data: `http://localhost:3003/parcels?geohash=${geohash}`,
+											data: `${config.apiDomain}/parcels?geohash=${geohash}`,
 										});
 										map.addLayer(
 											{
