@@ -1,20 +1,24 @@
 
 import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useEffect } from "react";
+import React, { useEffect , useRef} from "react";
 
-export const mapboxContainer = () => {
+const mapboxContainer = () => {
+
+    const mapRef = useRef(null)
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ';
-        const map = new mapboxgl.Map({
+        mapRef.current = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/light-v10', // style URL
             center: [4.402771, 51.260197], // starting position
-            zoom: 8 // starting zoom
+            zoom: 6 // starting zoom
         });
     });
 
     return (
-        <div id="Map" style={{ height:'300px' , width: "100%" }} />
+        <div id="map" style={{ height:'300px' , width: "100%" }} ref={mapRef} />
     )
 }
+
+export default mapboxContainer
