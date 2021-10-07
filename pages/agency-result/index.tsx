@@ -106,8 +106,13 @@ const compareAgency = () => {
 	};
 
 	const openDetail = (index) => {
-		setSelctedIdex(index);
-		setOpen(!open);
+		if(selctedIdex !== index) {
+			setOpen(true);
+			setSelctedIdex(index);
+		}
+		else {
+			setOpen(false);
+		}
 	};
 	const closeContactForm = () => {
 		setOpenContactForm(!openContactForm);
