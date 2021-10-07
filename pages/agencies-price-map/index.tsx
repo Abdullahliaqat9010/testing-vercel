@@ -3549,7 +3549,7 @@ const priceMap = () => {
     ]
     const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
     const [activeTab, setActiveTab] = useState<string>("price");
-    const [cityAndPricesData, setData] = useState(citiesData)
+    const [cityAndPricesData, setCityAndPricesData] = useState(citiesData)
     const [updatesearch, setCity] = useState([]);
     const [textToSearch, setTextToSearch] = useState("")
     const [selectedCity, setSelectedCity] = useState(false)
@@ -3584,7 +3584,7 @@ const priceMap = () => {
         const inputValue = textToSearch.trim().toLowerCase();
         const inputLength = inputValue.length;
         const fitertUser = inputLength === 0 ? [] : citydata.filter(city =>
-            city.name.toLowerCase().slice(0, inputLength) === inputValue
+            (city.name.toLowerCase().slice(0, inputLength) === inputValue || city.zipcode.toLowerCase().slice(0, inputLength) === inputValue)
         );
         setCity(fitertUser)
     }, [textToSearch])
@@ -3599,6 +3599,7 @@ const priceMap = () => {
 
     const onSuggesstionClick = (index) => {
         const cityName = updatesearch[index].name
+        const zipcode = updatesearch[index].zipcode
         const _provinces = province as any
         const getRegion = _provinces?.default?.features.find(feature => feature.properties.NAME_4.toLocaleLowerCase() === cityName.toLocaleLowerCase())
         const region = getRegion.geometry.coordinates[0]
@@ -3613,7 +3614,7 @@ const priceMap = () => {
             id: "home",
         }
         setMarkers([{ ...position }])
-        setTextToSearch(cityName)
+        setTextToSearch(cityName +' '+ zipcode)
         setSelectedCity(true)
         setCity([])
     }
@@ -3639,7 +3640,7 @@ const priceMap = () => {
 
                             {!selectedCity && updatesearch.map((cityData, index) => {
                                 return (
-                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name}</a></ListGroup.Item>
+                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name} {cityData.zipcode }</a></ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
