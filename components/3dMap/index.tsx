@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import "mapbox-gl/dist/mapbox-gl.css";
+import geohashpoly from "geohash-poly";
 
 import MarkerHomeIcon from "../../assets/images/marker.svg";
 import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
@@ -53,7 +54,7 @@ const Mapbox3dMap = ({
 			"pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ";
 
 		mapRef.current = new mapboxgl.Map({
-			style: "mapbox://styles/mapbox/satellite-streets-v11",
+			style: "mapbox://styles/mapbox/light-v10",
 			center: [...center],
 			zoom: 15,
 			pitch: 45,
@@ -82,7 +83,8 @@ const Mapbox3dMap = ({
 						type: "fill-extrusion",
 						minzoom: 15,
 						paint: {
-							"fill-extrusion-color": "#ddcfb2",
+							// "fill-extrusion-color": "#ddcfb2",
+							"fill-extrusion-color": "#aaa",
 							"fill-extrusion-height": [
 								"interpolate",
 								["linear"],
@@ -106,6 +108,101 @@ const Mapbox3dMap = ({
 					},
 					labelLayerId
 				);
+				map.on("idle", (e) => {
+					const bounds = map.getBounds();
+					const zoomLevel = map.getZoom();
+
+					let hoverId = null;
+
+					if (zoomLevel >= 14) {
+						var polygon = [
+							[
+								[bounds?._ne?.lng, bounds?._ne?.lat],
+								[bounds?._sw?.lng, bounds?._ne?.lat],
+								[bounds?._sw?.lng, bounds?._sw?.lat],
+								[bounds?._ne?.lng, bounds?._sw?.lat],
+								[bounds?._ne?.lng, bounds?._ne?.lat],
+							],
+						];
+
+						geohashpoly(
+							{ coords: polygon, precision: 6 },
+							function (err, hashes) {
+								hashes.map((geohash) => {
+									const mapSource = map.getSource(geohash);
+									if (!mapSource) {
+										map.addSource(geohash, {
+											type: "geojson",
+											data: `http://localhost:3003/parcels?geohash=${geohash}`,
+										});
+										map.addLayer(
+											{
+												id: geohash,
+												type: "fill",
+												source: geohash,
+												minzoom: 15,
+
+												paint: {
+													"fill-color": "#24f262",
+													"fill-outline-color": "#b2abab",
+													"fill-opacity": [
+														"case",
+														["boolean", ["feature-state", "hover"], false],
+														0.5,
+														0.1,
+													],
+												},
+
+												// layout: {
+												// 	visibility: "none",
+												// },
+											},
+											"add-3d-buildings"
+										);
+										map.on("mousemove", geohash, ({ features }) => {
+											map.getCanvas().style.cursor = "pointer";
+											// console.log(features);
+											if (features.length === 0) return;
+											if (hoverId) {
+												map.removeFeatureState({
+													source: geohash,
+													id: `${hoverId}`,
+												});
+											}
+											hoverId = features[0].properties.id;
+											map.setFeatureState(
+												{
+													source: geohash,
+													id: `${hoverId}`,
+												},
+												{
+													hover: true,
+												}
+											);
+										});
+
+										map.on("mouseleave", geohash, () => {
+											if (hoverId) {
+												map.setFeatureState(
+													{
+														source: geohash,
+														id: `${hoverId}`,
+													},
+													{
+														hover: false,
+													}
+												);
+											}
+
+											hoverId = null;
+											map.getCanvas().style.cursor = "";
+										});
+									}
+								});
+							}
+						);
+					}
+				});
 			});
 
 			map?.touchZoomRotate.enable();
