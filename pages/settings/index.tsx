@@ -116,7 +116,7 @@ const SettingsPage = () => {
 		return new Promise(async (res, rej) => {
 			try {
 				const formData = new FormData();
-				formData.append("upload", image);
+				formData.append("file", image);
 				const { data } = await axios.post(`image-upload`, formData, {
 					headers: {
 						"Content-Type": "multipart/form-data",
@@ -243,7 +243,7 @@ const SettingsPage = () => {
 									type="email"
 								/>
 								<Form.Control.Feedback type="invalid">
-								{t("span.required")}
+									{t("span.required")}
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Form.Group controlId="phone">
@@ -273,7 +273,12 @@ const SettingsPage = () => {
 							<Button
 								type="submit"
 								disabled={isUpdatingProfile}
-								style={{ width:"150px",height:"50px", borderRadius: 8, marginTop: 10 }}
+								style={{
+									width: "150px",
+									height: "50px",
+									borderRadius: 8,
+									marginTop: 10,
+								}}
 							>
 								{isUpdatingProfile
 									? t("button.loading")
