@@ -34,11 +34,13 @@ interface MarkerI {
 
 interface MapProps {
 	markers?: MarkerI[];
+	is3d: boolean,
 	onActiveMarker?: (id: any) => void;
 }
 
 const Mapbox3dMap = ({
 	markers = [],
+	is3d = false,
 	onActiveMarker = (id) => null,
 }: MapProps) => {
 	const [center, setCenter] = useState([
@@ -59,7 +61,7 @@ const Mapbox3dMap = ({
 			pitch: 45,
 			bearing: -17.6,
 			container: "map",
-			antialias: true,
+			antialias: is3d,
 		});
 		mapRef.current?.addControl(new mapboxgl.NavigationControl());
 	}, [mapRef]);
@@ -67,60 +69,63 @@ const Mapbox3dMap = ({
 	useEffect(() => {
 		var map = mapRef.current;
 		if (map) {
-			map?.on("load", () => {
-				const layers = map?.getStyle().layers;
-				const labelLayerId = layers.find(
-					(layer) => layer.type === "symbol" && layer.layout["text-field"]
-				).id;
-
-				map?.addLayer(
-					{
-						id: "add-3d-buildings",
-						source: "composite",
-						"source-layer": "building",
-						filter: ["==", "extrude", "true"],
-						type: "fill-extrusion",
-						minzoom: 15,
-						paint: {
-							"fill-extrusion-color": "#ddcfb2",
-							"fill-extrusion-height": [
-								"interpolate",
-								["linear"],
-								["zoom"],
-								15,
-								0,
-								15.05,
-								["get", "height"],
-							],
-							"fill-extrusion-base": [
-								"interpolate",
-								["linear"],
-								["zoom"],
-								15,
-								0,
-								15.05,
-								["get", "min_height"],
-							],
-							"fill-extrusion-opacity": 1,
+			if (is3d) {
+				map?.on("load", () => {
+					const layers = map?.getStyle().layers;
+					const labelLayerId = layers.find(
+						(layer) => layer.type === "symbol" && layer.layout["text-field"]
+					).id;
+					map?.addLayer(
+						{
+							id: "add-3d-buildings",
+							source: "composite",
+							"source-layer": "building",
+							filter: ["==", "extrude", "true"],
+							type: "fill-extrusion",
+							minzoom: 15,
+							paint: {
+								"fill-extrusion-color": "#ddcfb2",
+								"fill-extrusion-height": [
+									"interpolate",
+									["linear"],
+									["zoom"],
+									15,
+									0,
+									15.05,
+									["get", "height"],
+								],
+								"fill-extrusion-base": [
+									"interpolate",
+									["linear"],
+									["zoom"],
+									15,
+									0,
+									15.05,
+									["get", "min_height"],
+								],
+								"fill-extrusion-opacity": 1,
+							},
 						},
-					},
-					labelLayerId
-				);
-			});
+						labelLayerId
+					);
+				});
+			}
 
 			map?.touchZoomRotate.enable();
 			map?.touchZoomRotate.enableRotation();
 		}
 	}, [mapRef]);
+	if (is3d) {
 
-	useEffect(() => {
-		var map = mapRef.current;
-		map?.flyTo({
-			center: [...center],
-			zoom: 20,
-			essential: true,
-		});
-	}, [center]);
+		useEffect(() => {
+			var map = mapRef.current;
+			map?.flyTo({
+				center: [...center],
+				zoom: 20,
+				essential: true,
+			});
+		}, [center]);
+	}
 
 	useEffect(() => {
 		var map = mapRef.current;
@@ -166,7 +171,7 @@ const Mapbox3dMap = ({
 	};
 
 	return (
-		<div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
+		<div style={{ height: is3d ? "100vh" : "350px", width: "100%" }} ref={mapRef} id="map" />
 	);
 };
 

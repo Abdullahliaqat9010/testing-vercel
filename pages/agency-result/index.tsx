@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
-import { Button, InputGroup ,FormControl, ListGroup } from "react-bootstrap";
+import { Button, InputGroup, FormControl, ListGroup } from "react-bootstrap";
 import { Pagination } from "antd";
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg";
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png";
@@ -31,7 +31,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../types/state";
 import { getAutocompleteItemsAction, clearAutocompleteItems } from "../../actions";
 import MapboxContainer from "../../components/2dMapbox";
- 
+import Mapbox3dMap from "../../components/3dMap"
 // import FooterContainer from "../../containers/Footer"ContactAgentModal
 const compareAgency = () => {
 
@@ -42,12 +42,15 @@ const compareAgency = () => {
 	const [selctedIdex, setSelctedIdex] = useState(-1);
 	const [filteredAgencies, setFiltereAgencies] = useState([])
 	const [currentPage, setCurrentPage] = useState(1);
+	const [markersPerAgency, setMarkersPerAgency] = useState([])
 	const [totalPages, setTotalPages] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
+	const [activeMarker, setActiveMarker] = useState<string | number>("home");
+	const [markers, setMarkers] = useState([]);
 	const dispatch = useDispatch()
 	const [value, setValue] = useState("");
 	const [dataInfo, setData] = useState({});
-	if(dataInfo) {
+	if (dataInfo) {
 		address = dataInfo
 	}
 	const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
@@ -59,6 +62,26 @@ const compareAgency = () => {
 		try {
 			const agencies = await getAgenciesByAddress(address)
 			setFiltereAgencies(agencies)
+			const agenciesMarkes = agencies.map(agency => {
+				const agencyProperties = agency?.properties ?? []
+				const markersOfAgency = agencyProperties?.map(property => {
+					let marker = {
+						type: "property",
+						position: {
+							lat: property?.lat,
+							lng: property?.lng,
+						},
+						id: property?.id,
+					}
+					return marker
+				})
+				return {
+					agencyId: agency?.id,
+					markers: markersOfAgency
+				}
+			})
+			setMarkersPerAgency(agenciesMarkes)
+
 			const totalPages = agencies.length > pageSize ? Math.ceil(agencies.length / agencies.length) : 1
 			setTotalPages(totalPages)
 			setIsLoading(false);
@@ -68,10 +91,21 @@ const compareAgency = () => {
 
 	}
 
+	
 
-	const fiterAgencies = (value) => {
-		console.log("")
-	}
+	const mapProps = {
+		markers: [...markers],
+		is3d: false,
+		onActiveMarker: (id) => onClickProperty(id),
+	};
+
+	const onClickProperty = (propertyId) => {
+
+		setMarkers([]);
+	};
+
+
+
 
 	const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(el.target.value);
@@ -106,7 +140,10 @@ const compareAgency = () => {
 	};
 
 	const openDetail = (index) => {
-		if(selctedIdex !== index) {
+		if (selctedIdex !== index) {
+			const expandedAgency = filteredAgencies[index]
+			const markersOfAgency = markersPerAgency?.find(agency=> agency?.agencyId===expandedAgency?.id )
+			setMarkers(markersOfAgency?.markers)
 			setOpen(true);
 			setSelctedIdex(index);
 		}
@@ -149,11 +186,11 @@ const compareAgency = () => {
 									/>
 								</InputGroup>
 								{dataFromMapBox.length > 0 && (
-							   <ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "616px"}}>
+									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "616px" }}>
 										{dataFromMapBox.map((item, index) => (
-											<ListGroup.Item  className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden"}}>
+											<ListGroup.Item className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
 												{item.fullAddress}
-												</ListGroup.Item>
+											</ListGroup.Item>
 										))}
 									</ListGroup>
 								)}
@@ -253,7 +290,7 @@ const compareAgency = () => {
 													</div>
 												</div>
 												<div className="agency-map-container">
-													<MapboxContainer />
+													<Mapbox3dMap {...mapProps} />
 													<div className="map-description">
 														<p>
 															{" "}

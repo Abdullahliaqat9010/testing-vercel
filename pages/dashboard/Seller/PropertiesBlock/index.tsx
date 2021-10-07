@@ -45,6 +45,7 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 
 	const mapProps = {
 		markers: [...markers],
+		is3d:true,
 		onActiveMarker: (id) => onClickProperty(id),
 	};
 
