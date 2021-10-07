@@ -13,19 +13,21 @@
     border: unset;
     outline: none;
   }
-
+  .imageContanter.d-flex {
+    height: 514px;
+}
   .imageContanter {
     .main-image {
       width: 100%;
       border-radius: 5px;
-      height: 461px;
+      // height: 461px;
     }
   }
   .search-area {
     margin-left: 10%;
     position: absolute;
     z-index: 10;
-    top: 25%;
+    top: 240px;
     color: var(--colorWhite);
     p {
       font-size: 18px;
@@ -67,6 +69,9 @@
       img {
         width: 12px;
         height: 12px;
+      }
+      input {
+        width: 288px;
       }
     }
   }
@@ -238,7 +243,7 @@
     line-height: 120%;
   }
   .search-form {
-    flex-direction: column;
+    flex-direction: row;
   }
  
 

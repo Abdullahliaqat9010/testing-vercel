@@ -116,7 +116,7 @@ const compareAgency = () => {
                 />
               </InputGroup>
               {dataFromMapBox.length > 0 && (
-                <ListGroup as="ul" className="position-absolute" style={{ marginTop: "45px", width: "54.533%" }}>
+                <ListGroup as="ul" className="position-absolute" style={{ marginTop: "45px", width: "288px" }}>
                   {dataFromMapBox.map((item, index) => (
                     <ListGroup.Item className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
                       {item.fullAddress}
@@ -205,6 +205,13 @@ const compareAgency = () => {
                   <span>Listing Agent Commission</span>
                 </div>
 
+                <img src={HomeownerIcon} alt="HomeownerIcon" />
+              </div>
+              <div className=" sales-description-block d-flex flex-row justify-content-between">
+                <div className="d-flex flex-column">
+                  <b>€2,400</b>
+                  <span>Est. Commission Savings</span>
+                </div>
                 <img src={HomeownerIcon} alt="HomeownerIcon" />
               </div>
             </div>

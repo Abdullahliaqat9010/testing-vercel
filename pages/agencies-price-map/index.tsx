@@ -4,14 +4,12 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import HeaderContainer from "../../containers/Header";
 import SearchImage from "../../assets/images/search.svg"
-import priceMapImage from "../../assets/images/compare-agency/price-map.png";
 import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 import GoogleMap from "../../components/MapboxPriceMap";
 import * as province from "../../components/MapboxPriceMap/provinces.json"
-import axios from 'axios';
-import { any } from "prop-types";
+
 const priceMap = () => {
     const citiesData = [
         {
@@ -3551,7 +3549,7 @@ const priceMap = () => {
     ]
     const [cityPriceMap, setCityPriceMap] = useState<boolean>(false)
     const [activeTab, setActiveTab] = useState<string>("price");
-    const [data, setData] = useState(citiesData)
+    const [cityAndPricesData, setCityAndPricesData] = useState(citiesData)
     const [updatesearch, setCity] = useState([]);
     const [textToSearch, setTextToSearch] = useState("")
     const [selectedCity, setSelectedCity] = useState(false)
@@ -3567,14 +3565,14 @@ const priceMap = () => {
 
 
     const gotoCityData = (index) => {
-        let getObj = data[index]
+        let getObj = cityAndPricesData[index]
         setPrices(getObj)
         setCityPriceMap(!cityPriceMap)
 
     }
     useEffect(() => {
 
-    }, [data])
+    }, [cityAndPricesData])
 
     const mapProps = {
         markers: markers,
@@ -3586,7 +3584,7 @@ const priceMap = () => {
         const inputValue = textToSearch.trim().toLowerCase();
         const inputLength = inputValue.length;
         const fitertUser = inputLength === 0 ? [] : citydata.filter(city =>
-            city.name.toLowerCase().slice(0, inputLength) === inputValue
+            (city.name.toLowerCase().slice(0, inputLength) === inputValue || city.zipcode.toLowerCase().slice(0, inputLength) === inputValue)
         );
         setCity(fitertUser)
     }, [textToSearch])
@@ -3601,7 +3599,7 @@ const priceMap = () => {
 
     const onSuggesstionClick = (index) => {
         const cityName = updatesearch[index].name
-        const getIndex = citiesData.findIndex(object => object.name.toLocaleLowerCase() === cityName.toLocaleLowerCase())
+        const zipcode = updatesearch[index].zipcode
         const _provinces = province as any
         const getRegion = _provinces?.default?.features.find(feature => feature.properties.NAME_4.toLocaleLowerCase() === cityName.toLocaleLowerCase())
         const region = getRegion.geometry.coordinates[0]
@@ -3616,7 +3614,7 @@ const priceMap = () => {
             id: "home",
         }
         setMarkers([{ ...position }])
-        setTextToSearch(cityName)
+        setTextToSearch(cityName +' '+ zipcode)
         setSelectedCity(true)
         setCity([])
     }
@@ -3642,7 +3640,7 @@ const priceMap = () => {
 
                             {!selectedCity && updatesearch.map((cityData, index) => {
                                 return (
-                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a href={"#" + cityData.name}>{cityData.name}</a></ListGroup.Item>
+                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name} {cityData.zipcode }</a></ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
@@ -3745,7 +3743,7 @@ const priceMap = () => {
                                     </tr>
                                 </thead>
                                 <tbody data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" className="scrollspy-example" >
-                                    {data.map((city, index) => {
+                                    {cityAndPricesData.map((city, index) => {
                                         return (
                                             <tr id={city.name} key={index} onClick={() => gotoCityData(index)}>
                                                 <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
