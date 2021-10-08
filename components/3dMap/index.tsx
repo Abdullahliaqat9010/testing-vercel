@@ -44,8 +44,8 @@ const Mapbox3dMap = ({
 	onActiveMarker = (id) => null,
 }: MapProps) => {
 	const [center, setCenter] = useState([
-		markers.length > 0 ? markers[0].position.lng : 51.260197,
-		markers.length > 0 ? markers[0].position.lat : 4.402771,
+		markers.length > 0 ? markers[0].position.lng : 4.402771,
+		markers.length > 0 ? markers[0].position.lat :51.260197,
 	]);
 
 	const mapRef = useRef(null);
@@ -54,15 +54,24 @@ const Mapbox3dMap = ({
 		mapboxgl.accessToken =
 			"pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ";
 
-		mapRef.current = new mapboxgl.Map({
-			style: "mapbox://styles/mapbox/satellite-streets-v11",
-			center: [...center],
-			zoom: 15,
-			pitch: 45,
-			bearing: -17.6,
-			container: "map",
-			antialias: is3d,
-		});
+		if (is3d) {
+			mapRef.current = new mapboxgl.Map({
+				style: "mapbox://styles/mapbox/satellite-streets-v11",
+				center: [...center],
+				zoom: 15,
+				pitch: 45,
+				bearing: -17.6,
+				container: "map",
+				antialias: is3d,
+			});
+		} else {
+			mapRef.current = new mapboxgl.Map({
+				style: "mapbox://styles/mapbox/streets-v11",
+				center: [...center],
+				zoom: 6,
+				container: "map",
+			});
+		}
 		mapRef.current?.addControl(new mapboxgl.NavigationControl());
 	}, [mapRef]);
 
@@ -160,8 +169,8 @@ const Mapbox3dMap = ({
 
 	useEffect(() => {
 		setCenter([
-			markers.length > 0 ? markers[0].position.lng : 51.260197,
-			markers.length > 0 ? markers[0].position.lat : 4.402771,
+			markers.length > 0 ? markers[0].position.lng : 4.402771,
+			markers.length > 0 ? markers[0].position.lat :51.260197 ,
 		]);
 	}, [markers]);
 

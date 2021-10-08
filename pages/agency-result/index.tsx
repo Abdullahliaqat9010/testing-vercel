@@ -46,7 +46,16 @@ const compareAgency = () => {
 	const [totalPages, setTotalPages] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
 	const [activeMarker, setActiveMarker] = useState<string | number>("home");
-	const [markers, setMarkers] = useState([]);
+	const [markers, setMarkers] = useState([
+		{
+			type: "home",
+			position: {
+				lat: 4.402771,
+				lng: 51.260197,
+			},
+			id: "home",
+		}
+	]);
 	const dispatch = useDispatch()
 	const [value, setValue] = useState("");
 	const [dataInfo, setData] = useState({});
