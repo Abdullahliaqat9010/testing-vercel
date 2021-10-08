@@ -7,7 +7,6 @@ import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
 import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
 import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
 import province from "./provinces.json"
-
 mapboxgl.Marker.prototype.onClick = function (handleClick) {
     this._handleClick = handleClick;
     return this;
@@ -91,7 +90,7 @@ const Mapbox3dMap = ({
                         5000,
                         '#e60b0b',
                         7500,
-                        '#e60b0b'                  
+                        '#e60b0b'
                     ]
                 }
             }, 'waterway-label');
@@ -123,7 +122,23 @@ const Mapbox3dMap = ({
 
 
     return (
-        <div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
+        <>
+            <div >
+                <select>
+                    <option>price per m</option>
+                    <option>price per rent</option>
+                </select>
+                <div className="d-flex bg-primary w-75 ">
+                    <span> 7238</span>
+                    <div className="progress">
+                        <span className="progress-bar" style={{ width: "75%" }}></span>
+                    </div>
+                    <span> 89831</span>
+                </div>
+            </div>
+            <div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
+
+        </>
     );
 };
 

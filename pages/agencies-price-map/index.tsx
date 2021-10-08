@@ -1,5 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, Table, ProgressBar, ListGroup } from "react-bootstrap";
+import { Button, Table, ProgressBar, ListGroup, NavDropdown } from "react-bootstrap";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import HeaderContainer from "../../containers/Header";
@@ -3614,7 +3614,7 @@ const priceMap = () => {
             id: "home",
         }
         setMarkers([{ ...position }])
-        setTextToSearch(cityName +' '+ zipcode)
+        setTextToSearch(cityName + ' ' + zipcode)
         setSelectedCity(true)
         setCity([])
     }
@@ -3640,7 +3640,7 @@ const priceMap = () => {
 
                             {!selectedCity && updatesearch.map((cityData, index) => {
                                 return (
-                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name} {cityData.zipcode }</a></ListGroup.Item>
+                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name} {cityData.zipcode}</a></ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
@@ -3764,6 +3764,7 @@ const priceMap = () => {
 
                 </div>
                 <div className="price-map">
+                    
                     <CustomScrollbar>
                         <GoogleMap {...mapProps} />
                     </CustomScrollbar>
