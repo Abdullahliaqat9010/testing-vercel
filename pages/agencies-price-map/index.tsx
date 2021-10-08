@@ -3633,6 +3633,8 @@ const priceMap = () => {
         <>
             <HeaderContainer title="price pam" />
             <div className=" d-flex price-map-main">
+                    
+
                 <div className="price-content-view">
                     <div className="d-flex mb-3">
                         <input type="search" value={textToSearch} onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
