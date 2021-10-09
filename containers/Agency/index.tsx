@@ -214,7 +214,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 								<span className="bold">
 									{agency?.owner?.firstname} {agency?.owner?.lastname}
 								</span>
-								<span>{"Owner"}</span>
+								<span>{t("label.ouwner")}</span>
 							</div>
 						</div>
 						<div

@@ -20,7 +20,7 @@ const FooterContainer = () => {
 			<div className="container">
 				<div className="footer__info w-25">
 					<img src={LogoFooter} alt="LogoFooter" />
-					<span className="desc">{t("footer.desc")}</span>
+					<span className="desc">{t("footer.description")}</span>
 					<span className="copyright">
 						{t("footer.copyright")} © Immo Belgium {new Date().getFullYear()}
 					</span>
