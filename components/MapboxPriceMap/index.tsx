@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import "mapbox-gl/dist/mapbox-gl.css";
+import {ProgressBar } from "react-bootstrap";
+
 
 import MarkerHomeIcon from "../../assets/images/marker.svg";
 import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
@@ -34,6 +36,11 @@ interface MarkerI {
 
 interface MapProps {
     markers?: MarkerI[];
+}
+const progressBar = {
+    height: '15px',
+    width: '80%',
+    position: "relative",
 }
 
 const Mapbox3dMap = ({
@@ -123,19 +130,16 @@ const Mapbox3dMap = ({
 
     return (
         <>
-            <div >
+            {/* <div className="d-flex" style={{ position: "absolute", top: "30px" , zIndex: 10 } }>
                 <select>
                     <option>price per m</option>
                     <option>price per rent</option>
                 </select>
-                <div className="d-flex bg-primary w-75 ">
-                    <span> 7238</span>
-                    <div className="progress">
-                        <span className="progress-bar" style={{ width: "75%" }}></span>
-                    </div>
-                    <span> 89831</span>
-                </div>
-            </div>
+                    <span> {">"} 7238</span>
+                    <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBar} />
+                    <input type="range" id="volume" name="volume" min="0" max="11" />
+                    <span>{"<"} 89831</span>
+            </div> */}
             <div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
 
         </>
