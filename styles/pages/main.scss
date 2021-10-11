@@ -1599,7 +1599,7 @@
 
 				.number-levels {
 					min-width: 132px !important;
-					width: 132px !important;
+					// width: 132px !important;
 				}
 
 				.construction-year-label,
@@ -1716,12 +1716,12 @@
 						width: 166px;
 					}
 
-					.bedrooms,
-					.bathrooms,
-					.facades,
-					.block-with-tooltip {
-						width: 128px;
-					}
+					// .bedrooms,
+					// .bathrooms,
+					// .facades,
+					// .block-with-tooltip {
+					// 	// width: 128px;
+					// }
 				}
 
 				.custom-width-40 {
@@ -1861,7 +1861,9 @@
 				width: 100% !important;
 				margin-bottom: 28px;
 			}
+			
 		}
+		
 	}
 }
 
