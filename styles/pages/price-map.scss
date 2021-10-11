@@ -6,6 +6,7 @@
         border: unset;
         outline:none
     }
+
     .price-content-view {
         width: 50%;
         padding: 10px;
@@ -17,8 +18,7 @@
             align-items: center;
             margin: 10px;
         }
-        
-
+       
         .city-price-content-span {
             color: var( --colorGray);
             font-size: 14px;
@@ -35,8 +35,6 @@
             margin-left:10px;
         }
         .city-price-block {
-            height: 80vh;
-            overflow: auto;
             padding: 20px 20px 10px;
             border-radius: 8px;
             background-color: var(--colorWhite);
@@ -53,7 +51,6 @@
             tr {
                 height: 39px;
                 margin: 6px 0px;
-                cursor: pointer;
             }
 
             th {
@@ -75,7 +72,6 @@
                 line-height: 19px;
                 margin: 0px 10px;
                 color: var(--colorBlue);
-                
             }
         }
 
@@ -275,13 +271,13 @@ flex-wrap: wrap;
     }
 
     .price-map-main .price-map {
-        width: 100%;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+    width: 100%;
+    margin-left: 20px;
+}
 
     .city-price-block {
         padding: 20px 20px 10px;
+        margin: 10px -34px;
         border-radius: 8px;
         background-color: var(--colorWhite);
     
