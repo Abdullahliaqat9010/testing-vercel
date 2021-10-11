@@ -135,12 +135,21 @@
 		}
 
 		.desc {
-			position: absolute;
-			top: 185px;
-			left: calc(50% - 103px);
-			width: 206px;
+			top: 133px;
+			left: -webkit-calc(50% - 103px);
+			left: calc(50% - 100px);
+			margin-top: 30px;
 		}
-
+		.link {
+			cursor: pointer;
+			color: var(--colorBlue);
+			display: flex;
+			justify-content: center;
+	
+			img {
+				transform: rotate(270deg);
+			}
+		}
 		form {
 			padding: 0 16px;
 		}
