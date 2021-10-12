@@ -120,5 +120,8 @@
   "error.only-latter": "kan alleen letters en spaties bevatten",
   "error.password": "Wachtwoord moet ten minste één grote letter, één kleine letter, en cijfer bevatten",
   "error.dont-match": "Wachtwoorden komen niet overeen",
-  "placeholder.epc": "Voer in"
+  "placeholder.epc": "Voer in",
+  "message.add-property-success": "Woning is succesvol toegevoegd",
+  "button.add-property": "Woning toevoegen"
+
 }
