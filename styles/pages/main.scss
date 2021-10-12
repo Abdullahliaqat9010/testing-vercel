@@ -1413,6 +1413,10 @@
 				margin-top: 60px;
 			}
 		}
+
+		.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
+			 width: 150px; 
+		}
 		.image-carousel {
 			img {
 				border-radius: unset;
@@ -1577,7 +1581,7 @@
 			.create-personal-account,
 			.final-step {
 				margin-top: 87px;
-				width: unset;
+				// width: unset;
 				padding: 0 16px;
 
 				.step-title {
@@ -1723,10 +1727,11 @@
 					// 	// width: 128px;
 					// }
 				}
-
+			
 				.custom-width-40 {
 					width: 40%;
 				}
+
 
 				.epc {
 					align-items: flex-start;
@@ -1881,6 +1886,9 @@
 		width: fit-content;
 		background-color: var(--colorWhite);
 		color: var(--mainColor);
+	}
+	.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
+		width: 150px;
 	}
 }
 

@@ -225,7 +225,7 @@ const StepOne = ({ setStep }) => {
 					</Form.Group>
 				</Form.Row>
 				<Form.Row>
-					<Form.Group className="mr-4 custom-styles" controlId="zip">
+					<Form.Group className="mr-3 custom-styles" controlId="zip">
 						<Form.Label>{t("label.zip")}</Form.Label>
 						<Form.Control
 							type="number"

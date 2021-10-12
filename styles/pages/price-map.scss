@@ -256,12 +256,14 @@
 
 
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .price-map-main {
 display: flex;
 flex-wrap: wrap;
     }
-
+.pricr-map-setting{
+    flex-direction: column-reverse;
+}
     .price-map-main {
         flex-wrap: wrap;
         display: flex;
@@ -269,10 +271,10 @@ flex-wrap: wrap;
     .price-map-main .price-content-view {
         width: 100%;
     }
-
+    
     .price-map-main .price-map {
     width: 100%;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
     .city-price-block {
@@ -313,14 +315,7 @@ flex-wrap: wrap;
             margin: 0px 10px;
             color: var(--colorBlue);
         }
-        .price-map {
-            width:50%
-            img {
-                width: 100%;
-                margin-left: 20px;
-            }
-            
-        }
+      
      
     }
     .price-map-main .price-content-view .estimate-links-block .estmates-buttons p {
@@ -442,7 +437,7 @@ flex-wrap: wrap;
 
 
 
-@media (min-width: 320px) and (max-width: 767px) {
+@media (min-width: 320px) and (max-width: 768px) {
     .price-map-main {
         display: flex;
         flex-wrap: wrap;
@@ -457,7 +452,12 @@ flex-wrap: wrap;
         border-radius: 8px;
         margin-left:10px;
     }
-
+    .price-map-main .search-area {
+        width: 100%;
+        margin-left: 10px;
+        margin-top: 18px;
+        display: flex;
+    }
 
     .price-map-main .price-content-view p {
         font-weight: bold;
@@ -474,7 +474,13 @@ flex-wrap: wrap;
         align-items: center;
         margin: 10px 20px 20px;
     }
+    // .price-map-main .search-area {
+    //     width: 100%;
+    //     margin-right: 10px;
 
+
+
+    // }
 }
 
 

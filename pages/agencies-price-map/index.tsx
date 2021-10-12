@@ -3646,7 +3646,7 @@ const priceMap = () => {
 
                     <Button className="search-button"  > <img src={SearchImage} alt="SearchImage" /> </Button>
                 </div>
-                <div className="d-flex" >
+                <div className="pricr-map-setting d-flex" >
                     <div className="price-content-view">
 
                         <p> {cityPriceMap ? "Prix immobilier dans le Centre-Val de Loire" : "Prix immobilier partout en France"} </p>

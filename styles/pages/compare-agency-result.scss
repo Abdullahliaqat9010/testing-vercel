@@ -345,15 +345,16 @@
     .agency-container
     .agency
     .sold-by-agency {
-    border-left: 1px solid rgba(56, 113, 239, 0.25);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /* align-items: center; */
-    padding: 0px 10px 0px 0px;
-    width: 50%;
-    margin-top: 125px;
-    margin-left: -100px;
+      border-left: 1px solid rgba(56, 113, 239, 0.25);
+      display: -moz-box;
+      display: flex;
+      -moz-box-orient: horizontal;
+      -moz-box-direction: normal;
+      flex-direction: row;
+      -moz-box-pack: justify;
+      justify-content: space-between;
+      padding: 0px 10px 0px 0px;
+      width: 50%;
   }
   .compare-agency-result
     .agency-result-container
@@ -414,5 +415,18 @@
   .compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo .rating-row .dv-star-rating {
     margin: 0px 5px;
 	
+}
+.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo {
+  margin-left: 9px;
+  height: 82px;
+  display: -moz-box;
+  display: flex;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: column;
+  -moz-box-pack: center;
+  margin-top: 50px;
+  position: absolute;
+  justify-content: center;
 }
 }
