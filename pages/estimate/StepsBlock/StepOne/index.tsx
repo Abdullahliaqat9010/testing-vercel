@@ -189,6 +189,7 @@ const StepOne = ({ setStep }) => {
 		<div className="step-one">
 			<span className="step-title">{t("span.step")} 1</span>
 			<h4>{t("title.address")}</h4>
+			
 			<Form>
 				<Form.Row>
 					<Form.Group
