@@ -290,7 +290,7 @@ const compareAgency = () => {
 														Contact Thierry
 													</Button>
 													<div className="d-flex">
-														<Link href={agency?.website ? agency.website : "https://google.com"}>Agency details </Link>{" "}
+														<Link  href={"limited-agency/"+agency?.id}>Agency details </Link>{" "}
 														<img
 															className=""
 															src={BlueGoAhead}
