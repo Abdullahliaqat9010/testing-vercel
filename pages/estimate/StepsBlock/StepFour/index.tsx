@@ -198,7 +198,7 @@ const StepFour = ({ setStep }) => {
 				router.locale
 			);
 			dispatch(setMainPropertyId(propertyId));
-			message.success("Property has been added successfully");
+			message.success(t("message.add-property-success"));
 		} else {
 			dispatch(setUtilitiesDataAction(data));
 		}

@@ -120,5 +120,8 @@
   "error.only-latter": "can contain only latter's and spaces",
   "error.password": "Password should contain at least one lower and Upper letter and number",
   "error.dont-match": "Passwords dont match",
-  "placeholder.epc": "Enter"
+  "placeholder.epc": "Enter",
+  "message.add-property-success": "Property has been added successfully",
+  "button.add-property": "Adding property"
+
 }
