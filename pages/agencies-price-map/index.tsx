@@ -9,8 +9,12 @@ import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
 import GoogleMap from "../../components/MapboxPriceMap";
 import * as province from "../../components/MapboxPriceMap/provinces.json"
+import { useTranslation } from "next-i18next";
+
 
 const priceMap = () => {
+    const { t } = useTranslation("steps");
+
     const citiesData = [
         {
             name: "Schaarbeek",
@@ -3676,7 +3680,7 @@ const priceMap = () => {
                                                 <div className="text-center home-type" >
                                                     <div>
                                                         <img src={ApartmentImageNoActive} alt="ApartmentImageNoActive" /><br></br>
-                                                        <span>APPARTEMENT</span>
+                                                        <span>Appartment</span>
                                                     </div>
                                                 </div>
                                                 <div className="prices-block ">
@@ -3694,7 +3698,7 @@ const priceMap = () => {
                                                 <div className="text-center home-type" >
                                                     <div>
                                                         <img src={HomeownerIcon} alt="HomeownerIcon" /><br></br>
-                                                        <span>APPARTEMENT</span>
+                                                        <span>House</span>
                                                     </div>
 
                                                 </div>
