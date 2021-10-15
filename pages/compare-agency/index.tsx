@@ -59,7 +59,8 @@ const compareAgency = () => {
     const [currentAddress] = dataFromMapBox.filter(
       (list) => list.id === addressId
     );
-    setValue(currentAddress.fullAddress);
+    let selectedAddress = currentAddress?.locality?.lenght > 0? currentAddress?.locality : currentAddress?.place + ", " + currentAddress.postcode  
+    setValue(selectedAddress);
 
     const dataForNextStep = {
       locality:
@@ -149,7 +150,7 @@ const compareAgency = () => {
                         overflow: "hidden",
                       }}
                     >
-                      {item.fullAddress}
+                      {item?.locality?.length > 0 ? item?.locality : item?.place + "," + item?.postcode}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>

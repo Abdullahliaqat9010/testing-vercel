@@ -1,9 +1,11 @@
 
+
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useEffect, useState } from "react"
-import {  getLimitedAgencyById } from "../../network-requests";
+import {  getAgencyById } from "../../network-requests";
 import { useRouter } from "next/router";
 import PortFolio from "../../containers/agency-detaile-page"
+
 
 
 const agencyProtfolio = () => {
@@ -20,8 +22,7 @@ const agencyProtfolio = () => {
     const [agency, setAgency] = useState(null);
     const _getAgency = async () => {
         try {
-            let _agency = await getLimitedAgencyById(Number(id));
-            console.log("_agency", _agency)
+            let _agency = await getAgencyById(Number(id));
             setAgency({ ..._agency });
         } catch (error) {
             console.log(error);

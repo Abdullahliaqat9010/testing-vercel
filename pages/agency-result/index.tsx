@@ -17,23 +17,32 @@ import openArrow from "../../assets/images/compare-agency/open-arrow.svg";
 import closeArrow from "../../assets/images/compare-agency/closed-arrow.svg";
 import mapImage from "../../assets/images/compare-agency/map-image.png";
 import blueStar from "../../assets/images/compare-agency/blue-star.svg";
-import loadMore from "../../assets/images/load-more.svg";
+import LogoImage from "../../assets/images/default-logo-image.png";
 import Link from "next/link";
 import BlueGoAhead from "../../assets/images/blue-goAhead.svg";
-import { Field, Form, Formik, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
-import { useRouter } from "next/router";
-import { getAgenciesByAddress } from "../../network-requests";
+import { getAgenciesByAddress, getLimitedAgenciesByAddress } from "../../network-requests";
 import Loading from "../../components/Loading"
-import { CustomScrollbar } from "../../components/Scrollbar";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../types/state";
 import { getAutocompleteItemsAction, clearAutocompleteItems } from "../../actions";
-import MapboxContainer from "../../components/2dMapbox";
 import Mapbox3dMap from "../../components/3dMap"
-// import FooterContainer from "../../containers/Footer"ContactAgentModal
+import styled from "styled-components"
+import { useRouter } from "next/router";
+
+
+const LimitedPartner = styled.span`
+	background: #FE7F2D;
+	border-radius: 8px;
+	padding: 4px;
+	font-size: 12px;
+	line-height: 16px;
+	text-align: center;
+	color: #FFFFFF;
+	width :100px
+`;
 const compareAgency = () => {
+	const router = useRouter()
 
 	const [isLoading, setIsLoading] = useState(true);
 	let address = JSON.parse(localStorage.getItem("address"))
@@ -59,21 +68,84 @@ const compareAgency = () => {
 	const dispatch = useDispatch()
 	const [value, setValue] = useState("");
 	const [dataInfo, setData] = useState({});
+	
 	if (dataInfo) {
 		address = dataInfo
 	}
 	const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
 	useEffect(() => {
-		getAgencies()
+		fetchAll()
 	}, [dataInfo])
+
+	const fetchAll = async () => {
+		try {
+			setIsLoading(true);
+			const promises = [getAgencies()];
+			await Promise.all(promises);
+			setIsLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	// const getLimitedAgencies = async () => {
+	// 	try {
+	// 		const limitedAgecies = await getLimitedAgenciesByAddress(address)
+
+	// 		setLimitedAgencies(limitedAgecies)
+	// 		const agenciesMarkes = limitedAgecies.map(agency => {
+	// 			const agnecyMarker = {
+	// 				type: "agency",
+	// 				position: {
+	// 					lat: agency?.lat ?? 4.402771,
+	// 					lng: agency?.lng ?? 51.260197,
+	// 				},
+	// 				id: agency?.id,
+	// 			}
+	// 			const agencyProperties = agency?.properties ?? []
+	// 			const markersOfAgency = agencyProperties?.map(property => {
+	// 				let marker = {
+	// 					type: "property",
+	// 					position: {
+	// 						lat: property?.lat,
+	// 						lng: property?.lng,
+	// 					},
+	// 					id: property?.id,
+	// 				}
+	// 				return marker
+	// 			})
+	// 			return {
+	// 				agencyId: agency?.id,
+	// 				markers: markersOfAgency.unshift(agnecyMarker)
+	// 			}
+	// 		})
+	// 		setMarkersPerLimitedAgency(agenciesMarkes)
+
+	// 		// 
+	// 	} catch (error) {
+	// 		console.log(error)
+	// 	}
+
+	// }
 
 	const getAgencies = async () => {
 		try {
 			const agencies = await getAgenciesByAddress(address)
-			setFiltereAgencies(agencies)
-			const agenciesMarkes = agencies.map(agency => {
+			const limitedAgecies = await getLimitedAgenciesByAddress(address)
+			const allAgency = [...agencies, ...limitedAgecies]
+			const totalPages = allAgency.length > pageSize ? Math.ceil(allAgency.length / allAgency.length) : 1
+			setTotalPages(totalPages)
+			setFiltereAgencies(allAgency)
+			const agenciesMarkes = allAgency.map(agency => {
+				const agnecyMarker = {
+					type: "agency",
+					position: {
+						lat: agency?.lat ?? 4.402771,
+						lng: agency?.lng ?? 51.260197,
+					},
+					id: agency?.id,
+				}
 				const agencyProperties = agency?.properties ?? []
-				const markersOfAgency = agencyProperties?.map(property => {
+				const markersOfAgency = agencyProperties.length > 0 && agencyProperties?.map(property => {
 					let marker = {
 						type: "property",
 						position: {
@@ -86,21 +158,18 @@ const compareAgency = () => {
 				})
 				return {
 					agencyId: agency?.id,
-					markers: markersOfAgency
+					markers: markersOfAgency?.length > 0 ? markersOfAgency.unshift(agnecyMarker) : [agnecyMarker]
 				}
 			})
 			setMarkersPerAgency(agenciesMarkes)
 
-			const totalPages = agencies.length > pageSize ? Math.ceil(agencies.length / agencies.length) : 1
-			setTotalPages(totalPages)
-			setIsLoading(false);
 		} catch (error) {
 			console.log(error)
 		}
 
 	}
 
-	
+
 
 	const mapProps = {
 		markers: [...markers],
@@ -129,7 +198,9 @@ const compareAgency = () => {
 		const [currentAddress] = dataFromMapBox.filter(
 			(list) => list.id === addressId
 		);
-		setValue(currentAddress.fullAddress);
+		const addressDeStructure = 
+		currentAddress.locality.length > 1 ? currentAddress.locality : currentAddress.place+ "," +currentAddress.postcode;
+		setValue(addressDeStructure);
 
 		const dataForNextStep = {
 			locality:
@@ -141,7 +212,6 @@ const compareAgency = () => {
 			zip: currentAddress.postcode,
 			country: currentAddress.country,
 		};
-
 		localStorage.setItem("address", JSON.stringify(dataForNextStep))
 
 		setData({ ...dataForNextStep });
@@ -151,8 +221,8 @@ const compareAgency = () => {
 	const openDetail = (index) => {
 		if (selctedIdex !== index) {
 			const expandedAgency = filteredAgencies[index]
-			const markersOfAgency = markersPerAgency?.find(agency=> agency?.agencyId===expandedAgency?.id )
-			setMarkers(markersOfAgency?.markers)
+			const markersOfAgency = markersPerAgency?.find(agency => agency?.agencyId === expandedAgency?.id)
+			setMarkers(markersOfAgency?.markers ?? [])
 			setOpen(true);
 			setSelctedIdex(index);
 		}
@@ -160,6 +230,12 @@ const compareAgency = () => {
 			setOpen(false);
 		}
 	};
+
+	const goToDetailPage = (index) => {
+		const agency = filteredAgencies[index]
+		router.push( (agency?.isLimited ? "limited-agency/" : "registered-agency/") + agency?.id)
+	}
+
 	const closeContactForm = () => {
 		setOpenContactForm(!openContactForm);
 	};
@@ -198,7 +274,7 @@ const compareAgency = () => {
 									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "616px" }}>
 										{dataFromMapBox.map((item, index) => (
 											<ListGroup.Item className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-												{item.fullAddress}
+												{item.locality.length > 0 ? item.locality : item.place + "," + item.zip}
 											</ListGroup.Item>
 										))}
 									</ListGroup>
@@ -217,7 +293,7 @@ const compareAgency = () => {
 									<div key={index}>
 										<div onClick={() => openDetail(index)} className="agency d-flex">
 											<div className="image-bassicInfo ">
-												<img src={agency.logo_image} alt="reviewImage" />
+												<img src={agency?.isLimited ? LogoImage : agency.logo_image} alt="reviewImage" />
 												<div className="agency-basicInfo">
 													<span className="agency-name">{agency.company_name}</span>
 													<p className="rating-row">
@@ -244,12 +320,16 @@ const compareAgency = () => {
 															from 120 reviews{" "}
 														</span>
 													</p>
+													{agency?.isLimited && open && selctedIdex === index && (
+
+														<LimitedPartner>Limited Partner</LimitedPartner>
+													)}
 												</div>
 											</div>
 											<div className="  sold-by-agency justify-content-between">
-												{agency.properties > 0 ? (
+												{agency.properties > 0 || agency?.properties_sale > 0? (
 													<p>
-														<span className="noof-sold"> {agency.properties.length} </span>{" "}
+														<span className="noof-sold"> {agency?.isLimited ? agency?.properties_sale : agency.properties.length} </span>{" "}
 														<span className="sold-title">
 															Recent sales nearby
 														</span>
@@ -274,29 +354,35 @@ const compareAgency = () => {
 										{open && selctedIdex === index && (
 											<div key={index} className="aency-detail-container">
 												<div className="agency-detail-container-left">
-													<div className="agency-owner-box">
-														<img src={mapImage} alt="mapImage" />
-														<div>
-															<p className="agent-name">{agency.owner?.firstname}</p>
-															<p className="agent-title">agency owner</p>
-														</div>
-													</div>
+													{!agency?.isLimited && (
+														<div className="agency-owner-box">
+															<img src={mapImage} alt="mapImage" />
+															<div>
+																<p className="agent-name">{agency.owner?.firstname}</p>
+																<p className="agent-title">agency owner</p>
+															</div>
+														</div>)
+													}
 													<p className="agency-description">
 														During the last 24 months, our agency has sold 39
 														properties nearby including 18 similar to yours. Our
 														team is at your disposal to manage your project
 													</p>
-													<Button onClick={closeContactForm}>
-														Contact Thierry
+													<Button onClick={()=>  agency?.isLimited ? goToDetailPage(index) : closeContactForm}>
+														{agency?.isLimited ? "Agency details" : "Contact Thierry"}
 													</Button>
-													<div className="d-flex">
-														<Link  href={"limited-agency/"+agency?.id}>Agency details </Link>{" "}
-														<img
-															className=""
-															src={BlueGoAhead}
-															alt="BlueGoAhead"
-														/>
-													</div>
+													{!agency?.isLimited && (
+														<div className="d-flex">
+															<Button onClick={()=> goToDetailPage(index)}>Agency details 
+															<img
+																className=""
+																src={BlueGoAhead}
+																alt="BlueGoAhead"
+															/>
+															</Button>{" "}
+															
+														</div>
+													)}
 												</div>
 												<div className="agency-map-container">
 													<Mapbox3dMap {...mapProps} />

@@ -13,18 +13,45 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
+export const addLimitedAgncies = (limitedAgenciesData) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.post("limited-agency", {
+				...limitedAgenciesData,
+			});
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
 export const getAgenciesByAddress = (address): Promise<any[]>=> {
 	return new Promise(async (res, rej) => {
 		try {
 			console.log("adress", address)
-			const {data: agencies } = await axios.get("agency/search?city="+ address.locality+ "&zip=" +"3234" , {
+			const {data: agencies }= await axios.get("agency/search?city="+ address.locality+ "&zip=" +address.zip , {
 				headers: {
 					"Content-Type": "application/json"
 				}
 			}) 
-			console.log("agencies", agencies)
-
 			res(agencies);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const getLimitedAgenciesByAddress = (address): Promise<any[]>=> {
+	return new Promise(async (res, rej) => {
+		try {
+			console.log("adress", address)
+			const {data : limitedAgencies }= await axios.get("limited-agency/search?city="+ address.locality+ "&zip=" +address.zip , {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}) 
+			res(limitedAgencies);
 		} catch (error) {
 			rej(error);
 		}
@@ -58,10 +85,25 @@ export const getAgencyProfile = (): Promise<any> => {
 	});
 };
 
+
 export const getAgencyById = (id: number): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
+			console.log("sjhajd, agency")
+
 			const { data } = await axios.get(`agency/profile/${id}`);
+			res(data);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const getLimitedAgencyById = (id: number): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			console.log("sjhajd, limited agency")
+			const { data } = await axios.get(`limited-agency/${id}`);
 			res(data);
 		} catch (error) {
 			rej(error);

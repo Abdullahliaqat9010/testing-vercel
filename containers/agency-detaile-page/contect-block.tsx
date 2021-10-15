@@ -6,9 +6,9 @@ import * as Yup from "yup";
 import styled from "styled-components"
 
 import { Button, Modal } from "react-bootstrap";
-import { RootState } from "../../../types/state";
-import SendSuccess from "../../../assets/images/message-send.svg";
-import { contactAgency } from "../../../network-requests";
+import { RootState } from "../../types/state";
+import SendSuccess from "../../assets/images/message-send.svg";
+import { contactAgency } from "../../network-requests";
 
 const ContactFormContainer = styled.div`
     background: #FFFFFF;
@@ -19,6 +19,13 @@ const ContactFormContainer = styled.div`
     @media (max-width: 767px) {
         width: 96%;
     }
+`;
+
+const Headline = styled.div`
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+    margin: 10px 0px;
 `;
 
 const ContactAgentModal = ({
@@ -74,8 +81,8 @@ const ContactAgentModal = ({
             {!isSuccessModalVisible ? (
                 <div className="d-flex flex-column">
                     <div className="d-flex flex-column text-center">
-                        <h3 className="m-2">Contact agency</h3>
-                        <p>{agencyName}</p>
+                        <Headline >Contact agency</Headline>
+                        <p style={{ lineHeight: "19px", fontSize: "14px" }}>{agencyName}</p>
                     </div>
                     <Formik
                         initialValues={{

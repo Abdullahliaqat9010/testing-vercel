@@ -44,6 +44,7 @@
 			.search-form {
 				flex: 2;
 				input {
+					width:616px;
 					height: 50px;
 					box-sizing: border-box;
 					border-radius: 8px;
@@ -82,7 +83,7 @@
 					img {
 						border: 1px solid var(--bg-blue);
 						width: 150px;
-						height: 82px;
+						height: 92px;
 						border-radius: 8px;
 					}
 					.agency-basicInfo {
@@ -307,7 +308,7 @@
 			}
 			
 	 .search-form {
-		flex: 2;
+		flex: 1;
 		input {
 			height: 50px;
 			box-sizing: border-box;
