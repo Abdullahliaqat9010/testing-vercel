@@ -271,10 +271,10 @@ const compareAgency = () => {
 									/>
 								</InputGroup>
 								{dataFromMapBox.length > 0 && (
-									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "616px" }}>
+									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "210px" }}>
 										{dataFromMapBox.map((item, index) => (
 											<ListGroup.Item className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-												{item.locality.length > 0 ? item.locality : item.place + "," + item.zip}
+												{item.locality.length > 0 ? item.locality : item.place + "," + item.postcode}
 											</ListGroup.Item>
 										))}
 									</ListGroup>
