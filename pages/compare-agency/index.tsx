@@ -21,6 +21,7 @@ import RatingStar from "../../assets/images/rating/full-star.svg";
 import RatingStarEmpty from "../../assets/images/rating/star.svg";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAutocompleteItemsAction,
@@ -29,6 +30,8 @@ import {
 import { RootState } from "../../types/state";
 
 const compareAgency = () => {
+  const { t, i18n } = useTranslation("compare-agency");
+
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -113,13 +116,15 @@ const compareAgency = () => {
             {" "}
             <span>
               {" "}
-              Compare Real Estate <br></br>Agencies in your neighbourhood.
+              {t("span.real-estate")}
+              <br></br>
+              {t("span.nextline-real-estate")}
             </span>
           </p>
           <p>
-            We analyze thousands of local agents and find <br></br>the best to
-            compete you!
+            {t("p.real-estate")} <br></br> {t("p.nextline-real-estate")}
           </p>
+
           <div className="search-form d-flex">
             <div className="d-flex flex-collumn">
               <InputGroup>
@@ -157,7 +162,7 @@ const compareAgency = () => {
             </div>
             {/* <input type='search' onChange={(e) => onChange(e.target)} placeholder="City and State or ZIP" ></input> */}
             <Button onClick={gotoAgenciesPages}>
-              Compare Agents <img src={goAhead} alt="goAhead" />
+              {t("button.compare-agents")} <img src={goAhead} alt="goAhead" />
             </Button>
           </div>
         </div>
@@ -173,10 +178,10 @@ const compareAgency = () => {
                   {" "}
                   <span>
                     {" "}
-                    Read reviews from <br></br> previous customers{" "}
+                    {t("span.review")} <br></br> {t("span.previous-customer")}
                   </span>{" "}
                 </p>
-                <p>Lorem ipsum dolor sit amet, cons</p>
+                {/* <p>Lorem ipsum dolor sit amet, cons</p> */}
               </div>
             </div>
           </div>
@@ -190,10 +195,12 @@ const compareAgency = () => {
                   {" "}
                   <span>
                     {" "}
-                    View the agencies <br></br> nearest to you{" "}
+                    {t("span.discover-agency")} <br></br>
+                    {t("span.nearest")}
                   </span>{" "}
                 </p>
-                <p>Lorem ipsum dolor sit amet, cons</p>
+
+                {/* <p>Lorem ipsum dolor sit amet, cons</p> */}
               </div>
             </div>
           </div>
@@ -207,10 +214,11 @@ const compareAgency = () => {
                   {" "}
                   <span>
                     {" "}
-                    Compare similar houses <br></br> that they sold{" "}
+                    {t("span.similar-houses")}
+                    <br></br> {t("span.sold")}
                   </span>{" "}
                 </p>
-                <p>Lorem ipsum dolor sit amet, cons</p>
+                {/* <p>Lorem ipsum dolor sit amet, cons</p> */}
               </div>
             </div>
           </div>
@@ -346,7 +354,7 @@ const compareAgency = () => {
               compete you!
             </p>
             <div className="search-form d-flex">
-              <input type="search" placeholder="City and State or ZIP"></input>
+              <input type="search" placeholder={t("placeholder.zip")}></input>
               <Button onClick={gotoAgenciesPages}>
                 Compare Agents <img src={goAhead} alt="goAhead" />
               </Button>
@@ -370,7 +378,7 @@ const compareAgency = () => {
 export const getServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["header"])),
+      ...(await serverSideTranslations(locale, ["header", "compare-agency"])),
     },
   };
 };
