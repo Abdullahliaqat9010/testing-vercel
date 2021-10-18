@@ -17,6 +17,12 @@ import RatingStar from "../../assets/images/rating/full-star.svg";
 import RatingStarEmpty from "../../assets/images/rating/star.svg";
 import DefaultLogoImage from "../../assets/images/default-logo-image.png";
 
+import FacebookIcon from "../../assets/images/agency-page/social/facebook-icon.svg";
+import TwitterIcon from "../../assets/images/agency-page/social/twitter-icon.svg";
+import InstagramIcon from "../../assets/images/agency-page/social/instagram-icon.svg";
+import YoutubeIcon from "../../assets/images/agency-page/social/youtube-icon.svg";
+import LinkedinIcon from "../../assets/images/agency-page/social/linkedin-icon.svg";
+import { Button } from "react-bootstrap";
 
 const Labels = styled.span`
     font-size: 14px;
@@ -130,11 +136,53 @@ const ContentBlock = styled.div`
     }
 `;
 
+const SocialImages = styled.div`
+    display:flex;
+    flex-direction: row;
+
+    img {
+        margin: 3px;
+    }
+
+`;
+
 
 const portFolio = ({ agency }) => {
     const [showContact, setShowContect] = useState(false)
     const contactToggle = () => {
         setShowContect(!showContact)
+    }
+    const [facebook, setFacebook] = useState("")
+    const [instagram, setInstagram] = useState("")
+    const [youtube, setYoutube] = useState("")
+    const [linkedin, setLinkedin] = useState("")
+    const [twiter, setTwiter] = useState("")
+
+    useEffect(() => {
+        console.log("agency", agency)
+        let linksArray = agency?.social_links ? agency?.social_links?.split(",") : []
+        for (let index = 0; index < linksArray.length; index++) {
+            const element = linksArray[index];
+            if (element) {
+                let whichLink = element.split("-")
+                if (whichLink[0] === 'fb') {
+                    setFacebook(whichLink[1])
+                }
+                if (whichLink[0] === 'insta') {
+                    setInstagram(whichLink[1])
+                }
+                if (whichLink[0] === 'youtube') {
+                    setYoutube(whichLink[1])
+                }
+                if (whichLink[0] === 'lin') {
+                    setLinkedin(whichLink[1])
+                }
+            }
+        }
+    })
+
+    const goToLink = (value) => {
+        console.log("va", value)
     }
 
     const date = new Date(agency?.createdAt)
@@ -182,7 +230,7 @@ const portFolio = ({ agency }) => {
 
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className = "border-bottom border-bottom-gray pb-3">
                                         <Headlines>Contact details</Headlines>
 
                                         <div className="d-flex my-2">
@@ -208,11 +256,23 @@ const portFolio = ({ agency }) => {
                                             <Labels>{agency?.opening_time ?? "Mon-Fri: 10AM-6PM, Sat: 10AM-1PM"}</Labels>
                                         </div>
                                     </div>
-                                </ProfileContainer>
-                                <ReviewContainer>
-                                    <ReviewBlock currentAgency={agency} />
-                                </ReviewContainer>
+                                    <div className=" d-flex flex-column border-bottom border-bottom-gray pb-3">
+                                        <Headlines>{"Social links"}</Headlines>
+                                        <SocialImages>
+                                            {facebook && <img onClick={() => goToLink(facebook)} src={FacebookIcon} alt="FacebookIcon" />}
+                                            {twiter && <img onClick={() => goToLink(twiter)} src={TwitterIcon} alt="TwitterIcon" />}
+                                            {instagram && <img onClick={() => goToLink(instagram)} src={InstagramIcon} alt="InstagramIcon" />}
+                                            {youtube && <img onClick={() => goToLink(youtube)} src={YoutubeIcon} alt="YoutubeIcon" />}
+                                            {linkedin && <img onClick={() => goToLink(linkedin)} src={LinkedinIcon} alt="LinkedinIcon" />}
+                                        </SocialImages>
 
+                                    </div>
+                                </ProfileContainer>
+                                {false && (
+                                    <ReviewContainer >
+                                        <ReviewBlock currentAgency={agency} />
+                                    </ReviewContainer>
+                                )}
                             </MainDiv>
                             <ContactFormBlock>
                                 <ContectForm
