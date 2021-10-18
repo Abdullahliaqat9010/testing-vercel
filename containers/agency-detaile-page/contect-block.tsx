@@ -16,9 +16,6 @@ const ContactFormContainer = styled.div`
     align-items: center;
     padding: 30px;
     width: 100%;
-    @media (max-width: 767px) {
-        width: 96%;
-    }
 `;
 
 const Headline = styled.div`

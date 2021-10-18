@@ -118,7 +118,7 @@ const compareAgency = () => {
             </span>
           </p>
           <p>
-            We analyze thousands of local agents and find <br></br>the best to
+            We analyze thousands of local agents and find the best to
             compete you!
           </p>
           <div className="search-form d-flex">
@@ -162,6 +162,7 @@ const compareAgency = () => {
             </Button>
           </div>
         </div>
+       
 
         <div className=" cards-container d-flex justify-content-center ">
           <div className="card text-center " style={{ border: "none" }}>
@@ -216,6 +217,7 @@ const compareAgency = () => {
             </div>
           </div>
         </div>
+        {false && ( <> 
         <div className="top-agencys d-flex">
           <div className="d-flex top-agencies-view">
             <div className="agency-card ">
@@ -339,12 +341,11 @@ const compareAgency = () => {
               {" "}
               <span>
                 {" "}
-                Compare Real Estate <br></br>Agencies in your neighbourhood.
+                Work only with top agents.
               </span>
             </p>
             <p>
-              We analyze thousands of local agents and find <br></br>the best to
-              compete you!
+            Do your homework and see which agency is the most appropriate to work with.
             </p>
             <div className="search-form d-flex">
               <input type="search" placeholder="City and State or ZIP"></input>
@@ -354,6 +355,7 @@ const compareAgency = () => {
             </div>
           </div>
         </div>
+        </>)}
 
         <div className="campare-agency-footer">
           <span>Immo Belgium ©2021. All Rights Reserved.</span>

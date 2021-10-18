@@ -15,6 +15,9 @@ import ReviewBlock from "../../pages/agency/blocks/FourthBlock"
 import StarRatingComponent from "react-star-rating-component";
 import RatingStar from "../../assets/images/rating/full-star.svg";
 import RatingStarEmpty from "../../assets/images/rating/star.svg";
+import DefaultLogoImage from "../../assets/images/default-logo-image.png";
+
+
 const Labels = styled.span`
     font-size: 14px;
     line-height: 19px;
@@ -155,7 +158,7 @@ const portFolio = ({ agency }) => {
                             <MainDiv >
                                 <ProfileContainer>
                                     <div className=" d-flex border-bottom border-bottom-gray pb-3 ">
-                                        <ProfileImageBlock src={logoImage} alt="agencyLogoImage" />
+                                        <ProfileImageBlock src={agency?.isLimited ? DefaultLogoImage : agency?.logo_image} alt="agencyLogoImage" />
                                         <div className="d-flex flex-column justify-content-center pl-3" >
                                             <Headlines>{agency?.company_name}</Headlines>
                                             <ReviewRow className="">
@@ -194,7 +197,7 @@ const portFolio = ({ agency }) => {
                                                 <IconsImages src={PhoneImage} alt="sajksh" />
                                                 <Labels>Contact Phone</Labels>
                                             </BasicInfoLabes>
-                                            <span className="pointer text-primary" onClick={contactToggle}> {!showContact ? "Show Phone" : "+36273892712"}</span>
+                                            <Labels className="pointer text-primary" onClick={contactToggle}>{!showContact ? "Show Phone" : "+36273892712"}</Labels>
 
                                         </div>
                                         <div className="d-flex my-2">

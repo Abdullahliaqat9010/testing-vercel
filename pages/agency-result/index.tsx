@@ -368,18 +368,17 @@ const compareAgency = () => {
 														properties nearby including 18 similar to yours. Our
 														team is at your disposal to manage your project
 													</p>
-													<Button onClick={()=>  agency?.isLimited ? goToDetailPage(index) : closeContactForm}>
+													<Button onClick={()=>  agency?.isLimited ? goToDetailPage(index) : closeContactForm()}>
 														{agency?.isLimited ? "Agency details" : "Contact Thierry"}
 													</Button>
 													{!agency?.isLimited && (
 														<div className="d-flex">
-															<Button onClick={()=> goToDetailPage(index)}>Agency details 
+															<Link href={"registered-agency/" + agency?.id}>Agency details </Link>{" "}
 															<img
 																className=""
 																src={BlueGoAhead}
 																alt="BlueGoAhead"
 															/>
-															</Button>{" "}
 															
 														</div>
 													)}
