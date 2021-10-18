@@ -68,7 +68,7 @@ const compareAgency = () => {
 	const dispatch = useDispatch()
 	const [value, setValue] = useState("");
 	const [dataInfo, setData] = useState({});
-	
+
 	if (dataInfo) {
 		address = dataInfo
 	}
@@ -198,8 +198,8 @@ const compareAgency = () => {
 		const [currentAddress] = dataFromMapBox.filter(
 			(list) => list.id === addressId
 		);
-		const addressDeStructure = 
-		currentAddress.locality.length > 1 ? currentAddress.locality : currentAddress.place+ "," +currentAddress.postcode;
+		const addressDeStructure =
+			currentAddress.locality.length > 1 ? currentAddress.locality : currentAddress.place + "," + currentAddress.postcode;
 		setValue(addressDeStructure);
 
 		const dataForNextStep = {
@@ -233,7 +233,7 @@ const compareAgency = () => {
 
 	const goToDetailPage = (index) => {
 		const agency = filteredAgencies[index]
-		router.push( (agency?.isLimited ? "limited-agency/" : "registered-agency/") + agency?.id)
+		router.push((agency?.isLimited ? "limited-agency/" : "registered-agency/") + agency?.id)
 	}
 
 	const closeContactForm = () => {
@@ -260,18 +260,18 @@ const compareAgency = () => {
 							you!
 						</p>
 						<div className="search-form d-flex">
-							<div className="d-flex flex-collumn">
-								<InputGroup>
-									<FormControl
-										placeholder="  City and State or ZIP"
-										name="address"
-										onChange={handleAutocomplete}
-										value={value}
-										autoComplete="off"
-									/>
-								</InputGroup>
+							<div className=" search-input-sugguession d-flex flex-collumn">
+								{/* <InputGroup> */}
+								<FormControl
+									placeholder="  City and State or ZIP"
+									name="address"
+									onChange={handleAutocomplete}
+									value={value}
+									autoComplete="off"
+								/>
+								{/* </InputGroup> */}
 								{dataFromMapBox.length > 0 && (
-									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px", width: "210px" }}>
+									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px" }}>
 										{dataFromMapBox.map((item, index) => (
 											<ListGroup.Item className='text-dark' as="li" onClick={() => handleSelectAddress(item.id)} key={index} style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
 												{item.locality.length > 0 ? item.locality : item.place + "," + item.postcode}
@@ -293,33 +293,35 @@ const compareAgency = () => {
 									<div key={index}>
 										<div onClick={() => openDetail(index)} className="agency d-flex">
 											<div className="image-bassicInfo ">
-												<img src={agency?.isLimited ? LogoImage : agency.logo_image} alt="reviewImage" />
+												<img src={agency?.isLimited ? LogoImage : agency?.logo_image} alt="profile" />
 												<div className="agency-basicInfo">
-													<span className="agency-name">{agency.company_name}</span>
-													<p className="rating-row">
-														{" "}
-														<span className="rating"> 5.6 </span>
-														<StarRatingComponent
-															name="rate"
-															renderStarIcon={(index, value) => (
-																<img
-																	className="rating-star"
-																	src={
-																		index <= value
-																			? RatingStar
-																			: RatingStarEmpty
-																	}
-																	alt={"RatingStar" + index}
-																/>
-															)}
-															starCount={5}
-															value={Number(4)}
-														/>{" "}
-														<span className="from-totla-reviews ">
+													<span className="agency-name">{agency?.company_name}</span>
+													{!agency?.isLimited && (
+														<p className="rating-row">
 															{" "}
-															from 120 reviews{" "}
-														</span>
-													</p>
+															<span className="rating"> 5.6 </span>
+															<StarRatingComponent
+																name="rate"
+																renderStarIcon={(index, value) => (
+																	<img
+																		className="rating-star"
+																		src={
+																			index <= value
+																				? RatingStar
+																				: RatingStarEmpty
+																		}
+																		alt={"RatingStar" + index}
+																	/>
+																)}
+																starCount={5}
+																value={Number(4)}
+															/>{" "}
+															<span className="from-totla-reviews ">
+																{" "}
+																from 120 reviews{" "}
+															</span>
+														</p>
+													)}
 													{agency?.isLimited && open && selctedIdex === index && (
 
 														<LimitedPartner>Limited Partner</LimitedPartner>
@@ -327,12 +329,16 @@ const compareAgency = () => {
 												</div>
 											</div>
 											<div className="  sold-by-agency justify-content-between">
-												{agency.properties > 0 || agency?.properties_sale > 0? (
+												{agency.properties > 0 ? (
 													<p>
 														<span className="noof-sold"> {agency?.isLimited ? agency?.properties_sale : agency.properties.length} </span>{" "}
 														<span className="sold-title">
 															Recent sales nearby
 														</span>
+													</p>
+												) : agency?.isLimited ? (
+													<p className="no-sold-properties">
+														Click here to see agency on map
 													</p>
 												) : (
 													<p className="no-sold-properties">
@@ -357,7 +363,7 @@ const compareAgency = () => {
 													{!agency?.isLimited && (
 														<div className="agency-owner-box">
 															<img src={mapImage} alt="mapImage" />
-															<div>
+															<div className="ml-2">
 																<p className="agent-name">{agency.owner?.firstname}</p>
 																<p className="agent-title">agency owner</p>
 															</div>
@@ -368,20 +374,20 @@ const compareAgency = () => {
 														properties nearby including 18 similar to yours. Our
 														team is at your disposal to manage your project
 													</p>
-													<Button onClick={()=>  agency?.isLimited ? goToDetailPage(index) : closeContactForm()}>
-														{agency?.isLimited ? "Agency details" : "Contact Thierry"}
-													</Button>
-													{!agency?.isLimited && (
-														<div className="d-flex">
-															<Link href={"registered-agency/" + agency?.id}>Agency details </Link>{" "}
-															<img
-																className=""
-																src={BlueGoAhead}
-																alt="BlueGoAhead"
-															/>
-															
-														</div>
-													)}
+													<div className="agency-links d-flex">
+														<Button onClick={() => agency?.isLimited ? goToDetailPage(index) : closeContactForm()}>
+															{agency?.isLimited ? "Agency details" : "Contact Thierry"}
+														</Button>
+														{!agency?.isLimited && (
+															<Button className=" detail-page-link bg-white border-0 text-primary" onClick={() => goToDetailPage(index)}>Agency details
+																<img
+																	className=""
+																	src={BlueGoAhead}
+																	alt="BlueGoAhead"
+																/>
+															</Button>
+														)}
+													</div>
 												</div>
 												<div className="agency-map-container">
 													<Mapbox3dMap {...mapProps} />

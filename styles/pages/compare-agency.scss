@@ -261,6 +261,11 @@
     padding: 0px;
 
   }
+  .search-area {
+    button.btn.btn-primary {
+      height: 50px;
+    }
+  }
   .compare-agency .search-area span {
     position: static;
     width: 343px;
