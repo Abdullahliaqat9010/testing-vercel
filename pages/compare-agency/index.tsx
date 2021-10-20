@@ -25,6 +25,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAutocompleteItemsAction,
   clearAutocompleteItems,
+  setAdditionalAddressAction,
+  openMainStepsAction
 } from "../../actions";
 import { RootState } from "../../types/state";
 
@@ -34,8 +36,9 @@ const compareAgency = () => {
   const dispatch = useDispatch();
   const { locale } = router;
   const [value, setValue] = useState("");
-  const [dataInfo, setData] = useState({});
   const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
+  console.log("dataFromMapBox", dataFromMapBox)
+  
 
   useEffect(() => {
     dispatch(clearAutocompleteItems());
@@ -49,7 +52,7 @@ const compareAgency = () => {
   const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
     setValue(el.target.value);
     if (el.target.value.length > 0) {
-      dispatch(getAutocompleteItemsAction(el.target.value, el.target.name));
+      dispatch(getAutocompleteItemsAction(el.target.value, "address,postcode"));
     } else {
       dispatch(clearAutocompleteItems());
     }
@@ -59,7 +62,8 @@ const compareAgency = () => {
     const [currentAddress] = dataFromMapBox.filter(
       (list) => list.id === addressId
     );
-    let selectedAddress = currentAddress?.locality?.lenght > 0? currentAddress?.locality : currentAddress?.place + ", " + currentAddress.postcode  
+    const isSearchByPostcode = currentAddress?.id?.split('.')[0]
+    let selectedAddress = currentAddress?.locality?.lenght > 0? currentAddress?.locality : currentAddress?.place + ", " + (isSearchByPostcode === 'postcode'? currentAddress?.street : currentAddress?.postcode)  
     setValue(selectedAddress);
 
     const dataForNextStep = {
@@ -72,10 +76,13 @@ const compareAgency = () => {
       zip: currentAddress.postcode,
       country: currentAddress.country,
     };
+    const sendData = {
+			location: { ...currentAddress.location },
+			infoFromAutoComplete: currentAddress.fullAddress,
+			additionalAddress: { ...dataForNextStep },
+		};
 
-    localStorage.setItem("address", JSON.stringify(dataForNextStep));
-
-    setData({ ...dataForNextStep });
+		dispatch(openMainStepsAction(sendData));
     dispatch(clearAutocompleteItems());
   };
 

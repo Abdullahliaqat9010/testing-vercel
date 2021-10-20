@@ -45,9 +45,10 @@ const Mapbox3dMap = ({
 	is3d = false,
 	onActiveMarker = (id) => null,
 }: MapProps) => {
+	console.log("marker", markers)
 	const [center, setCenter] = useState([
 		markers.length > 0 ? markers[0].position.lng : 4.402771,
-		markers.length > 0 ? markers[0].position.lat :51.260197,
+		markers.length > 0 ? markers[0].position.lat : 51.260197,
 	]);
 
 	const mapRef = useRef(null);
@@ -80,7 +81,7 @@ const Mapbox3dMap = ({
 	useEffect(() => {
 		var map = mapRef.current;
 		if (map) {
-			
+
 			map?.on("load", () => {
 				const layers = map?.getStyle().layers;
 				const labelLayerId = layers.find(
@@ -222,17 +223,14 @@ const Mapbox3dMap = ({
 			map?.touchZoomRotate.enableRotation();
 		}
 	}, [mapRef]);
-	if (is3d) {
-
-		useEffect(() => {
-			var map = mapRef.current;
-			map?.flyTo({
-				center: [...center],
-				zoom: 20,
-				essential: true,
-			});
-		}, [center]);
-	}
+	useEffect(() => {
+		var map = mapRef.current;
+		map?.flyTo({
+			center: [...center],
+			zoom: 18,
+			essential: true,
+		});
+	}, [center]);
 
 	useEffect(() => {
 		var map = mapRef.current;
@@ -248,7 +246,7 @@ const Mapbox3dMap = ({
 				marker.type === "home" ? (
 					MarkerHomeIcon
 				) : marker.type === "agency" ? (
-					<MarkerAgencyIcon />
+					<MarkerPropertyIcon />
 				) : marker.type === "property" ? (
 					MarkerPropertyIcon
 				) : (
@@ -268,7 +266,7 @@ const Mapbox3dMap = ({
 	useEffect(() => {
 		setCenter([
 			markers.length > 0 ? markers[0].position.lng : 4.402771,
-			markers.length > 0 ? markers[0].position.lat :51.260197 ,
+			markers.length > 0 ? markers[0].position.lat : 51.260197,
 		]);
 	}, [markers]);
 

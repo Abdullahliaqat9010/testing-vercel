@@ -166,6 +166,14 @@ const portFolio = ({ agency }) => {
 
 
     const onSubmit = async (e) => {
+        setIsAddingComment(true)
+        const commentParams = {
+            name,
+            email,
+            comment,
+            agencyId: agency?.id
+        }
+
 		window.confirm("work is pending on this")
 	};
 
@@ -206,7 +214,7 @@ const portFolio = ({ agency }) => {
                         <BackToDashboardDiv className="d-flex" >
                             <Link href={"/agency-result"}>
                                 <span className="Agency__back">
-                                    <img src={ArrowImage} alt="ArrowImage" /> back to dashboard
+                                    <img src={ArrowImage} alt="ArrowImage" /> back to search
                                 </span>
                             </Link>
                         </BackToDashboardDiv>
