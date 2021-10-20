@@ -22,7 +22,8 @@ import TwitterIcon from "../../assets/images/agency-page/social/twitter-icon.svg
 import InstagramIcon from "../../assets/images/agency-page/social/instagram-icon.svg";
 import YoutubeIcon from "../../assets/images/agency-page/social/youtube-icon.svg";
 import LinkedinIcon from "../../assets/images/agency-page/social/linkedin-icon.svg";
-import { Button } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
+import axios from 'axios';
 
 const Labels = styled.span`
     font-size: 14px;
@@ -158,6 +159,16 @@ const portFolio = ({ agency }) => {
     const [linkedin, setLinkedin] = useState("")
     const [twiter, setTwiter] = useState("")
 
+    const [name, setName] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [comment, setComment] = useState<string>("");
+	const [isAddingComment, setIsAddingComment] = useState(false);
+
+
+    const onSubmit = async (e) => {
+		window.confirm("work is pending on this")
+	};
+
     useEffect(() => {
         console.log("agency", agency)
         let linksArray = agency?.social_links ? agency?.social_links?.split(",") : []
@@ -181,9 +192,6 @@ const portFolio = ({ agency }) => {
         }
     })
 
-    const goToLink = (value) => {
-        console.log("va", value)
-    }
 
     const date = new Date(agency?.createdAt)
     const address = `${agency?.street} ${agency?.street_number}, ${agency?.zip} ${agency?.city}`
@@ -196,7 +204,7 @@ const portFolio = ({ agency }) => {
                 <AgencyInfoBlock className="d-flex justify-content-center p-3" >
                     <div >
                         <BackToDashboardDiv className="d-flex" >
-                            <Link href={"/dashboard"}>
+                            <Link href={"/agency-result"}>
                                 <span className="Agency__back">
                                     <img src={ArrowImage} alt="ArrowImage" /> back to dashboard
                                 </span>
@@ -230,7 +238,7 @@ const portFolio = ({ agency }) => {
 
                                         </div>
                                     </div>
-                                    <div className = "border-bottom border-bottom-gray pb-3">
+                                    <div className="border-bottom border-bottom-gray pb-3">
                                         <Headlines>Contact details</Headlines>
 
                                         <div className="d-flex my-2">
@@ -259,15 +267,75 @@ const portFolio = ({ agency }) => {
                                     <div className=" d-flex flex-column border-bottom border-bottom-gray pb-3">
                                         <Headlines>{"Social links"}</Headlines>
                                         <SocialImages>
-                                            {facebook && <img onClick={() => goToLink(facebook)} src={FacebookIcon} alt="FacebookIcon" />}
-                                            {twiter && <img onClick={() => goToLink(twiter)} src={TwitterIcon} alt="TwitterIcon" />}
-                                            {instagram && <img onClick={() => goToLink(instagram)} src={InstagramIcon} alt="InstagramIcon" />}
-                                            {youtube && <img onClick={() => goToLink(youtube)} src={YoutubeIcon} alt="YoutubeIcon" />}
-                                            {linkedin && <img onClick={() => goToLink(linkedin)} src={LinkedinIcon} alt="LinkedinIcon" />}
+                                            {facebook && <a href={facebook} target="_blank" > <img src={FacebookIcon} alt="FacebookIcon" /></a>}
+                                            {twiter && <a href={twiter} target="_blank" ><img src={TwitterIcon} alt="TwitterIcon" /></a>}
+                                            {instagram && <a href={instagram} target="_blank" > <img src={InstagramIcon} alt="InstagramIcon" /></a>}
+                                            {youtube && <a href={youtube} target="_blank" > <img src={YoutubeIcon} alt="YoutubeIcon" /></a>}
+                                            {linkedin && <a href={linkedin} target="_blank" > <img src={LinkedinIcon} alt="LinkedinIcon" /></a>}
                                         </SocialImages>
 
                                     </div>
                                 </ProfileContainer>
+                                <div
+                                    style={{
+                                        padding: 30,
+                                        backgroundColor: "white",
+                                        borderRadius: 8,
+                                        marginTop: 20,
+                                    }}
+                                >
+                                    <p style={{ color: "#6c768f", fontWeight: "bold", fontSize: 24 }}>
+                                        {"text leave a comment"}
+                                    </p>
+                                    <Form onSubmit={onSubmit}>
+                                        <Form.Group className="mb-3">
+                                            <Form.Control
+                                                style={{ resize: "none", borderRadius: 8 }}
+                                                placeholder="Comment"
+                                                required
+                                                as="textarea"
+                                                value={comment}
+                                                onChange={(e) => setComment(e.target.value)}
+                                                rows={5}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3">
+                                            <Row className="g-2">
+                                                <Col style={{ paddingRight: 4 }}>
+                                                    <Form.Control
+                                                        style={{ borderRadius: 8 }}
+                                                        placeholder="Name"
+                                                        value={name}
+                                                        onChange={(e) => setName(e.target.value)}
+                                                        required
+                                                    />
+                                                </Col>
+                                                <Col style={{ paddingLeft: 4 }}>
+                                                    <Form.Control
+                                                        style={{ borderRadius: 8 }}
+                                                        type="email"
+                                                        placeholder="Email"
+                                                        value={email}
+                                                        onChange={(e) => setEmail(e.target.value)}
+                                                        required
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </Form.Group>
+                                        <Button
+                                            disabled={
+                                                name.length === 0 ||
+                                                email.length === 0 ||
+                                                comment.length === 0 ||
+                                                isAddingComment
+                                            }
+                                            style={{ width: "100%", padding: 10 }}
+                                            type="submit"
+                                        >
+                                            {isAddingComment ? "Loading..." : "submit-comment"}
+                                        </Button>
+                                    </Form>
+                                </div>
                                 {false && (
                                     <ReviewContainer >
                                         <ReviewBlock currentAgency={agency} />
