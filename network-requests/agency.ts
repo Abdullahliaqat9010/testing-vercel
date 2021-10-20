@@ -1,4 +1,22 @@
 import axios from "axios";
+import jwt from "jsonwebtoken";
+import { setTokens } from ".";
+import { UserProfile } from "../types/profile";
+
+export const signupAgent = (userData): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.post("agent/signup", {
+				...userData,
+			});
+			const parsedData = jwt.decode(data?.access_token) as UserProfile;
+			await setTokens(data?.access_token, data?.refresh_token);
+			res(parsedData);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
 
 export const contactAgency = (contactInfo) => {
 	return new Promise(async (res, rej) => {
@@ -13,16 +31,19 @@ export const contactAgency = (contactInfo) => {
 	});
 };
 
-export const getAgenciesByAddress = (address): Promise<any[]>=> {
+export const getAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address)
-			const {data: agencies } = await axios.get("agency/search?city="+ address.locality+ "&zip=" +"3234" , {
-				headers: {
-					"Content-Type": "application/json"
+			console.log("adress", address);
+			const { data: agencies } = await axios.get(
+				"agency/search?city=" + address.locality + "&zip=" + "3234",
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-			}) 
-			console.log("agencies", agencies)
+			);
+			console.log("agencies", agencies);
 
 			res(agencies);
 		} catch (error) {
@@ -34,7 +55,7 @@ export const getAgenciesByAddress = (address): Promise<any[]>=> {
 export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: properties } = await axios.get("agency/properties/all", {
+			const { data: properties } = await axios.get("agency/properties", {
 				params: {
 					page,
 					limit,
@@ -72,7 +93,7 @@ export const getAgencyById = (id: number): Promise<any> => {
 export const createAgencyProfile = (profile) => {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.put("agency", {
+			await axios.post("agency", {
 				...profile,
 				zip: String(profile?.zip),
 				billing_zip: String(profile?.billing_zip),
@@ -104,6 +125,17 @@ export const getAgencies = (): Promise<any> => {
 		try {
 			const { data: agencies } = await axios.get("agency");
 			res(agencies);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const createAgencyProperty = (payload) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.post("agency/property", { ...payload });
+			res("");
 		} catch (error) {
 			rej(error);
 		}

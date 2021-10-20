@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 import * as Yup from "yup";
 import axios from "axios";
 import { useTranslation } from "next-i18next";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const SignupForm = ({
@@ -26,7 +25,7 @@ const SignupForm = ({
 	const checkForDuplicateEmail = (email: string): Promise<boolean> => {
 		return new Promise(async (res, rej) => {
 			try {
-				const { data: exists } = await axios.get(`users/${email}/exist`);
+				const { data: exists } = await axios.get(`user/${email}/exist`);
 				res(!exists);
 			} catch (error) {
 				rej(error);
@@ -53,33 +52,28 @@ const SignupForm = ({
 			),
 		phone_number: Yup.string().optional(),
 		password: Yup.string()
-		.required(t("p.error"))			
-		.matches(
+			.required(t("p.error"))
+			.matches(
 				/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-				(t("label.password-message"))
+				t("label.password-message")
 			),
 		confirm_password: Yup.string().test(
 			"passwords-match",
-			(t("label.password-match")),
+			t("label.password-match"),
 			function (value) {
 				return this.parent.password === value;
 			}
 		),
-		t_c: Yup.bool().oneOf(
-			[true],
-			t("error.t-c")
-		),
+		t_c: Yup.bool().oneOf([true], t("error.t-c")),
 	});
-	const createAccount = t("button.create-account").split(" ")
+	const createAccount = t("button.create-account").split(" ");
 
 	return (
 		<div className="form-container">
 			{showTitle && (
 				<div className="form-title-container">
-					<p className="form-title">  {t("p.title")} </p>
-					<p className="form-subtitle">
-						{t("p.sub-title")}
-					</p>
+					<p className="form-title"> {t("p.title")} </p>
+					<p className="form-subtitle">{t("p.sub-title")}</p>
 				</div>
 			)}
 			<div>

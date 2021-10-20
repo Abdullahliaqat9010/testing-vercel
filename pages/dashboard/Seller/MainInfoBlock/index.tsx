@@ -15,75 +15,75 @@ const MainInfoBlock = ({ mainProperty }) => {
 	const { locale } = router;
 	const { t } = useTranslation("dashboard-page");
 
-	const modifyProperty = () => {
-		const propertyObjectForModify = {
-			mainBlocks: true,
-			stepBlock: {
-				step: 0,
-				addressFromStepOne: mainProperty.search_address,
-				additionalAddress: {
-					street: mainProperty.street,
-					number: mainProperty.street_number,
-					zip: mainProperty.zip,
-					locality: mainProperty.locality,
-					country: mainProperty.country,
-				},
-				selectedProperty: mainProperty.property_type,
-				propertyDetails: {
-					livingArea: mainProperty.live_area,
-					landSurface: mainProperty.total_area,
-					facadesNumber: mainProperty.facades,
-					numberBedrooms: mainProperty.bedrooms,
-					numberBathrooms: mainProperty.bathrooms,
-					numberLevels: mainProperty.floor,
-					numberFloors: mainProperty.levels,
-					gardenTerrasValue: mainProperty.terras_size,
-					elevator: mainProperty.elevator,
-				},
-				details: {
-					prestige: mainProperty.prestige,
-					condition: mainProperty.state,
-					constructionYear: mainProperty.construction_year || "",
-					renovationYear: mainProperty.renov_year || "",
-					renovationLevel: mainProperty.renov_level || "0",
-				},
-				utilities: {
-					epc: mainProperty.epc || "",
-					view: mainProperty.view,
-					orientation: mainProperty.orientation_terras,
-					atticValue: mainProperty.attic || "",
-					cellarValue: mainProperty.cellar || "",
-					elevator: mainProperty.elevator,
-					swimmingPool: mainProperty.pool,
-					indoorGarage: mainProperty.indoor_garage,
-					outdoorGarage: mainProperty.outdoor_garage,
-					carport: mainProperty.carport,
-					parking:
-						mainProperty.carport ||
-						mainProperty.outdoor_garage ||
-						mainProperty.indoor_garage,
-					solarPanels: mainProperty.solar_panels,
-				},
-				personalAccount: {
-					// accountType: 'private',
-					// selectedItem: '',
-					selectedResidence: mainProperty.residence_type,
-					sellProperty: mainProperty.interest,
-					howSell: mainProperty.selling_way || "",
-				},
-				location: {
-					lat: mainProperty.lat,
-					lng: mainProperty.lng,
-				},
-			},
-		};
-		window.sessionStorage.setItem(
-			"modify",
-			JSON.stringify(propertyObjectForModify)
-		);
-		window.sessionStorage.setItem("modifyId", mainProperty.id);
-		window.location.href = "/" + locale;
-	};
+	// const modifyProperty = () => {
+	// 	const propertyObjectForModify = {
+	// 		mainBlocks: true,
+	// 		stepBlock: {
+	// 			step: 0,
+	// 			addressFromStepOne: mainProperty.search_address,
+	// 			additionalAddress: {
+	// 				street: mainProperty.street,
+	// 				number: mainProperty.street_number,
+	// 				zip: mainProperty.zip,
+	// 				locality: mainProperty.locality,
+	// 				country: mainProperty.country,
+	// 			},
+	// 			selectedProperty: mainProperty.property_type,
+	// 			propertyDetails: {
+	// 				livingArea: mainProperty.live_area,
+	// 				landSurface: mainProperty.total_area,
+	// 				facadesNumber: mainProperty.facades,
+	// 				numberBedrooms: mainProperty.bedrooms,
+	// 				numberBathrooms: mainProperty.bathrooms,
+	// 				numberLevels: mainProperty.floor,
+	// 				numberFloors: mainProperty.levels,
+	// 				gardenTerrasValue: mainProperty.terras_size,
+	// 				elevator: mainProperty.elevator,
+	// 			},
+	// 			details: {
+	// 				prestige: mainProperty.prestige,
+	// 				condition: mainProperty.state,
+	// 				constructionYear: mainProperty.construction_year || "",
+	// 				renovationYear: mainProperty.renov_year || "",
+	// 				renovationLevel: mainProperty.renov_level || "0",
+	// 			},
+	// 			utilities: {
+	// 				epc: mainProperty.epc || "",
+	// 				view: mainProperty.view,
+	// 				orientation: mainProperty.orientation_terras,
+	// 				atticValue: mainProperty.attic || "",
+	// 				cellarValue: mainProperty.cellar || "",
+	// 				elevator: mainProperty.elevator,
+	// 				swimmingPool: mainProperty.pool,
+	// 				indoorGarage: mainProperty.indoor_garage,
+	// 				outdoorGarage: mainProperty.outdoor_garage,
+	// 				carport: mainProperty.carport,
+	// 				parking:
+	// 					mainProperty.carport ||
+	// 					mainProperty.outdoor_garage ||
+	// 					mainProperty.indoor_garage,
+	// 				solarPanels: mainProperty.solar_panels,
+	// 			},
+	// 			personalAccount: {
+	// 				// accountType: 'private',
+	// 				// selectedItem: '',
+	// 				selectedResidence: mainProperty.residence_type,
+	// 				sellProperty: mainProperty.interest,
+	// 				howSell: mainProperty.selling_way || "",
+	// 			},
+	// 			location: {
+	// 				lat: mainProperty.lat,
+	// 				lng: mainProperty.lng,
+	// 			},
+	// 		},
+	// 	};
+	// 	window.sessionStorage.setItem(
+	// 		"modify",
+	// 		JSON.stringify(propertyObjectForModify)
+	// 	);
+	// 	window.sessionStorage.setItem("modifyId", mainProperty.id);
+	// 	window.location.href = "/" + locale;
+	// };
 
 	return (
 		<div className="main-info-block">
@@ -105,14 +105,14 @@ const MainInfoBlock = ({ mainProperty }) => {
 					<img src={bedsIcon} alt="bedsIcon" />
 					<div className="image-block__info d-flex flex-column">
 						<span className="title">{t("title.beds")}</span>
-						{/* <span className="desc">{mainProperty?.bedrooms}</span> */}
+						<span className="desc">{mainProperty?.bedrooms}</span>
 					</div>
 				</div>
 				<div className="image-block d-flex">
 					<img src={bathIcon} alt="bathIcon" />
 					<div className="image-block__info d-flex flex-column">
 						<span className="title">{t("title.baths")}</span>
-						{/* <span className="desc">{mainProperty?.bathrooms}</span> */}
+						<span className="desc">{mainProperty?.bathrooms}</span>
 					</div>
 				</div>
 			</div>

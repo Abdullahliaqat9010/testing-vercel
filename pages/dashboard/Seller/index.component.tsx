@@ -14,10 +14,10 @@ import Loading from "../../../components/Loading";
 import { RootState } from "../../../types/state";
 import {
 	getEstimation,
-	getProperties,
 	getSimilarProperties,
-	getProperty,
+	getMainProperty,
 	getAgencies,
+	getLeadProperties,
 } from "../../../network-requests";
 import { setMainPropertyId } from "../../../actions";
 
@@ -44,7 +44,11 @@ const SellerDashboard = () => {
 	const fetchAll = async () => {
 		try {
 			setIsLoading(true);
-			const promises = [_getProperties(), getMainProperty(), _getAgencies()];
+			const promises = [
+				_getProperties(),
+				_getMainProperty(),
+				// _getAgencies()
+			];
 			await Promise.all(promises);
 			setIsLoading(false);
 		} catch (error) {
@@ -54,23 +58,23 @@ const SellerDashboard = () => {
 
 	const _getProperties = async () => {
 		try {
-			const _properties = await getProperties(userId);
+			const _properties = await getLeadProperties();
 			setProperties([..._properties]);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const getMainProperty = async () => {
+	const _getMainProperty = async () => {
 		try {
-			const _property = await getProperty(mainPropertyId);
+			const _property = await getMainProperty(mainPropertyId);
 			if (_property) {
 				setMainProperty(_property);
 				dispatch(setMainPropertyId(_property.id));
-				const estimate = await getEstimation(_property?.id);
+				const estimate = await getEstimation(_property?.property?.id);
 				setEstimation(estimate);
-				const _similarProperties = await getSimilarProperties(_property?.id);
-				setSimilarProperties([..._similarProperties]);
+				// const _similarProperties = await getSimilarProperties(_property?.id);
+				// setSimilarProperties([..._similarProperties]);
 			}
 		} catch (error) {
 			console.log(error);
@@ -97,7 +101,7 @@ const SellerDashboard = () => {
 			<div className="Dashboard container d-flex">
 				<NavBarContainer />
 				<div className="Dashboard__container">
-					<MainInfoBlock mainProperty={mainProperty} />
+					<MainInfoBlock mainProperty={mainProperty?.property} />
 					<EstimateBlock estimation={estimation} mainProperty={mainProperty} />
 					<PropertiesBlock
 						similarProperties={similarProperties}

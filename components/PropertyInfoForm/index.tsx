@@ -149,7 +149,7 @@ const SelectButton = ({
 	);
 };
 
-const PropertyInfoForm = () => {
+const PropertyInfoForm = ({ onSubmit }) => {
 	const [isLocationModalVisible, setIsLocationModalVisible] = useState(true);
 
 	const validationSchema = Yup.object().shape({
@@ -174,10 +174,10 @@ const PropertyInfoForm = () => {
 		bedrooms: Yup.number().min(1).required(),
 		floor: Yup.number().min(1).required(),
 		facades: Yup.number().min(1).required(),
-		parking_spots: Yup.number()
+		parking: Yup.number()
 			.min(0, "parking spots is not valid")
 			.required("parking spots is required"),
-		garage_spots: Yup.number()
+		garage: Yup.number()
 			.min(0, "garage spots is not valid")
 			.required("garage spots is required"),
 		construction_year: Yup.number()
@@ -186,23 +186,20 @@ const PropertyInfoForm = () => {
 		renov_year: Yup.number()
 			.min(1880, "renovation year is not valid")
 			.required("renovation year is required"),
-		sale_price: Yup.number()
+		sold_rent_price: Yup.number()
 			.min(1, "sale price is not valid")
 			.required("sale price is required"),
-		sold_date: Yup.mixed().required("property sold date is required"),
+		sold_rent_date: Yup.mixed().required("property sold date is required"),
 	});
 
 	return (
 		<React.Fragment>
-			<AddressModal
+			{/* <AddressModal
 				show={isLocationModalVisible}
 				handleClose={() => setIsLocationModalVisible(false)}
-			/>
+			/> */}
 			<Formik
-				onSubmit={(values) => {
-					console.log(values);
-					return Promise.resolve("");
-				}}
+				onSubmit={onSubmit}
 				validationSchema={validationSchema}
 				initialValues={{
 					city: "",
@@ -219,15 +216,15 @@ const PropertyInfoForm = () => {
 					bedrooms: 1,
 					floor: 1,
 					facades: 1,
-					parking_spots: 1,
-					garage_spots: 1,
+					parking: 1,
+					garage: 1,
 					prestige: "basic",
 					condition: "renovate",
 					construction_year: "",
 					renov_year: "",
 					note: "",
-					sold_date: null,
-					sale_price: "",
+					sold_rent_date: null,
+					sold_rent_price: "",
 					images: [],
 				}}
 			>
@@ -508,38 +505,38 @@ const PropertyInfoForm = () => {
 									style={{ width: "49%" }}
 									className="d-flex flex-column form-input-block"
 								>
-									<label className="form-label" htmlFor="parking_spots">
+									<label className="form-label" htmlFor="parking">
 										Parking spots
 									</label>
 									<Field
 										className="form-input form-input-error"
-										name="parking_spots"
+										name="parking"
 										type="number"
 										min="0"
 									/>
 									<ErrorMessage
 										className="form-error"
 										component="div"
-										name="parking_spots"
+										name="parking"
 									/>
 								</div>
 								<div
 									style={{ width: "49%" }}
 									className="d-flex flex-column form-input-block"
 								>
-									<label className="form-label" htmlFor="garage_spots">
+									<label className="form-label" htmlFor="garage">
 										Garage spots
 									</label>
 									<Field
 										className="form-input"
-										name="garage_spots"
+										name="garage"
 										type="number"
 										min="0"
 									/>
 									<ErrorMessage
 										className="form-error"
 										component="div"
-										name="garage_spots"
+										name="garage"
 									/>
 								</div>
 							</div>
@@ -641,43 +638,43 @@ const PropertyInfoForm = () => {
 									style={{ width: "49%" }}
 									className="d-flex flex-column form-input-block"
 								>
-									<label className="form-label" htmlFor="sale_price">
+									<label className="form-label" htmlFor="sold_rent_price">
 										Sale Price
 									</label>
 									<Field
 										className="form-input form-input-error"
-										name="sale_price"
+										name="sold_rent_price"
 										type="number"
 										min="0"
 									/>
 									<ErrorMessage
 										className="form-error"
 										component="div"
-										name="sale_price"
+										name="sold_rent_price"
 									/>
 								</div>
 								<div
 									style={{ width: "49%" }}
 									className="d-flex flex-column form-input-block"
 								>
-									<label className="form-label" htmlFor="sold_date">
+									<label className="form-label" htmlFor="sold_rent_date">
 										Property sold MM / DD / YYYY
 									</label>
 									<DatePicker
-										name="sold_date"
+										name="sold_rent_date"
 										style={{
 											height: 46,
 											borderRadius: 6,
 											border: "1px solid var(--colorGray)",
 										}}
-										value={values.sold_date}
+										value={values.sold_rent_date}
 										format="MM / DD / YYYY"
-										onChange={(date) => setFieldValue("sold_date", date)}
+										onChange={(date) => setFieldValue("sold_rent_date", date)}
 									/>
 									<ErrorMessage
 										className="form-error"
 										component="div"
-										name="sold_date"
+										name="sold_rent_date"
 									/>
 								</div>
 							</div>

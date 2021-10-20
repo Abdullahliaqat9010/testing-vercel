@@ -16,6 +16,7 @@ import SuccessImage from "../../../../assets/images/success.png";
 import { estimationButtonsList } from "../../../../templates/estimationButtonsList";
 
 const EstimateBlock = ({ estimation, mainProperty }) => {
+	console.log(estimation);
 	const { t } = useTranslation("dashboard-page");
 	const dispatch = useDispatch();
 
@@ -47,15 +48,15 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 	const [thanksPopup, setThanksPopup] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (estimation?.totalValue && mainProperty.live_area) {
+		if (estimation?.totalValue && mainProperty?.property?.live_area) {
 			const min = estimation.min;
 			const max = estimation.max;
 
 			setPriceValue({
 				min: estimation.min,
 				max: estimation.max,
-				minPerMeter: Math.round(min / mainProperty.live_area),
-				maxPerMeter: Math.round(max / mainProperty.live_area),
+				minPerMeter: Math.round(min / mainProperty?.property?.live_area),
+				maxPerMeter: Math.round(max / mainProperty?.property?.live_area),
 			});
 
 			setEstimationForm({
@@ -95,8 +96,8 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 	return (
 		<div className="estimate-block">
 			<h2 className="h4">{t("title.estimated-value")}</h2>
-			<p>{mainProperty?.search_address}</p>
-			{mainProperty?.search_address && (
+			<p>{mainProperty?.property?.search_address}</p>
+			{mainProperty?.property?.search_address && (
 				<div className="scale-block">
 					{estimation?.totalValue ? (
 						<OverlayTrigger

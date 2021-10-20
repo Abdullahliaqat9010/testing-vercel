@@ -9,7 +9,7 @@ import { RootState } from "../../../../types/state";
 
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
 import SignupForm from "../../../../components/SignupForm";
-import { createProperty, signup } from "../../../../network-requests";
+import { createLeadProperty, signupLead } from "../../../../network-requests";
 
 const FinalStep = ({ handleSwitchSteps }: any) => {
 	const { t } = useTranslation("steps");
@@ -29,35 +29,33 @@ const FinalStep = ({ handleSwitchSteps }: any) => {
 
 	const propertyData = () => {
 		return {
-			owner: Boolean(personalAccount.selectedItem === "homeowner"),
+			is_owner: Boolean(personalAccount.selectedItem === "homeowner"),
 			interest: String(personalAccount.sellProperty),
 			selling_way: String(personalAccount.howSell).length
 				? String(personalAccount.howSell)
 				: undefined,
 			residence_type: String(personalAccount.selectedResidence),
-			...generatePropertyData(
-				addressFromStepOne,
-				additionalAddress,
-				selectedProperty,
-				propertyDetails,
-				details,
-				utilities,
-				location
-			),
+			property: {
+				...generatePropertyData(
+					addressFromStepOne,
+					additionalAddress,
+					selectedProperty,
+					propertyDetails,
+					details,
+					utilities,
+					location
+				),
+			},
 		};
 	};
 
 	const handleSubmit = (user) => {
 		return new Promise(async (res, rej) => {
 			try {
-				const userProfile = await signup({
+				const userProfile = await signupLead({
 					...user,
-					account_type: "seller",
 				});
-				await createProperty(
-					{ ...propertyData(), leadId: userProfile.id },
-					router.locale
-				);
+				await createLeadProperty({ ...propertyData() }, router.locale);
 				dispatch(
 					setUserProfile({
 						...userProfile,

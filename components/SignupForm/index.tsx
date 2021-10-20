@@ -26,8 +26,12 @@ const SignupForm = ({
 	const checkForDuplicateEmail = (email: string): Promise<boolean> => {
 		return new Promise(async (res, rej) => {
 			try {
-				const { data: exists } = await axios.get(`users/${email}/exist`);
-				res(!exists);
+				if (email) {
+					const { data: exists } = await axios.get(`user/${email}/exist`);
+					res(!exists);
+				} else {
+					res(false);
+				}
 			} catch (error) {
 				rej(error);
 			}
@@ -70,16 +74,17 @@ const SignupForm = ({
 			"You must accept Privacy Policy and Terms & Conditions"
 		),
 	});
-	const createAccount = t("button.create-account").split(" ")
+	const createAccount = t("button.create-account").split(" ");
 
 	return (
 		<div className="form-container">
 			{showTitle && (
 				<div className="form-title-container">
-					<p className="form-title">  { createAccount[0] + " " + accountType +" " + createAccount[1]} </p>
-					<p className="form-subtitle">
-						{t("p.sub-title")}
+					<p className="form-title">
+						{" "}
+						{createAccount[0] + " " + accountType + " " + createAccount[1]}{" "}
 					</p>
+					<p className="form-subtitle">{t("p.sub-title")}</p>
 				</div>
 			)}
 			<div>
