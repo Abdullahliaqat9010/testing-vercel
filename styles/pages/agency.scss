@@ -1,5 +1,5 @@
 .Agency {
-	padding: 27px 0 80px;
+	// padding: 27px 0 80px;
 	color: var(--mainColor);
 
 	&__back {
@@ -269,9 +269,12 @@
 					}
 				}
 			}
-		}
-	}
+			
 
+		}
+		
+	}
+	
 	&__second-block,
 	&__third-block,
 	&__fourth-block {
@@ -345,7 +348,7 @@
 
 					.property-main-block {
 						.active-block {
-							width: 95%;
+							width: 100%;
 						}
 					}
 
@@ -375,6 +378,7 @@
 									align-items: center;
 									line-height: 16px;
 									margin-bottom: 14px;
+									margin-top: 30px;
 
 									:last-child {
 										margin-right: unset;
@@ -647,8 +651,10 @@
 			}
 		}
 	}
+	
 
 	@media (min-width: 768px) and (max-width: 1439px) {
+	
 		&__first-block {
 			.main-content {
 				margin-right: unset;
@@ -657,7 +663,9 @@
 					width: 100%;
 				}
 			}
-
+.contact-agency-block .contact-aagency{
+	display: none;
+}
 			.contact {
 				margin: 28px auto;
 				display: flex;
@@ -722,6 +730,19 @@
 
 	@media (min-width: 320px) and (max-width: 767px) {
 		padding: 27px 16px 80px;
+		.contact-aagency{
+			display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 30px;
+				position: absolute;
+				width: 317px;
+				height: 800px;
+				left: 965px;
+				top: 100px;
+				background: #FFFFFF;
+				border-radius: 10px;
+		}
 		&__first-block {
 			.main-content {
 				margin-right: unset;
@@ -812,6 +833,7 @@
 
 				.properties-list {
 					flex-direction: column;
+					height: 60rem;
 
 					.property-main-block {
 						margin-top: 20px !important;
@@ -826,6 +848,7 @@
 
 								img {
 									width: 100%;
+									margin-top: 5px;
 								}
 							}
 
@@ -934,4 +957,49 @@
 			}
 		}
 	}
+}
+
+
+.contact-aagency{
+	display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 30px;
+		position: absolute;
+		width: 317px;
+		height: 800px;
+		left: 965px;
+		top: 100px;
+		background: #FFFFFF;
+		border-radius: 10px;
+}
+.Agency__first-block {
+    display: -moz-box;
+    display: flex;
+    width: 757px;
+}
+.Agency__second-block, .Agency__third-block, .Agency__fourth-block {
+    margin-top: 20px;
+    width: 757px;
+}
+
+
+.confirm-btn{
+	display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 14px 20px;
+
+position: static;
+width: 270px;
+margin: auto;
+height: 45px;
+top: 576px;
+border-radius: 8px;
+flex: none;
+order: 7;
+align-self: stretch;
+flex-grow: 0;
+margin: 20px 0px;
 }

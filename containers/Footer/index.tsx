@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 
 // import { isMobile } from 'react-device-detect';
 
-import LogoFooter from "../../assets/images/logo-footer.png";
+import LogoFooter from "../../assets/images/BelgiumImmo.png";
 // import ArrowIcon from '../../assets/images/arrow-gray.svg';
 // import CloseBlock from '../../assets/images/arrow-close-block.svg';
 

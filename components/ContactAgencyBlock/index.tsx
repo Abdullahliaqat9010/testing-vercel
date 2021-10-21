@@ -65,10 +65,10 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 	};
 
 	return (
-		<div className="contact-agency-block">
+		<div className="contact-agency-block contact-aagency ">
 			<div className="contact-agency">
 				<h4>{t("title.contact-agency")}</h4>
-				<p>{agencyInfo.title}</p>
+				 {/* <p>{agencyInfo.title}</p>  */}
 				<Form noValidate validated={validated}>
 					<Form.Group controlId="fullName">
 						<Form.Control
@@ -143,8 +143,8 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 							checked={data.freeCharge}
 						/>
 					</Form.Group>
-					<div className="modal-btn-group">
-						<Button className="confirm" onClick={sendToAgency}>
+					<div>
+						<Button  className=" confirm-btn" onClick={sendToAgency}>
 							{t("button.confirm")}
 						</Button>
 					</div>

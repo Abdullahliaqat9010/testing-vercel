@@ -60,7 +60,7 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 
 			setEstimationForm({
 				myEstimation: numberWithCommas(estimation?.totalValue.toString()),
-				myEstimationFeedback: `${t("placeholder.property-has")} ${showTitle(
+				myEstimationFeedback: `${t("placeholder.new-text")} ${showTitle(
 					t("button." + activeBtn)
 				)} ${t("placeholder.price-because")}...`,
 			});

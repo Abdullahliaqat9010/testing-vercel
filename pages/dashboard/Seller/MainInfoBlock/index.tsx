@@ -105,14 +105,14 @@ const MainInfoBlock = ({ mainProperty }) => {
 					<img src={bedsIcon} alt="bedsIcon" />
 					<div className="image-block__info d-flex flex-column">
 						<span className="title">{t("title.beds")}</span>
-						{/* <span className="desc">{mainProperty?.bedrooms}</span> */}
+						<span className="desc">{mainProperty?.bedrooms}</span>
 					</div>
 				</div>
 				<div className="image-block d-flex">
 					<img src={bathIcon} alt="bathIcon" />
 					<div className="image-block__info d-flex flex-column">
 						<span className="title">{t("title.baths")}</span>
-						{/* <span className="desc">{mainProperty?.bathrooms}</span> */}
+						<span className="desc">{mainProperty?.bathrooms}</span>
 					</div>
 				</div>
 			</div>

@@ -42,7 +42,6 @@ const FirstBlock = ({
 	const showPhone = () => {
 		setShowBlock(true);
 	};
-
 	const getLanguages = (languages) => {
 		let langs = [];
 		for (const key in languages) {
@@ -201,6 +200,7 @@ const FirstBlock = ({
 					</Button>
 				</div>
 			</div>
+			
 		</div>
 	);
 };
