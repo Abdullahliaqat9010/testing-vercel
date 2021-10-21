@@ -390,7 +390,7 @@
 			}
 
 			.steps-btn-group {
-				padding-bottom: 54px;
+				// padding-bottom: 54px;
 				font-family: var(--fontNunitoBold);
 
 				.prev-step {
@@ -461,6 +461,7 @@
 		.step-four,
 		.create-personal-account {
 			width: 433px;
+			min-height: 100%;
 		}
 
 		.step-one {
@@ -478,6 +479,8 @@
 				background: var(--colorBlue);
 				border-radius: 8px;
 				margin-bottom: 20px;
+				position: absolute;
+				bottom: 0px;
 			}
 
 			.properties {
@@ -836,9 +839,9 @@
 				}
 			}
 
-			.steps-btn-group {
-				margin-bottom: 72px;
-			}
+			// .steps-btn-group {
+			// 	margin-bottom: 72px;
+			// }
 		}
 
 		.step-three {
@@ -1770,9 +1773,9 @@
 				.steps-btn-group {
 					flex-direction: column-reverse;
 
-					.next-step {
-						margin-bottom: 10px;
-					}
+					// .next-step {
+					// 	margin-bottom: 10px;
+					// }
 
 					.prev-step {
 						margin-bottom: 28px;
