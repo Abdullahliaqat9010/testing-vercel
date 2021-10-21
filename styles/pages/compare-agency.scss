@@ -109,7 +109,7 @@
     align-items: center;
     width: 100%;
     min-height: 580px;
-    // padding: 50px 0px;
+    padding: 50px 0px;
     background: linear-gradient(
       263.66deg,
       rgba(56, 113, 239, 0.1) 21.3%,
@@ -236,26 +236,13 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1439px) {
+@media (min-width: 769px) and (max-width: 1439px) {
+ 
   .compare-agency .search-area span {
     font-weight: bold;
     font-size: 21px;
     line-height: 120%;
   }
-  .search-form {
-    flex-direction: row;
-  }
-
-  // Button {
-  // 	width: 200px;
-  // 	height: 50px;
-  // 	align-items: center;
-  // 	padding: 14px 20px;
-  // 	border-radius: 8px;
-  // 	background: var(--colorBlue);
-  // 	border-radius: 8px;
-  // 	margin-top: 20px;
-  // }
   .compare-agency .search-area p {
     font-size: 15px;
     line-height: 25px;
@@ -269,7 +256,16 @@
   // }
 }
 
-@media (min-width: 320px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 768px) {
+  .compare-agency {
+    padding: 0px;
+
+  }
+  .search-area {
+    button.btn.btn-primary {
+      height: 50px;
+    }
+  }
   .compare-agency .search-area span {
     position: static;
     width: 343px;
@@ -289,7 +285,7 @@
     margin: 20px 0px;
   }
   .search-form {
-    flex-direction: column;
+    flex-direction: row;
   }
   .compare-agency .top-agencys {
     display: flex;
@@ -365,7 +361,7 @@
   }
   .compare-agency .top-agencys .compare-top-agency input {
     padding-left: 10px;
-    width: 200px;
+    width: 80%;
     height: 43px;
     border: 1px solid var(--colorLightGrey);
     box-shadow: 0px 4px 10px rgb(56 114 239 / 15%);
@@ -379,41 +375,46 @@
     width: 200px;
     height: 50px;
   }
-  .compare-agency .cards-container {
+  .compare-agency  {
     flex-direction: column;
 }
-  .compare-agency .search-area input {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
+.cards-container  {
+  flex-direction: row;
 
-    position: static;
-    width: 343px;
-    height: 50px;
-    left: 0px;
-    top: 0px;
+}
+  // .compare-agency .search-area input {
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: center;
+  //   align-items: center;
+  //   padding: 0px;
 
-    background: #ffffff;
+  //   position: static;
+  //   width: 343px;
+  //   height: 50px;
+  //   left: 0px;
+  //   top: 0px;
 
-    border: 1px solid #d2d5de;
+  //   background: #ffffff;
 
-    box-shadow: 0px 4px 10px rgba(56, 114, 239, 0.15);
-    border-radius: 8px;
+  //   border: 1px solid #d2d5de;
 
-    flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
-    margin: 20px 0px;
-  }
+  //   box-shadow: 0px 4px 10px rgba(56, 114, 239, 0.15);
+  //   border-radius: 8px;
+
+  //   flex: none;
+  //   order: 0;
+  //   align-self: stretch;
+  //   flex-grow: 0;
+  //   margin: 20px 0px;
+  // }
 
   .compare-agency .cards-container .card{
     width: 100%;
   }
   .card-body.image-setting {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -433,4 +434,65 @@
   height: auto;
 
 }
+}
+
+@media (min-width: 320px) and (max-width: 480px) { 
+  .compare-agency {
+    padding: 0px;
+
+    .search-area {
+      padding: 10px;
+      margin: 0px;
+      top: 200px;
+
+      p{
+        font-size: 18px;
+        line-height: 25px;
+        text-align: center;
+      }
+
+      span {
+        font-size: 24px;
+        line-height: 33px;
+      }
+
+      .search-form.d-flex {
+        flex-direction: column;
+        align-items: center;
+        input {
+          margin:0;
+          margin-bottom: 15px;
+          width : 280px;
+        }
+      }
+      
+    }
+
+    .cards-container {
+      flex-direction: column;
+      .card {
+        width: 100%;
+
+        span {
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 22px;
+          text-align: left;
+        }
+        p{
+          margin: 5px 0px 0px 5px;
+          text-align: left;
+        }
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+      }
+    }
+
+  }
+  
 }

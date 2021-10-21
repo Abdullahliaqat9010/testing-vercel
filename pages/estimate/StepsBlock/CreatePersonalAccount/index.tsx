@@ -122,10 +122,10 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 		return data.selectedItem.length === 0
 			? true
 			: data.selectedItem === "not-owner"
-			? data.estimationReason.length === 0
-			: t(`li.${data.sellProperty}`) === t("li.in_process")
-			? data.howSell.length === 0
-			: data.sellProperty.length === 0 || data.selectedResidence.length === 0;
+				? data.estimationReason.length === 0
+				: t(`li.${data.sellProperty}`) === t("li.in_process")
+					? data.howSell.length === 0
+					: data.sellProperty.length === 0 || data.selectedResidence.length === 0;
 	};
 
 	const handleClickNextBtn = () => {
@@ -146,7 +146,7 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 					: undefined,
 				residence_type:
 					data.accountType === "professional" ||
-					data.selectedItem === "not-owner"
+						data.selectedItem === "not-owner"
 						? "other"
 						: String(data.selectedResidence),
 				...generatePropertyData(
@@ -212,161 +212,116 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 	};
 
 	return (
-		<div className="create-personal-account">
-			<span className="step-title title-in-mobile">{t("title.great-job")}</span>
-			<h4>{t("title.estimation-ready")}</h4>
-			<span className="step-title">{t("desc.finalized-estimation")}</span>
-			<span onClick={goToLogin} className="have-account">
-				{t("link.already-have-account")}
-				<img src={LinkArrow} alt="LinkArrow" />
-			</span>
-			<div className="create-personal-account__main-block">
-				<div className="title-block">
-					<span
-						onClick={() => switchTab("private")}
-						className={activeTab === "private" ? "active" : ""}
-					>
-						{t("label.private-account")}
-					</span>
-					<span
-						onClick={() => switchTab("professional")}
-						className={activeTab === "professional" ? "active" : ""}
-					>
-						{t("label.professional-account")}
-					</span>
-				</div>
-				{activeTab === "private" ? (
-					<div className="switch-block">
-						<div
-							className={`homeowner-block ${
-								activePrivateBlock === "homeowner" ? "active-block" : ""
-							}`}
-							onClick={() => selectItem("homeowner")}
+		<div className="create-personal-account d-flex flex-column justify-content-between">
+			<div>
+				<span className="step-title title-in-mobile">{t("title.great-job")}</span>
+				<h4>{t("title.estimation-ready")}</h4>
+				<span className="step-title">{t("desc.finalized-estimation")}</span>
+				<span onClick={goToLogin} className="have-account">
+					{t("link.already-have-account")}
+					<img src={LinkArrow} alt="LinkArrow" />
+				</span>
+				<div className="create-personal-account__main-block">
+					<div className="title-block">
+						<span
+							onClick={() => switchTab("private")}
+							className={activeTab === "private" ? "active" : ""}
 						>
-							<img
-								src={
-									activePrivateBlock === "homeowner"
-										? HomeownerIconActive
-										: HomeownerIcon
-								}
-								alt="HomeownerIcon"
-							/>
-							<span>{t("select.homeowner")}</span>
-							<div className="active-item" />
-						</div>
-						<div
-							className={`not-owner-block ${
-								activePrivateBlock === "not-owner" ? "active-block" : ""
-							}`}
-							onClick={() => selectItem("not-owner")}
+							{t("label.private-account")}
+						</span>
+						<span
+							onClick={() => switchTab("professional")}
+							className={activeTab === "professional" ? "active" : ""}
 						>
-							<img
-								src={
-									activePrivateBlock === "not-owner"
-										? NotOwnerIconActive
-										: NotOwnerIcon
-								}
-								alt="NotOwnerIcon"
-							/>
-							<span>{t("select.not-owner")}</span>
-							<div className="active-item" />
-						</div>
+							{t("label.professional-account")}
+						</span>
 					</div>
-				) : (
-					<div className="switch-block professional">
-						{professionalAccountList.map((item, index) => (
+					{activeTab === "private" ? (
+						<div className="switch-block">
 							<div
-								key={index}
-								className={`professional-account ${
-									activePrivateBlock === item.name ? "active-block" : ""
-								}`}
-								onClick={() => selectItem(item.name)}
+								className={`homeowner-block ${activePrivateBlock === "homeowner" ? "active-block" : ""
+									}`}
+								onClick={() => selectItem("homeowner")}
 							>
 								<img
 									src={
-										activePrivateBlock === item.name ? item.activeImg : item.img
+										activePrivateBlock === "homeowner"
+											? HomeownerIconActive
+											: HomeownerIcon
 									}
-									alt={item.name}
+									alt="HomeownerIcon"
 								/>
-								<span>{t(`select.${item.tag}`)}</span>
+								<span>{t("select.homeowner")}</span>
 								<div className="active-item" />
 							</div>
-						))}
-						<div
-							className={`professional-account other ${
-								activePrivateBlock === "other" ? "active-block" : ""
-							}`}
-							onClick={() => selectItem("other")}
-						>
-							<span>
-								{isMobile && (
-									<img
-										src={activePrivateBlock === "other" ? OtherActive : Other}
-										alt="other"
-									/>
-								)}
-								{t("select.other")}
-							</span>
-							<div className="active-item" />
-						</div>
-					</div>
-				)}
-				{activePrivateBlock && activeTab === "private" && (
-					<>
-						{data?.selectedItem === "not-owner" ? (
-							<div className="first-dd">
-								<span className="label">{t("label.estimation-reason")}</span>
-								<Dropdown onSelect={handleSelectEstimationReason}>
-									<Dropdown.Toggle>{t(estimationReasonSelect)}</Dropdown.Toggle>
-									<Dropdown.Menu>
-										{estimationSelect.map((item, index) => (
-											<Dropdown.Item
-												key={index}
-												eventKey={item.name}
-												className={
-													data.estimationReason === item.name ? "active" : ""
-												}
-											>
-												{t(`li.${item.name}`)}
-												<img src={CheckedIcon} alt="CheckedIcon" />
-											</Dropdown.Item>
-										))}
-									</Dropdown.Menu>
-								</Dropdown>
+							<div
+								className={`not-owner-block ${activePrivateBlock === "not-owner" ? "active-block" : ""
+									}`}
+								onClick={() => selectItem("not-owner")}
+							>
+								<img
+									src={
+										activePrivateBlock === "not-owner"
+											? NotOwnerIconActive
+											: NotOwnerIcon
+									}
+									alt="NotOwnerIcon"
+								/>
+								<span>{t("select.not-owner")}</span>
+								<div className="active-item" />
 							</div>
-						) : (
-							<>
-								<span className="label">{t("label.kind-of-home")}</span>
+						</div>
+					) : (
+						<div className="switch-block professional">
+							{professionalAccountList.map((item, index) => (
+								<div
+									key={index}
+									className={`professional-account ${activePrivateBlock === item.name ? "active-block" : ""
+										}`}
+									onClick={() => selectItem(item.name)}
+								>
+									<img
+										src={
+											activePrivateBlock === item.name ? item.activeImg : item.img
+										}
+										alt={item.name}
+									/>
+									<span>{t(`select.${item.tag}`)}</span>
+									<div className="active-item" />
+								</div>
+							))}
+							<div
+								className={`professional-account other ${activePrivateBlock === "other" ? "active-block" : ""
+									}`}
+								onClick={() => selectItem("other")}
+							>
+								<span>
+									{isMobile && (
+										<img
+											src={activePrivateBlock === "other" ? OtherActive : Other}
+											alt="other"
+										/>
+									)}
+									{t("select.other")}
+								</span>
+								<div className="active-item" />
+							</div>
+						</div>
+					)}
+					{activePrivateBlock && activeTab === "private" && (
+						<>
+							{data?.selectedItem === "not-owner" ? (
 								<div className="first-dd">
-									<Dropdown onSelect={handleSelectResidence}>
-										<Dropdown.Toggle>{t(kindOfHomeValue)}</Dropdown.Toggle>
+									<span className="label">{t("label.estimation-reason")}</span>
+									<Dropdown onSelect={handleSelectEstimationReason}>
+										<Dropdown.Toggle>{t(estimationReasonSelect)}</Dropdown.Toggle>
 										<Dropdown.Menu>
-											{residenceSelect.map((item, index) => (
-												<Dropdown.Item
-													key={index}
-													className={
-														data.selectedResidence === item.name ? "active" : ""
-													}
-													eventKey={item.name}
-												>
-													{t(`li.${item.name}`)}
-													<img src={CheckedIcon} alt="CheckedIcon" />
-												</Dropdown.Item>
-											))}
-										</Dropdown.Menu>
-									</Dropdown>
-									<span className="label">{t("label.would-you-like")}</span>
-								</div>
-								<div className="second-dd">
-									<Dropdown onSelect={handleSelectSellProperty}>
-										<Dropdown.Toggle>{t(sellPropertyValue)}</Dropdown.Toggle>
-										<Dropdown.Menu>
-											{sellPropertySelect.map((item, index) => (
+											{estimationSelect.map((item, index) => (
 												<Dropdown.Item
 													key={index}
 													eventKey={item.name}
 													className={
-														data.sellProperty === item.name ? "active" : ""
+														data.estimationReason === item.name ? "active" : ""
 													}
 												>
 													{t(`li.${item.name}`)}
@@ -376,31 +331,74 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 										</Dropdown.Menu>
 									</Dropdown>
 								</div>
-							</>
-						)}
-						{data?.selectedItem !== "not-owner" &&
-							data.sellProperty === "in_process" && (
-								<div className="third-dd">
-									<span className="label">{t("label.how-you-sell")}</span>
-									<Dropdown onSelect={handleSetHowSell}>
-										<Dropdown.Toggle>{t(howSellValue)}</Dropdown.Toggle>
-										<Dropdown.Menu>
-											{howSellSelect.map((item, index) => (
-												<Dropdown.Item
-													key={index}
-													eventKey={item.name}
-													className={data.howSell === item.name ? "active" : ""}
-												>
-													{t(`li.${item.name}`)}
-													<img src={CheckedIcon} alt="CheckedIcon" />
-												</Dropdown.Item>
-											))}
-										</Dropdown.Menu>
-									</Dropdown>
-								</div>
+							) : (
+								<>
+									<span className="label">{t("label.kind-of-home")}</span>
+									<div className="first-dd">
+										<Dropdown onSelect={handleSelectResidence}>
+											<Dropdown.Toggle>{t(kindOfHomeValue)}</Dropdown.Toggle>
+											<Dropdown.Menu>
+												{residenceSelect.map((item, index) => (
+													<Dropdown.Item
+														key={index}
+														className={
+															data.selectedResidence === item.name ? "active" : ""
+														}
+														eventKey={item.name}
+													>
+														{t(`li.${item.name}`)}
+														<img src={CheckedIcon} alt="CheckedIcon" />
+													</Dropdown.Item>
+												))}
+											</Dropdown.Menu>
+										</Dropdown>
+										<span className="label">{t("label.would-you-like")}</span>
+									</div>
+									<div className="second-dd">
+										<Dropdown onSelect={handleSelectSellProperty}>
+											<Dropdown.Toggle>{t(sellPropertyValue)}</Dropdown.Toggle>
+											<Dropdown.Menu>
+												{sellPropertySelect.map((item, index) => (
+													<Dropdown.Item
+														key={index}
+														eventKey={item.name}
+														className={
+															data.sellProperty === item.name ? "active" : ""
+														}
+													>
+														{t(`li.${item.name}`)}
+														<img src={CheckedIcon} alt="CheckedIcon" />
+													</Dropdown.Item>
+												))}
+											</Dropdown.Menu>
+										</Dropdown>
+									</div>
+								</>
 							)}
-					</>
-				)}
+							{data?.selectedItem !== "not-owner" &&
+								data.sellProperty === "in_process" && (
+									<div className="third-dd">
+										<span className="label">{t("label.how-you-sell")}</span>
+										<Dropdown onSelect={handleSetHowSell}>
+											<Dropdown.Toggle>{t(howSellValue)}</Dropdown.Toggle>
+											<Dropdown.Menu>
+												{howSellSelect.map((item, index) => (
+													<Dropdown.Item
+														key={index}
+														eventKey={item.name}
+														className={data.howSell === item.name ? "active" : ""}
+													>
+														{t(`li.${item.name}`)}
+														<img src={CheckedIcon} alt="CheckedIcon" />
+													</Dropdown.Item>
+												))}
+											</Dropdown.Menu>
+										</Dropdown>
+									</div>
+								)}
+						</>
+					)}
+				</div>
 			</div>
 			<div className="steps-btn-group d-flex justify-content-between">
 				<Button onClick={handleClickPrevBtn} className="prev-step">

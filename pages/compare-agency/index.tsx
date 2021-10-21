@@ -25,6 +25,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAutocompleteItemsAction,
   clearAutocompleteItems,
+  setAdditionalAddressAction,
+  openMainStepsAction
 } from "../../actions";
 import { RootState } from "../../types/state";
 
@@ -34,8 +36,9 @@ const compareAgency = () => {
   const dispatch = useDispatch();
   const { locale } = router;
   const [value, setValue] = useState("");
-  const [dataInfo, setData] = useState({});
   const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
+  console.log("dataFromMapBox", dataFromMapBox)
+  
 
   useEffect(() => {
     dispatch(clearAutocompleteItems());
@@ -49,7 +52,7 @@ const compareAgency = () => {
   const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
     setValue(el.target.value);
     if (el.target.value.length > 0) {
-      dispatch(getAutocompleteItemsAction(el.target.value, el.target.name));
+      dispatch(getAutocompleteItemsAction(el.target.value, "address,postcode"));
     } else {
       dispatch(clearAutocompleteItems());
     }
@@ -59,7 +62,9 @@ const compareAgency = () => {
     const [currentAddress] = dataFromMapBox.filter(
       (list) => list.id === addressId
     );
-    setValue(currentAddress.fullAddress);
+    const isSearchByPostcode = currentAddress?.id?.split('.')[0]
+    let selectedAddress = currentAddress?.locality?.lenght > 0? currentAddress?.locality : currentAddress?.place + ", " + (isSearchByPostcode === 'postcode'? currentAddress?.street : currentAddress?.postcode)  
+    setValue(selectedAddress);
 
     const dataForNextStep = {
       locality:
@@ -71,10 +76,13 @@ const compareAgency = () => {
       zip: currentAddress.postcode,
       country: currentAddress.country,
     };
+    const sendData = {
+			location: { ...currentAddress.location },
+			infoFromAutoComplete: currentAddress.fullAddress,
+			additionalAddress: { ...dataForNextStep },
+		};
 
-    localStorage.setItem("address", JSON.stringify(dataForNextStep));
-
-    setData({ ...dataForNextStep });
+		dispatch(openMainStepsAction(sendData));
     dispatch(clearAutocompleteItems());
   };
 
@@ -117,7 +125,7 @@ const compareAgency = () => {
             </span>
           </p>
           <p>
-            We analyze thousands of local agents and find <br></br>the best to
+            We analyze thousands of local agents and find the best to
             compete you!
           </p>
           <div className="search-form d-flex">
@@ -149,7 +157,7 @@ const compareAgency = () => {
                         overflow: "hidden",
                       }}
                     >
-                      {item.fullAddress}
+                      {item?.locality?.length > 0 ? item?.locality : item?.place + "," + item?.postcode}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
@@ -161,6 +169,7 @@ const compareAgency = () => {
             </Button>
           </div>
         </div>
+       
 
         <div className=" cards-container d-flex justify-content-center ">
           <div className="card text-center " style={{ border: "none" }}>
@@ -215,6 +224,7 @@ const compareAgency = () => {
             </div>
           </div>
         </div>
+        {false && ( <> 
         <div className="top-agencys d-flex">
           <div className="d-flex top-agencies-view">
             <div className="agency-card ">
@@ -338,12 +348,11 @@ const compareAgency = () => {
               {" "}
               <span>
                 {" "}
-                Compare Real Estate <br></br>Agencies in your neighbourhood.
+                Work only with top agents.
               </span>
             </p>
             <p>
-              We analyze thousands of local agents and find <br></br>the best to
-              compete you!
+            Do your homework and see which agency is the most appropriate to work with.
             </p>
             <div className="search-form d-flex">
               <input type="search" placeholder="City and State or ZIP"></input>
@@ -353,6 +362,7 @@ const compareAgency = () => {
             </div>
           </div>
         </div>
+        </>)}
 
         <div className="campare-agency-footer">
           <span>Immo Belgium ©2021. All Rights Reserved.</span>

@@ -36,16 +36,19 @@ interface MarkerI {
 
 interface MapProps {
 	markers?: MarkerI[];
+	is3d: boolean,
 	onActiveMarker?: (id: any) => void;
 }
 
 const Mapbox3dMap = ({
 	markers = [],
+	is3d = false,
 	onActiveMarker = (id) => null,
 }: MapProps) => {
+	console.log("marker", markers)
 	const [center, setCenter] = useState([
-		markers.length > 0 ? markers[0].position.lng : 51.260197,
-		markers.length > 0 ? markers[0].position.lat : 4.402771,
+		markers.length > 0 ? markers[0].position.lng : 4.402771,
+		markers.length > 0 ? markers[0].position.lat : 51.260197,
 	]);
 
 	const mapRef = useRef(null);
@@ -54,21 +57,31 @@ const Mapbox3dMap = ({
 		mapboxgl.accessToken =
 			"pk.eyJ1IjoiYXNocmFmYWxpMTEyMiIsImEiOiJja3Rkd2UzaHUyazg3MnVwZ2w4YjFubTh3In0.XU0TSvROhCasiUBhLaCbiQ";
 
-		mapRef.current = new mapboxgl.Map({
-			style: "mapbox://styles/mapbox/light-v10",
-			center: [...center],
-			zoom: 15,
-			pitch: 45,
-			bearing: -17.6,
-			container: "map",
-			antialias: true,
-		});
+		if (is3d) {
+			mapRef.current = new mapboxgl.Map({
+				style: "mapbox://styles/mapbox/satellite-streets-v11",
+				center: [...center],
+				zoom: 15,
+				pitch: 45,
+				bearing: -17.6,
+				container: "map",
+				antialias: is3d,
+			});
+		} else {
+			mapRef.current = new mapboxgl.Map({
+				style: "mapbox://styles/mapbox/streets-v11",
+				center: [...center],
+				zoom: 6,
+				container: "map",
+			});
+		}
 		mapRef.current?.addControl(new mapboxgl.NavigationControl());
 	}, [mapRef]);
 
 	useEffect(() => {
 		var map = mapRef.current;
 		if (map) {
+
 			map?.on("load", () => {
 				const layers = map?.getStyle().layers;
 				const labelLayerId = layers.find(
@@ -210,12 +223,11 @@ const Mapbox3dMap = ({
 			map?.touchZoomRotate.enableRotation();
 		}
 	}, [mapRef]);
-
 	useEffect(() => {
 		var map = mapRef.current;
 		map?.flyTo({
 			center: [...center],
-			zoom: 20,
+			zoom: 18,
 			essential: true,
 		});
 	}, [center]);
@@ -234,7 +246,7 @@ const Mapbox3dMap = ({
 				marker.type === "home" ? (
 					MarkerHomeIcon
 				) : marker.type === "agency" ? (
-					<MarkerAgencyIcon />
+					<MarkerPropertyIcon />
 				) : marker.type === "property" ? (
 					MarkerPropertyIcon
 				) : (
@@ -253,8 +265,8 @@ const Mapbox3dMap = ({
 
 	useEffect(() => {
 		setCenter([
-			markers.length > 0 ? markers[0].position.lng : 51.260197,
-			markers.length > 0 ? markers[0].position.lat : 4.402771,
+			markers.length > 0 ? markers[0].position.lng : 4.402771,
+			markers.length > 0 ? markers[0].position.lat : 51.260197,
 		]);
 	}, [markers]);
 
@@ -264,7 +276,7 @@ const Mapbox3dMap = ({
 	};
 
 	return (
-		<div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
+		<div style={{ height: is3d ? "100vh" : "350px", width: "100%" }} ref={mapRef} id="map" />
 	);
 };
 

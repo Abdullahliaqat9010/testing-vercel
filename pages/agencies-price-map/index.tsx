@@ -1,5 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Button, Table, ProgressBar, ListGroup } from "react-bootstrap";
+import { Button, Table, ProgressBar, ListGroup, NavDropdown } from "react-bootstrap";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import HeaderContainer from "../../containers/Header";
@@ -3614,7 +3614,7 @@ const priceMap = () => {
             id: "home",
         }
         setMarkers([{ ...position }])
-        setTextToSearch(cityName +' '+ zipcode)
+        setTextToSearch(cityName + ' ' + zipcode)
         setSelectedCity(true)
         setCity([])
     }
@@ -3632,143 +3632,145 @@ const priceMap = () => {
     return (
         <>
             <HeaderContainer title="price pam" />
-            <div className=" d-flex price-map-main">
-                    
+            <div className=" price-map-main">
+                <div className="search-area d-flex mb-3">
+                    <input type="search" value={textToSearch} onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
+                    <ListGroup as="ul" id="navbar-example2" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
 
-                <div className="price-content-view">
-                    <div className="d-flex mb-3">
-                        <input type="search" value={textToSearch} onChange={(el) => filterCities(el.target.value)} placeholder="Ex : “10 rue dy Chateau”, “Paris 15”, “69002”..." />
-                        <ListGroup as="ul" id="navbar-example2" className="position-absolute" style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}>
+                        {!selectedCity && updatesearch.map((cityData, index) => {
+                            return (
+                                <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name} {cityData.zipcode}</a></ListGroup.Item>
+                            )
+                        })}
+                    </ListGroup>
 
-                            {!selectedCity && updatesearch.map((cityData, index) => {
-                                return (
-                                    <ListGroup.Item key={index} as="li" style={{ cursor: 'pointer' }} onClick={() => onSuggesstionClick(index)}><a className="text-dark" href={"#" + cityData.name}>{cityData.name} {cityData.zipcode }</a></ListGroup.Item>
-                                )
-                            })}
-                        </ListGroup>
+                    <Button className="search-button"  > <img src={SearchImage} alt="SearchImage" /> </Button>
+                </div>
+                <div className="d-flex" >
+                    <div className="price-content-view">
 
-                        <Button className="search-button"  > <img src={SearchImage} alt="SearchImage" /> </Button>
-                    </div>
-                    <p> {cityPriceMap ? "Prix immobilier dans le Centre-Val de Loire" : "Prix immobilier partout en France"} </p>
+                        <p> {cityPriceMap ? "Prix immobilier dans le Centre-Val de Loire" : "Prix immobilier partout en France"} </p>
 
-                    {cityPriceMap && (
-                        <>
-                            <span className="city-price-content-span">Estimations de prix MeilleursAgents au 1 juillet 2021. <Link href="#">Comprendre nos prix</Link></span>
+                        {cityPriceMap && (
+                            <>
+                                <span className="city-price-content-span">Estimations de prix MeilleursAgents au 1 juillet 2021. <Link href="#">Comprendre nos prix</Link></span>
 
-                            <div>
-                                <div className="city-price-content-map">
-                                    <div className="title-block d-flex flex-row">
-                                        <span
-                                            onClick={() => switchTab("price")}
-                                            className={activeTab === "price" ? "active" : "inactive"}
-                                        >
-                                            Prix au m²
-                                        </span>
-                                        <span
-                                            onClick={() => switchTab("rent")}
-                                            className={activeTab === "rent" ? "active" : "inactive"}
-                                        >
-                                            Loyer au m²
-                                        </span>
-                                    </div>
-                                    <div className=" city-price-date d-flex ">
-                                        <div className="d-flex justify-content-center main-block">
-                                            <div className="text-center home-type" >
-                                                <div>
-                                                    <img src={ApartmentImageNoActive} alt="ApartmentImageNoActive" /><br></br>
-                                                    <span>APPARTEMENT</span>
+                                <div>
+                                    <div className="city-price-content-map">
+                                        <div className="title-block d-flex flex-row">
+                                            <span
+                                                onClick={() => switchTab("price")}
+                                                className={activeTab === "price" ? "active" : "inactive"}
+                                            >
+                                                Prix au m²
+                                            </span>
+                                            <span
+                                                onClick={() => switchTab("rent")}
+                                                className={activeTab === "rent" ? "active" : "inactive"}
+                                            >
+                                                Loyer au m²
+                                            </span>
+                                        </div>
+                                        <div className=" city-price-date d-flex ">
+                                            <div className="d-flex justify-content-center main-block">
+                                                <div className="text-center home-type" >
+                                                    <div>
+                                                        <img src={ApartmentImageNoActive} alt="ApartmentImageNoActive" /><br></br>
+                                                        <span>APPARTEMENT</span>
+                                                    </div>
+                                                </div>
+                                                <div className="prices-block ">
+                                                    <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
+                                                    <p> {activeTab === "price" ? prices.house.toFixed(2) : prices.house.toFixed(2)} € </p>
+                                                    <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
+
+                                                    <span >Indice de cinfiance</span>
+                                                    <span><p style={{ paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)" }}>Indice de cinfiance</p></span>
+                                                    <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
                                                 </div>
                                             </div>
-                                            <div className="prices-block ">
-                                                <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
-                                                <p> {activeTab === "price" ? prices.house.toFixed(2) : prices.house.toFixed(2)} € </p>
-                                                <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
 
-                                                <span >Indice de cinfiance</span>
-                                                <span><p style={{ paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)" }}>Indice de cinfiance</p></span>
-                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
-                                            </div>
-                                        </div>
+                                            <div className="d-flex justify-content-center main-block">
+                                                <div className="text-center home-type" >
+                                                    <div>
+                                                        <img src={HomeownerIcon} alt="HomeownerIcon" /><br></br>
+                                                        <span>APPARTEMENT</span>
+                                                    </div>
 
-                                        <div className="d-flex justify-content-center main-block">
-                                            <div className="text-center home-type" >
-                                                <div>
-                                                    <img src={HomeownerIcon} alt="HomeownerIcon" /><br></br>
-                                                    <span>APPARTEMENT</span>
                                                 </div>
+                                                <div className="prices-block">
+                                                    <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
+                                                    <p> {activeTab === "price" ? prices.appartment.toFixed(2) : prices.appartment.toFixed(2)} € </p>
+                                                    <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
+                                                    <span><p style={{ paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)" }}>Indice de cinfiance</p></span>
+                                                    <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
+                                                </div>
+                                            </div>
 
-                                            </div>
-                                            <div className="prices-block">
-                                                <span> {activeTab === "price" ? "Prix m2 moyen" : "Loyer mensuel"} </span>
-                                                <p> {activeTab === "price" ? prices.appartment.toFixed(2) : prices.appartment.toFixed(2)} € </p>
-                                                <span className="price">{activeTab === "price" ? "de 1 789 € à 4 041 €" : "de 1 289 € à 4 041 €"} </span>
-                                                <span><p style={{ paddingTop: "10px", fontSize: "14px", lineHeight: "19px", fontWeight: 400, color: "var(--colorGrayTwo)" }}>Indice de cinfiance</p></span>
-                                                <ProgressBar now={60} variant="warning" min={0} max={100} style={progressBarStyle} />
-                                            </div>
+
                                         </div>
 
+                                        <div className="estimate-links-block text-center d-flex flex-column">
+
+                                            <div className="links-block estmates-buttons">
+                                                <p>Estimez votre vien en fonction de sec caracteristiques</p>
+                                                <Button>Estimer un bien en ligne</Button>
+                                            </div>
+
+                                            <div className="links-block get-prices">
+                                                <p>Ou obtenez les prix de vente des blens a proximite</p>
+                                                <Button>Obtenir les prix de vente</Button>
+                                            </div>
+                                            <Link href="#">Comparer les professionnels en fonction de leur nombre de ventes</Link>
+
+                                        </div>
 
                                     </div>
 
-                                    <div className="estimate-links-block text-center d-flex flex-column">
-
-                                        <div className="links-block estmates-buttons">
-                                            <p>Estimez votre vien en fonction de sec caracteristiques</p>
-                                            <Button>Estimer un bien en ligne</Button>
-                                        </div>
-
-                                        <div className="links-block get-prices">
-                                            <p>Ou obtenez les prix de vente des blens a proximite</p>
-                                            <Button>Obtenir les prix de vente</Button>
-                                        </div>
-                                        <Link href="#">Comparer les professionnels en fonction de leur nombre de ventes</Link>
-
-                                    </div>
 
                                 </div>
+                            </>
+                        )}
+                        {!cityPriceMap && (
+                            <div className="city-price-block">
+                                <p>Le prix du m² dans les grandes villes de France</p>
+
+                                <Table cellSpacing="0" cellPadding="1" width="300">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Ville</th>
+                                            <th>Prix m² moyen appartement</th>
+                                            <th>Prix m² moyen maison</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" className="scrollspy-example" >
+                                        {cityAndPricesData.map((city, index) => {
+                                            return (
+                                                <tr id={city.name} key={index} onClick={() => gotoCityData(index)}>
+                                                    <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
+                                                    <td>{city.appartment.toFixed(2)}</td>
+                                                    <td>{city.house.toFixed(2)}</td>
+                                                </tr>)
+                                        })}
+                                    </tbody>
+
+                                </Table>
+
 
 
                             </div>
-                        </>
-                    )}
-                    {!cityPriceMap && (
-                        <div className="city-price-block">
-                            <p>Le prix du m² dans les grandes villes de France</p>
 
-                            <Table cellSpacing="0" cellPadding="1" width="300">
+                        )
+                        }
 
-                                <thead>
-                                    <tr>
-                                        <th>Ville</th>
-                                        <th>Prix m² moyen appartement</th>
-                                        <th>Prix m² moyen maison</th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" className="scrollspy-example" >
-                                    {cityAndPricesData.map((city, index) => {
-                                        return (
-                                            <tr id={city.name} key={index} onClick={() => gotoCityData(index)}>
-                                                <td className="city-name" style={{ textAlign: "left" }}>{city.name} {city.zipcode}</td>
-                                                <td>{city.appartment.toFixed(2)}</td>
-                                                <td>{city.house.toFixed(2)}</td>
-                                            </tr>)
-                                    })}
-                                </tbody>
+                    </div>
+                    <div className="price-map">
 
-                            </Table>
-
-
-
-                        </div>
-
-                    )
-                    }
-
-                </div>
-                <div className="price-map">
-                    <CustomScrollbar>
-                        <GoogleMap {...mapProps} />
-                    </CustomScrollbar>
+                        <CustomScrollbar>
+                            <GoogleMap {...mapProps} />
+                        </CustomScrollbar>
+                    </div>
                 </div>
 
             </div>
