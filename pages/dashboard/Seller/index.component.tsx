@@ -44,11 +44,7 @@ const SellerDashboard = () => {
 	const fetchAll = async () => {
 		try {
 			setIsLoading(true);
-			const promises = [
-				_getProperties(),
-				_getMainProperty(),
-				// _getAgencies()
-			];
+			const promises = [_getProperties(), _getMainProperty(), _getAgencies()];
 			await Promise.all(promises);
 			setIsLoading(false);
 		} catch (error) {
@@ -84,7 +80,6 @@ const SellerDashboard = () => {
 	const _getAgencies = async () => {
 		try {
 			const _agencies = await getAgencies();
-			console.log(_agencies);
 			setAgencies([..._agencies]);
 		} catch (error) {
 			console.log(error);

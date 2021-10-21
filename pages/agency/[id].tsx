@@ -33,14 +33,14 @@ const AgencyPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [agency, setAgency] = useState(null);
 
-	const _getProperties = async () => {
-		try {
-			const _properties = await getProperties(userId);
-			setProperties([..._properties]);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// const _getProperties = async () => {
+	// 	try {
+	// 		const _properties: any = await getProperties(userId);
+	// 		setProperties([..._properties]);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	const _getAgency = async () => {
 		try {
@@ -54,7 +54,10 @@ const AgencyPage = () => {
 	const fetchAll = async () => {
 		try {
 			setIsLoading(true);
-			const promises = [_getProperties(), _getAgency()];
+			const promises = [
+				// _getProperties(),
+				_getAgency(),
+			];
 			await Promise.all(promises);
 			setIsLoading(false);
 		} catch (error) {

@@ -78,3 +78,9 @@ export const getSimilarProperties = (
 		}
 	});
 };
+
+export const getProperties = (userId) => {
+	return new Promise(async (resolve, reject) => {
+		// const property = await axios.get()
+	});
+};

@@ -24,6 +24,7 @@ import ContactAgentModal from "../Modals/ContactAgentModal";
 // import { parseJwt } from '../../utils';
 
 const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
+	console.log(agency);
 	const router = useRouter();
 	const { locale } = router;
 	const { t } = useTranslation("dashboard-page");
@@ -117,6 +118,21 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 		};
 	};
 
+	const agenciesList = agency.properties
+		? [
+				...agency?.properties?.map((prop) => {
+					return {
+						type: "property",
+						position: {
+							lat: prop?.lat,
+							lng: prop?.lng,
+						},
+						id: prop?.id,
+					};
+				}),
+		  ]
+		: [];
+
 	const mapProps = {
 		markers: [
 			{
@@ -127,16 +143,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				},
 				id: "home",
 			},
-			...agency?.properties?.map((prop) => {
-				return {
-					type: "property",
-					position: {
-						lat: prop?.lat,
-						lng: prop?.lng,
-					},
-					id: prop?.id,
-				};
-			}),
+			...agenciesList,
 		],
 	};
 
