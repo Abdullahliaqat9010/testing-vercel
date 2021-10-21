@@ -404,12 +404,12 @@
 
         .properties-list {
           h3 {
-            position: absolute;
+            // position: absolute;
             top: 10px;
           }
 
           p {
-            position: absolute;
+            // position: absolute;
             top: 60px;
           }
 
@@ -474,7 +474,7 @@
             }
 
             .logo-block {
-              height: 126px;
+              // height: 126px;
               position: absolute;
               left: 0;
               width: initial;
@@ -627,6 +627,9 @@
           .btn:last-child {
             border-radius: 0 0 8px 8px;
           }
+          .Dashboard__container .properties-block .properties-list {
+            width: 100%; 
+         }
         }
       }
 
@@ -689,7 +692,7 @@
 
             &__no-items {
               margin: unset;
-              max-width: 300px;
+              max-width: 250px;
             }
           }
         }
@@ -818,5 +821,34 @@
     .image-block {
       margin-right: 30x;
     }
+    .find-agent-block {
+      padding: 20px;
+      
+
+      background: var(--colorWhite);
+      border-radius: 10px;
+
+      .load-more {
+        margin: 30px auto 0;
+        width: 224px;
+      }
+      h3{
+        font-size: 20px;
+            }
+    }
+    .Dashboard__container .find-agent-block .agency-block .short-info__right {
+      margin: 9px 0 19px 91px;
+  }
+  .btn-group, .btn-group-vertical {
+    position: relative;
+    display: flex;
+    /* vertical-align: middle; */
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+.Dashboard__container .properties-block .properties-list {
+   width: 100%; 
+}
   }
 }

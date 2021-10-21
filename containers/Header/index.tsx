@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
@@ -58,10 +58,11 @@ const HeaderContainer = ({
 	const dispatch = useDispatch();
 
 	const { locale } = router;
-	const { t } = useTranslation("header");
+	const { t, i18n } = useTranslation("header");
 	const account_type = useSelector(
 		(state: RootState) => state?.userInfo?.account_type
 	);
+	const [scrollHeight, setScrollHeight] = useState<number>(0);
 	const navBarList =
 		account_type === "seller" ? sellerNavBarList : agencyNavBarList;
 	// const { mainBlocks, stepBlock } = useSelector(
@@ -112,6 +113,22 @@ const HeaderContainer = ({
 	const token = localStorage.getItem("access_token");
 	const isLoggedIn = localStorage.getItem("access_token") ? true : false;
 	const isAdmin = token ? parseJwt(token)?.account_type === "admin" : false;
+
+	const onScroll = () => {
+		setScrollHeight(window.pageYOffset);
+	};
+
+	useEffect(() => {
+		i18n.changeLanguage(locale);
+	}, [locale]);
+
+	useEffect(() => {
+		window.addEventListener("scroll", onScroll);
+
+		return () => {
+			window.removeEventListener("scroll", onScroll);
+		};
+	}, []);
 
 	return (
 		<>
@@ -187,7 +204,11 @@ const HeaderContainer = ({
 					}}
 				/>
 			</Head> */}
-			<div className="Header d-flex justify-content-between align-items-center">
+			<div
+				className={`Header d-flex justify-content-between align-items-center fixed-top ${
+					scrollHeight > 30 ? "shadow" : ""
+				}`}
+			>
 				<div
 					style={{
 						display: "flex",
@@ -214,8 +235,8 @@ const HeaderContainer = ({
 									Estimate your home
 								</a> */}
 									<a href="/compare-agency" className="n-link-custom">
-									Compare agencies
-								</a>
+										Compare agencies
+									</a>
 								</>
 							)}
 							<a href="/blogs" className="n-link-custom">
@@ -355,6 +376,7 @@ const HeaderContainer = ({
 										>
 											<span onClick={openSwitcherBlock}>{locale}</span>
 											{openLangList && (
+												
 												<div className="lang-list">
 													{langList.map((lang, index) => (
 														<span

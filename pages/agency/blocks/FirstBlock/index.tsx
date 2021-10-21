@@ -23,6 +23,8 @@ import YoutubeIcon from "../../../../assets/images/agency-page/social/youtube-ic
 import LinkedinIcon from "../../../../assets/images/agency-page/social/linkedin-icon.svg";
 import ArrowImage from "../../../../assets/images/arrow-blue.svg";
 import MailIcon from "../../../../assets/images/mail-white-icon.svg";
+import noAgencyLogo from "../../../../assets/images/no-image-available.svg";
+
 import { useTranslation } from "react-i18next";
 
 const FirstBlock = ({
@@ -71,7 +73,14 @@ const FirstBlock = ({
 				<div className="agency-info">
 					<div className="d-flex agency-info__title">
 						<div className="logo-block">
-							<img src={currentAgency?.logo_image} alt="logo" />
+							<img
+								src={
+									currentAgency?.logo_image
+										? currentAgency?.logo_image
+										: noAgencyLogo
+								}
+								alt="logo"
+							/>
 						</div>
 						<div className="agency-info__block">
 							<h1 className="agency-name">{currentAgency?.company_name}</h1>

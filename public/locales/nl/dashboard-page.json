@@ -4,7 +4,7 @@
   "button.cancel": "Annuleer",
   "button.close": "Dichtbij",
   "button.confirm": "Bevestig",
-  "button.contact": "Contact",
+  "button.contact": "Contacteer ",
   "button.load-more": "Meer laden",
   "button.request-price": "Prijs opvragen",
   "button.too_high": "Te hoog",
@@ -34,7 +34,7 @@
   "placeholder.property-has": "Ik denk dat deze eigendom heeft",
   "placeholder.message": "Ik heb uw profiel gevonden op BelgiumImmo en ik wil u graag informeren over mijn vastgoedproject.",
   "span.from": "van",
-  "span.nearest-agency": "Dichtstbijzijnde bureau bij jou",
+  "span.nearest-agency": "Dichtstbijzijnde vastgoedkantoor bij u",
   "span.agency": "Makelaar",
   "span.reviews": "Beoordelingen",
   "span.similar-property": "Gelijkaardige woningen",
@@ -57,11 +57,14 @@
   "span.month": "maanden",
   "span.year": "jaar",
   "desc.soon": "zal spoedig contact met u opnemen.",
-  "title.contact-agency": "Neem contact op met een Vastgoedkantoor",
+  "title.contact-agency": "Neem contact op met dit Vastgoedkantoor",
   "placeholder.enter": "Vervolledig aub",
   "span.link1": "nostrud amet.",
   "span.link2": "Velit officia",
   "p.desc-part1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt",
   "p.desc-part2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
-  "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,"
+  "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,",
+  "label.ouwner": "Kantoorverantwoordelijke"
+  
+
 }

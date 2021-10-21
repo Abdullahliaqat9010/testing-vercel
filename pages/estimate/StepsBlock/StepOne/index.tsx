@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 import GoogleMap from "../../../../components/GoogleMap";
 
@@ -26,8 +27,16 @@ import MarkerImage from "../../../../assets/images/marker-blue.svg";
 import CloseIcon from "../../../../assets/images/close-icon.svg";
 
 const StepOne = ({ setStep }) => {
-	const { t } = useTranslation("steps");
+	const { t, i18n } = useTranslation("steps");
 	const dispatch = useDispatch();
+	const { locale } = useRouter();
+
+	// useEffect(() => {
+	// 	console.log(locale);
+	// 	console.log(t("span.step"));
+	// 	console.log(i18n.language);
+	// }, [locale]);
+
 	const { street, number, locality, zip } = useSelector(
 		(state: RootState) => state.stepsInfo.stepBlock.additionalAddress
 	);
@@ -177,7 +186,7 @@ const StepOne = ({ setStep }) => {
 	};
 
 	return (
-		<div className="step-one">
+		<div className="step-one ">
 			<span className="step-title">{t("span.step")} 1</span>
 			<h4>{t("title.address")}</h4>
 			<Form>
@@ -305,7 +314,7 @@ const StepOne = ({ setStep }) => {
 				disabled={disabledButton()}
 				onClick={handleClickNextBtn}
 				type="submit"
-				className="next-step"
+				// className="next-step"
 			>
 				{t("button.next")}
 			</Button>

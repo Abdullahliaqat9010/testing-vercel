@@ -120,5 +120,9 @@
   "error.only-latter": "ne peut contenir que des terminaisons et des espaces",
   "error.password": "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.",
   "error.dont-match": "Les mots de passe ne correspondent pas",
-  "placeholder.epc": "Entrer"
+  "placeholder.epc": "Entrer",
+  "message.add-property-success": "La propriété a été ajoutée avec succès",
+  "button.add-property": "Ajouter une propriété"
+
+
 }

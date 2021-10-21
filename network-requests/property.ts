@@ -38,7 +38,11 @@ export const getProperties = (userId): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: properties } = await axios.get(`users/${userId}/property`);
-			res(properties);
+			if (properties && properties.length > 0) {
+				res(properties);
+			} else {
+				res([]);
+			}
 		} catch (error) {
 			rej(error);
 		}

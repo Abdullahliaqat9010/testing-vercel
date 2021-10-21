@@ -3,7 +3,7 @@ import React from "react";
 import _3dMap from "../../components/3dMap";
 
 const Map = () => {
-	return <_3dMap />;
+	return <_3dMap is3d={true} />;
 };
 
 export default Map;

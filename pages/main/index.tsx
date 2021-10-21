@@ -12,13 +12,9 @@ const MainPageComponent = () => {
 	const router = useRouter();
 
 	const { locale } = router;
-	const { mainBlocks } = useSelector((state: RootState) => state.stepsInfo);
 
 	return (
 		<div className="main-page">
-			{/* {mainBlocks ? (
-				<StepsBlock />
-			) : ( */}
 			<>
 				<ImagesBlock />
 				<InfoBlock />
