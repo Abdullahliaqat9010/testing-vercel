@@ -71,6 +71,7 @@ const compareAgency = () => {
 
 
 	const { dataFromMapBox } = useSelector((state: RootState) => state.stepsInfo);
+	console.log("sajhdjkas", dataFromMapBox)
 	useEffect(() => {
 		fetchAll()
 	}, [address])
@@ -214,6 +215,7 @@ const compareAgency = () => {
 		}
 		else {
 			setOpen(false);
+
 		}
 	};
 
@@ -273,8 +275,8 @@ const compareAgency = () => {
 						</div>
 					</div>
 					<div className="agency-container">
-						{filteredAgencies?.length &&
-							filteredAgencies.map((agency, index) => {
+						
+						{filteredAgencies?.length > 0 ? filteredAgencies.map((agency, index) => {
 								return (
 									<div key={index}>
 										<div onClick={() => openDetail(index)} className="agency d-flex">
@@ -397,7 +399,8 @@ const compareAgency = () => {
 										)}
 									</div>
 								);
-							})}
+							}):(<p>No agencies in your area yet, They are coming to Belgiumimmo soon!</p>)
+						}
 
 						<div className="w-100 justify-content-center text-center">
 							<Pagination

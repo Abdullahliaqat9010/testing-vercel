@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components"
-
 import { Button, Modal } from "react-bootstrap";
 import { RootState } from "../../types/state";
 import SendSuccess from "../../assets/images/message-send.svg";
-import { contactAgency } from "../../network-requests";
+import { contactAgency, getProperties } from "../../network-requests";
 
 const ContactFormContainer = styled.div`
     background: #FFFFFF;
@@ -26,15 +25,15 @@ const Headline = styled.div`
 `;
 
 const ContactAgentModal = ({
-    properties = [],
-    agencyOwner,
+    isLimited,
     agencyName,
     agencyId = 3
 }) => {
     console.log("agencyId", agencyId)
     const { t } = useTranslation("dashboard-page");
     const { t: t2 } = useTranslation("common");
-    const { firstname, lastname, email, phone_number } = useSelector(
+    const [ properties, setProperties ] = useState([])
+    const { firstname, lastname, email, phone_number, auth, id: userId } = useSelector(
         (state: RootState) => state.userInfo
     );
     const [isSuccessModalVisible, setIsSuccessModalVisible] =
@@ -49,13 +48,25 @@ const ContactAgentModal = ({
         phone: Yup.string().required(),
         message: Yup.string().required("Required"),
         free_evaluated: Yup.bool(),
-        propertyId: Yup.number().required(),
     });
+
 
     const handleClose = () => {
         // onClose();
         setIsSuccessModalVisible(false);
     };
+    useEffect(()=>{
+        _getProperties
+    },[auth])
+
+    const _getProperties = async () => {
+		try {
+			const _properties = await getProperties(userId);
+			setProperties([..._properties]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
     const sendToAgency = (contactInfo) => {
         return new Promise(async (res, rej) => {
@@ -146,29 +157,31 @@ const ContactAgentModal = ({
                                         name="message"
                                     />
                                 </div>
-                                <div className="d-flex flex-column form-input-block">
-                                    {/* <label className="form-label" htmlFor="propertyId">
+                                {!isLimited && auth &&
+                                    <div className="d-flex flex-column form-input-block">
+                                        {/* <label className="form-label" htmlFor="propertyId">
 											{t("label.select")}
 										</label> */}
-                                    <Field
-                                        className="custom-select"
-                                        name="propertyId"
-                                        type="text"
-                                        as="select"
-                                        style={{ paddingRight: 40 }}
-                                    >
-                                        {properties.map((property) => (
-                                            <option key={property?.id} value={property?.id}>
-                                                {property?.search_address}
-                                            </option>
-                                        ))}
-                                    </Field>
-                                    <ErrorMessage
-                                        className="form-error"
-                                        component="div"
-                                        name="propertyId"
-                                    />
-                                </div>
+                                        <Field
+                                            className="custom-select"
+                                            name="propertyId"
+                                            type="text"
+                                            as="select"
+                                            style={{ paddingRight: 40 }}
+                                        >
+                                            {properties.map((property) => (
+                                                <option key={property?.id} value={property?.id}>
+                                                    {property?.search_address}
+                                                </option>
+                                            ))}
+                                        </Field>
+                                        <ErrorMessage
+                                            className="form-error"
+                                            component="div"
+                                            name="propertyId"
+                                        />
+                                    </div>
+                                }
 
                                 <div className="d-flex flex-row">
                                     <Field

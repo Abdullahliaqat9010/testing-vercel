@@ -24,7 +24,8 @@ import YoutubeIcon from "../../assets/images/agency-page/social/youtube-icon.svg
 import LinkedinIcon from "../../assets/images/agency-page/social/linkedin-icon.svg";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
-
+import { RootState } from "../../types/state";
+import { useSelector } from "react-redux";
 const Labels = styled.span`
     font-size: 14px;
     line-height: 19px;
@@ -149,10 +150,12 @@ const SocialImages = styled.div`
 
 
 const portFolio = ({ agency }) => {
+    console.log("agency", agency)
     const [showContact, setShowContect] = useState(false)
     const contactToggle = () => {
         setShowContect(!showContact)
     }
+
     const [facebook, setFacebook] = useState("")
     const [instagram, setInstagram] = useState("")
     const [youtube, setYoutube] = useState("")
@@ -160,25 +163,32 @@ const portFolio = ({ agency }) => {
     const [twiter, setTwiter] = useState("")
 
     const [name, setName] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [comment, setComment] = useState<string>("");
-	const [isAddingComment, setIsAddingComment] = useState(false);
+    const [email, setEmail] = useState<string>("");
+    const [comment, setComment] = useState<string>("");
+    const [isAddingComment, setIsAddingComment] = useState(false);
 
 
     const onSubmit = async (e) => {
-        setIsAddingComment(true)
-        const commentParams = {
-            name,
-            email,
-            comment,
-            agencyId: agency?.id
+        try {
+             setIsAddingComment(true);
+            await axios.post(`/blog-comments`, {
+                name,
+                email,
+                comment,
+                blog_id: agency?.id,
+            });
+            setName("");
+            setComment("");
+            setEmail("");
+             setIsAddingComment(false);
+        } catch (error) {
+            console.log(error)
+            setIsAddingComment(false);
         }
-
-		window.confirm("work is pending on this")
-	};
+    };
 
     useEffect(() => {
-        console.log("agency", agency)
+
         let linksArray = agency?.social_links ? agency?.social_links?.split(",") : []
         for (let index = 0; index < linksArray.length; index++) {
             const element = linksArray[index];
@@ -272,17 +282,20 @@ const portFolio = ({ agency }) => {
                                             <Labels>{agency?.opening_time ?? "Mon-Fri: 10AM-6PM, Sat: 10AM-1PM"}</Labels>
                                         </div>
                                     </div>
+
                                     <div className=" d-flex flex-column border-bottom border-bottom-gray pb-3">
                                         <Headlines>{"Social links"}</Headlines>
-                                        <SocialImages>
-                                            {facebook && <a href={facebook} target="_blank" > <img src={FacebookIcon} alt="FacebookIcon" /></a>}
-                                            {twiter && <a href={twiter} target="_blank" ><img src={TwitterIcon} alt="TwitterIcon" /></a>}
-                                            {instagram && <a href={instagram} target="_blank" > <img src={InstagramIcon} alt="InstagramIcon" /></a>}
-                                            {youtube && <a href={youtube} target="_blank" > <img src={YoutubeIcon} alt="YoutubeIcon" /></a>}
-                                            {linkedin && <a href={linkedin} target="_blank" > <img src={LinkedinIcon} alt="LinkedinIcon" /></a>}
-                                        </SocialImages>
-
+                                        {agency?.social_links ?
+                                            <SocialImages>
+                                                {facebook && <a href={facebook} target="_blank" > <img src={FacebookIcon} alt="FacebookIcon" /></a>}
+                                                {twiter && <a href={twiter} target="_blank" ><img src={TwitterIcon} alt="TwitterIcon" /></a>}
+                                                {instagram && <a href={instagram} target="_blank" > <img src={InstagramIcon} alt="InstagramIcon" /></a>}
+                                                {youtube && <a href={youtube} target="_blank" > <img src={YoutubeIcon} alt="YoutubeIcon" /></a>}
+                                                {linkedin && <a href={linkedin} target="_blank" > <img src={LinkedinIcon} alt="LinkedinIcon" /></a>}
+                                            </SocialImages>
+                                            : "No social links available"}
                                     </div>
+
                                 </ProfileContainer>
                                 <div
                                     style={{
@@ -293,7 +306,7 @@ const portFolio = ({ agency }) => {
                                     }}
                                 >
                                     <p style={{ color: "#6c768f", fontWeight: "bold", fontSize: 24 }}>
-                                        {"text leave a comment"}
+                                        {"leave a comment"}
                                     </p>
                                     <Form onSubmit={onSubmit}>
                                         <Form.Group className="mb-3">
@@ -353,9 +366,10 @@ const portFolio = ({ agency }) => {
                             <ContactFormBlock>
                                 <ContectForm
                                     // properties={}
-                                    agencyOwner="ajhs"
+                                    isLimited={agency?.isLimited ?? false}
                                     agencyName={agency?.company_name}
                                     agencyId={agency?.id}
+
                                 />
                             </ContactFormBlock>
                         </ContentBlock>

@@ -22,7 +22,7 @@ const agencyProtfolio = () => {
         try {
             let _agency = await getLimitedAgencyById(Number(id));
             console.log("_agency", _agency)
-            setAgency({ ..._agency });
+            setAgency({ ..._agency, isLimited: true });
         } catch (error) {
             console.log(error);
         }
