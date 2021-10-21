@@ -1,508 +1,432 @@
 .compare-agency-result {
-	color: var(--bg-gray);
-	padding: 10px;
+  color: var(--bg-gray);
+  padding: 10px;
 
-	input::placeholder {
-		margin: 0px 10px;
-		color: var(--colorGray);
-		// padding-left: 10px;
-	}
-	input:focus,
-	input:active,
-	input:hover {
-		box-shadow: unset;
-		border: unset;
-		outline: none;
-	}
+  input::placeholder {
+    margin: 0px 10px;
+    color: var(--colorGray);
+    // padding-left: 10px;
+  }
+  input:focus,
+  input:active,
+  input:hover {
+    box-shadow: unset;
+    border: unset;
+    outline: none;
+  }
 
-	.main-image {
-		width: 100%;
-		height: 483px;
-	}
-	.agency-result-container {
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		width: 75%;
-		left: 12.5%;
-		top: 455px;
+  .main-image {
+    width: 100%;
+    height: 483px;
+  }
+  .agency-result-container {
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 75%;
+    left: 12.5%;
+    top: 455px;
 
-		.result-agency {
-			align-self: center;
-			width: 100%;
-			padding: 30px;
-			border-radius: 10px;
-			background-color: var(--colorWhite);
+    .result-agency {
+      align-self: center;
+      width: 100%;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: var(--colorWhite);
 
-			p {
-				font-weight: bold;
-				font-size: 24px;
-				line-height: 33px;
-				margin: 20px 0px;
-			}
+      p {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 33px;
+        margin: 20px 0px;
+      }
 
-			.search-form {
-				flex: 2;
-				.search-input-sugguession.d-flex.flex-collumn {
-					width: 77%;
-				}
-				ul.position-absolute.list-group {
-					width: 73%;
-				}
-				input {
-					height: 50px;
-					box-sizing: border-box;
-					border-radius: 8px;
-					border: 1px solid var(--colorGray);
-					color: var(--mainColor);
-					font-size: 16px;
-					padding-left: 10px;
-					line-height: 22px;
-				}
-				Button {
-					width: 200px;
-					height: 50px;
-					justify-content: center;
-					align-items: center;
-					padding: 14px 20px;
-					border-radius: 8px;
-					margin: 0px 20px;
-				}
-			}
-		}
+      .search-form {
+        flex: 2;
+        input {
+          height: 50px;
+          box-sizing: border-box;
+          border-radius: 8px;
+          border: 1px solid var(--colorGray);
+          color: var(--mainColor);
+          font-size: 16px;
+          padding-left: 10px;
+          line-height: 22px;
+        }
+        Button {
+          width: 200px;
+          height: 50px;
+          justify-content: center;
+          align-items: center;
+          padding: 14px 20px;
+          border-radius: 8px;
+          margin: 0px 20px;
+        }
+      }
+    }
 
-		.agency-container {
-			padding: 20px;
-			background: var(--colorWhite);
-			border-radius: 10px;
-			margin-top: 20px;
-			width: 100%;
-			.agency {
-				margin: 30px 0px;
-				border-bottom: 1px solid rgba(56, 113, 239, 0.1);
-				padding: 20px 0px;
-				.image-bassicInfo {
-					display: flex;
-					flex-direction: row;
-					width: 50%;
-					img {
-						border: 1px solid var(--bg-blue);
-						width: 150px;
-						height: 92px;
-						border-radius: 8px;
-					}
-					.agency-basicInfo {
-						margin-left: 10px;
-						height: 82px;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
+    .agency-container {
+      padding: 20px;
+      background: var(--colorWhite);
+      border-radius: 10px;
+      margin-top: 20px;
+      width: 100%;
+      .agency {
+        margin: 30px 0px;
+        border-bottom: 1px solid rgba(56, 113, 239, 0.1);
+        padding: 20px 0px;
+        .image-bassicInfo {
+          display: flex;
+          flex-direction: row;
+          width: 50%;
+          img {
+            border: 1px solid var(--bg-blue);
+            width: 150px;
+            height: 82px;
+            border-radius: 8px;
+          }
+          .agency-basicInfo {
+            margin-left: 10px;
+            height: 82px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-						.agency-name {
-							font-weight: bold;
-							font-size: 16px;
-							line-height: 22px;
-							margin: 5px 0px;
-						}
-						.rating-row {
-							margin: 5px 0px;
-							display: flex;
-							flex-direction: row;
-							align-items: center;
-							label {
-								margin-bottom: 3px;
-							}
-							.dv-star-rating {
-								margin: 0px 5px;
-							}
-						}
-						.rating {
-							font-size: 14px;
-							line-height: 19px;
-						}
-						.from-totla-reviews {
-							font-size: 12px;
-							line-height: 16px;
-							opacity: 0.6;
-						}
-						.rating-star {
-							text-align: center;
-							font-size: 14px;
-							line-height: 14px;
-							height: 14px;
-							width: 14px;
-						}
-					}
-				}
+            .agency-name {
+              font-weight: bold;
+              font-size: 16px;
+              line-height: 22px;
+              margin: 5px 0px;
+            }
+            .rating-row {
+              margin: 5px 0px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              label {
+                margin-bottom: 3px;
+              }
+              .dv-star-rating {
+                margin: 0px 5px;
+               
+              }
+            }
+            .rating {
+              font-size: 14px;
+              line-height: 19px;
+            }
+            .from-totla-reviews {
+              font-size: 12px;
+              line-height: 16px;
+              opacity: 0.6;
+            }
+            .rating-star {
+              text-align: center;
+              font-size: 14px;
+              line-height: 14px;
+              height: 14px;
+              width: 14px;
+            }
+          }
+        }
 
-				.sold-by-agency {
-					border-left: 1px solid rgba(56, 113, 239, 0.25);
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					align-items: center;
-					padding: 0px 10px 0px 0px;
-					width: 50%;
+        .sold-by-agency {
+          border-left: 1px solid rgba(56, 113, 239, 0.25);
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 10px 0px 0px;
+          width: 50%;
 
-					p {
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-					}
+          p {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
 
-					.noof-sold {
-						width: 42px;
-						height: 42px;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						align-items: center;
-						margin: 0px 12px;
-						border-radius: 8px;
-						background: var(--bg-blue);
-					}
-					.no-sold-properties {
-						font-size: 14px;
-						line-height: 19px;
-						color: var(--colorGrayTwo);
-						padding-left: 20px;
-					}
-					.sold-title {
-						font-size: 14px;
-						line-height: 19px;
-						margin: 4px 0px;
-					}
-					img {
-						font-size: 24px;
-						line-height: 24px;
-						height: 14px;
-						width: 14px;
-					}
-				}
-			}
+          .noof-sold {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0px 12px;
+            border-radius: 8px;
+            background: var(--bg-blue);
+          }
+          .no-sold-properties {
+            font-size: 14px;
+            line-height: 19px;
+            color: var(--colorGrayTwo);
+            padding-left: 20px;
+          }
+          .sold-title {
+            font-size: 14px;
+            line-height: 19px;
+            margin: 4px 0px;
+          }
+          img {
+            font-size: 24px;
+            line-height: 24px;
+            height: 14px;
+            width: 14px;
+          }
+        }
+      }
 
-			.aency-detail-container {
-				margin: 30px 0px;
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				.agency-detail-container-left {
-					width: 50%;
-					display: flex;
-					flex-direction: column;
-					.agency-links {
-						flex-direction: column;
-					}
+      .aency-detail-container {
+        margin: 30px 0px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .agency-detail-container-left {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
 
-					.agency-owner-box {
-						width: 100%;
-						display: flex;
-						flex-direction: row;
+          .agency-owner-box {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
 
-						img {
-							border-radius: 30px;
-							height: 50px;
-							width: 50px;
-						}
-						.agent-name {
-							font-weight: bold;
-							font-size: 16px;
-							line-height: 22px;
-							margin: 5px 0px;
-						}
-						.agent-title {
-							font-size: 14px;
-							line-height: 19px;
-							margin: 5px 0px;
-						}
-					}
-					a {
-						padding: 0px 5px;
-					}
+            img {
+              border-radius: 30px;
+              height: 50px;
+              width: 50px;
+            }
+            .agent-name {
+              font-weight: bold;
+              font-size: 16px;
+              line-height: 22px;
+              margin: 5px 0px;
+            }
+            .agent-title {
+              font-size: 14px;
+              line-height: 19px;
+              margin: 5px 0px;
+            }
+          }
+          a {
+            padding: 0px 5px;
+          }
 
-					.agency-description {
-						font-size: 14px;
-						line-height: 19px;
-						margin: 20px 0px;
-					}
-					.agency-links {
-						.detail-page-link {
-							padding: 0px;
-							margin:0px;
-							text-align: left;
+          .agency-description {
+            font-size: 14px;
+            line-height: 19px;
+            margin: 20px 0px;
+          }
 
-							img {
-								height: 18px;
-								width: 18px;
-								padding-left: 10px;
-							}
-						}
-					}
+          Button {
+            border-radius: 8px;
+            width: 155px;
+            height: 50px;
+            padding: 14px 20px;
+            margin: 20px 0px;
+          }
 
-					Button {
-						border-radius: 8px;
-						width: 155px;
-						height: 50px;
-						padding: 14px 20px;
-						margin: 20px 0px;
-					}
+          Link {
+            font-size: 14px;
+            line-height: 19px;
+            margin: 0px 3px;
+          }
+          .go-forword {
+            font-size: 14px;
+            line-height: 14px;
+            height: 14px;
+            width: 14px;
+            color: #3871ef;
+          }
+        }
 
-					Link {
-						font-size: 14px;
-						line-height: 19px;
-						margin: 0px 3px;
-					}
-					.go-forword {
-						font-size: 14px;
-						line-height: 14px;
-						height: 14px;
-						width: 14px;
-						color: #3871ef;
-					}
-				}
+        .agency-map-container {
+          width: 50%;
+          img {
+            width: 100%;
+            height: 264px;
+          }
+          .map-description {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            span {
+              width: 8px;
+              height: 8px;
+              background: var(--colorBlue);
+              border-radius: 10px;
+              margin: 0px 5px;
+            }
+            .blue-star {
+              width: 8px;
+              height: 8px;
+              margin: 0px 5px;
+              font-size: 16px;
+              line-height: 16px;
+            }
+          }
+        }
+      }
+    }
 
-				.agency-map-container {
-					width: 50%;
-					.blue-star {
-						width: 100%;
-						height: 264px;
-					}
-					.map-description {
-						display: flex;
-						flex-direction: row;
-						justify-content: center;
-						align-items: center;
-						span {
-							width: 8px;
-							height: 8px;
-							background: var(--colorBlue);
-							border-radius: 10px;
-							margin: 0px 5px;
-						}
-						.blue-star {
-							width: 8px;
-							height: 8px;
-							margin: 0px 5px;
-							font-size: 16px;
-							line-height: 16px;
-						}
-					}
-				}
-			}
-		}
+    .load-more {
+      width: 224px;
+      height: 47px;
+      margin: 10px 0px;
+      background-color: var(--bg-blue);
+      padding: 14px 10px;
+      border-radius: 8px;
+      color: var(--colorBlue);
+      font-size: 14px;
+      line-height: 19px;
+      border: none;
 
-		.load-more {
-			width: 224px;
-			height: 47px;
-			margin: 10px 0px;
-			background-color: var(--bg-blue);
-			padding: 14px 10px;
-			border-radius: 8px;
-			color: var(--colorBlue);
-			font-size: 14px;
-			line-height: 19px;
-			border: none;
-
-			img {
-				width: 18px;
-				height: 18px;
-			}
-		}
-	}
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
 }
 
+@media (min-width: 320px) and (max-width: 767px) {
+  .compare-agency-result .agency-result-container .result-agency {
+    align-self: center;
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: var(--colorWhite);
 
-@media (min-width: 481px) and (max-width: 768px) {
+    p {
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 33px;
+      margin: 20px 0px;
+    }
 
-	.compare-agency-result .agency-result-container .result-agency{
-		align-self: center;
-			width: 100%;
-			padding: 30px;
-			border-radius: 10px;
-			background-color: var(--colorWhite);
+    .search-form {
+      flex: 2;
+      input {
+        height: 50px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        border: 1px solid var(--colorGray);
+        color: var(--mainColor);
+        font-size: 16px;
+        padding-left: 10px;
+        line-height: 22px;
+      }
+      Button {
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        padding: 14px 20px;
+        border-radius: 8px;
+        margin: 0px 10px;
+        margin-top: 10px;
+      }
+    }
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .image-bassicInfo
+    img {
+    border: 1px solid var(--bg-blue);
+    width: 150px;
+    height: 33px;
+    border-radius: 8px;
+  }
 
-			p {
-				font-weight: bold;
-				font-size: 15px;
-				line-height: 33px;
-				margin: 20px 0px;
-			}
-			
-	 .search-form {
-		flex: 1;
-		
-		input {
-			height: 50px;
-			box-sizing: border-box;
-			border-radius: 8px;
-			border: 1px solid var(--colorGray);
-			color: var(--mainColor);
-			font-size: 16px;
-			padding-left: 10px;
-			line-height: 22px;
-		}
-		Button {
-			height: 50px;
-			justify-content: center;
-			align-items: center;
-			padding: 14px 20px;
-			border-radius: 8px;
-			margin: 0px 10px;
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .sold-by-agency {
+      border-left: 1px solid rgba(56, 113, 239, 0.25);
+      display: -moz-box;
+      display: flex;
+      -moz-box-orient: horizontal;
+      -moz-box-direction: normal;
+      flex-direction: row;
+      -moz-box-pack: justify;
+      justify-content: space-between;
+      padding: 0px 10px 0px 0px;
+      width: 50%;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .image-bassicInfo
+    .agency-basicInfo
+    .from-totla-reviews {
+    font-size: 12px;
+    line-height: 16px;
+    opacity: 0.6;
+    margin-left: 40px;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .image-bassicInfo
+    .agency-basicInfo
+    .rating {
+    font-size: 14px;
+    line-height: 19px;
+    margin-left: -16px;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    .agency-description {
+    font-size: 9px;
+    line-height: 19px;
+    margin: 20px 0px;
+  }
 
-		}
-		
-	 }	
-	}
-	.agency {
-		flex-direction: column;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left .agency-links .detail-page-link {
-		padding: 14px 20px;
-		margin: 20px 0px;
-		text-align: center;
-		display: flex;
-		flex-direction: row;
-		width: auto;
-		img {
-			margin-top:4px;
-		}
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left .agency-links {
-		flex-direction: row;
-		width: 100%;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-map-container {
-		width: 100%;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left {
-		width: 100%;
-		flex-direction: column;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container {
-		flex-direction: column;
-	}
-	.compare-agency-result .agency-result-container .result-agency .search-form ul.position-absolute.list-group {
-		width: 57%;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo img {
-		border: 1px solid var(--bg-blue);
-		width: 150px;
-		border-radius: 8px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo {
-		
-		width: 100%;
-	}
-	
-	.compare-agency-result .agency-result-container .agency-container .agency .sold-by-agency {
-		border-left: unset;
-		padding: 0px 10px 0px 0px;
-		width: 100%;
-		margin-top: 10px;
-		margin-left: 0px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo .from-totla-reviews {
-		font-size: 12px;
-		line-height: 16px;
-		opacity: 0.6;
-		margin-left: 40px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo .rating {
-		font-size: 14px;
-		line-height: 19px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left .agency-description {
-		font-size: 9px;
-		line-height: 19px;
-		margin: 20px 0px;
-	}
-	
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left Button {
-		border-radius: 8px;
-		padding: 14px 20px;
-		margin: 20px 0px;
-	}	
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-map-container .map-description {
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .sold-by-agency .no-sold-properties {
-		padding-left: 0px;
-	}
-	
-}
-
-@media (min-width: 320px) and (max-width: 480px){
-	.compare-agency-result {
-		padding: 0px;
-		.search-form {
-			flex-direction: column;
-		}
-		
-	}
-	.agency {
-		flex-direction: column;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .sold-by-agency .no-sold-properties {
-		padding-left: 0px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo img {
-		width: 70px;
-		height: 70px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo {
-		width: 100%;
-	}
-	.compare-agency-result .agency-result-container .agency-container .agency .sold-by-agency {
-		border-left: unset;
-		padding: 0px 10px 0px 0px;
-		width: 100%;
-		margin-top: 10px;
-		margin-left: 0px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left .agency-links .detail-page-link {
-		padding: 0px;
-		margin: 0px;
-		text-align: center;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left Button {
-		width: 100%;
-		height: 50px;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-detail-container-left {
-		width: 100%;
-	}
-	.compare-agency-result .agency-result-container .agency-container .aency-detail-container .agency-map-container {
-		display: none;
-	}
-	.compare-agency-result .agency-result-container .result-agency .search-form ul.position-absolute.list-group {
-		width: 84%;
-	}
-	.compare-agency-result .agency-result-container {
-		width: 85%;
-		left: 7.5%;
-	}
-	.compare-agency-result .agency-result-container .result-agency p {
-		font-size: 20px;
-		line-height: 27px;
-	}
-	.compare-agency-result .agency-result-container .result-agency .search-form .search-input-sugguession.d-flex.flex-collumn {
-		width: 100%;
-	}
-	.compare-agency-result .agency-result-container .result-agency .search-form Button {
-		width: 100%;
-		margin: 20px 0px;
-	}
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    Button {
+    border-radius: 8px;
+    width: 110px;
+    height: 66px;
+    padding: 14px 20px;
+    margin: 20px 0px;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-map-container
+    .map-description {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo .rating-row .dv-star-rating {
+    margin: 0px 5px;
 	
 }
-		
-	
-	 
-	 
-
-
-
-
-
-  
+.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo {
+  margin-left: 9px;
+  height: 82px;
+  display: -moz-box;
+  display: flex;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: column;
+  -moz-box-pack: center;
+  margin-top: 50px;
+  position: absolute;
+  justify-content: center;
+}
+}

@@ -16,11 +16,15 @@ import { Affix } from "antd";
 import estimateCover from "../../assets/images/blog/estimationCardCover.png";
 import { useRouter } from "next/router";
 
-const EstimationCard = ({ onMinimize }) => {
+
+const EstimationCard = ({ visible = false, onMinimize }) => {
+	
+
 	const router = useRouter();
 	const { t } = useTranslation("blog");
 	return (
-		<div className="estimation-card">
+		<div id="myDIV"   className="estimation-card">
+			
 			<div
 				style={{
 					width: "100%",
@@ -97,7 +101,7 @@ const EstimationCard = ({ onMinimize }) => {
 						border: "none",
 						outline: "none",
 					}}
-					onClick={onMinimize}
+					onClick={myFunction}
 				>
 					{t("btn.minimize")}
 				</Button>
@@ -473,3 +477,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 export default Blog;
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}

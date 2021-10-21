@@ -189,6 +189,7 @@ const StepOne = ({ setStep }) => {
 		<div className="step-one ">
 			<span className="step-title">{t("span.step")} 1</span>
 			<h4>{t("title.address")}</h4>
+			
 			<Form>
 				<Form.Row>
 					<Form.Group
@@ -225,7 +226,7 @@ const StepOne = ({ setStep }) => {
 					</Form.Group>
 				</Form.Row>
 				<Form.Row>
-					<Form.Group className="mr-4 custom-styles" controlId="zip">
+					<Form.Group className="mr-3 custom-styles" controlId="zip">
 						<Form.Label>{t("label.zip")}</Form.Label>
 						<Form.Control
 							type="number"

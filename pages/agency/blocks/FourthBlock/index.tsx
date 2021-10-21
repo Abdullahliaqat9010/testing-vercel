@@ -37,6 +37,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 							</div>
 							<div className="right-block">
 								<div className="statistic">
+									{/* height: 743px;" */}
 									<span className="stars">5</span>
 									<img src={NoActiveStar} alt="NoActiveStar" />
 									<ProgressBar now={96} />

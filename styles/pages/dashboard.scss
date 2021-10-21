@@ -368,6 +368,7 @@
 
     &__container {
       margin-top: 20px;
+      justify-content: center;
 
       .main-info-block {
         .top-block {
@@ -790,6 +791,7 @@
   @media (max-width: 768px) {
     flex-direction: column;
     padding-top: 40px;
+   margin-left: 20px;
 
     .property-main-block {
       width: 350px;
@@ -800,6 +802,9 @@
       .property-main-block {
       margin-top: 70px;
     }
+    .Dashboard__container .main-info-block .bottom-block .image-block {
+      margin-right: 10px;
+  }
   }
 
   @media (max-width: 320px) {
@@ -821,6 +826,7 @@
     .image-block {
       margin-right: 30x;
     }
+    
     .find-agent-block {
       padding: 20px;
       
