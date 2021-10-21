@@ -3680,7 +3680,7 @@ const priceMap = () => {
               {" "}
               {cityPriceMap
                 ? t("pricemap.city name")
-                : "Prix immobilier partout en France"}{" "}
+                : t("pricemap.city")}{" "}
             </p>
 
             {cityPriceMap && (
