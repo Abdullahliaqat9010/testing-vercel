@@ -130,14 +130,8 @@ const compareAgency = () => {
             </span>
           </p>
           <p>
-<<<<<<< HEAD
             {t("p.real-estate")} <br></br> {t("p.nextline-real-estate")}
-=======
-            We analyze thousands of local agents and find the best to
-            compete you!
->>>>>>> da44f18e48f7fe87223be3720d30e2d3330004a7
           </p>
-
           <div className="search-form d-flex">
             <div className="d-flex flex-collumn">
               <InputGroup>
