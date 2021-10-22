@@ -24,6 +24,7 @@ import YoutubeIcon from "../../assets/images/agency-page/social/youtube-icon.svg
 import LinkedinIcon from "../../assets/images/agency-page/social/linkedin-icon.svg";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
+import Comments from '../Comments'
 import { RootState } from "../../types/state";
 import { useSelector } from "react-redux";
 const Labels = styled.span`
@@ -64,11 +65,20 @@ const BasicInfoLabes = styled.div`
     width:145px;
 `;
 const ProfileImageBlock = styled.img`
+
     border: 1px solid #F2F6FF;
     box-sizing: border-box;
     border-radius: 8px;
-    width: 172px;
-    height: 172px;
+   
+    @media (min-width: 769px) {
+        width: 172px;
+        height: 172px;
+    }
+    
+    @media (min-width: 320px) and (max-width: 768px) {
+        width: 82px;
+        height: 82px;
+    }
 `;
 
 const IconsImages = styled.img`
@@ -149,7 +159,7 @@ const SocialImages = styled.div`
 `;
 
 
-const portFolio = ({ agency }) => {
+const portFolio = ({ agency, comments }) => {
     console.log("agency", agency)
     const [showContact, setShowContect] = useState(false)
     const contactToggle = () => {
@@ -170,19 +180,20 @@ const portFolio = ({ agency }) => {
 
     const onSubmit = async (e) => {
         try {
-             setIsAddingComment(true);
+            setIsAddingComment(true);
             await axios.post(`/blog-comments`, {
                 name,
                 email,
                 comment,
-                blog_id: agency?.id,
+                agency_id: agency?.id,
             });
             setName("");
             setComment("");
             setEmail("");
-             setIsAddingComment(false);
+            setIsAddingComment(false);
         } catch (error) {
             console.log(error)
+            window.confirm("khjkjh")
             setIsAddingComment(false);
         }
     };
@@ -211,6 +222,9 @@ const portFolio = ({ agency }) => {
     })
 
 
+
+
+
     const date = new Date(agency?.createdAt)
     const address = `${agency?.street} ${agency?.street_number}, ${agency?.zip} ${agency?.city}`
 
@@ -235,23 +249,25 @@ const portFolio = ({ agency }) => {
                                         <ProfileImageBlock src={agency?.isLimited ? DefaultLogoImage : agency?.logo_image} alt="agencyLogoImage" />
                                         <div className="d-flex flex-column justify-content-center pl-3" >
                                             <Headlines>{agency?.company_name}</Headlines>
-                                            <ReviewRow className="">
-                                                <span>5.0</span> <StarRatingComponent
-                                                    name="rate"
-                                                    renderStarIcon={(index, value) => (
-                                                        <StarsImageTag
-                                                            src={
-                                                                index <= value
-                                                                    ? RatingStar
-                                                                    : RatingStarEmpty
-                                                            }
-                                                            alt={"RatingStar" + index}
-                                                        />
-                                                    )}
-                                                    starCount={5}
-                                                    value={Number(4)}
-                                                />{" "} <span>from {"120"} reviews</span>
-                                            </ReviewRow>
+                                            {!agency?.isLimited &&
+                                                <ReviewRow className="">
+                                                    <span>5.0</span> <StarRatingComponent
+                                                        name="rate"
+                                                        renderStarIcon={(index, value) => (
+                                                            <StarsImageTag
+                                                                src={
+                                                                    index <= value
+                                                                        ? RatingStar
+                                                                        : RatingStarEmpty
+                                                                }
+                                                                alt={"RatingStar" + index}
+                                                            />
+                                                        )}
+                                                        starCount={5}
+                                                        value={Number(4)}
+                                                    />{" "} <span>from {"120"} reviews</span>
+                                                </ReviewRow>
+                                            }
                                             <span className="my-2">{"With Immo Belgium since"} {date.getFullYear()}</span>
 
                                         </div>
@@ -297,6 +313,13 @@ const portFolio = ({ agency }) => {
                                     </div>
 
                                 </ProfileContainer>
+                                {comments.length > 0 ?
+                                    comments.map((agencyComment) => {
+                                        return (<Comments comment={agencyComment}></Comments>)
+
+                                    })
+                                    : <ProfileContainer> <p>No comments yet</p></ProfileContainer>
+                                }
                                 <div
                                     style={{
                                         padding: 30,
@@ -305,9 +328,9 @@ const portFolio = ({ agency }) => {
                                         marginTop: 20,
                                     }}
                                 >
-                                    <p style={{ color: "#6c768f", fontWeight: "bold", fontSize: 24 }}>
+                                    <Headlines >
                                         {"leave a comment"}
-                                    </p>
+                                    </Headlines>
                                     <Form onSubmit={onSubmit}>
                                         <Form.Group className="mb-3">
                                             <Form.Control
@@ -357,6 +380,7 @@ const portFolio = ({ agency }) => {
                                         </Button>
                                     </Form>
                                 </div>
+
                                 {false && (
                                     <ReviewContainer >
                                         <ReviewBlock currentAgency={agency} />

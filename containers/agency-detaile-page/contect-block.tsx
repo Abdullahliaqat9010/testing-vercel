@@ -110,7 +110,7 @@ const ContactAgentModal = ({
                                     {/* <label className="form-label" htmlFor="fullname">
 											{t("label.fullname")}
 										</label> */}
-                                    <Field className="form-input" name="fullname" type="text" />
+                                    <Field className="form-input" placeholder="Full name" name="fullname" type="text" />
                                     <ErrorMessage
                                         className="form-error"
                                         component="div"
@@ -121,7 +121,7 @@ const ContactAgentModal = ({
                                     {/* <label className="form-label" htmlFor="phone">
 											{t("label.phone")}
 										</label> */}
-                                    <Field className="form-input" name="phone" type="number" />
+                                    <Field className="form-input" placeholder="Phone number" name="phone" type="number" />
                                     <ErrorMessage
                                         className="form-error"
                                         component="div"
@@ -132,7 +132,7 @@ const ContactAgentModal = ({
                                     {/* <label className="form-label" htmlFor="email">
 											{t("label.email")}
 										</label> */}
-                                    <Field className="form-input" name="email" type="email" />
+                                    <Field className="form-input" placeholder="email" name="email" type="email" />
                                     <ErrorMessage
                                         className="form-error"
                                         component="div"
