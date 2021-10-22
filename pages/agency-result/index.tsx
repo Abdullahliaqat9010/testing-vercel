@@ -309,7 +309,8 @@ const compareAgency = () => {
               </div>
               {/* <input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input> */}
               <Button onClick={onClickSearchButton}>
-                Search <img src={goAhead} alt="goAhead" />
+                {t("button.result-agency")}
+                <img src={goAhead} alt="goAhead" />
               </Button>
             </div>
           </div>
@@ -362,7 +363,10 @@ const compareAgency = () => {
                           {agency?.isLimited &&
                             open &&
                             selctedIdex === index && (
-                              <LimitedPartner>Limited Partner</LimitedPartner>
+                              <LimitedPartner>
+                                {" "}
+                                {t("btn.limited-partner")}
+                              </LimitedPartner>
                             )}
                         </div>
                       </div>
@@ -381,7 +385,7 @@ const compareAgency = () => {
                           </p>
                         ) : agency?.isLimited ? (
                           <p className="no-sold-properties">
-                            Click here to see agency on map
+                            {t("p.result-agency-map")}
                           </p>
                         ) : (
                           <p className="no-sold-properties">
@@ -414,9 +418,7 @@ const compareAgency = () => {
                             </div>
                           )}
                           <p className="agency-description">
-                            During the last 24 months, our agency has sold 39
-                            properties nearby including 18 similar to yours. Our
-                            team is at your disposal to manage your project
+                            {t("p.agency-description")}
                           </p>
                           <div className="agency-links d-flex">
                             <Button
@@ -427,7 +429,7 @@ const compareAgency = () => {
                               }
                             >
                               {agency?.isLimited
-                                ? "Agency details"
+                                ? t("button.agency-details")
                                 : "Contact Thierry"}
                             </Button>
                             {!agency?.isLimited && (
@@ -450,7 +452,8 @@ const compareAgency = () => {
                           <div className="map-description">
                             <p>
                               {" "}
-                              <span></span> Properties sold by the agency{" "}
+                              {t("span.map-description")}
+                              <span></span>
                             </p>
                             <p>
                               {" "}
@@ -459,7 +462,8 @@ const compareAgency = () => {
                                 src={blueStar}
                                 alt="blueStar"
                               />{" "}
-                              agency{" "}
+                              {t("p.map-description")}
+                             
                             </p>
                           </div>
                         </div>
@@ -509,7 +513,7 @@ export const getServerSideProps = async ({ locale }) => {
         "dashboard-page",
         "header",
         "footer",
-		"agency-result"
+        "agency-result",
       ])),
     },
   };
