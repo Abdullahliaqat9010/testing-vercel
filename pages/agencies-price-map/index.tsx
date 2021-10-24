@@ -3572,6 +3572,24 @@ const priceMap = () => {
 
   const gotoCityData = (index) => {
     let getObj = cityAndPricesData[index];
+    const _provinces = province as any;
+    const getRegion = _provinces?.default?.features.find(
+      (feature) =>
+        feature.properties.NAME_4.toLocaleLowerCase() ===
+        getObj.name.toLocaleLowerCase()
+    );
+    const region = getRegion.geometry.coordinates[0];
+    const boundries = region[0];
+    const getLatLong = boundries[0];
+    const position = {
+      type: "home",
+      position: {
+        lat: getLatLong[0],
+        lng: getLatLong[1],
+      },
+      id: "home",
+    };
+    setMarkers([{ ...position }]);
     setPrices(getObj);
     setCityPriceMap(!cityPriceMap);
   };
