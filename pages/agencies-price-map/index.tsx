@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import HeaderContainer from "../../containers/Header";
-import SearchImage from "../../assets/images/search.svg";
+import SearchImage from "../../assets/images/icons8-search.svg";
 import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
@@ -3669,10 +3669,10 @@ const priceMap = () => {
               })}
           </ListGroup>
 
-          <Button className="search-button">
-            {" "}
+          {/* <Button className="search-button">
+            {" "} */}
             <img src={SearchImage} alt="SearchImage" />{" "}
-          </Button>
+          {/* </Button> */}
         </div>
         <div className="pricr-map-setting d-flex">
           <div className="price-content-view">
@@ -3680,7 +3680,7 @@ const priceMap = () => {
               {" "}
               {cityPriceMap
                 ? t("pricemap.city name")
-                : "Prix immobilier partout en France"}{" "}
+                : "Prix immobilier partout en Belgium"}{" "}
             </p>
 
             {cityPriceMap && (
