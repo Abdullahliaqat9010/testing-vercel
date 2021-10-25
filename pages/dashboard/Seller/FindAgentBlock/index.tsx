@@ -10,6 +10,7 @@ import Agency from "../../../../containers/Agency";
 import { agentsList } from "../../../../templates/agentsList";
 
 const FindAgentBlock = ({ mainProperty, agencies, properties }) => {
+	console.log(agencies);
 	const { t } = useTranslation("dashboard-page");
 
 	// const elementsOnPage = 3;

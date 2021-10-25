@@ -21,9 +21,12 @@ import NoImage from "../../../assets/images/no-image-available.svg";
 import blackCross from "../../../assets/images/black-eye-cross.svg";
 import { getAgencyProperties } from "../../../network-requests";
 import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
+import Loading from "../../../components/Loading";
 
 const PropertyCard = ({ property, onClick }) => {
 	const { t } = useTranslation("properties-page");
+	const images = property?.images?.split(",");
+
 	return (
 		<div
 			style={{ cursor: "pointer" }}
@@ -35,30 +38,18 @@ const PropertyCard = ({ property, onClick }) => {
 				<div className="d-flex flex-row align-items-center">
 					<img
 						className="first-image"
-						src={
-							property?.images[0]?.url_large
-								? property?.images[0]?.url_large
-								: NoImage
-						}
+						src={images[0] ? images[0] : NoImage}
 						alt="eye"
 					/>
 					<div className="d-flex align-items-center flex-column ml-1">
 						<img
 							className="second-images"
-							src={
-								property?.images[1]?.url_large
-									? property?.images[1]?.url_large
-									: NoImage
-							}
+							src={images[1] ? images[1] : NoImage}
 							alt="eye"
 						/>
 						<img
 							className="second-images"
-							src={
-								property?.images[2]?.url_large
-									? property?.images[2]?.url_large
-									: NoImage
-							}
+							src={images[2] ? images[2] : NoImage}
 							alt="eye"
 						/>
 					</div>
@@ -67,7 +58,9 @@ const PropertyCard = ({ property, onClick }) => {
 			<div className=" property-discription  d-flex">
 				<div className="proprty-info">
 					<div>
-						<span className="address">{property.search_address}</span>
+						<span className="address">
+							{property?.property?.search_address}
+						</span>
 					</div>
 					<div>
 						<span className="sold-property">
@@ -80,20 +73,20 @@ const PropertyCard = ({ property, onClick }) => {
 					</div>
 					<div className=" property-props mt-2 d-flex">
 						<span className="mr-1">
-							{property.live_area + " " + t("span.meter-square")}
+							{property?.property?.live_area + " " + t("span.meter-square")}
 						</span>
 						<span className="mx-1">
-							{property.bedrooms + " " + t("span.beds")}
-							{property.bedrooms > 1 ? "s" : ""}
+							{property?.property?.bedrooms + " " + t("span.beds")}
+							{property?.property?.bedrooms > 1 ? "s" : ""}
 						</span>
 						<span className="mx-1">
-							{property.bathrooms + " " + t("span.baths")}
-							{property.bathrooms > 1 ? "s" : ""}
+							{property?.property?.bathrooms + " " + t("span.baths")}
+							{property?.property?.bathrooms > 1 ? "s" : ""}
 						</span>
 					</div>
 				</div>
 				<div className=" d-flex view-property">
-					{property.status === "active" ? (
+					{property?.status === "active" ? (
 						// {" "}
 						<Button>
 							{" "}
@@ -118,17 +111,19 @@ const SoldPropertiesPage = () => {
 	const [pageSize, setPageSize] = useState(10);
 	const [selectedProperty, setSelectedProperty] = useState(null);
 	const [properties, setProperties] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const { t } = useTranslation("properties-page");
 	const router = useRouter();
 
 	const _getAgencyProperties = async () => {
 		try {
+			setIsLoading(true);
 			const { items, meta } = await getAgencyProperties(currentPage, pageSize);
-			console.log(items);
 			setProperties([...items]);
 			setTotalPages(meta?.totalItems);
 			setCurrentPage(meta?.currentPage);
+			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -138,16 +133,22 @@ const SoldPropertiesPage = () => {
 		_getAgencyProperties();
 	}, [currentPage, pageSize]);
 
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<>
 			<HeaderContainer title={t("title")} />
-			<PropertyDetailsModal
-				property={selectedProperty}
-				show={modalVisible}
-				onClose={() => {
-					setModalVisible(false);
-				}}
-			/>
+			{selectedProperty && (
+				<PropertyDetailsModal
+					property={selectedProperty}
+					show={modalVisible}
+					onClose={() => {
+						setModalVisible(false);
+					}}
+				/>
+			)}
 			<div className="SoldPropertiesPage container d-flex">
 				<NavBarContainer />
 				<div className="SoldPropertiesPage__container w-100">
@@ -193,8 +194,8 @@ const SoldPropertiesPage = () => {
 						{properties.length > 0 &&
 							properties.map((property, index) => (
 								<PropertyCard
-									onClick={(_property) => {
-										setSelectedProperty({ ..._property });
+									onClick={() => {
+										setSelectedProperty({ ...property });
 										setModalVisible(true);
 									}}
 									key={index}
@@ -216,7 +217,7 @@ const SoldPropertiesPage = () => {
 					</div>
 				</div>
 			</div>
-			< FooterContainer  />
+			<FooterContainer />
 		</>
 	);
 };
