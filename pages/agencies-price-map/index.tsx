@@ -3698,7 +3698,7 @@ const priceMap = () => {
               {" "}
               {cityPriceMap
                 ? t("pricemap.city name")
-                : "Prix immobilier partout en Belgium"}{" "}
+                : t("label.prices") }{" "}
             </p>
 
             {cityPriceMap && (
