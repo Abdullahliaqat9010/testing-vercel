@@ -237,8 +237,7 @@ function* loginUserError(error: string) {
 
 function* logoutUserRequest() {
 	try {
-		localStorage.removeItem("access_token");
-		localStorage.removeItem("refresh_token");
+		localStorage.clear();
 		yield fetch("/auth-api/logout", {
 			method: "POST",
 		});

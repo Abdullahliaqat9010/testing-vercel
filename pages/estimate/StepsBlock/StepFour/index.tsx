@@ -40,7 +40,7 @@ import NorthWestInactive from "../../../../assets/images/steps/orientation/nw-in
 import NorthWestActive from "../../../../assets/images/steps/orientation/nw-active.svg";
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
-import { createProperty } from "../../../../network-requests";
+import { createLeadProperty } from "../../../../network-requests";
 
 const StepFour = ({ setStep }) => {
 	const { t } = useTranslation("steps");
@@ -177,7 +177,7 @@ const StepFour = ({ setStep }) => {
 		if (isLoggedIn) {
 			message.info("Adding property");
 			const utilities = { ...data };
-			const sendData = {
+			const property = {
 				...generatePropertyData(
 					addressFromStepOne,
 					additionalAddress,
@@ -188,12 +188,12 @@ const StepFour = ({ setStep }) => {
 					location
 				),
 			};
-			const { id: propertyId } = await createProperty(
+			const { id: propertyId } = await createLeadProperty(
 				{
-					...sendData,
-					leadId: userId,
+					property: { ...property },
 					residence_type: "other",
 					interest: "asap",
+					is_owner: true,
 				},
 				router.locale
 			);

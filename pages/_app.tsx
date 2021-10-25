@@ -139,8 +139,7 @@ const MyApp = ({ Component, pageProps }) => {
 			await fetch("/auth-api/logout", {
 				method: "POST",
 			});
-			window.localStorage.removeItem("access_token");
-			window.localStorage.removeItem("refresh_token");
+			window.localStorage.clear();
 			setIsLoading(false);
 			if (protected_routes.includes(router.pathname)) {
 				router.push("/login");

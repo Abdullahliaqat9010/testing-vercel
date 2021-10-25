@@ -9,7 +9,7 @@ import { useTranslation } from "next-i18next";
 import SignupForm from "./SignupForm";
 import AgencyInfo from "./AgencyInfo/index.component";
 import CompanyDetails from "./CompanyDetails/index.component";
-import { createAgencyProfile, signup } from "../../network-requests";
+import { createAgencyProfile, signupAgent } from "../../network-requests";
 import { setUserProfile } from "../../actions";
 
 const Register = () => {
@@ -23,9 +23,8 @@ const Register = () => {
 	const registerAgencyOwner = (userData) => {
 		return new Promise(async (res, rej) => {
 			try {
-				const userProfile = await signup({
+				const userProfile = await signupAgent({
 					...userData,
-					account_type: "agent",
 				});
 				dispatch(
 					setUserProfile({

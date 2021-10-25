@@ -17,7 +17,7 @@ import BedsIcon from "../../../assets/images/beds.svg";
 import BathIcon from "../../../assets/images/bath.svg";
 
 import { RootState } from "../../../types/state";
-import { getProperties } from "../../../network-requests";
+import { getLeadProperties } from "../../../network-requests";
 import Loading from "../../../components/Loading";
 import { setMainPropertyId } from "../../../actions";
 
@@ -25,8 +25,6 @@ const PropertiesPage = () => {
 	const { t } = useTranslation("properties-page");
 	const router = useRouter();
 	const dispatch = useDispatch();
-	const { locale } = router;
-	const userId = useSelector<RootState>((state) => state.userInfo.id);
 
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +32,7 @@ const PropertiesPage = () => {
 	const _getProperties = async () => {
 		try {
 			setIsLoading(true);
-			const _properties = await getProperties(userId);
+			const _properties = await getLeadProperties();
 			setProperties([..._properties]);
 			setIsLoading(false);
 		} catch (error) {
@@ -71,7 +69,9 @@ const PropertiesPage = () => {
 						properties.map((property, index) => (
 							<div className="property" key={index}>
 								<div className="property__head">
-									<span className="address">{property.search_address}</span>
+									<span className="address">
+										{property?.property?.search_address}
+									</span>
 									<button
 										style={{ border: 0, backgroundColor: "white" }}
 										onClick={() => {
@@ -90,21 +90,21 @@ const PropertiesPage = () => {
 											<img src={SquareIcon} alt="SquareIcon" />
 											<div className="info-block">
 												<span className="gray">{t("span.square")}</span>
-												<span>{property.total_area}m²</span>
+												<span>{property?.property?.live_area}m²</span>
 											</div>
 										</div>
 										<div className="beds">
 											<img src={BedsIcon} alt="BedsIcon" />
 											<div className="info-block">
 												<span className="gray">{t("span.beds")}</span>
-												<span>{property.bedrooms}</span>
+												<span>{property?.property?.bedrooms}</span>
 											</div>
 										</div>
 										<div className="baths">
 											<img src={BathIcon} alt="BathIcon" />
 											<div className="info-block">
 												<span className="gray">{t("span.baths")}</span>
-												<span>{property.bathrooms}</span>
+												<span>{property?.property?.bathrooms}</span>
 											</div>
 										</div>
 									</div>
