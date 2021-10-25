@@ -135,7 +135,7 @@ const SettingsPage = () => {
 		try {
 			setIsAvatarUploading(true);
 			const newAvatarUrl = await handleImageUpload(image);
-			await axios.put(`users/${userId}`, {
+			await axios.put(`user/${userId}`, {
 				avatar: newAvatarUrl,
 			});
 			dispatch({
@@ -154,7 +154,7 @@ const SettingsPage = () => {
 	const updateProfile = async () => {
 		try {
 			setIsUpdatingProfile(true);
-			await axios.put(`/users/${userId}`, {
+			await axios.put(`/user/${userId}`, {
 				firstname,
 				lastname,
 				phone_number: phoneNumber ? phoneNumber : undefined,
@@ -178,7 +178,7 @@ const SettingsPage = () => {
 	const updateNotificationPreference = async (value) => {
 		try {
 			setIsChangingNotification(true);
-			await axios.put(`users/${userId}`, {
+			await axios.put(`user/${userId}`, {
 				promo_mailing: value,
 			});
 			dispatch({
