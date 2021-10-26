@@ -88,12 +88,6 @@ export const getAutocompleteItemsAction = (
 	payload: { searchValue, type },
 });
 
-export const getSearchedItemsAction = (
-	searchValue: string
-) => ({
-	type: actionType.GET_SEARCHED_ITEMS,
-	payload: { searchValue },
-});
 
 export const clearAutocompleteItems = () => ({
 	type: actionType.CLEAR_AUTOCOMPLETE_ITEMS,

@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
 import { Button, FormControl, ListGroup } from "react-bootstrap";
-import { Pagination } from "antd";
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap"
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg";
 import compareAgencyImage from "../../assets/images/compare-agency/agency-main-page-image.jpg";
 import StarRatingComponent from "react-star-rating-component";
@@ -26,7 +26,7 @@ import { openMainStepsAction } from "../../actions";
 import Mapbox3dMap from "../../components/3dMap"
 import styled from "styled-components"
 import { useRouter } from "next/router";
-import { getLatLongFromAddress } from "../../network-requests";
+import { getLatLongFromAddress, getProperties } from "../../network-requests";
 
 const LimitedPartner = styled.span`
 	background: #FE7F2D;
@@ -4474,6 +4474,9 @@ const compareAgency = () => {
 	]
 	const router = useRouter()
 	const { locale } = router
+	const { auth, id: userId } = useSelector(
+		(state: RootState) => state.userInfo
+	);
 	const { city, zip } = useSelector((state: RootState) => state.stepsInfo.stepBlock.additionalAddress)
 	const [isLoading, setIsLoading] = useState(true);
 	const [open, setOpen] = useState<boolean>(false);
@@ -4484,6 +4487,7 @@ const compareAgency = () => {
 	const [markersPerAgency, setMarkersPerAgency] = useState([])
 	const [totalPages, setTotalPages] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
+	const [properties, setProperties] = useState([]);
 	let [address, setAddress] = useState({
 		city, zip
 	})
@@ -4501,6 +4505,14 @@ const compareAgency = () => {
 	const [value, setValue] = useState(`${city}, ${zip}`);
 
 	const [searchSuggestions, setSearchSuggestions] = useState([])
+	const _getProperties = async () => {
+		try {
+			const _properties = await getProperties(userId);
+			setProperties([..._properties]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	useEffect(() => {
 		fetchAll()
 	}, [address])
@@ -4508,7 +4520,7 @@ const compareAgency = () => {
 	const fetchAll = async () => {
 		try {
 			setIsLoading(true);
-			const promises = [getAgencies()];
+			const promises = [getAgencies(), _getProperties()];
 			await Promise.all(promises);
 			setIsLoading(false);
 		} catch (error) {
@@ -4522,8 +4534,6 @@ const compareAgency = () => {
 			const limitedAgecies = await getLimitedAgenciesByAddress(address)
 			const allAgency = [...agencies, ...limitedAgecies]
 			const totalPages = allAgency.length > pageSize ? Math.ceil(allAgency.length / pageSize) : 1
-			console.log("totalPages", totalPages)
-			console.log("allAgency.length", allAgency.length)
 			setTotalPages(totalPages)
 			setFiltereAgencies(allAgency)
 			const agenciesMarkes = allAgency.map(agency => {
@@ -4566,6 +4576,38 @@ const compareAgency = () => {
 
 	}
 
+	const handleClick = (e, index) => {
+		e.preventDefault();
+		setCurrentPage(index);
+	}
+
+	const pagination = totalPages ?
+		<Pagination className='pagination'>
+			<PaginationLink
+				onClick={e => handleClick(e, currentPage - 1)}
+				previous
+				href="#"
+			/>
+			{
+				[...Array(totalPages)].map((page, i) =>
+					<PaginationItem active={i === currentPage} key={i}>
+						<PaginationLink onClick={e => handleClick(e, i)} href="#">
+							{i + 1}
+						</PaginationLink>
+					</PaginationItem>
+				)
+			}
+
+			<PaginationItem disabled={currentPage >= totalPages - 1}>
+				<PaginationLink
+					onClick={e => handleClick(e, currentPage + 1)}
+					next
+					href="#"
+				/>
+			</PaginationItem>
+
+		</Pagination> : '';
+
 	const mapProps = {
 		markers: [...markers],
 		is3d: false,
@@ -4576,9 +4618,6 @@ const compareAgency = () => {
 
 		setMarkers([]);
 	};
-
-
-
 
 	const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
 		const citydata = limitedAgenciesData;
@@ -4597,7 +4636,7 @@ const compareAgency = () => {
 						city = agency?.cityfr
 					}
 
-					if (city.toLowerCase().slice(0, inputLength) === inputValue) {
+					if (city.toLowerCase().slice(0, inputLength) === inputValue || agency?.zip.toLowerCase().slice(0, inputLength) === inputValue) {
 						return agency
 					}
 				}
@@ -4608,7 +4647,7 @@ const compareAgency = () => {
 
 	const handleSelectAddress = (index: number) => {
 		const currentAgencyAddress = searchSuggestions[index]
-		let city = locale === 'en' ? currentAgencyAddress?.cityen : locale=== 'nl' ? currentAgencyAddress?.citynl: currentAgencyAddress?.cityfr
+		let city = locale === 'en' ? currentAgencyAddress?.cityen : locale === 'nl' ? currentAgencyAddress?.citynl : currentAgencyAddress?.cityfr
 		const addressDeStructure = city + "," + currentAgencyAddress?.zip;
 		setValue(addressDeStructure);
 
@@ -4670,10 +4709,6 @@ const compareAgency = () => {
 	if (isLoading) {
 		return <Loading />;
 	}
-	console.log("totalPages", totalPages)
-	console.log("pageSize", pageSize)
-	console.log("currentPage", currentPage)
-	console.log("currentPage", filteredAgencies.length)
 	return (
 		<>
 			<HeaderContainer title="compare agency result" />
@@ -4706,7 +4741,7 @@ const compareAgency = () => {
 									<ListGroup as="ul" className="position-absolute" style={{ marginTop: "50px" }}>
 										{searchSuggestions.map((item, index) => (
 											<ListGroup.Item className='text-dark' as="li" onClick={() => handleSelectAddress(index)} key={index} style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>
-												{(locale === 'en'? item.cityen : locale === 'nl' ? item.citynl : item.cityfr) + "," + item.zip }
+												{(locale === 'en' ? item.cityen : locale === 'nl' ? item.citynl : item.cityfr) + "," + item.zip}
 											</ListGroup.Item>
 										))}
 									</ListGroup>
@@ -4720,7 +4755,13 @@ const compareAgency = () => {
 					</div>
 					<div className="agency-container">
 
-						{filteredAgencies?.length > 0 ? filteredAgencies.map((agency, index) => {
+						{filteredAgencies?.length > 0 ? 
+						filteredAgencies
+						.slice(
+							currentPage * pageSize,
+							(currentPage + 1) * pageSize
+						)
+						.map((agency, index) => {
 							return (
 								<div key={index}>
 									<div onClick={() => openDetail(index)} className="agency d-flex">
@@ -4846,8 +4887,9 @@ const compareAgency = () => {
 						}) : (<p>No agencies in your area yet, They are coming to Belgiumimmo soon!</p>)
 						}
 
-						<div className="w-100 justify-content-center text-center">
-							<Pagination
+						<div className="w-100 d-flex justify-content-center alighn-items-center text-center">
+							{pagination}
+							{/* <Pagination
 								current={currentPage}
 								total={totalPages}
 								pageSize={pageSize}
@@ -4856,7 +4898,7 @@ const compareAgency = () => {
 									setPageSize(_pageSize);
 								}}
 								pageSizeOptions={["5", "10", "20", "50"]}
-							/>
+							/> */}
 							{/* <Button   className="load-more">
 								<img src={loadMore} alt="loadMore" /> load more{" "}
 							</Button> */}
@@ -4868,7 +4910,7 @@ const compareAgency = () => {
 				<ContactAgentModal
 					show={true}
 					onClose={() => setOpenContactForm(false)}
-					// properties={properties}
+					properties={properties}
 					agencyOwner={filteredAgencies[selctedIdex]?.owner?.name}
 					agencyName={filteredAgencies[selctedIdex]?.company_name}
 					agencyId={filteredAgencies[selctedIdex]?.id}

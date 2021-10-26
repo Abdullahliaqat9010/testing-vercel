@@ -282,22 +282,6 @@ function* getDataFromMapBox({ payload }: any) {
 	}
 }
 
-function* getDataFromDB({ payload }: any) {
-	const { searchValue } = payload;
-	try {
-		const res = yield axios.get("limited-agency/search-by-area?address="+searchValue);
-		console.log("res", res)
-		if (res.status === 200) {
-			console.log("data", res)
-
-			const { data } = res;
-			yield getDataFromMapBoxSuccess(data);
-		}
-	} catch (error) {
-		yield getDataFromMapBoxError(error);
-	}
-}
-
 function* getDataFromMapBoxSuccess(data) {
 	yield put({
 		type: actionType.GET_AUTOCOMPLETE_ITEMS_SUCCESS,
@@ -330,5 +314,4 @@ export function* propertySaga() {
 		getPropertyAgencyData
 	);
 	yield takeLatest(actionType.GET_AUTOCOMPLETE_ITEMS, getDataFromMapBox);
-	yield takeLatest(actionType.GET_SEARCHED_ITEMS, getDataFromDB);
 }
