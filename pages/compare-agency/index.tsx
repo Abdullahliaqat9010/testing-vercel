@@ -5,11 +5,11 @@ import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
 import Link from "next/link";
 import {
-  Button,
-  InputGroup,
-  FormControl,
-  Carousel,
-  ListGroup,
+	Button,
+	InputGroup,
+	FormControl,
+	Carousel,
+	ListGroup,
 } from "react-bootstrap";
 import goAhead from "../../assets/images/compare-agency/go-ahead.svg";
 import reviewImage from "../../assets/images/compare-agency/reviews-image.png";
@@ -4466,7 +4466,7 @@ const compareAgency = () => {
 
   const { t, i18n } = useTranslation("compare-agency");
 
-  const router = useRouter();
+	const router = useRouter();
 
   const dispatch = useDispatch();
   const { locale } = router;
@@ -4523,18 +4523,18 @@ const compareAgency = () => {
 		dispatch(openMainStepsAction(sendData));
 	};
 
-  return (
-    <>
-      <HeaderContainer title="compare agency" />
-      <div className="w-100 compare-agency">
-        <div className="imageContanter d-flex">
-          <img
-            className="main-image"
-            src={compareAgencyImage}
-            alt="compareAgencyImage"
-          />
-        </div>
-        {/* <div className="search-area">
+	return (
+		<>
+			<HeaderContainer title="compare agency" />
+			<div className="w-100 compare-agency">
+				<div className="imageContanter d-flex">
+					<img
+						className="main-image"
+						src={compareAgencyImage}
+						alt="compareAgencyImage"
+					/>
+				</div>
+				{/* <div className="search-area">
           <p>
             {" "}
             <span>
@@ -4610,148 +4610,149 @@ const compareAgency = () => {
         </div>
        
 
-        <div className=" cards-container d-flex justify-content-center ">
-          <div className="card text-center " style={{ border: "none" }}>
-            <div className="card-body image-setting ">
-              <div>
-                <img src={reviewImage} alt="reviewImage" />
-              </div>
-              <div>
-                <p>
-                  {" "}
-                  <span>
-                    {" "}
-                    {t("span.review")} <br></br> {t("span.previous-customer")}
-                  </span>{" "}
-                </p>
-                {/* <p>Lorem ipsum dolor sit amet, cons</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="card text-center" style={{ border: "none" }}>
-            <div className="card-body image-setting">
-              <div>
-                <img src={locationImage} alt="reviewImage" />
-              </div>
-              <div>
-                <p>
-                  {" "}
-                  <span>
-                    {" "}
-                    {t("span.discover-agency")} <br></br>
-                    {t("span.nearest")}
-                  </span>{" "}
-                </p>
+				<div className=" cards-container d-flex justify-content-center ">
+					<div className="card text-center " style={{ border: "none" }}>
+						<div className="card-body image-setting ">
+							<div>
+								<img src={reviewImage} alt="reviewImage" />
+							</div>
+							<div>
+								<p>
+									{" "}
+									<span>
+										{" "}
+										{t("span.review")} <br></br> {t("span.previous-customer")}
+									</span>{" "}
+								</p>
+								{/* <p>Lorem ipsum dolor sit amet, cons</p> */}
+							</div>
+						</div>
+					</div>
+					<div className="card text-center" style={{ border: "none" }}>
+						<div className="card-body image-setting">
+							<div>
+								<img src={locationImage} alt="reviewImage" />
+							</div>
+							<div>
+								<p>
+									{" "}
+									<span>
+										{" "}
+										{t("span.discover-agency")} <br></br>
+										{t("span.nearest")}
+									</span>{" "}
+								</p>
 
-                {/* <p>Lorem ipsum dolor sit amet, cons</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="card text-center" style={{ border: "none" }}>
-            <div className="card-body image-setting">
-              <div>
-                <img src={homeImage} alt="reviewImage" />
-              </div>
-              <div>
-                <p>
-                  {" "}
-                  <span>
-                    {" "}
-                    {t("span.similar-houses")}
-                    <br></br> {t("span.sold")}
-                  </span>{" "}
-                </p>
-                {/* <p>Lorem ipsum dolor sit amet, cons</p> */}
-              </div>
-            </div>
-          </div>
-        </div>
-        {false && ( <> 
-        <div className="top-agencys d-flex">
-          <div className="d-flex top-agencies-view">
-            <div className="agency-card ">
-              <img
-                className="profile-image"
-                src={homeImage}
-                alt="reviewImage"
-              />
-              <h3>
-                {" "}
-                <b>Compare similar </b>{" "}
-              </h3>
-              <span className="agent-title">
-                Real estate agency name goes here
-              </span>
-              <StarRatingComponent
-                name="rate"
-                renderStarIcon={(index, value) => (
-                  <img
-                    className="rating-star"
-                    src={index <= value ? RatingStar : RatingStarEmpty}
-                    alt={"RatingStar" + index}
-                  />
-                )}
-                starCount={5}
-                value={Number(4)}
-              />
-              <div className=" percentage-description-block d-flex flex-row justify-content-between">
-                <div className="d-flex flex-column">
-                  <b>2.5%</b>
-                  <span>Listing Agent Commission</span>
-                </div>
+								{/* <p>Lorem ipsum dolor sit amet, cons</p> */}
+							</div>
+						</div>
+					</div>
+					<div className="card text-center" style={{ border: "none" }}>
+						<div className="card-body image-setting">
+							<div>
+								<img src={homeImage} alt="reviewImage" />
+							</div>
+							<div>
+								<p>
+									{" "}
+									<span>
+										{" "}
+										{t("span.similar-houses")}
+										<br></br> {t("span.sold")}
+									</span>{" "}
+								</p>
+								{/* <p>Lorem ipsum dolor sit amet, cons</p> */}
+							</div>
+						</div>
+					</div>
+				</div>
+				{false && (
+					<>
+						<div className="top-agencys d-flex">
+							<div className="d-flex top-agencies-view">
+								<div className="agency-card ">
+									<img
+										className="profile-image"
+										src={homeImage}
+										alt="reviewImage"
+									/>
+									<h3>
+										{" "}
+										<b>Compare similar </b>{" "}
+									</h3>
+									<span className="agent-title">
+										Real estate agency name goes here
+									</span>
+									<StarRatingComponent
+										name="rate"
+										renderStarIcon={(index, value) => (
+											<img
+												className="rating-star"
+												src={index <= value ? RatingStar : RatingStarEmpty}
+												alt={"RatingStar" + index}
+											/>
+										)}
+										starCount={5}
+										value={Number(4)}
+									/>
+									<div className=" percentage-description-block d-flex flex-row justify-content-between">
+										<div className="d-flex flex-column">
+											<b>2.5%</b>
+											<span>Listing Agent Commission</span>
+										</div>
 
-                <img src={HomeownerIcon} alt="HomeownerIcon" />
-              </div>
-              <div className=" sales-description-block d-flex flex-row justify-content-between">
-                <div className="d-flex flex-column">
-                  <b>€2,400</b>
-                  <span>Est. Commission Savings</span>
-                </div>
-                <img src={HomeownerIcon} alt="HomeownerIcon" />
-              </div>
-            </div>
+										<img src={HomeownerIcon} alt="HomeownerIcon" />
+									</div>
+									<div className=" sales-description-block d-flex flex-row justify-content-between">
+										<div className="d-flex flex-column">
+											<b>€2,400</b>
+											<span>Est. Commission Savings</span>
+										</div>
+										<img src={HomeownerIcon} alt="HomeownerIcon" />
+									</div>
+								</div>
 
-            <div className="agency-card ">
-              <img
-                className="profile-image"
-                src={homeImage}
-                alt="reviewImage"
-              />
-              <h3>
-                {" "}
-                <b>Compare similar </b>{" "}
-              </h3>
-              <span className="agent-title">
-                Real estate agency name goes here
-              </span>
-              <StarRatingComponent
-                name="rate"
-                renderStarIcon={(index, value) => (
-                  <img
-                    className="rating-star"
-                    src={index <= value ? RatingStar : RatingStarEmpty}
-                    alt={"RatingStar" + index}
-                  />
-                )}
-                starCount={5}
-                value={Number(4)}
-              />
-              <div className=" percentage-description-block d-flex flex-row justify-content-between">
-                <div className="d-flex flex-column">
-                  <b>2.5%</b>
-                  <span>Listing Agent Commission</span>
-                </div>
-                <img src={HomeownerIcon} alt="HomeownerIcon" />
-              </div>
-              <div className=" sales-description-block d-flex flex-row justify-content-between">
-                <div className="d-flex flex-column">
-                  <b>€2,400</b>
-                  <span>Est. Commission Savings</span>
-                </div>
-                <img src={HomeownerIcon} alt="HomeownerIcon" />
-              </div>
-            </div>
-            {/*
+								<div className="agency-card ">
+									<img
+										className="profile-image"
+										src={homeImage}
+										alt="reviewImage"
+									/>
+									<h3>
+										{" "}
+										<b>Compare similar </b>{" "}
+									</h3>
+									<span className="agent-title">
+										Real estate agency name goes here
+									</span>
+									<StarRatingComponent
+										name="rate"
+										renderStarIcon={(index, value) => (
+											<img
+												className="rating-star"
+												src={index <= value ? RatingStar : RatingStarEmpty}
+												alt={"RatingStar" + index}
+											/>
+										)}
+										starCount={5}
+										value={Number(4)}
+									/>
+									<div className=" percentage-description-block d-flex flex-row justify-content-between">
+										<div className="d-flex flex-column">
+											<b>2.5%</b>
+											<span>Listing Agent Commission</span>
+										</div>
+										<img src={HomeownerIcon} alt="HomeownerIcon" />
+									</div>
+									<div className=" sales-description-block d-flex flex-row justify-content-between">
+										<div className="d-flex flex-column">
+											<b>€2,400</b>
+											<span>Est. Commission Savings</span>
+										</div>
+										<img src={HomeownerIcon} alt="HomeownerIcon" />
+									</div>
+								</div>
+								{/*
                         <div className="agency-card ">
                             <img className="profile-image" src={homeImage} alt="reviewImage" />
                             <h3> <b>Compare similar </b> </h3>
@@ -4784,47 +4785,49 @@ const compareAgency = () => {
                                 <img src={HomeownerIcon} alt="HomeownerIcon" />
                             </div>
                         </div> */}
-          </div>
-          <div className="compare-top-agency">
-            <p>
-              {" "}
-              <span>
-                {" "}
-                Work only with top agents.
-              </span>
-            </p>
-            <p>
-            Do your homework and see which agency is the most appropriate to work with.
-            </p>
-            <div className="search-form d-flex">
-              <input type="search" placeholder={t("placeholder.zip")}></input>
-              <Button onClick={gotoAgenciesPages}>
-                Compare Agents <img src={goAhead} alt="goAhead" />
-              </Button>
-            </div>
-          </div>
-        </div>
-        </>)}
+							</div>
+							<div className="compare-top-agency">
+								<p>
+									{" "}
+									<span> Work only with top agents.</span>
+								</p>
+								<p>
+									Do your homework and see which agency is the most appropriate
+									to work with.
+								</p>
+								<div className="search-form d-flex">
+									<input
+										type="search"
+										placeholder={t("placeholder.zip")}
+									></input>
+									<Button onClick={gotoAgenciesPages}>
+										Compare Agents <img src={goAhead} alt="goAhead" />
+									</Button>
+								</div>
+							</div>
+						</div>
+					</>
+				)}
 
-        <div className="campare-agency-footer">
-          <span>Immo Belgium ©2021. All Rights Reserved.</span>
-          <div>
-            <Link href="#">Blog</Link>
-            <Link href="#">Politique de Confidentialité.</Link>
-          </div>
-        </div>
-      </div>
-      {/* <FooterContainer/> */}
-    </>
-  );
+				<div className="campare-agency-footer">
+					<span>Immo Belgium ©2021. All Rights Reserved.</span>
+					<div>
+						<Link href="#">Blog</Link>
+						<Link href="#">Politique de Confidentialité.</Link>
+					</div>
+				</div>
+			</div>
+			{/* <FooterContainer/> */}
+		</>
+	);
 };
 
 export const getServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["header", "compare-agency"])),
-    },
-  };
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["header", "compare-agency"])),
+		},
+	};
 };
 
 export default compareAgency;

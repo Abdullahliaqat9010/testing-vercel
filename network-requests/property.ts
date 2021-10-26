@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const createProperty = (property, locale: string): Promise<any> => {
+export const createLeadProperty = (property, locale: string): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data } = await axios.post(
-				"property",
+				"lead/property",
 				{
 					...property,
 				},
@@ -21,23 +21,23 @@ export const createProperty = (property, locale: string): Promise<any> => {
 	});
 };
 
-export const getProperty = (id?: number | null): Promise<any> => {
-	return new Promise(async (resolve, reject) => {
+export const getMainProperty = (id?: number | null): Promise<any> => {
+	return new Promise(async (res, rej) => {
 		try {
-			const { data: property } = await axios.get("property", {
+			const { data: property } = await axios.get("lead/main-property", {
 				params: { id },
 			});
-			resolve(property);
+			res(property);
 		} catch (error) {
-			reject(error);
+			rej(error);
 		}
 	});
 };
 
-export const getProperties = (userId): Promise<any[]> => {
+export const getLeadProperties = (): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: properties } = await axios.get(`users/${userId}/property`);
+			const { data: properties } = await axios.get(`lead/properties`);
 			if (properties && properties.length > 0) {
 				res(properties);
 			} else {
@@ -76,5 +76,12 @@ export const getSimilarProperties = (
 		} catch (error) {
 			rej(error);
 		}
+	});
+};
+
+export const getProperties = (userId): Promise<any[]> => {
+	return new Promise(async (res, rej) => {
+		res([]);
+		// const property = await axios.get()
 	});
 };
