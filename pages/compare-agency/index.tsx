@@ -125,7 +125,6 @@ const compareAgency = () => {
             </Button>
           </div>
         </div> */}
-<<<<<<< HEAD
         <div className="search-area">
           <p>
             {" "}
@@ -181,66 +180,6 @@ const compareAgency = () => {
           </div>
         </div>
        
-=======
-				<div className="search-area">
-					<p>
-						{" "}
-						<span>
-							{" "}
-							{t("span.real-estate")}
-							<br></br>
-							{t("span.nextline-real-estate")}
-						</span>
-					</p>
-					<p>
-						We analyze thousands of local agents and find the best to compete
-						you!
-					</p>
-
-					<div className="search-form d-flex">
-						<div className="d-flex flex-collumn">
-							<InputGroup>
-								<FormControl
-									placeholder="  City and State or ZIP"
-									name="address"
-									onChange={handleAutocomplete}
-									value={value}
-									autoComplete="off"
-								/>
-							</InputGroup>
-							{dataFromMapBox.length > 0 && (
-								<ListGroup
-									as="ul"
-									className="position-absolute"
-									style={{ marginTop: "45px", width: "288px" }}
-								>
-									{dataFromMapBox.map((item, index) => (
-										<ListGroup.Item
-											className="text-dark"
-											as="li"
-											onClick={() => handleSelectAddress(item.id)}
-											key={index}
-											style={{
-												textOverflow: "ellipsis",
-												whiteSpace: "nowrap",
-												overflow: "hidden",
-											}}
-										>
-											{item?.locality?.length > 0
-												? item?.locality
-												: item?.place + "," + item?.postcode}
-										</ListGroup.Item>
-									))}
-								</ListGroup>
-							)}
-						</div>
-						{/* <input type='search' onChange={(e) => onChange(e.target)} placeholder="City and State or ZIP" ></input> */}
-						<Button onClick={gotoAgenciesPages}>
-							{t("button.compare-agents")} <img src={goAhead} alt="goAhead" />
-						</Button>
-					</div>
-				</div>
->>>>>>> d6cc6c93009d4856f9bfc507f0a442781a296005
 
 				<div className=" cards-container d-flex justify-content-center ">
 					<div className="card text-center " style={{ border: "none" }}>
