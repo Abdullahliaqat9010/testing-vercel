@@ -285,9 +285,11 @@ function* getDataFromMapBox({ payload }: any) {
 function* getDataFromDB({ payload }: any) {
 	const { searchValue } = payload;
 	try {
-		const res = yield axios.get("limited-agency/search-by-area?address=" + searchValue);
+		const res = yield axios.get("limited-agency/search-by-area?address="+searchValue);
 		console.log("res", res)
 		if (res.status === 200) {
+			console.log("data", res)
+
 			const { data } = res;
 			yield getDataFromMapBoxSuccess(data);
 		}

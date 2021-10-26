@@ -30,7 +30,7 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
 			console.log("adress", address)
-			const { data: agencies } = await axios.get("agency/search?city=" + address.locality + "&zip=" + address.zip, {
+			const { data: agencies } = await axios.get("agency/search?city=" + address.city + "&zip=" + address.zip, {
 				headers: {
 					"Content-Type": "application/json"
 				}
@@ -46,7 +46,7 @@ export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
 			console.log("adress", address)
-			const { data: limitedAgencies } = await axios.get("limited-agency/search?city=" + address.locality + "&zip=" + address.zip, {
+			const { data: limitedAgencies } = await axios.get("limited-agency/search?city=" + address.city + "&zip=" + address.zip, {
 				headers: {
 					"Content-Type": "application/json"
 				}
