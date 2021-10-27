@@ -3663,7 +3663,7 @@ const priceMap = () => {
     <>
       <HeaderContainer title="price pam" />
       <div className=" price-map-main">
-        <div className="search-area d-flex mb-3">
+        <div className="search-area d-flex my-3 ">
           <input
             type="search"
             value={textToSearch}
@@ -3674,7 +3674,7 @@ const priceMap = () => {
             as="ul"
             id="navbar-example2"
             className="position-absolute"
-            style={{ marginTop: "45px", width: "calc(49.9533% - 10px)" }}
+            style={{ marginTop: "45px", width: "calc(49.9533% - 10px)", zIndex: 20 }}
           >
             {!selectedCity &&
               updatesearch.map((cityData, index) => {
@@ -3700,10 +3700,12 @@ const priceMap = () => {
         </div>
         <div className="pricr-map-setting d-flex">
           <div className="price-content-view">
+          <CustomScrollbar>
+
             <p>
               {" "}
               {cityPriceMap
-                ? t("pricemap.city name")
+                ? t("pricemap.city") +" "+ prices?.name
                 : t("label.prices") }{" "}
             </p>
 
@@ -3711,7 +3713,7 @@ const priceMap = () => {
               <>
                 <span className="city-price-content-span">
                   {/* Estimations de prix MeilleursAgents au 1 juillet 2021.{" "} */}
-                  <Link href="#">Comprendre nos prix</Link>
+                  <Link href="#">{t("link.back")}</Link>
                 </span>
 
                 <div>
@@ -3723,13 +3725,13 @@ const priceMap = () => {
                           activeTab === "price" ? "active" : "inactive"
                         }
                       >
-                        Prix au m²
+                        {t("span.price")}
                       </span>
                       <span
                         onClick={() => switchTab("rent")}
                         className={activeTab === "rent" ? "active" : "inactive"}
                       >
-                        Loyer au m²
+                        {t("span.rent-price")}
                       </span>
                     </div>
                     <div className=" city-price-date d-flex ">
@@ -3763,8 +3765,6 @@ const priceMap = () => {
                               ? "de 1 789 € à 4 041 €"
                               : "de 1 289 € à 4 041 €"}{" "}
                           </span>
-
-                          <span>Indice de cinfiance</span>
                           <span>
                             <p
                               style={{
@@ -3775,7 +3775,7 @@ const priceMap = () => {
                                 color: "var(--colorGrayTwo)",
                               }}
                             >
-                              Indice de cinfiance
+                              {t("span.index")}
                             </p>
                           </span>
                           <ProgressBar
@@ -3815,7 +3815,7 @@ const priceMap = () => {
                               ? "de 1 789 € à 4 041 €"
                               : "de 1 289 € à 4 041 €"}{" "}
                           </span>
-                          {/* <span>
+                           <span>
                             <p
                               style={{
                                 paddingTop: "10px",
@@ -3825,9 +3825,9 @@ const priceMap = () => {
                                 color: "var(--colorGrayTwo)",
                               }}
                             >
-                              Indice de cinfiance
+                              {t("span.index")}
                             </p>
-                          </span> */}
+                          </span>
                           <ProgressBar
                             now={60}
                             variant="warning"
@@ -3853,10 +3853,7 @@ const priceMap = () => {
                         </p> */}
                         {/* <Button>Obtenir les prix de vente</Button> */}
                       </div>
-                      <Link href="#">
-                        Comparer les professionnels en fonction de leur nombre
-                        de ventes
-                      </Link>
+                      <Link href="#">{t("link.compare")}</Link>
                     </div>
                   </div>
                 </div>
@@ -3902,7 +3899,10 @@ const priceMap = () => {
                 </Table>
               </div>
             )}
+            </CustomScrollbar>
+
           </div>
+
           <div className="price-map">
             <CustomScrollbar>
               <GoogleMap {...mapProps} />

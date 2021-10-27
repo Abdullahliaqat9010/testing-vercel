@@ -312,6 +312,13 @@
 }
 
 
+@media (min-width: 769px) and (max-width: 1024px) {
+	.compare-agency-result .agency-result-container .result-agency .search-form ul.position-absolute.list-group {
+    width: 63%;
+}
+}
+
+
 @media (min-width: 481px) and (max-width: 768px) {
 
 	.compare-agency-result .agency-result-container .result-agency{

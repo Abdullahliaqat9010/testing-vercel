@@ -51,7 +51,7 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 				headers: {
 					"Content-Type": "application/json"
 				}
-			);
+			});
 			res(agencies);
 		} catch (error) {
 			rej(error);
@@ -66,7 +66,7 @@ export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 				headers: {
 					"Content-Type": "application/json"
 				}
-			);
+			});
 			res(limitedAgencies);
 		} catch (error) {
 			rej(error);

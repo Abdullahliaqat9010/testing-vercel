@@ -153,9 +153,9 @@ const Mapbox3dMap = ({
                 'source': 'provice_data',
                 'layout': {},
                 'paint': {
-                    'line-color': '#000',
+                    'line-color': '#009900',
                     // 'line-opacity': 0.7,
-                    'line-width': 1
+                    'line-width': 2
                 }
             });
 

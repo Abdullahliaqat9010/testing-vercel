@@ -4483,9 +4483,9 @@ const compareAgency = () => {
 	const [openContactForm, setOpenContactForm] = useState<boolean>(false);
 	const [selctedIdex, setSelctedIdex] = useState(-1);
 	const [filteredAgencies, setFiltereAgencies] = useState([])
-	const [currentPage, setCurrentPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState(0);
 	const [markersPerAgency, setMarkersPerAgency] = useState([])
-	const [totalPages, setTotalPages] = useState(1);
+	const [totalPages, setTotalPages] = useState(0);
 	const [pageSize, setPageSize] = useState(10);
 	const [properties, setProperties] = useState([]);
 	let [address, setAddress] = useState({
@@ -4533,7 +4533,7 @@ const compareAgency = () => {
 			const agencies = await getAgenciesByAddress(address)
 			const limitedAgecies = await getLimitedAgenciesByAddress(address)
 			const allAgency = [...agencies, ...limitedAgecies]
-			const totalPages = allAgency.length > pageSize ? Math.ceil(allAgency.length / pageSize) : 1
+			const totalPages = allAgency.length > 0 ? allAgency.length > pageSize ? Math.ceil(allAgency.length / pageSize) : 1 : 0
 			setTotalPages(totalPages)
 			setFiltereAgencies(allAgency)
 			const agenciesMarkes = allAgency.map(agency => {
@@ -4658,7 +4658,7 @@ const compareAgency = () => {
 		const sendData = {
 			location: {},
 			infoFromAutoComplete: `${currentAgencyAddress?.street}, ${currentAgencyAddress?.zip}, ${city}`,
-			additionalAddress: { ...dataForNextStep },
+			additionalAddress: dataForNextStep,
 		};
 		setSearchSuggestions([])
 		dispatch(openMainStepsAction(sendData));
@@ -4669,7 +4669,7 @@ const compareAgency = () => {
 	}
 
 	const openDetail = async (index) => {
-		if (selctedIdex !== index) {
+		if (selctedIdex !== index || !open) {
 			const expandedAgency = filteredAgencies[index]
 			if (expandedAgency?.isLimited) {
 				const address = `${expandedAgency?.street} ${expandedAgency?.street_number}, ${expandedAgency?.zip} ${expandedAgency?.city}`

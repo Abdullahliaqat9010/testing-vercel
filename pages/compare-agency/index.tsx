@@ -4581,8 +4581,7 @@ const compareAgency = () => {
               {searchSuggestions.length > 0 && (
                 <ListGroup
                   as="ul"
-                  className="position-absolute"
-                  style={{ marginTop: "45px", width: "288px" }}
+                  className="position-absolute suggessions-list"
                 >
                   {searchSuggestions.map((item, index) => (
                     <ListGroup.Item
@@ -4593,7 +4592,7 @@ const compareAgency = () => {
                       style={{
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
-                        overflow: "hidden",
+						cursor: "pointer",
                       }}
                     >
                       {(locale === 'en'? item.cityen : locale === 'nl' ? item.citynl : item.cityfr) + "," + item.zip }

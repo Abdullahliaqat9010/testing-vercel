@@ -73,6 +73,13 @@
       input {
         width: 288px;
       }
+      .suggessions-list {
+        width: 288px;
+        margin-top: 45px;
+        max-height: 300px;
+        overflow-y: scroll;
+        
+      }
     }
   }
   .cards-container {
@@ -426,6 +433,7 @@
   justify-content: center;
   width: 100%;
   align-items: center;
+  
 }
 .campare-agency-footer {
   flex-direction: column;
@@ -463,6 +471,9 @@
           margin:0;
           margin-bottom: 15px;
           width : 280px;
+        }
+        .suggessions-list {
+          width: 280px;
         }
       }
       
