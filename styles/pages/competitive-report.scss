@@ -1,10 +1,11 @@
 .main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 .background-clr {
     // margin-left: 250px;
-    position: absolute;
+    // position: absolute;
     width: 896px;
     height: 314px;
     background: #3871ef;
@@ -13,7 +14,7 @@
 }
 
 .background-gradiant {
-    position: absolute;
+    // position: absolute;
     width: 896px;
     margin-left: 30px;
     height: 304px;
@@ -29,9 +30,9 @@
     display: flex;
 
 
-margin-top: 315px;
+// margin-top: 315px;
 background-color: white;
-position: absolute;
+//  position: absolute;
 width: 896px;
 height: 250px;
 /* Immo Belgium/White */
@@ -307,3 +308,17 @@ color: #FFFFFF;
 .instagram{
     margin-left: 10px;
 }
+
+
+
+@media (max-width: 767.98px) { 
+
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+   

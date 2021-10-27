@@ -41,7 +41,7 @@ const agencySettings: NavBarLists = {
 
 const competitiveReport: NavBarLists = {
 	id: "competitive-report",
-	href: "#",
+	href: "/competitive-report",
 	title: "Competitive Report",
 	img: settingsIcon,
 	activeImg: settingsActiveIcon,

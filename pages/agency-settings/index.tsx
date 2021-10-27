@@ -443,12 +443,5 @@ const Formpage = () => {
 	);
 };
 
-export const getServerSideProps = async ({ locale }) => {
-	return {
-		props: {
-			...(await serverSideTranslations(locale, ["agency-settings", "header", "common"])),
-		},
-	};
-};
 
 export default Formpage;
