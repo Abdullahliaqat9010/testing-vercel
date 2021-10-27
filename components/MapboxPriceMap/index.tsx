@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import "mapbox-gl/dist/mapbox-gl.css";
-import {ProgressBar } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 
 
 import MarkerHomeIcon from "../../assets/images/marker.svg";
@@ -9,6 +9,8 @@ import MarkerAgencyIcon from "../../assets/images/marker-agency.svg";
 import MarkerPropertyIcon from "../../assets/images/similar-property-marker.svg";
 import MarkerPropertyActiveIcon from "../../assets/images/similar-property-marker-active.svg";
 import province from "./provinces.json"
+import * as provinces from "./provinces.json";
+
 mapboxgl.Marker.prototype.onClick = function (handleClick) {
     this._handleClick = handleClick;
     return this;
@@ -35,7 +37,8 @@ interface MarkerI {
 }
 
 interface MapProps {
-    markers?: MarkerI[];
+    markers?: MarkerI[],
+    city4?: string
 }
 const progressBar = {
     height: '15px',
@@ -45,6 +48,7 @@ const progressBar = {
 
 const Mapbox3dMap = ({
     markers = [],
+    city4
 }: MapProps) => {
 
     const [center, setCenter] = useState([4.402771, 51.260197,]);
@@ -115,6 +119,49 @@ const Mapbox3dMap = ({
             });
         });
     }, [mapRef]);
+
+    useEffect(() => {
+        if (city4.length > 0) {
+            const _provinces = provinces as any;
+            const getRegion = _provinces?.default?.features.find(
+                (feature) =>
+                    feature.properties.NAME_4.toLocaleLowerCase() ===
+                    city4.toLocaleLowerCase()
+            );
+            const provinceLevelData = {
+                "type": "FeatureCollection",
+                "name": "gadm36_BEL_4",
+                "crs": {
+                    "type": "name",
+                    "properties": {
+                        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                    }
+                },
+                features: [
+                   {...getRegion}
+                ]
+            }
+
+            mapRef.current.addSource('provice_data', {
+                'type': 'geojson',
+                'data': provinceLevelData
+            });
+
+            mapRef.current.addLayer({
+                'id': 'state-borders',
+                'type': 'line',
+                'source': 'provice_data',
+                'layout': {},
+                'paint': {
+                    'line-color': '#000',
+                    // 'line-opacity': 0.7,
+                    'line-width': 1
+                }
+            });
+
+        }
+
+    }, [city4])
 
     useEffect(() => {
         if (first) {

@@ -3563,6 +3563,7 @@ const priceMap = () => {
   const [textToSearch, setTextToSearch] = useState("");
   const [selectedCity, setSelectedCity] = useState(false);
   const [markers, setMarkers] = useState([]);
+  const [cityName, setCityName] = useState("")
   const [prices, setPrices] = useState({
     name: "",
     zipcode: "",
@@ -3578,6 +3579,7 @@ const priceMap = () => {
         feature.properties.NAME_4.toLocaleLowerCase() ===
         getObj.name.toLocaleLowerCase()
     );
+    const city4Name = getRegion?.properties?.NAME_4
     const region = getRegion.geometry.coordinates[0];
     const boundries = region[0];
     const getLatLong = boundries[0];
@@ -3589,6 +3591,7 @@ const priceMap = () => {
       },
       id: "home",
     };
+    setCityName(city4Name)
     setMarkers([{ ...position }]);
     setPrices(getObj);
     setCityPriceMap(!cityPriceMap);
@@ -3597,6 +3600,7 @@ const priceMap = () => {
 
   const mapProps = {
     markers: markers,
+    city4: cityName
   };
 
   useEffect(() => {
@@ -3631,6 +3635,7 @@ const priceMap = () => {
         feature.properties.NAME_4.toLocaleLowerCase() ===
         cityName.toLocaleLowerCase()
     );
+    const city4Name = getRegion?.properties?.NAME_4
     const region = getRegion.geometry.coordinates[0];
     const boundries = region[0];
     const getLatLong = boundries[0];
@@ -3642,6 +3647,7 @@ const priceMap = () => {
       },
       id: "home",
     };
+    setCityName(city4Name)
     setMarkers([{ ...position }]);
     setTextToSearch(cityName + " " + zipcode);
     setSelectedCity(true);
@@ -3668,7 +3674,7 @@ const priceMap = () => {
             as="ul"
             id="navbar-example2"
             className="position-absolute"
-            style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}
+            style={{ marginTop: "45px", width: "calc(49.9533% - 10px)" }}
           >
             {!selectedCity &&
               updatesearch.map((cityData, index) => {
