@@ -105,7 +105,7 @@ const PropertyPage = ({ property }) => {
 						</div>
 						<div className="property-content d-flex">
 							<div className="property-content__info w-75">
-								<p className="address">{property?.search_address?? "klsja alsk a,skd klasj"}</p>
+								<p className="address">{property?.search_address?? ""}</p>
 								<div className="d-flex w-100 align-items-center justify-content-between">
 									<Button
 										onClick={handleShowRequestPriceModal}
