@@ -4,10 +4,16 @@
     "p.city-price-block":"De prijs per m² in Belgische steden ",
     "pricemap.city-block-appartment":"Prijs m² gemiddeld appartement",
     "pricemap.maison":"Prijs m² gemiddeld huis",
-    "pricemap.city name":"Vastgoedprijs per m² in (city name) ",
+    "pricemap.city":"Vastgoedprijs per m² in ",
     "p.estimates-buttons":"Schat uw woning in functie van zijn karakteristieken ",
     "pricemap.appartment":"Appartement",
-    "pricemap.home":"Huis"
+    "pricemap.home":"Huis",
+    "label.prices": "Vastgoedprijzen overal in België",
+    "link.back": "Begrijp onze prijzen",
+     "span.price": "Prijs per m²",
+     "span.rent-price": "Cinfiance-index",
+     "span.index": "Cinfiance-index",
+     "link.compare": "Vergelijk professionals op basis van hun aantal verkopen"
 
 
 

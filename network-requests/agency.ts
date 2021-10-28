@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import { setTokens } from ".";
+import { setTokens } from "./auth";
 import { UserProfile } from "../types/profile";
 
 export const signupAgent = (userData): Promise<any> => {
@@ -47,15 +47,11 @@ export const addLimitedAgncies = (limitedAgenciesData) => {
 export const getAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address);
-			const { data: agencies } = await axios.get(
-				"agency/search?city=" + address.locality + "&zip=" + address.zip,
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
+			const { data: agencies } = await axios.get("agency/search?city=" + address.city + "&zip=" + address.zip, {
+				headers: {
+					"Content-Type": "application/json"
 				}
-			);
+			});
 			res(agencies);
 		} catch (error) {
 			rej(error);
@@ -66,18 +62,11 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address);
-			const { data: limitedAgencies } = await axios.get(
-				"limited-agency/search?city=" +
-					address.locality +
-					"&zip=" +
-					address.zip,
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
+			const { data: limitedAgencies } = await axios.get("limited-agency/search?city=" + address.city + "&zip=" + address.zip, {
+				headers: {
+					"Content-Type": "application/json"
 				}
-			);
+			});
 			res(limitedAgencies);
 		} catch (error) {
 			rej(error);
