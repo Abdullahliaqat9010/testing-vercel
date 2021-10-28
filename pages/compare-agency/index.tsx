@@ -4808,10 +4808,10 @@ const compareAgency = () => {
 				)}
 
 				<div className="campare-agency-footer">
-					<span>Immo Belgium ©2021. All Rights Reserved.</span>
+					<span>{t("span.compare-agency-footer-dec")}</span>
 					<div>
-						<Link href="#">Blog</Link>
-						<Link href="#">Politique de Confidentialité.</Link>
+						<Link href="#">{t("p.compare-agency-footer-blog")}</Link>
+						<Link href="#">{t("p.compare-agency-footer-politique")}</Link>
 					</div>
 				</div>
 			</div>

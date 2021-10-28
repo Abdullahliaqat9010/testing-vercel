@@ -10,10 +10,15 @@
      "pricemap.city":"Real estate prices everywhere in Belgium ",
      "label.prices": "Real estate prices everywhere in Belgium",
      "link.back": "Understand our prices",
-     "span.price": "Price per m²",
-     "span.rent-price": "Rent per m²",
+    
      "span.index": "Cinfiance Index",
-     "link.compare": "Compare professionals based on their number of sales"
+     "link.compare": "Compare professionals based on their number of sales",
+     "pricemap.average-price":"Average Price m2",
+     "pricemap.from":"from 1789 € to 4041 €",
+     "pricemap.from2":"from 1289 € to 4041 € ",
+     "pricemap.monthly-rent":"Monthly rent",
+     "pricemap.loyer":"Loyer mensuel "
+
     
     
 
