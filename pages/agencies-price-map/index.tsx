@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import HeaderContainer from "../../containers/Header";
-import SearchImage from "../../assets/images/search.svg";
+import SearchImage from "../../assets/images/icons8-search.svg";
 import { CustomScrollbar } from "../../components/Scrollbar";
 import HomeownerIcon from "../../assets/images/home-noactive.svg";
 import ApartmentImageNoActive from "../../assets/images/apartment-noactive.svg";
@@ -3563,6 +3563,7 @@ const priceMap = () => {
   const [textToSearch, setTextToSearch] = useState("");
   const [selectedCity, setSelectedCity] = useState(false);
   const [markers, setMarkers] = useState([]);
+  const [cityName, setCityName] = useState("")
   const [prices, setPrices] = useState({
     name: "",
     zipcode: "",
@@ -3572,6 +3573,26 @@ const priceMap = () => {
 
   const gotoCityData = (index) => {
     let getObj = cityAndPricesData[index];
+    const _provinces = province as any;
+    const getRegion = _provinces?.default?.features.find(
+      (feature) =>
+        feature.properties.NAME_4.toLocaleLowerCase() ===
+        getObj.name.toLocaleLowerCase()
+    );
+    const city4Name = getRegion?.properties?.NAME_4
+    const region = getRegion.geometry.coordinates[0];
+    const boundries = region[0];
+    const getLatLong = boundries[0];
+    const position = {
+      type: "home",
+      position: {
+        lat: getLatLong[0],
+        lng: getLatLong[1],
+      },
+      id: "home",
+    };
+    setCityName(city4Name)
+    setMarkers([{ ...position }]);
     setPrices(getObj);
     setCityPriceMap(!cityPriceMap);
   };
@@ -3579,6 +3600,7 @@ const priceMap = () => {
 
   const mapProps = {
     markers: markers,
+    city4: cityName
   };
 
   useEffect(() => {
@@ -3613,6 +3635,7 @@ const priceMap = () => {
         feature.properties.NAME_4.toLocaleLowerCase() ===
         cityName.toLocaleLowerCase()
     );
+    const city4Name = getRegion?.properties?.NAME_4
     const region = getRegion.geometry.coordinates[0];
     const boundries = region[0];
     const getLatLong = boundries[0];
@@ -3624,6 +3647,7 @@ const priceMap = () => {
       },
       id: "home",
     };
+    setCityName(city4Name)
     setMarkers([{ ...position }]);
     setTextToSearch(cityName + " " + zipcode);
     setSelectedCity(true);
@@ -3639,7 +3663,7 @@ const priceMap = () => {
     <>
       <HeaderContainer title="price pam" />
       <div className=" price-map-main">
-        <div className="search-area d-flex mb-3">
+        <div className="search-area d-flex my-3 ">
           <input
             type="search"
             value={textToSearch}
@@ -3650,7 +3674,7 @@ const priceMap = () => {
             as="ul"
             id="navbar-example2"
             className="position-absolute"
-            style={{ marginTop: "45px", width: "calc(48.533% - 58px)" }}
+            style={{ marginTop: "45px", width: "calc(49.9533% - 10px)", zIndex: 20 }}
           >
             {!selectedCity &&
               updatesearch.map((cityData, index) => {
@@ -3669,25 +3693,27 @@ const priceMap = () => {
               })}
           </ListGroup>
 
-          <Button className="search-button">
-            {" "}
+          {/* <Button className="search-button">
+            {" "} */}
             <img src={SearchImage} alt="SearchImage" />{" "}
-          </Button>
+          {/* </Button> */}
         </div>
         <div className="pricr-map-setting d-flex">
           <div className="price-content-view">
+          <CustomScrollbar>
+
             <p>
               {" "}
               {cityPriceMap
-                ? t("pricemap.city name")
-                : t("pricemap.city")}{" "}
+                ? t("pricemap.city") +" "+ prices?.name
+                : t("label.prices") }{" "}
             </p>
 
             {cityPriceMap && (
               <>
                 <span className="city-price-content-span">
                   {/* Estimations de prix MeilleursAgents au 1 juillet 2021.{" "} */}
-                  <Link href="#">Comprendre nos prix</Link>
+                  <Link href="#">{t("link.back")}</Link>
                 </span>
 
                 <div>
@@ -3699,13 +3725,13 @@ const priceMap = () => {
                           activeTab === "price" ? "active" : "inactive"
                         }
                       >
-                        Prix au m²
+                        {t("span.price")}
                       </span>
                       <span
                         onClick={() => switchTab("rent")}
                         className={activeTab === "rent" ? "active" : "inactive"}
                       >
-                        Loyer au m²
+                        {t("span.rent-price")}
                       </span>
                     </div>
                     <div className=" city-price-date d-flex ">
@@ -3739,8 +3765,6 @@ const priceMap = () => {
                               ? "de 1 789 € à 4 041 €"
                               : "de 1 289 € à 4 041 €"}{" "}
                           </span>
-
-                          <span>Indice de cinfiance</span>
                           <span>
                             <p
                               style={{
@@ -3751,7 +3775,7 @@ const priceMap = () => {
                                 color: "var(--colorGrayTwo)",
                               }}
                             >
-                              Indice de cinfiance
+                              {t("span.index")}
                             </p>
                           </span>
                           <ProgressBar
@@ -3791,7 +3815,7 @@ const priceMap = () => {
                               ? "de 1 789 € à 4 041 €"
                               : "de 1 289 € à 4 041 €"}{" "}
                           </span>
-                          {/* <span>
+                           <span>
                             <p
                               style={{
                                 paddingTop: "10px",
@@ -3801,9 +3825,9 @@ const priceMap = () => {
                                 color: "var(--colorGrayTwo)",
                               }}
                             >
-                              Indice de cinfiance
+                              {t("span.index")}
                             </p>
-                          </span> */}
+                          </span>
                           <ProgressBar
                             now={60}
                             variant="warning"
@@ -3829,10 +3853,7 @@ const priceMap = () => {
                         </p> */}
                         {/* <Button>Obtenir les prix de vente</Button> */}
                       </div>
-                      <Link href="#">
-                        Comparer les professionnels en fonction de leur nombre
-                        de ventes
-                      </Link>
+                      <Link href="#">{t("link.compare")}</Link>
                     </div>
                   </div>
                 </div>
@@ -3878,7 +3899,10 @@ const priceMap = () => {
                 </Table>
               </div>
             )}
+            </CustomScrollbar>
+
           </div>
+
           <div className="price-map">
             <CustomScrollbar>
               <GoogleMap {...mapProps} />

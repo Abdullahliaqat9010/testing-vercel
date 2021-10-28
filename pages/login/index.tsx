@@ -11,7 +11,7 @@ import { setUserProfile } from "../../actions";
 import HeaderContainer from "../../containers/Header";
 
 import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
-import { login } from "../../network-requests";
+import { getAgencyProfile, login } from "../../network-requests";
 
 import ArrowLink from "../../assets/images/arrow-blue.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
@@ -40,7 +40,12 @@ const LoginPage = () => {
 				);
 				res("");
 				if (userProfile.account_type === "agent") {
-					router.push("/properties");
+					const agency = await getAgencyProfile();
+					if (agency) {
+						router.push("/properties");
+					} else {
+						router.push("register");
+					}
 				} else {
 					router.push("/dashboard");
 				}

@@ -78,15 +78,13 @@ const GoogleMap = ({
 					<Marker
 						key={index}
 						icon={
-							marker.type === "home" ? (
-								MarkerHomeIcon
-							) : marker.type === "agency" ? (
-								<MarkerAgencyIcon />
-							) : marker.type === "property" ? (
-								MarkerPropertyIcon
-							) : (
-								MarkerPropertyActiveIcon
-							)
+							marker.type === "home"
+								? MarkerHomeIcon
+								: marker.type === "agency"
+								? MarkerAgencyIcon
+								: marker.type === "property"
+								? MarkerPropertyIcon
+								: MarkerPropertyActiveIcon
 						}
 						onClick={() => setActiveMarker(marker)}
 						position={{

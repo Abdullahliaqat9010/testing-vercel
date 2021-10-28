@@ -190,7 +190,7 @@ export const getServerSideProps = async ({ params, locale }) => {
 	});
 	try {
 		const { data: property } = await axiosInstance.get(
-			`property/${params?.propertyId}`
+			`agency-property/${params?.propertyId}`
 		);
 		if (!property) {
 			return {

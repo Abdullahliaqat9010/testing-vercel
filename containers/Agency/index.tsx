@@ -153,8 +153,8 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 					return {
 						type: "property",
 						position: {
-							lat: prop?.lat,
-							lng: prop?.lng,
+							lat: prop?.property?.lat,
+							lng: prop?.property?.lng,
 						},
 						id: prop?.id,
 					};
@@ -165,10 +165,18 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 	const mapProps = {
 		markers: [
 			{
+				type: "agency",
+				position: {
+					lat: agency?.latlng.split(",")[0],
+					lng: agency?.latlng.split(",")[1],
+				},
+				id: agency.id,
+			},
+			{
 				type: "home",
 				position: {
-					lat: mainProperty?.lat,
-					lng: mainProperty?.lng,
+					lat: mainProperty?.property?.lat,
+					lng: mainProperty?.property?.lng,
 				},
 				id: "home",
 			},
@@ -182,7 +190,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				show={showContactModal}
 				onClose={() => setShowContactModal(false)}
 				properties={properties}
-				agencyOwner={agency?.owner}
+				agencyOwner={agency?.agent?.user}
 				agencyName={agency?.company_name}
 			/>
 			<div
@@ -200,7 +208,9 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 					<div className="info">
 						<span className="agency-name">{agency.company_name}</span>
 						<div className="rating-block d-flex align-items-center">
-							<span className="total">{agencyRating("4.4")}</span>
+							<span className="total">
+								{agencyRating(agency?.rating?.rating)}
+							</span>
 							<StarRatingComponent
 								name="rate"
 								className="custom-rate"
@@ -212,10 +222,14 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 									/>
 								)}
 								starCount={5}
-								value={Number(agencyRating("4.4"))}
+								value={Number(agencyRating(agency?.rating?.rating))}
 							/>
 							<span className="from">
-								{t("span.from")} {agencyTotalUserReview(50)} {t("span.reviews")}
+								{t("span.from")}{" "}
+								{agencyTotalUserReview(
+									agencyRating(agency?.rating?.user_ratings_total)
+								)}{" "}
+								{t("span.reviews")}
 							</span>
 						</div>
 						{agency.id === nearest && (
@@ -223,9 +237,11 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 						)}
 					</div>
 				</div>
-				<div className="agency-border" />
+				{/* <div className="agency-border" /> */}
 				<div className="short-info__right d-flex align-items-center w-45">
-					<span className="count-block">{agency.properties?.length || 0}</span>
+					<span className="count-block pl-1">
+						{agency.properties?.length || 0}
+					</span>
 					<div className="address">
 						<p>{t("p.similar-properties-sold")}</p>
 						<p className="d-flex">
@@ -243,12 +259,17 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 					<div className="agent-block">
 						<div className="agent-info d-flex">
 							<Image
-								src={agency?.owner?.avatar ? agency?.owner?.avatar : noLogo}
+								src={
+									agency?.agent?.user?.avatar
+										? agency?.agent?.user?.avatar
+										: noLogo
+								}
 								roundedCircle
 							/>
 							<div className="d-flex flex-column">
 								<span className="bold">
-									{agency?.owner?.firstname} {agency?.owner?.lastname}
+									{agency?.agent?.user?.firstname}{" "}
+									{agency?.agent?.user?.lastname}
 								</span>
 								<span>{"Owner"}</span>
 							</div>
@@ -261,7 +282,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 							)}
 						></div>
 						<Button className="contact" onClick={() => openContactModal()}>
-							{t("button.contact")} {agency?.owner?.firstname}
+							{t("button.contact")} {agency?.agent?.user?.firstname}
 						</Button>
 						<Link href={`/agency/${agency.id}`} locale={locale}>
 							<span className="details">

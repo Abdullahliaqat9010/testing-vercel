@@ -70,7 +70,7 @@ export const getSimilarProperties = (
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: properties } = await axios.get(
-				`property/${propertyId}/similar?page=${page}&limit=${limit}`
+				`lead/similar-properties/${propertyId}`
 			);
 			res(properties);
 		} catch (error) {

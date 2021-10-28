@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import { setTokens } from ".";
+import { setTokens } from "./auth";
 import { UserProfile } from "../types/profile";
 
 export const signupAgent = (userData): Promise<any> => {
@@ -47,9 +47,8 @@ export const addLimitedAgncies = (limitedAgenciesData) => {
 export const getAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address);
 			const { data: agencies } = await axios.get(
-				"agency/search?city=" + address.locality + "&zip=" + address.zip,
+				"agency/search?city=" + address.city + "&zip=" + address.zip,
 				{
 					headers: {
 						"Content-Type": "application/json",
@@ -66,12 +65,8 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address);
 			const { data: limitedAgencies } = await axios.get(
-				"limited-agency/search?city=" +
-					address.locality +
-					"&zip=" +
-					address.zip,
+				"limited-agency/search?city=" + address.city + "&zip=" + address.zip,
 				{
 					headers: {
 						"Content-Type": "application/json",
@@ -115,8 +110,6 @@ export const getAgencyProfile = (): Promise<any> => {
 export const getAgencyById = (id: number): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("sjhajd, agency");
-
 			const { data } = await axios.get(`agency/profile/${id}`);
 			res(data);
 		} catch (error) {
@@ -128,7 +121,6 @@ export const getAgencyById = (id: number): Promise<any> => {
 export const getLimitedAgencyById = (id: number): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("sjhajd, limited agency");
 			const { data } = await axios.get(`limited-agency/${id}`);
 			res(data);
 		} catch (error) {
@@ -224,11 +216,49 @@ export const getLatLongFromAddress = (payload): Promise<any[]> => {
 		}
 	});
 };
+
 export const createAgencyProperty = (payload) => {
 	return new Promise(async (res, rej) => {
 		try {
 			await axios.post("agency/property", { ...payload });
 			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const makePropertyVisible = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.patch("agency-property/property/visible", [...ids]);
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const makePropertyInvisible = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.patch("agency-property/property/invisible", [...ids]);
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const deleteProperties = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.delete("agency-property", {
+				params: {
+					ids,
+				},
+			});
+			res(ids);
 		} catch (error) {
 			rej(error);
 		}

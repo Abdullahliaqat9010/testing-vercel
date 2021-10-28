@@ -19,22 +19,34 @@ import blackeye from "../../../assets/images/black-eye.svg";
 import loadMoreImage from "../../../assets/images/load-more.svg";
 import NoImage from "../../../assets/images/no-image-available.svg";
 import blackCross from "../../../assets/images/black-eye-cross.svg";
-import { getAgencyProperties } from "../../../network-requests";
+import {
+	deleteProperties,
+	getAgencyProperties,
+	makePropertyInvisible,
+	makePropertyVisible,
+} from "../../../network-requests";
 import PropertyDetailsModal from "../../../containers/Modals/PropertyDetailsModal";
 import Loading from "../../../components/Loading";
 
-const PropertyCard = ({ property, onClick }) => {
+const PropertyCard = ({
+	property,
+	onClick,
+	onVisible,
+	onInvisible,
+	isSelected,
+	onChangeSelect,
+}) => {
 	const { t } = useTranslation("properties-page");
-	const images = property?.images?.split(",");
-
+	const images = property?.images;
 	return (
-		<div
-			style={{ cursor: "pointer" }}
-			className="w-100 property-container d-flex"
-			onClick={() => onClick({ ...property })}
-		>
+		<div className="w-100 property-container d-flex">
 			<div className="property-images-block d-flex">
-				<input type="checkBox" className="mr-2"></input>
+				<input
+					type="checkbox"
+					checked={isSelected}
+					onChange={(e) => onChangeSelect(e.target.checked)}
+					className="mr-2"
+				></input>
 				<div className="d-flex flex-row align-items-center">
 					<img
 						className="first-image"
@@ -58,7 +70,11 @@ const PropertyCard = ({ property, onClick }) => {
 			<div className=" property-discription  d-flex">
 				<div className="proprty-info">
 					<div>
-						<span className="address">
+						<span
+							style={{ cursor: "pointer" }}
+							onClick={() => onClick({ ...property })}
+							className="address"
+						>
 							{property?.property?.search_address}
 						</span>
 					</div>
@@ -86,14 +102,13 @@ const PropertyCard = ({ property, onClick }) => {
 					</div>
 				</div>
 				<div className=" d-flex view-property">
-					{property?.status === "active" ? (
-						// {" "}
-						<Button>
+					{!property?.is_visible ? (
+						<Button onClick={() => onVisible([property.id])}>
 							{" "}
 							<img src={blackeye} alt="eye" />
 						</Button>
 					) : (
-						<Button>
+						<Button onClick={() => onInvisible([property.id])}>
 							{" "}
 							<img src={blackCross} alt="eye" />
 						</Button>
@@ -112,6 +127,7 @@ const SoldPropertiesPage = () => {
 	const [selectedProperty, setSelectedProperty] = useState(null);
 	const [properties, setProperties] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [selectedProperties, setSelectedProperties] = useState([]);
 
 	const { t } = useTranslation("properties-page");
 	const router = useRouter();
@@ -124,6 +140,49 @@ const SoldPropertiesPage = () => {
 			setTotalPages(meta?.totalItems);
 			setCurrentPage(meta?.currentPage);
 			setIsLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const makeVisible = async (ids) => {
+		try {
+			await makePropertyVisible(ids);
+			setProperties([
+				...properties.map((property) => {
+					return {
+						...property,
+						is_visible: ids.includes(property.id) ? true : property?.is_visible,
+					};
+				}),
+			]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const makeInvisible = async (ids) => {
+		try {
+			await makePropertyInvisible(ids);
+			setProperties([
+				...properties.map((property) => {
+					return {
+						...property,
+						is_visible: ids.includes(property.id)
+							? false
+							: property?.is_visible,
+					};
+				}),
+			]);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const _deleteProperties = async (ids) => {
+		try {
+			await deleteProperties(ids);
+			setProperties([...properties.filter(({ id }) => !ids.includes(id))]);
 		} catch (error) {
 			console.log(error);
 		}
@@ -169,22 +228,40 @@ const SoldPropertiesPage = () => {
 						<div className="w-100 py-4 whole-selecter-block justify-content-between d-flex">
 							<div>
 								{" "}
-								<input type="checkBox"></input>{" "}
+								<input
+									onChange={(e) =>
+										setSelectedProperties(
+											e.target.checked
+												? [...properties.map(({ id }) => id)]
+												: []
+										)
+									}
+									type="checkbox"
+								></input>{" "}
 								<span className=" total-listings pl-2">
 									{" "}
 									{t("span.select")} {properties.length} {t("span.properties")}{" "}
 								</span>{" "}
 							</div>
 							<div className="action-block">
-								<Button className="mx-1">
+								<Button
+									onClick={() => makeInvisible(selectedProperties)}
+									className="mx-1"
+								>
 									{" "}
 									<img src={Eye} alt="eye" />
 								</Button>
-								<Button className="mx-1">
+								<Button
+									onClick={() => makeVisible(selectedProperties)}
+									className="mx-1"
+								>
 									{" "}
 									<img src={EyeCross} alt="eye" />
 								</Button>
-								<Button className="ml-1">
+								<Button
+									onClick={() => _deleteProperties(selectedProperties)}
+									className="ml-1"
+								>
 									{" "}
 									<img src={Delete} alt="eye" />
 								</Button>
@@ -200,6 +277,21 @@ const SoldPropertiesPage = () => {
 									}}
 									key={index}
 									property={property}
+									onVisible={makeVisible}
+									onInvisible={makeInvisible}
+									isSelected={selectedProperties.includes(property?.id)}
+									onChangeSelect={(isChecked) =>
+										isChecked
+											? setSelectedProperties([
+													...selectedProperties,
+													property?.id,
+											  ])
+											: setSelectedProperties([
+													...selectedProperties.filter(
+														(_id) => _id !== property?.id
+													),
+											  ])
+									}
 								/>
 							))}
 						<div className="load-more-block d-flex ">

@@ -46,6 +46,7 @@
     "react-redux": "^7.2.3",
     "react-star-rating-component": "^1.4.1",
     "react-textarea-autosize": "^8.3.3",
+    "reactstrap": "^8.10.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-persist-cookie-storage": "^1.0.0",
