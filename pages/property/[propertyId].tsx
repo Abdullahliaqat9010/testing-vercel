@@ -27,6 +27,7 @@ import TestAgency from "../../assets/images/agents/test-agency.png";
 import { clearSimilarPropertiesLocation } from "../../actions";
 import axios from "axios";
 import { config } from "../../config/siteConfigs";
+import ContactAgentModal from "../../containers/Modals/ContactAgentModal"
 
 const PropertyPage = ({ property }) => {
 	const { t } = useTranslation("property-page");
@@ -35,6 +36,7 @@ const PropertyPage = ({ property }) => {
 	const { locale } = router;
 
 	const [showMapModal, setShowMapModal] = useState<boolean>(false);
+	const [showContactModal, setOpenContactForm] = useState<boolean>(false);
 	const [showRequestPriceModal, setShowRequestPriceModal] =
 		useState<boolean>(false);
 	const [propertyImages] = useState([
@@ -56,6 +58,12 @@ const PropertyPage = ({ property }) => {
 		handleClearSimilarPropertiesLocation();
 		return setShowRequestPriceModal(true);
 	};
+	const shoeContactForm = () => {
+		if (isMobile) {
+			setOpenContactForm(!showContactModal)
+		}
+
+	}
 
 	return (
 		<>
@@ -97,7 +105,7 @@ const PropertyPage = ({ property }) => {
 						</div>
 						<div className="property-content d-flex">
 							<div className="property-content__info w-75">
-								<p className="address">{property?.search_address}</p>
+								<p className="address">{property?.search_address?? "klsja alsk a,skd klasj"}</p>
 								<div className="d-flex w-100 align-items-center justify-content-between">
 									<Button
 										onClick={handleShowRequestPriceModal}
@@ -112,7 +120,7 @@ const PropertyPage = ({ property }) => {
 											<img src={squareIcon} alt="squareIcon" />
 											<div className="d-flex flex-column">
 												<span className="info__title">{t("span.square")}</span>
-												<span className="info__desc">{`${property?.total_area}m²`}</span>
+												<span className="info__desc">{`${property?.total_area?? ""}m²`}</span>
 											</div>
 										</div>
 										<div className="beds">
@@ -168,12 +176,23 @@ const PropertyPage = ({ property }) => {
 							</div>
 						</div>
 						{isMobile && (
-							<Button className="contact-agency-btn">
+							<Button onClick={shoeContactForm} className="contact-agency-btn">
 								<img src={MailIcon} alt="MailIcon" />
 								Contact this agency
 							</Button>
 						)}
 					</div>
+					{isMobile && showContactModal && (
+						<ContactAgentModal
+							show={showContactModal}
+							onClose={() => setOpenContactForm(false)}
+							properties={[property]}
+							agencyOwner="owner name"
+							agencyName="agency name"
+							agencyId={2}
+						/>
+					)}
+
 					{!isMobile && (
 						<ContactAgencyBlock agencyInfo={{ id: 99, title: "" }} />
 					)}
