@@ -1,16 +1,18 @@
 {
     "span.real-estate":"Comparez l'immobilier",
-    "span.nextline-real-estate":"Agences de votre quartier. ",
+    "span.nextline-real-estate":"Agences Immobilières près de chez vous. ",
     "p.real-estate":"Chaque agence belge est sur notre site internet.",
     "p.nextline-real-estate":"Vind het beste voor jou!",
     "button.compare-agents":"Comparez les Agences  ",
     "placeholder.zip":"Ville, Code Postal ou Province",
-    "span.review":"Lire les avis de",
-    "span.previous-customer":"clients précédents",
-    "span.discover-agency":"Découvrir les agences",
+    "span.review":"Lire les avis d'",
+    "span.previous-customer":"anciens clients",
+    "span.discover-agency":"Découvrez les agences",
     "span.nearest":"le plus proche de chez vous",
     "span.similar-houses":"Comparez des maisons similaires",
-    "span.sold":"qu'ils ont vendu"
+    "span.sold":"qu'ils ont vendu",
+    "p.country-placeholder":"Ville, Code Postal ou Province"
+
 
 
 

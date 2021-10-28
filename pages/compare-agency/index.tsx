@@ -142,7 +142,7 @@ const compareAgency = () => {
             <div className="d-flex flex-collumn">
               <InputGroup>
                 <FormControl
-                  placeholder="  City and State or ZIP"
+                  placeholder={t("p.country-placeholder")}
                   name="address"
                   onChange={handleAutocomplete}
                   value={value}

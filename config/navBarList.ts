@@ -1,5 +1,4 @@
 import { NavBarLists } from "../types/nav-bar-lists";
-
 import dashboardIcon from "../assets/images/nav-bar/dashboard.svg";
 import dashboardActiveIcon from "../assets/images/nav-bar/dashboard-active.svg";
 import propertiesIcon from "../assets/images/nav-bar/properties.svg";

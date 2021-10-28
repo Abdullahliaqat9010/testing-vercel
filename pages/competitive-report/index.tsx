@@ -26,12 +26,12 @@ const CompetitiveReport = () => {
       <div className="AgencySettingsPage container d-flex">
         <NavBarContainer />
 
-        <div className="main">
+        <div className="competitive-main">
           <div className="background-clr ">
             <div className=" background-gradiant  ">
               <img
                 src={competitiveReport}
-                className=" competive-report"
+                className=" competitive-report"
                 alt="..."
               />
             </div>
@@ -61,7 +61,7 @@ const CompetitiveReport = () => {
         
         </div>
       </div>
-      <FooterContainer/>
+      {/* <FooterContainer/> */}
     </div>
   );
 };
