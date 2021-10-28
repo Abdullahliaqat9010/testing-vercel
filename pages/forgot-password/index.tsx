@@ -34,6 +34,7 @@ const ForgotPasswordPage = () => {
 				notification.success({
 					message:
 						"We have sent instructions to your mailbox with the following steps, please check it.",
+					placement: "bottomRight",
 				});
 				res("");
 			} catch (error) {

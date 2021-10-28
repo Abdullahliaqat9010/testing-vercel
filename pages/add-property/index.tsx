@@ -125,7 +125,10 @@ const AddProperty = () => {
 		return new Promise(async (res, rej) => {
 			console.log(values);
 			try {
-				notification.info({ message: "Adding Property" });
+				notification.info({
+					message: "Adding Property",
+					placement: "bottomRight",
+				});
 				const { sold_rent_date, sold_rent_price, images, ...rest } = values;
 				await createAgencyProperty({
 					sold_rent_date,
@@ -133,11 +136,17 @@ const AddProperty = () => {
 					images: [...images].join(","),
 					property: { ...rest },
 				});
-				notification.success({ message: "Property added successfully" });
+				notification.success({
+					message: "Property added successfully",
+					placement: "bottomRight",
+				});
 				router.replace("/properties");
 				res("");
 			} catch (error) {
-				notification.error({ message: "Error Occurred" });
+				notification.error({
+					message: "Error Occurred",
+					placement: "bottomRight",
+				});
 				console.log(error);
 				rej(error);
 			}

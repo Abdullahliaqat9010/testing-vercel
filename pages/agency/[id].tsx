@@ -78,7 +78,7 @@ const AgencyPage = () => {
 			<div className="d-flex flex-row bd-highlight mb-2 w-100">
 				<div className="Agency container">
 					<Link href={"/dashboard"}>
-						<span className="Agency__back">
+						<span className="mt-3 Agency__back">
 							<img src={ArrowImage} alt="ArrowImage" />{" "}
 							{t("link.back-dashboard")}
 						</span>

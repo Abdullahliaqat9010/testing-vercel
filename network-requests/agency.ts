@@ -104,8 +104,6 @@ export const getAgencyProfile = (): Promise<any> => {
 export const getAgencyById = (id: number): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("sjhajd, agency");
-
 			const { data } = await axios.get(`agency/profile/${id}`);
 			res(data);
 		} catch (error) {
@@ -117,7 +115,6 @@ export const getAgencyById = (id: number): Promise<any> => {
 export const getLimitedAgencyById = (id: number): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("sjhajd, limited agency");
 			const { data } = await axios.get(`limited-agency/${id}`);
 			res(data);
 		} catch (error) {
