@@ -49,7 +49,6 @@ const socialLinks = [
 	},
 ];
 
-
 const TagInput = ({ tags, setTags }) => {
 	const [tagData, setTagData] = React.useState(tags);
 	const removeTagData = (indexToRemove: number) => {
@@ -151,6 +150,7 @@ const Formpage = () => {
 				notification.success({
 					description: "Changes are made successfully",
 					message: "Success",
+					placement: "bottomRight",
 				});
 				res("");
 			} catch (error) {
@@ -233,15 +233,13 @@ const Formpage = () => {
 							<div className="AgencySettingsPage__container w-100">
 								<div className="first-block">
 									<h1>{t("h1.votre")}</h1>
-									<div>{t("votre.description")}
-									</div>
+									<div>{t("votre.description")}</div>
 
 									<div className="password-block2">
 										<div className="d-flex flex-row justify-content-between pb-4">
 											<div className="pr-3">
 												<h2>{t("h2.photo")}</h2>
-												<div>{t("photo.description")}
-												</div>
+												<div>{t("photo.description")}</div>
 											</div>
 											<div
 												style={{ width: 160 }}
@@ -288,8 +286,7 @@ const Formpage = () => {
 												style={{ paddingTop: 5, paddingRight: 10 }}
 												color={"#d3d3d3"}
 											/>
-											<div>{t("question.description")}
-											</div>
+											<div>{t("question.description")}</div>
 										</div>
 										<div className="w-100">
 											<Upload
@@ -423,7 +420,9 @@ const Formpage = () => {
 													type="button"
 													onClick={() => submitForm()}
 												>
-													{isSubmitting ? t("button.loading") : t("button.save")}
+													{isSubmitting
+														? t("button.loading")
+														: t("button.save")}
 												</button>
 											</div>
 											<div className="button-container2">
@@ -446,7 +445,11 @@ const Formpage = () => {
 export const getServerSideProps = async ({ locale }) => {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ["agency-settings", "header", "common"])),
+			...(await serverSideTranslations(locale, [
+				"agency-settings",
+				"header",
+				"common",
+			])),
 		},
 	};
 };

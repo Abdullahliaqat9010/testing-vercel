@@ -26,8 +26,8 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 		{
 			type: "home",
 			position: {
-				lat: mainProperty?.lat,
-				lng: mainProperty?.lng,
+				lat: mainProperty?.property?.lat,
+				lng: mainProperty?.property?.lng,
 			},
 			id: "home",
 		},
@@ -35,8 +35,8 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 			return {
 				type: "property",
 				position: {
-					lat: prop?.lat,
-					lng: prop?.lng,
+					lat: prop?.property?.lat,
+					lng: prop?.property?.lng,
 				},
 				id: prop?.id,
 			};
@@ -45,7 +45,7 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 
 	const mapProps = {
 		markers: [...markers],
-		is3d:true,
+		is3d: false,
 		onActiveMarker: (id) => onClickProperty(id),
 	};
 
@@ -63,8 +63,8 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 				return {
 					type: `${index === 0 ? "property-active" : "property"}`,
 					position: {
-						lat: prop?.lat,
-						lng: prop?.lng,
+						lat: prop?.property?.lat,
+						lng: prop?.property?.lng,
 					},
 					id: prop?.id,
 				};
@@ -72,8 +72,8 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 			{
 				type: "home",
 				position: {
-					lat: mainProperty?.lat,
-					lng: mainProperty?.lng,
+					lat: mainProperty?.property?.lat,
+					lng: mainProperty?.property?.lng,
 				},
 				id: "home",
 			},
@@ -84,10 +84,12 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 		<div className="properties-block d-flex">
 			{!isMobileOnly && (
 				<div className="w-50 position-relative">
-					{mainProperty && mainProperty.lng && mainProperty.lat && (
-						<Mapbox3dMap {...mapProps} />
-						// <GoogleMap {...mapProps} />
-					)}
+					{mainProperty &&
+						mainProperty.property.lng &&
+						mainProperty.property.lat && (
+							<Mapbox3dMap {...mapProps} />
+							// <GoogleMap {...mapProps} />
+						)}
 				</div>
 			)}
 
@@ -110,12 +112,6 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 									/>
 								))}
 							</CustomScrollbar>
-							{/* {properties.length < similarProperties.length && (
-								<Button className="load-more" onClick={loadMore}>
-									<img src={LoadMoreImage} alt="LoadMoreImage" />
-									{t("button.load-more")}
-								</Button>
-							)} */}
 						</>
 					) : (
 						<div className="property-main-block__no-items">

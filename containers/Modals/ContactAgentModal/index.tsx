@@ -15,7 +15,7 @@ const ContactAgentModal = ({
 	properties = [],
 	agencyOwner,
 	agencyName,
-	agencyId = 3
+	agencyId = 3,
 }) => {
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
@@ -47,7 +47,7 @@ const ContactAgentModal = ({
 			try {
 				await contactAgency({
 					...contactInfo,
-					agencyId // hard coded for now
+					agencyId, // hard coded for now
 				});
 				res("");
 				setIsSuccessModalVisible(true);
@@ -134,7 +134,7 @@ const ContactAgentModal = ({
 											name="message"
 										/>
 									</div>
-									{auth &&
+									{auth && (
 										<div className="d-flex flex-column form-input-block">
 											<label className="form-label" htmlFor="propertyId">
 												{t("label.select")}
@@ -158,7 +158,7 @@ const ContactAgentModal = ({
 												name="propertyId"
 											/>
 										</div>
-									}
+									)}
 
 									<div className="d-flex flex-row">
 										<Field
