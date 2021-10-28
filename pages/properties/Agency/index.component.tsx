@@ -215,10 +215,10 @@ const SoldPropertiesPage = () => {
 						<div className=" title-button-block justify-content-between d-flex">
 							<h1>{t("title")}</h1>
 							<div className="bottons">
-								<Button className="import-button">
+								{/* <Button className="import-button">
 									<img src={Upload} alt="AddIcon" />
 									<span className="import-bt-text">{t("button.import")}</span>
-								</Button>
+								</Button> */}
 								<Button onClick={() => router.push("/add-property")}>
 									<img src={AddIcon} alt="AddIcon" />
 									<span className="add-bt-text">{t("button.add")}</span>

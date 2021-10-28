@@ -277,7 +277,7 @@ const Mapbox3dMap = ({
 	};
 
 	return (
-		<div style={{ height: "100vh", width: "100%" }} ref={mapRef} id="map" />
+		<div style={{ height: "100%", width: "100%" }} ref={mapRef} id="map" />
 	);
 };
 
