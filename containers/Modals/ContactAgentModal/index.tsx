@@ -17,10 +17,9 @@ const ContactAgentModal = ({
 	agencyName,
 	agencyId = 3,
 }) => {
-	console.log("agencyId", agencyId);
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
-	const { firstname, lastname, email, phone_number } = useSelector(
+	const { firstname, lastname, email, phone_number, auth } = useSelector(
 		(state: RootState) => state.userInfo
 	);
 	const [isSuccessModalVisible, setIsSuccessModalVisible] =
@@ -35,7 +34,7 @@ const ContactAgentModal = ({
 		phone: Yup.string().required(),
 		message: Yup.string().required("Required"),
 		free_evaluated: Yup.bool(),
-		propertyId: Yup.number().required(),
+		// propertyId: Yup.number().required(),
 	});
 
 	const handleClose = () => {
@@ -135,29 +134,31 @@ const ContactAgentModal = ({
 											name="message"
 										/>
 									</div>
-									<div className="d-flex flex-column form-input-block">
-										<label className="form-label" htmlFor="propertyId">
-											{t("label.select")}
-										</label>
-										<Field
-											className="custom-select"
-											name="propertyId"
-											type="text"
-											as="select"
-											style={{ paddingRight: 40 }}
-										>
-											{properties.map((property) => (
-												<option key={property?.id} value={property?.id}>
-													{property?.property?.search_address}
-												</option>
-											))}
-										</Field>
-										<ErrorMessage
-											className="form-error"
-											component="div"
-											name="propertyId"
-										/>
-									</div>
+									{auth && (
+										<div className="d-flex flex-column form-input-block">
+											<label className="form-label" htmlFor="propertyId">
+												{t("label.select")}
+											</label>
+											<Field
+												className="custom-select"
+												name="propertyId"
+												type="text"
+												as="select"
+												style={{ paddingRight: 40 }}
+											>
+												{properties.map((property) => (
+													<option key={property?.id} value={property?.id}>
+														{property?.search_address}
+													</option>
+												))}
+											</Field>
+											<ErrorMessage
+												className="form-error"
+												component="div"
+												name="propertyId"
+											/>
+										</div>
+									)}
 
 									<div className="d-flex flex-row">
 										<Field

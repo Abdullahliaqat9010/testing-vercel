@@ -4,10 +4,16 @@
     "p.city-price-block":"The price per m² in Belgian cities",
     "pricemap.city-block-appartment":"Price m² average apartment",
     "pricemap.maison":"Price m² average house",
-    "pricemap.city name":"Real estate price per m² in (city name)",
+    "pricemap.city":"Real estate price per m² in ",
     "p.estimates-buttons":"Estimate your home according to its characteristics",
     "pricemap.appartment":"Apartment",
-     "pricemap.home":"House"
+     "pricemap.home":"House",
+     "label.prices": "Real estate prices everywhere in Belgium",
+     "link.back": "Understand our prices",
+     "span.price": "Price per m²",
+     "span.rent-price": "Rent per m²",
+     "span.index": "Cinfiance Index",
+     "link.compare": "Compare professionals based on their number of sales"
     
     
 

@@ -88,6 +88,7 @@ export const getAutocompleteItemsAction = (
 	payload: { searchValue, type },
 });
 
+
 export const clearAutocompleteItems = () => ({
 	type: actionType.CLEAR_AUTOCOMPLETE_ITEMS,
 });
