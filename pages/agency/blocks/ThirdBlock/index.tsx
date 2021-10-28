@@ -16,12 +16,8 @@ import { CustomScrollbar } from "../../../../components/Scrollbar";
 const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const { t } = useTranslation("agency-page");
 
-	// const [sizeArr, setSizeArr] = useState(elementsOnPage);
-
-	// const { similarProperty } = useSelector((state: RootState) => state.userInfo);
-	// const properties = similarProperty.slice(0, elementsOnPage);
 	const [properties] = useState(
-		currentAgency?.properties ? [currentAgency?.properties] : []
+		currentAgency?.properties ? [...currentAgency?.properties] : []
 	);
 	const [activeMarker, setActiveMarker] = useState<number>(
 		properties?.length > 0 ? properties[0]?.id : 0
@@ -31,8 +27,8 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 			return {
 				type: "property",
 				position: {
-					lat: prop?.lat,
-					lng: prop?.lng,
+					lat: prop?.property?.lat,
+					lng: prop?.property?.lng,
 				},
 				id: prop?.id,
 			};
@@ -59,8 +55,8 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 				return {
 					type: `${index === 0 ? "property-active" : "property"}`,
 					position: {
-						lat: prop?.lat,
-						lng: prop?.lng,
+						lat: prop?.property?.lat,
+						lng: prop?.property?.lng,
 					},
 					id: prop?.id,
 				};

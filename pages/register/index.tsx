@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ProgressBar } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 import HeaderContainer from "../../containers/Header";
@@ -11,6 +11,7 @@ import AgencyInfo from "./AgencyInfo/index.component";
 import CompanyDetails from "./CompanyDetails/index.component";
 import { createAgencyProfile, signupAgent } from "../../network-requests";
 import { setUserProfile } from "../../actions";
+import { RootState } from "../../types/state";
 
 const Register = () => {
 	const { t } = useTranslation("register-agency-pages");
@@ -19,6 +20,14 @@ const Register = () => {
 
 	const [step, setStep] = useState(1);
 	const [agencyInfo, setAgencyInfo] = useState(null);
+
+	const isLoggedIn = useSelector<RootState>((state) => state.userInfo.auth);
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			setStep(2);
+		}
+	}, []);
 
 	const registerAgencyOwner = (userData) => {
 		return new Promise(async (res, rej) => {

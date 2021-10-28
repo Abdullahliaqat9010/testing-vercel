@@ -69,8 +69,8 @@ const SellerDashboard = () => {
 				dispatch(setMainPropertyId(_property.id));
 				const estimate = await getEstimation(_property?.property?.id);
 				setEstimation(estimate);
-				// const _similarProperties = await getSimilarProperties(_property?.id);
-				// setSimilarProperties([..._similarProperties]);
+				const _similarProperties = await getSimilarProperties(_property?.id);
+				setSimilarProperties([..._similarProperties]);
 			}
 		} catch (error) {
 			console.log(error);

@@ -15,9 +15,9 @@ const ContactAgentModal = ({
 	properties = [],
 	agencyOwner,
 	agencyName,
-	agencyId= 3
+	agencyId = 3,
 }) => {
-	console.log("agencyId", agencyId)
+	console.log("agencyId", agencyId);
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
 	const { firstname, lastname, email, phone_number } = useSelector(
@@ -48,7 +48,7 @@ const ContactAgentModal = ({
 			try {
 				await contactAgency({
 					...contactInfo,
-					agencyId // hard coded for now
+					agencyId, // hard coded for now
 				});
 				res("");
 				setIsSuccessModalVisible(true);
@@ -148,7 +148,7 @@ const ContactAgentModal = ({
 										>
 											{properties.map((property) => (
 												<option key={property?.id} value={property?.id}>
-													{property?.search_address}
+													{property?.property?.search_address}
 												</option>
 											))}
 										</Field>

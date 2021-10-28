@@ -48,6 +48,7 @@ const ResetPasswordPage = () => {
 				await resetPassword(token, values?.password);
 				notification.success({
 					message: t("notification.success"),
+					placement: "bottomRight",
 				});
 				router.push("/login");
 				res("");
