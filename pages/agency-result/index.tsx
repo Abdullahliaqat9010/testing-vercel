@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
@@ -18,11 +17,8 @@ import LogoImage from "../../assets/images/default-logo-image.png";
 
 import BlueGoAhead from "../../assets/images/blue-goAhead.svg";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
-import {
-  getAgenciesByAddress,
-  getLimitedAgenciesByAddress,
-} from "../../network-requests";
-import Loading from "../../components/Loading";
+import { getAgenciesByAddress, getLimitedAgenciesByAddress } from "../../network-requests";
+import Loading from "../../components/Loading"
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../types/state";
 import { openMainStepsAction } from "../../actions";
@@ -32,14 +28,14 @@ import { useRouter } from "next/router";
 import { getLatLongFromAddress, getProperties } from "../../network-requests";
 
 const LimitedPartner = styled.span`
-  background: #fe7f2d;
-  border-radius: 8px;
-  padding: 4px;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-  color: #ffffff;
-  width: 100px;
+	background: #FE7F2D;
+	border-radius: 8px;
+	padding: 4px;
+	font-size: 12px;
+	line-height: 16px;
+	text-align: center;
+	color: #FFFFFF;
+	width :100px
 `;
 const compareAgency = () => {
 	const limitedAgenciesData = [
@@ -4542,45 +4538,42 @@ const compareAgency = () => {
 			const agenciesMarkes = allAgency.map(agency => {
 				if (agency?.isLimited) {
 
-      setMarkersPerAgency(agenciesMarkes);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+				} else {
+					const agnecyMarker = {
+						type: "property",
+						position: {
+							lat: agency?.lat ?? 4.402771,
+							lng: agency?.lng ?? 51.260197,
+						},
+						id: agency?.id,
+					}
+					const agencyProperties = agency?.properties ?? []
+					const markersOfAgency = agencyProperties.length > 0 && agencyProperties?.map(property => {
+						let marker = {
+							type: "property",
+							position: {
+								lat: property?.lat,
+								lng: property?.lng,
+							},
+							id: property?.id,
+						}
+						return marker
+					})
 
-  const mapProps = {
-    markers: [...markers],
-    is3d: false,
-    onActiveMarker: (id) => onClickProperty(id),
-  };
+					return {
+						agencyId: agency?.id,
+						markers: markersOfAgency?.length > 0 ? markersOfAgency.unshift(agnecyMarker) : [agnecyMarker]
+					}
+				}
+			})
 
-  const onClickProperty = (propertyId) => {
-    setMarkers([]);
-  };
+			setMarkersPerAgency(agenciesMarkes)
 
-  const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(el.target.value);
-    if (el.target.value.length > 0) {
-      dispatch(getAutocompleteItemsAction(el.target.value, "address,postcode"));
-    } else {
-      dispatch(clearAutocompleteItems());
-    }
-  };
+		} catch (error) {
+			console.log(error)
+		}
 
-  const handleSelectAddress = (addressId: string) => {
-    const [currentAddress] = dataFromMapBox.filter(
-      (list) => list.id === addressId
-    );
-    const isSearchByPostcode = currentAddress?.id?.split(".")[0];
-    const addressDeStructure =
-      currentAddress.locality.length > 1
-        ? currentAddress.locality
-        : currentAddress.place +
-          "," +
-          (isSearchByPostcode === "postcode"
-            ? currentAddress?.street
-            : currentAddress?.postcode);
-    setValue(addressDeStructure);
+	}
 
 	const handleClick = (e, index) => {
 		e.preventDefault();
@@ -4620,41 +4613,10 @@ const compareAgency = () => {
 		onActiveMarker: (id) => onClickProperty(id),
 	};
 
-  const onClickSearchButton = () => {
-    setAddress({ street, number, locality, zip });
-  };
+	const onClickProperty = (propertyId) => {
 
-  const openDetail = async (index) => {
-    if (selctedIdex !== index) {
-      const expandedAgency = filteredAgencies[index];
-      if (expandedAgency?.isLimited) {
-        const address = `${expandedAgency?.street} ${expandedAgency?.street_number}, ${expandedAgency?.zip} ${expandedAgency?.city}`;
-        const suuggestions = await getLatLongFromAddress({
-          searchValue: address,
-          type: "address,postcode",
-        });
-        const latLongs = suuggestions[0]?.location;
-        const marker = {
-          type: "property",
-          position: {
-            lat: latLongs?.lat ?? 51.260197,
-            lng: latLongs?.lng ?? 4.402771,
-          },
-          id: expandedAgency?.id,
-        };
-        setMarkers([marker]);
-      } else {
-        const markersOfAgency = markersPerAgency?.find(
-          (agency) => agency?.agencyId === expandedAgency?.id
-        );
-        setMarkers(markersOfAgency?.markers ?? []);
-      }
-      setOpen(true);
-      setSelctedIdex(index);
-    } else {
-      setOpen(false);
-    }
-  };
+		setMarkers([]);
+	};
 
 	const handleAutocomplete = (el: React.ChangeEvent<HTMLInputElement>) => {
 		const citydata = limitedAgenciesData;
@@ -4959,16 +4921,15 @@ const compareAgency = () => {
 };
 
 export const getServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, [
-        "dashboard-page",
-        "header",
-        "footer",
-        "agency-result",
-      ])),
-    },
-  };
+	return {
+		props: {
+			...(await serverSideTranslations(locale, [
+				"dashboard-page",
+				"header",
+				"footer",
+			])),
+		},
+	};
 };
 
 export default compareAgency;
