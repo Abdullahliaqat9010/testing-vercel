@@ -14,8 +14,7 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 	const onHideModal = () => {
 		onClose();
 	};
-	const images = property?.images?.split(",");
-	console.log(property);
+	const images = property?.images;
 	return (
 		<Modal
 			dialogClassName="property-detail-modal"

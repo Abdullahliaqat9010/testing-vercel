@@ -47,11 +47,14 @@ export const addLimitedAgncies = (limitedAgenciesData) => {
 export const getAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: agencies } = await axios.get("agency/search?city=" + address.city + "&zip=" + address.zip, {
-				headers: {
-					"Content-Type": "application/json"
+			const { data: agencies } = await axios.get(
+				"agency/search?city=" + address.city + "&zip=" + address.zip,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-			});
+			);
 			res(agencies);
 		} catch (error) {
 			rej(error);
@@ -62,11 +65,14 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: limitedAgencies } = await axios.get("limited-agency/search?city=" + address.city + "&zip=" + address.zip, {
-				headers: {
-					"Content-Type": "application/json"
+			const { data: limitedAgencies } = await axios.get(
+				"limited-agency/search?city=" + address.city + "&zip=" + address.zip,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-			});
+			);
 			res(limitedAgencies);
 		} catch (error) {
 			rej(error);
@@ -210,11 +216,49 @@ export const getLatLongFromAddress = (payload): Promise<any[]> => {
 		}
 	});
 };
+
 export const createAgencyProperty = (payload) => {
 	return new Promise(async (res, rej) => {
 		try {
 			await axios.post("agency/property", { ...payload });
 			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const makePropertyVisible = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.patch("agency-property/property/visible", [...ids]);
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const makePropertyInvisible = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.patch("agency-property/property/invisible", [...ids]);
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const deleteProperties = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.delete("agency-property", {
+				params: {
+					ids,
+				},
+			});
+			res(ids);
 		} catch (error) {
 			rej(error);
 		}
