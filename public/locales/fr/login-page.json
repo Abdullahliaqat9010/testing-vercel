@@ -19,7 +19,9 @@
 	"notification.success": "Your password has been changed successfully",
 	"error.password-rules": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
 	"error.password-mismatch": "passwords-match",
-	"error.confirm-password": "Passwords must match"
+	"error.confirm-password": "Passwords must match",
+	"p.required":"Verplicht"
+
 
 
 }

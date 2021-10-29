@@ -65,6 +65,8 @@
   "p.desc-part1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt",
   "p.desc-part2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
   "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,",
-  "label.ouwner": "Propriétaire"
+  "label.ouwner": "Propriétaire",
+  "button.agency-owner":"Owner"
+
 
 }
