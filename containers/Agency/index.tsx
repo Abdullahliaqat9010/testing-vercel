@@ -182,6 +182,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 			},
 			...agenciesList,
 		],
+		zoom: 15,
 	};
 
 	return (

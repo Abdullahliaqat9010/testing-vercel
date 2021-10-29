@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { Button, Form } from "react-bootstrap";
-
+import { contactAgency } from "../../network-requests";
 import { RootState } from "../../types/state";
 
 const ContactAgencyBlock = ({ agencyInfo }) => {
@@ -19,7 +19,7 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 		phone: phone_number,
 		email: email,
 		desc: t("placeholder.message"),
-		selectedProperty: "",
+		selectedProperty: agencyInfo?.property?.search_address?? "",
 		freeCharge: false,
 	});
 
@@ -46,19 +46,16 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 		);
 	};
 
-	const sendToAgency = () => {
+	const sendToAgency = async () => {
 		if (validation()) {
-			// const findProp = properties.find(
-			// 	(property) => property.search_address === data.selectedProperty
-			// );
-			// const dataInfo = {
-			// 	agentId: agencyInfo.id,
-			// 	phone: data.phone,
-			// 	message: data.desc.length > 0 ? data.desc : t("placeholder.message"),
-			// 	propertyId: findProp.id,
-			// 	free_evaluated: data.freeCharge,
-			// };
-			// dispatch(contactAgencyAction(dataInfo));
+			const dataInfo = {
+				agentId: agencyInfo?.agency?.id,
+				phone: data.phone,
+				message: data.desc.length > 0 ? data.desc : t("placeholder.message"),
+				propertyId: agencyInfo?.property?.id,
+				free_evaluated: data.freeCharge,
+			};
+			await contactAgency(dataInfo);
 		}
 
 		setValidated(true);
@@ -68,7 +65,7 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 		<div className="contact-agency-block contact-aagency ">
 			<div className="contact-agency">
 				<h4>{t("title.contact-agency")}</h4>
-				 {/* <p>{agencyInfo.title}</p>  */}
+				 <p>{agencyInfo?.agency?.company_name?? ""}</p> 
 				<Form noValidate validated={validated}>
 					<Form.Group controlId="fullName">
 						<Form.Control
@@ -129,9 +126,8 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 							as="select"
 							value={data.selectedProperty}
 						>
-							{/* {properties.map((property, index) => (
-								<option key={index}>{property.search_address}</option>
-							))} */}
+							<option >{agencyInfo?.property?.search_address ?? ""}</option>
+							
 						</Form.Control>
 					</Form.Group>
 					<Form.Group controlId="freeCharge">
