@@ -94,9 +94,9 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				return {
 					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
                    <span class="bold">${
-											countProperties || 0
+											agency?.properties?.length || 0
 										} biens</span> à proximité dont <span class="bold">
-                   ${similarProperties.length} similaire${
+                   ${agency?.properties?.length || 0} similaire${
 						similarProperties.length !== 1 ? "s" : ""
 					} au vôtre</span>. 
                    Nous sommes à votre disposition pour gérer votre projet immobilier`,
@@ -125,10 +125,10 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				return {
 					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
                    <span class="bold">${
-											countProperties || 0
+											agency?.properties?.length || 0
 										} biens</span> in de buurt inclusief
 										<span class="bold">
-                   ${similarProperties.length} vergelijkbaar
+                   ${agency?.properties?.length || 0} vergelijkbaar
 				   ${similarProperties.length !== 1 ? "s" : ""} naar de jouwe</span>. 
                    Wij staan ​​tot uw beschikking om uw vastgoedproject te beheren`,
 				};
@@ -137,7 +137,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 			return {
 				__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
                  <span class="bold">${
-										countProperties || 0
+										agency?.properties?.length || 0
 									} biens</span> in de buurt. Wij staan ​​tot uw beschikking
                  om uw vastgoedproject te beheren`,
 			};

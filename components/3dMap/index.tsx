@@ -228,7 +228,7 @@ const Mapbox3dMap = ({
 		var map = mapRef.current;
 		map?.flyTo({
 			center: [...center],
-			zoom: is3d? 18 : 9 ,
+			zoom: is3d ? 18 : 9,
 			essential: true,
 		});
 	}, [center]);
@@ -277,7 +277,7 @@ const Mapbox3dMap = ({
 	};
 
 	return (
-		<div style={{ height: is3d ? "100vh" : "300px", width: "100%" }} ref={mapRef} id="map" />
+		<div style={{ height: "100%", width: "100%" }} ref={mapRef} id="map" />
 	);
 };
 

@@ -4566,12 +4566,11 @@ const compareAgency = () => {
           <p>
             {t("p.real-estate")} <br></br> {t("p.nextline-real-estate")}
           </p>
-
           <div className="search-form d-flex">
             <div className="d-flex flex-collumn">
               <InputGroup>
                 <FormControl
-                  placeholder="  City and State or ZIP"
+                  placeholder={t("p.country-placeholder")}
                   name="address"
                   onChange={handleAutocomplete}
                   value={value}
@@ -4809,10 +4808,10 @@ const compareAgency = () => {
 				)}
 
 				<div className="campare-agency-footer">
-					<span>Immo Belgium ©2021. All Rights Reserved.</span>
+					<span>{t("span.compare-agency-footer-dec")}</span>
 					<div>
-						<Link href="#">Blog</Link>
-						<Link href="#">Politique de Confidentialité.</Link>
+						<Link href="#">{t("p.compare-agency-footer-blog")}</Link>
+						<Link href="#">{t("p.compare-agency-footer-politique")}</Link>
 					</div>
 				</div>
 			</div>

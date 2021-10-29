@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";

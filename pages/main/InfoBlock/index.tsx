@@ -13,7 +13,7 @@ import FourthImage from "../../../assets/images/main-page/info-block/fourth-imag
 import FifthImage from "../../../assets/images/main-page/info-block/fifth-image.jpeg";
 import MapImage from "../../../assets/images/main-page/info-block/user-map.jpeg";
 import MapImageMobile from "../../../assets/images/main-page/info-block/user-map-mobile.jpeg";
-import LogoGray from "../../../assets/images/main-page/info-block/logo.svg";
+import LogoGray from "../../../assets/images/BelgiumImmo.png";
 
 const InfoBlock = () => {
 	const { t } = useTranslation("main-page");

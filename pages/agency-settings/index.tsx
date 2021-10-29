@@ -425,11 +425,11 @@ const Formpage = () => {
 														: t("button.save")}
 												</button>
 											</div>
-											<div className="button-container2">
+											{/* <div className="button-container2">
 												<button className="view-my-agency" onClick={() => {}}>
 													{t("button.view")}
 												</button>
-											</div>
+											</div> */}
 										</div>
 									</div>
 								</div>
