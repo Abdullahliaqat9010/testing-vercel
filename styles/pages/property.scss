@@ -268,10 +268,11 @@
 
 	@media (max-width: 768px) {
 		&__main-content {
+			justify-content: unset;
+
 			.property-info {
 				max-height: unset;
 				max-width: unset;
-
 				.images {
 					.main-image {
 						width: 454px;
