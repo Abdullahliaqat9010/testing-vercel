@@ -22,26 +22,41 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const [activeMarker, setActiveMarker] = useState<number>(
 		properties?.length > 0 ? properties[0]?.id : 0
 	);
-	const [markers, setMarkers] = useState([
-		{
-			type: "agency",
-			position: {
-				lat: currentAgency?.latlng.split(",")[0],
-				lng: currentAgency?.latlng.split(",")[1],
-			},
-			id: currentAgency.id,
-		},
-		...properties.map((prop) => {
-			return {
-				type: "property",
-				position: {
-					lat: prop?.property?.lat,
-					lng: prop?.property?.lng,
-				},
-				id: prop?.id,
-			};
-		}),
-	]);
+	const [markers, setMarkers] = useState(
+		currentAgency?.latlng
+			? [
+					{
+						type: "agency",
+						position: {
+							lat: currentAgency?.latlng.split(",")[0],
+							lng: currentAgency?.latlng.split(",")[1],
+						},
+						id: currentAgency.id,
+					},
+					...properties.map((prop) => {
+						return {
+							type: "property",
+							position: {
+								lat: prop?.property?.lat,
+								lng: prop?.property?.lng,
+							},
+							id: prop?.id,
+						};
+					}),
+			  ]
+			: [
+					...properties.map((prop) => {
+						return {
+							type: "property",
+							position: {
+								lat: prop?.property?.lat,
+								lng: prop?.property?.lng,
+							},
+							id: prop?.id,
+						};
+					}),
+			  ]
+	);
 
 	// const loadMore = () => {
 	// 	setSizeArr(sizeArr + elementsOnPage);
