@@ -30,6 +30,7 @@ import { config } from "../../config/siteConfigs";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal"
 
 const PropertyPage = ({ property }) => {
+	console.log("property", property)
 	const { t } = useTranslation("property-page");
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -42,6 +43,7 @@ const PropertyPage = ({ property }) => {
 	const [propertyImages] = useState([
 		...property?.images.map(({ url_small }) => url_small),
 	]);
+	console.log("propertyImages", propertyImages)
 
 	const handleClearSimilarPropertiesLocation = () => {
 		dispatch(clearSimilarPropertiesLocation());
@@ -89,23 +91,23 @@ const PropertyPage = ({ property }) => {
 						<div className="images d-flex">
 							<img
 								className="main-image"
-								src={propertyImages.length > 0 ? propertyImages[0] : NoImage}
+								src={property?.images.length > 0 ? property?.images[0] : NoImage}
 								alt="FirstImage"
 							/>
 							<div className="second-block">
 								<img
-									src={propertyImages.length > 1 ? propertyImages[1] : NoImage}
+									src={property?.images.length > 1 ? property?.images[1] : NoImage}
 									alt="SecondImage"
 								/>
 								<img
-									src={propertyImages.length > 2 ? propertyImages[2] : NoImage}
+									src={property?.images.length > 2 ? property?.images[2] : NoImage}
 									alt="ThirdImage"
 								/>
 							</div>
 						</div>
 						<div className="property-content d-flex">
-							<div className="property-content__info w-75">
-								<p className="address">{property?.search_address?? ""}</p>
+							<div className="property-content__info ">
+								<p className="address">{property?.property?.search_address?? ""}</p>
 								<div className="d-flex w-100 align-items-center justify-content-between">
 									<Button
 										onClick={handleShowRequestPriceModal}
