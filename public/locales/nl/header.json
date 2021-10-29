@@ -8,5 +8,9 @@
 	"nav-li.competitive-report": "Referentierapporten",
 	"nav-li.settings": "Accountinstellingen",
 	"li.pro-workspace": "Ga naar mijn professionele werkruimte",
-	"span.step": "Stap"
+	"span.step": "Stap",
+	"a.custom-link-pricemap":"Prijs map",
+	"a.custom-link-compare-agencies":"Kantoren vergelijken"
+
+
 }

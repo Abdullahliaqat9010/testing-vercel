@@ -8,5 +8,9 @@
 	"nav-li.competitive-report": "Rapport concurrentiel",
 	"nav-li.settings": "Paramètres du compte",
 	"li.pro-workspace": "Aller sur mon espace de travail pro.",
-	"span.step": "Etape"
+	"span.step": "Etape",
+	"a.custom-link-pricemap":"Carte des prix",
+	"a.custom-link-compare-agencies":"Comparer des agences"
+
+
 }

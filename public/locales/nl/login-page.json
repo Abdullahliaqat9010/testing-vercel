@@ -3,8 +3,8 @@
 	"button.back": "Terug",
 	"button.login": "Inloggen",
 	"button.loading": "Bezig met laden...",
-	"desc.create-here-link": "U kunt het hier maken",
-	"desc.dont-have-account": "Als je nog geen account hebt",
+	"desc.create-here-link": " kan u hier één maken. ",
+	"desc.dont-have-account": "Als u nog geen account heeft",
 	"label.email-phone": "E-mail of telefoonnummer",
 	"label.password": "Wachtwoord",
 	"link.remind-password": "Herinner wachtwoord",
@@ -12,14 +12,15 @@
 	"placeholder.password": "Voer uw wachtwoord in",
 	"title.login": "Inloggen",
 	"footer.copyright": "Alle rechten voorbehouden",
-	"error.message": "Invalid email or password",
+	"error.message": "Ongeldige email of wachtwoor",
 	"h1.rest-password": "Reset password",
     "p.label-already-register": "If you know your password please",
     "p.goto-login": "go back to login",
 	"notification.success": "Your password has been changed successfully",
 	"error.password-rules": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
 	"error.password-mismatch": "passwords-match",
-	"error.confirm-password": "Passwords must match"
+	"error.confirm-password": "Passwords must match",
+	"p.required":"Verplicht"
 
 
 }
