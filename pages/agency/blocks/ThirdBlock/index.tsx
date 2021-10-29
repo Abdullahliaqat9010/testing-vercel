@@ -23,6 +23,14 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 		properties?.length > 0 ? properties[0]?.id : 0
 	);
 	const [markers, setMarkers] = useState([
+		{
+			type: "agency",
+			position: {
+				lat: currentAgency?.latlng.split(",")[0],
+				lng: currentAgency?.latlng.split(",")[1],
+			},
+			id: currentAgency.id,
+		},
 		...properties.map((prop) => {
 			return {
 				type: "property",
@@ -42,6 +50,7 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const mapProps = {
 		markers: [...markers],
 		onActiveMarker: (id) => onClickProperty(id),
+		zoom: 15,
 	};
 
 	const onClickProperty = (propertyId) => {
