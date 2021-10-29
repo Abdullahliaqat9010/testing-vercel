@@ -145,7 +145,7 @@ const StepTwo = ({ setStep }) => {
 				<h4>
 					<span>
 						{selectedProperty === "house"
-							? t("select.home")
+							? t("select.house")
 							: t(`select.${selectedProperty}`)}
 					</span>{" "}
 					{t("title.details")}

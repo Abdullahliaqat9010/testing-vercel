@@ -1,8 +1,8 @@
 {
-    "span.real-estate":"Vergelijk onroerend goed",
-    "span.nextline-real-estate":"Vastgoedkantoren in uw buurt. ",
+    "span.real-estate":"Vergelijk Vastgoedkantoren ",
+    "span.nextline-real-estate":" in uw buurt. ",
     "p.real-estate":"Elk Belgisch vastgoedkantoor staat op onze website.",
-    "p.nextline-real-estate":"Trouvez la meilleure pour vous !",
+    "p.nextline-real-estate":"Vind het beste voor jou!",
     "button.compare-agents":"Vergelijk Makelaars ",
     "placeholder.zip":"Stad, Postcode, of Provincie",
     "span.review":"Lees beoordelingen van",
@@ -12,7 +12,7 @@
     "span.similar-houses":"Vergelijk vergelijkbare huizen",
     "span.sold":"dat ze verkochten",
     "p.country-placeholder":"Stad, Postcode, of Provincie",
-    "span.compare-agency-footer-dec":"Alle rechten voorbehouden © Belgium Immo 2021",
+    "span.compare-agency-footer-dec":"Alle rechten voorbehouden © België Immo 2021 ",
     "p.compare-agency-footer-blog":"Blog",
     "p.compare-agency-footer-politique":"Privacybeleid.",
     "pricemap.average-price":"Prix ​​m2 moyen ",
@@ -20,7 +20,6 @@
     "pricemap.from2":"van 1289 € tot 4041 €  ",
     "pricemap.monthly-rent":"Maandelijkse huur",
     "pricemap.loyer":"Loyer mensuel "
-
 
 
 

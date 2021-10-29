@@ -182,6 +182,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 			},
 			...agenciesList,
 		],
+		zoom: 15,
 	};
 
 	return (
@@ -271,7 +272,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 									{agency?.agent?.user?.firstname}{" "}
 									{agency?.agent?.user?.lastname}
 								</span>
-								<span>{"Owner"}</span>
+								<span>{t("button.agency-owner")}</span>
 							</div>
 						</div>
 						<div

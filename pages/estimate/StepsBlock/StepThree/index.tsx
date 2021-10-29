@@ -187,7 +187,7 @@ const StepThree = ({ setStep }) => {
 					</ButtonGroup>
 				</div>
 				<div className="group-block d-flex flex-column">
-					<span className="form-label">Property condition</span>
+					<span className="form-label">{t("span.condition")}</span>
 					<ButtonGroup aria-label="condition" className="custom-btn-group">
 						<Button
 							name="renovate"
@@ -257,6 +257,7 @@ const StepThree = ({ setStep }) => {
 						<Form.Label className="d-flex renovation-level-label">
 							{t("label.renovation-level")}
 						</Form.Label>
+						
 						<div className="input-block">
 							<Form.Control
 								min={0}

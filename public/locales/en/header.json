@@ -8,5 +8,7 @@
 	"nav-li.myProperties": "My Properties",
 	"nav-li.settings": "Account Settings",
 	"li.pro-workspace": "Go to my pro workspace",
-	"span.step": "Step"
+	"span.step": "Step",
+	"a.custom-link-pricemap":"Price map",
+	"a.custom-link-compare-agencies":"Compare agencies"
 }

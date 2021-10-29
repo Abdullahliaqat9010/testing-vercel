@@ -229,13 +229,13 @@ const HeaderContainer = ({
 							{!isAdmin && (
 								<>
 									<a href="/agencies-price-map" className="n-link-custom">
-										Price map
+										{t("a.custom-link-pricemap")}
 									</a>
 									{/* <a href="#" className="n-link-custom">
 									Estimate your home
 								</a> */}
 									<a href="/compare-agency" className="n-link-custom">
-										Compare agencies
+									{t("a.custom-link-compare-agencies")}
 									</a>
 								</>
 							)}
