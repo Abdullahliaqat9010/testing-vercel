@@ -123,6 +123,7 @@
   "error.dont-match": "Wachtwoorden komen niet overeen",
   "placeholder.epc": "Voer in",
   "message.add-property-success": "Woning is succesvol toegevoegd",
-  "button.add-property": "Woning toevoegen"
+  "button.add-property": "Woning toevoegen",
+  "tooltip.renovation":"Het % van uw woning dat gerenoveerd is."
 
 }

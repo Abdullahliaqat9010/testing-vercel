@@ -123,7 +123,11 @@
   "error.dont-match": "Les mots de passe ne correspondent pas",
   "placeholder.epc": "Entrer",
   "message.add-property-success": "La propriété a été ajoutée avec succès",
-  "button.add-property": "Ajouter une propriété"
+  "button.add-property": "Ajouter une propriété",
+  "tooltip.renovation":"le % de votre propriété qui a été rénovée.",
+  "button.SE":"ZO"
+
+
 
 
 }

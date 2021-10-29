@@ -31,5 +31,6 @@
    "image.change": "Foto wijzigen",
    "acount-type": "Professioneel",
    "link.logout": "Uitloggen",
-   "alert.success": "Notification preference has been updated successfully!"
+   "alert.success": "Notification preference has been updated successfully!",
+   "button.SE":"ZO"
 }
