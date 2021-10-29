@@ -150,13 +150,13 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 					</div>
 				</Form>
 			</div>
-			<div className="contact-agency-block__desc">
+			{/* <div className="contact-agency-block__desc">
 				<p>
 					{t("p.desc-part1")} <span className="link">{t("span.link1")}</span>{" "}
 					{t("p.desc-part2")}&nbsp;
 					<span className="link">{t("span.link2")}</span> {t("p.desc-part3")}
 				</p>
-			</div>
+			</div> */}
 		</div>
 	);
 };
