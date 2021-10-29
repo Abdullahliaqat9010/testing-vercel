@@ -1,19 +1,28 @@
 {
     "pricemap.ville":"Ville ",
     "pricemap.placeholder":"Prix immobilier partout en Belgique ",
-    "p.city-price-block":"Le prix du m² dans les villes de Belgique ",
+    "p.city-price-block":"Le prix du m² dans les villes de Belgique  ",
     "pricemap.city-block-appartment":"Prix m² moyen appartement",
     "pricemap.maison":"Prix m² moyen maison",
-    "pricemap.city":"Prix immobilier du m² à ",
     "p.estimates-buttons":"Estimez votre bien en fonction de ses caractéristiques",
     "pricemap.appartment":"Appartement",
     "pricemap.home":"Maison",
+    "pricemap.city":"Prix immobilier partout en Belgique ",
     "label.prices": "Prix immobilier partout en la Belgique",
     "link.back": "Comprendre nos tarifs",
      "span.price": "Prix ​​au m²",
      "span.rent-price": "Loyer au m²",
      "span.index": "Indice de confiance",
-     "link.compare": "Comparez les professionnels en fonction de leur nombre de ventes"
+     "link.compare": "Comparez les professionnels en fonction de leur nombre de ventes",
+     "pricemap.average-price":"Prix ​​m2 moyen ",
+     "pricemap.from":"de 1 789 € à 4 041 €  ",
+     "pricemap.from2":"de 1 289 € à 4 041 €  ",
+     "pricemap.monthly-rent":"Loyer mensuel  ",
+     "pricemap.loyer":"Loyer mensuel "
+
+
+
+
 
 
 

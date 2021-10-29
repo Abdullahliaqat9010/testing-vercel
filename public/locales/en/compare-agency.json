@@ -10,7 +10,14 @@
     "span.discover-agency":"Discover the agencies",
     "span.nearest":"nearest to you",
     "span.similar-houses":"Compare similar houses",
-    "span.sold":"that they sold"
+    "span.sold":"that they sold",
+    "p.country-placeholder":"City, Zip Code, or Province",
+    "span.compare-agency-footer-dec":" Belgium Immo ©2021. All Rights Reserved.",
+    "p.compare-agency-footer-blog":"Blog",
+    "p.compare-agency-footer-politique":"Privacy Policy."
+
+
+
     
     
 }

@@ -3750,8 +3750,8 @@ const priceMap = () => {
                           <span>
                             {" "}
                             {activeTab === "price"
-                              ? "Prix m2 moyen"
-                              : "Loyer mensuel"}{" "}
+                              ? t("pricemap.average-price")
+                              :  t("pricemap.monthly-rent")}{" "}
                           </span>
                           <p>
                             {" "}
@@ -3762,8 +3762,8 @@ const priceMap = () => {
                           </p>
                           <span className="price">
                             {activeTab === "price"
-                              ? "de 1 789 € à 4 041 €"
-                              : "de 1 289 € à 4 041 €"}{" "}
+                              ? t("pricemap.from")
+                              : t("pricemap.from2")}
                           </span>
                           <span>
                             <p
@@ -3800,8 +3800,8 @@ const priceMap = () => {
                           <span>
                             {" "}
                             {activeTab === "price"
-                              ? "Prix m2 moyen"
-                              : "Loyer mensuel"}{" "}
+                              ? t("pricemap.average-price")
+                              : t("pricemap.loyer")}
                           </span>
                           <p>
                             {" "}
@@ -3812,8 +3812,9 @@ const priceMap = () => {
                           </p>
                           <span className="price">
                             {activeTab === "price"
-                              ? "de 1 789 € à 4 041 €"
-                              : "de 1 289 € à 4 041 €"}{" "}
+                           
+                              ?  t("pricemap.from")
+                              : t("pricemap.from2")}
                           </span>
                            <span>
                             <p
