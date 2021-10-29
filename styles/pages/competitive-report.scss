@@ -1,328 +1,299 @@
-
-
-
-
 .competitive-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 .background-clr {
-    // margin-left: 250px;
-    // position: absolute;
-    width: 896px;
-    height: 314px;
-    background: #3871ef;
-    border-radius: 10px 10px 0px 0px;
-
+	// margin-left: 250px;
+	// position: absolute;
+	width: 896px;
+	height: 314px;
+	background: #3871ef;
+	border-radius: 10px 10px 0px 0px;
 }
 
 .background-gradiant {
-    // position: absolute;
-    width: 896px;
-    margin-left: 30px;
-    height: 304px;
-    background: linear-gradient(
-75.53deg, rgba(57, 114, 240, 0.7) 9.34%, rgba(25, 70, 171, 0) 71.2%);
-    margin-top: 10px;
-
-  
+	// position: absolute;
+	width: 896px;
+	margin-left: 30px;
+	height: 304px;
+	background: linear-gradient(
+		75.53deg,
+		rgba(57, 114, 240, 0.7) 9.34%,
+		rgba(25, 70, 171, 0) 71.2%
+	);
+	margin-top: 10px;
 }
 
+.competitive-market {
+	display: flex;
 
-.competitive-market{
-    display: flex;
+	// margin-top: 315px;
+	background-color: white;
+	//  position: absolute;
+	width: 896px;
+	height: 250px;
+	/* Immo Belgium/White */
 
+	border-radius: 0px 0px 10px 10px;
 
-// margin-top: 315px;
-background-color: white;
-//  position: absolute;
-width: 896px;
-height: 250px;
-/* Immo Belgium/White */
+	/* Inside Auto Layout */
 
-border-radius: 0px 0px 10px 10px;
-
-/* Inside Auto Layout */
-
-flex: none;
-order: 1;
-flex-grow: 0;
+	flex: none;
+	order: 1;
+	flex-grow: 0;
 }
 
-.heading{
-    position: static;
-    height: 33px;
-    /* Platform/H3 */
-    
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 33px;
-    margin-left: 10px;
-    margin-top: 25px;
-    /* identical to box height */
-    
-    
-    /* Immo Belgium/Blue -4 */
-    
-    color: #1D2E5B;
-    
-    
-    /* Inside Auto Layout */
-    
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+.heading {
+	position: static;
+	height: 33px;
+	/* Platform/H3 */
+
+	font-family: Nunito Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 33px;
+	margin-left: 10px;
+	margin-top: 25px;
+	/* identical to box height */
+
+	/* Immo Belgium/Blue -4 */
+
+	color: #1d2e5b;
+
+	/* Inside Auto Layout */
+
+	flex: none;
+	order: 0;
+	flex-grow: 0;
 }
 
-.desc{
-    position: static;
-width: 836px;
-top: 48.18%;
-bottom: 0%;
+.desc {
+	position: static;
+	// width: 836px;
+	top: 48.18%;
+	bottom: 0%;
 
-/* Platform/14-Reg */
+	/* Platform/14-Reg */
 
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: normal;
-margin-left: 10px;
+	font-family: Nunito Sans;
+	font-style: normal;
+	font-weight: normal;
+	margin-left: 10px;
 
-font-size: 14px;
-line-height: 19px;
+	font-size: 14px;
+	line-height: 19px;
 
-/* Immo Belgium/Blue -4 */
+	/* Immo Belgium/Blue -4 */
 
-color: #1D2E5B;
+	color: #1d2e5b;
 
+	/* Inside Auto Layout */
 
-/* Inside Auto Layout */
-
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;
+	flex: none;
+	order: 1;
+	align-self: stretch;
+	flex-grow: 0;
 }
-.beta{
-    margin-left: 20px;
-}
-
-.interested-btn{
-    display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: flex-start;
-padding: 14px 20px;
-color: #fff;
-position: static;
-width: 142px;
-height: 50px;
-margin-left: 10px;
-top: 0px;
-
-/* Immo Belgium/Blue */
-
-background: #3871EF;
-border-radius: 8px;
-
-/* Inside Auto Layout */
-
-flex: none;
-order: 0;
-flex-grow: 0;
-
+.beta {
+	margin-left: 20px;
 }
 
-.competitive-report-footer{
-   margin-top: 590px;
-    width: 100%;
-    height: 200px;
-    background: #1D2E5B;
-}
-.footer-logo{
-margin-left: 80px;
-right: 31.45%;
-margin-top: 30px;
-bottom: 69.35%;
-width: 100px;
+.interested-btn {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 14px 20px;
+	color: #fff;
+	position: static;
+	width: 142px;
+	height: 50px;
+	margin-left: 10px;
+	top: 0px;
 
-}
+	/* Immo Belgium/Blue */
 
-.footer-paraghaf{
-    position: static;
-margin-left: 80px;
-right: 0%;
-margin-top: 20px;
-bottom: 20.38%;
+	background: #3871ef;
+	border-radius: 8px;
 
-/* Platform/12-Reg */
+	/* Inside Auto Layout */
 
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 12px;
-line-height: 16px;
-
-/* Immo Belgium/White */
-
-color: #FFFFFF;
-
-opacity: 0.6;
-
-/* Inside Auto Layout */
-
-flex: none;
-order: 1;
-flex-grow: 0;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
 }
 
-.footer-links{
-
-    margin-left: 80px;
-    right: 31.45%;
-    margin-top: 30px;
-    bottom: 69.35%;
-
-/* Platform/16-Bold */
-
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: bold;
-line-height: 22px;
-/* identical to box height */
-
-
-/* Immo Belgium/Blue +2 */
-
-color: #A9C0FF;
+.competitive-report-footer {
+	margin-top: 590px;
+	width: 100%;
+	height: 200px;
+	background: #1d2e5b;
+}
+.footer-logo {
+	margin-left: 80px;
+	right: 31.45%;
+	margin-top: 30px;
+	bottom: 69.35%;
+	width: 100px;
 }
 
-.right-reserved{
-    position: static;
-    margin-left: 80px;
-right: 0%;
-top: 90.45%;
-bottom: 0%;
+.footer-paraghaf {
+	position: static;
+	margin-left: 80px;
+	right: 0%;
+	margin-top: 20px;
+	bottom: 20.38%;
 
-/* Platform/12-Reg */
+	/* Platform/12-Reg */
 
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 12px;
-line-height: 16px;
+	font-family: Nunito Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 16px;
 
-/* Immo Belgium/White */
+	/* Immo Belgium/White */
 
-color: #FFFFFF;
+	color: #ffffff;
 
-opacity: 0.6;
+	opacity: 0.6;
 
-/* Inside Auto Layout */
+	/* Inside Auto Layout */
 
-flex: none;
-order: 2;
-flex-grow: 0;
-}
-.menu{
-    position: static;
-    margin-left: 80px;
-right: 19.77%;
-top: 0%;
-bottom: 0%;
-
-/* Platform/14-Reg */
-
-font-family: Nunito Sans;
-
-font-size: 12px;
-line-height: 19px;
-/* identical to box height */
-
-
-/* Immo Belgium/Background Blue */
-
-color: #F2F6FF;
-
-
-/* Inside Auto Layout */
-
-flex: none;
-order: 0;
-flex-grow: 0;
+	flex: none;
+	order: 1;
+	flex-grow: 0;
 }
 
-.arrow{
-    margin-left: 8px;
+.footer-links {
+	margin-left: 80px;
+	right: 31.45%;
+	margin-top: 30px;
+	bottom: 69.35%;
+
+	/* Platform/16-Bold */
+
+	font-family: Nunito Sans;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 22px;
+	/* identical to box height */
+
+	/* Immo Belgium/Blue +2 */
+
+	color: #a9c0ff;
 }
 
+.right-reserved {
+	position: static;
+	margin-left: 80px;
+	right: 0%;
+	top: 90.45%;
+	bottom: 0%;
 
+	/* Platform/12-Reg */
 
-.social{
+	font-family: Nunito Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 16px;
 
-    margin-left: 80px;
-    right: 31.45%;
-    margin-top: 30px;
-    bottom: 69.35%;
+	/* Immo Belgium/White */
 
-/* Platform/16-Bold */
+	color: #ffffff;
 
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: bold;
-line-height: 22px;
-/* identical to box height */
+	opacity: 0.6;
 
+	/* Inside Auto Layout */
 
-/* Immo Belgium/Blue +2 */
+	flex: none;
+	order: 2;
+	flex-grow: 0;
+}
+.menu {
+	position: static;
+	margin-left: 80px;
+	right: 19.77%;
+	top: 0%;
+	bottom: 0%;
 
-color: #A9C0FF;
+	/* Platform/14-Reg */
+
+	font-family: Nunito Sans;
+
+	font-size: 12px;
+	line-height: 19px;
+	/* identical to box height */
+
+	/* Immo Belgium/Background Blue */
+
+	color: #f2f6ff;
+
+	/* Inside Auto Layout */
+
+	flex: none;
+	order: 0;
+	flex-grow: 0;
 }
 
-
-.facebok{
-    position: static;
-width: 13px;
-height: 18px;
-margin-left: 80px;
-top: 10px;
-
-font-family: Font Awesome 5 Brands;
-font-style: normal;
-font-weight: normal;
-font-size: 14px;
-line-height: 18px;
-
-/* Immo Belgium/White */
-
-color: #FFFFFF;
-
-
-
+.arrow {
+	margin-left: 8px;
 }
 
-.linkedin{
-    margin-left: 10px;
-}
-.twitter{
-    margin-left: 10px;
-}
-.instagram{
-    margin-left: 10px;
-}
+.social {
+	margin-left: 80px;
+	right: 31.45%;
+	margin-top: 30px;
+	bottom: 69.35%;
 
+	/* Platform/16-Bold */
 
+	font-family: Nunito Sans;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 22px;
+	/* identical to box height */
 
-@media (max-width: 767.98px) { 
+	/* Immo Belgium/Blue +2 */
 
-
-    .competitive-main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+	color: #a9c0ff;
 }
 
-   
+.facebok {
+	position: static;
+	width: 13px;
+	height: 18px;
+	margin-left: 80px;
+	top: 10px;
+
+	font-family: Font Awesome 5 Brands;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 18px;
+
+	/* Immo Belgium/White */
+
+	color: #ffffff;
+}
+
+.linkedin {
+	margin-left: 10px;
+}
+.twitter {
+	margin-left: 10px;
+}
+.instagram {
+	margin-left: 10px;
+}
+
+@media (max-width: 767.98px) {
+	.competitive-main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
