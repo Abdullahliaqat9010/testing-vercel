@@ -148,7 +148,7 @@ const ContactAgentModal = ({
 											>
 												{properties.map((property) => (
 													<option key={property?.id} value={property?.id}>
-														{property?.search_address}
+														{property?.property?.search_address}
 													</option>
 												))}
 											</Field>
