@@ -28,27 +28,31 @@ const PropertyContainer = ({
 		return locale === "fr" ? NoImageFr : NoImage;
 	};
 
+	console.log(property);
+
 	return (
-		<div
-			style={{ cursor: "pointer" }}
-			onClick={() => onClickProperty(property.id)}
-			className={`property-block d-flex ${active ? "active-block" : ""}`}
-		>
+		<div className={`property-block d-flex ${active ? "active-block" : ""}`}>
 			<div className="property-block__image">
 				<Image src={getImageLink()} preview={false} fallback={NoImage} />
 			</div>
 			<div className="property-block__info">
-				<div className="address">{property?.property?.search_address}</div>
+				<div
+					style={{ cursor: "pointer" }}
+					onClick={() => onClickProperty(property.id)}
+					className="address"
+				>
+					{property?.property?.search_address}
+				</div>
 				<div className="short-desc">
 					<div className="time">
 						<span>
 							{t("desc.sold")} {moment(property.sold_rent_date).fromNow()}{" "}
 						</span>
-						{/* {property.company_name && (
-							<Link href={`/agency/${currentAgency?.id}`} locale={locale}>
-								{property.company_name}
+						{property.agency?.company_name && (
+							<Link href={`/agency/${property.agency?.id}`} locale={locale}>
+								{property.agency?.company_name}
 							</Link>
-						)} */}
+						)}
 					</div>
 					<div className="house-info">
 						<span>{property?.property?.live_area}m²</span>

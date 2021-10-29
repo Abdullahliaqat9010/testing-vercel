@@ -4494,7 +4494,7 @@ const compareAgency = () => {
 						city = agency?.cityfr
 					}
 
-					if (city.toLowerCase().slice(0, inputLength) === inputValue) {
+					if (city.toLowerCase().slice(0, inputLength) === inputValue|| agency?.zip.toLowerCase().slice(0, inputLength) === inputValue) {
 						return agency
 					}
 				}

@@ -186,67 +186,119 @@ const StepOne = ({ setStep }) => {
 	};
 
 	return (
-		<div className="step-one ">
-			<span className="step-title">{t("span.step")} 1</span>
-			<h4>{t("title.address")}</h4>
-			
-			<Form>
-				<Form.Row>
-					<Form.Group
-						className="position-relative"
-						id="street"
-						controlId="street"
+		<div className="step-one d-flex flex-column justify-content-between">
+			<div>
+				<span className="step-title">{t("span.step")} 1</span>
+				<h4>{t("title.address")}</h4>
+
+				<Form>
+					<Form.Row>
+						<Form.Group
+							className="position-relative"
+							id="street"
+							controlId="street"
+						>
+							<Form.Label>{t("label.street")}</Form.Label>
+							<Form.Control
+								name="street"
+								value={data.street}
+								autoComplete="off"
+								onChange={handleUpdateInput}
+							/>
+							{dataFromMapBox.length > 0 && autoCompleteList.street && (
+								<ul className="autocomplete-list">
+									{dataFromMapBox.map((item, index) => (
+										<li onClick={() => setNewAddress(item.id)} key={index}>
+											{item.fullAddress}
+										</li>
+									))}
+								</ul>
+							)}
+						</Form.Group>
+						<Form.Group controlId="number">
+							<Form.Label>№</Form.Label>
+							<Form.Control
+								type="number"
+								min={1}
+								name="number"
+								value={data.number}
+								onChange={handleChangeVal}
+							/>
+						</Form.Group>
+					</Form.Row>
+					<Form.Row>
+						<Form.Group className="mr-3 custom-styles" controlId="zip">
+							<Form.Label>{t("label.zip")}</Form.Label>
+							<Form.Control
+								type="number"
+								min={1000}
+								max={9999}
+								name="zip"
+								value={data.zip}
+								onChange={handleChangeVal}
+								onBlur={getAddress}
+							/>
+							{error.zip.length > 0 && <span className="error">{error.zip}</span>}
+						</Form.Group>
+						<Form.Group className="position-relative" controlId="locality">
+							<Form.Label>{t("label.locality")}</Form.Label>
+							<Form.Control
+								name="locality"
+								autoComplete="off"
+								value={data.locality}
+								onChange={handleUpdateInput}
+							/>
+							{dataFromMapBox.length > 0 && autoCompleteList.locality && (
+								<ul className="autocomplete-list">
+									{dataFromMapBox.map((item, index) => (
+										<li
+											onClick={() => setNewLocality(item.fullAddress)}
+											key={index}
+										>
+											{item.fullAddress}
+										</li>
+									))}
+								</ul>
+							)}
+						</Form.Group>
+					</Form.Row>
+				</Form>
+				{isMobile && (
+					<span className="pick-on-map" onClick={showMap}>
+						<img src={MarkerImage} alt="marker" />
+						{t("span.pick-on-map")}
+					</span>
+				)}
+				<h5>{t("title.property-type")}</h5>
+				<div className="properties d-flex justify-content-between">
+					<div
+						onClick={() => setActiveBlock("house")}
+						className={`property-home ${selectedProperty === "house" ? "active" : ""
+							}`}
 					>
-						<Form.Label>{t("label.street")}</Form.Label>
-						<Form.Control
-							name="street"
-							value={data.street}
-							autoComplete="off"
-							onChange={handleUpdateInput}
+						<img
+							src={
+								selectedProperty === "house" ? HomeImageActive : HomeImageNoActive
+							}
+							alt="house"
 						/>
-						{dataFromMapBox.length > 0 && autoCompleteList.street && (
-							<ul className="autocomplete-list">
-								{dataFromMapBox.map((item, index) => (
-									<li onClick={() => setNewAddress(item.id)} key={index}>
-										{item.fullAddress}
-									</li>
-								))}
-							</ul>
-						)}
-					</Form.Group>
-					<Form.Group controlId="number">
-						<Form.Label>№</Form.Label>
-						<Form.Control
-							type="number"
-							min={1}
-							name="number"
-							value={data.number}
-							onChange={handleChangeVal}
+						<span className="title">{t("select.home")}</span>
+						<div className="active-item" />
+					</div>
+					<div
+						onClick={() => setActiveBlock("apartment")}
+						className={`property-apartment ${selectedProperty === "apartment" ? "active" : ""
+							}`}
+					>
+						<img
+							src={
+								selectedProperty === "apartment"
+									? ApartmentImageActive
+									: ApartmentImageNoActive
+							}
+							alt="apartment"
 						/>
-					</Form.Group>
-				</Form.Row>
-				<Form.Row>
-					<Form.Group className="mr-3 custom-styles" controlId="zip">
-						<Form.Label>{t("label.zip")}</Form.Label>
-						<Form.Control
-							type="number"
-							min={1000}
-							max={9999}
-							name="zip"
-							value={data.zip}
-							onChange={handleChangeVal}
-							onBlur={getAddress}
-						/>
-						{error.zip.length > 0 && <span className="error">{error.zip}</span>}
-					</Form.Group>
-					<Form.Group className="position-relative" controlId="locality">
-						<Form.Label>{t("label.locality")}</Form.Label>
-						<Form.Control
-							name="locality"
-							autoComplete="off"
-							value={data.locality}
-							onChange={handleUpdateInput}
-						/>
+<<<<<<< HEAD
 						{dataFromMapBox.length > 0 && autoCompleteList.locality && (
 							<ul className="autocomplete-list">
 								{dataFromMapBox.map((item, index) => (
@@ -301,21 +353,26 @@ const StepOne = ({ setStep }) => {
 					/>
 					<span className="title">{t("select.apartment")}</span>
 					<div className="active-item" />
+=======
+						<span className="title">{t("select.apartment")}</span>
+						<div className="active-item" />
+					</div>
+					{/*<div*/}
+					{/*  onClick={ () => setActiveBlock('land') }*/}
+					{/*  className={ `property-land ${ selectedProperty === 'land' ? 'active' : '' }` }*/}
+					{/*>*/}
+					{/*  <img src={ selectedProperty === 'land' ? LandImageActive : LandImageNoActive } alt="land"/>*/}
+					{/*  <span className="title">Land</span>*/}
+					{/*  <div className="active-item"/>*/}
+					{/*</div>*/}
+>>>>>>> 5c62f03bfd3fd7e5e10e5754eb9191d45f06fa3b
 				</div>
-				{/*<div*/}
-				{/*  onClick={ () => setActiveBlock('land') }*/}
-				{/*  className={ `property-land ${ selectedProperty === 'land' ? 'active' : '' }` }*/}
-				{/*>*/}
-				{/*  <img src={ selectedProperty === 'land' ? LandImageActive : LandImageNoActive } alt="land"/>*/}
-				{/*  <span className="title">Land</span>*/}
-				{/*  <div className="active-item"/>*/}
-				{/*</div>*/}
 			</div>
 			<Button
 				disabled={disabledButton()}
 				onClick={handleClickNextBtn}
 				type="submit"
-				// className="next-step"
+			// className="next-step"
 			>
 				{t("button.next")}
 			</Button>
