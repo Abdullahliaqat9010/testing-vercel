@@ -282,7 +282,7 @@ const StepOne = ({ setStep }) => {
 							}
 							alt="house"
 						/>
-						<span className="title">{t("select.home")}</span>
+						<span className="title">{t("select.house")}</span>
 						<div className="active-item" />
 					</div>
 					<div
@@ -298,62 +298,6 @@ const StepOne = ({ setStep }) => {
 							}
 							alt="apartment"
 						/>
-<<<<<<< HEAD
-						{dataFromMapBox.length > 0 && autoCompleteList.locality && (
-							<ul className="autocomplete-list">
-								{dataFromMapBox.map((item, index) => (
-									<li
-										onClick={() => setNewLocality(item.fullAddress)}
-										key={index}
-									>
-										{item.fullAddress}
-									</li>
-								))}
-							</ul>
-						)}
-					</Form.Group>
-				</Form.Row>
-			</Form>
-			{isMobile && (
-				<span className="pick-on-map" onClick={showMap}>
-					<img src={MarkerImage} alt="marker" />
-					{t("span.pick-on-map")}
-				</span>
-			)}
-			<h5>{t("title.property-type")}</h5>
-			<div className="properties d-flex justify-content-between">
-				<div
-					onClick={() => setActiveBlock("house")}
-					className={`property-home ${
-						selectedProperty === "house" ? "active" : ""
-					}`}
-				>
-					<img
-						src={
-							selectedProperty === "house" ? HomeImageActive : HomeImageNoActive
-						}
-						alt="house"
-					/>
-					<span className="title">{t("select.house")}</span>
-					<div className="active-item" />
-				</div>
-				<div
-					onClick={() => setActiveBlock("apartment")}
-					className={`property-apartment ${
-						selectedProperty === "apartment" ? "active" : ""
-					}`}
-				>
-					<img
-						src={
-							selectedProperty === "apartment"
-								? ApartmentImageActive
-								: ApartmentImageNoActive
-						}
-						alt="apartment"
-					/>
-					<span className="title">{t("select.apartment")}</span>
-					<div className="active-item" />
-=======
 						<span className="title">{t("select.apartment")}</span>
 						<div className="active-item" />
 					</div>
@@ -365,7 +309,6 @@ const StepOne = ({ setStep }) => {
 					{/*  <span className="title">Land</span>*/}
 					{/*  <div className="active-item"/>*/}
 					{/*</div>*/}
->>>>>>> 5c62f03bfd3fd7e5e10e5754eb9191d45f06fa3b
 				</div>
 			</div>
 			<Button
