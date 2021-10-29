@@ -34,7 +34,7 @@ const PropertyPage = ({ property }) => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const { locale } = router;
-
+	const [agency, setAgency] = useState(property?.agency?? {});
 	const [showMapModal, setShowMapModal] = useState<boolean>(false);
 	const [showContactModal, setOpenContactForm] = useState<boolean>(false);
 	const [showRequestPriceModal, setShowRequestPriceModal] =
@@ -42,7 +42,6 @@ const PropertyPage = ({ property }) => {
 	const [propertyImages] = useState([
 		...property?.images.map(({ url_small }) => url_small),
 	]);
-
 	const handleClearSimilarPropertiesLocation = () => {
 		dispatch(clearSimilarPropertiesLocation());
 	};
@@ -89,23 +88,23 @@ const PropertyPage = ({ property }) => {
 						<div className="images d-flex">
 							<img
 								className="main-image"
-								src={propertyImages.length > 0 ? propertyImages[0] : NoImage}
+								src={property?.images.length > 0 ? property?.images[0] : NoImage}
 								alt="FirstImage"
 							/>
 							<div className="second-block">
 								<img
-									src={propertyImages.length > 1 ? propertyImages[1] : NoImage}
+									src={property?.images.length > 1 ? property?.images[1] : NoImage}
 									alt="SecondImage"
 								/>
 								<img
-									src={propertyImages.length > 2 ? propertyImages[2] : NoImage}
+									src={property?.images.length > 2 ? property?.images[2] : NoImage}
 									alt="ThirdImage"
 								/>
 							</div>
 						</div>
 						<div className="property-content d-flex">
-							<div className="property-content__info w-75">
-								<p className="address">{property?.search_address?? ""}</p>
+							<div className="property-content__info ">
+								<p className="address">{property?.property?.search_address?? ""}</p>
 								<div className="d-flex w-100 align-items-center justify-content-between">
 									<Button
 										onClick={handleShowRequestPriceModal}
@@ -120,14 +119,14 @@ const PropertyPage = ({ property }) => {
 											<img src={squareIcon} alt="squareIcon" />
 											<div className="d-flex flex-column">
 												<span className="info__title">{t("span.square")}</span>
-												<span className="info__desc">{`${property?.total_area?? ""}m²`}</span>
+												<span className="info__desc">{`${property?.property?.total_area?? ""}m²`}</span>
 											</div>
 										</div>
 										<div className="beds">
 											<img src={bedsIcon} alt="bedsIcon" />
 											<div className="d-flex flex-column">
 												<span className="info__title">{t("span.beds")}</span>
-												<span className="info__desc">{property?.bedrooms}</span>
+												<span className="info__desc">{property?.property?.bedrooms}</span>
 											</div>
 										</div>
 										<div className="baths">
@@ -135,7 +134,7 @@ const PropertyPage = ({ property }) => {
 											<div className="d-flex flex-column">
 												<span className="info__title">{t("span.baths")}</span>
 												<span className="info__desc">
-													{property?.bathrooms}
+													{property?.property?.bathrooms}
 												</span>
 											</div>
 										</div>
@@ -153,11 +152,11 @@ const PropertyPage = ({ property }) => {
 							<p className="sold-by">{t("p.sold-by")}</p>
 							<div className="agency-block__short-info">
 								<div className="logo">
-									<img src={TestAgency} alt="TestAgency" />
+									<img src={agency?.logo_image} alt="TestAgency" />
 								</div>
 								<div className="d-flex justify-content-between agency-block__blocks">
 									<div className="left-block w-50">
-										<p className="agency-name">Century 21 - PATRIMOINE 24</p>
+										<p className="agency-name">{agency?.company_name}</p>
 										<div className="agency-stats">
 											<span className="rate">5.0</span>
 											<div className="stars-block">
@@ -187,14 +186,14 @@ const PropertyPage = ({ property }) => {
 							show={showContactModal}
 							onClose={() => setOpenContactForm(false)}
 							properties={[property]}
-							agencyOwner="owner name"
-							agencyName="agency name"
-							agencyId={2}
+							agencyOwner=""
+							agencyName={agency?.company_name}
+							agencyId={agency?.id}
 						/>
 					)}
 
 					{!isMobile && (
-						<ContactAgencyBlock agencyInfo={{ id: 99, title: "" }} />
+						<ContactAgencyBlock agencyInfo={property} />
 					)}
 				</div>
 			</div>

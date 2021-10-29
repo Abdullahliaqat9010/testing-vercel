@@ -44,7 +44,7 @@ const CompetitiveReport = () => {
                 <img src={beta} className="d-inline beta" alt="..."></img>
               </p>
 
-              <p className="desc">
+              <p className="competitive-desc">
                 Amet minim mollit non deserunt ullamco est sit aliqua dolor do
                 amet sint. Velit officia consequat duis enim velit mollit.
                 Exercitation veniam consequat sunt nostrud amet.Amet minim

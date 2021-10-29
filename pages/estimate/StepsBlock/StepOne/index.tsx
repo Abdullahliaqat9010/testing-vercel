@@ -282,7 +282,7 @@ const StepOne = ({ setStep }) => {
 							}
 							alt="house"
 						/>
-						<span className="title">{t("select.home")}</span>
+						<span className="title">{t("select.house")}</span>
 						<div className="active-item" />
 					</div>
 					<div
