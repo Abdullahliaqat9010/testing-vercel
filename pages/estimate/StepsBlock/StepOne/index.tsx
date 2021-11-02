@@ -4,7 +4,6 @@ import { Button, Form } from "react-bootstrap";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-
 import GoogleMap from "../../../../components/GoogleMap";
 
 import {
@@ -311,7 +310,7 @@ const StepOne = ({ setStep }) => {
 					{/*</div>*/}
 				</div>
 			</div>
-			<Button
+			<Button className= {isMobile? "botton-syicky" : ""} 
 				disabled={disabledButton()}
 				onClick={handleClickNextBtn}
 				type="submit"

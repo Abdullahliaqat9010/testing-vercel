@@ -19,11 +19,11 @@ const FooterContainer = () => {
 		<div className="footer">
 			<div className="container">
 				<div className="footer__info w-25">
-					<img src={LogoFooter} alt="LogoFooter" />
-					<span className="desc">{t("footer.description")}</span>
-					<span className="copyright">
+					<p className="desc">{t("footer.description")}</p>
+					<p className="copyright">
 						{t("footer.copyright")} © Belgium Immo  {new Date().getFullYear()}
-					</span>
+					</p>
+					<img src={LogoFooter} alt="LogoFooter" />
 				</div>
 				{/*<div className="footer__main">*/}
 				{/*  <div className={ `block-list ${isOpen === 'firstBlock' ? '' : 'closed' }` }>*/}

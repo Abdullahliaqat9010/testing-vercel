@@ -142,17 +142,21 @@ const TermsAndConditionsPage = () => {
             <span className="double-block__label">4.4</span>
             <div className="double-block__text">
               <span>
-                {t("span.chapter-four.4")}<b>{t("span.chapter-four.4.b")}</b>:
+                {t("span.chapter-four.4")}:
+                {/* <b>{t("span.chapter-four.4.b")}</b>: */}
               </span>
               <ul className='roman-items'>
                 <li className='first'>
-                  <b>{t("chapter-four.4-li1-b")}</b>{t("chapter-four.4-li1")}
+                  {/* <b>{t("chapter-four.4-li1-b")}</b> */}
+                  {t("chapter-four.4-li1")}
                 </li>
                 <li className='second'>
-                  <b>{t("chapter-four.4-li2-b")}</b> {t("chapter-four.4-li2")}
+                  {/* <b>{t("chapter-four.4-li2-b")}</b>  */}
+                  {t("chapter-four.4-li2")}
                 </li>
                 <li className='third'>
-                  <b>{t("chapter-four.4-li3-b")}</b> {t("chapter-four.4-li3")}
+                  {/* <b>{t("chapter-four.4-li3-b")}</b>  */}
+                  {t("chapter-four.4-li3")}
                 </li>
               </ul>
             </div>
@@ -285,31 +289,39 @@ const TermsAndConditionsPage = () => {
               </span>
               <ul className='roman-items'>
                 <li className='first'>
-                  <b>{t("chepter-seven.1-li1.b")}</b> {t("chepter-seven.1-li1")}
+                  {/* <b>{t("chepter-seven.1-li1.b")}</b>  */}
+                  {t("chepter-seven.1-li1")}
                 </li>
                 <li className='second'>
                 {t("chepter-seven.1-li2")}
                 </li>
                 <li className='third'>
-                  <b>{t("chepter-seven.1-li3.b")}</b> {t("chepter-seven.1-li3")}
+                  {/* <b>{t("chepter-seven.1-li3.b")}</b> */}
+                  {t("chepter-seven.1-li3")}
                 </li>
                 <li className='fourth'>
-                  <b>{t("chepter-seven.1-li4.b")}</b> {t("chepter-seven.1-li4")}
+                  {/* <b>{t("chepter-seven.1-li4.b")}</b> */}
+                  {t("chepter-seven.1-li4")}
                 </li>
                 <li className='fifth'>
-                  <b>{t("chepter-seven.1-li5.b")}</b> {t("chepter-seven.1-li5")}
+                  {/* <b>{t("chepter-seven.1-li5.b")}</b>  */}
+                  {t("chepter-seven.1-li5")}
                 </li>
                 <li className='sixth'>
-                  <b>{t("chepter-seven.1-li6.b")}</b>{t("chepter-seven.1-li6")}
+                  {/* <b>{t("chepter-seven.1-li6.b")}</b> */}
+                  {t("chepter-seven.1-li6")}
                 </li>
                 <li className='seventh'>
-                  <b>{t("chepter-seven.1-li7.b")}</b> {t("chepter-seven.1-li7")}
+                  {/* <b>{t("chepter-seven.1-li7.b")}</b> */}
+                  {t("chepter-seven.1-li7")}
                 </li>
                 <li className='eighth'>
-                  <b>{t("chepter-seven.1-li8.b")}</b> {t("chepter-seven.1-li8")}
+                  {/* <b>{t("chepter-seven.1-li8.b")}</b>  */}
+                  {t("chepter-seven.1-li8")}
                 </li>
                 <li className='ninth'>
-                  <b>{t("chepter-seven.1-li9.b")}</b> {t("chepter-seven.1-li9")}
+                  {/* <b>{t("chepter-seven.1-li9.b")}</b> */}
+                  {t("chepter-seven.1-li9")}
                 </li>
               </ul>
             </div>

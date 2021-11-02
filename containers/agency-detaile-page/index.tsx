@@ -297,6 +297,16 @@ const portFolio = ({ agency, comments }) => {
                                             </BasicInfoLabes>
                                             <Labels>{agency?.opening_time ?? "Mon-Fri: 10AM-6PM, Sat: 10AM-1PM"}</Labels>
                                         </div>
+                                        
+                                        <div className="d-flex my-2">
+                                            <BasicInfoLabes>
+                                                <IconsImages src={ScheduleImage} alt="sajksh" />
+                                                <Labels>Website</Labels>
+                                            </BasicInfoLabes>
+                                            {agency?.website ?
+                                            <Labels> <Link href={agency?.website}>{agency?.website.split("www.")[1]}</Link></Labels>
+                                            : <Labels>NA</Labels>}
+                                        </div>
                                     </div>
 
                                     <div className=" d-flex flex-column border-bottom border-bottom-gray pb-3">
