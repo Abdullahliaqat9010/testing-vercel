@@ -163,25 +163,37 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 		: [];
 
 	const mapProps = {
-		markers: [
-			{
-				type: "agency",
-				position: {
-					lat: agency?.latlng.split(",")[0],
-					lng: agency?.latlng.split(",")[1],
-				},
-				id: agency.id,
-			},
-			{
-				type: "home",
-				position: {
-					lat: mainProperty?.property?.lat,
-					lng: mainProperty?.property?.lng,
-				},
-				id: "home",
-			},
-			...agenciesList,
-		],
+		markers: agency?.latlng
+			? [
+					{
+						type: "agency",
+						position: {
+							lat: agency?.latlng.split(",")[0],
+							lng: agency?.latlng.split(",")[1],
+						},
+						id: agency.id,
+					},
+					{
+						type: "home",
+						position: {
+							lat: mainProperty?.property?.lat,
+							lng: mainProperty?.property?.lng,
+						},
+						id: "home",
+					},
+					...agenciesList,
+			  ]
+			: [
+					{
+						type: "home",
+						position: {
+							lat: mainProperty?.property?.lat,
+							lng: mainProperty?.property?.lng,
+						},
+						id: "home",
+					},
+					...agenciesList,
+			  ],
 		zoom: 15,
 	};
 
