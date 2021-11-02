@@ -27,6 +27,7 @@
 
 .competitive-market {
 	display: flex;
+	padding: 30px;
 
 	// margin-top: 315px;
 	background-color: white;
@@ -36,12 +37,19 @@
 	/* Immo Belgium/White */
 
 	border-radius: 0px 0px 10px 10px;
+	Button {
+		padding: 14px 20px;
+		width: 142px;
+		height: 50px;
+		border-radius: 8px;
+
+	}
 
 	/* Inside Auto Layout */
 
-	flex: none;
-	order: 1;
-	flex-grow: 0;
+	// flex: none;
+	// order: 1;
+	// flex-grow: 0;
 }
 
 .heading {
@@ -54,7 +62,7 @@
 	font-weight: bold;
 	font-size: 24px;
 	line-height: 33px;
-	margin-left: 10px;
+	// margin-left: 10px;
 	margin-top: 25px;
 	/* identical to box height */
 
@@ -70,17 +78,15 @@
 }
 
 .desc {
-	position: static;
+	// position: static;
 	// width: 836px;
-	top: 48.18%;
-	bottom: 0%;
+	// top: 48.18%;
+	// bottom: 0%;
 
 	/* Platform/14-Reg */
-
-	font-family: Nunito Sans;
 	font-style: normal;
 	font-weight: normal;
-	margin-left: 10px;
+	// margin-left: 10px;
 
 	font-size: 14px;
 	line-height: 19px;
@@ -101,17 +107,17 @@
 }
 
 .interested-btn {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: flex-start;
+	// display: flex;
+	// flex-direction: row;
+	// justify-content: center;
+	// align-items: flex-start;
 	padding: 14px 20px;
 	color: #fff;
-	position: static;
+	// position: static;
 	width: 142px;
 	height: 50px;
-	margin-left: 10px;
-	top: 0px;
+	// margin-left: 10px;
+	// top: 0px;
 
 	/* Immo Belgium/Blue */
 
@@ -120,9 +126,9 @@
 
 	/* Inside Auto Layout */
 
-	flex: none;
-	order: 0;
-	flex-grow: 0;
+	// flex: none;
+	// order: 0;
+	// flex-grow: 0;
 }
 
 .competitive-report-footer {
