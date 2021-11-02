@@ -9,7 +9,6 @@ import twitter from "../../assets/images/twitter.png";
 import instagram from "../../assets/images/instagram.png";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
-
 import { useTranslation } from "react-i18next";
 import NavBarContainer from "../../containers/NavBar";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -20,8 +19,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // `;
 
 const CompetitiveReport = () => {
+  const { t } = useTranslation("competitive-report");
+
   return (
-    <div className='d-flex flex-column'>
+    <div className="d-flex flex-column">
       <HeaderContainer title={""} />
       <div className="AgencySettingsPage container d-flex">
         <NavBarContainer />
@@ -40,25 +41,21 @@ const CompetitiveReport = () => {
           <div className=" competitive-market  ">
             <div>
               <p className=" heading ">
-                Competitive Market Report{" "}
+                {t("p.competitive-report")}
+
                 <img src={beta} className="d-inline beta" alt="..."></img>
               </p>
 
-              <p className="competitive-desc">
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet.Amet minim
-                mollit non deserunt ullamco est sit aliqua dolor do amet sint.
-                Velit officia consequat duis enim velit mollit. Exercitation
-                veniam consequat sunt nostrud amet.
-              </p>
-              <div className="interested-btn"> I’m interested</div>
+              <p className="competitive-desc">{t("p.competitive-desc")}</p>
+              <div className="interested-btn">
+                {" "}
+                {t("btn.competitive-report")}
+              </div>
             </div>
 
             {/* <div className="p-2 bd-highlight">Flex item</div>
         <div className="mt-auto p-2 bd-highlight">Flex item</div> */}
           </div>
-        
         </div>
       </div>
       {/* <FooterContainer/> */}
@@ -68,7 +65,11 @@ const CompetitiveReport = () => {
 export const getServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["header", "common"])),
+      ...(await serverSideTranslations(locale, [
+        "header",
+        "common",
+        "competitive-report",
+      ])),
     },
   };
 };

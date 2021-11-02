@@ -26,6 +26,7 @@ import Mapbox3dMap from "../../components/3dMap"
 import styled from "styled-components"
 import { useRouter } from "next/router";
 import { getLatLongFromAddress, getProperties } from "../../network-requests";
+import { useTranslation } from "next-i18next";
 
 const LimitedPartner = styled.span`
 	background: #FE7F2D;
@@ -4472,6 +4473,8 @@ const compareAgency = () => {
 		}
 	]
 	const router = useRouter()
+	const { t } = useTranslation("agency-result");
+
 	const { locale } = router
 	const { auth, id: userId } = useSelector(
 		(state: RootState) => state.userInfo
@@ -4722,8 +4725,9 @@ const compareAgency = () => {
 				<div className="agency-result-container justify-content-center">
 					<div className="result-agency">
 						<p>
-							We analyze thousands of local agents and find the best to compete
-							you!
+							{/* We analyze thousands of local agents and find the best to compete
+							you! */}
+							{t("p.result-agency")}
 						</p>
 						<div className="search-form d-flex">
 							<div className=" search-input-sugguession d-flex flex-collumn">
@@ -4925,6 +4929,7 @@ export const getServerSideProps = async ({ locale }) => {
 		props: {
 			...(await serverSideTranslations(locale, [
 				"dashboard-page",
+				"agency-result",
 				"header",
 				"footer",
 			])),

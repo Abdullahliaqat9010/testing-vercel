@@ -287,7 +287,7 @@ const portFolio = ({ agency, comments }) => {
                                                 <IconsImages src={PhoneImage} alt="sajksh" />
                                                 <Labels>Contact Phone</Labels>
                                             </BasicInfoLabes>
-                                            <Labels className="pointer text-primary" onClick={contactToggle}>{!showContact ? "Show Phone" : "+36273892712"}</Labels>
+                                            <Labels className="pointer text-primary" onClick={contactToggle}>{!showContact ? "Show Phone" : "+32273892712"}</Labels>
 
                                         </div>
                                         <div className="d-flex my-2">
