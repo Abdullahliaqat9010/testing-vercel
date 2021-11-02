@@ -37,6 +37,7 @@ const StepsBlock = ({ setStep, step }) => {
 					},
 			  ]
 			: [],
+			zoom: location.lat ? 20 : 10
 	};
 
 	return (
