@@ -6,17 +6,17 @@
 .background-clr {
 	// margin-left: 250px;
 	// position: absolute;
-	width: 896px;
-	height: 314px;
+	// width: 896px;
+	// height: 314px;
 	background: #3871ef;
 	border-radius: 10px 10px 0px 0px;
 }
 
 .background-gradiant {
 	// position: absolute;
-	width: 896px;
+	// width: 896px;
 	margin-left: 30px;
-	height: 304px;
+	// height: 304px;
 	background: linear-gradient(
 		75.53deg,
 		rgba(57, 114, 240, 0.7) 9.34%,
@@ -32,8 +32,8 @@
 	// margin-top: 315px;
 	background-color: white;
 	//  position: absolute;
-	width: 896px;
-	height: 250px;
+	// width: 896px;
+	// height: 250px;
 	/* Immo Belgium/White */
 
 	border-radius: 0px 0px 10px 10px;
@@ -53,11 +53,11 @@
 }
 
 .heading {
-	position: static;
-	height: 33px;
+	// position: static;
+	// height: 33px;
 	/* Platform/H3 */
 
-	font-family: Nunito Sans;
+	// font-family: Nunito Sans;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 24px;
@@ -72,9 +72,9 @@
 
 	/* Inside Auto Layout */
 
-	flex: none;
-	order: 0;
-	flex-grow: 0;
+	// flex: none;
+	// order: 0;
+	// flex-grow: 0;
 }
 
 .desc {
@@ -97,10 +97,10 @@
 
 	/* Inside Auto Layout */
 
-	flex: none;
-	order: 1;
-	align-self: stretch;
-	flex-grow: 0;
+	// flex: none;
+	// order: 1;
+	// align-self: stretch;
+	// flex-grow: 0;
 }
 .beta {
 	margin-left: 20px;

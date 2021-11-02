@@ -36,7 +36,7 @@ const CompetitiveReport = () => {
         <NavBarContainer />
 
         <div className="competitive-main">
-          <div className="background-clr ">
+          <div className="background-clr mr-2">
             <div className=" background-gradiant  ">
               <img
                 src={competitiveReport}
@@ -46,7 +46,7 @@ const CompetitiveReport = () => {
             </div>
           </div>
 
-          <div className=" competitive-market  ">
+          <div className=" competitive-market mr-2">
             <div>
               <p className=" heading ">
                 Competitive Market Report{" "}
