@@ -15,7 +15,7 @@ import FacadesIcon from "../../../../assets/images/steps/facades.svg";
 import BedroomsIcon from "../../../../assets/images/steps/bedrooms.svg";
 import BathroomsIcon from "../../../../assets/images/steps/bathrooms.svg";
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
-
+import { isMobile } from "react-device-detect";
 import {
 	goToNextStepAction,
 	goToPrevStepAction,
@@ -442,7 +442,7 @@ const StepTwo = ({ setStep }) => {
 					</Form.Row>
 				</Form>
 			</div>
-			<div className="steps-btn-group d-flex justify-content-between">
+			<div className={isMobile ? "botton-syicky steps-btn-group d-flex justify-content-between" : "steps-btn-group d-flex justify-content-between"}>
 				<Button onClick={handleClickPrevBtn} className="prev-step">
 					<img src={IconBack} alt="IconBack" />
 					{t("button.back")}

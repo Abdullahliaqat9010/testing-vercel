@@ -9,10 +9,12 @@ import twitter from "../../assets/images/twitter.png";
 import instagram from "../../assets/images/instagram.png";
 import HeaderContainer from "../../containers/Header";
 import FooterContainer from "../../containers/Footer";
-
+import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import NavBarContainer from "../../containers/NavBar";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { notification } from "antd";
+
 // const Background = styled.div`
 //    background-image:url(${competitiveReport})
 //    height:200px;
@@ -20,6 +22,13 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // `;
 
 const CompetitiveReport = () => {
+  const onClick = () => {
+    notification.success({
+      message: "Your action is performed successefully",
+      placement: "bottomRight",
+    });
+
+  }
   return (
     <div className='d-flex flex-column'>
       <HeaderContainer title={""} />
@@ -27,7 +36,7 @@ const CompetitiveReport = () => {
         <NavBarContainer />
 
         <div className="competitive-main">
-          <div className="background-clr ">
+          <div className="background-clr mr-2">
             <div className=" background-gradiant  ">
               <img
                 src={competitiveReport}
@@ -37,7 +46,7 @@ const CompetitiveReport = () => {
             </div>
           </div>
 
-          <div className=" competitive-market  ">
+          <div className=" competitive-market mr-2">
             <div>
               <p className=" heading ">
                 Competitive Market Report{" "}
@@ -52,7 +61,7 @@ const CompetitiveReport = () => {
                 Velit officia consequat duis enim velit mollit. Exercitation
                 veniam consequat sunt nostrud amet.
               </p>
-              <div className="interested-btn"> I’m interested</div>
+              <Button onClick={onClick} > I’m interested</Button>
             </div>
 
             {/* <div className="p-2 bd-highlight">Flex item</div>

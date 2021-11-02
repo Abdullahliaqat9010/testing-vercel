@@ -75,26 +75,40 @@ const AgencyPage = () => {
 		<>
 			<HeaderContainer title="Agency Info" />
 
-			<div className="d-flex flex-row bd-highlight mb-2 w-100">
-				<div className="Agency container">
-					<Link href={"/dashboard"}>
-						<span className="mt-3 Agency__back">
-							<img src={ArrowImage} alt="ArrowImage" />{" "}
-							{t("link.back-dashboard")}
-						</span>
-					</Link>
-					<FirstBlock properties={properties} currentAgency={agency} />
-					{/* <SecondBlock />  */}
-					<ThirdBlock
-						currentAgency={agency}
-						// elementsOnPage={elementsOnPage}
-					/>
-					<FourthBlock currentAgency={agency} />
+			<div className="d-flex flex-row justify-content-center bd-highlight mb-2 w-100">
+				<div className="d-flex flex-row agency-detail-page">
+					<div className="Agency d-flex flex-column">
+						<div className="d-flex flex-row">
+							<Link href={"/dashboard"}>
+								<span className="mt-3 Agency__back">
+									<img src={ArrowImage} alt="ArrowImage" />{" "}
+									{t("link.back-dashboard")}
+								</span>
+							</Link>
+						</div>
+						<div className="d-flex flex-row">
+							<div className="d-flex flex-column">
+
+								<FirstBlock properties={properties} currentAgency={agency} />
+								{/* <SecondBlock />  */}
+								{/* properties block */}
+								<ThirdBlock
+									currentAgency={agency}
+								// elementsOnPage={elementsOnPage}
+								/>
+
+								<FourthBlock currentAgency={agency} />
+							</div>
+							<div className="pl-2 bd-highlight ">
+								<ContactAgencyBlock agencyInfo={undefined} />
+							</div>
+						</div>
+
+					</div>
 				</div>
 
-				<div className="p-2 bd-highlight  ">
-					<ContactAgencyBlock agencyInfo={undefined} />
-				</div>
+
+
 			</div>
 			<FooterContainer />
 		</>

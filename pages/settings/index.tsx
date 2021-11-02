@@ -276,7 +276,6 @@ const SettingsPage = () => {
 								type="submit"
 								disabled={isUpdatingProfile}
 								style={{
-									width: "150px",
 									height: "50px",
 									borderRadius: 8,
 									marginTop: 10,
