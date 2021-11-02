@@ -8,6 +8,8 @@
     "p.facades":"Facades",
     "p.parking":"Parking",
     "p.constructed":"Constructed",
-    "p.note":"Note"
+    "p.note":"Note",
+    "p.sold-on":"Sold on"
+
 
 }

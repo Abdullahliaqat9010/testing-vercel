@@ -25,7 +25,7 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 			<Modal.Header closeButton>
 				<Modal.Title className="d-flex flex-column">
 					<div className="title">{`€${property?.sold_rent_price}`}</div>
-					<p className="subtitle">{`Sold on ${
+					<p className="subtitle">{`${t("p.sold-on")} ${
 						property?.sold_rent_date
 							? moment(property?.sold_rent_date).format("MMM DD, YYYY")
 							: moment().format("MMM DD, YYYY")
