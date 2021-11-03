@@ -8,8 +8,8 @@
 	}
 
 	&__info {
-		display: flex;
-		flex-direction: column;
+		// display: flex;
+		// flex-direction: column;
 		margin-right: 75px;
 
 		color: var(--colorWhite);
@@ -23,6 +23,7 @@
 
 		.desc {
 			margin: 15px 0 19px;
+			color: var(--colorWhite);
 		}
 	}
 

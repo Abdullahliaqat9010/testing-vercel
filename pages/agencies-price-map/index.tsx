@@ -3756,8 +3756,8 @@ const priceMap = () => {
                           <p>
                             {" "}
                             {activeTab === "price"
-                              ? prices.house.toFixed(2)
-                              : prices.house.toFixed(2)}{" "}
+                              ? prices.house.toFixed(0)
+                              : prices.house.toFixed(0)}{" "}
                             €{" "}
                           </p>
                           <span className="price">
@@ -3806,8 +3806,8 @@ const priceMap = () => {
                           <p>
                             {" "}
                             {activeTab === "price"
-                              ? prices.appartment.toFixed(2)
-                              : prices.appartment.toFixed(2)}{" "}
+                              ? prices.appartment.toFixed(0)
+                              : prices.appartment.toFixed(0)}{" "}
                             €{" "}
                           </p>
                           <span className="price">
@@ -3891,8 +3891,8 @@ const priceMap = () => {
                           >
                             {city.name} {city.zipcode}
                           </td>
-                          <td>{city.appartment.toFixed(2)}</td>
-                          <td>{city.house.toFixed(2)}</td>
+                          <td>{city.appartment.toFixed(0)} €</td>
+                          <td>{city.house.toFixed()} €</td>
                         </tr>
                       );
                     })}

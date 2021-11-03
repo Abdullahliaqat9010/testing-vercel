@@ -41,7 +41,7 @@ import NorthWestActive from "../../../../assets/images/steps/orientation/nw-acti
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
 import { createLeadProperty } from "../../../../network-requests";
-
+import { isMobile } from "react-device-detect";
 const StepFour = ({ setStep }) => {
 	const { t } = useTranslation("steps");
 	const dispatch = useDispatch();
@@ -175,7 +175,7 @@ const StepFour = ({ setStep }) => {
 		// 	router.push("/final-steps", locale + "/final-steps", { locale: locale });
 		// }
 		if (isLoggedIn) {
-			message.info("Adding property");
+			message.info(t("button.add-property"));
 			const utilities = { ...data };
 			const property = {
 				...generatePropertyData(
@@ -514,7 +514,7 @@ const StepFour = ({ setStep }) => {
 					</InputGroup>
 				</Form>
 			</div>
-			<div className="steps-btn-group d-flex justify-content-between">
+			<div className= {isMobile ? " botton-syicky steps-btn-group d-flex justify-content-between": "steps-btn-group d-flex justify-content-between"} >
 				<Button onClick={handleClickPrevBtn} className="prev-step">
 					<img src={IconBack} alt="IconBack" />
 					{t("button.back")}
