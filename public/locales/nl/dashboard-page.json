@@ -35,8 +35,8 @@
   "placeholder.new-text":" Ik denk dat deze waardering ",
   "placeholder.message": "Ik heb uw profiel gevonden op BelgiumImmo en ik wil u graag informeren over mijn vastgoedproject.",
   "span.from": "van",
-  "span.nearest-agency": "Dichtstbijzijnde vastgoedkantoor ",
-  "span.agency": "Makelaar",
+  "span.nearest-agency": "Dichtstbijzijnde vastgoedkantoor bij u ",
+  "span.agency": "makelaar ",
   "span.reviews": "Beoordelingen",
   "span.similar-property": "Gelijkaardige woningen",
   "span.your-property": "Uw woning",
@@ -66,7 +66,10 @@
   "p.desc-part2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
   "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,",
   "label.ouwner": "Kantoorverantwoordelijke",
-  "button.agency-owner":"Eigenaar "
+  "button.agency-owner":"Eigenaar ",
+  "span.house-beds":"Slaapkamers ",
+  "span.house-baths":"Badkamers"
+
   
 
 }
