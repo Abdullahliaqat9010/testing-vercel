@@ -5,7 +5,6 @@ import { Button, ButtonGroup, Form, InputGroup,OverlayTrigger,Tooltip } from "re
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
 import { isMobile } from "react-device-detect";
 import IconBack from "../../../../assets/images/long-arrow.svg";
-
 import {
   goToNextStepAction,
   goToPrevStepAction,
