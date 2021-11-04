@@ -34,7 +34,7 @@ export const getMainProperty = (id?: number | null): Promise<any> => {
 	});
 };
 
-export const getLeadProperties = (): Promise<any[]> => {
+export const getLeadProperties = (): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: properties } = await axios.get(`lead/properties`);
@@ -66,12 +66,14 @@ export const getSimilarProperties = (
 	propertyId,
 	page = 1,
 	limit = 10
-): Promise<any[]> => {
+): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: properties } = await axios.get(
-				`lead/similar-properties/${propertyId}`
+				`lead/similar-properties/${propertyId}`,
+				{ params: { page, limit } }
 			);
+			console.log(properties);
 			res(properties);
 		} catch (error) {
 			rej(error);

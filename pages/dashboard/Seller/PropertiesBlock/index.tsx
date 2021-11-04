@@ -9,8 +9,16 @@ import PropertyBlock from "../../../../containers/Property";
 import NoEstimationImage from "../../../../assets/images/no-estimation.svg";
 import { CustomScrollbar } from "../../../../components/Scrollbar";
 import Mapbox3dMap from "../../../../components/3dMap";
+import { Button } from "antd";
 
-const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
+const PropertiesBlock = ({
+	similarProperties = [],
+	mainProperty,
+	totalSimilarProperties,
+	onLoadMore = () => null,
+	isLoadingMore = false,
+	isLoadMoreAvailable = false,
+}) => {
 	const { t } = useTranslation("dashboard-page");
 	// const elementsOnPage = isMobileOnly ? 3 : 6;
 	// const [sizeArr, setSizeArr] = useState(elementsOnPage);
@@ -96,12 +104,12 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 			<div className="properties-list">
 				<h3 className="h5">{t("title.similar-sold-properties")}</h3>
 				<p>
-					{t("desc.we-found")} {similarProperties.length}{" "}
+					{t("desc.we-found")} {totalSimilarProperties}{" "}
 					{t("desc.similar-sold-properties")}
 				</p>
 				<div className="property-main-block">
 					{similarProperties.length > 0 ? (
-						<>
+						<div>
 							<CustomScrollbar autoHide={false}>
 								{similarProperties.map((item, index) => (
 									<PropertyBlock
@@ -112,7 +120,18 @@ const PropertiesBlock = ({ similarProperties = [], mainProperty }) => {
 									/>
 								))}
 							</CustomScrollbar>
-						</>
+							{isLoadMoreAvailable && (
+								<div className="d-flex flex-row w-100 justify-content-center pt-3">
+									<Button
+										loading={isLoadingMore}
+										onClick={onLoadMore}
+										className="rounded-lg"
+									>
+										Load More
+									</Button>
+								</div>
+							)}
+						</div>
 					) : (
 						<div className="property-main-block__no-items">
 							<img src={NoEstimationImage} alt="NoEstimationImage" />
