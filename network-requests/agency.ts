@@ -96,10 +96,12 @@ export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	});
 };
 
-export const getAgencyProfile = (): Promise<any> => {
+export const getAgencyProfile = (locale): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data } = await axios.get("agency/profile");
+			const { data } = await axios.get("agency/profile", {
+				params: { locale },
+			});
 			res(data);
 		} catch (error) {
 			rej(error);
@@ -107,10 +109,12 @@ export const getAgencyProfile = (): Promise<any> => {
 	});
 };
 
-export const getAgencyById = (id: number): Promise<any> => {
+export const getAgencyById = (id: number, locale): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data } = await axios.get(`agency/profile/${id}`);
+			const { data } = await axios.get(`agency/profile/${id}`, {
+				params: { locale },
+			});
 			res(data);
 		} catch (error) {
 			rej(error);
