@@ -28,8 +28,6 @@ const PropertyContainer = ({
 		return locale === "fr" ? NoImageFr : NoImage;
 	};
 
-	console.log(property);
-
 	return (
 		<div className={`property-block d-flex ${active ? "active-block" : ""}`}>
 			<div className="property-block__image">

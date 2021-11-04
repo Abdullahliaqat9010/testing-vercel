@@ -45,7 +45,6 @@ const Mapbox3dMap = ({
 	is3d = false,
 	onActiveMarker = (id) => null,
 }: MapProps) => {
-	console.log("marker", markers);
 	const [center, setCenter] = useState([
 		markers.length > 0 ? markers[0].position.lng : 4.402771,
 		markers.length > 0 ? markers[0].position.lat : 51.260197,
