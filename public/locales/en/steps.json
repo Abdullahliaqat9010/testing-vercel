@@ -124,6 +124,10 @@
   "error.dont-match": "Passwords dont match",
   "placeholder.epc": "Enter",
   "message.add-property-success": "Property has been added successfully",
-  "button.add-property": "Adding property"
+  "button.add-property": "Adding property",
+  "tooltip.renovation":"the % of your property that was renovated.",
+  "button.SE":"SE"
+
+
 
 }

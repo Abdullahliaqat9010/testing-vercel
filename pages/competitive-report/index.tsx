@@ -22,6 +22,8 @@ import { notification } from "antd";
 // `;
 
 const CompetitiveReport = () => {
+  const { t } = useTranslation("competitive-report");
+
   const onClick = () => {
     notification.success({
       message: "Your action is performed successefully",
@@ -30,7 +32,7 @@ const CompetitiveReport = () => {
 
   }
   return (
-    <div className='d-flex flex-column'>
+    <div className="d-flex flex-column">
       <HeaderContainer title={""} />
       <div className="AgencySettingsPage container d-flex">
         <NavBarContainer />
@@ -49,25 +51,21 @@ const CompetitiveReport = () => {
           <div className=" competitive-market mr-2">
             <div>
               <p className=" heading ">
-                Competitive Market Report{" "}
+                {t("p.competitive-report")}
+
                 <img src={beta} className="d-inline beta" alt="..."></img>
               </p>
 
-              <p className="competitive-desc">
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet.Amet minim
-                mollit non deserunt ullamco est sit aliqua dolor do amet sint.
-                Velit officia consequat duis enim velit mollit. Exercitation
-                veniam consequat sunt nostrud amet.
-              </p>
-              <Button onClick={onClick} > I’m interested</Button>
+              <p className="competitive-desc">{t("p.competitive-desc")}</p>
+              <div className="interested-btn">
+                {" "}
+                {t("btn.competitive-report")}
+              </div>
             </div>
 
             {/* <div className="p-2 bd-highlight">Flex item</div>
         <div className="mt-auto p-2 bd-highlight">Flex item</div> */}
           </div>
-        
         </div>
       </div>
       {/* <FooterContainer/> */}
@@ -77,7 +75,11 @@ const CompetitiveReport = () => {
 export const getServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["header", "common"])),
+      ...(await serverSideTranslations(locale, [
+        "header",
+        "common",
+        "competitive-report",
+      ])),
     },
   };
 };

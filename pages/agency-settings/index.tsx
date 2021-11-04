@@ -116,6 +116,8 @@ const Formpage = () => {
 		t("language.Turk"),
 		t("language.Spaans"),
 		t("language.Russisch"),
+		t("language.Portugais"),
+		t("language.Chinois"),
 	];
 
 	const [logoImage, setLogoImage] = useState("");
