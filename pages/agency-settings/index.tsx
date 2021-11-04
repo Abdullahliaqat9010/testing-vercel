@@ -17,6 +17,7 @@ import UploadImage from "../../assets/images/upload-img.svg";
 import UploadPicture from "../../assets/images/upload-picture.svg";
 import * as Yup from "yup";
 import { Button } from "react-bootstrap";
+import { useRouter } from "next/router";
 import {
 	getAgencyProfile,
 	handleImageUpload,
@@ -114,13 +115,14 @@ const Formpage = () => {
 		t("language.Engels"),
 		t("language.Turk"),
 		t("language.Spaans"),
-		t("language.Russisch")
+		t("language.Russisch"),
 	];
 
 	const [logoImage, setLogoImage] = useState("");
 	const [coverImage, setCoverImage] = useState("");
 	const [agencyProfile, setAgencyProfile] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const { locale } = useRouter();
 
 	const onSubmit = (values) => {
 		return new Promise(async (res, rej) => {
@@ -159,7 +161,7 @@ const Formpage = () => {
 	const _getAgencyProfile = async () => {
 		try {
 			setIsLoading(true);
-			const _agencyProfile = await getAgencyProfile();
+			const _agencyProfile = await getAgencyProfile(locale);
 			setAgencyProfile({ ..._agencyProfile });
 			setCoverImage(_agencyProfile?.cover_image);
 			setLogoImage(_agencyProfile?.logo_image);

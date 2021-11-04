@@ -45,7 +45,7 @@ const AgencyPage = () => {
 
 	const _getAgency = async () => {
 		try {
-			const _agency = await getAgencyById(Number(id));
+			const _agency = await getAgencyById(Number(id), router.locale);
 			setAgency({ ..._agency });
 		} catch (error) {
 			console.log(error);
@@ -88,13 +88,12 @@ const AgencyPage = () => {
 						</div>
 						<div className="d-flex flex-row">
 							<div className="d-flex flex-column">
-
 								<FirstBlock properties={properties} currentAgency={agency} />
 								{/* <SecondBlock />  */}
 								{/* properties block */}
 								<ThirdBlock
 									currentAgency={agency}
-								// elementsOnPage={elementsOnPage}
+									// elementsOnPage={elementsOnPage}
 								/>
 
 								<FourthBlock currentAgency={agency} />
@@ -103,12 +102,8 @@ const AgencyPage = () => {
 								<ContactAgencyBlock agencyInfo={undefined} />
 							</div>
 						</div>
-
 					</div>
 				</div>
-
-
-
 			</div>
 			<FooterContainer />
 		</>
