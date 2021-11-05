@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly } from "react-device-detect";
 
@@ -30,26 +30,7 @@ const PropertiesBlock = ({
 	// };
 
 	const [activeMarker, setActiveMarker] = useState<string | number>("home");
-	const [markers, setMarkers] = useState([
-		{
-			type: "home",
-			position: {
-				lat: mainProperty?.property?.lat,
-				lng: mainProperty?.property?.lng,
-			},
-			id: "home",
-		},
-		...similarProperties.map((prop) => {
-			return {
-				type: "property",
-				position: {
-					lat: prop?.property?.lat,
-					lng: prop?.property?.lng,
-				},
-				id: prop?.id,
-			};
-		}),
-	]);
+	const [markers, setMarkers] = useState([]);
 
 	const mapProps = {
 		markers: [...markers],
@@ -87,6 +68,29 @@ const PropertiesBlock = ({
 			},
 		]);
 	};
+
+	useEffect(() => {
+		setMarkers([
+			...similarProperties.map((prop) => {
+				return {
+					type: "property",
+					position: {
+						lat: prop?.property?.lat,
+						lng: prop?.property?.lng,
+					},
+					id: prop?.id,
+				};
+			}),
+			{
+				type: "home",
+				position: {
+					lat: mainProperty?.property?.lat,
+					lng: mainProperty?.property?.lng,
+				},
+				id: "home",
+			},
+		]);
+	}, [similarProperties]);
 
 	return (
 		<div className="properties-block d-flex">
