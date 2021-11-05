@@ -36,6 +36,7 @@ const PropertiesBlock = ({
 		markers: [...markers],
 		is3d: false,
 		onActiveMarker: (id) => onClickProperty(id),
+		zoom: 11,
 	};
 
 	const onClickProperty = (propertyId) => {
