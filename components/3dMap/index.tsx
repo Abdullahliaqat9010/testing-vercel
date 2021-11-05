@@ -36,16 +36,17 @@ interface MarkerI {
 
 interface MapProps {
 	markers?: MarkerI[];
-	is3d: boolean,
+	is3d: boolean;
 	onActiveMarker?: (id: any) => void;
+	zoom?: number;
 }
 
 const Mapbox3dMap = ({
 	markers = [],
 	is3d = false,
 	onActiveMarker = (id) => null,
+	zoom = 15,
 }: MapProps) => {
-	console.log("marker", markers)
 	const [center, setCenter] = useState([
 		markers.length > 0 ? markers[0].position.lng : 4.402771,
 		markers.length > 0 ? markers[0].position.lat : 51.260197,
@@ -61,17 +62,17 @@ const Mapbox3dMap = ({
 			mapRef.current = new mapboxgl.Map({
 				style: "mapbox://styles/mapbox/satellite-streets-v11",
 				center: [...center],
-				zoom: 15,
+				zoom: zoom,
 				pitch: 45,
 				bearing: -17.6,
 				container: "map",
-				antialias: is3d,
+				// antialias: is3d,
 			});
 		} else {
 			mapRef.current = new mapboxgl.Map({
 				style: "mapbox://styles/mapbox/streets-v11",
 				center: [...center],
-				zoom: 6,
+				zoom: zoom,
 				container: "map",
 			});
 		}
@@ -81,47 +82,48 @@ const Mapbox3dMap = ({
 	useEffect(() => {
 		var map = mapRef.current;
 		if (map) {
-
 			map?.on("load", () => {
 				const layers = map?.getStyle().layers;
 				const labelLayerId = layers.find(
 					(layer) => layer.type === "symbol" && layer.layout["text-field"]
 				).id;
 
-				map?.addLayer(
-					{
-						id: "add-3d-buildings",
-						source: "composite",
-						"source-layer": "building",
-						filter: ["==", "extrude", "true"],
-						type: "fill-extrusion",
-						minzoom: 15,
-						paint: {
-							// "fill-extrusion-color": "#ddcfb2",
-							"fill-extrusion-color": "#aaa",
-							"fill-extrusion-height": [
-								"interpolate",
-								["linear"],
-								["zoom"],
-								15,
-								0,
-								15.05,
-								["get", "height"],
-							],
-							"fill-extrusion-base": [
-								"interpolate",
-								["linear"],
-								["zoom"],
-								15,
-								0,
-								15.05,
-								["get", "min_height"],
-							],
-							"fill-extrusion-opacity": 1,
+				if (is3d) {
+					map?.addLayer(
+						{
+							id: "add-3d-buildings",
+							source: "composite",
+							"source-layer": "building",
+							filter: ["==", "extrude", "true"],
+							type: "fill-extrusion",
+							minzoom: 15,
+							paint: {
+								// "fill-extrusion-color": "#ddcfb2",
+								"fill-extrusion-color": "#aaa",
+								"fill-extrusion-height": [
+									"interpolate",
+									["linear"],
+									["zoom"],
+									15,
+									0,
+									15.05,
+									["get", "height"],
+								],
+								"fill-extrusion-base": [
+									"interpolate",
+									["linear"],
+									["zoom"],
+									15,
+									0,
+									15.05,
+									["get", "min_height"],
+								],
+								"fill-extrusion-opacity": 1,
+							},
 						},
-					},
-					labelLayerId
-				);
+						labelLayerId
+					);
+				}
 				map.on("idle", (e) => {
 					const bounds = map.getBounds();
 					const zoomLevel = map.getZoom();
@@ -170,8 +172,8 @@ const Mapbox3dMap = ({
 												// layout: {
 												// 	visibility: "none",
 												// },
-											},
-											"add-3d-buildings"
+											}
+											// "add-3d-buildings"
 										);
 										map.on("mousemove", geohash, ({ features }) => {
 											map.getCanvas().style.cursor = "pointer";
@@ -223,16 +225,18 @@ const Mapbox3dMap = ({
 			map?.touchZoomRotate.enableRotation();
 		}
 	}, [mapRef]);
+
 	useEffect(() => {
 		var map = mapRef.current;
 		map?.flyTo({
 			center: [...center],
-			zoom: 18,
+			zoom: zoom + 3,
 			essential: true,
 		});
 	}, [center]);
 
 	useEffect(() => {
+		console.log(markers.length);
 		var map = mapRef.current;
 		const prevMarkers = document.getElementsByClassName(
 			"marker"
@@ -276,7 +280,7 @@ const Mapbox3dMap = ({
 	};
 
 	return (
-		<div style={{ height: is3d ? "100vh" : "350px", width: "100%" }} ref={mapRef} id="map" />
+		<div style={{ height: "100%", width: "100%" }} ref={mapRef} id="map" />
 	);
 };
 

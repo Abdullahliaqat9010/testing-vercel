@@ -34,6 +34,7 @@ export interface RootState {
 				zip: string;
 				locality: string;
 				country: string;
+				city: string;
 			};
 			selectedProperty: string;
 			propertyDetails: {

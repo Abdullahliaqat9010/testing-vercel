@@ -42,7 +42,6 @@ const FirstBlock = ({
 	const showPhone = () => {
 		setShowBlock(true);
 	};
-
 	const getLanguages = (languages) => {
 		let langs = [];
 		for (const key in languages) {
@@ -74,6 +73,7 @@ const FirstBlock = ({
 					<div className="d-flex agency-info__title">
 						<div className="logo-block">
 							<img
+								style={{ objectFit: "cover" }}
 								src={
 									currentAgency?.logo_image
 										? currentAgency?.logo_image
@@ -85,9 +85,12 @@ const FirstBlock = ({
 						<div className="agency-info__block">
 							<h1 className="agency-name">{currentAgency?.company_name}</h1>
 							<div className="rating-block d-flex align-items-center">
-								<span className="total">5.0</span>
+								<span className="total">
+									{parseFloat(currentAgency?.rating?.rating).toFixed(1)}
+								</span>
 								<StarRatingComponent
 									name="rate"
+									className="custom-rate"
 									renderStarIcon={(index, value) => (
 										<img
 											className="rating-star"
@@ -96,14 +99,15 @@ const FirstBlock = ({
 										/>
 									)}
 									starCount={5}
-									value={3}
+									value={Number(currentAgency?.rating?.rating)}
 								/>
 								<span className="from">
 									{" "}
-									{t("span.from")} 120 {t("span.reviews")}
+									{t("span.from")} {currentAgency?.rating?.user_ratings_total}{" "}
+									{t("span.reviews")}
 								</span>
 							</div>
-							<span className="gray">{t("span.when-join")}</span>
+							{/* <span className="gray">{t("span.when-join")}</span> */}
 						</div>
 					</div>
 					<div className="agency-info__contact-block">
@@ -114,7 +118,7 @@ const FirstBlock = ({
 								<span>{t("span.address")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<span>{`${currentAgency?.street} ${currentAgency?.street_number}, ${currentAgency?.city}, Belgium`}</span>
+								<span>{`${currentAgency?.search_address}`}</span>
 							</div>
 						</div>
 						<div className="contact-agency-list">

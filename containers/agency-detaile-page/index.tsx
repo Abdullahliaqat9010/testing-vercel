@@ -24,7 +24,9 @@ import YoutubeIcon from "../../assets/images/agency-page/social/youtube-icon.svg
 import LinkedinIcon from "../../assets/images/agency-page/social/linkedin-icon.svg";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
-
+import Comments from '../Comments'
+import { RootState } from "../../types/state";
+import { useSelector } from "react-redux";
 const Labels = styled.span`
     font-size: 14px;
     line-height: 19px;
@@ -63,11 +65,20 @@ const BasicInfoLabes = styled.div`
     width:145px;
 `;
 const ProfileImageBlock = styled.img`
+
     border: 1px solid #F2F6FF;
     box-sizing: border-box;
     border-radius: 8px;
-    width: 172px;
-    height: 172px;
+   
+    @media (min-width: 769px) {
+        width: 172px;
+        height: 172px;
+    }
+    
+    @media (min-width: 320px) and (max-width: 768px) {
+        width: 82px;
+        height: 82px;
+    }
 `;
 
 const IconsImages = styled.img`
@@ -148,11 +159,13 @@ const SocialImages = styled.div`
 `;
 
 
-const portFolio = ({ agency }) => {
+const portFolio = ({ agency, comments }) => {
+    console.log("agency", agency)
     const [showContact, setShowContect] = useState(false)
     const contactToggle = () => {
         setShowContect(!showContact)
     }
+
     const [facebook, setFacebook] = useState("")
     const [instagram, setInstagram] = useState("")
     const [youtube, setYoutube] = useState("")
@@ -160,25 +173,33 @@ const portFolio = ({ agency }) => {
     const [twiter, setTwiter] = useState("")
 
     const [name, setName] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [comment, setComment] = useState<string>("");
-	const [isAddingComment, setIsAddingComment] = useState(false);
+    const [email, setEmail] = useState<string>("");
+    const [comment, setComment] = useState<string>("");
+    const [isAddingComment, setIsAddingComment] = useState(false);
 
 
     const onSubmit = async (e) => {
-        setIsAddingComment(true)
-        const commentParams = {
-            name,
-            email,
-            comment,
-            agencyId: agency?.id
+        try {
+            setIsAddingComment(true);
+            await axios.post(`/blog-comments`, {
+                name,
+                email,
+                comment,
+                agency_id: agency?.id,
+            });
+            setName("");
+            setComment("");
+            setEmail("");
+            setIsAddingComment(false);
+        } catch (error) {
+            console.log(error)
+            window.confirm("khjkjh")
+            setIsAddingComment(false);
         }
-
-		window.confirm("work is pending on this")
-	};
+    };
 
     useEffect(() => {
-        console.log("agency", agency)
+
         let linksArray = agency?.social_links ? agency?.social_links?.split(",") : []
         for (let index = 0; index < linksArray.length; index++) {
             const element = linksArray[index];
@@ -199,6 +220,9 @@ const portFolio = ({ agency }) => {
             }
         }
     })
+
+
+
 
 
     const date = new Date(agency?.createdAt)
@@ -225,23 +249,25 @@ const portFolio = ({ agency }) => {
                                         <ProfileImageBlock src={agency?.isLimited ? DefaultLogoImage : agency?.logo_image} alt="agencyLogoImage" />
                                         <div className="d-flex flex-column justify-content-center pl-3" >
                                             <Headlines>{agency?.company_name}</Headlines>
-                                            <ReviewRow className="">
-                                                <span>5.0</span> <StarRatingComponent
-                                                    name="rate"
-                                                    renderStarIcon={(index, value) => (
-                                                        <StarsImageTag
-                                                            src={
-                                                                index <= value
-                                                                    ? RatingStar
-                                                                    : RatingStarEmpty
-                                                            }
-                                                            alt={"RatingStar" + index}
-                                                        />
-                                                    )}
-                                                    starCount={5}
-                                                    value={Number(4)}
-                                                />{" "} <span>from {"120"} reviews</span>
-                                            </ReviewRow>
+                                            {!agency?.isLimited &&
+                                                <ReviewRow className="">
+                                                    <span>5.0</span> <StarRatingComponent
+                                                        name="rate"
+                                                        renderStarIcon={(index, value) => (
+                                                            <StarsImageTag
+                                                                src={
+                                                                    index <= value
+                                                                        ? RatingStar
+                                                                        : RatingStarEmpty
+                                                                }
+                                                                alt={"RatingStar" + index}
+                                                            />
+                                                        )}
+                                                        starCount={5}
+                                                        value={Number(4)}
+                                                    />{" "} <span>from {"120"} reviews</span>
+                                                </ReviewRow>
+                                            }
                                             <span className="my-2">{"With Immo Belgium since"} {date.getFullYear()}</span>
 
                                         </div>
@@ -261,7 +287,7 @@ const portFolio = ({ agency }) => {
                                                 <IconsImages src={PhoneImage} alt="sajksh" />
                                                 <Labels>Contact Phone</Labels>
                                             </BasicInfoLabes>
-                                            <Labels className="pointer text-primary" onClick={contactToggle}>{!showContact ? "Show Phone" : "+36273892712"}</Labels>
+                                            <Labels className="pointer text-primary" onClick={contactToggle}>{!showContact ? "Show Phone" : "+32273892712"}</Labels>
 
                                         </div>
                                         <div className="d-flex my-2">
@@ -271,19 +297,39 @@ const portFolio = ({ agency }) => {
                                             </BasicInfoLabes>
                                             <Labels>{agency?.opening_time ?? "Mon-Fri: 10AM-6PM, Sat: 10AM-1PM"}</Labels>
                                         </div>
+                                        
+                                        <div className="d-flex my-2">
+                                            <BasicInfoLabes>
+                                                <IconsImages src={ScheduleImage} alt="sajksh" />
+                                                <Labels>Website</Labels>
+                                            </BasicInfoLabes>
+                                            {agency?.website ?
+                                            <Labels> <Link href={agency?.website}>{agency?.website.split("www.")[1]}</Link></Labels>
+                                            : <Labels>NA</Labels>}
+                                        </div>
                                     </div>
+
                                     <div className=" d-flex flex-column border-bottom border-bottom-gray pb-3">
                                         <Headlines>{"Social links"}</Headlines>
-                                        <SocialImages>
-                                            {facebook && <a href={facebook} target="_blank" > <img src={FacebookIcon} alt="FacebookIcon" /></a>}
-                                            {twiter && <a href={twiter} target="_blank" ><img src={TwitterIcon} alt="TwitterIcon" /></a>}
-                                            {instagram && <a href={instagram} target="_blank" > <img src={InstagramIcon} alt="InstagramIcon" /></a>}
-                                            {youtube && <a href={youtube} target="_blank" > <img src={YoutubeIcon} alt="YoutubeIcon" /></a>}
-                                            {linkedin && <a href={linkedin} target="_blank" > <img src={LinkedinIcon} alt="LinkedinIcon" /></a>}
-                                        </SocialImages>
-
+                                        {agency?.social_links ?
+                                            <SocialImages>
+                                                {facebook && <a href={facebook} target="_blank" > <img src={FacebookIcon} alt="FacebookIcon" /></a>}
+                                                {twiter && <a href={twiter} target="_blank" ><img src={TwitterIcon} alt="TwitterIcon" /></a>}
+                                                {instagram && <a href={instagram} target="_blank" > <img src={InstagramIcon} alt="InstagramIcon" /></a>}
+                                                {youtube && <a href={youtube} target="_blank" > <img src={YoutubeIcon} alt="YoutubeIcon" /></a>}
+                                                {linkedin && <a href={linkedin} target="_blank" > <img src={LinkedinIcon} alt="LinkedinIcon" /></a>}
+                                            </SocialImages>
+                                            : "No social links available"}
                                     </div>
+
                                 </ProfileContainer>
+                                {comments.length > 0 ?
+                                    comments.map((agencyComment) => {
+                                        return (<Comments comment={agencyComment}></Comments>)
+
+                                    })
+                                    : <ProfileContainer> <p>No comments yet</p></ProfileContainer>
+                                }
                                 <div
                                     style={{
                                         padding: 30,
@@ -292,9 +338,9 @@ const portFolio = ({ agency }) => {
                                         marginTop: 20,
                                     }}
                                 >
-                                    <p style={{ color: "#6c768f", fontWeight: "bold", fontSize: 24 }}>
-                                        {"text leave a comment"}
-                                    </p>
+                                    <Headlines >
+                                        {"leave a comment"}
+                                    </Headlines>
                                     <Form onSubmit={onSubmit}>
                                         <Form.Group className="mb-3">
                                             <Form.Control
@@ -344,6 +390,7 @@ const portFolio = ({ agency }) => {
                                         </Button>
                                     </Form>
                                 </div>
+
                                 {false && (
                                     <ReviewContainer >
                                         <ReviewBlock currentAgency={agency} />
@@ -353,9 +400,10 @@ const portFolio = ({ agency }) => {
                             <ContactFormBlock>
                                 <ContectForm
                                     // properties={}
-                                    agencyOwner="ajhs"
+                                    isLimited={agency?.isLimited ?? false}
                                     agencyName={agency?.company_name}
                                     agencyId={agency?.id}
+
                                 />
                             </ContactFormBlock>
                         </ContentBlock>

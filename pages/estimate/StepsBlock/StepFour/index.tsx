@@ -40,8 +40,8 @@ import NorthWestInactive from "../../../../assets/images/steps/orientation/nw-in
 import NorthWestActive from "../../../../assets/images/steps/orientation/nw-active.svg";
 import TooltipIcon from "../../../../assets/images/tooltip.svg";
 import { generatePropertyData } from "../../../../utils/generatePropertyData";
-import { createProperty } from "../../../../network-requests";
-
+import { createLeadProperty } from "../../../../network-requests";
+import { isMobile } from "react-device-detect";
 const StepFour = ({ setStep }) => {
 	const { t } = useTranslation("steps");
 	const dispatch = useDispatch();
@@ -175,9 +175,9 @@ const StepFour = ({ setStep }) => {
 		// 	router.push("/final-steps", locale + "/final-steps", { locale: locale });
 		// }
 		if (isLoggedIn) {
-			message.info("Adding property");
+			message.info(t("button.add-property"));
 			const utilities = { ...data };
-			const sendData = {
+			const property = {
 				...generatePropertyData(
 					addressFromStepOne,
 					additionalAddress,
@@ -188,12 +188,12 @@ const StepFour = ({ setStep }) => {
 					location
 				),
 			};
-			const { id: propertyId } = await createProperty(
+			const { id: propertyId } = await createLeadProperty(
 				{
-					...sendData,
-					leadId: userId,
+					property: { ...property },
 					residence_type: "other",
 					interest: "asap",
+					is_owner: true,
 				},
 				router.locale
 			);
@@ -514,7 +514,7 @@ const StepFour = ({ setStep }) => {
 					</InputGroup>
 				</Form>
 			</div>
-			<div className="steps-btn-group d-flex justify-content-between">
+			<div className= {isMobile ? " botton-syicky steps-btn-group d-flex justify-content-between": "steps-btn-group d-flex justify-content-between"} >
 				<Button onClick={handleClickPrevBtn} className="prev-step">
 					<img src={IconBack} alt="IconBack" />
 					{t("button.back")}

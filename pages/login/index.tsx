@@ -11,7 +11,7 @@ import { setUserProfile } from "../../actions";
 import HeaderContainer from "../../containers/Header";
 
 import { handleAlreadyAuthenticated } from "../../utils/handleAlreadyAuthenticated";
-import { login } from "../../network-requests";
+import { getAgencyProfile, login } from "../../network-requests";
 
 import ArrowLink from "../../assets/images/arrow-blue.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
@@ -25,8 +25,8 @@ const LoginPage = () => {
 	const { locale } = router;
 
 	const validationSchema = Yup.object().shape({
-		email: Yup.string().email("Invalid email").required("Required"),
-		password: Yup.string().required("Required"),
+		email: Yup.string().email("Invalid email").required(t("p.required")),
+		password: Yup.string().required(t("p.required")),
 	});
 
 	const handleLogin = ({ email, password }, actions) => {
@@ -40,7 +40,12 @@ const LoginPage = () => {
 				);
 				res("");
 				if (userProfile.account_type === "agent") {
-					router.push("/properties");
+					const agency = await getAgencyProfile(locale);
+					if (agency) {
+						router.push("/properties");
+					} else {
+						router.push("register");
+					}
 				} else {
 					router.push("/dashboard");
 				}

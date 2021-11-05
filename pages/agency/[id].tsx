@@ -20,6 +20,7 @@ import { getAgencyById, getProperties } from "../../network-requests";
 import { useState } from "react";
 import { RootState } from "../../types/state";
 import Loading from "../../components/Loading";
+import ContactAgencyBlock from "../../components/ContactAgencyBlock";
 
 const AgencyPage = () => {
 	const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const AgencyPage = () => {
 
 	const _getAgency = async () => {
 		try {
-			const _agency = await getAgencyById(Number(id));
+			const _agency = await getAgencyById(Number(id), router.locale);
 			setAgency({ ..._agency });
 		} catch (error) {
 			console.log(error);
@@ -73,19 +74,36 @@ const AgencyPage = () => {
 	return (
 		<>
 			<HeaderContainer title="Agency Info" />
-			<div className="Agency container">
-				<Link href={"/dashboard"}>
-					<span className="Agency__back">
-						<img src={ArrowImage} alt="ArrowImage" /> {t("link.back-dashboard")}
-					</span>
-				</Link>
-				<FirstBlock properties={properties} currentAgency={agency} />
-				{/* <SecondBlock /> */}
-				<ThirdBlock
-					currentAgency={agency}
-					// elementsOnPage={elementsOnPage}
-				/>
-				<FourthBlock currentAgency={agency} />
+
+			<div className="d-flex flex-row justify-content-center bd-highlight mb-2 w-100">
+				<div className="d-flex flex-row agency-detail-page">
+					<div className="Agency d-flex flex-column">
+						<div className="d-flex flex-row">
+							<Link href={"/dashboard"}>
+								<span className="mt-3 Agency__back">
+									<img src={ArrowImage} alt="ArrowImage" />{" "}
+									{t("link.back-dashboard")}
+								</span>
+							</Link>
+						</div>
+						<div className="d-flex flex-row">
+							<div className="d-flex flex-column">
+								<FirstBlock properties={properties} currentAgency={agency} />
+								{/* <SecondBlock />  */}
+								{/* properties block */}
+								<ThirdBlock
+									currentAgency={agency}
+									// elementsOnPage={elementsOnPage}
+								/>
+
+								<FourthBlock currentAgency={agency} />
+							</div>
+							<div className="pl-2 bd-highlight ">
+								<ContactAgencyBlock agencyInfo={undefined} />
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<FooterContainer />
 		</>

@@ -23,12 +23,14 @@ interface GoogleMapProps {
 	google?: any;
 	markers?: MarkerI[];
 	onActiveMarker?: (id: any) => void;
+	zoom?: number;
 }
 
 const GoogleMap = ({
 	google,
 	markers = [],
 	onActiveMarker = (id) => null,
+	zoom = 20,
 }: GoogleMapProps) => {
 	const [center, setCenter] = useState({
 		lat: markers.length > 0 ? markers[0].position.lat : 51.260197,
@@ -64,7 +66,7 @@ const GoogleMap = ({
 			zoomControl={false}
 			mapTypeControl={false}
 			streetViewControl={false}
-			zoom={20}
+			zoom={zoom}
 			google={google}
 			mapTypeId="satellite"
 			initialCenter={{
@@ -78,15 +80,13 @@ const GoogleMap = ({
 					<Marker
 						key={index}
 						icon={
-							marker.type === "home" ? (
-								MarkerHomeIcon
-							) : marker.type === "agency" ? (
-								<MarkerAgencyIcon />
-							) : marker.type === "property" ? (
-								MarkerPropertyIcon
-							) : (
-								MarkerPropertyActiveIcon
-							)
+							marker.type === "home"
+								? MarkerHomeIcon
+								: marker.type === "agency"
+								? MarkerAgencyIcon
+								: marker.type === "property"
+								? MarkerPropertyIcon
+								: MarkerPropertyActiveIcon
 						}
 						onClick={() => setActiveMarker(marker)}
 						position={{

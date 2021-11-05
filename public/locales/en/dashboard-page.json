@@ -32,6 +32,7 @@
   "p.to": "to",
   "placeholder.price-because": "price because",
   "placeholder.property-has": "I think this property has",
+  "placeholder.new-text":" I think this property has ",
   "placeholder.message": "I found your profile on BelgiumImmo and I would like to inform you about my real estate project.",
   "span.from": "from",
   "span.nearest-agency": "Nearest agency to you",
@@ -58,11 +59,18 @@
   "span.year": "year",
   "desc.soon": "will contact you soon.",
   "title.contact-agency": "Contact Agency",
-  "placeholder.enter": "Please enter",
+  "placeholder.enter-phone": "Phone number",
+  "placeholder.enter-fullname":"fullname",
+  "placeholder.enter-email":"email",
   "span.link1": "nostrud amet.",
   "span.link2": "Velit officia",
   "p.desc-part1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt",
   "p.desc-part2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
   "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,",
-  "label.ouwner": "Owner"
+  "label.ouwner": "Owner",
+  "button.agency-owner":"Owner",
+  "span.house-beds":"Beds ",
+  "span.house-baths":"Baths"
+
+
 }

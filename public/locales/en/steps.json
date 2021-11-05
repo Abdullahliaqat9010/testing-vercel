@@ -92,7 +92,7 @@
   "select.apartment": "Apartment",
   "select.banquer": "Banquer",
   "select.estate-agent": "Real estate agent",
-  "select.home": "Home",
+  "select.house": "House",
   "select.homeowner": "Homeowner",
   "select.land-surveyor": "Land surveyor",
   "select.not-owner": "Not owner",
@@ -101,6 +101,7 @@
   "select.promoteur": "Promoteur",
   "select.syndic": "Syndic",
   "span.step": "Step",
+  "pricemap.ville":"City ",
   "span.pick-on-map": "Pick on map",
   "title.address": "Address",
   "title.estimation-ready": "Estimation is ready!",
@@ -110,6 +111,7 @@
   "title.optional": "Optional",
   "title.prestige": "Prestige / quality of the home",
   "title.property-condition": "Property condition",
+  "span.condition":"Property condition ",
   "title.property-type": "Property Type",
   "error.zip": "please use a valid Belgian zipcode",
   "error.required": "This field is required",
@@ -122,6 +124,10 @@
   "error.dont-match": "Passwords dont match",
   "placeholder.epc": "Enter",
   "message.add-property-success": "Property has been added successfully",
-  "button.add-property": "Adding property"
+  "button.add-property": "Adding property",
+  "tooltip.renovation":"the % of your property that was renovated.",
+  "button.SE":"SE"
+
+
 
 }

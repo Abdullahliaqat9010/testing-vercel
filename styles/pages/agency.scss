@@ -1,5 +1,6 @@
+.agency-detail-page {
 .Agency {
-	padding: 27px 0 80px;
+	// padding: 27px 0 80px;
 	color: var(--mainColor);
 
 	&__back {
@@ -200,78 +201,10 @@
 			}
 		}
 
-		.contact-agency-block {
-			width: 315px;
-
-			.contact-agency {
-				color: var(--mainColor);
-				padding: 30px;
-				background: var(--colorWhite);
-				border-radius: 10px;
-				font-size: 14px;
-				line-height: 19px;
-
-				h4,
-				p {
-					text-align: center;
-				}
-
-				h4 {
-					font-family: var(--fontNunitoBold);
-					font-size: 20px;
-					line-height: 27px;
-				}
-
-				input,
-				textarea,
-				select {
-					font-size: 16px;
-					line-height: 22px;
-					border-radius: 6px;
-					margin-bottom: 20px;
-				}
-
-				input:not([type="checkbox"]),
-				select {
-					height: 46px;
-				}
-
-				textarea {
-					resize: none;
-				}
-
-				.confirm {
-					font-family: var(--fontNunitoBold);
-					width: 100%;
-					height: 50px;
-					background: var(--colorBlue);
-					border-radius: 8px;
-				}
-
-				.custom-select {
-					background-image: url("../../assets/images/arrow.svg");
-					background-size: 18px;
-				}
-			}
-
-			&__desc {
-				font-size: 12px;
-				line-height: 16px;
-				color: var(--colorGrayTwo);
-
-				p {
-					margin: 22px 0 0;
-
-					.link {
-						cursor: pointer;
-						color: var(--colorBlue);
-						text-decoration: underline;
-					}
-				}
-			}
-		}
+		
+		
 	}
-
+	
 	&__second-block,
 	&__third-block,
 	&__fourth-block {
@@ -345,7 +278,7 @@
 
 					.property-main-block {
 						.active-block {
-							width: 95%;
+							width: 100%;
 						}
 					}
 
@@ -375,6 +308,7 @@
 									align-items: center;
 									line-height: 16px;
 									margin-bottom: 14px;
+									margin-top: 30px;
 
 									:last-child {
 										margin-right: unset;
@@ -647,8 +581,10 @@
 			}
 		}
 	}
+	
 
 	@media (min-width: 768px) and (max-width: 1439px) {
+	
 		&__first-block {
 			.main-content {
 				margin-right: unset;
@@ -657,7 +593,9 @@
 					width: 100%;
 				}
 			}
-
+.contact-agency-block .contact-aagency{
+	display: none;
+}
 			.contact {
 				margin: 28px auto;
 				display: flex;
@@ -688,6 +626,7 @@
 					}
 
 					.right-block {
+
 						.property-main-block {
 							margin-top: 30px;
 							.active-block {
@@ -719,9 +658,15 @@
 			}
 		}
 	}
+	
 
-	@media (min-width: 320px) and (max-width: 767px) {
-		padding: 27px 16px 80px;
+
+
+
+	
+	@media (max-width: 767px) {
+		// padding: 27px 16px 80px;
+		
 		&__first-block {
 			.main-content {
 				margin-right: unset;
@@ -812,6 +757,7 @@
 
 				.properties-list {
 					flex-direction: column;
+					height: 20rem;
 
 					.property-main-block {
 						margin-top: 20px !important;
@@ -826,6 +772,7 @@
 
 								img {
 									width: 100%;
+									margin-top: 5px;
 								}
 							}
 
@@ -935,3 +882,275 @@
 		}
 	}
 }
+
+.contact-agency-block {
+	width: 315px;
+
+	.contact-agency {
+		color: var(--mainColor);
+		padding: 30px;
+		background: var(--colorWhite);
+		border-radius: 10px;
+		font-size: 14px;
+		line-height: 19px;
+
+		h4,
+		p {
+			text-align: center;
+		}
+
+		h4 {
+			font-family: var(--fontNunitoBold);
+			font-size: 20px;
+			line-height: 27px;
+		}
+
+		input,
+		textarea,
+		select {
+			font-size: 16px;
+			line-height: 22px;
+			border-radius: 6px;
+			margin-bottom: 20px;
+		}
+
+		input:not([type="checkbox"]),
+		select {
+			height: 46px;
+		}
+
+		textarea {
+			resize: none;
+		}
+
+		.confirm {
+			font-family: var(--fontNunitoBold);
+			width: 100%;
+			height: 50px;
+			background: var(--colorBlue);
+			border-radius: 8px;
+		}
+
+		.custom-select {
+			background-image: url("../../assets/images/arrow.svg");
+			background-size: 18px;
+		}
+	}
+
+	&__desc {
+		font-size: 12px;
+		line-height: 16px;
+		color: var(--colorGrayTwo);
+
+		p {
+			margin: 22px 0 0;
+
+			.link {
+				cursor: pointer;
+				color: var(--colorBlue);
+				text-decoration: underline;
+			}
+		}
+	}
+	
+
+}
+}
+
+
+// .contact-aagency{
+// 	display: flex;
+// 		flex-direction: column;
+// 		align-items: center;
+// 		padding: 30px;
+// 		position: absolute;
+// 		width: 317px;
+// 		height: 800px;
+// 		left: 965px;
+// 		top: 100px;
+// 		background: #FFFFFF;
+// 		border-radius: 10px;
+// }
+.Agency__first-block {
+    display: -moz-box;
+    display: flex;
+    width: 757px;
+}
+.Agency__second-block, .Agency__third-block, .Agency__fourth-block {
+    margin-top: 20px;
+    width: 757px;
+}
+
+
+.confirm-btn{
+	display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 14px 20px;
+
+position: static;
+width: 270px;
+margin: auto;
+height: 45px;
+top: 576px;
+border-radius: 8px;
+flex: none;
+order: 7;
+align-self: stretch;
+flex-grow: 0;
+margin: 20px 0px;
+}
+
+
+@media (max-width: 767.98px) { 
+	.contact-aagency{
+	display: none;
+}
+.Agency__first-block {
+    display: -moz-box;
+    display: flex;
+    width: 100%;
+}
+.Agency.container {
+    margin-left: 10px;
+}
+.Agency__second-block, .Agency__third-block, .Agency__fourth-block {
+    margin-top: 20px;
+    width:100%}
+	
+
+.footer{
+	display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 30px 32px;
+
+position: absolute;
+width: 100%;
+height: 290px;
+left: 10px;
+margin-top: 20px;
+
+/* Immo Belgium/Blue -4 */
+
+background: #1D2E5B;
+}
+.Agency__back {
+    cursor: pointer;
+    display: -moz-box;
+    display: flex;
+    color: var(--colorBlue);
+    font-size: 14px;
+    line-height: 19px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+}
+
+
+@media (max-width: 991.98px) { 
+
+	.contact-aagency{
+		display: none;
+	}
+	.Agency__back {
+		cursor: pointer;
+		display: -moz-box;
+		display: flex;
+		color: var(--colorBlue);
+		font-size: 14px;
+		line-height: 19px;
+		margin-bottom: 15px;
+		margin-top: 15px;
+	}
+	.Agency__first-block {
+		display: -moz-box;
+		display: flex;
+		width: 100%;
+	}
+	.Agency.container {
+		margin-left: 10px;
+	}
+	.Agency__second-block, .Agency__third-block, .Agency__fourth-block {
+		margin-top: 20px;
+		width:100%}
+		
+	
+	.footer{
+		display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 30px 32px;
+	
+	position: absolute;
+	width: 100%;
+	height: 290px;
+	left: 10px;
+	margin-top: 20px;	
+	background: #1D2E5B;
+	margin-top: 20px;
+
+	}
+	.properties-list {
+		flex-direction: column;
+		height: 20rem;
+	}
+ }
+
+ @media (max-width: 1199.98px) { 
+
+
+	.contact-aagency{
+		display: none;
+	}
+	.Agency__back {
+		cursor: pointer;
+		display: -moz-box;
+		display: flex;
+		color: var(--colorBlue);
+		font-size: 14px;
+		line-height: 19px;
+		margin-bottom: 15px;
+		margin-top: 15px;
+	}
+	.properties-list {
+		flex-direction: column;
+		height: 20rem;
+	}
+	.Agency__first-block {
+		display: -moz-box;
+		display: flex;
+		width: 100%;
+	}
+	.Agency.container {
+		margin-left: 30px;
+	}
+	.Agency__second-block, .Agency__third-block, .Agency__fourth-block {
+		margin-top: 20px;
+		width:100%
+	}
+
+	.Agency__third-block {
+		.main-content {
+		height: 880px;
+		}
+	}
+		
+	
+	.footer{
+		display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 30px 32px;
+	
+	position: absolute;
+	width: 100%;
+	height: 290px;
+	left: 10px;
+	
+	/* Immo Belgium/Blue -4 */
+	
+	background: #1D2E5B;
+	}
+  }

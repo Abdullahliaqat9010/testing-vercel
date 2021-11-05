@@ -16,28 +16,47 @@ import { CustomScrollbar } from "../../../../components/Scrollbar";
 const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const { t } = useTranslation("agency-page");
 
-	// const [sizeArr, setSizeArr] = useState(elementsOnPage);
-
-	// const { similarProperty } = useSelector((state: RootState) => state.userInfo);
-	// const properties = similarProperty.slice(0, elementsOnPage);
 	const [properties] = useState(
-		currentAgency?.properties ? [currentAgency?.properties] : []
+		currentAgency?.properties ? [...currentAgency?.properties] : []
 	);
 	const [activeMarker, setActiveMarker] = useState<number>(
 		properties?.length > 0 ? properties[0]?.id : 0
 	);
-	const [markers, setMarkers] = useState([
-		...properties.map((prop) => {
-			return {
-				type: "property",
-				position: {
-					lat: prop?.lat,
-					lng: prop?.lng,
-				},
-				id: prop?.id,
-			};
-		}),
-	]);
+	const [markers, setMarkers] = useState(
+		currentAgency?.latlng
+			? [
+					{
+						type: "agency",
+						position: {
+							lat: currentAgency?.latlng.split(",")[0],
+							lng: currentAgency?.latlng.split(",")[1],
+						},
+						id: currentAgency.id,
+					},
+					...properties.map((prop) => {
+						return {
+							type: "property",
+							position: {
+								lat: prop?.property?.lat,
+								lng: prop?.property?.lng,
+							},
+							id: prop?.id,
+						};
+					}),
+			  ]
+			: [
+					...properties.map((prop) => {
+						return {
+							type: "property",
+							position: {
+								lat: prop?.property?.lat,
+								lng: prop?.property?.lng,
+							},
+							id: prop?.id,
+						};
+					}),
+			  ]
+	);
 
 	// const loadMore = () => {
 	// 	setSizeArr(sizeArr + elementsOnPage);
@@ -46,6 +65,7 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const mapProps = {
 		markers: [...markers],
 		onActiveMarker: (id) => onClickProperty(id),
+		zoom: 15,
 	};
 
 	const onClickProperty = (propertyId) => {
@@ -59,8 +79,8 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 				return {
 					type: `${index === 0 ? "property-active" : "property"}`,
 					position: {
-						lat: prop?.lat,
-						lng: prop?.lng,
+						lat: prop?.property?.lat,
+						lng: prop?.property?.lng,
 					},
 					id: prop?.id,
 				};

@@ -17,6 +17,7 @@ import UploadImage from "../../assets/images/upload-img.svg";
 import UploadPicture from "../../assets/images/upload-picture.svg";
 import * as Yup from "yup";
 import { Button } from "react-bootstrap";
+import { useRouter } from "next/router";
 import {
 	getAgencyProfile,
 	handleImageUpload,
@@ -48,7 +49,6 @@ const socialLinks = [
 		icon: <YoutubeFilled {...socialIconsProps} />,
 	},
 ];
-
 
 const TagInput = ({ tags, setTags }) => {
 	const [tagData, setTagData] = React.useState(tags);
@@ -118,13 +118,13 @@ const Formpage = () => {
 		t("language.Russisch"),
 		t("language.Portugais"),
 		t("language.Chinois"),
-		t("language.Herbreu"),
 	];
 
 	const [logoImage, setLogoImage] = useState("");
 	const [coverImage, setCoverImage] = useState("");
 	const [agencyProfile, setAgencyProfile] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const { locale } = useRouter();
 
 	const onSubmit = (values) => {
 		return new Promise(async (res, rej) => {
@@ -151,6 +151,7 @@ const Formpage = () => {
 				notification.success({
 					description: "Changes are made successfully",
 					message: "Success",
+					placement: "bottomRight",
 				});
 				res("");
 			} catch (error) {
@@ -162,7 +163,7 @@ const Formpage = () => {
 	const _getAgencyProfile = async () => {
 		try {
 			setIsLoading(true);
-			const _agencyProfile = await getAgencyProfile();
+			const _agencyProfile = await getAgencyProfile(locale);
 			setAgencyProfile({ ..._agencyProfile });
 			setCoverImage(_agencyProfile?.cover_image);
 			setLogoImage(_agencyProfile?.logo_image);
@@ -233,15 +234,13 @@ const Formpage = () => {
 							<div className="AgencySettingsPage__container w-100">
 								<div className="first-block">
 									<h1>{t("h1.votre")}</h1>
-									<div>{t("votre.description")}
-									</div>
+									<div>{t("votre.description")}</div>
 
 									<div className="password-block2">
 										<div className="d-flex flex-row justify-content-between pb-4">
 											<div className="pr-3">
 												<h2>{t("h2.photo")}</h2>
-												<div>{t("photo.description")}
-												</div>
+												<div>{t("photo.description")}</div>
 											</div>
 											<div
 												style={{ width: 160 }}
@@ -288,8 +287,7 @@ const Formpage = () => {
 												style={{ paddingTop: 5, paddingRight: 10 }}
 												color={"#d3d3d3"}
 											/>
-											<div>{t("question.description")}
-											</div>
+											<div>{t("question.description")}</div>
 										</div>
 										<div className="w-100">
 											<Upload
@@ -423,14 +421,16 @@ const Formpage = () => {
 													type="button"
 													onClick={() => submitForm()}
 												>
-													{isSubmitting ? t("button.loading") : t("button.save")}
+													{isSubmitting
+														? t("button.loading")
+														: t("button.save")}
 												</button>
 											</div>
-											<div className="button-container2">
+											{/* <div className="button-container2">
 												<button className="view-my-agency" onClick={() => {}}>
 													{t("button.view")}
 												</button>
-											</div>
+											</div> */}
 										</div>
 									</div>
 								</div>
@@ -446,7 +446,11 @@ const Formpage = () => {
 export const getServerSideProps = async ({ locale }) => {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ["agency-settings", "header", "common"])),
+			...(await serverSideTranslations(locale, [
+				"agency-settings",
+				"header",
+				"common",
+			])),
 		},
 	};
 };

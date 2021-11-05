@@ -18,7 +18,7 @@ const NavBarContainer = () => {
 		account_type === "seller" ? sellerNavBarList : agencyNavBarList;
 
 	return (
-		<div className="nav-bar mr-3">
+		<div className="nav-bar mr-2">
 			<ul className="p-0 mb-0">
 				{navBarList.map((list, index) => (
 					<Link href={list.href} key={index} locale={locale}>

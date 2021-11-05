@@ -2,14 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { RootState } from "../../types/state";
-
+import { useTranslation } from "next-i18next";
 import ImagesBlock from "./ImagesBlock";
 import TestimonialsBlock from "./TestimonialsBlock";
 import StepsBlock from "../estimate/StepsBlock/index.component";
 import InfoBlock from "./InfoBlock";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const MainPageComponent = () => {
 	const router = useRouter();
+	const { t } = useTranslation("main-page");
 
 	const { locale } = router;
 
@@ -21,12 +23,12 @@ const MainPageComponent = () => {
 				<TestimonialsBlock />
 				<div className="short-footer d-flex justify-content-between">
 					<p>
-						<span>Immo Belgium </span>
-						<span>{new Date().getFullYear()}. All Rights Reserved.</span>
+						<span> {t("label.main-page-footer-dec")}</span>
+						<span>{new Date().getFullYear()}. {t("label.main-page-footer-rights")} </span>
 					</p>
 					<span className="link">
 						<a href={locale + "/privacy-policy"} target="_blank">
-							Politique de Confidentialité.
+						{t("label.main-page-footer-Politique")}
 						</a>
 					</span>
 				</div>
@@ -35,5 +37,11 @@ const MainPageComponent = () => {
 		</div>
 	);
 };
-
+export const getServerSideProps = async ({ locale }) => {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["header", "main-page"])),
+		},
+	};
+};
 export default MainPageComponent;

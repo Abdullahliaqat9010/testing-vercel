@@ -14,7 +14,7 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 	const onHideModal = () => {
 		onClose();
 	};
-
+	const images = property?.images;
 	return (
 		<Modal
 			dialogClassName="property-detail-modal"
@@ -24,7 +24,7 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 		>
 			<Modal.Header closeButton>
 				<Modal.Title className="d-flex flex-column">
-					<div className="title">{`€${property?.price}`}</div>
+					<div className="title">{`€${property?.sold_rent_price}`}</div>
 					<p className="subtitle">{`Sold on ${
 						property?.sold_rent_date
 							? moment(property?.sold_rent_date).format("MMM DD, YYYY")
@@ -37,32 +37,20 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 					<div className="main-container">
 						<div className="image-container2">
 							<img
-								src={
-									property?.images[0]?.url_large
-										? property?.images[0]?.url_large
-										: NoImage
-								}
+								src={images[0] ? images[0] : NoImage}
 								style={{ height: "100%", width: "100%" }}
 								alt=""
 							/>
 							<div className="subimage-container">
 								<img
 									className="img1"
-									src={
-										property?.images[1]?.url_large
-											? property?.images[1]?.url_large
-											: NoImage
-									}
+									src={images[1] ? images[1] : NoImage}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
 								<img
 									className="img2"
-									src={
-										property?.images[2]?.url_large
-											? property?.images[2]?.url_large
-											: NoImage
-									}
+									src={images[2] ? images[2] : NoImage}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
@@ -71,7 +59,9 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 						<div className="info-container">
 							<div className="address-and-map">
 								<div className="address">
-									<div className="w-70">{property?.search_address}</div>
+									<div className="w-70">
+										{property?.property?.search_address}
+									</div>
 								</div>
 
 								<div className="map">
@@ -84,14 +74,14 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
 											<div className="heading">Total Square</div>
-											<div className="info">{`${property?.total_area}m²`}</div>
+											<div className="info">{`${property?.property?.total_area}m²`}</div>
 										</div>
 									</div>
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
 											<div className="heading">Living Square</div>
-											<div className="info">{`${property?.live_area}m²`}</div>
+											<div className="info">{`${property?.property?.live_area}m²`}</div>
 										</div>
 									</div>
 								</div>
@@ -100,14 +90,14 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
 											<div className="heading">Beds</div>
-											<div className="info">{`${property?.bedrooms}`}</div>
+											<div className="info">{`${property?.property?.bedrooms}`}</div>
 										</div>
 									</div>
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
 											<div className="heading">Baths</div>
-											<div className="info">{`${property?.bathrooms}`}</div>
+											<div className="info">{`${property?.property?.bathrooms}`}</div>
 										</div>
 									</div>
 								</div>
@@ -115,32 +105,20 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 						</div>
 						<div className="image-container">
 							<img
-								src={
-									property?.images[0]?.url_large
-										? property?.images[0]?.url_large
-										: NoImage
-								}
+								src={images[0] ? images[0] : NoImage}
 								style={{ height: "100%", width: "100%" }}
 								alt=""
 							/>
 							<div className="subimage-container">
 								<img
 									className="img1"
-									src={
-										property?.images[1]?.url_large
-											? property?.images[1]?.url_large
-											: NoImage
-									}
+									src={images[1] ? images[1] : NoImage}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
 								<img
 									className="img2"
-									src={
-										property?.images[2]?.url_large
-											? property?.images[2]?.url_large
-											: NoImage
-									}
+									src={images[2] ? images[2] : NoImage}
 									style={{ height: "100%", width: "100%" }}
 									alt=""
 								/>
@@ -153,26 +131,27 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 						<div className="mt-4">
 							<div className="d-flex flex-row my-3">
 								<div className="name">Floors:</div>
-								<div className="details">2</div>
+								<div className="details">{property?.property?.floor}</div>
 							</div>
 							<div className="d-flex flex-row my-3">
 								<div className="name">Facades:</div>
-								<div className="details">2</div>
+								<div className="details">{property?.property?.facades}</div>
 							</div>
 							<div className="d-flex flex-row my-3">
 								<div className="name">Parking:</div>
-								<div className="details">3</div>
+								<div className="details">
+									{property?.property?.parking_spot}
+								</div>
 							</div>
 							<div className="d-flex flex-row my-3">
 								<div className="name">Constructed:</div>
-								<div className="details">1970</div>
+								<div className="details">
+									{property?.property?.construction_year}
+								</div>
 							</div>
 							<div className="d-flex flex-row my-3">
 								<div className="name">Note:</div>
-								<div className="details">
-									Sold withing 2 km from 3517 W. Gray St. Utica, Pennsylvania
-									57867.
-								</div>
+								<div className="details">{property?.property?.note}</div>
 							</div>
 						</div>
 					</div>

@@ -240,7 +240,9 @@ function* getDataFromMapBox({ payload }: any) {
 	const { searchValue, type } = payload;
 	try {
 		const res = yield fetch(
-			`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchValue}.json?country=BE&language=en&types=${type}&access_token=pk.eyJ1IjoibWF0dGVvZ3JhY2VmZmEiLCJhIjoiY2txYjBiZW11MDVwcjJwbm1yMmdlaGY2eSJ9.5LiTaHbs8vlwsjwAMzm1eA`
+			`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURI(
+				searchValue
+			)}.json?country=BE&language=en&types=${type}&access_token=pk.eyJ1IjoibWF0dGVvZ3JhY2VmZmEiLCJhIjoiY2txYjBiZW11MDVwcjJwbm1yMmdlaGY2eSJ9.5LiTaHbs8vlwsjwAMzm1eA`
 		);
 
 		if (res.status === 200) {
@@ -275,6 +277,7 @@ function* getDataFromMapBox({ payload }: any) {
 					});
 				});
 			}
+			console.log(listArr);
 			yield getDataFromMapBoxSuccess(listArr);
 		}
 	} catch (error) {

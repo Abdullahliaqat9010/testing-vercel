@@ -41,6 +41,7 @@ import "../styles/pages/compare-agency.scss";
 import "../styles/pages/compare-agency-result.scss";
 import "../styles/pages/price-map.scss";
 import "../styles/map.scss";
+import "../styles/pages/competitive-report.scss";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
@@ -139,8 +140,7 @@ const MyApp = ({ Component, pageProps }) => {
 			await fetch("/auth-api/logout", {
 				method: "POST",
 			});
-			window.localStorage.removeItem("access_token");
-			window.localStorage.removeItem("refresh_token");
+			window.localStorage.clear();
 			setIsLoading(false);
 			if (protected_routes.includes(router.pathname)) {
 				router.push("/login");

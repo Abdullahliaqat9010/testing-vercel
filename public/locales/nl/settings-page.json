@@ -11,7 +11,7 @@
    "button.loading": "Bezig met laden...",
    "label.password": "Wachtwoord",
    "alert.save-changes": "Profiel is succesvol bijgewerkt!",
-   "p.password": "We raden ten zeerste aan om een sterk wachtwoord te gebruiken, met ten minste één symbool en cijfer.",
+   "p.password": "We raden aan om een sterk wachtwoord te gebruiken, met ten minste één symbool, letter, hoofdletter en cijfer.",
    "link.change-password": "Verander wachtwoord",
    "label.current-password": "Huidig wachtwoord",
    "message.invalid-current-password": "Ongeldig huidig wachtwoord",
@@ -31,5 +31,6 @@
    "image.change": "Foto wijzigen",
    "acount-type": "Professioneel",
    "link.logout": "Uitloggen",
-   "alert.success": "Notification preference has been updated successfully!"
+   "alert.success": "Notification preference has been updated successfully!",
+   "button.SE":"ZO"
 }

@@ -474,13 +474,13 @@
 
 			button {
 				margin-top: 20px;
-				width: 433px;
+				// width: 433px;
 				height: 50px;
 				background: var(--colorBlue);
 				border-radius: 8px;
 				margin-bottom: 20px;
-				position: absolute;
-				bottom: 0px;
+				// position: absolute;
+				// bottom: 0px;
 			}
 
 			.properties {
@@ -608,6 +608,8 @@
 
 				.number-levels {
 					min-width: 217px;
+					// appearance: none;
+					
 				}
 
 				.inside-floors {
@@ -1416,6 +1418,10 @@
 				margin-top: 60px;
 			}
 		}
+
+		.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
+			 width: 150px; 
+		}
 		.image-carousel {
 			img {
 				border-radius: unset;
@@ -1515,6 +1521,7 @@
 					display: flex;
 					justify-content: center;
 				}
+				
 			}
 
 			&__bottom {
@@ -1564,7 +1571,7 @@
 
 		.steps-block {
 			&__main {
-				min-height: calc(100vh - var(--headerHeightMobile) - 4px);
+				min-height: calc(125vh - var(--headerHeightMobile) - 4px);
 			}
 
 			.ml-156 {
@@ -1580,7 +1587,7 @@
 			.create-personal-account,
 			.final-step {
 				margin-top: 87px;
-				width: unset;
+				// width: unset;
 				padding: 0 16px;
 
 				.step-title {
@@ -1602,7 +1609,7 @@
 
 				.number-levels {
 					min-width: 132px !important;
-					width: 132px !important;
+					// width: 132px !important;
 				}
 
 				.construction-year-label,
@@ -1719,17 +1726,18 @@
 						width: 166px;
 					}
 
-					.bedrooms,
-					.bathrooms,
-					.facades,
-					.block-with-tooltip {
-						width: 128px;
-					}
+					// .bedrooms,
+					// .bathrooms,
+					// .facades,
+					// .block-with-tooltip {
+					// 	// width: 128px;
+					// }
 				}
-
+			
 				.custom-width-40 {
 					width: 40%;
 				}
+
 
 				.epc {
 					align-items: flex-start;
@@ -1864,7 +1872,9 @@
 				width: 100% !important;
 				margin-bottom: 28px;
 			}
+			
 		}
+		
 	}
 }
 
@@ -1883,8 +1893,30 @@
 		background-color: var(--colorWhite);
 		color: var(--mainColor);
 	}
+	.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
+		width: 150px;
+	}
 }
 
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) {
+
+
+.main-page .steps-block .step-one .properties .property-home, .main-page .steps-block .step-one .properties .property-apartment, .main-page .steps-block .step-one .properties .property-land, .main-page .steps-block .step-two .properties .property-home, .main-page .steps-block .step-two .properties .property-apartment, .main-page .steps-block .step-two .properties .property-land, .main-page .steps-block .step-three .properties .property-home, .main-page .steps-block .step-three .properties .property-apartment, .main-page .steps-block .step-three .properties .property-land, .main-page .steps-block .step-four .properties .property-home, .main-page .steps-block .step-four .properties .property-apartment, .main-page .steps-block .step-four .properties .property-land, .main-page .steps-block .create-personal-account .properties .property-home, .main-page .steps-block .create-personal-account .properties .property-apartment, .main-page .steps-block .create-personal-account .properties .property-land, .main-page .steps-block .final-step .properties .property-home, .main-page .steps-block .final-step .properties .property-apartment, .main-page .steps-block .final-step .properties .property-land {
+	.deviceWidth {width:280px!important; padding:0;}	
+	.center {text-align: center!important;}	
+	width: 100%;
+    height: 76px;
+    margin-bottom: 10px;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    flex-direction: row;
+    -moz-box-pack: start;
+    justify-content: flex-start;
+}
+}
 
 
 

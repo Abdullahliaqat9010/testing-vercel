@@ -400,7 +400,7 @@ const CreatePersonalAccount = ({ handleSwitchSteps }: any) => {
 					)}
 				</div>
 			</div>
-			<div className="steps-btn-group d-flex justify-content-between">
+			<div className= {isMobile ? "botton-syicky steps-btn-group d-flex justify-content-between": "steps-btn-group d-flex justify-content-between"} >
 				<Button onClick={handleClickPrevBtn} className="prev-step">
 					<img src={IconBack} alt="IconBack" />
 					{t("button.back")}

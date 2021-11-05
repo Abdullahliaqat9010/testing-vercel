@@ -125,7 +125,7 @@ const Blogs = ({ blogs }) => {
 						zIndex: -1,
 					}}
 				/>
-				<h1 className="blogs-page-title">Belgium Immo Blog</h1>
+				<h1 className="blogs-page-title">{t("blog.main-title")}</h1>
 				<p className="blogs-page-subtitle">{t("blog.subtitle")}</p>
 			</div>
 			<div

@@ -229,13 +229,13 @@ const HeaderContainer = ({
 							{!isAdmin && (
 								<>
 									<a href="/agencies-price-map" className="n-link-custom">
-										Price map
+										{t("a.custom-link-pricemap")}
 									</a>
 									{/* <a href="#" className="n-link-custom">
 									Estimate your home
 								</a> */}
 									<a href="/compare-agency" className="n-link-custom">
-										Compare agencies
+									{t("a.custom-link-compare-agencies")}
 									</a>
 								</>
 							)}
@@ -304,7 +304,7 @@ const HeaderContainer = ({
 										id="header-dropdown"
 										onClick={isActive}
 									>
-										{!isAdmin && (
+										{/* {account_type === "seller" && (
 											<NavDropdown.Item
 												href={"/" + locale + "/pro-workspace"}
 												className="pro-workspace"
@@ -312,7 +312,7 @@ const HeaderContainer = ({
 												<img src={ProIcon} alt="ProIcon" />
 												{t("li.pro-workspace")}
 											</NavDropdown.Item>
-										)}
+										)} */}
 										{isMobileOnly && (
 											<div>
 												<Button
@@ -376,7 +376,6 @@ const HeaderContainer = ({
 										>
 											<span onClick={openSwitcherBlock}>{locale}</span>
 											{openLangList && (
-												
 												<div className="lang-list">
 													{langList.map((lang, index) => (
 														<span
@@ -396,7 +395,7 @@ const HeaderContainer = ({
 									)}
 									{!openMenu && (
 										<>
-											{!isLoggedIn ? (
+											{!isLoggedIn && account_type === "seller" ? (
 												<Button className="add-property" onClick={goToMainPage}>
 													<img src={AddIcon} alt="AddIcon" />
 													<span>{t("button.add-property")}</span>

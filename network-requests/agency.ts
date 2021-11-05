@@ -1,4 +1,22 @@
 import axios from "axios";
+import jwt from "jsonwebtoken";
+import { setTokens } from "./auth";
+import { UserProfile } from "../types/profile";
+
+export const signupAgent = (userData): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.post("agent/signup", {
+				...userData,
+			});
+			const parsedData = jwt.decode(data?.access_token) as UserProfile;
+			await setTokens(data?.access_token, data?.refresh_token);
+			res(parsedData);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
 
 export const contactAgency = (contactInfo) => {
 	return new Promise(async (res, rej) => {
@@ -29,12 +47,14 @@ export const addLimitedAgncies = (limitedAgenciesData) => {
 export const getAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address)
-			const { data: agencies } = await axios.get("agency/search?city=" + address.locality + "&zip=" + address.zip, {
-				headers: {
-					"Content-Type": "application/json"
+			const { data: agencies } = await axios.get(
+				"agency/search?city=" + address.city + "&zip=" + address.zip,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-			})
+			);
 			res(agencies);
 		} catch (error) {
 			rej(error);
@@ -45,12 +65,14 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("adress", address)
-			const { data: limitedAgencies } = await axios.get("limited-agency/search?city=" + address.locality + "&zip=" + address.zip, {
-				headers: {
-					"Content-Type": "application/json"
+			const { data: limitedAgencies } = await axios.get(
+				"limited-agency/search?city=" + address.city + "&zip=" + address.zip,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-			})
+			);
 			res(limitedAgencies);
 		} catch (error) {
 			rej(error);
@@ -61,7 +83,7 @@ export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
 export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: properties } = await axios.get("agency/properties/all", {
+			const { data: properties } = await axios.get("agency/properties", {
 				params: {
 					page,
 					limit,
@@ -74,10 +96,12 @@ export const getAgencyProperties = (page = 1, limit = 10): Promise<any> => {
 	});
 };
 
-export const getAgencyProfile = (): Promise<any> => {
+export const getAgencyProfile = (locale): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data } = await axios.get("agency/profile");
+			const { data } = await axios.get("agency/profile", {
+				params: { locale },
+			});
 			res(data);
 		} catch (error) {
 			rej(error);
@@ -85,13 +109,12 @@ export const getAgencyProfile = (): Promise<any> => {
 	});
 };
 
-
-export const getAgencyById = (id: number): Promise<any> => {
+export const getAgencyById = (id: number, locale): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("sjhajd, agency")
-
-			const { data } = await axios.get(`agency/profile/${id}`);
+			const { data } = await axios.get(`agency/profile/${id}`, {
+				params: { locale },
+			});
 			res(data);
 		} catch (error) {
 			rej(error);
@@ -102,7 +125,6 @@ export const getAgencyById = (id: number): Promise<any> => {
 export const getLimitedAgencyById = (id: number): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			console.log("sjhajd, limited agency")
 			const { data } = await axios.get(`limited-agency/${id}`);
 			res(data);
 		} catch (error) {
@@ -114,7 +136,7 @@ export const getLimitedAgencyById = (id: number): Promise<any> => {
 export const createAgencyProfile = (profile) => {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.put("agency", {
+			await axios.post("agency", {
 				...profile,
 				zip: String(profile?.zip),
 				billing_zip: String(profile?.billing_zip),
@@ -154,49 +176,95 @@ export const getAgencies = (): Promise<any> => {
 
 export const getLatLongFromAddress = (payload): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
-
 		const { searchValue, type } = payload;
 		try {
 			const { data } = await axios.get(
 				`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchValue}.json?country=BE&language=en&types=${type}&access_token=pk.eyJ1IjoibWF0dGVvZ3JhY2VmZmEiLCJhIjoiY2txYjBiZW11MDVwcjJwbm1yMmdlaGY2eSJ9.5LiTaHbs8vlwsjwAMzm1eA`
 			);
-			console.log("res", res)
+			console.log("res", res);
 			const listArr = [];
 
-				const { features } =  data;
-				if (features.length > 0) {
-					features.map((item) => {
-						listArr.push({
-							id: item.id,
-							fullAddress: type === "place" ? item.text : item.place_name,
-							location: {
-								lng: item.center[0],
-								lat: item.center[1],
-							},
-							postcode:
-								item.context.filter((el) => el.id.indexOf("postcode") !== -1)[0]
-									?.text || "",
-							place:
-								item.context.filter((el) => el.id.indexOf("place") !== -1)[0]
-									?.text || "",
-							region:
-								item.context.filter((el) => el.id.indexOf("region") !== -1)[0]
-									?.text || "",
-							locality:
-								item.context.filter((el) => el.id.indexOf("locality") !== -1)[0]
-									?.text || "",
-							street: item?.text || "",
-							number: item?.address || "",
-							country:
-								item.context.filter((el) => el.id.indexOf("country") !== -1)[0]
-									?.text || "",
-						});
+			const { features } = data;
+			if (features.length > 0) {
+				features.map((item) => {
+					listArr.push({
+						id: item.id,
+						fullAddress: type === "place" ? item.text : item.place_name,
+						location: {
+							lng: item.center[0],
+							lat: item.center[1],
+						},
+						postcode:
+							item.context.filter((el) => el.id.indexOf("postcode") !== -1)[0]
+								?.text || "",
+						place:
+							item.context.filter((el) => el.id.indexOf("place") !== -1)[0]
+								?.text || "",
+						region:
+							item.context.filter((el) => el.id.indexOf("region") !== -1)[0]
+								?.text || "",
+						locality:
+							item.context.filter((el) => el.id.indexOf("locality") !== -1)[0]
+								?.text || "",
+						street: item?.text || "",
+						number: item?.address || "",
+						country:
+							item.context.filter((el) => el.id.indexOf("country") !== -1)[0]
+								?.text || "",
 					});
-				}
-				res(listArr)
-			
+				});
+			}
+			res(listArr);
 		} catch (error) {
-			rej(error)
+			rej(error);
 		}
-	})
-}
+	});
+};
+
+export const createAgencyProperty = (payload) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.post("agency/property", { ...payload });
+			res("");
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const makePropertyVisible = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.patch("agency-property/property/visible", [...ids]);
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const makePropertyInvisible = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.patch("agency-property/property/invisible", [...ids]);
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
+
+export const deleteProperties = (ids) => {
+	return new Promise(async (res, rej) => {
+		try {
+			await axios.delete("agency-property", {
+				params: {
+					ids,
+				},
+			});
+			res(ids);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};

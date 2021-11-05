@@ -2,6 +2,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import { notification } from "antd";
+import { useRouter } from "next/router";
 
 import FooterContainer from "../../containers/Footer";
 import HeaderContainer from "../../containers/Header";
@@ -13,6 +15,8 @@ import bath from "../../assets/images/bath-gray.svg";
 import beds from "../../assets/images/beds-gray.svg";
 import total_square from "../../assets/images/square-gray.svg";
 import live_square from "../../assets/images/living-square-gray.svg";
+import { createAgencyProperty } from "../../network-requests";
+import { useTranslation } from "react-i18next";
 
 const Title = styled.h3`
 	font-size: 24px;
@@ -116,6 +120,41 @@ const PropertyCard = () => {
 };
 
 const AddProperty = () => {
+	const router = useRouter();
+	const {t} = useTranslation("steps")
+
+	const createProperty = (values) => {
+		return new Promise(async (res, rej) => {
+			console.log(values);
+			try {
+				notification.info({
+					message: t("button.add-property"),
+					placement: "bottomRight",
+				});
+				const { sold_rent_date, sold_rent_price, images, ...rest } = values;
+				await createAgencyProperty({
+					sold_rent_date,
+					sold_rent_price,
+					images: [...images].join(","),
+					property: { ...rest },
+				});
+				notification.success({
+					message: t("message.add-property-success"),
+					placement: "bottomRight",
+				});
+				router.replace("/properties");
+				res("");
+			} catch (error) {
+				notification.error({
+					message: "Error Occurred",
+					placement: "bottomRight",
+				});
+				console.log(error);
+				rej(error);
+			}
+		});
+	};
+
 	return (
 		<React.Fragment>
 			<HeaderContainer title="Agency Info" />
@@ -128,7 +167,7 @@ const AddProperty = () => {
 				<div className="d-flex flex-row w-100" style={{ height: "100%" }}>
 					<div className=" rounded p-4" style={{ backgroundColor: "white" }}>
 						<Title>Add Property</Title>
-						<PropertyInfoForm />
+						<PropertyInfoForm onSubmit={createProperty} />
 					</div>
 					<div className="d-none d-lg-flex ml-3">
 						<PropertyCard />
@@ -142,7 +181,7 @@ const AddProperty = () => {
 
 export const getStaticProps = async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(locale, ["header", "common"])),
+		...(await serverSideTranslations(locale, ["steps", "header", "common"])),
 	},
 });
 

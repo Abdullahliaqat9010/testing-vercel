@@ -32,6 +32,7 @@
   "p.to": "à",
   "placeholder.price-because": "car",
   "placeholder.property-has": "Je pense que cette estimation est",
+  "placeholder.new-text":" Je pense que cette estimation est",
   "placeholder.message": "J'ai trouvé votre profil sur BelgiumImmo et je voudrais vous informer sur mon project immobilier.",
   "span.from": "sur",
   "span.nearest-agency": "Agence la plus proche de votre bien",
@@ -58,12 +59,20 @@
   "span.year": "an",
   "desc.soon": "vous contactera bientôt.",
   "title.contact-agency": "Agence de contact",
-  "placeholder.enter": "Veuillez entrer",
+  "placeholder.enter-phone": "telefoonnummer",
+  "placeholder.enter-fullname":"voor-en achternaam",
+  "placeholder.enter-email":"email",
   "span.link1": "nostrud amet.",
   "span.link2": "Velit officia",
   "p.desc-part1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt",
   "p.desc-part2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
   "p.desc-part3": "consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqu,",
-  "label.ouwner": "Propriétaire"
+  "label.ouwner": "Propriétaire",
+  "button.agency-owner":"Owner",
+  "span.house-beds":"Slaapkamers ",
+  "span.house-baths":"Badkamers"
+
+
+
 
 }
