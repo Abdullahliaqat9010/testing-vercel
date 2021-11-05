@@ -38,12 +38,14 @@ interface MapProps {
 	markers?: MarkerI[];
 	is3d: boolean;
 	onActiveMarker?: (id: any) => void;
+	zoom?: number;
 }
 
 const Mapbox3dMap = ({
 	markers = [],
 	is3d = false,
 	onActiveMarker = (id) => null,
+	zoom = 15,
 }: MapProps) => {
 	const [center, setCenter] = useState([
 		markers.length > 0 ? markers[0].position.lng : 4.402771,
@@ -60,7 +62,7 @@ const Mapbox3dMap = ({
 			mapRef.current = new mapboxgl.Map({
 				style: "mapbox://styles/mapbox/satellite-streets-v11",
 				center: [...center],
-				zoom: 15,
+				zoom: zoom,
 				pitch: 45,
 				bearing: -17.6,
 				container: "map",
@@ -70,7 +72,7 @@ const Mapbox3dMap = ({
 			mapRef.current = new mapboxgl.Map({
 				style: "mapbox://styles/mapbox/streets-v11",
 				center: [...center],
-				zoom: 6,
+				zoom: zoom,
 				container: "map",
 			});
 		}
@@ -170,8 +172,8 @@ const Mapbox3dMap = ({
 												// layout: {
 												// 	visibility: "none",
 												// },
-											},
-											"add-3d-buildings"
+											}
+											// "add-3d-buildings"
 										);
 										map.on("mousemove", geohash, ({ features }) => {
 											map.getCanvas().style.cursor = "pointer";
@@ -228,7 +230,7 @@ const Mapbox3dMap = ({
 		var map = mapRef.current;
 		map?.flyTo({
 			center: [...center],
-			zoom: is3d ? 18 : 9,
+			zoom: zoom + 3,
 			essential: true,
 		});
 	}, [center]);
