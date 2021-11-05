@@ -6,7 +6,12 @@
     "btn.limited-partner":"Beperkte partner",
     "p.agency-description":"In de afgelopen 24 maanden heeft ons kantoor 484 woningen verkocht waarvan x woningen gelijkaardig aan die van u. Ons team is beschikbaar om uw vastgoedproject te beheren. ",
     "span.map-description":"Woningen verkocht door het agentschap",
-    "p.map-description":"bureau"
+    "p.map-description":"bureau",
+    "p.before-description":"In de afgelopen 24 maanden heeft ons kantoor",
+    "p.after-description":"gelijkaardig aan die van u. Ons team is beschikbaar om uw vastgoedproject te beheren.     ",
+    "p.agency-singular":"woning",
+    "p.agency-plural":"woningen",
+    "p.center":"verkocht waarvan"
 
 
 

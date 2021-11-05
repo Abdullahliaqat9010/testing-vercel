@@ -107,7 +107,7 @@ const FirstBlock = ({
 									{t("span.reviews")}
 								</span>
 							</div>
-							<span className="gray">{t("span.when-join")}</span>
+							{/* <span className="gray">{t("span.when-join")}</span> */}
 						</div>
 					</div>
 					<div className="agency-info__contact-block">

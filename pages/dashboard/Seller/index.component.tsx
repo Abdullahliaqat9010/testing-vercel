@@ -34,6 +34,11 @@ const SellerDashboard = () => {
 	const [similarProperties, setSimilarProperties] = useState([]);
 	const [properties, setProperties] = useState([]);
 	const [agencies, setAgencies] = useState([]);
+	const [propertiesPageNumber, setPropertiesPageNumber] = useState(1);
+	const [propertiesPageLimit, setPropertiesPageLimit] = useState(6);
+	const [totalSimilarProperties, setTotalSimilarProperties] = useState(0);
+	const [isLoadingMore, setIsLoadingMore] = useState(false);
+	const [isLoadMoreAvailable, setIsLoadMoreAvailable] = useState(true);
 
 	const dispatch = useDispatch();
 
@@ -55,7 +60,7 @@ const SellerDashboard = () => {
 	const _getProperties = async () => {
 		try {
 			const _properties = await getLeadProperties();
-			setProperties([..._properties]);
+			setProperties([..._properties?.result]);
 		} catch (error) {
 			console.log(error);
 		}
@@ -69,9 +74,34 @@ const SellerDashboard = () => {
 				dispatch(setMainPropertyId(_property.id));
 				const estimate = await getEstimation(_property?.property?.id);
 				setEstimation(estimate);
-				const _similarProperties = await getSimilarProperties(_property?.id);
-				setSimilarProperties([..._similarProperties]);
+				const { items, meta } = await getSimilarProperties(
+					_property?.id,
+					propertiesPageNumber,
+					propertiesPageLimit
+				);
+				setSimilarProperties([...items]);
+				setPropertiesPageNumber(meta?.currentPage);
+				setTotalSimilarProperties(meta?.totalItems);
+				setIsLoadMoreAvailable(meta?.currentPage < meta?.totalPages);
 			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const onLoadMore = async () => {
+		try {
+			setIsLoadingMore(true);
+			const { items, meta } = await getSimilarProperties(
+				mainProperty?.id,
+				propertiesPageNumber + 1,
+				propertiesPageLimit
+			);
+			setSimilarProperties([...similarProperties, ...items]);
+			setPropertiesPageNumber(meta?.currentPage);
+			setTotalSimilarProperties(meta?.totalItems);
+			setIsLoadMoreAvailable(meta?.currentPage < meta?.totalPages);
+			setIsLoadingMore(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -80,6 +110,7 @@ const SellerDashboard = () => {
 	const _getAgencies = async () => {
 		try {
 			const _agencies = await getAgencies();
+			console.log(_agencies);
 			setAgencies([..._agencies]);
 		} catch (error) {
 			console.log(error);
@@ -100,7 +131,11 @@ const SellerDashboard = () => {
 					<EstimateBlock estimation={estimation} mainProperty={mainProperty} />
 					<PropertiesBlock
 						similarProperties={similarProperties}
+						totalSimilarProperties={totalSimilarProperties}
+						onLoadMore={onLoadMore}
+						isLoadingMore={isLoadingMore}
 						mainProperty={mainProperty}
+						isLoadMoreAvailable={isLoadMoreAvailable}
 					/>
 					<FindAgentBlock
 						properties={properties}

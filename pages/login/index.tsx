@@ -40,7 +40,7 @@ const LoginPage = () => {
 				);
 				res("");
 				if (userProfile.account_type === "agent") {
-					const agency = await getAgencyProfile();
+					const agency = await getAgencyProfile(locale);
 					if (agency) {
 						router.push("/properties");
 					} else {

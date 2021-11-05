@@ -103,7 +103,7 @@
   "span.step": "Stap",
   "span.pick-on-map": "Kies op kaart",
   "title.address": "Adres",
-  "title.estimation-ready": "Uw schatting is klaar !  ",
+  "title.estimation-ready": "Uw schatting is klaar !",
   "title.great-job": "Geweldig!",
   "title.good-job": "Goed gedaan!",
   "title.details": "details",
@@ -123,6 +123,7 @@
   "error.dont-match": "Wachtwoorden komen niet overeen",
   "placeholder.epc": "Voer in",
   "message.add-property-success": "Woning is succesvol toegevoegd",
-  "button.add-property": "Woning toevoegen"
+  "button.add-property": "Woning toevoegen",
+  "tooltip.renovation":"Het % van uw woning dat gerenoveerd is."
 
 }
