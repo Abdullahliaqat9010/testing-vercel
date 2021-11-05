@@ -223,6 +223,7 @@ const Mapbox3dMap = ({
 			map?.touchZoomRotate.enableRotation();
 		}
 	}, [mapRef]);
+
 	useEffect(() => {
 		var map = mapRef.current;
 		map?.flyTo({
@@ -233,6 +234,7 @@ const Mapbox3dMap = ({
 	}, [center]);
 
 	useEffect(() => {
+		console.log(markers.length);
 		var map = mapRef.current;
 		const prevMarkers = document.getElementsByClassName(
 			"marker"
