@@ -70,7 +70,10 @@
   "label.ouwner": "Owner",
   "button.agency-owner":"Owner",
   "span.house-beds":"Beds ",
-  "span.house-baths":"Baths"
+  "span.house-baths":"Baths",
+  "p.required":"Required",
+  "p.invalid-email":"Invalid email"
+
 
 
 }
