@@ -73,6 +73,7 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 							onChange={handleOnChange}
 							name="fullName"
 							type="text"
+							placeholder={t("placeholder.enter-fullname")}
 							value={data.fullName}
 						/>
 						<Form.Control.Feedback type="invalid">
@@ -86,7 +87,7 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 							onChange={handleOnChange}
 							name="phone"
 							type="text"
-							placeholder={t("placeholder.enter")}
+							placeholder={t("placeholder.enter-phone")}
 							value={data.phone}
 						/>
 						<Form.Control.Feedback type="invalid">
@@ -100,6 +101,8 @@ const ContactAgencyBlock = ({ agencyInfo }) => {
 							onChange={handleOnChange}
 							name="email"
 							type="email"
+							placeholder={t("placeholder.enter-email")}
+
 							value={data.email}
 						/>
 						<Form.Control.Feedback type="invalid">
