@@ -259,239 +259,257 @@
 
 
 
-
-
-
-
-
-
 @media (max-width: 768px) {
     .price-map-main {
-display: flex;
-flex-wrap: wrap;
-    }
-.pricr-map-setting{
-    flex-direction: column-reverse;
-}
-    .price-map-main {
-        flex-wrap: wrap;
-        display: flex;
-    }
-    .price-map-main .price-content-view {
-        width: 100%;
-    }
+        background: var(--bg-gray);
     
-    .price-map-main .price-map {
-    width: 100%;
-    margin-left: 10px;
-}
-
-    .city-price-block {
-        padding: 20px 20px 10px;
-        margin: 10px -34px;
-        border-radius: 8px;
-        background-color: var(--colorWhite);
-    
-        p {
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 25px;
-            align-items: center;
-            margin:10px 10px 20px ;
-        }
-        tr {
-            height: 39px;
-            margin: 6px 0px;
+        input:focus , input:active , input:hover {
+            box-shadow: unset;
+            border: unset;
+            outline:none
         }
     
-        th {
-            text-align: center;
-            font-size: 12px;
-            line-height: 16px;
-            color: var(--mainColor);
-        }
-        td {
-            margin: 0px 4px;
-            font-size: 14px;
-            line-height: 19px;
-            text-align: center;
-            color: var(--mainColor);
-        }
-        .city-name {
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 19px;
-            margin: 0px 10px;
-            color: var(--colorBlue);
-        }
-      
-     
-    }
-    .price-map-main .price-content-view .estimate-links-block .estmates-buttons p {
-      
-        font-size: 11px;
-        line-height: 22px;
-        margin-top: 20px;
-        display: flex;
-        width: auto;
-        flex-direction: column;
-    }
-
-
-
-     .links-block Button {
-        border-radius: 8px;
-        margin-bottom: 25px;
+        .price-content-view {
+            width: 100%;
+            padding: 10px;
     
-    }
-    .price-map-main .price-content-view .estimate-links-block .get-prices p{
-        font-size: 11px;
-        line-height: 22px;
-        margin-top: 20px;
-        display: flex;
-        width: auto;
-        flex-direction: column;
-     }
-     .city-price-content-map {
-        padding: 20px 20px 10px;
-        margin: 10px 0px;
-        border-radius: 8px;
-        width: min-content;
-        background-color: var(--colorWhite);
-
-        .title-block {
-            text-align: center;
-            span {
-                width: 50%;
+            p {
                 font-weight: bold;
+                font-size: 20px;
+                line-height: 33px;
+                align-items: center;
+                margin: 10px;
+            }
+           
+            .city-price-content-span {
+                color: var( --colorGray);
                 font-size: 14px;
                 line-height: 19px;
-                text-align: center;
-                padding-bottom: 10px;
-                cursor: pointer;
-                
+                margin:  10px;
             }
-
-            .active {
-                border-bottom: 1px solid var(--colorBlue);
-            }
-            .inactive {
-                border-bottom: 1px solid var(--colorWhite);
-
-            }
-        }
-
-        .city-price-date {
-            margin: 10px 0px;
-            border-radius: 6px;
-            padding: 10px;
-
-            .main-block {
-                width: 50%;
-            }
-
-            .home-type {
-                display: flex;
-                flex-direction: column;
+    
+            .search-button {
+                width: 48px;
+                height: 48px;
                 justify-content: center;
                 align-items: center;
-                padding: 10px;
-                border-radius: 6px;
-                margin: 0px 30px;
-
-                span {
-                    font-size: 12px;
-                    line-height: 16px;
-                    color: var(--colorGrayTwo);
-                    margin: 10px 0px;
-                }
+                border-radius: 8px;
+                margin-left:10px;
             }
-
-            .prices-block {
+            .city-price-block {
+                padding: 20px 20px 10px;
+                border-radius: 8px;
+                background-color: var(--colorWhite);
+    
                 p {
                     font-weight: bold;
-                    font-size: 25px;
-                    line-height: 44px;
-                    color: var( --mainColor);
-                    margin: 0px;
+                    font-size: 18px;
+                    line-height: 25px;
+                    margin-left: 20px;
+    
+                    align-items: center;
+                    margin:10px 10px 20px ;
                 }
-                span {
-                    color: var(--colorGrayTwo);
-                    font-size: 14px;
-                    line-height: 19px;
-                    margin: 4px 0px;
-                }
-                .price {
-                    color: var( --mainColor);
-                }
-            }
-            .progress-block {
-                span {
-                    color: var(--colorGray);
-                    font-size: 14px;
-                    line-height: 19px;
+                tr {
+                    height: 39px;
                     margin: 6px 0px;
                 }
+    
+                th {
+                    text-align: center;
+                    font-size: 12px;
+                    line-height: 16px;
+                    color: var(--mainColor);
+                }
+                td {
+                    margin: 0px 4px;
+                    font-size: 14px;
+                    line-height: 19px;
+                    text-align: center;
+                    color: var(--mainColor);
+                }
+                .city-name {
+                    font-weight: bold;
+                    font-size: 14px;
+                    line-height: 19px;
+                    margin: 0px 10px;
+                    color: var(--colorBlue);
+                }
+            }
+    
+            .city-price-content-map {
+                padding: 20px 20px 10px;
+                margin: 10px 0px;
+                border-radius: 8px;
+                background-color: var(--colorWhite);
+    
+                .title-block {
+                    text-align: center;
+                    span {
+                        width: 100%;
+                        font-weight: bold;
+                        font-size: 14px;
+                        line-height: 19px;
+                        text-align: center;
+                        padding-bottom: 10px;
+                        cursor: pointer;
+                        
+                    }
+    
+                    .active {
+                        border-bottom: 1px solid var(--colorBlue);
+                    }
+                    .inactive {
+                        border-bottom: 1px solid var(--colorWhite);
+    
+                    }
+                }
+    
+                .city-price-date {
+                    margin: 10px 0px;
+                    border-radius: 6px;
+                    padding: 10px;
+    
+                    .main-block {
+                        width: 50%;
+                    }
+    
+                    .home-type {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 10px;
+                        border-radius: 6px;
+                        margin: 0px 10px;
+    
+                        span {
+                            font-size: 12px;
+                            line-height: 16px;
+                            color: var(--colorGrayTwo);
+                            margin: 10px 0px;
+                        }
+                    }
+    
+                    .prices-block {
+                        p {
+                            font-weight: bold;
+                            font-size: 25px;
+                            line-height: 44px;
+                            color: var( --mainColor);
+                            margin: 0px;
+                        }
+                        span {
+                            color: var(--colorGrayTwo);
+                            font-size: 14px;
+                            line-height: 19px;
+                            margin: 4px 0px;
+                        }
+                        .price {
+                            color: var( --mainColor);
+                        }
+                    }
+                    .progress-block {
+                        span {
+                            color: var(--colorGray);
+                            font-size: 14px;
+                            line-height: 19px;
+                            margin: 6px 0px;
+                        }
+                    }
+                }
+            }
+    
+            .estimate-links-block {
+                // padding: 20px;
+                // margin: 10px 0px;
+                border-radius: 8px;
+                background-color: var(--colorWhite);
+                .links-block {
+                    width: calc(100% - 10px);
+    
+                    // border: 1px solid var(--bg-blue);
+                    border-radius: 6px;
+                    p{
+                        margin-bottom: 20px;
+                    }
+    
+                    Button {
+                        border-radius: 8px;
+                        margin-bottom: 25px;
+                        padding: 14px 20px;
+                    }
+    
+                }
+                .estmates-buttons {
+    
+                    p {
+                        align-items: center;
+                        text-align: center;
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 22px;
+                        margin-top: 20px;
+                    }
+    
+                }
+                .get-prices {
+    
+                    p{
+                        margin-top: 20px;
+                        font-size: 14px;
+                        line-height: 19px;
+                        color: var(--mainColor);
+                        font-weight: normal;
+                    }
+                    Button {
+                        background-color: var(--colorWhite);
+                        color: var(--colorBlue);
+                    }
+                }
+    
+                Link {
+                    font-weight: bold;
+                    font-size: 14px;
+                    line-height: 19px;
+                    margin: 0px 3px;
+                }
+    
+            }
+    
+    
+        }
+    
+        
+        .price-map {
+            width: 100%;
+            img {
+                width: 100%;
+                margin-left: 10px;
             }
         }
     }
-
-}
-
-
-
-
-
-
-
-
-
-@media (min-width: 320px) and (max-width: 768px) {
-    .price-map-main {
-        display: flex;
-        flex-wrap: wrap;
-            }
-        
-    .search-button {
-        margin-top: auto;
-        width: 48px;
-        height: 48px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-        margin-left:10px;
-    }
+    
+    
     .price-map-main .search-area {
         width: 100%;
         margin-left: 10px;
         margin-top: 18px;
         display: flex;
     }
-
-    .price-map-main .price-content-view p {
-        font-weight: bold;
-        font-size: 15px;
-        line-height: 33px;
-        align-items: center;
-        margin: 10px;
+    .pricr-map-setting.d-flex {
+        display: flex;
+        flex-direction: column;
     }
-    .price-map-main .price-content-view .city-price-block p {
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 25px;
-        margin-left: 20px;
-        align-items: center;
-        margin: 10px 20px 20px;
-    }
-    // .price-map-main .search-area {
-    //     width: 100%;
-    //     margin-right: 10px;
-
-
-
-    // }
 }
+    
 
 
+@media (max-width: 575.98px) {
 
+    .price-map-main .price-content-view {
+        width: 100%;
+        padding: 2px;
+    }
+ }
 

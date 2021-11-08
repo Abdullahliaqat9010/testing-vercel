@@ -100,7 +100,7 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 						</div>
 					)}
 					<div className="right-block">
-						<CustomScrollbar>
+						<CustomScrollbar className="scroll-block">
 							<div className="property-main-block">
 								{properties.map((item, index) => {
 									return (
