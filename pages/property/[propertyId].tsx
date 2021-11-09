@@ -27,14 +27,15 @@ import TestAgency from "../../assets/images/agents/test-agency.png";
 import { clearSimilarPropertiesLocation } from "../../actions";
 import axios from "axios";
 import { config } from "../../config/siteConfigs";
-import ContactAgentModal from "../../containers/Modals/ContactAgentModal"
+import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
+import { getLeadProperties } from "../../network-requests";
 
 const PropertyPage = ({ property }) => {
 	const { t } = useTranslation("property-page");
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const { locale } = router;
-	const [agency, setAgency] = useState(property?.agency?? {});
+	const [agency, setAgency] = useState(property?.agency ?? {});
 	const [showMapModal, setShowMapModal] = useState<boolean>(false);
 	const [showContactModal, setOpenContactForm] = useState<boolean>(false);
 	const [showRequestPriceModal, setShowRequestPriceModal] =
@@ -42,6 +43,9 @@ const PropertyPage = ({ property }) => {
 	const [propertyImages] = useState([
 		...property?.images.map(({ url_small }) => url_small),
 	]);
+	const [properties, setProperties] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+
 	const handleClearSimilarPropertiesLocation = () => {
 		dispatch(clearSimilarPropertiesLocation());
 	};
@@ -59,10 +63,24 @@ const PropertyPage = ({ property }) => {
 	};
 	const shoeContactForm = () => {
 		if (isMobile) {
-			setOpenContactForm(!showContactModal)
+			setOpenContactForm(!showContactModal);
 		}
+	};
 
-	}
+	const _getProperties = async () => {
+		try {
+			setIsLoading(true);
+			const _properties = await getLeadProperties();
+			setProperties([..._properties]);
+			setIsLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		_getProperties();
+	}, []);
 
 	return (
 		<>
@@ -88,23 +106,31 @@ const PropertyPage = ({ property }) => {
 						<div className="images d-flex">
 							<img
 								className="main-image"
-								src={property?.images.length > 0 ? property?.images[0] : NoImage}
+								src={
+									property?.images.length > 0 ? property?.images[0] : NoImage
+								}
 								alt="FirstImage"
 							/>
 							<div className="second-block">
 								<img
-									src={property?.images.length > 1 ? property?.images[1] : NoImage}
+									src={
+										property?.images.length > 1 ? property?.images[1] : NoImage
+									}
 									alt="SecondImage"
 								/>
 								<img
-									src={property?.images.length > 2 ? property?.images[2] : NoImage}
+									src={
+										property?.images.length > 2 ? property?.images[2] : NoImage
+									}
 									alt="ThirdImage"
 								/>
 							</div>
 						</div>
 						<div className="property-content d-flex">
 							<div className="property-content__info ">
-								<p className="address">{property?.property?.search_address?? ""}</p>
+								<p className="address">
+									{property?.property?.search_address ?? ""}
+								</p>
 								<div className="d-flex w-100 align-items-center justify-content-between">
 									<Button
 										onClick={handleShowRequestPriceModal}
@@ -119,14 +145,18 @@ const PropertyPage = ({ property }) => {
 											<img src={squareIcon} alt="squareIcon" />
 											<div className="d-flex flex-column">
 												<span className="info__title">{t("span.square")}</span>
-												<span className="info__desc">{`${property?.property?.total_area?? ""}m²`}</span>
+												<span className="info__desc">{`${
+													property?.property?.total_area ?? ""
+												}m²`}</span>
 											</div>
 										</div>
 										<div className="beds">
 											<img src={bedsIcon} alt="bedsIcon" />
 											<div className="d-flex flex-column">
 												<span className="info__title">{t("span.beds")}</span>
-												<span className="info__desc">{property?.property?.bedrooms}</span>
+												<span className="info__desc">
+													{property?.property?.bedrooms}
+												</span>
 											</div>
 										</div>
 										<div className="baths">
@@ -193,7 +223,7 @@ const PropertyPage = ({ property }) => {
 					)}
 
 					{!isMobile && (
-						<ContactAgencyBlock agencyInfo={property} />
+						<ContactAgencyBlock properties={properties} agencyInfo={property} />
 					)}
 				</div>
 			</div>
