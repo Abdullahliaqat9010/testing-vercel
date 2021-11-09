@@ -43,6 +43,7 @@
 
       .search-form {
         flex: 2;
+        
         input {
           height: 50px;
           box-sizing: border-box;
@@ -304,8 +305,9 @@
       line-height: 33px;
       margin: 20px 0px;
     }
-
+   
     .search-form {
+      
       flex: 2;
       input {
         height: 50px;

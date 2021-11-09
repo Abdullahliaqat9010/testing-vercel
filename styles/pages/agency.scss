@@ -588,13 +588,25 @@
 			  width: 100%;
 			}
 		  }
+
+		  .properties-list {
+			display: flex;
+  
+			.left-block {
+				width: 100%;
+				height: 100%;
+				max-width: 360px;
+				min-height: 585px;
+				max-height: 605px;
+			  }
+		}
 		  .contact-agency-block .contact-aagency {
 			display: none;
 		  }
-		  // .ant-image {
-		  // 	position: relative;
-		  // 	/* display: inline-block; */
-		  // }
+		  .ant-image {
+		  	position: relative;
+		  	 display: flex; 
+		  }
 		  .contact {
 			margin: 28px auto;
 			display: flex;
@@ -668,10 +680,10 @@
 			  width: 100%;
 			  height: 172px;
 			}
-		  //   .ant-image {
-		  // 	position: relative;
-		  // 	/* display: inline-block; */
-		  // }
+			.ant-image {
+				position: relative;
+				 display: block; 
+			}
 			.agency-info {
 			  .logo-block {
 				width: 132px;
@@ -763,6 +775,8 @@
 				  flex-direction: column;
   
 				  &__image {
+					display: flex;
+					justify-content: center;
 					margin-right: unset;
 					margin-bottom: 18px;
   
@@ -1005,8 +1019,15 @@
 	.contact-aagency {
 	  display: none;
 	}
+	.properties-list {
+		display: flex;
+
+		.left-block {
+		display: none;
+		}
+	}
 	.scroll-block {
-	  height: 202px !important;
+	  height: 20rem;
 	}
 	.Agency__first-block {
 	  display: -moz-box;
@@ -1059,6 +1080,10 @@
   // 	position: relative;
   // 	/* display: inline-block; */
   // }
+  .scroll-block {
+	height: 20rem;
+  }
+ 
 	.Agency__back {
 	  cursor: pointer;
 	  display: -moz-box;
@@ -1112,6 +1137,8 @@
   // 	position: relative;
   // 	/* display: inline-block; */
   // }
+  
+ 
 	.Agency__back {
 	  cursor: pointer;
 	  display: -moz-box;
