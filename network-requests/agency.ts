@@ -163,10 +163,16 @@ export const updateAgencyProfile = (profile) => {
 	});
 };
 
-export const getAgencies = (): Promise<any> => {
+export const getAgencies = (
+	propertyId: number,
+	page: number,
+	limit: number
+): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: agencies } = await axios.get("agency");
+			const { data: agencies } = await axios.get("agency", {
+				params: { propertyId, page, limit },
+			});
 			res(agencies);
 		} catch (error) {
 			rej(error);
