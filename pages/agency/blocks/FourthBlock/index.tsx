@@ -12,6 +12,7 @@ import NoActiveLightStar from "../../../../assets/images/rating/star.svg";
 import MessageIcon from "../../../../assets/images/message-icon.svg";
 // import FlagIcon from '../../../../assets/images/flag.svg';
 import Avatar from "../../../../assets/images/no-photo.png";
+import google_reviews_image from "../../../../assets/images/google_reviews.png";
 import { AgentsItem } from "../../../../types/agents";
 import { useTranslation } from "react-i18next";
 const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
@@ -100,19 +101,38 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 											<span className="bold ml-2">{review?.author_name}</span>
 										</div>
 									</div>
-									<div className="review__content">
-										<div className="left-side">
-											<p className="desc">{review?.text}</p>
-											<div className="author-block">
-												<img src={review?.profile_photo_url} alt="Avatar" />
-												<span className="full-name">{review?.author_name}</span>
-												<span className="commented">
-													{t("span.commented-on")}
-												</span>
-												<span className="commented-date">
-													{review?.relative_time_description}
-												</span>
+									<div className="d-flex flex-row">
+										<div className="review__content" style={{ width: "75%" }}>
+											<div className="left-side">
+												<p className="desc">{review?.text}</p>
+												<div className="author-block">
+													<img src={review?.profile_photo_url} alt="Avatar" />
+													<span className="full-name">
+														{review?.author_name}
+													</span>
+													<span className="commented">
+														{t("span.commented-on")}
+													</span>
+													<span className="commented-date">
+														{review?.relative_time_description}
+													</span>
+												</div>
 											</div>
+										</div>
+										<div
+											className="d-flex "
+											style={{
+												width: "25%",
+												border: "1px solid #EBEFF8",
+												borderRadius: 5,
+												padding: 30,
+											}}
+										>
+											<img
+												alt="google-reviews"
+												src={google_reviews_image}
+												style={{ width: "100%", objectFit: "cover" }}
+											/>
 										</div>
 									</div>
 								</div>

@@ -34,11 +34,23 @@ const SellerDashboard = () => {
 	const [similarProperties, setSimilarProperties] = useState([]);
 	const [properties, setProperties] = useState([]);
 	const [agencies, setAgencies] = useState([]);
+
 	const [propertiesPageNumber, setPropertiesPageNumber] = useState(1);
 	const [propertiesPageLimit, setPropertiesPageLimit] = useState(6);
 	const [totalSimilarProperties, setTotalSimilarProperties] = useState(0);
-	const [isLoadingMore, setIsLoadingMore] = useState(false);
-	const [isLoadMoreAvailable, setIsLoadMoreAvailable] = useState(true);
+	const [isSimilarPropertiesLoadingMore, setIsSimilarPropertiesLoadingMore] =
+		useState(false);
+	const [
+		isSimilarPropertiesLoadMoreAvailable,
+		setIsSimilarPropertiesLoadMoreAvailable,
+	] = useState(true);
+
+	const [agenciesPageNumber, setAgenciesPageNumber] = useState(1);
+	const [agenciesPageLimit, setAgenciesPageLimit] = useState(3);
+	const [totalAgencies, setTotalAgencies] = useState(0);
+	const [isAgenciesLoadingMore, setIsAgenciesLoadingMore] = useState(false);
+	const [isAgenciesLoadMoreAvailable, setIsAgenciesLoadMoreAvailable] =
+		useState(true);
 
 	const dispatch = useDispatch();
 
@@ -49,7 +61,7 @@ const SellerDashboard = () => {
 	const fetchAll = async () => {
 		try {
 			setIsLoading(true);
-			const promises = [_getProperties(), _getMainProperty(), _getAgencies()];
+			const promises = [_getProperties(), _getMainProperty()];
 			await Promise.all(promises);
 			setIsLoading(false);
 		} catch (error) {
@@ -58,40 +70,64 @@ const SellerDashboard = () => {
 	};
 
 	const _getProperties = async () => {
-		try {
-			const _properties = await getLeadProperties();
-			setProperties([..._properties?.result]);
-		} catch (error) {
-			console.log(error);
-		}
+		return new Promise(async (res, rej) => {
+			try {
+				const _properties = await getLeadProperties();
+				setProperties([..._properties]);
+				res("");
+			} catch (error) {
+				rej(error);
+				console.log(error);
+			}
+		});
 	};
 
 	const _getMainProperty = async () => {
-		try {
-			const _property = await getMainProperty(mainPropertyId);
-			if (_property) {
-				setMainProperty(_property);
-				dispatch(setMainPropertyId(_property.id));
-				const estimate = await getEstimation(_property?.property?.id);
-				setEstimation(estimate);
-				const { items, meta } = await getSimilarProperties(
-					_property?.id,
-					propertiesPageNumber,
-					propertiesPageLimit
-				);
-				setSimilarProperties([...items]);
-				setPropertiesPageNumber(meta?.currentPage);
-				setTotalSimilarProperties(meta?.totalItems);
-				setIsLoadMoreAvailable(meta?.currentPage < meta?.totalPages);
+		return new Promise(async (res, rej) => {
+			try {
+				const _property = await getMainProperty(mainPropertyId);
+				if (_property) {
+					setMainProperty(_property);
+					dispatch(setMainPropertyId(_property.id));
+					const estimate = await getEstimation(_property?.property?.id);
+					setEstimation(estimate);
+					const { items: _similarProperties, meta: similarPropertiesMeta } =
+						await getSimilarProperties(
+							_property?.id,
+							propertiesPageNumber,
+							propertiesPageLimit
+						);
+					setSimilarProperties([..._similarProperties]);
+					setPropertiesPageNumber(similarPropertiesMeta?.currentPage);
+					setTotalSimilarProperties(similarPropertiesMeta?.totalItems);
+					setIsSimilarPropertiesLoadMoreAvailable(
+						similarPropertiesMeta?.currentPage <
+							similarPropertiesMeta?.totalPages
+					);
+					const { items: _agencies, meta: agenciesMeta } = await getAgencies(
+						_property.id,
+						agenciesPageNumber,
+						agenciesPageLimit
+					);
+					console.log(agenciesMeta);
+					setAgencies([..._agencies]);
+					setAgenciesPageNumber(agenciesMeta?.currentPage);
+					setTotalAgencies(agenciesMeta?.totalItems);
+					setIsAgenciesLoadMoreAvailable(
+						agenciesMeta?.currentPage < agenciesMeta?.totalPages
+					);
+					res("");
+				}
+			} catch (error) {
+				rej(error);
+				console.log(error);
 			}
-		} catch (error) {
-			console.log(error);
-		}
+		});
 	};
 
-	const onLoadMore = async () => {
+	const onLoadMoreSimilarProperties = async () => {
 		try {
-			setIsLoadingMore(true);
+			setIsSimilarPropertiesLoadingMore(true);
 			const { items, meta } = await getSimilarProperties(
 				mainProperty?.id,
 				propertiesPageNumber + 1,
@@ -100,18 +136,28 @@ const SellerDashboard = () => {
 			setSimilarProperties([...similarProperties, ...items]);
 			setPropertiesPageNumber(meta?.currentPage);
 			setTotalSimilarProperties(meta?.totalItems);
-			setIsLoadMoreAvailable(meta?.currentPage < meta?.totalPages);
-			setIsLoadingMore(false);
+			setIsSimilarPropertiesLoadMoreAvailable(
+				meta?.currentPage < meta?.totalPages
+			);
+			setIsSimilarPropertiesLoadingMore(false);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const _getAgencies = async () => {
+	const onLoadMoreAgencies = async () => {
 		try {
-			const _agencies = await getAgencies();
-			console.log(_agencies);
-			setAgencies([..._agencies]);
+			setIsAgenciesLoadingMore(true);
+			const { items, meta } = await getAgencies(
+				mainProperty?.id,
+				agenciesPageNumber + 1,
+				agenciesPageLimit
+			);
+			setAgencies([...agencies, ...items]);
+			setAgenciesPageNumber(meta?.currentPage);
+			setTotalAgencies(meta?.totalItems);
+			setIsAgenciesLoadMoreAvailable(meta?.currentPage < meta?.totalPages);
+			setIsAgenciesLoadingMore(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -132,15 +178,19 @@ const SellerDashboard = () => {
 					<PropertiesBlock
 						similarProperties={similarProperties}
 						totalSimilarProperties={totalSimilarProperties}
-						onLoadMore={onLoadMore}
-						isLoadingMore={isLoadingMore}
+						onLoadMore={onLoadMoreSimilarProperties}
+						isLoadingMore={isSimilarPropertiesLoadingMore}
 						mainProperty={mainProperty}
-						isLoadMoreAvailable={isLoadMoreAvailable}
+						isLoadMoreAvailable={isSimilarPropertiesLoadMoreAvailable}
 					/>
 					<FindAgentBlock
 						properties={properties}
 						agencies={agencies}
+						onLoadMore={onLoadMoreAgencies}
+						isLoadingMore={isAgenciesLoadingMore}
 						mainProperty={mainProperty}
+						isLoadMoreAvailable={isAgenciesLoadMoreAvailable}
+						totalAgencies={totalAgencies}
 					/>
 				</div>
 			</div>
