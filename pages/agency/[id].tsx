@@ -16,7 +16,11 @@ import ThirdBlock from "./blocks/ThirdBlock";
 import FourthBlock from "./blocks/FourthBlock";
 import { useTranslation } from "react-i18next";
 import { agentsList } from "../../templates/agentsList";
-import { getAgencyById, getProperties } from "../../network-requests";
+import {
+	getAgencyById,
+	getLeadProperties,
+	getProperties,
+} from "../../network-requests";
 import { useState } from "react";
 import { RootState } from "../../types/state";
 import Loading from "../../components/Loading";
@@ -36,7 +40,7 @@ const AgencyPage = () => {
 
 	const _getProperties = async () => {
 		try {
-			const _properties = await getProperties(userId);
+			const _properties = await getLeadProperties();
 			setProperties([..._properties]);
 		} catch (error) {
 			console.log(error);
@@ -99,7 +103,10 @@ const AgencyPage = () => {
 								<FourthBlock currentAgency={agency} />
 							</div>
 							<div className="pl-2 bd-highlight ">
-								<ContactAgencyBlock agencyInfo={undefined} />
+								<ContactAgencyBlock
+									agencyInfo={agency}
+									properties={properties}
+								/>
 							</div>
 						</div>
 					</div>
