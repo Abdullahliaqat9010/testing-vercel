@@ -7,12 +7,13 @@ import { RootState } from "../../types/state";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import { notification } from "antd";
+import { useRouter } from "next/router";
 
 const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
 	const dispatch = useDispatch();
-	const [validated, setValidated] = useState(false);
+	const router = useRouter();
 
 	const { firstname, lastname, email, phone_number, auth } = useSelector(
 		(state: RootState) => state.userInfo
@@ -32,10 +33,13 @@ const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 	const sendToAgency = (contactInfo, actions) => {
 		return new Promise(async (res, rej) => {
 			try {
-				await contactAgency({
-					...contactInfo,
-					agencyId: agencyInfo?.id,
-				});
+				await contactAgency(
+					{
+						...contactInfo,
+						agencyId: agencyInfo?.id,
+					},
+					router.locale
+				);
 				actions?.resetForm();
 				notification.success({
 					placement: "bottomRight",
