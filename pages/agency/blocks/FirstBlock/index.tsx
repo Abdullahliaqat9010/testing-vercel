@@ -55,6 +55,7 @@ const FirstBlock = ({
 	return (
 		<div className="Agency__first-block">
 			<ContactAgentModal
+				agencyId={currentAgency?.id}
 				show={showContactModal}
 				onClose={() => setShowContactModal(false)}
 				properties={properties}
