@@ -15,7 +15,7 @@ const ContactAgentModal = ({
 	properties = [],
 	agencyOwner,
 	agencyName,
-	agencyId = 3,
+	agencyId,
 }) => {
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
@@ -47,7 +47,7 @@ const ContactAgentModal = ({
 			try {
 				await contactAgency({
 					...contactInfo,
-					agencyId, // hard coded for now
+					agencyId,
 				});
 				res("");
 				setIsSuccessModalVisible(true);
@@ -64,7 +64,7 @@ const ContactAgentModal = ({
 					<Modal.Header closeButton>
 						<Modal.Title className="d-flex flex-column">
 							{t("button.contact")}{" "}
-							{agencyOwner?.firstname?? "" + " " + agencyOwner?.lastname?? ""}
+							{agencyOwner?.firstname ?? "" + " " + agencyOwner?.lastname ?? ""}
 							<p>{agencyName}</p>
 						</Modal.Title>
 					</Modal.Header>
@@ -87,7 +87,12 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="fullname">
 											{t("label.fullname")}
 										</label>
-										<Field className="form-input" name="fullname" type="text" />
+										<Field
+											disabled
+											className="form-input"
+											name="fullname"
+											type="text"
+										/>
 										<ErrorMessage
 											className="form-error"
 											component="div"
@@ -98,7 +103,7 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="phone">
 											{t("label.phone")}
 										</label>
-										<Field className="form-input" name="phone" type="number" />
+										<Field className="form-input" name="phone" type="text" />
 										<ErrorMessage
 											className="form-error"
 											component="div"
@@ -109,7 +114,12 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="email">
 											{t("label.email")}
 										</label>
-										<Field className="form-input" name="email" type="email" />
+										<Field
+											disabled
+											className="form-input"
+											name="email"
+											type="email"
+										/>
 										<ErrorMessage
 											className="form-error"
 											component="div"

@@ -122,10 +122,11 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 										<div
 											className="d-flex "
 											style={{
-												width: "25%",
+												// width: "25%",
 												border: "1px solid #EBEFF8",
 												borderRadius: 5,
-												padding: 30,
+												padding: 25,
+												height: 120,
 											}}
 										>
 											<img
