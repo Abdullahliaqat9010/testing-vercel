@@ -25,6 +25,9 @@ export const contactAgency = (contactInfo, locale = "nl") => {
 				"agency/contact",
 				{
 					...contactInfo,
+					propertyId: contactInfo?.propertyId
+						? parseInt(`${contactInfo?.propertyId}`)
+						: contactInfo?.propertyId,
 				},
 				{
 					params: {
