@@ -44,7 +44,7 @@ const PropertyContainer = ({
 				<div className="short-desc">
 					<div className="time">
 						<span>
-							{t("desc.sold")} {moment(property.sold_rent_date).fromNow()}{" "}
+							{t("desc.sold")} {moment(property.sold_rent_date).locale('nl').fromNow()}{" "}
 						</span>
 						{property.agency?.company_name && (
 							<Link href={`/agency/${property.agency?.id}`} locale={locale}>

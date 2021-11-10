@@ -1896,6 +1896,16 @@
 	.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
 		width: 150px;
 	}
+	.main-page .steps-block .step-one, .main-page .steps-block .step-two, .main-page .steps-block .step-three, .main-page .steps-block .final-step, .main-page .steps-block .step-four, .main-page .steps-block .create-personal-account {
+		 min-height: inherit; 
+	}
+	.Header {
+		/* height: 60px; */
+		position: relative;
+	}
+	body {
+		padding-top: 0px;
+	}
 }
 
 @media screen 
@@ -1916,6 +1926,17 @@
     -moz-box-pack: start;
     justify-content: flex-start;
 }
+.main-page .steps-block .step-one, .main-page .steps-block .step-two, .main-page .steps-block .step-three, .main-page .steps-block .final-step, .main-page .steps-block .step-four, .main-page .steps-block .create-personal-account {
+    width: 433px;
+     min-height: 10%
+}
+.Header .step-info {
+    position: absolute;
+    top: 90px;
+    left: -webkit-calc(15% );
+    /* left: calc(50% - 124px); */
+}
+
 }
 
 

@@ -11,6 +11,8 @@ import TotalSquareImage from "../../../assets/images/total-square.svg";
 import NoImage from "../../../assets/images/no-image-available.svg";
 
 const PropertyDetailsModal = ({ show, onClose, property }) => {
+	const { t } = useTranslation("property-details");
+
 	const onHideModal = () => {
 		onClose();
 	};
@@ -25,7 +27,7 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 			<Modal.Header closeButton>
 				<Modal.Title className="d-flex flex-column">
 					<div className="title">{`€${property?.sold_rent_price}`}</div>
-					<p className="subtitle">{`Sold on ${
+					<p className="subtitle">{`${t("p.sold-on")}${
 						property?.sold_rent_date
 							? moment(property?.sold_rent_date).format("MMM DD, YYYY")
 							: moment().format("MMM DD, YYYY")
@@ -73,14 +75,14 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Total Square</div>
+											<div className="heading">{t("p.total-square")}</div>
 											<div className="info">{`${property?.property?.total_area}m²`}</div>
 										</div>
 									</div>
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Living Square</div>
+											<div className="heading">{t("p.living-square")}</div>
 											<div className="info">{`${property?.property?.live_area}m²`}</div>
 										</div>
 									</div>
@@ -89,14 +91,14 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Beds</div>
+											<div className="heading">{t("p.beds")}</div>
 											<div className="info">{`${property?.property?.bedrooms}`}</div>
 										</div>
 									</div>
 									<div className="detail-1container">
 										<img src={TotalSquareImage} alt="" />
 										<div className="ml-3">
-											<div className="heading">Baths</div>
+											<div className="heading">{t("p.baths")}</div>
 											<div className="info">{`${property?.property?.bathrooms}`}</div>
 										</div>
 									</div>
@@ -127,30 +129,30 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 					</div>
 
 					<div className="detail-container">
-						<div className="heading">Listing Details</div>
+						<div className="heading">	{t("p.listing-detail")}</div>
 						<div className="mt-4">
 							<div className="d-flex flex-row my-3">
-								<div className="name">Floors:</div>
+								<div className="name">{t("p.floors")}</div>
 								<div className="details">{property?.property?.floor}</div>
 							</div>
 							<div className="d-flex flex-row my-3">
-								<div className="name">Facades:</div>
+								<div className="name">{t("p.facades")}</div>
 								<div className="details">{property?.property?.facades}</div>
 							</div>
 							<div className="d-flex flex-row my-3">
-								<div className="name">Parking:</div>
+								<div className="name">{t("p.parking")}</div>
 								<div className="details">
 									{property?.property?.parking_spot}
 								</div>
 							</div>
 							<div className="d-flex flex-row my-3">
-								<div className="name">Constructed:</div>
+								<div className="name">{t("p.constructed")}</div>
 								<div className="details">
 									{property?.property?.construction_year}
 								</div>
 							</div>
 							<div className="d-flex flex-row my-3">
-								<div className="name">Note:</div>
+								<div className="name">{t("p.note")}</div>
 								<div className="details">{property?.property?.note}</div>
 							</div>
 						</div>
@@ -160,5 +162,6 @@ const PropertyDetailsModal = ({ show, onClose, property }) => {
 		</Modal>
 	);
 };
+
 
 export default PropertyDetailsModal;

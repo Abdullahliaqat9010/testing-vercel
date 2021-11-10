@@ -4903,14 +4903,15 @@ const compareAgency = () => {
                               </div>
                             )}
                             <p className="agency-description">
-                              {t("p.before-description")} {properties.length}{" "}
+                            {t("p.agency-desc")}
+                              {/* {t("p.before-description")} {properties.length}{" "}
                               {properties.length > 1
                                 ? t("p.agency-plural")
                                 : t("p.agency-singular") + t("p.center")}
                               {properties.length}{" "}
                               {properties.length > 1
                                 ? t("p.agency-plural")
-                                : t("p.agency-singular") + t("p.after-description")}
+                                : t("p.agency-singular") + t("p.after-description")} */}
                             </p>
                             <div className="agency-links d-flex">
                               <Button

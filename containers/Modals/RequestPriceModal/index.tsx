@@ -114,7 +114,7 @@ const RequestPriceModal = ({ show, handleClose, property }) => {
 								name="phone"
 								type="number"
 								value={data.phone}
-								placeholder="Please enter"
+								// placeholder="Please enter"
 								onChange={handleChange}
 							/>
 						</Form.Group>

@@ -32,10 +32,10 @@ const ContactAgentModal = ({
 		fullname: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
-			.required("Required"),
-		email: Yup.string().email("Invalid email").required("Required"),
-		phone: Yup.string().required(),
-		message: Yup.string().required("Required"),
+			.required((t("p.required"))),
+		email: Yup.string().email(t("p.invalid-email")).required((t("p.required"))),
+		phone: Yup.string().required(t("p.required")),
+		message: Yup.string().required(t("p.required")),
 		free_evaluated: Yup.bool(),
 		// propertyId: Yup.number().required(),
 	});

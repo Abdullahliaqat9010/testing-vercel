@@ -36,7 +36,7 @@
   "placeholder.message": "Ik heb uw profiel gevonden op BelgiumImmo en ik wil u graag informeren over mijn vastgoedproject.",
   "span.from": "van",
   "span.nearest-agency": "Dichtstbijzijnde vastgoedkantoor bij u ",
-  "span.agency": "makelaar ",
+  "span.agency": "Bureau ",
   "span.reviews": "Beoordelingen",
   "span.similar-property": "Gelijkaardige woningen",
   "span.your-property": "Uw woning",
@@ -70,7 +70,11 @@
   "label.ouwner": "Kantoorverantwoordelijke",
   "button.agency-owner":"Eigenaar ",
   "span.house-beds":"Slaapkamers ",
-  "span.house-baths":"Badkamers"
+  "span.house-baths":"Badkamers",
+  "p.required":"Verplicht",
+  "p.invalid-email":"Ongeldig email"
+
+
 
   
 
