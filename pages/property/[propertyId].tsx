@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { isMobile } from "react-device-detect";
 import Link from "next/link";
+import StarRatingComponent from "react-star-rating-component";
 
 import GoogleMapModal from "../../containers/Modals/GoogleMapModal";
 import RequestPriceModal from "../../containers/Modals/RequestPriceModal";
@@ -23,6 +24,8 @@ import NoImage from "../../assets/images/no-image-available.svg";
 import Map from "../../assets/images/template/map-img.png";
 import Stars from "../../assets/images/template/stars.png";
 import TestAgency from "../../assets/images/agents/test-agency.png";
+import RatingStar from "../../assets/images/rating/full-star.svg";
+import RatingStarEmpty from "../../assets/images/rating/star.svg";
 
 import { clearSimilarPropertiesLocation } from "../../actions";
 import axios from "axios";
@@ -31,11 +34,12 @@ import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import { getLeadProperties } from "../../network-requests";
 
 const PropertyPage = ({ property }) => {
+	console.log(property);
 	const { t } = useTranslation("property-page");
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const { locale } = router;
-	const [agency, setAgency] = useState(property?.agency ?? {});
+	const [agency] = useState(property?.agency ?? {});
 	const [showMapModal, setShowMapModal] = useState<boolean>(false);
 	const [showContactModal, setOpenContactForm] = useState<boolean>(false);
 	const [showRequestPriceModal, setShowRequestPriceModal] =
@@ -131,43 +135,49 @@ const PropertyPage = ({ property }) => {
 								<p className="address">
 									{property?.property?.search_address ?? ""}
 								</p>
-								<div className="d-flex w-100 align-items-center justify-content-between">
+								<div className="d-flex w-100 align-items-center flex-row">
 									<Button
-										onClick={handleShowRequestPriceModal}
+										// onClick={handleShowRequestPriceModal}
 										className="request-price"
 										variant="outline-primary"
 									>
 										{t("button.request-price")}
 										<img src={ArrowImage} alt="ArrowImage" />
 									</Button>
-									<div className="info d-flex">
-										<div className="square">
-											<img src={squareIcon} alt="squareIcon" />
-											<div className="d-flex flex-column">
-												<span className="info__title">{t("span.square")}</span>
-												<span className="info__desc">{`${
-													property?.property?.total_area ?? ""
-												}m²`}</span>
+									<div className="info d-flex ml-4">
+										{property?.property?.live_area && (
+											<div className="square">
+												<img src={squareIcon} alt="squareIcon" />
+												<div className="d-flex flex-column">
+													<span className="info__title">
+														{t("span.square")}
+													</span>
+													<span className="info__desc">{`${property?.property?.live_area} m²`}</span>
+												</div>
 											</div>
-										</div>
-										<div className="beds">
-											<img src={bedsIcon} alt="bedsIcon" />
-											<div className="d-flex flex-column">
-												<span className="info__title">{t("span.beds")}</span>
-												<span className="info__desc">
-													{property?.property?.bedrooms}
-												</span>
+										)}
+										{property?.property?.bedrooms && (
+											<div className="beds">
+												<img src={bedsIcon} alt="bedsIcon" />
+												<div className="d-flex flex-column">
+													<span className="info__title">{t("span.beds")}</span>
+													<span className="info__desc">
+														{property?.property?.bedrooms}
+													</span>
+												</div>
 											</div>
-										</div>
-										<div className="baths">
-											<img src={bathIcon} alt="bathIcon" />
-											<div className="d-flex flex-column">
-												<span className="info__title">{t("span.baths")}</span>
-												<span className="info__desc">
-													{property?.property?.bathrooms}
-												</span>
+										)}
+										{property?.property?.bathrooms && (
+											<div className="baths">
+												<img src={bathIcon} alt="bathIcon" />
+												<div className="d-flex flex-column">
+													<span className="info__title">{t("span.baths")}</span>
+													<span className="info__desc">
+														{property?.property?.bathrooms}
+													</span>
+												</div>
 											</div>
-										</div>
+										)}
 									</div>
 								</div>
 							</div>
@@ -182,23 +192,54 @@ const PropertyPage = ({ property }) => {
 							<p className="sold-by">{t("p.sold-by")}</p>
 							<div className="agency-block__short-info">
 								<div className="logo">
-									<img src={agency?.logo_image} alt="TestAgency" />
+									<img
+										style={{ height: "100%", objectFit: "cover" }}
+										src={agency?.logo_image}
+										alt="TestAgency"
+									/>
 								</div>
 								<div className="d-flex justify-content-between agency-block__blocks">
 									<div className="left-block w-50">
-										<p className="agency-name">{agency?.company_name}</p>
+										<p
+											style={{ cursor: "pointer" }}
+											onClick={() => router.push(`/agency/${agency?.id}`)}
+											className="agency-name"
+										>
+											{agency?.company_name}
+										</p>
 										<div className="agency-stats">
-											<span className="rate">5.0</span>
-											<div className="stars-block">
+											<span className="rate">
+												{property?.agency?.rating?.rating}
+											</span>
+											{/* <div className="stars-block">
 												<img src={Stars} alt="Stars" />
+											</div> */}
+											<div className="mx-2 mt-1 d-flex align-items-center">
+												<StarRatingComponent
+													name="rate"
+													className="custom-rate"
+													renderStarIcon={(index, value) => (
+														<img
+															style={{ width: 15 }}
+															className="rating-star"
+															src={
+																index <= value ? RatingStar : RatingStarEmpty
+															}
+															alt="RatingStar"
+														/>
+													)}
+													starCount={5}
+													value={Number(agency?.rating?.rating)}
+												/>
 											</div>
 											<span className="from">
-												{t("span.from")} 120 {t("span.reviews")}
+												{t("span.from")} {agency?.rating?.user_ratings_total}{" "}
+												{t("span.reviews")}
 											</span>
 										</div>
 									</div>
 									<div className="right-block w-50">
-										<span className="count">17</span>
+										<span className="count">{agency?.propertiesCount}</span>
 										<span className="similar">{t("span.similar")}</span>
 									</div>
 								</div>
@@ -223,7 +264,7 @@ const PropertyPage = ({ property }) => {
 					)}
 
 					{!isMobile && (
-						<ContactAgencyBlock properties={properties} agencyInfo={property} />
+						<ContactAgencyBlock properties={properties} agencyInfo={agency} />
 					)}
 				</div>
 			</div>
