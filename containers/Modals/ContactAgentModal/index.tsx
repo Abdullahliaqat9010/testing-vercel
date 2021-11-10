@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
 
 import { Button, Modal } from "react-bootstrap";
 import { RootState } from "../../../types/state";
@@ -25,6 +26,8 @@ const ContactAgentModal = ({
 	const [isSuccessModalVisible, setIsSuccessModalVisible] =
 		useState<boolean>(false);
 
+	const { locale } = useRouter();
+
 	const validationSchema = Yup.object().shape({
 		fullname: Yup.string()
 			.min(2, "Too Short!")
@@ -45,10 +48,13 @@ const ContactAgentModal = ({
 	const sendToAgency = (contactInfo) => {
 		return new Promise(async (res, rej) => {
 			try {
-				await contactAgency({
-					...contactInfo,
-					agencyId,
-				});
+				await contactAgency(
+					{
+						...contactInfo,
+						agencyId,
+					},
+					locale
+				);
 				res("");
 				setIsSuccessModalVisible(true);
 			} catch (error) {

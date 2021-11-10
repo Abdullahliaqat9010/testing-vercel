@@ -11,6 +11,12 @@ const propertyReducer = (state = initialState, action: any) => {
 				...state,
 				mainPropertyId: action.payload.id,
 			};
+
+		case actionType.LOGOUT_USER_SUCCESS:
+			return {
+				...state,
+				mainPropertyId: null,
+			};
 		default:
 			return state;
 	}

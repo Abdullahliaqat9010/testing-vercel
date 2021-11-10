@@ -18,12 +18,23 @@ export const signupAgent = (userData): Promise<any> => {
 	});
 };
 
-export const contactAgency = (contactInfo) => {
+export const contactAgency = (contactInfo, locale = "nl") => {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.post("agency/contact", {
-				...contactInfo,
-			});
+			await axios.post(
+				"agency/contact",
+				{
+					...contactInfo,
+					propertyId: contactInfo?.propertyId
+						? parseInt(`${contactInfo?.propertyId}`)
+						: contactInfo?.propertyId,
+				},
+				{
+					params: {
+						locale,
+					},
+				}
+			);
 			res("");
 		} catch (error) {
 			rej(error);
