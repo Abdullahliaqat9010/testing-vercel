@@ -70,7 +70,10 @@
   "label.ouwner": "Propriétaire",
   "button.agency-owner":"Owner",
   "span.house-beds":"Slaapkamers ",
-  "span.house-baths":"Badkamers"
+  "span.house-baths":"Badkamers",
+  "p.required":"Verplicht",
+  "p.invalid-email":"Ongeldig email"
+
 
 
 

@@ -42,6 +42,7 @@ import "../styles/pages/compare-agency-result.scss";
 import "../styles/pages/price-map.scss";
 import "../styles/map.scss";
 import "../styles/pages/competitive-report.scss";
+import moment from "moment";
 
 const refreshAccessToken = (): Promise<void> => {
 	return new Promise(async (res, rej) => {
@@ -149,6 +150,13 @@ const MyApp = ({ Component, pageProps }) => {
 			console.log(error);
 		}
 	};
+
+
+	useEffect(() => {
+		moment.locale(router.locale);
+		[router.locale]
+
+	},[]);
 
 	useEffect(() => {
 		const access_token = window.localStorage.getItem("access_token");

@@ -44,7 +44,7 @@ const PropertyContainer = ({
 				<div className="short-desc">
 					<div className="time">
 						<span>
-							{t("desc.sold")} {moment(property.sold_rent_date).fromNow()}{" "}
+							{t("desc.sold")} {moment(property.sold_rent_date).locale('nl').fromNow()}{" "}
 						</span>
 						{property.agency?.company_name && (
 							<Link href={`/agency/${property.agency?.id}`} locale={locale}>
@@ -53,9 +53,19 @@ const PropertyContainer = ({
 						)}
 					</div>
 					<div className="house-info">
-						<span>{property?.property?.live_area}m²</span>
-						<span>{property?.property?.bathrooms}{t("span.house-baths")}</span>
-						<span>{property?.property?.bedrooms} {t("span.house-beds")}</span>
+						{property?.property?.live_area && (
+							<span>{`${property?.property?.live_area} m²`}</span>
+						)}
+						{property?.property?.bathrooms && (
+							<span>
+								{`${property?.property?.bathrooms} ${t("span.house-baths")}`}
+							</span>
+						)}
+						{property?.property?.bedrooms && (
+							<span>
+								{`${property?.property?.bedrooms} ${t("span.house-beds")}`}
+							</span>
+						)}
 					</div>
 				</div>
 				<Link href={`/property/${property.id}`} locale={locale}>

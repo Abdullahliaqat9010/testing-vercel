@@ -145,8 +145,8 @@ const FirstBlock = ({
 								<span>{t("span.schedule")}</span>
 							</div>
 							<div className="contact-agency-list__info">
-								<span>{"Mon-Fri: 9:30AM-12:30PM, 1:30PM-5PM"}</span>
-							</div>
+								<span> {t("span.Mon-Fri")}  {": 9:30AM-12:30PM, 1:30PM-5PM"}</span>
+							</div>	
 						</div>
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
@@ -185,6 +185,7 @@ const FirstBlock = ({
 					</div>
 					<div className="agency-info__about_us">
 						<h3>{t("h3.about-agency")}</h3>
+						
 						<p>{currentAgency?.description}</p>
 						{/* <span className="show-more">
 							<img src={ArrowImage} alt="ArrowImage" />
