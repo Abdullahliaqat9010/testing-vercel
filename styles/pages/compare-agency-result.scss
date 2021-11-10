@@ -43,7 +43,7 @@
 
       .search-form {
         flex: 2;
-        
+
         input {
           height: 50px;
           box-sizing: border-box;
@@ -109,7 +109,6 @@
               }
               .dv-star-rating {
                 margin: 0px 5px;
-               
               }
             }
             .rating {
@@ -290,7 +289,83 @@
     }
   }
 }
-
+@media (min-width: 320px) {
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .image-bassicInfo
+    .agency-basicInfo
+    .agency-name {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 22px;
+    margin: 5px 0px;
+    margin-top: 10px;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .sold-by-agency
+    .no-sold-properties {
+    font-size: 10px;
+    line-height: 19px;
+    color: var(--colorGrayTwo);
+    padding-left: 20px;
+  }
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .aency-detail-container
+  .agency-detail-container-left {
+  /* width: 50%; */
+  font-size: 18px;
+  display: -moz-box;
+  display: flex;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: row;
+  margin-top: 22px;
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .aency-detail-container
+  .agency-detail-container-left {
+  /* width: 50%; */
+  font-size: 18px;
+  display: -moz-box;
+  display: flex;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: column;
+  margin-top: 22px;
+  width: 100%;
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .aency-detail-container
+  .agency-detail-container-left
+  .agency-description {
+  font-size: 15px;
+  line-height: 19px;
+  margin: 20px 0px;
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .aency-detail-container
+  .agency-detail-container-left
+  Button {
+  border-radius: 8px;
+  width: 100%;
+  height: 50px;
+  padding: 14px 20px;
+  margin: 20px 0px;
+}
 @media (min-width: 320px) and (max-width: 767px) {
   .compare-agency-result .agency-result-container .result-agency {
     align-self: center;
@@ -305,12 +380,13 @@
       line-height: 33px;
       margin: 20px 0px;
     }
-   
+
     .search-form {
-      
       flex: 2;
+      flex-direction: column;
       input {
         height: 50px;
+        width: 100%;
         box-sizing: border-box;
         border-radius: 8px;
         border: 1px solid var(--colorGray);
@@ -321,11 +397,12 @@
       }
       Button {
         height: 50px;
+        width: 100%;
         justify-content: center;
         align-items: center;
         padding: 14px 20px;
         border-radius: 8px;
-        margin: 0px 10px;
+        margin: 0px 0px;
         margin-top: 10px;
       }
     }
@@ -338,7 +415,6 @@
     img {
     border: 1px solid var(--bg-blue);
     width: 150px;
-    height: 33px;
     border-radius: 8px;
   }
 
@@ -347,16 +423,16 @@
     .agency-container
     .agency
     .sold-by-agency {
-      border-left: 1px solid rgba(56, 113, 239, 0.25);
-      display: -moz-box;
-      display: flex;
-      -moz-box-orient: horizontal;
-      -moz-box-direction: normal;
-      flex-direction: row;
-      -moz-box-pack: justify;
-      justify-content: space-between;
-      padding: 0px 10px 0px 0px;
-      width: 50%;
+    border-left: 1px solid rgba(56, 113, 239, 0.25);
+    display: -moz-box;
+    display: flex;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    flex-direction: row;
+    -moz-box-pack: justify;
+    justify-content: space-between;
+    padding: 0px 10px 0px 0px;
+    width: 50%;
   }
   .compare-agency-result
     .agency-result-container
@@ -414,21 +490,175 @@
     justify-content: center;
     align-items: center;
   }
-  .compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo .rating-row .dv-star-rating {
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .image-bassicInfo
+    .agency-basicInfo
+    .rating-row
+    .dv-star-rating {
     margin: 0px 5px;
-	
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .agency
+    .image-bassicInfo
+    .agency-basicInfo {
+    margin-left: 9px;
+    height: 82px;
+    display: -moz-box;
+    display: flex;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    flex-direction: column;
+    -moz-box-pack: center;
+    margin-top: 85px;
+    position: absolute;
+    justify-content: center;
+  }
 }
-.compare-agency-result .agency-result-container .agency-container .agency .image-bassicInfo .agency-basicInfo {
-  margin-left: 9px;
-  height: 82px;
+
+.agency-map-container {
+  display: none;
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .agency
+  .sold-by-agency
+  .no-sold-properties {
+  font-size: 10px;
+  line-height: 19px;
+  color: var(--colorGrayTwo);
+  padding-left: 20px;
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .aency-detail-container
+  .agency-detail-container-left {
+  /* width: 50%; */
+  font-size: 18px;
+  display: -moz-box;
+  display: flex;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: row;
+  margin-top: 22px;
+}
+.compare-agency-result
+  .agency-result-container
+  .agency-container
+  .aency-detail-container
+  .agency-detail-container-left {
+  /* width: 50%; */
+  font-size: 20px;
   display: -moz-box;
   display: flex;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
   flex-direction: column;
-  -moz-box-pack: center;
-  margin-top: 50px;
-  position: absolute;
-  justify-content: center;
+  margin-top: 22px;
+  width: 100%;
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    .agency-description {
+    font-size: 15px;
+    line-height: 19px;
+    margin: 20px 0px;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    Button {
+    border-radius: 8px;
+    width: 100%;
+    height: 50px;
+    padding: 14px 20px;
+    margin: 20px 0px;
+  }
 }
+@media (max-width: 575.98px) {
+  .search-form {
+    flex: 2;
+    flex-direction: column;
+    input {
+      height: 50px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid var(--colorGray);
+      color: var(--mainColor);
+      font-size: 16px;
+      padding-left: 10px;
+      line-height: 22px;
+    }
+    Button {
+      height: 50px;
+      justify-content: center;
+      align-items: center;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin: 0px 10px;
+      margin-top: 10px;
+    }
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left {
+    /* width: 50%; */
+    font-size: 20px;
+    display: -moz-box;
+    display: flex;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    flex-direction: column;
+    margin-top: 22px;
+    width: 100%;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    .agency-description {
+    font-size: 15px;
+    line-height: 19px;
+    margin: 20px 0px;
+  }
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    Button {
+    border-radius: 8px;
+    width: 100%;
+    height: 50px;
+    padding: 14px 20px;
+    margin: 20px 0px;
+  }
+}
+@media (min-width: 768px) {
+ 
+  .compare-agency-result
+    .agency-result-container
+    .agency-container
+    .aency-detail-container
+    .agency-detail-container-left
+    Button {
+    border-radius: 8px;
+    width: 50%; 
+    height: 50px;
+    padding: 14px 20px;
+    margin: auto;
+  }
 }
