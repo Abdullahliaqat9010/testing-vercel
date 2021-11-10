@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
 
 import { Button, Modal } from "react-bootstrap";
 import { RootState } from "../../../types/state";
@@ -15,7 +16,7 @@ const ContactAgentModal = ({
 	properties = [],
 	agencyOwner,
 	agencyName,
-	agencyId = 3,
+	agencyId,
 }) => {
 	const { t } = useTranslation("dashboard-page");
 	const { t: t2 } = useTranslation("common");
@@ -24,6 +25,8 @@ const ContactAgentModal = ({
 	);
 	const [isSuccessModalVisible, setIsSuccessModalVisible] =
 		useState<boolean>(false);
+
+	const { locale } = useRouter();
 
 	const validationSchema = Yup.object().shape({
 		fullname: Yup.string()
@@ -45,10 +48,13 @@ const ContactAgentModal = ({
 	const sendToAgency = (contactInfo) => {
 		return new Promise(async (res, rej) => {
 			try {
-				await contactAgency({
-					...contactInfo,
-					agencyId, // hard coded for now
-				});
+				await contactAgency(
+					{
+						...contactInfo,
+						agencyId,
+					},
+					locale
+				);
 				res("");
 				setIsSuccessModalVisible(true);
 			} catch (error) {
@@ -64,7 +70,7 @@ const ContactAgentModal = ({
 					<Modal.Header closeButton>
 						<Modal.Title className="d-flex flex-column">
 							{t("button.contact")}{" "}
-							{agencyOwner?.firstname?? "" + " " + agencyOwner?.lastname?? ""}
+							{agencyOwner?.firstname ?? "" + " " + agencyOwner?.lastname ?? ""}
 							<p>{agencyName}</p>
 						</Modal.Title>
 					</Modal.Header>
@@ -87,7 +93,12 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="fullname">
 											{t("label.fullname")}
 										</label>
-										<Field className="form-input" name="fullname" type="text" />
+										<Field
+											disabled
+											className="form-input"
+											name="fullname"
+											type="text"
+										/>
 										<ErrorMessage
 											className="form-error"
 											component="div"
@@ -98,7 +109,7 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="phone">
 											{t("label.phone")}
 										</label>
-										<Field className="form-input" name="phone" type="number" />
+										<Field className="form-input" name="phone" type="text" />
 										<ErrorMessage
 											className="form-error"
 											component="div"
@@ -109,7 +120,12 @@ const ContactAgentModal = ({
 										<label className="form-label" htmlFor="email">
 											{t("label.email")}
 										</label>
-										<Field className="form-input" name="email" type="email" />
+										<Field
+											disabled
+											className="form-input"
+											name="email"
+											type="email"
+										/>
 										<ErrorMessage
 											className="form-error"
 											component="div"

@@ -38,6 +38,7 @@ export const getLeadProperties = (): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: properties } = await axios.get(`lead/properties`);
+			console.log(properties, "properties");
 			if (properties && properties.length > 0) {
 				res(properties);
 			} else {

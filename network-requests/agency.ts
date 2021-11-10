@@ -18,12 +18,20 @@ export const signupAgent = (userData): Promise<any> => {
 	});
 };
 
-export const contactAgency = (contactInfo) => {
+export const contactAgency = (contactInfo, locale = "nl") => {
 	return new Promise(async (res, rej) => {
 		try {
-			await axios.post("agency/contact", {
-				...contactInfo,
-			});
+			await axios.post(
+				"agency/contact",
+				{
+					...contactInfo,
+				},
+				{
+					params: {
+						locale,
+					},
+				}
+			);
 			res("");
 		} catch (error) {
 			rej(error);
@@ -163,10 +171,16 @@ export const updateAgencyProfile = (profile) => {
 	});
 };
 
-export const getAgencies = (): Promise<any> => {
+export const getAgencies = (
+	propertyId: number,
+	page: number,
+	limit: number
+): Promise<any> => {
 	return new Promise(async (res, rej) => {
 		try {
-			const { data: agencies } = await axios.get("agency");
+			const { data: agencies } = await axios.get("agency", {
+				params: { propertyId, page, limit },
+			});
 			res(agencies);
 		} catch (error) {
 			rej(error);

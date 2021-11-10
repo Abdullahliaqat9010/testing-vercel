@@ -205,6 +205,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				properties={properties}
 				agencyOwner={agency?.agent?.user}
 				agencyName={agency?.company_name}
+				agencyId={agency?.id}
 			/>
 			<div
 				className="short-info d-flex align-items-center"

@@ -1,161 +1,189 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { contactAgency } from "../../network-requests";
 import { RootState } from "../../types/state";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import * as Yup from "yup";
+import { notification } from "antd";
+import { useRouter } from "next/router";
 
-const ContactAgencyBlock = ({ agencyInfo }) => {
+const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 	const { t } = useTranslation("dashboard-page");
+	const { t: t2 } = useTranslation("common");
 	const dispatch = useDispatch();
-	const [validated, setValidated] = useState(false);
+	const router = useRouter();
 
-	const { firstname, lastname, email, phone_number } = useSelector(
+	const { firstname, lastname, email, phone_number, auth } = useSelector(
 		(state: RootState) => state.userInfo
 	);
 
-	const [data, setData] = useState({
-		fullName: firstname + " " + lastname,
-		phone: phone_number,
-		email: email,
-		desc: t("placeholder.message"),
-		selectedProperty: agencyInfo?.property?.search_address?? "",
-		freeCharge: false,
+	const validationSchema = Yup.object().shape({
+		fullname: Yup.string()
+			.min(2, "Too Short!")
+			.max(50, "Too Long!")
+			.required("Required"),
+		email: Yup.string().email("Invalid email").required("Required"),
+		phone: Yup.string().required(),
+		message: Yup.string().required("Required"),
+		free_evaluated: Yup.bool(),
 	});
 
-	// useEffect(() => {
-	// 	if (properties.length > 0) {
-	// 		setData({ ...data, selectedProperty: properties[0].search_address });
-	// 	}
-	// }, [properties]);
-
-	const handleOnChange = (el: React.ChangeEvent<HTMLInputElement>) => {
-		setData({
-			...data,
-			[el.target.name]:
-				el.target.name === "freeCharge" ? el.target.checked : el.target.value,
+	const sendToAgency = (contactInfo, actions) => {
+		return new Promise(async (res, rej) => {
+			try {
+				await contactAgency(
+					{
+						...contactInfo,
+						agencyId: agencyInfo?.id,
+					},
+					router.locale
+				);
+				actions?.resetForm();
+				notification.success({
+					placement: "bottomRight",
+					message: "Success",
+					description: `Successfully contacted the agency ${agencyInfo?.company_name} for the your property`,
+				});
+				res("");
+				// setIsSuccessModalVisible(true);
+			} catch (error) {
+				rej(error);
+			}
 		});
-	};
-
-	const validation = () => {
-		return (
-			data?.fullName?.length > 0 &&
-			data?.phone?.length > 0 &&
-			data?.email?.length > 0 &&
-			data?.selectedProperty?.length > 0
-		);
-	};
-
-	const sendToAgency = async () => {
-		if (validation()) {
-			const dataInfo = {
-				agentId: agencyInfo?.agency?.id,
-				phone: data.phone,
-				message: data.desc.length > 0 ? data.desc : t("placeholder.message"),
-				propertyId: agencyInfo?.property?.id,
-				free_evaluated: data.freeCharge,
-			};
-			await contactAgency(dataInfo);
-		}
-
-		setValidated(true);
 	};
 
 	return (
 		<div className="contact-agency-block contact-aagency ">
 			<div className="contact-agency">
 				<h4>{t("title.contact-agency")}</h4>
-				 <p>{agencyInfo?.agency?.company_name?? ""}</p> 
-				<Form noValidate validated={validated}>
-					<Form.Group controlId="fullName">
-						<Form.Control
-							required
-							onChange={handleOnChange}
-							name="fullName"
-							type="text"
-							placeholder={t("placeholder.enter-fullname")}
-							value={data.fullName}
-						/>
-						<Form.Control.Feedback type="invalid">
-							{t("error.required")}
-						</Form.Control.Feedback>
-					</Form.Group>
+				<p>{agencyInfo?.agency?.company_name ?? ""}</p>
+				<Formik
+					initialValues={{
+						fullname: `${firstname} ${lastname}`,
+						phone: phone_number ? phone_number : "",
+						email,
+						message: t("placeholder.message"),
+						free_evaluated: true,
+						propertyId: properties.length > 0 ? properties[0]?.id : "",
+					}}
+					onSubmit={sendToAgency}
+					validationSchema={validationSchema}
+				>
+					{({ isSubmitting }) => (
+						<Form>
+							<div className="d-flex flex-column form-input-block">
+								<label className="form-label" htmlFor="fullname">
+									{t("label.fullname")}
+								</label>
+								<Field
+									disabled
+									className="form-input"
+									name="fullname"
+									type="text"
+								/>
+								<ErrorMessage
+									className="form-error"
+									component="div"
+									name="fullname"
+								/>
+							</div>
+							<div className="d-flex flex-column form-input-block">
+								<label className="form-label" htmlFor="phone">
+									{t("label.phone")}
+								</label>
+								<Field className="form-input" name="phone" type="text" />
+								<ErrorMessage
+									className="form-error"
+									component="div"
+									name="phone"
+								/>
+							</div>
+							<div className="d-flex flex-column form-input-block">
+								<label className="form-label" htmlFor="email">
+									{t("label.email")}
+								</label>
+								<Field
+									disabled
+									className="form-input"
+									name="email"
+									type="email"
+								/>
+								<ErrorMessage
+									className="form-error"
+									component="div"
+									name="email"
+								/>
+							</div>
+							<div className="d-flex flex-column form-input-block">
+								<label className="form-label" htmlFor="message">
+									{t("label.message")}
+								</label>
+								<Field
+									className="form-input"
+									name="message"
+									type="text"
+									as="textarea"
+									style={{ height: "auto" }}
+									rows={5}
+								/>
+								<ErrorMessage
+									className="form-error"
+									component="div"
+									name="message"
+								/>
+							</div>
+							{auth && (
+								<div className="d-flex flex-column form-input-block">
+									<label className="form-label" htmlFor="propertyId">
+										{t("label.select")}
+									</label>
+									<Field
+										className="custom-select"
+										name="propertyId"
+										type="text"
+										as="select"
+										style={{ paddingRight: 40 }}
+									>
+										{properties.map((property) => (
+											<option key={property?.id} value={property?.id}>
+												{property?.property?.search_address}
+											</option>
+										))}
+									</Field>
+									<ErrorMessage
+										className="form-error"
+										component="div"
+										name="propertyId"
+									/>
+								</div>
+							)}
 
-					<Form.Group controlId="phone">
-						<Form.Control
-							required
-							onChange={handleOnChange}
-							name="phone"
-							type="text"
-							placeholder={t("placeholder.enter-phone")}
-							value={data.phone}
-						/>
-						<Form.Control.Feedback type="invalid">
-							{t("error.required")}
-						</Form.Control.Feedback>
-					</Form.Group>
-
-					<Form.Group controlId="email">
-						<Form.Control
-							required
-							onChange={handleOnChange}
-							name="email"
-							type="email"
-							placeholder={t("placeholder.enter-email")}
-
-							value={data.email}
-						/>
-						<Form.Control.Feedback type="invalid">
-							{t("error.required")}
-						</Form.Control.Feedback>
-					</Form.Group>
-
-					<Form.Group controlId="desc">
-						<Form.Control
-							placeholder={t("placeholder.message")}
-							value={data.desc}
-							as="textarea"
-							rows={5}
-							name="desc"
-							onChange={handleOnChange}
-						/>
-					</Form.Group>
-					<Form.Group controlId="select-property">
-						<Form.Control
-							onChange={handleOnChange}
-							onSelect={(e) => console.log(e)}
-							name="selectedProperty"
-							className="custom-select"
-							as="select"
-							value={data.selectedProperty}
-						>
-							<option >{agencyInfo?.property?.search_address ?? ""}</option>
-							
-						</Form.Control>
-					</Form.Group>
-					<Form.Group controlId="freeCharge">
-						<Form.Check
-							name="freeCharge"
-							onChange={handleOnChange}
-							type="checkbox"
-							label={t("label.free-charge")}
-							checked={data.freeCharge}
-						/>
-					</Form.Group>
-					<div>
-						<Button  className=" confirm-btn" onClick={sendToAgency}>
-							{t("button.confirm")}
-						</Button>
-					</div>
-				</Form>
+							<div className="d-flex flex-row">
+								<Field
+									name="free_evaluated"
+									type="checkbox"
+									className="mr-2 mt-1"
+								/>
+								<label className="label-terms-condition">
+									{t("label.free-charge")}
+								</label>
+								<ErrorMessage
+									className="form-error"
+									component="div"
+									name="free_evaluated"
+								/>
+							</div>
+							<div className="modal-btn-group mt-4">
+								<Button className="confirm" type="submit">
+									{isSubmitting ? t2("text.loading") : t("button.confirm")}
+								</Button>
+							</div>
+						</Form>
+					)}
+				</Formik>
 			</div>
-			{/* <div className="contact-agency-block__desc">
-				<p>
-					{t("p.desc-part1")} <span className="link">{t("span.link1")}</span>{" "}
-					{t("p.desc-part2")}&nbsp;
-					<span className="link">{t("span.link2")}</span> {t("p.desc-part3")}
-				</p>
-			</div> */}
 		</div>
 	);
 };
