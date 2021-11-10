@@ -19,6 +19,8 @@ const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 		(state: RootState) => state.userInfo
 	);
 
+	console.log(agencyInfo, "agencyInfo");
+
 	const validationSchema = Yup.object().shape({
 		fullname: Yup.string()
 			.min(2, "Too Short!")
