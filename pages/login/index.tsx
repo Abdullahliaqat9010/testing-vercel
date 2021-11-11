@@ -25,7 +25,7 @@ const LoginPage = () => {
 	const { locale } = router;
 
 	const validationSchema = Yup.object().shape({
-		email: Yup.string().email("Invalid email").required(t("p.required")),
+		email: Yup.string().email(t("p.invalid-email")).required(t("p.required")),
 		password: Yup.string().required(t("p.required")),
 	});
 

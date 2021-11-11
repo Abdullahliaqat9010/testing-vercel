@@ -64,7 +64,8 @@ const SignupForm = ({
 			),
 		confirm_password: Yup.string().test(
 			"passwords-match",
-			"Passwords must match",
+			t("label.password-match"),
+
 			function (value) {
 				return this.parent.password === value;
 			}
