@@ -124,6 +124,13 @@
   "placeholder.epc": "Voer in",
   "message.add-property-success": "Woning is succesvol toegevoegd",
   "button.add-property": "Woning toevoegen",
-  "tooltip.renovation":"Het % van uw woning dat gerenoveerd is."
+  "tooltip.renovation":"Het % van uw woning dat gerenoveerd is.",
+  "label.password-match":"Wachtwoorden moeten overeenkomen ",
+  "label.password-message":"Moet tenminste 8 tekens bevatten, een hoofdletter, een kleine letter, een nummer, en een speciaal karakter. ",
+  "error.t-c": "U moet het privacybeleid en de algemene voorwaarden accepteren",
+  "label.required":"Verplicht ",
+  "label.invalid-email":"Ongeldige email "
+
+
 
 }

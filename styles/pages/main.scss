@@ -1334,6 +1334,16 @@
 			background-color: var(--colorWhite);
 			color: var(--mainColor);
 		}
+		
+		.main-page .autocomplete-list {
+			position: inherit;
+			background-color: var(--colorWhite);
+			z-index: 20;
+			list-style-type: none;
+			padding: unset;
+			-webkit-box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+			box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+		}
 		.image-carousel {
 			img {
 				height: 330px;
@@ -1413,6 +1423,15 @@
 			background-color: var(--colorWhite);
 			color: var(--mainColor);
 		}
+		.main-page .autocomplete-list {
+			position: inherit;
+			background-color: var(--colorWhite);
+			z-index: 20;
+			list-style-type: none;
+			padding: unset;
+			-webkit-box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+			box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+		}
 		.create-personal-account {
 			.title-in-mobile {
 				margin-top: 60px;
@@ -1431,7 +1450,7 @@
 
 			&__popup {
 				left: calc(50% - 172px);
-				top: 70%;
+				 top: 50%;
 				padding: 30px;
 				width: 343px;
 
@@ -1893,6 +1912,15 @@
 		background-color: var(--colorWhite);
 		color: var(--mainColor);
 	}
+	.main-page .autocomplete-list {
+		position: inherit;
+		background-color: var(--colorWhite);
+		z-index: 20;
+		list-style-type: none;
+		padding: unset;
+		-webkit-box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+		box-shadow: 0 4px 12px rgb(56 114 239 / 30%);
+	}
 	.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
 		width: 150px;
 	}
@@ -1900,7 +1928,7 @@
 		 min-height: inherit; 
 	}
 	.botton-syicky {
-		/* position: fixed; */
+		 position: relative; 
 		bottom: 0px;
 		width: 100%;
 	}
