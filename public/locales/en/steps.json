@@ -126,7 +126,12 @@
   "message.add-property-success": "Property has been added successfully",
   "button.add-property": "Adding property",
   "tooltip.renovation":"the % of your property that was renovated.",
-  "button.SE":"SE"
+  "button.SE":"SE",
+  "label.password-match":"Passwords must match",
+  "label.password-message": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Characte",  
+  "error.t-c": "You must accept Privacy Policy and Terms & Conditions",
+  "label.required":"Required",
+  "label.invalid-email":"Invalid email"
 
 
 

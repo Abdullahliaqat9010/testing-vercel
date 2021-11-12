@@ -241,20 +241,7 @@ const StepThree = ({ setStep }) => {
           <InputGroup>
             <Form.Label className="renovation-year-label">
               {t("label.renovated")}
-              <span className="position-relative">
-              <OverlayTrigger
-                overlay={
-                  <Tooltip id="tooltip-info">{t("tooltip.renovation")}</Tooltip>
-                }
-              >
-                <img
-                  className="tooltip-info"
-                  key="tooltip-info"
-                  src={TooltipIcon}
-                  alt="TooltipIcon"
-                />
-              </OverlayTrigger>
-              </span>
+             
             </Form.Label>
             <div className="input-block d-flex flex-column">
               <Form.Control
@@ -276,7 +263,20 @@ const StepThree = ({ setStep }) => {
           <InputGroup>
             <Form.Label className="d-flex renovation-level-label">
               {t("label.renovation-level")}
-             
+              <span className="position-relative">
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id="tooltip-info">{t("tooltip.renovation")}</Tooltip>
+                }
+              >
+                <img
+                  className="tooltip-info"
+                  key="tooltip-info"
+                  src={TooltipIcon}
+                  alt="TooltipIcon"
+                />
+              </OverlayTrigger>
+              </span>
             </Form.Label>
 
             <div className="input-block">

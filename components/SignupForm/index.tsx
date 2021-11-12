@@ -42,14 +42,14 @@ const SignupForm = ({
 		firstname: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
-			.required("Required"),
+			.required(t("label.required")),
 		lastname: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
-			.required("Required"),
+			.required(t("label.required")),
 		email: Yup.string()
-			.email("Invalid email")
-			.required("Required")
+			.email(t("label.invalid-email"))
+			.required(t("label.required"))
 			.test(
 				"checkForDuplicate",
 				"email already exists",
@@ -57,21 +57,24 @@ const SignupForm = ({
 			),
 		phone_number: Yup.string().optional(),
 		password: Yup.string()
-			.required("Required")
+			.required(t("label.required"))
 			.matches(
 				/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-				"Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+				t("label.password-message")
+				// "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
 			),
 		confirm_password: Yup.string().test(
 			"passwords-match",
-			"Passwords must match",
+			t("label.password-match"),
+
 			function (value) {
 				return this.parent.password === value;
 			}
 		),
 		t_c: Yup.bool().oneOf(
 			[true],
-			"You must accept Privacy Policy and Terms & Conditions"
+			t("error.t-c")
+			// "You must accept Privacy Policy and Terms & Conditions"
 		),
 	});
 	const createAccount = t("button.create-account").split(" ");

@@ -1334,6 +1334,8 @@
 			background-color: var(--colorWhite);
 			color: var(--mainColor);
 		}
+		
+	
 		.image-carousel {
 			img {
 				height: 330px;
@@ -1413,6 +1415,7 @@
 			background-color: var(--colorWhite);
 			color: var(--mainColor);
 		}
+		
 		.create-personal-account {
 			.title-in-mobile {
 				margin-top: 60px;
@@ -1431,7 +1434,7 @@
 
 			&__popup {
 				left: calc(50% - 172px);
-				top: 70%;
+				 top: 50%;
 				padding: 30px;
 				width: 343px;
 
@@ -1893,6 +1896,7 @@
 		background-color: var(--colorWhite);
 		color: var(--mainColor);
 	}
+	
 	.main-page .steps-block__main #number, .main-page .steps-block__main #zip {
 		width: 150px;
 	}
@@ -1900,7 +1904,7 @@
 		 min-height: inherit; 
 	}
 	.botton-syicky {
-		/* position: fixed; */
+		 position: relative; 
 		bottom: 0px;
 		width: 100%;
 	}
