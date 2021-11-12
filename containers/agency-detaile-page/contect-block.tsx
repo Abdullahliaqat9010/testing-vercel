@@ -15,7 +15,9 @@ const ContactFormContainer = styled.div`
 	border-radius: 10px;
 	align-items: center;
 	padding: 30px;
-	width: 100%;
+	width:100%;
+	position: sticky;
+	top: 0px;
 `;
 
 const Headline = styled.div`
