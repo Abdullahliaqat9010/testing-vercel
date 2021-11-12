@@ -20,6 +20,9 @@
 	"error.password-rules": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
 	"error.password-mismatch": "passwords-match",
 	"error.confirm-password": "Passwords must match",
-	"p.required":"Required"
+	"p.required":"Required",
+	"p.invalid-email":"Invalid email",
+	"p.invalid-email-pass":"Invalid email or password"
+
 
 }

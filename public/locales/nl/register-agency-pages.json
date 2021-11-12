@@ -27,12 +27,12 @@
     "button.normal": "Normaal",
     "p.error":"Verplicht",
     "label.zip":"Postcode ligt tussen 1000 en 9999",
-    "label.password-match":"wachtwoorden moeten overeenkomen ",
+    "label.password-match":"Wachtwoorden moeten overeenkomen ",
     "label.password-message":"Moet tenminste 8 tekens bevatten, een hoofdletter, een kleine letter, een nummer, en een speciaal karakter. ",
     "button.renovate": "Te renoveren",
     "knop.uniek": "Uniek",
     "desc.finalized-estimation": "U moet een account aanmaken of een bestaand account gebruiken om het te bekijken.",
-    "desc.strongly-recommend": "We raden ten zeerste aan om een sterk wachtwoord te gebruiken, met ten minste één speciaal teken, cijfer en hoofdletter.",
+    "desc.strongly-recommend": "We raden aan om een sterk wachtwoord te gebruiken, met ten minste één symbool, letter, hoofdletter en cijfer. ",
     "label.attic": "Zolder",
     "label.bathrooms": "Badkamers",
     "label.slaapkamers": "Kamers",
@@ -81,8 +81,9 @@
     "error.zip-validation": "Postcode ligt tussen 1000 en 9999",
   "error.t-c": "U moet het privacybeleid en de algemene voorwaarden accepteren",
   "error.email-exists": "e-mail bestaat al",
-  "error.invalid-email": "Ongeldig e-mail",
-  "p.title":"Professioneel account aanmaken"
+  "error.invalid-email": "Ongeldig email",
+  "p.title":"Professioneel account aanmaken",
+  "label.pass-match":"wachtwoorden moeten overeenkomen"
 
 
 

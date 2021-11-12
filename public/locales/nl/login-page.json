@@ -20,7 +20,10 @@
 	"error.password-rules": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
 	"error.password-mismatch": "passwords-match",
 	"error.confirm-password": "Passwords must match",
-	"p.required":"Verplicht"
+	"p.required":"Verplicht",
+	"p.invalid-email":"Ongeldig email",
+	"p.invalid-email-pass":"Ongeldige email of wachtwoord"
+
 
 
 }

@@ -72,13 +72,14 @@
   "label.terms": "Terms and conditions",
   "label.and": " and ",
   "label.privacy": "Privacy Policy",
-  "label.password-match":"Wachtwoorden moeten overeenkomen",
+  "label.password-match":"Passwords must match",
   "error.zip-validation": "Zip must be greater than or equal to 1000",
   "error.t-c": "You must accept Privacy Policy and Terms & Conditions",
   "error.email-exists": "email already exists",
   "error.invalid-email": "Invalid email",
   "p.title":"Create professional account",
-  "label.password-message": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Characte"
+  "label.password-message": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Characte",
+  "label.pass-match":"Passwords must match"
 
 
 

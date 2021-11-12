@@ -80,7 +80,9 @@
   "error.zip-validation": "Zip must be greater than or equal to 1000",
   "error.t-c": "Vous devez accepter la politique de confidentialité et les conditions générales",
   "error.email-exists": "l'email existe déjà",
-  "error.invalid-email": "Email invalide"
+  "error.invalid-email": "Email invalide",
+  "label.pass-match":"wachtwoorden moeten overeenkomen"
+
 
 
 

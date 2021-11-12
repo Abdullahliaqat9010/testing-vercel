@@ -1,7 +1,8 @@
 import { takeLatest, put } from "redux-saga/effects";
 
 import * as actionType from "../actions/actionTypes";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import { parseJwt } from "../utils";
 import axios from "axios";
 
@@ -173,6 +174,8 @@ function* signupUserError(error: string) {
 }
 
 function* loginUserRequest({ payload }: any) {
+	const { t } = useTranslation("login-page");
+
 	const user = {
 		email: payload.userData,
 		password: payload.password,
@@ -185,7 +188,7 @@ function* loginUserRequest({ payload }: any) {
 		yield loginUserSuccess(data);
 		window.location.href = "/dashboard";
 	} catch (error) {
-		yield loginUserError("Invalid email or password");
+		yield loginUserError(t("p.invalid-email-pass"));
 	}
 }
 

@@ -16,6 +16,7 @@ import { getAgencyProfile, login } from "../../network-requests";
 import ArrowLink from "../../assets/images/arrow-blue.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
 import LockIcon from "../../assets/images/lock-icon.svg";
+import { password_regrex } from "../../constants";
 
 const LoginPage = () => {
 	const { t } = useTranslation("login-page");
@@ -25,8 +26,12 @@ const LoginPage = () => {
 	const { locale } = router;
 
 	const validationSchema = Yup.object().shape({
-		email: Yup.string().email("Invalid email").required(t("p.required")),
-		password: Yup.string().required(t("p.required")),
+		email: Yup.string().email(t("p.invalid-email")).required(t("p.required")),
+		password: Yup.string().required(t("p.required")).matches(
+			password_regrex.expression,
+			t("label.password-message")
+			// "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+		),
 	});
 
 	const handleLogin = ({ email, password }, actions) => {

@@ -15,7 +15,9 @@ const ContactFormContainer = styled.div`
 	border-radius: 10px;
 	align-items: center;
 	padding: 30px;
-	width: 100%;
+	width:100%;
+	position: sticky;
+	top: 0px;
 `;
 
 const Headline = styled.div`
@@ -45,12 +47,13 @@ const ContactAgentModal = ({ isLimited, agencyName, agencyId = 3 }) => {
 		fullname: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
-			.required("Required"),
-		email: Yup.string().email("Invalid email").required("Required"),
+			.required(t("p.required")),
+		email: Yup.string().email("p.invalid-email").required("p.required"),
 		phone: Yup.string().required(),
-		message: Yup.string().required("Required"),
+		message: Yup.string().required("p.required"),
 		free_evaluated: Yup.bool(),
 	});
+	
 
 	const { locale } = useRouter();
 
