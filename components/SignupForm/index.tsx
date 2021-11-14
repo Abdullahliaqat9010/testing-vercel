@@ -6,6 +6,7 @@ import axios from "axios";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { password_regrex } from "../../constants";
 
 const SignupForm = ({
 	onRegister,
@@ -56,13 +57,11 @@ const SignupForm = ({
 				checkForDuplicateEmail
 			),
 		phone_number: Yup.string().optional(),
-		password: Yup.string()
-			.required(t("label.required"))
-			.matches(
-				/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-				t("label.password-message")
-				// "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-			),
+		password: Yup.string().required(t("label.required")).matches(
+			password_regrex.expression,
+			t("label.password-message")
+			// "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+		),
 		confirm_password: Yup.string().test(
 			"passwords-match",
 			t("label.password-match"),
