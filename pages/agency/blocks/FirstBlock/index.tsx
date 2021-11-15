@@ -24,7 +24,7 @@ import LinkedinIcon from "../../../../assets/images/agency-page/social/linkedin-
 import ArrowImage from "../../../../assets/images/arrow-blue.svg";
 import MailIcon from "../../../../assets/images/mail-white-icon.svg";
 import noAgencyLogo from "../../../../assets/images/no-image-available.svg";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 
 const FirstBlock = ({
@@ -35,6 +35,7 @@ const FirstBlock = ({
 	properties: any[];
 }) => {
 	const { t } = useTranslation("agency-page");
+	const{t:t2} = useTranslation("agency-settings");
 
 	const [show, setShowBlock] = useState<boolean>(false);
 	const [showContactModal, setShowContactModal] = useState<boolean>(false);
@@ -44,11 +45,16 @@ const FirstBlock = ({
 	};
 	const getLanguages = (languages) => {
 		let langs = [];
+
 		for (const key in languages) {
+			console.log("data from db",key )
+
 			if (languages[key] === true) {
-				langs.push(key);
+				langs.push(t(`languages.${key}`));
 			}
 		}
+		console.log("array data",langs)
+
 		return langs.join(", ");
 	};
 
@@ -210,5 +216,18 @@ const FirstBlock = ({
 		</div>
 	);
 };
+
+export const getServerSideProps = async ({ locale }) => {
+	return {
+	  props: {
+		...(await serverSideTranslations(locale, [
+		  "agency-settings",
+		  "agency-page"
+		
+		])),
+	  },
+	};
+  };
+  
 
 export default FirstBlock;
