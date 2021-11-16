@@ -13,6 +13,8 @@ import {
 } from "react-bootstrap";
 
 import SuccessImage from "../../../../assets/images/success.png";
+import PriceGraph from "../../../../assets/images/price-graph.svg";
+import Info from "../../../../assets/images/info.svg";
 import { estimationButtonsList } from "../../../../templates/estimationButtonsList";
 
 const EstimateBlock = ({ estimation, mainProperty }) => {
@@ -94,11 +96,48 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 	};
 
 	return (
-		<div className="estimate-block">
-			<h2 className="h4">{t("title.estimated-value")}</h2>
-			<p>{mainProperty?.property?.search_address}</p>
+		<div className="estimate-block" style={{}}>
+			<div className="d-md-flex flex-row align-items-center">
+				<div style={{ fontSize: 24, fontFamily: "var(--fontNunitoBold)" }}>
+					{t("title.estimated-value")}
+				</div>
+
+				<div
+					className="ml-md-2 rounded"
+					style={{
+						fontSize: 13,
+						color: "white",
+						fontFamily: "var(--fontNunitoBold)",
+						backgroundColor: "#6C768F",
+						padding: "1px 4px",
+						width: "max-content",
+						height: "min-content",
+					}}
+				>
+					{t("p.beta")}
+				</div>
+			</div>
+			<p className="mt-1">{mainProperty?.property?.search_address}</p>
+			<div
+				style={{
+					marginBottom: 110,
+					fontSize: 16,
+					border: "1px solid #3871EF",
+					borderRadius: 8,
+					padding: 12,
+					backgroundColor: "#F9FAFF",
+				}}
+				className="d-flex flex-row"
+			>
+				<img
+					className="mr-2"
+					style={{ width: 20, marginBottom: 3 }}
+					src={Info}
+				/>
+				<div>{t("p.improve-estimation-msg")}</div>
+			</div>
 			{mainProperty?.property?.search_address && (
-				<div className="scale-block">
+				<div className="scale-block mt-4">
 					{estimation?.totalValue ? (
 						<OverlayTrigger
 							key="tooltip"
@@ -115,7 +154,8 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 								</Tooltip>
 							}
 						>
-							<div className="line" />
+							<img src={PriceGraph} style={{ width: "100%" }} />
+							{/* <div className="line" /> */}
 						</OverlayTrigger>
 					) : (
 						<Spinner animation="border" variant="primary" />
