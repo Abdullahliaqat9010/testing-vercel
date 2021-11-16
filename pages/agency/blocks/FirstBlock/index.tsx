@@ -35,7 +35,6 @@ const FirstBlock = ({
 	properties: any[];
 }) => {
 	const { t } = useTranslation("agency-page");
-	const{t:t2} = useTranslation("agency-settings");
 
 	const [show, setShowBlock] = useState<boolean>(false);
 	const [showContactModal, setShowContactModal] = useState<boolean>(false);
