@@ -44,12 +44,12 @@ const FirstBlock = ({
 	};
 	const getLanguages = (languages) => {
 		let langs = [];
-
+     console.log("All languages",languages)
 		for (const key in languages) {
 			console.log("data from db",key )
 
 			if (languages[key] === true) {
-				langs.push(t(`languages.${key}`));
+				langs.push(t(`languages.${key}`).trim());
 			}
 		}
 		console.log("array data",langs)
