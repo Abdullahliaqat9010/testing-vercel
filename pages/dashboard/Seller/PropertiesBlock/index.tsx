@@ -106,7 +106,7 @@ const PropertiesBlock = ({
 				</div>
 			)}
 
-			<div className="properties-list">
+			<div className="properties-list " style={{ height:"62rem" }}>
 				<h3 className="h5">{t("title.similar-sold-properties")}</h3>
 				<p>
 					{t("desc.we-found")} {totalSimilarProperties}{" "}

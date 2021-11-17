@@ -56,7 +56,7 @@ const FindAgentBlock = ({
 			<p>
 				{t("desc.we-found")} {totalAgencies} {t("desc.agents-near-you")}
 			</p>
-			{myAgencies.map((agency, index) => (
+			{agencies.map((agency, index) => (
 				<Agency
 					nearest={agencies[0]?.id}
 					agency={agency}

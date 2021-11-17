@@ -403,7 +403,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 								className="custom-rate"
 								renderStarIcon={(index, value) => (
 									<img
-										className=" ml-1" style= {{ verticalAlign: "text-bottom" }}
+										className=" ml-1" style= {{ verticalAlign: "text-bottom" , height: "14px", width: "14px" }}
 										src={index <= value ? RatingStar : RatingStarEmpty}
 										alt="RatingStar"
 									/>
@@ -411,7 +411,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 								starCount={5}
 								value={Number(agencyRating(agency?.rating?.rating))}
 							/>
-							<span>
+							<span className="ml-1">
 								{t("span.from")}{" "}
 								{agencyTotalUserReview(
 									agencyRating(agency?.rating?.user_ratings_total)
