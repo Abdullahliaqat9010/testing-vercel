@@ -1,8 +1,23 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { Button } from "antd";
-
+import styled from "styled-components";
 import Agency from "../../../../containers/Agency";
+
+const FindAgentMain = styled.div`
+	padding: 30px;
+	background: #fff;
+	border-radius: 10px;
+	font-familiy: var(--fontNunito);
+	p {
+		font-size: 14px;
+		line-height: 19px;
+	}
+	h3 {
+	font-familiy: var(--fontNunitoBold);
+	}
+
+`
 
 const FindAgentBlock = ({
 	mainProperty,
@@ -14,14 +29,34 @@ const FindAgentBlock = ({
 	totalAgencies,
 }) => {
 	const { t } = useTranslation("dashboard-page");
+	const myAgencies = [
+		{
+			agent : {
+				name: "ashraf",
+				user: {
+					firstname: "ashraf",
+					lastname: "ali"
+				}
+			},
+			rating : {
+				rating: 4,
+				user_ratings_total: 3,
+			},
+			properties : [],
+			company_name: "test",
+			id: 1,
+			logo_image: "https://immobelgium.s3.eu-west-1.amazonaws.com/1635295013631%20-%20logo_eco-immo.png",
+
+		}
+	]
 
 	return (
-		<div className="find-agent-block">
+		<FindAgentMain >
 			<h3>{t("title.find-your-agent")}</h3>
 			<p>
 				{t("desc.we-found")} {totalAgencies} {t("desc.agents-near-you")}
 			</p>
-			{agencies.map((agency, index) => (
+			{myAgencies.map((agency, index) => (
 				<Agency
 					nearest={agencies[0]?.id}
 					agency={agency}
@@ -41,7 +76,7 @@ const FindAgentBlock = ({
 					</Button>
 				</div>
 			)}
-		</div>
+		</FindAgentMain>
 	);
 };
 
