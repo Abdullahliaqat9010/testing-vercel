@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 
+import AddressModal from "../../../containers/Modals/AddressModal";
+
 const AgencyInfo = ({ onSubmit }) => {
-	const { t } = useTranslation("register-agency-pages")
+	const { t } = useTranslation("register-agency-pages");
+	const [isLocationModalVisible, setIsLocationModalVisible] = useState(true);
 
 	const validationSchema = Yup.object().shape({
 		vitrine_name: Yup.string().required(t("p.error")),
 		city: Yup.string().required(t("p.error")),
 		street: Yup.string().required(t("p.error")),
 		street_number: Yup.number().required(t("p.error")),
-		zip: Yup.number().required(t("p.error")).min(1000, t("error.zip-validation")).max(9999, t("error.zip-validation")),
+		zip: Yup.number()
+			.required(t("p.error"))
+			.min(1000, t("error.zip-validation"))
+			.max(9999, t("error.zip-validation")),
 	});
-
 
 	return (
 		<div className="form-container">
+			<AddressModal
+				show={isLocationModalVisible}
+				handleClose={() => setIsLocationModalVisible(false)}
+			/>
 			<div className="form-title-container">
 				<p className="form-title">{t("p.heading")}</p>
-				<p className="form-subtitle">
-					{t("p.sub-heading")}
-				</p>
+				<p className="form-subtitle">{t("p.sub-heading")}</p>
 			</div>
 			<div>
 				<Formik
@@ -111,7 +118,7 @@ const AgencyInfo = ({ onSubmit }) => {
 									/>
 								</div>
 							</div>
-							<Button className="form-button" block type="submit">
+							<Button className="form-button mt-3" block type="submit">
 								{t("button.next")}
 							</Button>
 						</Form>

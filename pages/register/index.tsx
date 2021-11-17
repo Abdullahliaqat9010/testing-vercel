@@ -18,7 +18,7 @@ const Register = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(2);
 	const [agencyInfo, setAgencyInfo] = useState(null);
 
 	const isLoggedIn = useSelector<RootState>((state) => state.userInfo.auth);
