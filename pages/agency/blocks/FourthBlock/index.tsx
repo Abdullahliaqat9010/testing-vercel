@@ -132,7 +132,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 											<img
 												alt="google-reviews"
 												src={google_reviews_image}
-												style={{ width: "100%", objectFit: "cover" }}
+												style={{ width: "100%", objectFit: "contain" }}
 											/>
 										</div>
 									</div>

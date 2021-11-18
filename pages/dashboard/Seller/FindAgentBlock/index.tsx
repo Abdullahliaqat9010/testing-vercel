@@ -5,7 +5,6 @@ import styled from "styled-components";
 import Agency from "../../../../containers/Agency";
 
 const FindAgentMain = styled.div`
-	padding: 30px;
 	background: #fff;
 	border-radius: 10px;
 	font-familiy: var(--fontNunito);
@@ -16,6 +15,13 @@ const FindAgentMain = styled.div`
 	h3 {
 	font-familiy: var(--fontNunitoBold);
 	}
+	@media (min-width: 769px) {
+		padding: 30px;
+	}
+	@media (max-width: 769px) {
+		padding: 20px;
+	}
+
 
 `
 
@@ -44,7 +50,7 @@ const FindAgentBlock = ({
 			},
 			properties : [],
 			company_name: "test",
-			id: 1,
+			id: 27,
 			logo_image: "https://immobelgium.s3.eu-west-1.amazonaws.com/1635295013631%20-%20logo_eco-immo.png",
 
 		}

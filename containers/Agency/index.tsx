@@ -45,19 +45,24 @@ const AgencyLeftBlock = styled.div`
 
 const AgencyLogoBlock = styled.div`
 	border: 1px solid var(--colorLightGrey);
-	margin: 20px 16px 20px 0px;
 	@media (min-width: 769px) {
 		height: 82px;
 		width: 150px;
+		margin: 20px 16px 20px 0px;
+
 		
 	}
 	@media (max-width: 768px) {
 		height: 126px;
 		width: 150px;
+		margin: 20px 16px 20px 0px;
+
 	}
 	@media (max-width: 500px) {
 		height: 70px;
 		width: 70px;
+		margin: 20px 8px 20px 0px;
+
 	}
 `
 const AgencyName = styled.span`
@@ -170,12 +175,13 @@ Button {
 span {
 	font-size: 14px;
 	line-height: 19px;
+	color: var( --colorBlue);
 }
 
 @media (min-width: 769px) {
 	flex-direction: column;
 	Button {
-		min-width:155px;
+		min-width:155px !importent;
 		height: 50px
 	}
 	span {
@@ -204,6 +210,29 @@ span {
 		width:100%!importent;
 	}
 }
+`
+
+const AgencyInfo = styled.div`
+font-size: 12px;
+line-height: 16px;
+@media (min-width: 501px) {
+	margin-right:10px
+ }
+ @media (max-width: 500px) {
+	margin-right:0px
+ }
+
+`
+
+const RatingStarImages = styled.img`
+@media (min-width: 501px) {
+	height: 14px;
+	width: 14px;
+ }
+ @media (max-width: 500px) {
+	height: 14px;
+	width: 14px;
+ }
 `
 const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 	const router = useRouter();
@@ -392,18 +421,18 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 							alt={agency?.company_name}
 						/>
 					</AgencyLogoBlock>
-					<div className="my-4 mr-3">
+					<AgencyInfo className="my-4">
 						<AgencyName > {agency.company_name}</AgencyName>
 						<div className=" d-flex align-items-center">
-							<span style={{ fontSize: '14px', lineHeight: '19px' }} >
+							<span style={{ fontSize: '12px', lineHeight: '16px' }} >
 								{agencyRating(agency?.rating?.rating)}
 							</span>
 							<StarRatingComponent
 								name="rate"
 								className="custom-rate"
 								renderStarIcon={(index, value) => (
-									<img
-										className=" ml-1" style= {{ verticalAlign: "text-bottom" , height: "14px", width: "14px" }}
+									<RatingStarImages
+										className=" ml-1" style={{ verticalAlign: "text-bottom" }}
 										src={index <= value ? RatingStar : RatingStarEmpty}
 										alt="RatingStar"
 									/>
@@ -422,7 +451,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 						{agency.id === nearest && (
 							<NearestLabel>{t("span.nearest-agency")}</NearestLabel>
 						)}
-					</div>
+					</AgencyInfo>
 				</AgencyLeftBlock>
 				{/* <div className="agency-border" /> */}
 				<AgencyRightBlock className=" d-flex align-items-center ">
@@ -448,7 +477,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 					<MoreInfoLeftBlock className="d-flex flex-column">
 						<div className=" d-flex">
 							{/* agent-info */}
-							<Image style={{ height:'60px', width: "60px" }}
+							<Image style={{ height: '60px', width: "60px" }}
 								src={
 									agency?.agent?.user?.avatar
 										? agency?.agent?.user?.avatar
@@ -464,7 +493,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 								<span>{t("button.agency-owner")}</span>
 							</div>
 						</div>
-						<div className="my-3" style={{fontSize: "14px",lineHeight: '19px' }}
+						<div className="my-3" style={{ fontSize: "14px", lineHeight: '19px' }}
 							dangerouslySetInnerHTML={agencyDesc(
 								"10",
 								agency?.properties?.length
