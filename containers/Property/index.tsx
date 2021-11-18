@@ -19,18 +19,37 @@ flex-direction: column;
 
 span {
 	opacity: 0.6;
+	font-size: 12px;
+	line-height: 16px;
 }
 
 a {
 	font-family: var(--fontNunitoBold);
 	text-transform: capitalize;
 	color: var(--colorBlue);
+	font-size: 14px;
+line-height: 19px;
+}
+`
+
+const AddressBlock = styled.div`
+color: #1D2E5B;
+@media (min-width: 501px) {
+	font-size: 14px;
+line-height: 19px;
+}
+@media (max-width: 500px) {
+	font-size: 12px;
+	line-height: 16px;
+	margin-top:10px;
 }
 `
 
 const HouseInfo = styled.div`
 margin-bottom: 10px;
 span {
+	font-size: 12px;
+	line-height: 16px;
 	padding: 4px 8px;
 	background: var(--bg-blue);
 	border-radius: 8px;
@@ -40,9 +59,19 @@ span {
 const ProperyImage = styled.div`
 margin-right: 20px;
 
-img {
-	width: 140px;
-	height: 140px;
+display:flex;
+@media (min-width: 501px) {
+
+	img {
+		width: 140px;
+		height: 140px;
+	}
+}
+@media (max-width: 500px) {
+	justify-content: center;
+	img {
+		width: 100%;
+	}
 }
 `
 
@@ -50,6 +79,17 @@ const PropertyMainBlock = styled.div`
 margin: 0 20px 6px;
 padding: 10px 0px;
 border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+Button {
+	font-size: 12px;
+	line-height: 16px
+}
+@media (max-width: 500px) { 
+	flex-direction: column;
+	Button {
+		width:100%;
+	}
+}
+
 `
 
 const PropertyContainer = ({
@@ -73,13 +113,13 @@ const PropertyContainer = ({
 				<Image src={getImageLink()} preview={false} fallback={NoImage} />
 			</ProperyImage>
 			<div>
-				<div
-					style={{ cursor: "pointer" }}
+				<AddressBlock
+					style={{ cursor: "pointer",  }}
 					onClick={() => onClickProperty(property.id)}
 					// className="address"
 				>
 					{property?.property?.search_address}
-				</div>
+				</AddressBlock>
 				<div>
 					<TimeBlock>
 						<span>
