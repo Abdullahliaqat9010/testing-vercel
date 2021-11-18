@@ -149,10 +149,6 @@ export const createAgencyProfile = (profile) => {
 		try {
 			await axios.post("agency", {
 				...profile,
-				zip: String(profile?.zip),
-				billing_zip: String(profile?.billing_zip),
-				street_number: String(profile?.street_number),
-				billing_street_number: String(profile?.billing_street_number),
 			});
 			res("");
 		} catch (error) {
