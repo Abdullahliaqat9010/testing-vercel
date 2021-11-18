@@ -123,7 +123,7 @@ const PropertyContainer = ({
 				<div>
 					<TimeBlock>
 						<span>
-							{t("desc.sold")} {moment(property.sold_rent_date).locale('nl').fromNow()}{" "}
+							{t("desc.sold")} {moment(property.sold_rent_date).fromNow()}{" "}
 						</span>
 						{property.agency?.company_name && (
 							<Link href={`/agency/${property.agency?.id}`} locale={locale}>
