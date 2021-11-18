@@ -33,8 +33,9 @@ const NoPropertiesBlock = styled.div`
 
 const PropertiesContainer = styled.div`
 position: relative;
-overflow-x: auto;
+// overflow-x: auto;
 padding-bottom: 5px;
+min-height:62rem;
 @media (max-width: 768px) { 
 	width:100%;
 	margin-top: 50px;
@@ -185,7 +186,7 @@ const PropertiesBlock = ({
 				<PropertiesContainer>
 					{similarProperties.length > 0 ? (
 						<div>
-							<CustomScrollbar autoHide={false}>
+							<CustomScrollbar autoHide={false} >
 								{similarProperties.map((item, index) => (
 									<PropertyBlock
 										active={item?.id === activeMarker}
