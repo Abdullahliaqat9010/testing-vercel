@@ -6,26 +6,20 @@ import * as Yup from "yup";
 
 const CompanyDetails = ({ onSubmit, onBack, address }) => {
 	const [sameBillingAddress, setSameBillingAddress] = useState(true);
-	const { t } = useTranslation("register-agency-pages")
+	const { t } = useTranslation("register-agency-pages");
 
 	const validationSchema = Yup.object().shape({
-		ipi_number: Yup.number().required(t("p.error")).min(0),
+		ipi_number: Yup.string().optional().min(0),
 		company_name: Yup.string().required(t("p.error")),
-		vat_number: Yup.string().required(t("p.error")),
-		billing_city: Yup.string().required(t("p.error")),
-		billing_street: Yup.string().required(t("p.error")),
-		billing_street_number: Yup.number().required(t("p.error")),
-		billing_zip: Yup.number().required(t("p.error")).min(1000, t("error.zip-validation")).max(9999, t("error.zip-validation")),
+		vat_number: Yup.string().optional(),
+		billing_address: Yup.string().required(t("p.error")),
 	});
-
 
 	return (
 		<div className="form-container">
 			<div className="form-title-container">
 				<p className="form-title">{t("p.company-heading")}</p>
-				<p className="form-subtitle">
-					{t("p.company-sub-heading")}
-				</p>
+				<p className="form-subtitle">{t("p.company-sub-heading")}</p>
 			</div>
 			<div>
 				<Formik
@@ -33,10 +27,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 						ipi_number: "",
 						company_name: "",
 						vat_number: "",
-						billing_city: address?.city,
-						billing_street: address?.street,
-						billing_street_number: address?.street_number,
-						billing_zip: address?.zip,
+						billing_address: address,
 					}}
 					onSubmit={onSubmit}
 					validationSchema={validationSchema}
@@ -47,7 +38,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 								<label className="form-label" htmlFor="ipi_number">
 									{t("label.ipi-number")}
 								</label>
-								<Field className="form-input" name="ipi_number" type="number" />
+								<Field className="form-input" name="ipi_number" type="text" />
 								<ErrorMessage
 									className="form-error"
 									component="div"
@@ -85,10 +76,7 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 											resetForm({
 												values: {
 													...values,
-													billing_city: address?.city,
-													billing_street: address?.street,
-													billing_street_number: address?.street_number,
-													billing_zip: address?.zip,
+													billing_address: address,
 												},
 											});
 										}}
@@ -102,81 +90,23 @@ const CompanyDetails = ({ onSubmit, onBack, address }) => {
 							{!sameBillingAddress && (
 								<>
 									<div className="d-flex flex-column form-input-block">
-										<label className="form-label" htmlFor="billing_city">
-											{t("label.city")}
+										<label className="form-label" htmlFor="billing_address">
+											{t("label.billing-address")}
 										</label>
 										<Field
 											className="form-input"
-											name="billing_city"
+											name="billing_address"
 											type="text"
 										/>
 										<ErrorMessage
 											className="form-error"
 											component="div"
-											name="billing_city"
+											name="billing_address"
 										/>
-									</div>
-									<div className="d-flex flex-column form-input-block">
-										<label className="form-label" htmlFor="billing_street">
-											{t("label.street")}
-										</label>
-										<Field
-											className="form-input"
-											name="billing_street"
-											type="text"
-										/>
-										<ErrorMessage
-											className="form-error"
-											component="div"
-											name="billing_street"
-										/>
-									</div>
-									<div className="d-flex flex-row justify-content-between">
-										<div
-											style={{ width: "49%" }}
-											className="d-flex flex-column form-input-block"
-										>
-											<label
-												className="form-label"
-												htmlFor="billing_street_number"
-											>
-												{t("label.street-number")}
-											</label>
-											<Field
-												className="form-input form-input-error"
-												name="billing_street_number"
-												type="number"
-											/>
-											<ErrorMessage
-												className="form-error"
-												component="div"
-												name="billing_street_number"
-											/>
-										</div>
-										<div
-											style={{ width: "49%" }}
-											className="d-flex flex-column form-input-block"
-										>
-											<label className="form-label" htmlFor="billing_zip">
-												{t("label.zipcode")}
-											</label>
-											<Field
-												className="form-input"
-												name="billing_zip"
-												type="number"
-												min="1000"
-												max="9999"
-											/>
-											<ErrorMessage
-												className="form-error"
-												component="div"
-												name="billing_zip"
-											/>
-										</div>
 									</div>
 								</>
 							)}
-							<div className="d-flex flex-row justify-content-between">
+							<div className="d-flex flex-row justify-content-between mt-4">
 								<Button
 									style={{ width: "49%" }}
 									className="form-back-button"

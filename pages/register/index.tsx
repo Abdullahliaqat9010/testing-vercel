@@ -18,14 +18,30 @@ const Register = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const [step, setStep] = useState(2);
-	const [agencyInfo, setAgencyInfo] = useState(null);
+	const [step, setStep] = useState(1);
+	const [agencyInfo, setAgencyInfo] = useState({
+		search_address: "",
+		street: "",
+		street_number: "",
+		zip: "",
+		locality: "",
+		city: "",
+		latlng: "",
+		vitrine_name: "",
+	});
 
 	const isLoggedIn = useSelector<RootState>((state) => state.userInfo.auth);
+	const account_type = useSelector<RootState>(
+		(state) => state.userInfo.account_type
+	);
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			setStep(2);
+			if (account_type === "agent") {
+				setStep(2);
+			} else {
+				router.replace("/");
+			}
 		}
 	}, []);
 
@@ -52,6 +68,7 @@ const Register = () => {
 	const setAgencyProfile = (companyDetails) => {
 		return new Promise(async (res, rej) => {
 			try {
+				// console.log({ ...agencyInfo, ...companyDetails });
 				await createAgencyProfile({
 					...agencyInfo,
 					...companyDetails,
@@ -84,17 +101,15 @@ const Register = () => {
 							onRegister={registerAgencyOwner}
 						/>
 					) : step === 2 ? (
-						<AgencyInfo onSubmit={onAgencyInfo} />
+						<AgencyInfo
+							initialValues={{ ...agencyInfo }}
+							onSubmit={onAgencyInfo}
+						/>
 					) : (
 						<CompanyDetails
 							onSubmit={setAgencyProfile}
 							onBack={() => setStep(step - 1)}
-							address={{
-								city: agencyInfo?.city,
-								street: agencyInfo?.street,
-								street_number: agencyInfo?.street_number,
-								zip: agencyInfo?.zip,
-							}}
+							address={agencyInfo?.search_address}
 						/>
 					)}
 				</div>
