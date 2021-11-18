@@ -33,5 +33,19 @@
 	"span.general-reception": "Algemeen ontvangst",
 	"span.service-ratio": "Prijs/kwaliteit verhouding",
 	"span.competences": "Competenties",
-	"span.service-quality": "Service kwaliteit"
+	"span.service-quality": "Service kwaliteit",
+	"languages.netherlands":"Nederlands",
+    "languages.french":"Frans",
+    "languages.german":"Duits",
+    "languages.english":"Engels",
+    "languages.spaans":"Spaans",
+    "languages.italien":"Italiaans ",
+    "languages.pools":"Pools",
+    "languages.turk":"Turks",
+    "languages.russe":"Russisch",
+    "languages.arabe": "Arabisch ",
+    "languages.portugais":"Portugees",
+    "languages.chinois":" Chinees"
+	
+	
 }

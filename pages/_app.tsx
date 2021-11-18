@@ -154,9 +154,8 @@ const MyApp = ({ Component, pageProps }) => {
 
 	useEffect(() => {
 		moment.locale(router.locale);
-		[router.locale]
 
-	},[]);
+	},[router.locale]);
 
 	useEffect(() => {
 		const access_token = window.localStorage.getItem("access_token");

@@ -235,171 +235,210 @@ const RatingStarImages = styled.img`
  }
 `
 const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
-	const router = useRouter();
-	const { locale } = router;
-	const { t } = useTranslation("dashboard-page");
+  const router = useRouter();
+  const { locale } = router;
+  const { t } = useTranslation("dashboard-page");
 
-	const [showContactModal, setShowContactModal] = useState<boolean>(false);
-	const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
+  const [showContactModal, setShowContactModal] = useState<boolean>(false);
+  const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
-	const openMoreInfo = () => {
-		setShowMoreInfo(!showMoreInfo);
-	};
+  const openMoreInfo = () => {
+    setShowMoreInfo(!showMoreInfo);
+  };
 
-	const openContactModal = () => {
-		setShowContactModal(true);
-	};
+  const openContactModal = () => {
+    setShowContactModal(true);
+  };
 
-	const agencyRating = (rate) => {
-		if (rate) {
-			return rate.toString().length > 1 ? rate : rate + ".0";
-		}
-		return "5.0";
-	};
+  const agencyRating = (rate) => {
+    if (rate) {
+      return rate.toString().length > 1 ? rate : rate + ".0";
+    }
+    return "5.0";
+  };
 
-	const agencyTotalUserReview = (reviews) => {
-		if (reviews) {
-			return reviews;
-		}
-		return 120;
-	};
+  const agencyTotalUserReview = (reviews) => {
+    if (reviews) {
+      return reviews;
+    }
+    return 120;
+  };
 
-	const agencyDesc = (
-		countProperties: string | undefined,
-		similarProperties: any[] | undefined
-	) => {
-		if (locale === "en") {
-			if (similarProperties) {
-				return {
-					__html: `During the last 24 months, our agency has sold 
-                   <span class="bold">${agency?.properties?.length || 0
-						} properties</span> nearby including <span class="bold">
-                   ${agency?.properties?.length
-						} similar to yours</span>. Our team is at your disposal to manage your 
-                   project`,
-				};
-			}
-			return {
-				__html: `During the last 24 months, our agency has sold 
-                 <span class="bold">${agency?.properties?.length || 0
-					} properties</span> nearby. Our team is at your disposal 
+  const agencyDesc = (
+    countProperties: string | undefined,
+    similarProperties: any[] | undefined
+  ) => {
+    if (locale === "en") {
+      if (similarProperties) {
+        return {
+          //   __html: `During the last 24 months, our agency has sold
+          //            <span class="bold">${
+          //              agency?.properties?.length || 0
+          //            } properties</span> nearby including <span class="bold">
+          //            ${
+          //              agency?.properties?.length
+          //            } similar to yours</span>. Our team is at your disposal to manage your
+          //            project`,
+          __html: `In the past 24 months, our office has sold   
+		  <span class="bold">  
+		  ${agency?.properties?.length || 0} home${
+            similarProperties.length !== 1 ? "s" : ""
+          }</span> of which
+<span class="bold">				   
+${agency?.properties?.length || 0} home${
+            similarProperties.length !== 1 ? "s" : ""
+          } </span> are similar to yours. 
+ Our team is available to manage your real estate project. 
+`,
+        };
+      }
+
+      return {
+        __html: `During the last 24 months, our agency has sold 
+                 <span class="bold">${
+                   agency?.properties?.length || 0
+                 } properties</span> nearby. Our team is at your disposal 
                  to manage your project`,
-			};
-		}
+      };
+    }
 
-		if (locale === "fr") {
-			if (Number(agency?.properties?.length) === 1) {
-				return {
-					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${agency?.properties?.length || 0
-						} bien</span> à proximité. Nous sommes à votre disposition 
+    if (locale === "fr") {
+      if (Number(agency?.properties?.length) === 1) {
+        return {
+          __html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
+                 <span class="bold">${
+                   agency?.properties?.length || 0
+                 } bien</span> à proximité. Nous sommes à votre disposition 
                  pour gérer votre projet immobilier`,
-				};
-			}
+        };
+      }
 
-			if (similarProperties) {
-				return {
-					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                   <span class="bold">${agency?.properties?.length || 0
-						} biens</span> à proximité dont <span class="bold">
-                   ${agency?.properties?.length || 0} similaire${similarProperties.length !== 1 ? "s" : ""
-						} au vôtre</span>. 
-                   Nous sommes à votre disposition pour gérer votre projet immobilier`,
-				};
-			}
+      if (similarProperties) {
+        return {
+			__html: `In de afgelopen 24 maanden heeft ons kantoor  
+			<span class="bold">  
+			${agency?.properties?.length || 0} woning${
+	 similarProperties.length !== 1 ? "en" : ""
+   }</span>  verkocht waarvan
+  <span class="bold">				   
+  ${agency?.properties?.length || 0} woning${
+	 similarProperties.length !== 1 ? "en" : ""
+   } </span> gelijkaardig aan die van u. 
+			Ons team is beschikbaar om uw vastgoed project te beheren. 
+`,
+        };
+      }
 
-			return {
-				__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${countProperties || 0
-					} biens</span> à proximité. Nous sommes à votre disposition 
+      return {
+        __html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
+                 <span class="bold">${
+                   countProperties || 0
+                 } biens</span> à proximité. Nous sommes à votre disposition 
                  pour gérer votre projet immobilier`,
-			};
-		}
-		if (locale === "nl") {
-			if (Number(agency?.properties?.length) === 1) {
-				return {
-					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${agency?.properties?.length || 0
-						} bien</span> om uw vastgoedproject te beheren`,
-				};
-			}
+      };
+    }
+    if (locale === "nl") {
+      if (Number(agency?.properties?.length) === 1) {
+        return {
+          __html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
+                 <span class="bold">${
+                   agency?.properties?.length || 0
+                 } bien</span> om uw vastgoedproject te beheren`,
+        };
+      }
 
-			if (similarProperties) {
-				return {
-					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                   <span class="bold">${agency?.properties?.length || 0
-						} biens</span> in de buurt inclusief
-										<span class="bold">
-                   ${agency?.properties?.length || 0} vergelijkbaar
-				   ${similarProperties.length !== 1 ? "s" : ""} naar de jouwe</span>. 
-                   Wij staan ​​tot uw beschikking om uw vastgoedproject te beheren`,
-				};
-			}
+      if (similarProperties) {
+        return {
+          __html: `In de afgelopen 24 maanden heeft ons kantoor  
+                   <span class="bold">  
+				   ${agency?.properties?.length || 0} woning${
+            similarProperties.length !== 1 ? "en" : ""
+          }</span>  verkocht waarvan
+		 <span class="bold">				   
+		 ${agency?.properties?.length || 0} woning${
+            similarProperties.length !== 1 ? "en" : ""
+          } </span> gelijkaardig aan die van u. 
+                   Ons team is beschikbaar om uw vastgoed project te beheren. 
+`,
+        };
+      }
 
-			return {
-				__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${agency?.properties?.length || 0
-					} biens</span> in de buurt. Wij staan ​​tot uw beschikking
-                 om uw vastgoedproject te beheren`,
-			};
-		}
-		return {
-			__html: "",
-		};
-	};
+      return {
+        __html: `In de afgelopen 24 maanden heeft ons kantoor  
+		<span class="bold">  
+		${agency?.properties?.length || 0} woning${
+          similarProperties.length !== 1 ? "en" : ""
+        }</span>  verkocht waarvan
+<span class="bold">				   
+${agency?.properties?.length || 0} woning${
+          similarProperties.length !== 1 ? "en" : ""
+        } </span> gelijkaardig aan die van u. 
+		Ons team is beschikbaar om uw vastgoed project te beheren. 
+`,
+        // `In de afgelopen 24 maanden heeft ons bureau verkocht
+        //          <span class="bold">${
+        //            agency?.properties?.length || 0
+        //          } biens</span> in de buurt. Wij staan ​​tot uw beschikking
+        //          om uw vastgoedproject te beheren`,
+      };
+    }
+    return {
+      __html: "",
+    };
+  };
 
-	const agenciesList = agency.properties
-		? [
-			...agency?.properties?.map((prop) => {
-				return {
-					type: "property",
-					position: {
-						lat: prop?.property?.lat,
-						lng: prop?.property?.lng,
-					},
-					id: prop?.id,
-				};
-			}),
-		]
-		: [];
+  const agenciesList = agency.properties
+    ? [
+        ...agency?.properties?.map((prop) => {
+          return {
+            type: "property",
+            position: {
+              lat: prop?.property?.lat,
+              lng: prop?.property?.lng,
+            },
+            id: prop?.id,
+          };
+        }),
+      ]
+    : [];
 
-	const mapProps = {
-		markers: agency?.latlng
-			? [
-				{
-					type: "agency",
-					position: {
-						lat: agency?.latlng.split(",")[0],
-						lng: agency?.latlng.split(",")[1],
-					},
-					id: agency.id,
-				},
-				{
-					type: "home",
-					position: {
-						lat: mainProperty?.property?.lat,
-						lng: mainProperty?.property?.lng,
-					},
-					id: "home",
-				},
-				...agenciesList,
-			]
-			: [
-				{
-					type: "home",
-					position: {
-						lat: mainProperty?.property?.lat,
-						lng: mainProperty?.property?.lng,
-					},
-					id: "home",
-				},
-				...agenciesList,
-			],
-		zoom: 15,
-	};
+  const mapProps = {
+    markers: agency?.latlng
+      ? [
+          {
+            type: "agency",
+            position: {
+              lat: agency?.latlng.split(",")[0],
+              lng: agency?.latlng.split(",")[1],
+            },
+            id: agency.id,
+          },
+          {
+            type: "home",
+            position: {
+              lat: mainProperty?.property?.lat,
+              lng: mainProperty?.property?.lng,
+            },
+            id: "home",
+          },
+          ...agenciesList,
+        ]
+      : [
+          {
+            type: "home",
+            position: {
+              lat: mainProperty?.property?.lat,
+              lng: mainProperty?.property?.lng,
+            },
+            id: "home",
+          },
+          ...agenciesList,
+        ],
+    zoom: 15,
+  };
 
-	return (
-		<div >
+  return (
+    <div >
 			{/* className="agency-block" */}
 			<ContactAgentModal
 				show={showContactModal}
@@ -537,7 +576,7 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 				</MoreInfoBlock>
 			)}
 		</div>
-	);
+  );
 };
 
 export default Agency;
