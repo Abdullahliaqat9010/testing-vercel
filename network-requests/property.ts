@@ -74,7 +74,7 @@ export const getSimilarProperties = (
 				`lead/similar-properties/${propertyId}`,
 				{ params: { page, limit } }
 			);
-			console.log(properties);
+			console.log("properties",properties);
 			res(properties);
 		} catch (error) {
 			rej(error);
