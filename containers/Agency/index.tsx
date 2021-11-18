@@ -14,15 +14,197 @@ import ArrowImage from "../../assets/images/arrow-blue.svg";
 import AgencyStarImage from "../../assets/images/star-blue.svg";
 import noLogo from "../../assets/images/no-photo.png";
 import noAgencyLogo from "../../assets/images/no-image-available.svg";
-
+import styled from "styled-components"
 import { RootState } from "../../types/state";
 import { AgencyProps } from "../../types/agents";
 
 import GoogleMap from "../../components/GoogleMap";
 import ContactAgentModal from "../Modals/ContactAgentModal";
+import { spawn } from "child_process";
 
 // import { parseJwt } from '../../utils';
 
+const AgencyInfoBlock = styled.div`
+	@media (max-width: 768px) {
+		flex-direction: column;
+		align-items: baseline !important;
+	}
+`
+
+const AgencyLeftBlock = styled.div`
+	@media (min-width: 769px) {
+		width: 55%;
+	}
+
+	@media (max-width: 768px) {
+		align-items: flex-start !important;
+		width: 100% !importent;
+
+	}
+`
+
+const AgencyLogoBlock = styled.div`
+	border: 1px solid var(--colorLightGrey);
+	margin: 20px 16px 20px 0px;
+	@media (min-width: 769px) {
+		height: 82px;
+		width: 150px;
+		
+	}
+	@media (max-width: 768px) {
+		height: 126px;
+		width: 150px;
+	}
+	@media (max-width: 500px) {
+		height: 70px;
+		width: 70px;
+	}
+`
+const AgencyName = styled.span`
+	font-family: var(--fontNunitoBold);
+	font-size: 20px;
+	line-height: 27px;
+	margin-bottom: 10px;
+`
+const AgentName = styled.span`
+	font-family: var(--fontNunitoBold);
+	font-size: 20px;
+	line-height: 27px;
+`
+
+const AgencyRightBlock = styled.div`
+@media (min-width: 769px) {
+	margin: 12px 0 20px 10px;
+	width:45% ;
+
+}
+@media (max-width: 500px) {
+	margin: 12px 0 20px 0px;
+	width: 100% !importent;
+
+}
+
+`
+
+const CountSoldProperties = styled.span`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	// margin: 0 12px 0 20px;
+	// margin-left: -2px;
+	width: 42px;
+	height: 42px;
+	background: var(--bg-blue);
+	border-radius: 8px;
+	
+`
+
+const MainPropAddress = styled.span`
+	width: 195px;
+	margin-left: 4px;
+	font-family: var(--fontNunitoBold);
+	display: block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+`
+
+const OpenDetailBlock = styled.span`
+	position: absolute;
+	right: 0;
+	cursor: pointer;
+	background-image: url("../../assets/images/arrow.svg");
+	width: 24px;
+	height: 24px;
+`
+
+const NearestLabel = styled.span`
+	display: block;
+	width: max-content;
+	margin-top: 12px;
+	background: var(--bg-blue);
+	border-radius: 8px;
+	font-size: 10px;
+	line-height: 16px;
+	padding: 4px 8px;
+`
+
+const MoreInfoBlock = styled.div`
+@media (min-width: 769px) {
+	display-direction: row ;
+
+}
+@media (max-width: 768px) {
+	display-direction: column !importent;
+
+}
+`
+
+const MoreInfoLeftBlock = styled.div`
+@media (min-width: 769px) {
+	width:50%;
+
+}
+@media (max-width: 768px) {
+	width:100% !importent;
+}
+`
+const MoreInfoMapBlock = styled.div`
+min-height: 400px;
+@media (min-width: 769px) {
+	width:50%;
+
+}
+@media (max-width: 768px) {
+	width:100% !importent;
+}
+`
+
+const LinksBlock = styled.div`
+Button {
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 22px;
+	border-radius: 10px;
+}
+span {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+@media (min-width: 769px) {
+	flex-direction: column;
+	Button {
+		min-width:155px;
+		height: 50px
+	}
+	span {
+		min-width:155px;
+		height: 50px;
+		margin-top:20px
+	}
+}
+
+
+@media (max-width: 768px) {
+	flex-direction: row;
+	span {
+		margin-left: 10px;
+		margin-top: 8px;
+	}
+}
+@media (max-width: 500px) {
+	flex-direction: column;
+	span {
+		text-align:center;
+		width:100%!importent;
+		margin-top:20px
+	}
+	Button { 
+		width:100%!importent;
+	}
+}
+`
 const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
   const router = useRouter();
   const { locale } = router;
@@ -227,138 +409,144 @@ ${agency?.properties?.length || 0} woning${
   };
 
   return (
-    <div className="agency-block">
-      <ContactAgentModal
-        show={showContactModal}
-        onClose={() => setShowContactModal(false)}
-        properties={properties}
-        agencyOwner={agency?.agent?.user}
-        agencyName={agency?.company_name}
-        agencyId={agency?.id}
-      />
-      <div
-        className="short-info d-flex align-items-center"
-        onClick={openMoreInfo}
-      >
-        <div className="short-info__left d-flex align-items-center w-55">
-          <div className="logo-block">
-            <img
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              src={agency?.logo_image ? agency?.logo_image : noAgencyLogo}
-              alt={agency?.company_name}
-            />
-          </div>
-          <div className="info">
-            <span className="agency-name">{agency.company_name}</span>
-            <div className="rating-block d-flex align-items-center">
-              <span className="total">
-                {agencyRating(agency?.rating?.rating)}
-              </span>
-              <StarRatingComponent
-                name="rate"
-                className="custom-rate"
-                renderStarIcon={(index, value) => (
-                  <img
-                    className="rating-star"
-                    src={index <= value ? RatingStar : RatingStarEmpty}
-                    alt="RatingStar"
-                  />
-                )}
-                starCount={5}
-                value={Number(agencyRating(agency?.rating?.rating))}
-              />
-              <span className="from">
-                {t("span.from")}{" "}
-                {agencyTotalUserReview(
-                  agencyRating(agency?.rating?.user_ratings_total)
-                )}{" "}
-                {t("span.reviews")}
-              </span>
-            </div>
-            {agency.id === nearest && (
-              <span className="nearest">{t("span.nearest-agency")}</span>
-            )}
-          </div>
-        </div>
-        {/* <div className="agency-border" /> */}
-        <div className="short-info__right d-flex align-items-center w-45">
-          <span className="count-block pl-1">
-            {agency.properties?.length || 0}
-          </span>
-          <div className="address">
-            <p>{t("p.similar-properties-sold")}</p>
-            <p className="d-flex">
-              {t("p.to")}
-              <span className="address__bold">
-                {mainProperty?.search_address}
-              </span>
-            </p>
-          </div>
-        </div>
-        <span className={`action-btn ${showMoreInfo ? " open" : ""}`} />
-      </div>
-      {showMoreInfo && (
-        <div className="more-info d-flex justify-content-between">
-          <div className="agent-block">
-            <div className="agent-info d-flex">
-              <Image
-                src={
-                  agency?.agent?.user?.avatar
-                    ? agency?.agent?.user?.avatar
-                    : noLogo
-                }
-                roundedCircle
-              />
-              <div className="d-flex flex-column">
-                <span className="bold">
-                  {agency?.agent?.user?.firstname}{" "}
-                  {agency?.agent?.user?.lastname}
-                </span>
-                <span>{t("button.agency-owner")}</span>
-              </div>
-            </div>
-            <div
-              className="desc"
-              dangerouslySetInnerHTML={agencyDesc(
-                "10",
-                agency?.properties?.length
-              )}
-            ></div>
-            <Button className="contact" onClick={() => openContactModal()}>
-              {t("button.contact")} {agency?.agent?.user?.firstname}
-            </Button>
-            <Link href={`/agency/${agency.id}`} locale={locale}>
-              <span className="details">
-                {t("button.agency-details")}{" "}
-                <img src={ArrowImage} alt="ArrowImage" />
-              </span>
-            </Link>
-          </div>
-          {!isMobileOnly && (
-            <div className="map-block d-flex flex-column">
-              <div className="agency-map position-relative">
-                {/*@ts-ignore*/}
-                <GoogleMap {...mapProps} />
-              </div>
-              <div className="agency-map__info d-flex justify-content-between">
-                <div className="your-property d-flex align-items-center">
-                  <div className="orange-circle" />
-                  <span>{t("span.your-property")}</span>
-                </div>
-                <div className="similar-property d-flex align-items-center">
-                  <div className="blue-circle" />
-                  <span>{t("span.similar-property")}</span>
-                </div>
-                <div className="other-property d-flex align-items-center">
-                  <img src={AgencyStarImage} alt="AgencyStarImage" />
-                  <span>{t("span.agency")}</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+    <div >
+			{/* className="agency-block" */}
+			<ContactAgentModal
+				show={showContactModal}
+				onClose={() => setShowContactModal(false)}
+				properties={properties}
+				agencyOwner={agency?.agent?.user}
+				agencyName={agency?.company_name}
+				agencyId={agency?.id}
+			/>
+			<AgencyInfoBlock
+				className="d-flex align-items-center"
+				onClick={openMoreInfo}
+			>
+				<AgencyLeftBlock className="d-flex align-items-center">
+					<AgencyLogoBlock>
+						<img
+							style={{ width: "100%", height: "100%", objectFit: "contain" }}
+							src={agency?.logo_image ? agency?.logo_image : noAgencyLogo}
+							alt={agency?.company_name}
+						/>
+					</AgencyLogoBlock>
+					<div className="my-4 mr-3">
+						<AgencyName > {agency.company_name}</AgencyName>
+						<div className=" d-flex align-items-center">
+							<span style={{ fontSize: '14px', lineHeight: '19px' }} >
+								{agencyRating(agency?.rating?.rating)}
+							</span>
+							<StarRatingComponent
+								name="rate"
+								className="custom-rate"
+								renderStarIcon={(index, value) => (
+									<img
+										className=" ml-1" style= {{ verticalAlign: "text-bottom" , height: "14px", width: "14px" }}
+										src={index <= value ? RatingStar : RatingStarEmpty}
+										alt="RatingStar"
+									/>
+								)}
+								starCount={5}
+								value={Number(agencyRating(agency?.rating?.rating))}
+							/>
+							<span className="ml-1">
+								{t("span.from")}{" "}
+								{agencyTotalUserReview(
+									agencyRating(agency?.rating?.user_ratings_total)
+								)}{" "}
+								{t("span.reviews")}
+							</span>
+						</div>
+						{agency.id === nearest && (
+							<NearestLabel>{t("span.nearest-agency")}</NearestLabel>
+						)}
+					</div>
+				</AgencyLeftBlock>
+				{/* <div className="agency-border" /> */}
+				<AgencyRightBlock className=" d-flex align-items-center ">
+					<CountSoldProperties className="pl-1 mr-2">
+						{agency.properties?.length || 0}
+					</CountSoldProperties>
+					<div className="mt-2">
+						<p className="m-0" >{t("p.similar-properties-sold")}</p>
+						<p className="d-flex m-0">
+							{t("p.to")}
+							<MainPropAddress >
+								{mainProperty?.search_address}
+							</MainPropAddress>
+						</p>
+					</div>
+				</AgencyRightBlock>
+
+				<OpenDetailBlock className={showMoreInfo ? " open" : ""} />
+			</AgencyInfoBlock>
+			{showMoreInfo && (
+				<MoreInfoBlock className=" d-flex justify-content-between">
+					{/* more-info */}
+					<MoreInfoLeftBlock className="d-flex flex-column">
+						<div className=" d-flex">
+							{/* agent-info */}
+							<Image style={{ height:'60px', width: "60px" }}
+								src={
+									agency?.agent?.user?.avatar
+										? agency?.agent?.user?.avatar
+										: noLogo
+								}
+								roundedCircle
+							/>
+							<div className="d-flex flex-column justify-content-center ml-2">
+								<AgentName>
+									{agency?.agent?.user?.firstname}{" "}
+									{agency?.agent?.user?.lastname}
+								</AgentName>
+								<span>{t("button.agency-owner")}</span>
+							</div>
+						</div>
+						<div className="my-3" style={{fontSize: "14px",lineHeight: '19px' }}
+							dangerouslySetInnerHTML={agencyDesc(
+								"10",
+								agency?.properties?.length
+							)}
+						></div>
+						<LinksBlock className="d-flex">
+							<Button onClick={() => openContactModal()}>
+								{t("button.contact")} {agency?.agent?.user?.firstname}
+							</Button>
+							<Link href={`/agency/${agency.id}`} locale={locale}>
+								<span >
+									{t("button.agency-details")}{" "}
+									<img src={ArrowImage} alt="ArrowImage" />
+								</span>
+							</Link>
+						</LinksBlock>
+					</MoreInfoLeftBlock>
+					{!isMobileOnly && (
+						<MoreInfoMapBlock className=" d-flex flex-column">
+							{/* map-block */}
+							<div className="position-relative w-100">
+								{/*@ts-ignore*/}
+								<GoogleMap {...mapProps} />
+							</div>
+							<div className=" d-flex justify-content-between">
+								<div className="d-flex align-items-center">
+									<div className="orange-circle" />
+									<span>{t("span.your-property")}</span>
+								</div>
+								<div className="d-flex align-items-center">
+									<div className="blue-circle" />
+									<span>{t("span.similar-property")}</span>
+								</div>
+								<div className=" d-flex align-items-center">
+									<img className="mr-1" style={{ height: "12px", width: "12px" }} src={AgencyStarImage} alt="AgencyStarImage" />
+									<span>{t("span.agency")}</span>
+								</div>
+							</div>
+						</MoreInfoMapBlock>
+					)}
+				</MoreInfoBlock>
+			)}
+		</div>
   );
 };
 
