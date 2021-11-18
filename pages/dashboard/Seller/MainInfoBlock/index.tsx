@@ -2,13 +2,44 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-
+import styled from "styled-components"
 import { RootState } from "../../../../types/state";
 
 import arrowIcon from "../../../../assets/images/arrow-blue.svg";
 import squareIcon from "../../../../assets/images/square.svg";
 import bedsIcon from "../../../../assets/images/beds.svg";
 import bathIcon from "../../../../assets/images/bath.svg";
+
+const ContectBlock = styled.div`
+margin-left: 12px;
+`
+const TitleDiv = styled.span`
+	font-size: 12px;
+  	line-height: 16px;
+  	opacity: 0.7;
+`
+
+const ImageBlock = styled.div`
+@media (min-width: 501px) {
+	margin-right: 30px;
+}
+@media (max-width: 500px) {
+	margin-right: 10px;
+}
+`
+
+const AddressBiv = styled.h4`
+		font-family: var(--fontNunitoBold);
+		line-height: 33px;
+`
+
+const MainPropertyBlock = styled.div`
+	padding: 30px;
+	margin-bottom: 20px;
+	width: 100%;
+	background: var(--colorWhite);
+	border-radius: 10px;
+`
 
 const MainInfoBlock = ({ mainProperty }) => {
 	const router = useRouter();
@@ -86,37 +117,37 @@ const MainInfoBlock = ({ mainProperty }) => {
 	// };
 
 	return (
-		<div className="main-info-block">
-			<div className="top-block d-flex align-items-center justify-content-between">
-				<h1 className="h4">{mainProperty?.search_address}</h1>
+		<MainPropertyBlock>
+			<div className=" d-flex align-items-center justify-content-between">
+				<AddressBiv >{mainProperty?.search_address}</AddressBiv>
 				{/* <span className="d-flex align-items-center" onClick={modifyProperty}>
 					{t("link.modify")} <img src={arrowIcon} alt="arrowIcon" />
 				</span> */}
 			</div>
-			<div className="bottom-block d-flex">
-				<div className="image-block d-flex">
+			<div className="d-flex">
+				<ImageBlock className=" d-flex">
 					<img src={squareIcon} alt="squareIcon" />
-					<div className="image-block__info d-flex flex-column">
-						<span className="title">{t("title.square")}</span>
-						<span className="desc">{mainProperty?.live_area}m²</span>
-					</div>
-				</div>
-				<div className="image-block d-flex">
+					<ContectBlock className=" d-flex flex-column">
+						<TitleDiv>{t("title.square")}</TitleDiv>
+						<span style={{ fontSize: "14px" }}>{mainProperty?.live_area}m²</span>
+					</ContectBlock>
+				</ImageBlock>
+				<ImageBlock className=" d-flex">
 					<img src={bedsIcon} alt="bedsIcon" />
-					<div className="image-block__info d-flex flex-column">
-						<span className="title">{t("title.beds")}</span>
-						<span className="desc">{mainProperty?.bedrooms}</span>
-					</div>
-				</div>
-				<div className="image-block d-flex">
+					<ContectBlock className=" d-flex flex-column">
+						<TitleDiv>{t("title.beds")}</TitleDiv>
+						<span style={{ fontSize: "14px" }}>{mainProperty?.bedrooms}</span>
+					</ContectBlock>
+				</ImageBlock>
+				<ImageBlock className=" d-flex">
 					<img src={bathIcon} alt="bathIcon" />
-					<div className="image-block__info d-flex flex-column">
-						<span className="title">{t("title.baths")}</span>
-						<span className="desc">{mainProperty?.bathrooms}</span>
-					</div>
-				</div>
+					<ContectBlock className=" d-flex flex-column">
+						<TitleDiv>{t("title.baths")}</TitleDiv>
+						<span style={{ fontSize: "14px" }}>{mainProperty?.bathrooms}</span>
+					</ContectBlock>
+				</ImageBlock>
 			</div>
-		</div>
+		</MainPropertyBlock>
 	);
 };
 
