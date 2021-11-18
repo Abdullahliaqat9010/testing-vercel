@@ -31,20 +31,7 @@ const NoPropertiesBlock = styled.div`
 
 `
 
-const PropertiesContainer = styled.div`
-position: relative;
-// overflow-x: auto;
-padding-bottom: 5px;
-min-height:62rem;
-@media (max-width: 768px) { 
-	width:100%;
-	margin-top: 50px;
-}
-@media (max-width: 500px) { 
-	width:100%;
-	margin-top: 0px;
-}
-` 
+
 
 const SimilarPropertiesBlock = styled.div`
 h3 {
@@ -91,6 +78,20 @@ const PropertiesBlock = ({
 	isLoadMoreAvailable = false,
 }) => {
 	const { t } = useTranslation("dashboard-page");
+	const PropertiesContainer = styled.div`
+	position: relative;
+	// overflow-x: auto;
+	padding-bottom: 5px;
+	@media (max-width: 768px) { 
+		width:100%;
+		margin-top: 50px;
+	}
+	@media (max-width: 500px) { 
+		width:100%;
+		min-height: ${similarProperties.length > 0 ?"62rem": "auto"} ;
+		margin-top: 0px;
+	}
+	` 
 	// const elementsOnPage = isMobileOnly ? 3 : 6;
 	// const [sizeArr, setSizeArr] = useState(elementsOnPage);
 
