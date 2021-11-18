@@ -224,6 +224,8 @@ const SignupForm = ({
 									<a href={"/terms-and-condition"} {...linkProps}>
 										{t("label.terms")}
 									</a>
+									{t("label.gelezen")}
+
 								</label>
 							</div>
 							<div style={{ marginTop: -10 }}>

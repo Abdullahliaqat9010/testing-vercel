@@ -33,7 +33,20 @@
     "span.general-reception": "General reception",
     "span.service-ratio": "Fee / service ratio",
     "span.competences": "Competences",
-    "span.service-quality": "Service quality"
+    "span.service-quality": "Service quality",
+    "languages.netherlands":"Netherlands",
+    "languages.french":"French",
+    "languages.german":"German",
+    "languages.english":"English",
+    "languages.spaans":"Spaans",
+    "languages.italien":"Italy ",
+    "languages.pools":"Polish",
+    "languages.turk":"Turkish",
+    "languages.russe":"Russian",
+    "languages.arabe": "Arab",
+    "languages.portugais":"Portuguese",
+    "languages.chinois":" Chinese",
+    "languages.ferbreu":"Herbreu"
 
 
 

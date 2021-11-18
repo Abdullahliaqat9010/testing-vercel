@@ -14,7 +14,10 @@ import closeArrow from "../../assets/images/compare-agency/closed-arrow.svg";
 import mapImage from "../../assets/images/compare-agency/map-image.png";
 import blueStar from "../../assets/images/compare-agency/blue-star.svg";
 import LogoImage from "../../assets/images/default-logo-image.png";
-
+import google from "../../assets/images/google.png";
+import frame1 from "../../assets/images/frame1.png";
+import frame2 from "../../assets/images/frame2.png";
+import userIcon from "../../assets/images/userIcon.png";
 import BlueGoAhead from "../../assets/images/blue-goAhead.svg";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import {
@@ -4509,6 +4512,19 @@ const compareAgency = () => {
       id: "home",
     },
   ]);
+  const agencyRating = (rate) => {
+    if (rate) {
+      return rate.toString().length > 1 ? rate : rate + ".0";
+    }
+    return "5.0";
+  };
+  const agencyTotalUserReview = (reviews) => {
+    if (reviews) {
+      return reviews;
+    }
+    return 120;
+  };
+
   const dispatch = useDispatch();
   const [value, setValue] = useState(`${city}, ${zip}`);
 
@@ -4903,7 +4919,7 @@ const compareAgency = () => {
                               </div>
                             )}
                             <p className="agency-description">
-                            {t("p.agency-desc")}
+                              {t("p.agency-desc")}
                               {/* {t("p.before-description")} {properties.length}{" "}
                               {properties.length > 1
                                 ? t("p.agency-plural")
@@ -4913,6 +4929,101 @@ const compareAgency = () => {
                                 ? t("p.agency-plural")
                                 : t("p.agency-singular") + t("p.after-description")} */}
                             </p>
+                            <p>
+                              <div className="agency-result-rating d-flex align-items-center">
+                                <StarRatingComponent
+                                  name="rate"
+                                  className="custom-rate"
+                                  renderStarIcon={(index, value) => (
+                                    <img
+                                      className="rating-star"
+                                      src={
+                                        index <= value
+                                          ? RatingStar
+                                          : RatingStarEmpty
+                                      }
+                                      alt="RatingStar"
+                                    />
+                                  )}
+                                  starCount={1}
+                                  value={Number(
+                                    agencyRating(agency?.rating?.rating)
+                                  )}
+                                />
+                                <span className="rating">
+                                  {agencyRating(agency?.rating?.rating)}
+                                </span>
+                                <img
+                                  className="google-img"
+                                  alt="google"
+                                  src={google}
+                                  style={{ objectFit: "cover" }}
+                                />
+                                <span>from 120 reviews </span>
+                                <img
+                                  className="frame1"
+                                  alt="frame1"
+                                  src={frame1}
+                                />
+                                <img
+                                  className="frame2"
+                                  alt="frame2"
+                                  src={frame2}
+                                />
+                              </div>
+                              <br />
+                              <div className="agency-result-rating d-flex align-items-center">
+                                <StarRatingComponent
+                                  name="rate"
+                                  className="custom-rate"
+                                  renderStarIcon={(index, value) => (
+                                    <img
+                                      className="rating-star"
+                                      src={
+                                        index <= value
+                                          ? RatingStar
+                                          : RatingStarEmpty
+                                      }
+                                      alt="RatingStar"
+                                    />
+                                  )}
+                                  starCount={5}
+                                  value={Number(
+                                    agencyRating(agency?.rating?.rating)
+                                  )}
+                                />
+
+                                <span className="experience">
+                                  Very nice experience...
+                                </span>
+                             
+                              </div>
+                              <div>
+                              <p className='google-paraghaf '>
+                                  Amet minim mollit non deserunt ullamco est sit
+                                  aliqua dolor do amet sint. Velit officia
+                                  consequat duis enim velit mollit. Exercitation
+                                  veniam co... <span className='show-more' >Show more</span>
+                                </p>
+                                </div>
+                                <div className='user-details'>
+                                <img
+                                  className="userIcon"
+                                  alt="userIcon"
+                                  src={userIcon}
+                                />
+                                <span className='user-name'>
+                                  LA
+                                </span>
+                                <span className="commented-on">
+                                commented on
+                                </span>
+                                <span>
+                                10/03/2021
+                                </span>
+                                </div>
+                            </p>
+
                             <div className="agency-links d-flex">
                               <Button
                                 onClick={() =>
