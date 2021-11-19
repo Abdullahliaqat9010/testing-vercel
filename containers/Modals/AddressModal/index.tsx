@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import {
 	GoogleApiWrapper,
 	IProvidedProps,
@@ -9,12 +9,18 @@ import {
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { AutoComplete, Input } from "antd";
+import { AutoComplete, Input, Modal } from "antd";
 import { SearchOutlined, LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
+import styled from "styled-components";
 
 import { googleMapConfig } from "../../../config/siteConfigs";
-import { googleMapStyle } from "../../../config/googleMapStyle";
+
+const StyledModal = styled(Modal)`
+	.modal-lg {
+		width: "80vw";
+	}
+`;
 
 interface LocationMapProps extends PropsWithChildren<IProvidedProps> {
 	width?: string | number;
@@ -300,30 +306,32 @@ const AddressModal = ({ show, handleClose, onAddress, initialValues }) => {
 	});
 	return (
 		<Modal
-			className="map-modal"
-			show={show}
-			onHide={handleClose}
-			size="lg"
+			visible={show}
+			onCancel={handleClose}
+			// size="lg"
 			centered
+			style={{ minWidth: "80vw" }}
+			title="Pick Address on Map"
+			footer={null}
 		>
-			<Modal.Header closeButton>Pick Address on Maps</Modal.Header>
-			<Modal.Body>
-				<div className="d-flex h-100">
-					<div className="d-none d-md-flex w-40 align-items-center justify-content-center">
-						<LocationForm
-							onLocationChange={(location) => {
-								setCenter({ ...location });
-							}}
-							onSubmit={(values) => {
-								onAddress(values);
-								handleClose();
-							}}
-							initialValues={{ ...initialValues }}
-						/>
-					</div>
-					<LocationMap center={center} width="60%" />
+			{/* <Modal.Header closeButton>s</Modal.Header> */}
+			{/* <Modal.Body> */}
+			<div className="d-flex h-100">
+				<div className="d-none d-md-flex w-40 align-items-center justify-content-center">
+					<LocationForm
+						onLocationChange={(location) => {
+							setCenter({ ...location });
+						}}
+						onSubmit={(values) => {
+							onAddress(values);
+							handleClose();
+						}}
+						initialValues={{ ...initialValues }}
+					/>
 				</div>
-			</Modal.Body>
+				<LocationMap center={center} width="60%" />
+			</div>
+			{/* </Modal.Body> */}
 		</Modal>
 	);
 };
