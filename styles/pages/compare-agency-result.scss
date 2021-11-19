@@ -64,10 +64,32 @@
         }
       }
     }
+    .background-color {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px;
+
+      position: static;
+      margin-right: 20px;
+      width: 450px;
+      height: 150px;
+      left: 0px;
+      top: 44px;
+
+      background: #f9faff;
+
+      border-radius: 8px;
+
+      flex: none;
+      order: 1;
+      flex-grow: 0;
+      margin: 10px 0px;
+    }
     .agency-result-rating {
       .rating {
         position: static;
-       
+
         margin-left: 5px;
         margin-bottom: 3px;
         font-family: Nunito Sans;
@@ -78,121 +100,114 @@
 
         color: #1d2e5b;
       }
-      .google-img{
+      .google-img {
         position: static;
-width: 68px;
-height: 23px;
-left: 0px;
-top: 0px;
-flex: none;
-order: 0;
-flex-grow: 0;
-margin: 0px 6px;
+        width: 68px;
+        height: 23px;
+        left: 0px;
+        top: 0px;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 6px;
       }
-      .google-reviews{
+      .google-reviews {
         position: absolute;
-left: 43.79%;
-right: 0%;
-top: 15.22%;
-bottom: 15.22%;
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 12px;
-line-height: 16px;
-color: #1D2E5B;
+        left: 43.79%;
+        right: 0%;
+        top: 15.22%;
+        bottom: 15.22%;
+        font-family: Nunito Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #1d2e5b;
 
-opacity: 0.6;
+        opacity: 0.6;
       }
-      .frame1{
-      margin-left: 40%;
-display: flex;
-align-items: center;
-text-align: center;
-color: #1D2E5B;
+      .frame1 {
+        margin-left: 33%;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #1d2e5b;
+      }
 
+      .experience {
+        width: 144px;
+        height: 19px;
+        left: 92px;
+        top: 0px;
+        font-family: Nunito Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 19px;
+        color: #1d2e5b;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 0px 12px;
       }
-      
-      .experience{
-width: 144px;
-height: 19px;
-left: 92px;
-top: 0px;
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 14px;
-line-height: 19px;
-color: #1D2E5B;
-flex: none;
-order: 1;
-flex-grow: 0;
-margin: 0px 12px;
-      }
-    
-   
     }
 
-    .google-paraghaf{
+    .google-paraghaf {
+      color: #1d2e5b;
 
-     
-      color: #1D2E5B;
-            
-            .show-more {
-              color: dodgerblue;
-              font-weight: bold;
-          }
-        }
+      .show-more {
+        color: dodgerblue;
+        font-weight: bold;
+      }
+    }
 
     .user-details {
-       .user-name{
- 
-      font-family: Nunito Sans;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      margin-left: 5px;
-      line-height: 16px;
-      color: #1D2E5B;
-      
-          }
-          .commented-on{
-            position: static;
-left: 43.13%;
-right: 26.34%;
-top: 0%;
-bottom: 0%;
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 12px;
-line-height: 16px;
-color: #1D2E5B;
+      .user-name {
+        font-family: Nunito Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        margin-left: 5px;
+        line-height: 16px;
+        color: #1d2e5b;
+      }
+      .commented-on {
+        position: static;
+        left: 43.13%;
+        right: 26.34%;
+        top: 0%;
+        bottom: 0%;
+        font-family: Nunito Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #1d2e5b;
 
-opacity: 0.6;
-flex: none;
-order: 1;
-flex-grow: 0;
-margin: 0px 4px;
-          }
-          .commented-on{
-            position: static;
-left: 75.19%;
-right: 0%;
-top: 0%;
-bottom: 0%;
-font-family: Nunito Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 12px;
-line-height: 16px;
-color: #1D2E5B;
-flex: none;
-order: 2;
-flex-grow: 0;
-margin: 0px 4px;
-          }
-        }
+        opacity: 0.6;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 0px 4px;
+      }
+      .commented-on {
+        position: static;
+        left: 75.19%;
+        right: 0%;
+        top: 0%;
+        bottom: 0%;
+        font-family: Nunito Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #1d2e5b;
+        flex: none;
+        order: 2;
+        flex-grow: 0;
+        margin: 0px 4px;
+      }
+    }
     .agency-container {
       padding: 20px;
       background: var(--colorWhite);

@@ -4971,52 +4971,53 @@ const compareAgency = () => {
 																	src={frame2}
 																/>
 															</div>
-															<br />
-															<div className="agency-result-rating d-flex align-items-center">
-																<StarRatingComponent
-																	name="rate"
-																	className="custom-rate"
-																	renderStarIcon={(index, value) => (
-																		<img
-																			className="rating-star"
-																			src={
-																				index <= value
-																					? RatingStar
-																					: RatingStarEmpty
-																			}
-																			alt="RatingStar"
-																		/>
-																	)}
-																	starCount={5}
-																	value={Number(
-																		agencyRating(agency?.rating?.rating)
-																	)}
-																/>
+															<div className="background-color">
+																<div className="agency-result-rating d-flex align-items-center">
+																	<StarRatingComponent
+																		name="rate"
+																		className="custom-rate"
+																		renderStarIcon={(index, value) => (
+																			<img
+																				className="rating-star"
+																				src={
+																					index <= value
+																						? RatingStar
+																						: RatingStarEmpty
+																				}
+																				alt="RatingStar"
+																			/>
+																		)}
+																		starCount={5}
+																		value={Number(
+																			agencyRating(agency?.rating?.rating)
+																		)}
+																	/>
 
-																<span className="experience">
-																	Very nice experience...
-																</span>
-															</div>
-															<div>
-																<p className="google-paraghaf ">
-																	Amet minim mollit non deserunt ullamco est sit
-																	aliqua dolor do amet sint. Velit officia
-																	consequat duis enim velit mollit. Exercitation
-																	veniam co...{" "}
-																	<span className="show-more">Show more</span>
-																</p>
-															</div>
-															<div className="user-details">
-																<img
-																	className="userIcon"
-																	alt="userIcon"
-																	src={userIcon}
-																/>
-																<span className="user-name">LA</span>
-																<span className="commented-on">
-																	commented on
-																</span>
-																<span>10/03/2021</span>
+																	<span className="experience">
+																		Very nice experience...
+																	</span>
+																</div>
+																<div>
+																	<p className="google-paraghaf ">
+																		Amet minim mollit non deserunt ullamco est
+																		sit aliqua dolor do amet sint. Velit officia
+																		consequat duis enim velit mollit.
+																		Exercitation veniam co...{" "}
+																		<span className="show-more">Show more</span>
+																	</p>
+																</div>
+																<div className="user-details">
+																	<img
+																		className="userIcon"
+																		alt="userIcon"
+																		src={userIcon}
+																	/>
+																	<span className="user-name">LA</span>
+																	<span className="commented-on">
+																		commented on
+																	</span>
+																	<span>10/03/2021</span>
+																</div>
 															</div>
 														</p>
 
