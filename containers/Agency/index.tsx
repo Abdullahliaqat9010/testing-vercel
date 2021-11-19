@@ -460,7 +460,7 @@ ${agency?.properties?.length || 0} woning${
 							alt={agency?.company_name}
 						/>
 					</AgencyLogoBlock>
-					<AgencyInfo className="my-4">
+					<AgencyInfo className="my-3">
 						<AgencyName > {agency.company_name}</AgencyName>
 						<div className=" d-flex align-items-center">
 							<span style={{ fontSize: '12px', lineHeight: '16px' }} >
