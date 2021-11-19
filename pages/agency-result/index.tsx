@@ -4972,6 +4972,7 @@ const compareAgency = () => {
                                 />
                               </div>
                               <br />
+                              <div className="background-color">
                               <div className="agency-result-rating d-flex align-items-center">
                                 <StarRatingComponent
                                   name="rate"
@@ -5022,7 +5023,9 @@ const compareAgency = () => {
                                 10/03/2021
                                 </span>
                                 </div>
+                                </div>
                             </p>
+                            
 
                             <div className="agency-links d-flex">
                               <Button
