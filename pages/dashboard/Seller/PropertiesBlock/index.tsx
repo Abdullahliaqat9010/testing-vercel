@@ -37,13 +37,13 @@ const SimilarPropertiesBlock = styled.div`
 h3 {
 	font-family: var(--fontNunitoBold);
 	line-height: 27px;
-	margin: 20px 0 10px 20px;
+	margin: 20px 0 10px 0px;
 }
 
 p {
 	font-size: 14px;
 	line-height: 19px;
-	margin: 0 0 24px 20px;
+	margin-bottom:24px ;
 }
 
 @media (min-width: 769px) { 
@@ -59,7 +59,7 @@ margin-bottom: 20px;
 background: var(--colorWhite);
 border-radius: 10px;
 @media (min-width: 769px) { 
-	padding: 20px 0 20px 20px;
+	padding: 30px;
 
 }@media (max-width: 768px) { 
 	position: relative;
@@ -146,6 +146,331 @@ const PropertiesBlock = ({
 		   }
 		},
 		{
+			"id":2,
+			"leadId":1,
+			"interest":"asap",
+			"selling_way":null,
+			"residence_type":"other",
+			"is_owner":true,
+			"createdAt":"2021-10-28T03:15:07.009Z",
+			"updatedAt":"2021-10-28T03:15:07.009Z",
+			"property":{
+			   "id":20796,
+			   "search_address":"Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
+			   "lat":"50.6631515",
+			   "lng":"5.9627477",
+			   "location":null,
+			   "country":"Belgium",
+			   "street":"Rue De Fromenteau",
+			   "street_number":"2",
+			   "box_number":null,
+			   "zip":"4840",
+			   "locality":"Welkenraedt",
+			   "property_type":"apartment",
+			   "live_area":233,
+			   "total_area":null,
+			   "area_unit":"m2",
+			   "bedrooms":1,
+			   "bathrooms":1,
+			   "floor":1,
+			   "levels":1,
+			   "prestige":"basic",
+			   "facades":2,
+			   "construction_year":null,
+			   "renov_year":null,
+			   "renov_level":null,
+			   "epc":null,
+			   "view":"normal",
+			   "orientation_terras":"N",
+			   "terras_size":400,
+			   "garden_size":null,
+			   "attic":null,
+			   "cellar":null,
+			   "elevator":false,
+			   "pool":false,
+			   "indoor_garage":null,
+			   "outdoor_garage":null,
+			   "carport":null,
+			   "solar_panels":0,
+			   "state":"renovate",
+			   "construction_price":null,
+			   "display_address":null,
+			   "energy_class":null,
+			   "energy_value":null,
+			   "evaluation":null,
+			   "furnished":null,
+			   "garage":null,
+			   "garden":null,
+			   "garden_area":null,
+			   "min_area":null,
+			   "max_area":null,
+			   "name":null,
+			   "parking":null,
+			   "sub_category":null,
+			   "terrace":null
+			}
+		 },
+		 {
+			"id":2,
+			"leadId":1,
+			"interest":"asap",
+			"selling_way":null,
+			"residence_type":"other",
+			"is_owner":true,
+			"createdAt":"2021-10-28T03:15:07.009Z",
+			"updatedAt":"2021-10-28T03:15:07.009Z",
+			"property":{
+			   "id":20796,
+			   "search_address":"Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
+			   "lat":"50.6631515",
+			   "lng":"5.9627477",
+			   "location":null,
+			   "country":"Belgium",
+			   "street":"Rue De Fromenteau",
+			   "street_number":"2",
+			   "box_number":null,
+			   "zip":"4840",
+			   "locality":"Welkenraedt",
+			   "property_type":"apartment",
+			   "live_area":233,
+			   "total_area":null,
+			   "area_unit":"m2",
+			   "bedrooms":1,
+			   "bathrooms":1,
+			   "floor":1,
+			   "levels":1,
+			   "prestige":"basic",
+			   "facades":2,
+			   "construction_year":null,
+			   "renov_year":null,
+			   "renov_level":null,
+			   "epc":null,
+			   "view":"normal",
+			   "orientation_terras":"N",
+			   "terras_size":400,
+			   "garden_size":null,
+			   "attic":null,
+			   "cellar":null,
+			   "elevator":false,
+			   "pool":false,
+			   "indoor_garage":null,
+			   "outdoor_garage":null,
+			   "carport":null,
+			   "solar_panels":0,
+			   "state":"renovate",
+			   "construction_price":null,
+			   "display_address":null,
+			   "energy_class":null,
+			   "energy_value":null,
+			   "evaluation":null,
+			   "furnished":null,
+			   "garage":null,
+			   "garden":null,
+			   "garden_area":null,
+			   "min_area":null,
+			   "max_area":null,
+			   "name":null,
+			   "parking":null,
+			   "sub_category":null,
+			   "terrace":null
+			}
+		 },
+		 {
+			"id":2,
+			"leadId":1,
+			"interest":"asap",
+			"selling_way":null,
+			"residence_type":"other",
+			"is_owner":true,
+			"createdAt":"2021-10-28T03:15:07.009Z",
+			"updatedAt":"2021-10-28T03:15:07.009Z",
+			"property":{
+			   "id":20796,
+			   "search_address":"Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
+			   "lat":"50.6631515",
+			   "lng":"5.9627477",
+			   "location":null,
+			   "country":"Belgium",
+			   "street":"Rue De Fromenteau",
+			   "street_number":"2",
+			   "box_number":null,
+			   "zip":"4840",
+			   "locality":"Welkenraedt",
+			   "property_type":"apartment",
+			   "live_area":233,
+			   "total_area":null,
+			   "area_unit":"m2",
+			   "bedrooms":1,
+			   "bathrooms":1,
+			   "floor":1,
+			   "levels":1,
+			   "prestige":"basic",
+			   "facades":2,
+			   "construction_year":null,
+			   "renov_year":null,
+			   "renov_level":null,
+			   "epc":null,
+			   "view":"normal",
+			   "orientation_terras":"N",
+			   "terras_size":400,
+			   "garden_size":null,
+			   "attic":null,
+			   "cellar":null,
+			   "elevator":false,
+			   "pool":false,
+			   "indoor_garage":null,
+			   "outdoor_garage":null,
+			   "carport":null,
+			   "solar_panels":0,
+			   "state":"renovate",
+			   "construction_price":null,
+			   "display_address":null,
+			   "energy_class":null,
+			   "energy_value":null,
+			   "evaluation":null,
+			   "furnished":null,
+			   "garage":null,
+			   "garden":null,
+			   "garden_area":null,
+			   "min_area":null,
+			   "max_area":null,
+			   "name":null,
+			   "parking":null,
+			   "sub_category":null,
+			   "terrace":null
+			}
+		 },
+		 {
+			"id":2,
+			"leadId":1,
+			"interest":"asap",
+			"selling_way":null,
+			"residence_type":"other",
+			"is_owner":true,
+			"createdAt":"2021-10-28T03:15:07.009Z",
+			"updatedAt":"2021-10-28T03:15:07.009Z",
+			"property":{
+			   "id":20796,
+			   "search_address":"Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
+			   "lat":"50.6631515",
+			   "lng":"5.9627477",
+			   "location":null,
+			   "country":"Belgium",
+			   "street":"Rue De Fromenteau",
+			   "street_number":"2",
+			   "box_number":null,
+			   "zip":"4840",
+			   "locality":"Welkenraedt",
+			   "property_type":"apartment",
+			   "live_area":233,
+			   "total_area":null,
+			   "area_unit":"m2",
+			   "bedrooms":1,
+			   "bathrooms":1,
+			   "floor":1,
+			   "levels":1,
+			   "prestige":"basic",
+			   "facades":2,
+			   "construction_year":null,
+			   "renov_year":null,
+			   "renov_level":null,
+			   "epc":null,
+			   "view":"normal",
+			   "orientation_terras":"N",
+			   "terras_size":400,
+			   "garden_size":null,
+			   "attic":null,
+			   "cellar":null,
+			   "elevator":false,
+			   "pool":false,
+			   "indoor_garage":null,
+			   "outdoor_garage":null,
+			   "carport":null,
+			   "solar_panels":0,
+			   "state":"renovate",
+			   "construction_price":null,
+			   "display_address":null,
+			   "energy_class":null,
+			   "energy_value":null,
+			   "evaluation":null,
+			   "furnished":null,
+			   "garage":null,
+			   "garden":null,
+			   "garden_area":null,
+			   "min_area":null,
+			   "max_area":null,
+			   "name":null,
+			   "parking":null,
+			   "sub_category":null,
+			   "terrace":null
+			}
+		 },
+		{
+			"id":2,
+			"leadId":1,
+			"interest":"asap",
+			"selling_way":null,
+			"residence_type":"other",
+			"is_owner":true,
+			"createdAt":"2021-10-28T03:15:07.009Z",
+			"updatedAt":"2021-10-28T03:15:07.009Z",
+			"property":{
+			   "id":20796,
+			   "search_address":"Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
+			   "lat":"50.6631515",
+			   "lng":"5.9627477",
+			   "location":null,
+			   "country":"Belgium",
+			   "street":"Rue De Fromenteau",
+			   "street_number":"2",
+			   "box_number":null,
+			   "zip":"4840",
+			   "locality":"Welkenraedt",
+			   "property_type":"apartment",
+			   "live_area":233,
+			   "total_area":null,
+			   "area_unit":"m2",
+			   "bedrooms":1,
+			   "bathrooms":1,
+			   "floor":1,
+			   "levels":1,
+			   "prestige":"basic",
+			   "facades":2,
+			   "construction_year":null,
+			   "renov_year":null,
+			   "renov_level":null,
+			   "epc":null,
+			   "view":"normal",
+			   "orientation_terras":"N",
+			   "terras_size":400,
+			   "garden_size":null,
+			   "attic":null,
+			   "cellar":null,
+			   "elevator":false,
+			   "pool":false,
+			   "indoor_garage":null,
+			   "outdoor_garage":null,
+			   "carport":null,
+			   "solar_panels":0,
+			   "state":"renovate",
+			   "construction_price":null,
+			   "display_address":null,
+			   "energy_class":null,
+			   "energy_value":null,
+			   "evaluation":null,
+			   "furnished":null,
+			   "garage":null,
+			   "garden":null,
+			   "garden_area":null,
+			   "min_area":null,
+			   "max_area":null,
+			   "name":null,
+			   "parking":null,
+			   "sub_category":null,
+			   "terrace":null
+			}
+		 },
+		{
 		   "id":3,
 		   "leadId":1,
 		   "interest":"asap",
@@ -214,8 +539,9 @@ const PropertiesBlock = ({
 	
 	const PropertiesContainer = styled.div`
 	position: relative;
-	// overflow-x: auto;
+	overflow-x: auto;
 	padding-bottom: 5px;
+	max-height:40rem;
 	@media (max-width: 768px) { 
 		width:100%;
 		margin-top: 50px;
@@ -312,7 +638,7 @@ const PropertiesBlock = ({
 				<PropertiesContainer>
 					{similarProperties.length > 0 ? (
 						<div>
-							<CustomScrollbar autoHide={false} >
+							{/* <CustomScrollbar autoHide={false} > */}
 								{similarProperties.map((item, index) => (
 									<PropertyBlock
 										active={item?.id === activeMarker}
@@ -321,7 +647,7 @@ const PropertiesBlock = ({
 										property={item}
 									/>
 								))}
-							</CustomScrollbar>
+							{/* </CustomScrollbar> */}
 							{isLoadMoreAvailable && (
 								<div className="d-flex flex-row w-100 justify-content-center pt-3">
 									<Button
