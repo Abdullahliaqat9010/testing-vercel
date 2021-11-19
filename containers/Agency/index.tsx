@@ -324,7 +324,7 @@ ${agency?.properties?.length || 0} home${
   ${agency?.properties?.length || 0} woning${
 	 similarProperties.length !== 1 ? "en" : ""
    } </span> gelijkaardig aan die van u. 
-			Ons team is beschikbaar om uw vastgoed project te beheren. 
+			Ons team is beschikbaar om uw vastgoedproject te beheren. 
 `,
         };
       }
@@ -358,7 +358,7 @@ ${agency?.properties?.length || 0} home${
 		 ${agency?.properties?.length || 0} woning${
             similarProperties.length !== 1 ? "en" : ""
           } </span> gelijkaardig aan die van u. 
-                   Ons team is beschikbaar om uw vastgoed project te beheren. 
+                   Ons team is beschikbaar om uw vastgoedproject te beheren. 
 `,
         };
       }
@@ -373,7 +373,7 @@ ${agency?.properties?.length || 0} home${
 ${agency?.properties?.length || 0} woning${
           similarProperties.length !== 1 ? "en" : ""
         } </span> gelijkaardig aan die van u. 
-		Ons team is beschikbaar om uw vastgoed project te beheren. 
+		Ons team is beschikbaar om uw vastgoedproject te beheren. 
 `,
         // `In de afgelopen 24 maanden heeft ons bureau verkocht
         //          <span class="bold">${
