@@ -4971,7 +4971,6 @@ const compareAgency = () => {
                                   src={frame2}
                                 />
                               </div>
-                              <br />
                               <div className="background-color">
                               <div className="agency-result-rating d-flex align-items-center">
                                 <StarRatingComponent
