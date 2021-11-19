@@ -73,7 +73,10 @@ export const getAgenciesByAddress = (address): Promise<any[]> => {
 	});
 };
 
-export const getLimitedAgenciesByAddress = (address): Promise<any[]> => {
+export const getLimitedAgenciesByAddress = (
+	address,
+	locale: string = "nl"
+): Promise<any[]> => {
 	return new Promise(async (res, rej) => {
 		try {
 			const { data: limitedAgencies } = await axios.get(
