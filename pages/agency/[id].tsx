@@ -78,7 +78,6 @@ const AgencyPage = () => {
 	return (
 		<>
 			<HeaderContainer title="Agency Info" />
-
 			<div className="d-flex flex-row justify-content-center bd-highlight mb-2 w-100">
 				<div className="d-flex flex-row agency-detail-page">
 					<div className="Agency d-flex flex-column">
