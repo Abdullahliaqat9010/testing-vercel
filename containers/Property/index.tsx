@@ -76,7 +76,7 @@ display:flex;
 `
 
 const PropertyMainBlock = styled.div`
-// margin: 0 20px 6px;
+margin: 20px 0px;
 // padding: 30px ;
 border-bottom: 1px solid rgba(56, 113, 239, 0.2);
 Button {
