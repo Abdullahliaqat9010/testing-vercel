@@ -56,6 +56,29 @@ const ReviewTextBlock = styled.div`
 }
 `
 
+const ReviewTitle = styled.div`
+display: flex;
+align-items: center;
+span {
+	font-family: var(--fontNunitoBold);
+	font-size: 14px;
+	line-height: 19px;
+}
+
+@media (max-width: 768px) {
+	flex-direction: column;
+	align-items: flex-start;
+
+}
+
+`
+
+const PerReviewContainer = styled.div`
+margin-top: 20px;
+border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+padding-bottom: 20px;
+`
+
 const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const { t } = useTranslation("agency-page");
 	return (
@@ -120,18 +143,19 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 						</div>
 					</div>
 					<div className="sort-block"></div>
-					<div className="reviews-list">
+					<div>
 						{currentAgency?.rating?.reviews?.map((review) => {
 							return (
-								<div className="review">
-									<div className="review__head">
-										<div className="review-title">
+								<PerReviewContainer>
+									<div className="d-flex align-items-center justify-content-between">
+										<ReviewTitle>
 											<StarRatingComponent
 												name="rate"
-												className="custom-rate"
+												// className="custom-rate"
 												renderStarIcon={(index, value) => (
 													<img
-														className="rating-star"
+														// className="rating-star"
+														style={{ width:"100%", height:"100%" }}
 														src={index <= value ? RatingStar : RatingStarEmpty}
 														alt="RatingStar"
 													/>
@@ -139,8 +163,8 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 												starCount={5}
 												value={Number(parseFloat(review?.rating).toFixed(1))}
 											/>
-											<span className="bold ml-2">{review?.author_name}</span>
-										</div>
+											<span className="ml-2">{review?.author_name}</span>
+										</ReviewTitle>
 									</div>
 									<ReviewBlock className="d-flex">
 										<ReviewTextBlock className="d-flex justify-content-center" >
@@ -178,7 +202,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 											/>
 										</div>
 									</ReviewBlock>
-								</div>
+								</PerReviewContainer>
 							);
 						})}
 					</div>
