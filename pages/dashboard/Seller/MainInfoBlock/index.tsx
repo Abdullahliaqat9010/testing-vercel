@@ -29,16 +29,24 @@ const ImageBlock = styled.div`
 `
 
 const AddressBiv = styled.h4`
-		font-family: var(--fontNunitoBold);
-		line-height: 33px;
+	font-family: var(--fontNunitoBold);
+	line-height: 33px;
+
 `
 
 const MainPropertyBlock = styled.div`
-	padding: 30px;
 	margin-bottom: 20px;
 	width: 100%;
 	background: var(--colorWhite);
 	border-radius: 10px;
+	@media (min-width: 769px) {
+		padding: 30px;
+
+	}
+	@media (max-width: 768px) {
+		padding: 20px;
+
+	}
 `
 
 const MainInfoBlock = ({ mainProperty }) => {
