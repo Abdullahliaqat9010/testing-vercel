@@ -15,6 +15,47 @@ import Avatar from "../../../../assets/images/no-photo.png";
 import google_reviews_image from "../../../../assets/images/google_reviews.png";
 import { AgentsItem } from "../../../../types/agents";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components"
+
+const AutherBlock = styled.div`
+display: flex;
+align-items: center;
+
+img {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  
+}
+
+span {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  margin-right: 4px;
+}
+`
+
+const ReviewBlock = styled.div`
+justify-content: space-between;
+@media (min-width: 501px) {
+	flex-direction: row;
+}
+@media (max-width: 500px) {
+	flex-direction: column;
+}
+`
+
+const ReviewTextBlock = styled.div`
+@media (min-width: 501px) {
+	width: 75%;
+}
+@media (max-width: 500px) {
+	width: 100%;
+
+}
+`
+
 const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const { t } = useTranslation("agency-page");
 	return (
@@ -101,31 +142,32 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 											<span className="bold ml-2">{review?.author_name}</span>
 										</div>
 									</div>
-									<div className="d-flex flex-row">
-										<div className="review__content" style={{ width: "75%" }}>
-											<div className="left-side">
-												<p className="desc">{review?.text}</p>
-												<div className="author-block">
+									<ReviewBlock className="d-flex">
+										<ReviewTextBlock className="d-flex justify-content-center" >
+											<div >
+												<p className="mt-2 mb-3">{review?.text}</p>
+												<AutherBlock>
 													<img src={review?.profile_photo_url} alt="Avatar" />
-													<span className="full-name">
+													<span >
 														{review?.author_name}
 													</span>
-													<span className="commented">
+													<span className="opacity-50">
 														{t("span.commented-on")}
 													</span>
-													<span className="commented-date">
+													<span >
 														{review?.relative_time_description}
 													</span>
-												</div>
+												</AutherBlock>
 											</div>
-										</div>
+										</ReviewTextBlock>
 										<div
-											className="d-flex "
+											className="d-flex mt-2"
 											style={{
 												// width: "25%",
 												border: "1px solid #EBEFF8",
 												borderRadius: 5,
-												padding: 25,
+												
+												padding: 20,
 												height: 120,
 											}}
 										>
@@ -135,7 +177,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 												style={{ width: "100%", objectFit: "contain" }}
 											/>
 										</div>
-									</div>
+									</ReviewBlock>
 								</div>
 							);
 						})}
