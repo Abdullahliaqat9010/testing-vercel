@@ -20,6 +20,7 @@ import frame2 from "../../assets/images/frame2.png";
 import userIcon from "../../assets/images/userIcon.png";
 import BlueGoAhead from "../../assets/images/blue-goAhead.svg";
 import { $, jQuery } from "jquery";
+
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import {
   getAgenciesByAddress,
@@ -4500,7 +4501,8 @@ const compareAgency = () => {
   const [pageSize, setPageSize] = useState(10);
   const [properties, setProperties] = useState([]);
   const [agencyReviews, setAgencyReviews] = useState([]);
-
+  let [reviewNumber,setReviewNumber]=useState(0);
+  console.log("console in state",reviewNumber)
   let [address, setAddress] = useState({
     city,
     zip,
@@ -4615,6 +4617,28 @@ const compareAgency = () => {
     e.preventDefault();
     setCurrentPage(index);
   };
+
+const nextReviewMethod=()=>{
+  console.log("console inside next review method ",reviewNumber)
+  if(  reviewNumber < agencyReviews.length){
+    let inc=reviewNumber+1;
+    setReviewNumber(inc);
+    console.log("review number",reviewNumber)
+    console.log("agency review length console",agencyReviews)
+  }
+
+}
+const previousReviewMethod=()=>{
+  if(reviewNumber > 0){
+    let dec=reviewNumber-1;
+    setReviewNumber(dec);
+      console.log("after set previous review",reviewNumber)
+
+
+  }
+
+}
+
 
   const pagination = totalPages ? (
     <Pagination className="pagination">
@@ -4830,13 +4854,12 @@ const compareAgency = () => {
                 .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
                 .map((agency, index, limitedAgecies) => {
                   if (open) {
-                    const text = agencyReviews[0].text;
+                    const text = agencyReviews[reviewNumber].text;
                     var review = text;
-
                     const relative_time_description =
-                      agencyReviews[0].relative_time_description;
+                      agencyReviews[reviewNumber].relative_time_description;
                     var time = relative_time_description;
-                    const author_name = agencyReviews[0].author_name.split(" ");
+                    const author_name = agencyReviews[reviewNumber].author_name.split(" ");
                     var result =
                       author_name[0].charAt(0) + author_name[1].charAt(0);
                   }
@@ -4988,11 +5011,14 @@ const compareAgency = () => {
                                   className="frame1"
                                   alt="frame1"
                                   src={frame1}
+                                  onClick={previousReviewMethod}
+
                                 />
                                 <img
                                   className="frame2"
                                   alt="frame2"
                                   src={frame2}
+                                  onClick={nextReviewMethod}
                                 />
                               </div>
 
@@ -5018,20 +5044,25 @@ const compareAgency = () => {
                                     )}
                                   />
                                   <span className="experience">
-                                    Very nice experience...
+                                    {agency?.rating?.rating == "5"
+                                      ? "very nice experience"
+                                      : agency?.rating?.rating >= "4" &&
+                                        agency?.rating?.rating < 5
+                                      ? "nice experience"
+                                      : agency?.rating?.rating >= "3" &&
+                                        agency?.rating?.rating < 4
+                                      ? "good"
+                                      : agency?.rating?.rating >= "2" &&
+                                        agency?.rating?.rating < 3
+                                      ? "satisfactory"
+                                      : agency?.rating?.rating >= "1" &&
+                                        agency?.rating?.rating < 2
+                                      ? "unsarifoctory"
+                                      : ""}
                                   </span>
                                 </div>
                                 <div>
-                                  <p
-                                    className="google-paraghaf "
-                                   
-                                  >
-                                    {review}
-
-                                    <span className="show-more ">
-                                        Show more
-                                    </span>
-                                  </p>
+                                  <p className="google-paraghaf ">{review}</p>
                                 </div>
                                 <div className="user-details">
                                   <img
