@@ -73,7 +73,7 @@
       position: static;
       margin-right: 20px;
       width: 450px;
-      height: 150px;
+      // height: 220px;
       left: 0px;
       top: 44px;
 
@@ -154,10 +154,12 @@
 
     .google-paraghaf {
       color: #1d2e5b;
-
+font-size: 12px;
       .show-more {
         color: dodgerblue;
         font-weight: bold;
+        font-size: 12px;margin-left: 10px;
+
       }
     }
 
