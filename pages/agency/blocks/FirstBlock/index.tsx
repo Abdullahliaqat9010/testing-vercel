@@ -26,7 +26,24 @@ import MailIcon from "../../../../assets/images/mail-white-icon.svg";
 import noAgencyLogo from "../../../../assets/images/no-image-available.svg";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components"
+import { isMobileOnly } from "react-device-detect";
+const ContactAgencyButton = styled.div`
+Button {
+	margin: 28px auto;
+	font-family: var(--fontNunitoBold);
+	width: 224px;
+	height: 50px;
+	background: var(--colorBlue);
+	border: 1px solid var(--colorBlue);
+	box-sizing: border-box;
+	border-radius: 6px;
 
+	img {
+	margin-right: 5px;
+}
+}
+`
 const FirstBlock = ({
 	currentAgency,
 	properties,
@@ -35,7 +52,6 @@ const FirstBlock = ({
 	properties: any[];
 }) => {
 	const { t } = useTranslation("agency-page");
-
 	const [show, setShowBlock] = useState<boolean>(false);
 	const [showContactModal, setShowContactModal] = useState<boolean>(false);
 
@@ -44,15 +60,15 @@ const FirstBlock = ({
 	};
 	const getLanguages = (languages) => {
 		let langs = [];
-     console.log("All languages",languages)
+		console.log("All languages", languages)
 		for (const key in languages) {
-			console.log("data from db",key )
+			console.log("data from db", key)
 
 			if (languages[key] === true) {
 				langs.push(t(`languages.${key}`).trim());
 			}
 		}
-		console.log("array data",langs)
+		console.log("array data", langs)
 
 		return langs.join(", ");
 	};
@@ -151,7 +167,7 @@ const FirstBlock = ({
 							</div>
 							<div className="contact-agency-list__info">
 								<span> {t("span.Mon-Fri")}  {": 9:30AM-12:30PM, 1:30PM-5PM"}</span>
-							</div>	
+							</div>
 						</div>
 						<div className="contact-agency-list">
 							<div className="contact-agency-list__name">
@@ -190,43 +206,46 @@ const FirstBlock = ({
 					</div>
 					<div className="agency-info__about_us">
 						<h3>{t("h3.about-agency")}</h3>
-						
+
 						<p>{currentAgency?.description}</p>
 						{/* <span className="show-more">
 							<img src={ArrowImage} alt="ArrowImage" />
 							{t("span.show-more")}
 						</span> */}
 					</div>
-
-					<Button
-						className="contact"
-						style={{ marginBottom: 30 }}
-						onClick={() => setShowContactModal(true)}
-					>
-						<img
-							style={{ marginRight: 10, paddingBottom: 5 }}
-							src={MailIcon}
-							alt="MailIcon"
-						/>
-						{t("button.contact-agency")}
-					</Button>
+					{!isMobileOnly &&
+						<ContactAgencyButton >
+							<Button
+								className="d-flex align-items-center justify-content-center"
+								style={{ marginBottom: 30 }}
+								onClick={() => setShowContactModal(true)}
+							>
+								<img
+									style={{ marginRight: 10, paddingBottom: 5 }}
+									src={MailIcon}
+									alt="MailIcon"
+								/>
+								{t("button.contact-agency")}
+							</Button>
+						</ContactAgencyButton>
+					}
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 };
 
 export const getServerSideProps = async ({ locale }) => {
 	return {
-	  props: {
-		...(await serverSideTranslations(locale, [
-		  "agency-settings",
-		  "agency-page"
-		
-		])),
-	  },
+		props: {
+			...(await serverSideTranslations(locale, [
+				"agency-settings",
+				"agency-page"
+
+			])),
+		},
 	};
-  };
-  
+};
+
 
 export default FirstBlock;

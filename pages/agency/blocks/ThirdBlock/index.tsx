@@ -107,7 +107,7 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 										<PropertyBlock
 											key={index}
 											property={{ ...item }}
-											active={item?.id === activeMarker}
+											active={false}
 											onClickProperty={onClickProperty}
 										/>
 									);
