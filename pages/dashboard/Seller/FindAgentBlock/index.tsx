@@ -13,7 +13,7 @@ const FindAgentMain = styled.div`
 		line-height: 19px;
 	}
 	h3 {
-	font-familiy: var(--fontNunitoBold);
+		font-familiy: var(--fontNunitoBold);
 	}
 	@media (min-width: 769px) {
 		padding: 30px;
@@ -21,9 +21,7 @@ const FindAgentMain = styled.div`
 	@media (max-width: 769px) {
 		padding: 20px;
 	}
-
-
-`
+`;
 
 const FindAgentBlock = ({
 	mainProperty,
@@ -37,27 +35,27 @@ const FindAgentBlock = ({
 	const { t } = useTranslation("dashboard-page");
 	const myAgencies = [
 		{
-			agent : {
+			agent: {
 				name: "ashraf",
 				user: {
 					firstname: "ashraf",
-					lastname: "ali"
-				}
+					lastname: "ali",
+				},
 			},
-			rating : {
+			rating: {
 				rating: 4,
 				user_ratings_total: 3,
 			},
-			properties : [],
+			properties: [],
 			company_name: "test",
 			id: 27,
-			logo_image: "https://immobelgium.s3.eu-west-1.amazonaws.com/1635295013631%20-%20logo_eco-immo.png",
-
-		}
-	]
+			logo_image:
+				"https://immobelgium.s3.eu-west-1.amazonaws.com/1635295013631%20-%20logo_eco-immo.png",
+		},
+	];
 
 	return (
-		<FindAgentMain >
+		<FindAgentMain>
 			<h3>{t("title.find-your-agent")}</h3>
 			<p>
 				{t("desc.we-found")} {totalAgencies} {t("desc.agents-near-you")}
@@ -76,7 +74,10 @@ const FindAgentBlock = ({
 					<Button
 						loading={isLoadingMore}
 						onClick={onLoadMore}
-						className="rounded-lg"
+						className="rounded-lg w-100 text-primary border-0"
+						size="large"
+						block
+						style={{ background: "#F2F6FF" }}
 					>
 						Load More
 					</Button>

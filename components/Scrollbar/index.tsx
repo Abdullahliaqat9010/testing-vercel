@@ -11,15 +11,15 @@ const renderThumb = ({ style, ...props }) => {
 
 export const CustomScrollbar = (props) => (
 	<Scrollbars
-		style={{ height: window.innerHeight }}
+		style={{ height: "100%" }}
 		renderThumbHorizontal={renderThumb}
 		renderThumbVertical={renderThumb}
 		autoHide={true}
 		{...props}
-		ref={(ref) => {
-			if (props?.scrollToBottom) {
-				ref?.scrollToBottom();
-			}
-		}}
+		// ref={(ref) => {
+		// 	if (props?.scrollToBottom) {
+		// 		ref?.scrollToBottom();
+		// 	}
+		// }}
 	/>
 );
