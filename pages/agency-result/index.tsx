@@ -4498,6 +4498,8 @@ const compareAgency = () => {
 	const [totalPages, setTotalPages] = useState(0);
 	const [pageSize, setPageSize] = useState(10);
 	const [properties, setProperties] = useState([]);
+	const [agencyReviews, setAgencyReviews] = useState([]);
+
 	let [address, setAddress] = useState({
 		city,
 		zip,
@@ -4556,6 +4558,7 @@ const compareAgency = () => {
 		try {
 			const agencies = await getAgenciesByAddress(address);
 			const limitedAgecies = await getLimitedAgenciesByAddress(address, locale);
+			console.log("agencyyyyy", limitedAgecies);
 			const allAgency = [...agencies, ...limitedAgecies];
 			const totalPages =
 				allAgency.length > 0
@@ -4708,12 +4711,16 @@ const compareAgency = () => {
 	const openDetail = async (index) => {
 		if (selctedIdex !== index || !open) {
 			const expandedAgency = filteredAgencies[index];
+			console.log("expended agenices", expandedAgency.rating.reviews);
+
+			setAgencyReviews(expandedAgency.rating.reviews);
 			if (expandedAgency?.isLimited) {
 				const address = `${expandedAgency?.street} ${expandedAgency?.street_number}, ${expandedAgency?.zip} ${expandedAgency?.city}`;
 				const suuggestions = await getLatLongFromAddress({
 					searchValue: address,
 					type: "address,postcode",
 				});
+
 				const latLongs = suuggestions[0]?.location;
 				const marker = {
 					type: "property",
@@ -4820,7 +4827,19 @@ const compareAgency = () => {
 						{filteredAgencies?.length > 0 ? (
 							filteredAgencies
 								.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
-								.map((agency, index) => {
+								.map((agency, index, limitedAgecies) => {
+									if (open) {
+										const text = agencyReviews[0].text;
+										var review = text;
+
+										const relative_time_description =
+											agencyReviews[0].relative_time_description;
+										var time = relative_time_description;
+										const author_name = agencyReviews[0].author_name.split(" ");
+										var result =
+											author_name[0].charAt(0) + author_name[1].charAt(0);
+									}
+
 									return (
 										<div key={index}>
 											<div
@@ -4959,7 +4978,11 @@ const compareAgency = () => {
 																	src={google}
 																	style={{ objectFit: "cover" }}
 																/>
-																<span>from 120 reviews </span>
+																<span>
+																	from {agency?.rating?.user_ratings_total}{" "}
+																	reviews{" "}
+																</span>
+
 																<img
 																	className="frame1"
 																	alt="frame1"
@@ -4971,6 +4994,7 @@ const compareAgency = () => {
 																	src={frame2}
 																/>
 															</div>
+
 															<div className="background-color">
 																<div className="agency-result-rating d-flex align-items-center">
 																	<StarRatingComponent
@@ -4992,18 +5016,17 @@ const compareAgency = () => {
 																			agencyRating(agency?.rating?.rating)
 																		)}
 																	/>
-
 																	<span className="experience">
 																		Very nice experience...
 																	</span>
 																</div>
 																<div>
 																	<p className="google-paraghaf ">
-																		Amet minim mollit non deserunt ullamco est
-																		sit aliqua dolor do amet sint. Velit officia
-																		consequat duis enim velit mollit.
-																		Exercitation veniam co...{" "}
-																		<span className="show-more">Show more</span>
+																		{review}
+
+																		<span className="show-more ">
+																			Show more
+																		</span>
 																	</p>
 																</div>
 																<div className="user-details">
@@ -5012,12 +5035,16 @@ const compareAgency = () => {
 																		alt="userIcon"
 																		src={userIcon}
 																	/>
-																	<span className="user-name">LA</span>
+																	<span className="user-name">{result}</span>
 																	<span className="commented-on">
 																		commented on
 																	</span>
-																	<span>10/03/2021</span>
+																	<span>{time}</span>
 																</div>
+																{/* {`${t("span.sold-on")} ${
+								property?.sold_rent_date
+								
+							}`}{" "} */}
 															</div>
 														</p>
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
-import { isMobileOnly } from "react-device-detect";
-import styled from "styled-components"
+import styled from "styled-components";
 import GoogleMap from "../../../../components/GoogleMap";
 import PropertyBlock from "../../../../containers/Property";
 
@@ -28,47 +27,51 @@ const NoPropertiesBlock = styled.div`
 	span {
 		color: var(--colorGrayTwo);
 	}
-
-`
-
-
+`;
 
 const SimilarPropertiesBlock = styled.div`
-h3 {
-	font-family: var(--fontNunitoBold);
-	line-height: 27px;
-	margin: 20px 0 10px 0px;
-}
+	h3 {
+		font-family: var(--fontNunitoBold);
+		line-height: 27px;
+		margin: 20px 0 10px 0px;
+	}
 
-p {
-	font-size: 14px;
-	line-height: 19px;
-	margin-bottom:24px ;
-}
+	p {
+		font-size: 14px;
+		line-height: 19px;
+		margin-bottom: 24px;
+	}
 
-@media (min-width: 769px) { 
-	width:50%;
-}@media (max-width: 768px) { 
-	width:100%;
-}
+	width: 50%;
+	/* height: 800px; */
+	padding: 10px;
 
-`
+	@media (max-width: 770px) {
+		width: 100%;
+		/* height: 300px; */
+	}
+`;
+
+const MapContainer = styled.div`
+	position: relative;
+	width: 50%;
+	height: 800px;
+	padding: 10px;
+
+	@media (max-width: 770px) {
+		width: 100%;
+		height: 300px;
+	}
+	@media (max-width: 425px) {
+		display: none;
+	}
+`;
 
 const PropertiesMainBlock = styled.div`
-margin-bottom: 20px;
-background: var(--colorWhite);
-border-radius: 10px;
-@media (min-width: 769px) { 
-	padding: 30px;
-
-}@media (max-width: 768px) { 
-	position: relative;
-	padding: 20px;
-	flex-direction: column;
-}
-
-`
-
+	margin-bottom: 20px;
+	background: var(--colorWhite);
+	border-radius: 10px;
+`;
 
 const PropertiesBlock = ({
 	similarProperties = [],
@@ -79,487 +82,10 @@ const PropertiesBlock = ({
 	isLoadMoreAvailable = false,
 }) => {
 	const { t } = useTranslation("dashboard-page");
-	const dummyData = [
-		{
-			"id": 2,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:15:07.009Z",
-			"updatedAt": "2021-10-28T03:15:07.009Z",
-			"property": {
-				"id": 20796,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		},
-		{
-			"id": 2,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:15:07.009Z",
-			"updatedAt": "2021-10-28T03:15:07.009Z",
-			"property": {
-				"id": 20796,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		},
-		{
-			"id": 2,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:15:07.009Z",
-			"updatedAt": "2021-10-28T03:15:07.009Z",
-			"property": {
-				"id": 20796,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		},
-		{
-			"id": 2,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:15:07.009Z",
-			"updatedAt": "2021-10-28T03:15:07.009Z",
-			"property": {
-				"id": 20796,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		},
-		{
-			"id": 2,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:15:07.009Z",
-			"updatedAt": "2021-10-28T03:15:07.009Z",
-			"property": {
-				"id": 20796,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		},
-		{
-			"id": 2,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:15:07.009Z",
-			"updatedAt": "2021-10-28T03:15:07.009Z",
-			"property": {
-				"id": 20796,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		},
-		{
-			"id": 3,
-			"leadId": 1,
-			"interest": "asap",
-			"selling_way": null,
-			"residence_type": "other",
-			"is_owner": true,
-			"createdAt": "2021-10-28T03:17:16.346Z",
-			"updatedAt": "2021-10-28T03:17:16.346Z",
-			"property": {
-				"id": 20797,
-				"search_address": "Rue De Fromenteau, Welkenraedt, 4840 Liège, Belgium",
-				"lat": "50.6631515",
-				"lng": "5.9627477",
-				"location": null,
-				"country": "Belgium",
-				"street": "Rue De Fromenteau",
-				"street_number": "2",
-				"box_number": null,
-				"zip": "4840",
-				"locality": "Welkenraedt",
-				"property_type": "apartment",
-				"live_area": 233,
-				"total_area": null,
-				"area_unit": "m2",
-				"bedrooms": 1,
-				"bathrooms": 1,
-				"floor": 1,
-				"levels": 1,
-				"prestige": "basic",
-				"facades": 2,
-				"construction_year": null,
-				"renov_year": null,
-				"renov_level": null,
-				"epc": null,
-				"view": "normal",
-				"orientation_terras": "N",
-				"terras_size": 400,
-				"garden_size": null,
-				"attic": null,
-				"cellar": null,
-				"elevator": false,
-				"pool": false,
-				"indoor_garage": null,
-				"outdoor_garage": null,
-				"carport": null,
-				"solar_panels": 0,
-				"state": "renovate",
-				"construction_price": null,
-				"display_address": null,
-				"energy_class": null,
-				"energy_value": null,
-				"evaluation": null,
-				"furnished": null,
-				"garage": null,
-				"garden": null,
-				"garden_area": null,
-				"min_area": null,
-				"max_area": null,
-				"name": null,
-				"parking": null,
-				"sub_category": null,
-				"terrace": null
-			}
-		}
-	]
 
 	const PropertiesContainer = styled.div`
-	position: relative;
-	overflow-x: auto;
-	padding-bottom: 5px;
-	max-height:52rem;
-	@media (max-width: 768px) { 
-		width:100%;
-		margin-top: 50px;
-	}
-	@media (max-width: 500px) { 
-		width:100%;
-		height: auto;
-		margin-top: 0px;
-	}
-	`
-	// const elementsOnPage = isMobileOnly ? 3 : 6;
-	// const [sizeArr, setSizeArr] = useState(elementsOnPage);
-
-	// const properties = similarProperties.slice(0, sizeArr);
-
-	// const loadMore = () => {
-	// 	setSizeArr(sizeArr + elementsOnPage);
-	// };
+		height: calc(100% - 145px);
+	`;
 
 	const [activeMarker, setActiveMarker] = useState<string | number>("home");
 	const [markers, setMarkers] = useState([]);
@@ -626,32 +152,42 @@ const PropertiesBlock = ({
 	}, [similarProperties]);
 
 	return (
-		<PropertiesMainBlock className="d-flex">
-			<SimilarPropertiesBlock >
-				<h3 className="h5">{t("title.similar-sold-properties")}</h3>
-				<p>
-					{t("desc.we-found")} {totalSimilarProperties}{" "}
-					{t("desc.similar-sold-properties")}
-				</p>
+		<PropertiesMainBlock className="d-flex flex-column flex-lg-row">
+			<MapContainer>
+				{mainProperty &&
+					mainProperty.property.lng &&
+					mainProperty.property.lat && (
+						<Mapbox3dMap {...mapProps} />
+						// <GoogleMap {...mapProps} />
+					)}
+			</MapContainer>
+
+			<SimilarPropertiesBlock>
+				<div style={{ height: 70 }}>
+					<h3 className="h5">{t("title.similar-sold-properties")}</h3>
+					<p>
+						{t("desc.we-found")} {totalSimilarProperties}{" "}
+						{t("desc.similar-sold-properties")}
+					</p>
+				</div>
 				<PropertiesContainer>
 					{similarProperties.length > 0 ? (
-						<div>
-							{/* <CustomScrollbar autoHide={false} > */}
-							{similarProperties.map((item, index) => (
-								<PropertyBlock
-									active={item?.id === activeMarker}
-									onClickProperty={onClickProperty}
-									key={index}
-									property={item}
-								/>
-							))}
-							{/* </CustomScrollbar> */}
-
+						<div style={{ height: "100%" }}>
+							<CustomScrollbar scrollToBottom autoHide={false}>
+								{similarProperties.map((item, index) => (
+									<PropertyBlock
+										active={item?.id === activeMarker}
+										onClickProperty={onClickProperty}
+										key={index}
+										property={item}
+									/>
+								))}
+							</CustomScrollbar>
 						</div>
 					) : (
-						<NoPropertiesBlock >
+						<NoPropertiesBlock>
 							<img src={NoEstimationImage} alt="NoEstimationImage" />
-							<span >{t("desc.no-items")}</span>
+							<span>{t("desc.no-items")}</span>
 						</NoPropertiesBlock>
 					)}
 				</PropertiesContainer>
@@ -659,25 +195,17 @@ const PropertiesBlock = ({
 					<div className="d-flex flex-row w-100 justify-content-center pt-3 ">
 						<Button
 							loading={isLoadingMore}
+							block
+							size="large"
 							onClick={onLoadMore}
 							className="rounded-lg w-100 text-primary border-0"
-							style={{ background: "#F2F6FF"}}
+							style={{ background: "#F2F6FF" }}
 						>
 							Load More
 						</Button>
 					</div>
 				)}
 			</SimilarPropertiesBlock>
-			{!isMobileOnly && (
-				<div className="w-50 position-relative">
-					{mainProperty &&
-						mainProperty.property.lng &&
-						mainProperty.property.lat && (
-							<Mapbox3dMap {...mapProps} />
-							// <GoogleMap {...mapProps} />
-						)}
-				</div>
-			)}
 		</PropertiesMainBlock>
 	);
 };

@@ -23,6 +23,10 @@ class MyDocument extends Document {
 						rel="stylesheet"
 					/>
 					<meta name="google" content="notranslate" />
+					<meta
+						name="google-site-verification"
+						content="55qf3jTaZoFzOuhhuosrtNOM695blHMllvnMXMAf4p8"
+					/>
 					{process.env.NODE_ENV === "production" && (
 						<script
 							dangerouslySetInnerHTML={{
