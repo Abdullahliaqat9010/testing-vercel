@@ -18,9 +18,7 @@ import Info from "../../../../assets/images/info.svg";
 import { estimationButtonsList } from "../../../../templates/estimationButtonsList";
 
 const EstimateBlock = ({ estimation, mainProperty }) => {
-	console.log(estimation);
 	const { t } = useTranslation("dashboard-page");
-	const dispatch = useDispatch();
 
 	const showTitle = (btnName: string) => {
 		return btnName.toLowerCase();
@@ -96,7 +94,7 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 	};
 
 	return (
-		<div className="estimate-block" style={{}}>
+		<div className="estimate-block">
 			<div className="d-md-flex flex-row align-items-center">
 				<div style={{ fontSize: 24, fontFamily: "var(--fontNunitoBold)" }}>
 					{t("title.estimated-value")}
@@ -186,7 +184,18 @@ const EstimateBlock = ({ estimation, mainProperty }) => {
 						<span className="btn-block__title w-100">
 							{t("title.accurate-estimation")}
 						</span>
-						<ButtonGroup size="lg" className="w-100">
+						<ButtonGroup size="lg" className="w-100 d-none d-md-flex">
+							{estimationButtonsList.map((item, index) => (
+								<Button
+									key={index}
+									className={activeBtn === item.id ? "custom-active" : ""}
+									onClick={() => showEstimationPopup(item.id)}
+								>
+									{t(`button.${item.id}`)}
+								</Button>
+							))}
+						</ButtonGroup>
+						<ButtonGroup vertical size="lg" className="w-100 d-md-none">
 							{estimationButtonsList.map((item, index) => (
 								<Button
 									key={index}
