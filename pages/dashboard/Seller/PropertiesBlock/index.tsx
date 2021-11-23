@@ -627,6 +627,16 @@ const PropertiesBlock = ({
 
 	return (
 		<PropertiesMainBlock className="d-flex">
+			{!isMobileOnly && (
+				<div className="w-50 position-relative">
+					{mainProperty &&
+						mainProperty.property.lng &&
+						mainProperty.property.lat && (
+							<Mapbox3dMap {...mapProps} />
+							// <GoogleMap {...mapProps} />
+						)}
+				</div>
+			)}
 			<SimilarPropertiesBlock >
 				<h3 className="h5">{t("title.similar-sold-properties")}</h3>
 				<p>
@@ -668,16 +678,7 @@ const PropertiesBlock = ({
 					</div>
 				)}
 			</SimilarPropertiesBlock>
-			{!isMobileOnly && (
-				<div className="w-50 position-relative">
-					{mainProperty &&
-						mainProperty.property.lng &&
-						mainProperty.property.lat && (
-							<Mapbox3dMap {...mapProps} />
-							// <GoogleMap {...mapProps} />
-						)}
-				</div>
-			)}
+			
 		</PropertiesMainBlock>
 	);
 };
