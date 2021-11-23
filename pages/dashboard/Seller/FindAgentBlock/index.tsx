@@ -3,17 +3,18 @@ import { useTranslation } from "next-i18next";
 import { Button } from "antd";
 import styled from "styled-components";
 import Agency from "../../../../containers/Agency";
+import { SyncOutlined } from "@ant-design/icons";
 
 const FindAgentMain = styled.div`
 	background: #fff;
 	border-radius: 10px;
-	font-familiy: var(--fontNunito);
+	font-family: var(--fontNunito);
 	p {
 		font-size: 14px;
-		line-height: 19px;
+		/* line-height: 19px; */
 	}
 	h3 {
-		font-familiy: var(--fontNunitoBold);
+		font-family: var(--fontNunitoBold);
 	}
 	@media (min-width: 769px) {
 		padding: 30px;
@@ -74,6 +75,7 @@ const FindAgentBlock = ({
 					<Button
 						loading={isLoadingMore}
 						onClick={onLoadMore}
+						icon={<SyncOutlined />}
 						className="rounded-lg w-100 text-primary border-0"
 						size="large"
 						block
