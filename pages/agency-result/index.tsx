@@ -4502,7 +4502,7 @@ const compareAgency = () => {
   const [properties, setProperties] = useState([]);
   const [agencyReviews, setAgencyReviews] = useState([]);
   let [reviewNumber,setReviewNumber]=useState(0);
-  console.log("console in state",reviewNumber)
+  console.log("review number in state",reviewNumber)
   let [address, setAddress] = useState({
     city,
     zip,
