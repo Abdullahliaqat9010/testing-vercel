@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
+import { isMobileOnly } from "react-device-detect";
 
 import NavBarContainer from "../../../containers/NavBar";
 import MainInfoBlock from "./MainInfoBlock";
@@ -36,7 +37,9 @@ const SellerDashboard = () => {
 	const [agencies, setAgencies] = useState([]);
 
 	const [propertiesPageNumber, setPropertiesPageNumber] = useState(1);
-	const [propertiesPageLimit, setPropertiesPageLimit] = useState(6);
+	const [propertiesPageLimit, setPropertiesPageLimit] = useState(
+		isMobileOnly ? 2 : 4
+	);
 	const [totalSimilarProperties, setTotalSimilarProperties] = useState(0);
 	const [isSimilarPropertiesLoadingMore, setIsSimilarPropertiesLoadingMore] =
 		useState(false);
@@ -170,7 +173,7 @@ const SellerDashboard = () => {
 		<>
 			{/* <VerifyEmailModal /> */}
 			<HeaderContainer title={t("title")} />
-			<div className="Dashboard container d-flex">
+			<div className="Dashboard container-lg d-flex ">
 				<NavBarContainer />
 				<div className="Dashboard__container">
 					<MainInfoBlock mainProperty={mainProperty?.property} />
