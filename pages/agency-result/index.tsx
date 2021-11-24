@@ -4482,52 +4482,52 @@ const compareAgency = () => {
 	const router = useRouter();
 	const { t } = useTranslation("agency-result");
 
-  const { locale } = router;
-  const { auth, id: userId } = useSelector(
-    (state: RootState) => state.userInfo
-  );
-  const { city, zip } = useSelector(
-    (state: RootState) => state.stepsInfo.stepBlock.additionalAddress
-  );
-  const [isLoading, setIsLoading] = useState(true);
-  const [open, setOpen] = useState<boolean>(false);
-  const [openContactForm, setOpenContactForm] = useState<boolean>(false);
-  const [selctedIdex, setSelctedIdex] = useState(-1);
-  const [filteredAgencies, setFiltereAgencies] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [markersPerAgency, setMarkersPerAgency] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const [properties, setProperties] = useState([]);
-  const [agencyReviews, setAgencyReviews] = useState([]);
-  let [reviewNumber,setReviewNumber]=useState(0);
-  console.log("review number in state",reviewNumber)
-  let [address, setAddress] = useState({
-    city,
-    zip,
-  });
-  const [markers, setMarkers] = useState([
-    {
-      type: "home",
-      position: {
-        lat: 4.402771,
-        lng: 51.260197,
-      },
-      id: "home",
-    },
-  ]);
-  const agencyRating = (rate) => {
-    if (rate) {
-      return rate.toString().length > 1 ? rate : rate + ".0";
-    }
-    return "5.0";
-  };
-  const agencyTotalUserReview = (reviews) => {
-    if (reviews) {
-      return reviews;
-    }
-    return 120;
-  };
+	const { locale } = router;
+	const { auth, id: userId } = useSelector(
+		(state: RootState) => state.userInfo
+	);
+	const { city, zip } = useSelector(
+		(state: RootState) => state.stepsInfo.stepBlock.additionalAddress
+	);
+	const [isLoading, setIsLoading] = useState(true);
+	const [open, setOpen] = useState<boolean>(false);
+	const [openContactForm, setOpenContactForm] = useState<boolean>(false);
+	const [selctedIdex, setSelctedIdex] = useState(-1);
+	const [filteredAgencies, setFiltereAgencies] = useState([]);
+	const [currentPage, setCurrentPage] = useState(0);
+	const [markersPerAgency, setMarkersPerAgency] = useState([]);
+	const [totalPages, setTotalPages] = useState(0);
+	const [pageSize, setPageSize] = useState(10);
+	const [properties, setProperties] = useState([]);
+	const [agencyReviews, setAgencyReviews] = useState([]);
+	let [reviewNumber, setReviewNumber] = useState(0);
+	console.log("review number in state", reviewNumber);
+	let [address, setAddress] = useState({
+		city,
+		zip,
+	});
+	const [markers, setMarkers] = useState([
+		{
+			type: "home",
+			position: {
+				lat: 4.402771,
+				lng: 51.260197,
+			},
+			id: "home",
+		},
+	]);
+	const agencyRating = (rate) => {
+		if (rate) {
+			return rate.toString().length > 1 ? rate : rate + ".0";
+		}
+		return "5.0";
+	};
+	const agencyTotalUserReview = (reviews) => {
+		if (reviews) {
+			return reviews;
+		}
+		return 120;
+	};
 
 	const dispatch = useDispatch();
 	const [value, setValue] = useState(`${city}, ${zip}`);
@@ -4617,42 +4617,37 @@ const compareAgency = () => {
 		setCurrentPage(index);
 	};
 
-const nextReviewMethod=()=>{
-  console.log("console inside next review method ",reviewNumber)
-  if(  reviewNumber < agencyReviews.length){
-    let inc=reviewNumber+1;
-    setReviewNumber(inc);
-    console.log("review number",reviewNumber)
-    console.log("agency review length console",agencyReviews)
-  }
+	const nextReviewMethod = () => {
+		console.log("console inside next review method ", reviewNumber);
+		if (reviewNumber < agencyReviews.length - 1) {
+			let inc = reviewNumber + 1;
+			setReviewNumber(inc);
+			console.log("review number", reviewNumber);
+			console.log("agency review length console", agencyReviews);
+		}
+	};
+	const previousReviewMethod = () => {
+		if (reviewNumber > 0) {
+			let dec = reviewNumber - 1;
+			setReviewNumber(dec);
+			console.log("after set previous review", reviewNumber);
+		}
+	};
 
-}
-const previousReviewMethod=()=>{
-  if(reviewNumber > 0){
-    let dec=reviewNumber-1;
-    setReviewNumber(dec);
-      console.log("after set previous review",reviewNumber)
-
-
-  }
-
-}
-
-
-  const pagination = totalPages ? (
-    <Pagination className="pagination">
-      <PaginationLink
-        onClick={(e) => handleClick(e, currentPage - 1)}
-        previous
-        href="#"
-      />
-      {[...Array(totalPages)].map((page, i) => (
-        <PaginationItem active={i === currentPage} key={i}>
-          <PaginationLink onClick={(e) => handleClick(e, i)} href="#">
-            {i + 1}
-          </PaginationLink>
-        </PaginationItem>
-      ))}
+	const pagination = totalPages ? (
+		<Pagination className="pagination">
+			<PaginationLink
+				onClick={(e) => handleClick(e, currentPage - 1)}
+				previous
+				href="#"
+			/>
+			{[...Array(totalPages)].map((page, i) => (
+				<PaginationItem active={i === currentPage} key={i}>
+					<PaginationLink onClick={(e) => handleClick(e, i)} href="#">
+						{i + 1}
+					</PaginationLink>
+				</PaginationItem>
+			))}
 
 			<PaginationItem disabled={currentPage >= totalPages - 1}>
 				<PaginationLink
@@ -4735,7 +4730,7 @@ const previousReviewMethod=()=>{
 	const openDetail = async (index) => {
 		if (selctedIdex !== index || !open) {
 			const expandedAgency = filteredAgencies[index];
-			console.log("expended agenices", expandedAgency.rating.reviews);
+			console.log("expended agenices", expandedAgency.rating);
 
 			setAgencyReviews(expandedAgency.rating.reviews);
 			if (expandedAgency?.isLimited) {
@@ -4798,70 +4793,71 @@ const previousReviewMethod=()=>{
 						<p>
 							{/* We analyze thousands of local agents and find the best to compete
 							you! */}
-              {t("p.result-agency")}
-            </p>
-            <div className="search-form d-flex">
-              <div className=" search-input-sugguession d-flex flex-collumn">
-                {/* <InputGroup> */}
-                <FormControl
-                  placeholder="  City and State or ZIP"
-                  name="address"
-                  onChange={handleAutocomplete}
-                  value={value}
-                  autoComplete="off"
-                />
-                {/* </InputGroup> */}
-                {searchSuggestions.length > 0 && (
-                  <ListGroup
-                    as="ul"
-                    className="position-absolute"
-                    style={{ marginTop: "50px" }}
-                  >
-                    {searchSuggestions.map((item, index) => (
-                      <ListGroup.Item
-                        className="text-dark"
-                        as="li"
-                        onClick={() => handleSelectAddress(index)}
-                        key={index}
-                        style={{
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {(locale === "en"
-                          ? item.cityen
-                          : locale === "nl"
-                          ? item.citynl
-                          : item.cityfr) +
-                          "," +
-                          item.zip}
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                )}
-              </div>
-              {/* <input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input> */}
-              <Button onClick={onClickSearchButton}>
-                Search <img src={goAhead} alt="goAhead" />
-              </Button>
-            </div>
-          </div>
-          <div className="agency-container">
-            {filteredAgencies?.length > 0 ? (
-              filteredAgencies
-                .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
-                .map((agency, index, limitedAgecies) => {
-                  if (open) {
-                    const text = agencyReviews[reviewNumber].text;
-                    var review = text;
-                    const relative_time_description =
-                      agencyReviews[reviewNumber].relative_time_description;
-                    var time = relative_time_description;
-                    const author_name = agencyReviews[reviewNumber].author_name.split(" ");
-                    var result =
-                      author_name[0].charAt(0) + author_name[1].charAt(0);
-                  }
+							{t("p.result-agency")}
+						</p>
+						<div className="search-form d-flex">
+							<div className=" search-input-sugguession d-flex flex-collumn">
+								{/* <InputGroup> */}
+								<FormControl
+									placeholder="  City and State or ZIP"
+									name="address"
+									onChange={handleAutocomplete}
+									value={value}
+									autoComplete="off"
+								/>
+								{/* </InputGroup> */}
+								{searchSuggestions.length > 0 && (
+									<ListGroup
+										as="ul"
+										className="position-absolute"
+										style={{ marginTop: "50px" }}
+									>
+										{searchSuggestions.map((item, index) => (
+											<ListGroup.Item
+												className="text-dark"
+												as="li"
+												onClick={() => handleSelectAddress(index)}
+												key={index}
+												style={{
+													textOverflow: "ellipsis",
+													whiteSpace: "nowrap",
+													overflow: "hidden",
+												}}
+											>
+												{(locale === "en"
+													? item.cityen
+													: locale === "nl"
+													? item.citynl
+													: item.cityfr) +
+													"," +
+													item.zip}
+											</ListGroup.Item>
+										))}
+									</ListGroup>
+								)}
+							</div>
+							{/* <input type="search" onChange={(e) => fiterAgencies(e.target.value)} placeholder="Search by name"></input> */}
+							<Button onClick={onClickSearchButton}>
+								Search <img src={goAhead} alt="goAhead" />
+							</Button>
+						</div>
+					</div>
+					<div className="agency-container">
+						{filteredAgencies?.length > 0 ? (
+							filteredAgencies
+								.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
+								.map((agency, index, limitedAgecies) => {
+									if (open) {
+										const text = agencyReviews[reviewNumber]?.text;
+										var review = text;
+										const relative_time_description =
+											agencyReviews[reviewNumber]?.relative_time_description;
+										var time = relative_time_description;
+										const author_name =
+											agencyReviews[reviewNumber].author_name.split(" ");
+										var result =
+											author_name[0].charAt(0) + author_name[1].charAt(0);
+									}
 
 									return (
 										<div key={index}>
@@ -5006,76 +5002,75 @@ const previousReviewMethod=()=>{
 																	reviews{" "}
 																</span>
 
-                                <img
-                                  className="frame1"
-                                  alt="frame1"
-                                  src={frame1}
-                                  onClick={previousReviewMethod}
+																<img
+																	className="frame1"
+																	alt="frame1"
+																	src={frame1}
+																	onClick={previousReviewMethod}
+																/>
+																<img
+																	className="frame2"
+																	alt="frame2"
+																	src={frame2}
+																	onClick={nextReviewMethod}
+																/>
+															</div>
 
-                                />
-                                <img
-                                  className="frame2"
-                                  alt="frame2"
-                                  src={frame2}
-                                  onClick={nextReviewMethod}
-                                />
-                              </div>
-
-                              <div className="background-color">
-                                <div className="agency-result-rating d-flex align-items-center">
-                                  <StarRatingComponent
-                                    name="rate"
-                                    className="custom-rate"
-                                    renderStarIcon={(index, value) => (
-                                      <img
-                                        className="rating-star"
-                                        src={
-                                          index <= value
-                                            ? RatingStar
-                                            : RatingStarEmpty
-                                        }
-                                        alt="RatingStar"
-                                      />
-                                    )}
-                                    starCount={5}
-                                    value={Number(
-                                      agencyRating(agency?.rating?.rating)
-                                    )}
-                                  />
-                                  <span className="experience">
-                                    {agency?.rating?.rating == "5"
-                                      ? "very nice experience"
-                                      : agency?.rating?.rating >= "4" &&
-                                        agency?.rating?.rating < 5
-                                      ? "nice experience"
-                                      : agency?.rating?.rating >= "3" &&
-                                        agency?.rating?.rating < 4
-                                      ? "good"
-                                      : agency?.rating?.rating >= "2" &&
-                                        agency?.rating?.rating < 3
-                                      ? "satisfactory"
-                                      : agency?.rating?.rating >= "1" &&
-                                        agency?.rating?.rating < 2
-                                      ? "unsarifoctory"
-                                      : ""}
-                                  </span>
-                                </div>
-                                <div>
-                                  <p className="google-paraghaf ">{review}</p>
-                                </div>
-                                <div className="user-details">
-                                  <img
-                                    className="userIcon"
-                                    alt="userIcon"
-                                    src={userIcon}
-                                  />
-                                  <span className="user-name">{result}</span>
-                                  <span className="commented-on">
-                                    commented on
-                                  </span>
-                                  <span>{time}</span>
-                                </div>
-                                {/* {`${t("span.sold-on")} ${
+															<div className="background-color">
+																<div className="agency-result-rating d-flex align-items-center">
+																	<StarRatingComponent
+																		name="rate"
+																		className="custom-rate"
+																		renderStarIcon={(index, value) => (
+																			<img
+																				className="rating-star"
+																				src={
+																					index <= value
+																						? RatingStar
+																						: RatingStarEmpty
+																				}
+																				alt="RatingStar"
+																			/>
+																		)}
+																		starCount={5}
+																		value={Number(
+																			agencyRating(agency?.rating?.rating)
+																		)}
+																	/>
+																	<span className="experience">
+																		{agency?.rating?.rating == "5"
+																			? "very nice experience"
+																			: agency?.rating?.rating >= "4" &&
+																			  agency?.rating?.rating < 5
+																			? "nice experience"
+																			: agency?.rating?.rating >= "3" &&
+																			  agency?.rating?.rating < 4
+																			? "good"
+																			: agency?.rating?.rating >= "2" &&
+																			  agency?.rating?.rating < 3
+																			? "satisfactory"
+																			: agency?.rating?.rating >= "1" &&
+																			  agency?.rating?.rating < 2
+																			? "unsarifoctory"
+																			: ""}
+																	</span>
+																</div>
+																<div>
+																	<p className="google-paraghaf ">{review}</p>
+																</div>
+																<div className="user-details">
+																	<img
+																		className="userIcon"
+																		alt="userIcon"
+																		src={userIcon}
+																	/>
+																	<span className="user-name">{result}</span>
+																	<span className="commented-on">
+																		commented on
+																	</span>
+																	<span>{time}</span>
+																</div>
+																{/* {`${t("span.sold-on")} ${
 								property?.sold_rent_date
 								
 							}`}{" "} */}
