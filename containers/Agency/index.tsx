@@ -120,7 +120,8 @@ const MainPropAddress = styled.span`
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	width: 100%;
+	width: 70%;
+
 	@media (min-width: 1024px) {
 		width: 65%;
 	}
@@ -515,7 +516,7 @@ ${agency?.properties?.length || 0} woning${
 						</div>
 					</AgencyInfo>
 				</AgencyLeftBlock>
-				<AgencyRightBlock className="d-flex d-md-none d-lg-flex align-items-end pb-4">
+				<AgencyRightBlock className="d-flex d-md-none d-lg-flex align-items-end pb-4 w-md-100">
 					<div
 						style={{ backgroundColor: "var(--bg-blue)", borderRadius: 8 }}
 						className={`px-${
