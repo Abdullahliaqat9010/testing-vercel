@@ -76,6 +76,10 @@ const PropertyMainBlock = styled.div`
 	margin-top: 5px;
 	margin-bottom: 3px;
 	border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+	@media (max-width: 767px) {
+		margin-right: 0px;
+		margin-left: 0px;
+	}
 	Button {
 		font-size: 12px;
 		line-height: 16px;
