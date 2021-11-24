@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import styled from "styled-components"
+import styled from "styled-components";
 import { RootState } from "../../../../types/state";
 
 import arrowIcon from "../../../../assets/images/arrow-blue.svg";
@@ -11,28 +11,27 @@ import bedsIcon from "../../../../assets/images/beds.svg";
 import bathIcon from "../../../../assets/images/bath.svg";
 
 const ContectBlock = styled.div`
-margin-left: 12px;
-`
+	margin-left: 12px;
+`;
 const TitleDiv = styled.span`
 	font-size: 12px;
-  	line-height: 16px;
-  	opacity: 0.7;
-`
+	line-height: 16px;
+	opacity: 0.7;
+`;
 
 const ImageBlock = styled.div`
-@media (min-width: 501px) {
-	margin-right: 30px;
-}
-@media (max-width: 500px) {
-	margin-right: 10px;
-}
-`
+	@media (min-width: 501px) {
+		margin-right: 30px;
+	}
+	@media (max-width: 500px) {
+		margin-right: 10px;
+	}
+`;
 
 const AddressBiv = styled.h4`
 	font-family: var(--fontNunitoBold);
 	line-height: 33px;
-
-`
+`;
 
 const MainPropertyBlock = styled.div`
 	margin-bottom: 20px;
@@ -41,13 +40,11 @@ const MainPropertyBlock = styled.div`
 	border-radius: 10px;
 	@media (min-width: 769px) {
 		padding: 30px;
-
 	}
 	@media (max-width: 768px) {
 		padding: 20px;
-
 	}
-`
+`;
 
 const MainInfoBlock = ({ mainProperty }) => {
 	const router = useRouter();
@@ -126,8 +123,8 @@ const MainInfoBlock = ({ mainProperty }) => {
 
 	return (
 		<MainPropertyBlock>
-			<div className=" d-flex align-items-center justify-content-between">
-				<AddressBiv >{mainProperty?.search_address}</AddressBiv>
+			<div className="d-flex align-items-center justify-content-between">
+				<AddressBiv>{mainProperty?.search_address}</AddressBiv>
 				{/* <span className="d-flex align-items-center" onClick={modifyProperty}>
 					{t("link.modify")} <img src={arrowIcon} alt="arrowIcon" />
 				</span> */}
@@ -137,7 +134,9 @@ const MainInfoBlock = ({ mainProperty }) => {
 					<img src={squareIcon} alt="squareIcon" />
 					<ContectBlock className=" d-flex flex-column">
 						<TitleDiv>{t("title.square")}</TitleDiv>
-						<span style={{ fontSize: "14px" }}>{mainProperty?.live_area}m²</span>
+						<span style={{ fontSize: "14px" }}>
+							{mainProperty?.live_area}m²
+						</span>
 					</ContectBlock>
 				</ImageBlock>
 				<ImageBlock className=" d-flex">
