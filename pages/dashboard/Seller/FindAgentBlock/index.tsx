@@ -3,17 +3,18 @@ import { useTranslation } from "next-i18next";
 import { Button } from "antd";
 import styled from "styled-components";
 import Agency from "../../../../containers/Agency";
+import { SyncOutlined } from "@ant-design/icons";
 
 const FindAgentMain = styled.div`
 	background: #fff;
 	border-radius: 10px;
-	font-familiy: var(--fontNunito);
+	font-family: var(--fontNunito);
 	p {
 		font-size: 14px;
-		line-height: 19px;
+		/* line-height: 19px; */
 	}
 	h3 {
-		font-familiy: var(--fontNunitoBold);
+		font-family: var(--fontNunitoBold);
 	}
 	@media (min-width: 769px) {
 		padding: 30px;
@@ -33,26 +34,6 @@ const FindAgentBlock = ({
 	totalAgencies,
 }) => {
 	const { t } = useTranslation("dashboard-page");
-	const myAgencies = [
-		{
-			agent: {
-				name: "ashraf",
-				user: {
-					firstname: "ashraf",
-					lastname: "ali",
-				},
-			},
-			rating: {
-				rating: 4,
-				user_ratings_total: 3,
-			},
-			properties: [],
-			company_name: "test",
-			id: 27,
-			logo_image:
-				"https://immobelgium.s3.eu-west-1.amazonaws.com/1635295013631%20-%20logo_eco-immo.png",
-		},
-	];
 
 	return (
 		<FindAgentMain>
@@ -74,6 +55,7 @@ const FindAgentBlock = ({
 					<Button
 						loading={isLoadingMore}
 						onClick={onLoadMore}
+						icon={<SyncOutlined />}
 						className="rounded-lg w-100 text-primary border-0"
 						size="large"
 						block

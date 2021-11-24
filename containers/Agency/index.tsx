@@ -60,6 +60,7 @@ const AgencyLeftBlock = styled.div`
 
 const AgencyLogoBlock = styled.div`
 	border: 1px solid var(--colorLightGrey);
+	border-radius: 8px;
 	@media (min-width: 769px) {
 		height: 82px;
 		width: 150px;
@@ -72,7 +73,7 @@ const AgencyLogoBlock = styled.div`
 	}
 	@media (max-width: 500px) {
 		height: 70px;
-		width: 70px;
+		width: 85px;
 		margin: 20px 8px 20px 0px;
 	}
 `;
@@ -80,7 +81,7 @@ const AgencyName = styled.span`
 	font-family: var(--fontNunitoBold);
 	font-size: 20px;
 	line-height: 27px;
-	margin-bottom: 10px;
+	/* margin-bottom: 10px; */
 `;
 const AgentName = styled.span`
 	font-family: var(--fontNunitoBold);
@@ -90,35 +91,44 @@ const AgentName = styled.span`
 
 const AgencyRightBlock = styled.div`
 	@media (min-width: 769px) {
-		margin: 12px 0 20px 10px;
+		/* margin: 12px 0 20px 10px; */
 		width: 45%;
 	}
 	@media (max-width: 500px) {
-		margin: 12px 0 20px 0px;
+		/* margin: 12px 0 20px 0px; */
 		width: 100% !important;
 	}
 `;
 
-const CountSoldProperties = styled.span`
-	display: flex;
+const CountSoldProperties = styled.p`
+	/* display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: center; */
 	// margin: 0 12px 0 20px;
 	// margin-left: -2px;
-	width: 42px;
-	height: 42px;
+	/* width: 42px;
+	height: 42px; */
 	background: var(--bg-blue);
+	/* padding: 5px; */
 	border-radius: 8px;
 `;
 
 const MainPropAddress = styled.span`
-	width: 195px;
 	margin-left: 4px;
 	font-family: var(--fontNunitoBold);
 	display: block;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	width: 70%;
+
+	@media (min-width: 1024px) {
+		width: 65%;
+	}
+
+	@media (min-width: 1440px) {
+		width: 68%;
+	}
 `;
 
 const OpenDetailBlock = styled.span`
@@ -133,7 +143,7 @@ const OpenDetailBlock = styled.span`
 const NearestLabel = styled.span`
 	display: block;
 	width: max-content;
-	margin-top: 12px;
+	margin-top: 3px;
 	background: var(--bg-blue);
 	border-radius: 8px;
 	font-size: 10px;
@@ -141,14 +151,9 @@ const NearestLabel = styled.span`
 	padding: 4px 8px;
 `;
 
-const MoreInfoBlock = styled.div`
-	@media (min-width: 769px) {
-		display-direction: row;
-	}
-	@media (max-width: 768px) {
-		display-direction: column !important;
-	}
-`;
+// const MoreInfoBlock = styled.div`
+
+// `;
 
 const MoreInfoLeftBlock = styled.div`
 	@media (min-width: 769px) {
@@ -159,13 +164,11 @@ const MoreInfoLeftBlock = styled.div`
 	}
 `;
 const MoreInfoMapBlock = styled.div`
-	/* min-height: 400px; */
 	padding-left: 40px;
-	@media (min-width: 769px) {
-		width: 50%;
-	}
-	@media (max-width: 768px) {
-		width: 100% !important;
+	width: 50%;
+	@media (min-width: 768px) and (max-width: 1023px) {
+		width: 100%;
+		padding-left: 0px;
 	}
 `;
 
@@ -175,42 +178,26 @@ const LinksBlock = styled.div`
 		font-size: 16px;
 		line-height: 22px;
 		border-radius: 10px;
+		margin-bottom: 10px;
+		width: max-content;
+		border-radius: 5px;
+		font-size: 14px;
+		@media (max-width: 425px) {
+			width: 100%;
+		}
 	}
 	span {
 		font-size: 14px;
 		line-height: 19px;
 		color: var(--colorBlue);
-	}
-
-	@media (min-width: 769px) {
-		flex-direction: column;
-		Button {
-			min-width: 155px !important;
-			height: 50px;
-		}
-		span {
-			min-width: 155px;
-			height: 50px;
-			margin-top: 20px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		flex-direction: row;
-		span {
-			margin-left: 10px;
-			margin-top: 8px;
-		}
-	}
-	@media (max-width: 500px) {
-		flex-direction: column;
-		span {
+		margin-bottom: 10px;
+		@media (max-width: 425px) {
+			width: 100%;
 			text-align: center;
-			width: 100% !important;
-			margin-top: 20px;
 		}
-		Button {
-			width: 100% !important;
+		@media (min-width: 768px) and (max-width: 1023px) {
+			margin-top: 10px;
+			margin-left: 15px;
 		}
 	}
 `;
@@ -282,11 +269,11 @@ const Agency = ({ nearest, agency, mainProperty, properties }: AgencyProps) => {
 					//            } similar to yours</span>. Our team is at your disposal to manage your
 					//            project`,
 					__html: `In the past 24 months, our office has sold   
-		  <span class="bold">  
+		  <span class="font-weight-bold">  
 		  ${agency?.properties?.length || 0} home${
 						similarProperties.length !== 1 ? "s" : ""
 					}</span> of which
-<span class="bold">				   
+<span class="font-weight-bold">				   
 ${agency?.properties?.length || 0} home${
 						similarProperties.length !== 1 ? "s" : ""
 					} </span> are similar to yours. 
@@ -297,7 +284,7 @@ ${agency?.properties?.length || 0} home${
 
 			return {
 				__html: `During the last 24 months, our agency has sold 
-                 <span class="bold">${
+                 <span class="font-weight-bold">${
 										agency?.properties?.length || 0
 									} properties</span> nearby. Our team is at your disposal 
                  to manage your project`,
@@ -308,7 +295,7 @@ ${agency?.properties?.length || 0} home${
 			if (Number(agency?.properties?.length) === 1) {
 				return {
 					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${
+                 <span class="font-weight-bold">${
 										agency?.properties?.length || 0
 									} bien</span> à proximité. Nous sommes à votre disposition 
                  pour gérer votre projet immobilier`,
@@ -318,11 +305,11 @@ ${agency?.properties?.length || 0} home${
 			if (similarProperties) {
 				return {
 					__html: `In de afgelopen 24 maanden heeft ons kantoor  
-			<span class="bold">  
+			<span class="font-weight-bold">  
 			${agency?.properties?.length || 0} woning${
 						similarProperties.length !== 1 ? "en" : ""
 					}</span>  verkocht waarvan
-  <span class="bold">				   
+  <span class="font-weight-bold">				   
   ${agency?.properties?.length || 0} woning${
 						similarProperties.length !== 1 ? "en" : ""
 					} </span> gelijkaardig aan die van u. 
@@ -333,7 +320,7 @@ ${agency?.properties?.length || 0} home${
 
 			return {
 				__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${
+                 <span class="font-weight-bold">${
 										countProperties || 0
 									} biens</span> à proximité. Nous sommes à votre disposition 
                  pour gérer votre projet immobilier`,
@@ -343,7 +330,7 @@ ${agency?.properties?.length || 0} home${
 			if (Number(agency?.properties?.length) === 1) {
 				return {
 					__html: `In de afgelopen 24 maanden heeft ons bureau verkocht 
-                 <span class="bold">${
+                 <span class="font-weight-bold">${
 										agency?.properties?.length || 0
 									} bien</span> om uw vastgoedproject te beheren`,
 				};
@@ -352,11 +339,11 @@ ${agency?.properties?.length || 0} home${
 			if (similarProperties) {
 				return {
 					__html: `In de afgelopen 24 maanden heeft ons kantoor  
-                   <span class="bold">  
+                   <span class="font-weight-bold">  
 				   ${agency?.properties?.length || 0} woning${
 						similarProperties.length !== 1 ? "en" : ""
 					}</span>  verkocht waarvan
-		 <span class="bold">				   
+		 <span class="font-weight-bold">				   
 		 ${agency?.properties?.length || 0} woning${
 						similarProperties.length !== 1 ? "en" : ""
 					} </span> gelijkaardig aan die van u. 
@@ -367,11 +354,11 @@ ${agency?.properties?.length || 0} home${
 
 			return {
 				__html: `In de afgelopen 24 maanden heeft ons kantoor  
-		<span class="bold">  
+		<span class="font-weight-bold">  
 		${agency?.properties?.length || 0} woning${
 					similarProperties.length !== 1 ? "en" : ""
 				}</span>  verkocht waarvan
-<span class="bold">				   
+<span class="font-weight-bold">				   
 ${agency?.properties?.length || 0} woning${
 					similarProperties.length !== 1 ? "en" : ""
 				} </span> gelijkaardig aan die van u. 
@@ -462,23 +449,32 @@ ${agency?.properties?.length || 0} woning${
 				<AgencyLeftBlock className="d-flex align-items-center">
 					<AgencyLogoBlock>
 						<img
-							style={{ width: "100%", height: "100%", objectFit: "contain" }}
+							style={{
+								width: "100%",
+								height: "100%",
+								objectFit: "contain",
+							}}
 							src={agency?.logo_image ? agency?.logo_image : noAgencyLogo}
 							alt={agency?.company_name}
 						/>
 					</AgencyLogoBlock>
-					<AgencyInfo className="my-3">
-						<AgencyName> {agency.company_name}</AgencyName>
-						<div className=" d-flex align-items-center">
-							<span style={{ fontSize: "12px", lineHeight: "16px" }}>
+					<AgencyInfo className="my-3 w-100">
+						<div className="d-flex flex-row w-100 justify-content-between align-items-center">
+							<AgencyName> {agency.company_name}</AgencyName>
+							<div className="d-flex d-lg-none pr-2">
+								<UpOutlined rotate={showMoreInfo ? 180 : 0} />
+							</div>
+						</div>
+						<div className="d-flex align-items-center flex-wrap">
+							<span className="pb-1 pr-2" style={{ fontSize: "12px" }}>
 								{agencyRating(agency?.rating?.rating)}
 							</span>
 							<StarRatingComponent
 								name="rate"
-								className="custom-rate"
+								className="custom-rate mr-2"
 								renderStarIcon={(index, value) => (
 									<RatingStarImages
-										className=" ml-1"
+										className="mr-1"
 										style={{ verticalAlign: "text-bottom" }}
 										src={index <= value ? RatingStar : RatingStarEmpty}
 										alt="RatingStar"
@@ -487,7 +483,7 @@ ${agency?.properties?.length || 0} woning${
 								starCount={5}
 								value={Number(agencyRating(agency?.rating?.rating))}
 							/>
-							<span className="ml-1">
+							<span className="pb-2">
 								{t("span.from")}{" "}
 								{agencyTotalUserReview(
 									agencyRating(agency?.rating?.user_ratings_total)
@@ -498,17 +494,37 @@ ${agency?.properties?.length || 0} woning${
 						{agency.id === nearest && (
 							<NearestLabel>{t("span.nearest-agency")}</NearestLabel>
 						)}
+						<div className="d-none d-md-flex d-lg-none align-items-end pb-4 mt-2">
+							<div
+								style={{ backgroundColor: "var(--bg-blue)", borderRadius: 8 }}
+								className={`px-${
+									agency?.properties?.length > 9 ? "2" : "3"
+								} py-2 mr-2 mb-1`}
+							>
+								{agency.properties?.length || 0}
+							</div>
+							<div className="mt-1">
+								<p className="m-0 pb-1">{t("p.similar-properties-sold")}</p>
+								<p className="d-flex m-0">
+									{t("p.to")}
+									<MainPropAddress>
+										{mainProperty?.property?.search_address}
+									</MainPropAddress>
+								</p>
+							</div>
+						</div>
 					</AgencyInfo>
 				</AgencyLeftBlock>
-				{/* <div className="agency-border" /> */}
-				<AgencyRightBlock
-					// style={{ backgroundColor: "red" }}
-					className=" d-flex align-items-end pb-4"
-				>
-					<CountSoldProperties className="pl-1 mr-2">
+				<AgencyRightBlock className="d-none d-lg-flex align-items-end pb-4 w-md-100">
+					<div
+						style={{ backgroundColor: "var(--bg-blue)", borderRadius: 8 }}
+						className={`px-${
+							agency?.properties?.length > 9 ? "2" : "3"
+						} py-2 mr-2 mb-1`}
+					>
 						{agency.properties?.length || 0}
-					</CountSoldProperties>
-					<div className="mt-2">
+					</div>
+					<div className="mt-1">
 						<p className="m-0">{t("p.similar-properties-sold")}</p>
 						<p className="d-flex m-0">
 							{t("p.to")}
@@ -518,17 +534,36 @@ ${agency?.properties?.length || 0} woning${
 						</p>
 					</div>
 				</AgencyRightBlock>
-				<div style={{ height: 60, paddingRight: 10 }}>
+				<div
+					className="d-none d-lg-flex"
+					style={{ height: 60, paddingRight: 10 }}
+				>
 					<UpOutlined rotate={showMoreInfo ? 180 : 0} />
 				</div>
-				{/* <OpenDetailBlock className={showMoreInfo ? " open" : ""} /> */}
+				<AgencyRightBlock className="d-flex d-md-none align-items-end pb-4 w-100">
+					<div
+						style={{ backgroundColor: "var(--bg-blue)", borderRadius: 8 }}
+						className={`px-${
+							agency?.properties?.length > 9 ? "2" : "3"
+						} py-2 mr-2 mb-1`}
+					>
+						{agency.properties?.length || 0}
+					</div>
+					<div style={{ width: "80%" }} className="mt-1">
+						<p className="m-0">{t("p.similar-properties-sold")}</p>
+						<p className="d-flex m-0">
+							{t("p.to")}
+							<MainPropAddress>
+								{mainProperty?.property?.search_address}
+							</MainPropAddress>
+						</p>
+					</div>
+				</AgencyRightBlock>
 			</AgencyInfoBlock>
 			{showMoreInfo && (
-				<MoreInfoBlock className=" d-flex justify-content-between">
-					{/* more-info */}
+				<div className="d-flex flex-row flex-md-column flex-lg-row justify-content-between">
 					<MoreInfoLeftBlock className="d-flex flex-column">
-						<div className=" d-flex">
-							{/* agent-info */}
+						<div className="d-flex">
 							<Image
 								style={{ height: "60px", width: "60px" }}
 								src={
@@ -554,7 +589,7 @@ ${agency?.properties?.length || 0} woning${
 								agency?.properties?.length
 							)}
 						></div>
-						<LinksBlock className="d-flex">
+						<LinksBlock className="d-flex flex-column flex-md-row flex-lg-column">
 							<Button onClick={() => openContactModal()}>
 								{t("button.contact")} {agency?.agent?.user?.firstname}
 							</Button>
@@ -566,35 +601,35 @@ ${agency?.properties?.length || 0} woning${
 							</Link>
 						</LinksBlock>
 					</MoreInfoLeftBlock>
-					{!isMobileOnly && (
-						<MoreInfoMapBlock className=" d-flex flex-column">
-							{/* map-block */}
-							<div className="position-relative w-100 h-100">
-								{/*@ts-ignore*/}
-								<GoogleMap {...mapProps} />
+
+					<MoreInfoMapBlock className="d-none d-md-flex flex-column">
+						<div
+							style={{ minHeight: 200, height: "100%", width: "100%" }}
+							className="position-relative"
+						>
+							<GoogleMap {...mapProps} />
+						</div>
+						<div className=" d-flex justify-content-between">
+							<div className="d-flex align-items-center">
+								<OrangeCircle />
+								<span>{t("span.your-property")}</span>
 							</div>
-							<div className=" d-flex justify-content-between">
-								<div className="d-flex align-items-center">
-									<OrangeCircle />
-									<span>{t("span.your-property")}</span>
-								</div>
-								<div className="d-flex align-items-center">
-									<BlueCircle />
-									<span>{t("span.similar-property")}</span>
-								</div>
-								<div className=" d-flex align-items-center">
-									<img
-										className="mr-1"
-										style={{ height: "12px", width: "12px" }}
-										src={AgencyStarImage}
-										alt="AgencyStarImage"
-									/>
-									<span>{t("span.agency")}</span>
-								</div>
+							<div className="d-flex align-items-center">
+								<BlueCircle />
+								<span>{t("span.similar-property")}</span>
 							</div>
-						</MoreInfoMapBlock>
-					)}
-				</MoreInfoBlock>
+							<div className=" d-flex align-items-center">
+								<img
+									className="mr-1"
+									style={{ height: "12px", width: "12px" }}
+									src={AgencyStarImage}
+									alt="AgencyStarImage"
+								/>
+								<span>{t("span.agency")}</span>
+							</div>
+						</div>
+					</MoreInfoMapBlock>
+				</div>
 			)}
 		</div>
 	);
