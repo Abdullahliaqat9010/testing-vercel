@@ -443,7 +443,6 @@ ${agency?.properties?.length || 0} woning${
 				agencyId={agency?.id}
 			/>
 			<AgencyInfoBlock
-				// style={{ backgroundColor: "red" }}
 				className="d-flex align-items-center"
 				onClick={openMoreInfo}
 			>
@@ -466,16 +465,16 @@ ${agency?.properties?.length || 0} woning${
 								<UpOutlined rotate={showMoreInfo ? 180 : 0} />
 							</div>
 						</div>
-						<div className=" d-flex align-items-center">
-							<span className="pb-1 pr-1" style={{ fontSize: "12px" }}>
+						<div className="d-flex align-items-center flex-wrap">
+							<span className="pb-1 pr-2" style={{ fontSize: "12px" }}>
 								{agencyRating(agency?.rating?.rating)}
 							</span>
 							<StarRatingComponent
 								name="rate"
-								className="custom-rate"
+								className="custom-rate mr-2"
 								renderStarIcon={(index, value) => (
 									<RatingStarImages
-										className="ml-1"
+										className="mr-1"
 										style={{ verticalAlign: "text-bottom" }}
 										src={index <= value ? RatingStar : RatingStarEmpty}
 										alt="RatingStar"
@@ -484,7 +483,7 @@ ${agency?.properties?.length || 0} woning${
 								starCount={5}
 								value={Number(agencyRating(agency?.rating?.rating))}
 							/>
-							<span className="ml-3 pb-2">
+							<span className="pb-2">
 								{t("span.from")}{" "}
 								{agencyTotalUserReview(
 									agencyRating(agency?.rating?.user_ratings_total)
@@ -516,7 +515,7 @@ ${agency?.properties?.length || 0} woning${
 						</div>
 					</AgencyInfo>
 				</AgencyLeftBlock>
-				<AgencyRightBlock className="d-flex d-md-none d-lg-flex align-items-end pb-4 w-md-100">
+				<AgencyRightBlock className="d-none d-lg-flex align-items-end pb-4 w-md-100">
 					<div
 						style={{ backgroundColor: "var(--bg-blue)", borderRadius: 8 }}
 						className={`px-${
@@ -541,6 +540,25 @@ ${agency?.properties?.length || 0} woning${
 				>
 					<UpOutlined rotate={showMoreInfo ? 180 : 0} />
 				</div>
+				<AgencyRightBlock className="d-flex d-md-none align-items-end pb-4 w-100">
+					<div
+						style={{ backgroundColor: "var(--bg-blue)", borderRadius: 8 }}
+						className={`px-${
+							agency?.properties?.length > 9 ? "2" : "3"
+						} py-2 mr-2 mb-1`}
+					>
+						{agency.properties?.length || 0}
+					</div>
+					<div style={{ width: "80%" }} className="mt-1">
+						<p className="m-0">{t("p.similar-properties-sold")}</p>
+						<p className="d-flex m-0">
+							{t("p.to")}
+							<MainPropAddress>
+								{mainProperty?.property?.search_address}
+							</MainPropAddress>
+						</p>
+					</div>
+				</AgencyRightBlock>
 			</AgencyInfoBlock>
 			{showMoreInfo && (
 				<div className="d-flex flex-row flex-md-column flex-lg-row justify-content-between">

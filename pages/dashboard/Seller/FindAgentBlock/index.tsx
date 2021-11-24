@@ -34,26 +34,6 @@ const FindAgentBlock = ({
 	totalAgencies,
 }) => {
 	const { t } = useTranslation("dashboard-page");
-	const myAgencies = [
-		{
-			agent: {
-				name: "ashraf",
-				user: {
-					firstname: "ashraf",
-					lastname: "ali",
-				},
-			},
-			rating: {
-				rating: 4,
-				user_ratings_total: 3,
-			},
-			properties: [],
-			company_name: "test",
-			id: 27,
-			logo_image:
-				"https://immobelgium.s3.eu-west-1.amazonaws.com/1635295013631%20-%20logo_eco-immo.png",
-		},
-	];
 
 	return (
 		<FindAgentMain>
