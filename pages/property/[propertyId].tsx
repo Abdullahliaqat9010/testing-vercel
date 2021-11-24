@@ -71,7 +71,7 @@ p {
 	}
 }
 
-@media (max-width: 320px) {
+@media (max-width: 500px) {
 	margin-left: 0px !important;
 	width: 100% !important;
 	position: absolute;
@@ -219,8 +219,12 @@ color: #3871EF;
 border: 1px solid #3871EF;
 border-radius: 10px;
 height: 40px;
+text-align: center;
 img {
 	transform: rotate(270deg);
+}
+@media (min-width: 769px) {
+	width: 150px;
 }
 @media (max-width: 768px) {
 	margin-top: 0px;
@@ -353,7 +357,7 @@ border-radius: 10px;
 	padding: 20px 20px 30px;
 	max-width: 780px;
 	max-height: 741px;
-	
+	margin-right: 10px;
 }
 @media (max-width: 768px){
 	padding: 20px 20px 30px;
@@ -375,9 +379,46 @@ justify-content: space-around;
 @media (max-width: 768px){
 
 justify-content: center;
-margin-left:20px;
+// margin-left:20px;
 }
 `
+
+const PropertyContainer = styled.div`
+	padding: 30px 0 40px;
+	color: var(--mainColor);
+	justify-contect: center;
+	@media (min-width: 769px) {
+		width: 90%;
+	}
+
+	// @media (max-width: 500px) {
+	// 	margin-left:20px;
+
+	// }
+`
+
+const ContactFormButton = styled.div`
+Button {
+	font-family: var(--fontNunitoBold);
+	margin: 40px auto 0;
+	width: 224px;
+	height: 50px;
+	background: var(--colorBlue);
+	border: 1px solid var(--colorBlue);
+	box-sizing: border-box;
+	border-radius: 6px;
+	font-size: 16px;
+	line-height: 22px;
+
+	img {
+		width: 18px;
+		height: 18px;
+		margin-right: 5px;
+	}
+}
+`
+
+
 
 
 const PropertyPage = ({ property }) => {
@@ -434,7 +475,7 @@ const PropertyPage = ({ property }) => {
 	}, []);
 
 	return (
-		<>
+		<div>
 			<HeaderContainer title={t("title")} />
 			<GoogleMapModal
 				property={property}
@@ -446,189 +487,199 @@ const PropertyPage = ({ property }) => {
 				handleClose={handleCloseRequestPriceModal}
 				property={property}
 			/>
-			<div className="PropertyPage container">
-				<Link href={"/dashboard"} locale={locale}>
-					<span className="d-flex mb-3" style ={{
-						cursor: 'pointer',
-						color: '#3871EF',
-						fontSize: '14px',
-						lineHeight: '19px',
-					}}>
-						<img style={{
-							marginRight: '6px',
-							transform: `rotate(90deg)`,
-						}} src={ArrowImage} alt="ArrowImage" /> {t("link.back")}
-					</span>
-				</Link>
-				<PropertyMainContentBlock className=" d-flex">
-					<PropertyInfo>
-						<PropertyImagesBlock className="d-flex">
-							<PropertyMainImage
-								src={
-									property?.images.length > 0 ? property?.images[0] : NoImage
-								}
-								alt="FirstImage"
-							/>
-							<PropertyMoreImage>
-								<img
-									src={
-										property?.images.length > 1 ? property?.images[1] : NoImage
-									}
-									alt="SecondImage"
-								/>
-								<img
-									src={
-										property?.images.length > 2 ? property?.images[2] : NoImage
-									}
-									alt="ThirdImage"
-								/>
-							</PropertyMoreImage>
-						</PropertyImagesBlock>
-						<PropertyContent className="d-flex">
-							<PropertySubBlock>
-								<PropertyAddress>
-									{property?.property?.search_address ?? ""}
-								</PropertyAddress>
-								<PropertyAddressBlock className="d-flex ">
-									<RequestPrice
-										// onClick={handleShowRequestPriceModal}
-										// className="request-price"
-										variant="outline-primary"
-									>
-										{t("button.request-price")}
-										<img src={ArrowImage} alt="ArrowImage" />
-									</RequestPrice>
-									<div className="w-100 mb-4 d-flex ml-4">
-										{property?.property?.live_area && (
-											<PropertyDiscriptionBlock>
-												<img src={squareIcon} alt="squareIcon" />
-												<div className="d-flex flex-column">
-													<PropertyDisTile>
-														{t("span.square")}
-													</PropertyDisTile>
-													<PropertyDiscription>{`${property?.property?.live_area} m²`}</PropertyDiscription>
-												</div>
-											</PropertyDiscriptionBlock>
-										)}
-										{property?.property?.bedrooms && (
-											<PropertyDiscriptionBlock className="ml-2">
-												<img src={bedsIcon} alt="bedsIcon" />
-												<div className="d-flex flex-column">
-													<PropertyDisTile>{t("span.beds")}</PropertyDisTile>
-													<PropertyDiscription>
-														{property?.property?.bedrooms}
-													</PropertyDiscription>
-												</div>
-											</PropertyDiscriptionBlock>
-										)}
-										{property?.property?.bathrooms && (
-											<PropertyDiscriptionBlock className="ml-2">
-												<img src={bathIcon} alt="bathIcon" />
-												<div className="d-flex flex-column">
-													<PropertyDisTile>{t("span.baths")}</PropertyDisTile>
-													<PropertyDiscription>
-														{property?.property?.bathrooms}
-													</PropertyDiscription>
-												</div>
-											</PropertyDiscriptionBlock>
-										)}
-									</div>
-								</PropertyAddressBlock>
-							</PropertySubBlock>
-							<MapContainer
-								style={{ cursor: "pointer" }}
-							>
-								<img onClick={handleShowMapModal} src={Map} alt="Map" />
-							</MapContainer>
-						</PropertyContent>
-						<AgencyMainBlock>
-							<p style={{
-								marginTop: "30px",
-								marginBottom: "20px",
-								fontSize: "18px",
-								lineHeight: "25px",
-								fontFamily: `var(--fontNunitoBold)`,
-							}}>{t("p.sold-by")}</p>
-							<div className="d-flex align-items-center">
-								<AgencyLogoImage className=" d-flex align-items-center justify-content-center">
-									<img
-										style={{ height: "100%", objectFit: "cover" }}
-										src={agency?.logo_image}
-										alt="TestAgency"
+			<div className="d-flex flex-row justify-content-center mb-2 w-100">
+				<PropertyContainer className="d-flex justify-content-center">
+					<div>
+						<div className="d-flex flex-row">
+							<Link href={"/dashboard"} locale={locale}>
+								<span className="d-flex mb-3" style={{
+									cursor: 'pointer',
+									color: '#3871EF',
+									fontSize: '14px',
+									lineHeight: '19px',
+								}}>
+									<img style={{
+										marginRight: '6px',
+										transform: `rotate(90deg)`,
+									}} src={ArrowImage} alt="ArrowImage" /> {t("link.back")}
+								</span>
+							</Link>
+						</div>
+						<PropertyMainContentBlock className=" d-flex">
+							<PropertyInfo>
+								<PropertyImagesBlock className="d-flex">
+									<PropertyMainImage
+										src={
+											property?.images.length > 0 ? property?.images[0] : NoImage
+										}
+										alt="FirstImage"
 									/>
-								</AgencyLogoImage>
-								<AgencyOnfoBlock className="d-flex justify-content-between">
-									<PropertyLeftBlock>
-										<p
-											style={{ cursor: "pointer" }}
-											onClick={() => router.push(`/agency/${agency?.id}`)}
+									<PropertyMoreImage>
+										<img
+											src={
+												property?.images.length > 1 ? property?.images[1] : NoImage
+											}
+											alt="SecondImage"
+										/>
+										<img
+											src={
+												property?.images.length > 2 ? property?.images[2] : NoImage
+											}
+											alt="ThirdImage"
+										/>
+									</PropertyMoreImage>
+								</PropertyImagesBlock>
+								<PropertyContent className="d-flex">
+									<PropertySubBlock>
+										<PropertyAddress>
+											{property?.property?.search_address ?? ""}
+										</PropertyAddress>
+										<PropertyAddressBlock className="d-flex ">
+											<RequestPrice
+												// onClick={handleShowRequestPriceModal}
+												// className="request-price"
+												variant="outline-primary"
+											>
+												{t("button.request-price")}
+												<img src={ArrowImage} alt="ArrowImage" />
+											</RequestPrice>
+											<div className="w-100 mb-4 d-flex ml-4">
+												{property?.property?.live_area && (
+													<PropertyDiscriptionBlock>
+														<img src={squareIcon} alt="squareIcon" />
+														<div className="d-flex flex-column">
+															<PropertyDisTile>
+																{t("span.square")}
+															</PropertyDisTile>
+															<PropertyDiscription>{`${property?.property?.live_area} m²`}</PropertyDiscription>
+														</div>
+													</PropertyDiscriptionBlock>
+												)}
+												{property?.property?.bedrooms && (
+													<PropertyDiscriptionBlock className="ml-2">
+														<img src={bedsIcon} alt="bedsIcon" />
+														<div className="d-flex flex-column">
+															<PropertyDisTile>{t("span.beds")}</PropertyDisTile>
+															<PropertyDiscription>
+																{property?.property?.bedrooms}
+															</PropertyDiscription>
+														</div>
+													</PropertyDiscriptionBlock>
+												)}
+												{property?.property?.bathrooms && (
+													<PropertyDiscriptionBlock className="ml-2">
+														<img src={bathIcon} alt="bathIcon" />
+														<div className="d-flex flex-column">
+															<PropertyDisTile>{t("span.baths")}</PropertyDisTile>
+															<PropertyDiscription>
+																{property?.property?.bathrooms}
+															</PropertyDiscription>
+														</div>
+													</PropertyDiscriptionBlock>
+												)}
+											</div>
+										</PropertyAddressBlock>
+									</PropertySubBlock>
+									<MapContainer
+										style={{ cursor: "pointer" }}
+									>
+										<img onClick={handleShowMapModal} src={Map} alt="Map" />
+									</MapContainer>
+								</PropertyContent>
+								<AgencyMainBlock>
+									<p style={{
+										marginTop: "30px",
+										marginBottom: "20px",
+										fontSize: "18px",
+										lineHeight: "25px",
+										fontFamily: `var(--fontNunitoBold)`,
+									}}>{t("p.sold-by")}</p>
+									<div className="d-flex align-items-center">
+										<AgencyLogoImage className=" d-flex align-items-center justify-content-center">
+											<img
+												style={{ height: "100%", objectFit: "cover" }}
+												src={agency?.logo_image}
+												alt="TestAgency"
+											/>
+										</AgencyLogoImage>
+										<AgencyOnfoBlock className="d-flex justify-content-between">
+											<PropertyLeftBlock>
+												<p
+													style={{ cursor: "pointer" }}
+													onClick={() => router.push(`/agency/${agency?.id}`)}
 
-										>
-											{agency?.company_name}
-										</p>
-										<div className="d-flex align-items-center">
-											<span style={{ fontSize: "14px", lineHeight: '19px' }}>
-												{property?.agency?.rating?.rating}
-											</span>
-											{/* <div className="stars-block">
+												>
+													{agency?.company_name}
+												</p>
+												<div className="d-flex align-items-center">
+													<span style={{ fontSize: "14px", lineHeight: '19px' }}>
+														{property?.agency?.rating?.rating}
+													</span>
+													{/* <div className="stars-block">
 												<img src={Stars} alt="Stars" />
 											</div> */}
-											<div className="mx-2 mt-1 d-flex align-items-center">
-												<StarRatingComponent
-													name="rate"
-													// className="custom-rate"
-													renderStarIcon={(index, value) => (
-														<img
-															style={{ width: 15 }}
-															className="mx-1"
-															src={
-																index <= value ? RatingStar : RatingStarEmpty
-															}
-															alt="RatingStar"
+													<div className="mx-2 mt-1 d-flex align-items-center">
+														<StarRatingComponent
+															name="rate"
+															// className="custom-rate"
+															renderStarIcon={(index, value) => (
+																<img
+																	style={{ width: 15 }}
+																	className="mx-1"
+																	src={
+																		index <= value ? RatingStar : RatingStarEmpty
+																	}
+																	alt="RatingStar"
+																/>
+															)}
+															starCount={5}
+															value={Number(agency?.rating?.rating)}
 														/>
-													)}
-													starCount={5}
-													value={Number(agency?.rating?.rating)}
-												/>
-											</div>
-											<span style={{ fontSize: "12px", lineHeight: '16px', opacity: '0.5' }}>
-												{t("span.from")} {agency?.rating?.user_ratings_total}{" "}
-												{t("span.reviews")}
-											</span>
-										</div>
-									</PropertyLeftBlock>
-									<PropertyRightBlock >
-										<span >{agency?.propertiesCount}</span>
-										<p>{t("span.similar")}</p>
-									</PropertyRightBlock>
-								</AgencyOnfoBlock>
-							</div>
-						</AgencyMainBlock>
-						{isMobile && (
-							<Button onClick={shoeContactForm} className="contact-agency-btn">
-								<img src={MailIcon} alt="MailIcon" />
-								Contact this agency
-							</Button>
-						)}
-					</PropertyInfo>
-					{isMobile && showContactModal && (
-						<ContactAgentModal
-							show={showContactModal}
-							onClose={() => setOpenContactForm(false)}
-							properties={[property]}
-							agencyOwner=""
-							agencyName={agency?.company_name}
-							agencyId={agency?.id}
-						/>
-					)}
+													</div>
+													<span style={{ fontSize: "12px", lineHeight: '16px', opacity: '0.5' }}>
+														{t("span.from")} {agency?.rating?.user_ratings_total}{" "}
+														{t("span.reviews")}
+													</span>
+												</div>
+											</PropertyLeftBlock>
+											<PropertyRightBlock >
+												<span >{agency?.propertiesCount}</span>
+												<p>{t("span.similar")}</p>
+											</PropertyRightBlock>
+										</AgencyOnfoBlock>
+									</div>
+								</AgencyMainBlock>
+								{isMobile && (
+									<ContactFormButton className=" d-flex align-items-center justify-content-center ">
+										<Button onClick={shoeContactForm} className="contact-agency-btn">
+											<img src={MailIcon} alt="MailIcon" />
+											Contact this agency
+										</Button>
+									</ContactFormButton>
+								)}
+							</PropertyInfo>
+							{isMobile && showContactModal && (
+								<ContactAgentModal
+									show={showContactModal}
+									onClose={() => setOpenContactForm(false)}
+									properties={[property]}
+									agencyOwner=""
+									agencyName={agency?.company_name}
+									agencyId={agency?.id}
+								/>
+							)}
 
-					{!isMobile && (
-						<ContactAgencyBlock properties={properties} agencyInfo={agency} />
-					)}
-				</PropertyMainContentBlock>
+							{!isMobile && (
+								<ContactAgencyBlock properties={properties} agencyInfo={agency} />
+							)}
+						</PropertyMainContentBlock>
+					</div>
+
+				</PropertyContainer>
+
 			</div>
 			<FooterContainer />
-		</>
+		</div>
 	);
 };
 
