@@ -173,7 +173,7 @@ const SellerDashboard = () => {
 		<>
 			{/* <VerifyEmailModal /> */}
 			<HeaderContainer title={t("title")} />
-			<div className="Dashboard container-lg d-flex">
+			<div className="Dashboard container-lg d-flex ">
 				<NavBarContainer />
 				<div className="Dashboard__container">
 					<MainInfoBlock mainProperty={mainProperty?.property} />
