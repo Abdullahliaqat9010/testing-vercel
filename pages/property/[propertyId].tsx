@@ -19,7 +19,7 @@ import squareIcon from "../../assets/images/square-gray.svg";
 import bedsIcon from "../../assets/images/beds-gray.svg";
 import bathIcon from "../../assets/images/bath-gray.svg";
 import MailIcon from "../../assets/images/mail-white-icon.svg";
-
+import NoImageFr from "../../assets/images/no-image-available-fr.svg";
 import NoImage from "../../assets/images/no-image-available.svg";
 import Map from "../../assets/images/template/map-img.png";
 import Stars from "../../assets/images/template/stars.png";
@@ -32,7 +32,7 @@ import axios from "axios";
 import { config } from "../../config/siteConfigs";
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import { getLeadProperties } from "../../network-requests";
-
+import { Image } from "antd"
 const PropertyRightBlock = styled.div`
 display: flex;
 align-items: center;
@@ -278,25 +278,31 @@ margin-top: 30px;
 }
 `
 
-const PropertyMainImage = styled.img`
+const PropertyMainImage = styled.div`
 @media (min-width: 769px) {
+	img {
 	width: 471px;
-					height: 379px;
-					margin-right: 10px;
-					object-fit: cover;
+	height: 379px;
+	margin-right: 10px;
+	object-fit: cover;
+	}
 
 }
 @media (max-width: 768px) { 
+	img {
 	width: 454px;
 	height: 379px;
 	margin-right: 10px;
+	}
 }
 
 @media (max-width: 500px){
+	img {
 	width: 303px;
 	height: 180px;
 	margin-bottom: 10px;
 	margin-right: 0px;
+}
 }
 `
 
@@ -401,7 +407,6 @@ const ContactFormButton = styled.div`
 Button {
 	font-family: var(--fontNunitoBold);
 	margin: 40px auto 0;
-	width: 224px;
 	height: 50px;
 	background: var(--colorBlue);
 	border: 1px solid var(--colorBlue);
@@ -416,6 +421,18 @@ Button {
 		margin-right: 5px;
 	}
 }
+
+	@media (min-width: 501px) {
+		Button {
+			width: 224px;
+		}
+	}
+
+	@media (max-width: 500px) {
+		Button {
+			width: 100%;
+		}
+	}
 `
 
 
@@ -474,6 +491,13 @@ const PropertyPage = ({ property }) => {
 		_getProperties();
 	}, []);
 
+	const getImageLink = (index) => {
+		if (property?.images?.length) {
+			return property.images[index];
+		}
+		return locale === "fr" ? NoImageFr : NoImage;
+	};
+
 	return (
 		<div>
 			<HeaderContainer title={t("title")} />
@@ -508,25 +532,42 @@ const PropertyPage = ({ property }) => {
 						<PropertyMainContentBlock className=" d-flex">
 							<PropertyInfo>
 								<PropertyImagesBlock className="d-flex">
-									<PropertyMainImage
+									<PropertyMainImage>
+									<Image
+										src={getImageLink(0)}
+										preview={false}
+										fallback={NoImage}
+									/>
+									</PropertyMainImage>
+									{/* <PropertyMainImage
 										src={
 											property?.images.length > 0 ? property?.images[0] : NoImage
 										}
 										alt="FirstImage"
-									/>
+									/> */}
 									<PropertyMoreImage>
-										<img
+									<Image
+										src={getImageLink(1)}
+										preview={false}
+										fallback={NoImage}
+									/>
+										{/* <img
 											src={
 												property?.images.length > 1 ? property?.images[1] : NoImage
 											}
 											alt="SecondImage"
+										/> */}
+										<Image
+											src={getImageLink(2)}
+											preview={false}
+											fallback={NoImage}
 										/>
-										<img
+										{/* <img
 											src={
 												property?.images.length > 2 ? property?.images[2] : NoImage
 											}
 											alt="ThirdImage"
-										/>
+										/> */}
 									</PropertyMoreImage>
 								</PropertyImagesBlock>
 								<PropertyContent className="d-flex">
@@ -543,7 +584,7 @@ const PropertyPage = ({ property }) => {
 												{t("button.request-price")}
 												<img src={ArrowImage} alt="ArrowImage" />
 											</RequestPrice>
-											<div className="w-100 mb-4 d-flex ml-4">
+											<div className="w-100 mb-4 d-flex  justify-contant-between" >
 												{property?.property?.live_area && (
 													<PropertyDiscriptionBlock>
 														<img src={squareIcon} alt="squareIcon" />
@@ -613,7 +654,7 @@ const PropertyPage = ({ property }) => {
 												</p>
 												<div className="d-flex align-items-center">
 													<span style={{ fontSize: "14px", lineHeight: '19px' }}>
-														{property?.agency?.rating?.rating}
+														{property?.agency?.rating?.rating?.toFixed(1)}
 													</span>
 													{/* <div className="stars-block">
 												<img src={Stars} alt="Stars" />
