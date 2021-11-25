@@ -4732,7 +4732,7 @@ const compareAgency = () => {
 			const expandedAgency = filteredAgencies[index];
 			console.log("expended agenices", expandedAgency.rating);
 
-			setAgencyReviews(expandedAgency.rating.reviews);
+			setAgencyReviews(expandedAgency?.rating?.reviews);
 			if (expandedAgency?.isLimited) {
 				const address = `${expandedAgency?.street} ${expandedAgency?.street_number}, ${expandedAgency?.zip} ${expandedAgency?.city}`;
 				const suuggestions = await getLatLongFromAddress({
@@ -4843,21 +4843,25 @@ const compareAgency = () => {
 						</div>
 					</div>
 					<div className="agency-container">
-						{filteredAgencies?.length > 0 ? (
+						{filteredAgencies?.length >0 ? (
 							filteredAgencies
 								.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
 								.map((agency, index, limitedAgecies) => {
 									if (open) {
+                    if(agencyReviews!=null){
+                    console.log("open inside ",reviewNumber)
+                    console.log("agency review inside open ",agencyReviews)
+
 										const text = agencyReviews[reviewNumber]?.text;
 										var review = text;
 										const relative_time_description =
 											agencyReviews[reviewNumber]?.relative_time_description;
 										var time = relative_time_description;
-										const author_name =
-											agencyReviews[reviewNumber].author_name.split(" ");
+										const author_name =agencyReviews[reviewNumber]?.author_name?.split(" ");
 										var result =
-											author_name[0].charAt(0) + author_name[1].charAt(0);
+											author_name[0]?.charAt(0) + author_name[1].charAt(0);
 									}
+                }
 
 									return (
 										<div key={index}>
@@ -4898,7 +4902,9 @@ const compareAgency = () => {
 																/>{" "}
 																<span className="from-totla-reviews ">
 																	{" "}
-																	from 120 reviews{" "}
+																	
+                                  {t('span.from')}  120
+																	{t('span.reviews')}{" "}
 																</span>
 															</p>
 														)}
