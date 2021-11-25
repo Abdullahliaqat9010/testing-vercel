@@ -4998,8 +4998,8 @@ const compareAgency = () => {
 																	style={{ objectFit: "cover" }}
 																/>
 																<span>
-																	from {agency?.rating?.user_ratings_total}{" "}
-																	reviews{" "}
+																	{t('span.from')}  {  agency?.rating?.user_ratings_total}{" "}
+																	{t('span.reviews')}{" "}
 																</span>
 
 																<img
@@ -5039,19 +5039,19 @@ const compareAgency = () => {
 																	/>
 																	<span className="experience">
 																		{agency?.rating?.rating == "5"
-																			? "very nice experience"
+																			? t('span.very-nice')
 																			: agency?.rating?.rating >= "4" &&
 																			  agency?.rating?.rating < 5
-																			? "nice experience"
+																			? t('span.nice-experience')
 																			: agency?.rating?.rating >= "3" &&
 																			  agency?.rating?.rating < 4
-																			? "good"
+																			? t('span.good')
 																			: agency?.rating?.rating >= "2" &&
 																			  agency?.rating?.rating < 3
-																			? "satisfactory"
+																			? t('span.satisfactory')
 																			: agency?.rating?.rating >= "1" &&
 																			  agency?.rating?.rating < 2
-																			? "unsarifoctory"
+																			? t('span.unsatifoctory')
 																			: ""}
 																	</span>
 																</div>
@@ -5066,7 +5066,7 @@ const compareAgency = () => {
 																	/>
 																	<span className="user-name">{result}</span>
 																	<span className="commented-on">
-																		commented on
+                                    {t('span.commented-on')}
 																	</span>
 																	<span>{time}</span>
 																</div>
