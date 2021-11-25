@@ -61,7 +61,7 @@ const FindAgentBlock = ({
 						block
 						style={{ background: "#F2F6FF" }}
 					>
-						Load More
+						t('btn.load-more')
 					</Button>
 				</div>
 			)}
