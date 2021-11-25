@@ -570,6 +570,7 @@ const PropertyPage = ({ property }) => {
 										/> */}
 									</PropertyMoreImage>
 								</PropertyImagesBlock>
+								<div className="m-2">
 								<PropertyContent className="d-flex">
 									<PropertySubBlock>
 										<PropertyAddress>
@@ -659,7 +660,7 @@ const PropertyPage = ({ property }) => {
 													{/* <div className="stars-block">
 												<img src={Stars} alt="Stars" />
 											</div> */}
-													<div className="mx-2 mt-1 d-flex align-items-center">
+													<div className=" mt-1 d-flex align-items-center">
 														<StarRatingComponent
 															name="rate"
 															// className="custom-rate"
@@ -698,6 +699,7 @@ const PropertyPage = ({ property }) => {
 										</Button>
 									</ContactFormButton>
 								)}
+								</div>
 							</PropertyInfo>
 							{isMobile && showContactModal && (
 								<ContactAgentModal
