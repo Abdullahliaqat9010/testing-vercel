@@ -9,6 +9,7 @@ import NoEstimationImage from "../../../../assets/images/no-estimation.svg";
 import { CustomScrollbar } from "../../../../components/Scrollbar";
 import Mapbox3dMap from "../../../../components/3dMap";
 import { Button } from "antd";
+import { SyncOutlined } from "@ant-design/icons";
 
 const NoPropertiesBlock = styled.div`
 	background: var(--bg-blue);
@@ -84,7 +85,7 @@ const PropertiesBlock = ({
 	const { t } = useTranslation("dashboard-page");
 
 	const PropertiesContainer = styled.div`
-		height: calc(100% - 145px);
+		height: calc(100% - 155px);
 	`;
 
 	const [activeMarker, setActiveMarker] = useState<string | number>("home");
@@ -153,59 +154,71 @@ const PropertiesBlock = ({
 
 	return (
 		<PropertiesMainBlock className="d-flex flex-column flex-lg-row">
-			<MapContainer>
-				{mainProperty &&
-					mainProperty.property.lng &&
-					mainProperty.property.lat && (
-						<Mapbox3dMap {...mapProps} />
-						// <GoogleMap {...mapProps} />
-					)}
-			</MapContainer>
-
-			<SimilarPropertiesBlock>
-				<div style={{ height: 70 }}>
-					<h3 className="h5">{t("title.similar-sold-properties")}</h3>
-					<p>
-						{t("desc.we-found")} {totalSimilarProperties}{" "}
-						{t("desc.similar-sold-properties")}
-					</p>
-				</div>
-				<PropertiesContainer>
-					{similarProperties.length > 0 ? (
-						<div style={{ height: "100%" }}>
-							<CustomScrollbar scrollToBottom autoHide={false}>
-								{similarProperties.map((item, index) => (
-									<PropertyBlock
-										active={item?.id === activeMarker}
-										onClickProperty={onClickProperty}
-										key={index}
-										property={item}
-									/>
-								))}
-							</CustomScrollbar>
+			{similarProperties.length > 0 ? (
+				<>
+					<MapContainer>
+						{mainProperty &&
+							mainProperty.property.lng &&
+							mainProperty.property.lat && (
+								<Mapbox3dMap {...mapProps} />
+								// <GoogleMap {...mapProps} />
+							)}
+					</MapContainer>
+					<SimilarPropertiesBlock>
+						<div>
+							<h3 className="h5">{t("title.similar-sold-properties")}</h3>
+							<p>
+								{t("desc.we-found")} {totalSimilarProperties}{" "}
+								{t("desc.similar-sold-properties")}
+							</p>
 						</div>
-					) : (
-						<NoPropertiesBlock>
-							<img src={NoEstimationImage} alt="NoEstimationImage" />
-							<span>{t("desc.no-items")}</span>
-						</NoPropertiesBlock>
-					)}
-				</PropertiesContainer>
-				{isLoadMoreAvailable && (
-					<div className="d-flex flex-row w-100 justify-content-center pt-3 ">
-						<Button
-							loading={isLoadingMore}
-							block
-							size="large"
-							onClick={onLoadMore}
-							className="rounded-lg w-100 text-primary border-0"
-							style={{ background: "#F2F6FF" }}
-						>
-							Load More
-						</Button>
-					</div>
-				)}
-			</SimilarPropertiesBlock>
+						<PropertiesContainer>
+							<div style={{ height: "100%" }}>
+								<CustomScrollbar style={{ minHeight: 330 }} autoHide={false}>
+									{similarProperties.map((item, index) => (
+										<PropertyBlock
+											active={item?.id === activeMarker}
+											onClickProperty={onClickProperty}
+											key={index}
+											property={item}
+										/>
+									))}
+								</CustomScrollbar>
+							</div>
+						</PropertiesContainer>
+						{isLoadMoreAvailable && (
+							<div className="d-flex flex-row w-100 justify-content-center pt-3 ">
+								<Button
+									loading={isLoadingMore}
+									icon={<SyncOutlined />}
+									block
+									size="large"
+									onClick={onLoadMore}
+									className="rounded-lg w-100 text-primary border-0"
+									style={{ background: "#F2F6FF" }}
+								>
+									<span>Load More</span>
+								</Button>
+							</div>
+						)}
+					</SimilarPropertiesBlock>
+				</>
+			) : (
+				<div className="d-flex flex-column">
+					<h3
+						style={{
+							fontFamily: "var(--fontNunitoBold)",
+							margin: "20px 10px 10px 20px",
+						}}
+					>
+						{t("title.similar-sold-properties")}
+					</h3>
+					<NoPropertiesBlock className="mb-4">
+						<img src={NoEstimationImage} alt="NoEstimationImage" />
+						<span>{t("desc.no-items")}</span>
+					</NoPropertiesBlock>
+				</div>
+			)}
 		</PropertiesMainBlock>
 	);
 };
