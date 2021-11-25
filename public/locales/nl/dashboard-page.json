@@ -74,5 +74,6 @@
 	"p.required": "Verplicht",
 	"p.invalid-email": "Ongeldig email",
 	"p.improve-estimation-msg": "De nauwkeurigheid van uw schatting zal verbeteren. We zullen u een e-mail met een bijgewerkte schatting sturen.",
-	"p.beta": "Bèta versie"
+	"p.beta": "Bèta versie",
+	"btn.load-more":"Meer laden"
 }

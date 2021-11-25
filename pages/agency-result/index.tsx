@@ -19,6 +19,7 @@ import frame1 from "../../assets/images/frame1.png";
 import frame2 from "../../assets/images/frame2.png";
 import userIcon from "../../assets/images/userIcon.png";
 import BlueGoAhead from "../../assets/images/blue-goAhead.svg";
+
 import ContactAgentModal from "../../containers/Modals/ContactAgentModal";
 import {
 	getAgenciesByAddress,
@@ -4499,7 +4500,8 @@ const compareAgency = () => {
 	const [pageSize, setPageSize] = useState(10);
 	const [properties, setProperties] = useState([]);
 	const [agencyReviews, setAgencyReviews] = useState([]);
-
+	let [reviewNumber, setReviewNumber] = useState(0);
+	console.log("review number in state", reviewNumber);
 	let [address, setAddress] = useState({
 		city,
 		zip,
@@ -4615,6 +4617,23 @@ const compareAgency = () => {
 		setCurrentPage(index);
 	};
 
+	const nextReviewMethod = () => {
+		console.log("console inside next review method ", reviewNumber);
+		if (reviewNumber < agencyReviews.length - 1) {
+			let inc = reviewNumber + 1;
+			setReviewNumber(inc);
+			console.log("review number", reviewNumber);
+			console.log("agency review length console", agencyReviews);
+		}
+	};
+	const previousReviewMethod = () => {
+		if (reviewNumber > 0) {
+			let dec = reviewNumber - 1;
+			setReviewNumber(dec);
+			console.log("after set previous review", reviewNumber);
+		}
+	};
+
 	const pagination = totalPages ? (
 		<Pagination className="pagination">
 			<PaginationLink
@@ -4711,7 +4730,7 @@ const compareAgency = () => {
 	const openDetail = async (index) => {
 		if (selctedIdex !== index || !open) {
 			const expandedAgency = filteredAgencies[index];
-			console.log("expended agenices", expandedAgency.rating.reviews);
+			console.log("expended agenices", expandedAgency.rating);
 
 			setAgencyReviews(expandedAgency.rating.reviews);
 			if (expandedAgency?.isLimited) {
@@ -4829,13 +4848,13 @@ const compareAgency = () => {
 								.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
 								.map((agency, index, limitedAgecies) => {
 									if (open) {
-										const text = agencyReviews[0].text;
+										const text = agencyReviews[reviewNumber]?.text;
 										var review = text;
-
 										const relative_time_description =
-											agencyReviews[0].relative_time_description;
+											agencyReviews[reviewNumber]?.relative_time_description;
 										var time = relative_time_description;
-										const author_name = agencyReviews[0].author_name.split(" ");
+										const author_name =
+											agencyReviews[reviewNumber].author_name.split(" ");
 										var result =
 											author_name[0].charAt(0) + author_name[1].charAt(0);
 									}
@@ -4979,19 +4998,21 @@ const compareAgency = () => {
 																	style={{ objectFit: "cover" }}
 																/>
 																<span>
-																	from {agency?.rating?.user_ratings_total}{" "}
-																	reviews{" "}
+																	{t('span.from')}  {  agency?.rating?.user_ratings_total}{" "}
+																	{t('span.reviews')}{" "}
 																</span>
 
 																<img
 																	className="frame1"
 																	alt="frame1"
 																	src={frame1}
+																	onClick={previousReviewMethod}
 																/>
 																<img
 																	className="frame2"
 																	alt="frame2"
 																	src={frame2}
+																	onClick={nextReviewMethod}
 																/>
 															</div>
 
@@ -5017,17 +5038,25 @@ const compareAgency = () => {
 																		)}
 																	/>
 																	<span className="experience">
-																		Very nice experience...
+																		{agency?.rating?.rating == "5"
+																			? t('span.very-nice')
+																			: agency?.rating?.rating >= "4" &&
+																			  agency?.rating?.rating < 5
+																			? t('span.nice-experience')
+																			: agency?.rating?.rating >= "3" &&
+																			  agency?.rating?.rating < 4
+																			? t('span.good')
+																			: agency?.rating?.rating >= "2" &&
+																			  agency?.rating?.rating < 3
+																			? t('span.satisfactory')
+																			: agency?.rating?.rating >= "1" &&
+																			  agency?.rating?.rating < 2
+																			? t('span.unsatifoctory')
+																			: ""}
 																	</span>
 																</div>
 																<div>
-																	<p className="google-paraghaf ">
-																		{review}
-
-																		<span className="show-more ">
-																			Show more
-																		</span>
-																	</p>
+																	<p className="google-paraghaf ">{review}</p>
 																</div>
 																<div className="user-details">
 																	<img
@@ -5037,7 +5066,7 @@ const compareAgency = () => {
 																	/>
 																	<span className="user-name">{result}</span>
 																	<span className="commented-on">
-																		commented on
+                                    {t('span.commented-on')}
 																	</span>
 																	<span>{time}</span>
 																</div>

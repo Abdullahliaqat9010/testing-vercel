@@ -12,7 +12,16 @@
     "p.agency-singular":"woning",
     "p.agency-plural":"woningen",
     "p.center":"verkocht waarvan",
-    "p.agency-desc":"BelgiumImmo heeft geen informatie over de verkochte huizen van dit kantoor."
+    "p.agency-desc":"BelgiumImmo heeft geen informatie over de verkochte huizen van dit kantoor.",
+    "span.commented-on": "gereageerd op",
+    "span.very-nice":"heel leuke ervaring",
+    "span.nice-experience":"leuke ervaring",
+    "span.good":"Goed",
+    "span.satisfactory":"bevredigend",
+    "span.unsatifoctory":"onbevredigend",
+    "span.from":"van",
+    "span.reviews":"beoordelingen"
+
 
 
 
