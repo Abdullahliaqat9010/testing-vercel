@@ -8,6 +8,7 @@ import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import { notification } from "antd";
 import { useRouter } from "next/router";
+import styled from "styled-components"
 
 const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 	const { t } = useTranslation("dashboard-page");
@@ -18,6 +19,55 @@ const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 	const { firstname, lastname, email, phone_number, auth } = useSelector(
 		(state: RootState) => state.userInfo
 	);
+
+	const ConfirmCormButton = styled.div`
+		Button {
+			font-family: var(--fontNunitoBold);
+				width: 100%;
+				height: 50px;
+				background: var(--colorBlue);
+				border-radius: 8px;
+		}
+	`
+
+	const ContactFormBlock = styled.div`
+	width: 315px;
+	color: var(--mainColor);
+	padding: 30px;
+	background: var(--colorWhite);
+	border-radius: 10px;
+	font-size: 14px;
+	line-height: 19px;
+
+	h4,
+	p {
+		text-align: center;
+	}
+
+	h4 {
+		font-family: var(--fontNunitoBold);
+		font-size: 20px;
+		line-height: 27px;
+	}
+
+	input,
+	textarea,
+	select {
+		font-size: 16px;
+		line-height: 22px;
+		border-radius: 6px;
+		margin-bottom: 20px;
+	}
+
+	input:not([type="checkbox"]),
+	select {
+		height: 46px;
+	}
+
+	textarea {
+		resize: none;
+	}
+	`
 
 	console.log(agencyInfo, "agencyInfo");
 
@@ -57,8 +107,8 @@ const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 	};
 
 	return (
-		<div className="contact-agency-block contact-aagency ">
-			<div className="contact-agency">
+		<div>
+			<ContactFormBlock>
 				<h4>{t("title.contact-agency")}</h4>
 				<p>{agencyInfo?.agency?.company_name ?? ""}</p>
 				<Formik
@@ -142,11 +192,15 @@ const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 										{t("label.select")}
 									</label>
 									<Field
-										className="custom-select"
+										// className="custom-select"
+										style={{ 
+											backgroundImage: `url("../../assets/images/arrow.svg")`,
+											backgroundSize: '18px',
+											paddingRight: "40px",
+										 }}
 										name="propertyId"
 										type="text"
 										as="select"
-										style={{ paddingRight: 40 }}
 									>
 										{properties.map((property) => (
 											<option key={property?.id} value={property?.id}>
@@ -177,15 +231,15 @@ const ContactAgencyBlock = ({ agencyInfo, properties }) => {
 									name="free_evaluated"
 								/>
 							</div>
-							<div className="modal-btn-group mt-4">
-								<Button className="confirm" type="submit">
+							<ConfirmCormButton className="modal-btn-group mt-4">
+								<Button type="submit">
 									{isSubmitting ? t2("text.loading") : t("button.confirm")}
 								</Button>
-							</div>
+							</ConfirmCormButton>
 						</Form>
 					)}
 				</Formik>
-			</div>
+			</ContactFormBlock>
 		</div>
 	);
 };
