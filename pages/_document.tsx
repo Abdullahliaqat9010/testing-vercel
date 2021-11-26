@@ -41,6 +41,20 @@ class MyDocument extends Document {
 							}}
 						/>
 					)}
+					<script
+						id="Cookiebot"
+						src="https://consent.cookiebot.com/uc.js"
+						data-cbid="26e5718e-f774-4fb6-bf24-3522ca807a53"
+						data-blockingmode="auto"
+						type="text/javascript"
+					></script>
+
+					<script
+						id="CookieDeclaration"
+						src="https://consent.cookiebot.com/26e5718e-f774-4fb6-bf24-3522ca807a53/cd.js"
+						type="text/javascript"
+						async
+					></script>
 				</Head>
 				<body>
 					<Main />
