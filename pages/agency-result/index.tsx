@@ -48,7 +48,7 @@ const LimitedPartner = styled.span`
   color: #ffffff;
   width: 100px;
 `;
-const compareAgency = (property,images) => {
+const compareAgency = (property) => {
   const limitedAgenciesData = [
     {
       zip: "1000",
@@ -4564,7 +4564,7 @@ const compareAgency = (property,images) => {
     try {
       const agencies = await getAgenciesByAddress(address);
       const limitedAgecies = await getLimitedAgenciesByAddress(address, locale);
-      console.log("agencyyyyy", agencies);
+      console.log("agencyyyyy", limitedAgecies);
       const allAgency = [...agencies, ...limitedAgecies];
       const totalPages =
         allAgency.length > 0
@@ -4775,10 +4775,15 @@ const compareAgency = (property,images) => {
         agency?.id
     );
   };
-  const getImageLink = () => {
-    if (property?.images?.length) {
-      return property.images[0];
+  const getImageLink = (agency) => {
+    if(agency?.isLimited){
+      return LogoImage
     }
+    else if (agency?.logo_image){
+      return agency?.logo_image
+   
+    }
+    
     return locale === "fr" ? NoImageFr : NoImage;
   };
   const closeContactForm = () => {
@@ -4882,14 +4887,19 @@ const compareAgency = (property,images) => {
                         className="agency d-flex"
                       >
                         <div className="image-bassicInfo ">
-                           <img
+                         {/* <img
                             src={
                               agency?.isLimited ? LogoImage : agency?.logo_image
                             }
                             alt="profile"
-                          />    
-                          
-                          
+                          />     */}
+
+                         <Image
+                            style={{ borderRadius: 8}}
+                            src={getImageLink(agency)}
+                            preview={false}
+                            fallback={NoImage}
+                          /> 
 
                           <div className="agency-basicInfo">
                             <span className="agency-name">
