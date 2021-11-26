@@ -34,6 +34,9 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { getLatLongFromAddress, getProperties } from "../../network-requests";
 import { useTranslation } from "next-i18next";
+import NoImage from "../../assets/images/no-image-available.svg";
+import NoImageFr from "../../assets/images/no-image-available-fr.svg";
+import { Image } from "antd";
 
 const LimitedPartner = styled.span`
   background: #fe7f2d;
@@ -45,7 +48,7 @@ const LimitedPartner = styled.span`
   color: #ffffff;
   width: 100px;
 `;
-const compareAgency = () => {
+const compareAgency = (property,images) => {
   const limitedAgenciesData = [
     {
       zip: "1000",
@@ -4479,6 +4482,7 @@ const compareAgency = () => {
       citynl: "Adegem",
     },
   ];
+
   const router = useRouter();
   const { t } = useTranslation("agency-result");
 
@@ -4560,7 +4564,7 @@ const compareAgency = () => {
     try {
       const agencies = await getAgenciesByAddress(address);
       const limitedAgecies = await getLimitedAgenciesByAddress(address, locale);
-      console.log("agencyyyyy", limitedAgecies);
+      console.log("agencyyyyy", agencies);
       const allAgency = [...agencies, ...limitedAgecies];
       const totalPages =
         allAgency.length > 0
@@ -4733,29 +4737,30 @@ const compareAgency = () => {
       console.log("expended agenices", expandedAgency.rating);
 
       setAgencyReviews(expandedAgency?.rating?.reviews);
-      if (expandedAgency?.isLimited) {
-        const address = `${expandedAgency?.street} ${expandedAgency?.street_number}, ${expandedAgency?.zip} ${expandedAgency?.city}`;
-        const suuggestions = await getLatLongFromAddress({
-          searchValue: address,
-          type: "address,postcode",
-        });
+      // if (expandedAgency?.isLimited) {
+      const address = `${expandedAgency?.street} ${expandedAgency?.street_number}, ${expandedAgency?.zip} ${expandedAgency?.city}`;
+      const suuggestions = await getLatLongFromAddress({
+        searchValue: address,
+        type: "address,postcode",
+      });
 
-        const latLongs = suuggestions[0]?.location;
-        const marker = {
-          type: "property",
-          position: {
-            lat: latLongs?.lat ?? 51.260197,
-            lng: latLongs?.lng ?? 4.402771,
-          },
-          id: expandedAgency?.id,
-        };
-        setMarkers([marker]);
-      } else {
-        const markersOfAgency = markersPerAgency?.find(
-          (agency) => agency?.agencyId === expandedAgency?.id
-        );
-        setMarkers(markersOfAgency?.markers ?? []);
-      }
+      const latLongs = suuggestions[0]?.location;
+      const marker = {
+        type: "property",
+        position: {
+          lat: latLongs?.lat ?? 51.260197,
+          lng: latLongs?.lng ?? 4.402771,
+        },
+        id: expandedAgency?.id,
+      };
+      setMarkers([marker]);
+      // } else
+      // {
+      //   const markersOfAgency = markersPerAgency?.find(
+      //     (agency) => agency?.agencyId === expandedAgency?.id
+      //   );
+      //   setMarkers(markersOfAgency?.markers ?? []);
+      // }
       setOpen(true);
       setSelctedIdex(index);
     } else {
@@ -4770,10 +4775,16 @@ const compareAgency = () => {
         agency?.id
     );
   };
-
+  const getImageLink = () => {
+    if (property?.images?.length) {
+      return property.images[0];
+    }
+    return locale === "fr" ? NoImageFr : NoImage;
+  };
   const closeContactForm = () => {
     setOpenContactForm(!openContactForm);
   };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -4871,12 +4882,15 @@ const compareAgency = () => {
                         className="agency d-flex"
                       >
                         <div className="image-bassicInfo ">
-                          <img
+                           <img
                             src={
                               agency?.isLimited ? LogoImage : agency?.logo_image
                             }
                             alt="profile"
-                          />
+                          />    
+                          
+                          
+
                           <div className="agency-basicInfo">
                             <span className="agency-name">
                               {agency?.company_name.substring(0, 30)}
@@ -4884,7 +4898,10 @@ const compareAgency = () => {
                             {!agency?.isLimited && (
                               <p className="rating-row">
                                 {" "}
-                                <span className="rating"> 5.6 </span>
+                                <span className="rating">
+                                  {" "}
+                                  {agencyRating(agency?.rating?.rating)}
+                                </span>
                                 <StarRatingComponent
                                   name="rate"
                                   renderStarIcon={(index, value) => (
@@ -4899,7 +4916,9 @@ const compareAgency = () => {
                                     />
                                   )}
                                   starCount={5}
-                                  value={Number(4)}
+                                  value={Number(
+                                    agencyRating(agency?.rating?.rating)
+                                  )}
                                 />{" "}
                                 <span className="from-totla-reviews ">
                                   {" "}
