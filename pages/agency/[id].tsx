@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-
+import { isMobile } from "react-device-detect";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import HeaderContainer from "../../containers/Header";
@@ -74,6 +74,7 @@ const AgencyPage = () => {
 	if (isLoading) {
 		return <Loading />;
 	}
+	console.log("isMobile", isMobile)
 
 	return (
 		<>
@@ -101,12 +102,14 @@ const AgencyPage = () => {
 
 								<FourthBlock currentAgency={agency} />
 							</div>
-							<div className="pl-2 bd-highlight ">
-								<ContactAgencyBlock
-									agencyInfo={agency}
-									properties={properties}
-								/>
-							</div>
+							{!isMobile && 
+								<div className="pl-2">
+									<ContactAgencyBlock
+										agencyInfo={agency}
+										properties={properties}
+									/>
+								</div>
+							}
 						</div>
 					</div>
 				</div>
