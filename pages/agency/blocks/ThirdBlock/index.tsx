@@ -20,6 +20,7 @@ const PropertiesBlock = styled.div`
 	// padding: 10px;
 
 	@media (max-width: 770px) {
+		margin-top:20px;
 		width: 100%;
 		/* height: 300px; */
 	}
@@ -69,6 +70,7 @@ const PropertyMainContant = styled.div`
 		}
 		@media (max-width: 425px) {
 			padding: 20px;
+			margin-left:10px;
 
 		}
 `
