@@ -197,7 +197,7 @@ const PropertiesBlock = ({
 									className="rounded-lg w-100 text-primary border-0"
 									style={{ background: "#F2F6FF" }}
 								>
-									<span>Load More</span>
+									<span>{t('btn.load-more')}</span>
 								</Button>
 							</div>
 						)}

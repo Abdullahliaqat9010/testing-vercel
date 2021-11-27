@@ -74,5 +74,7 @@
 	"p.required": "Required",
 	"p.invalid-email": "Invalid email",
 	"p.improve-estimation-msg": "The accuracy of your estimation will improve. We will send an email with an updated estimation.",
-	"p.beta": "Beta version"
+	"p.beta": "Beta version",
+	"btn.load-more":"Load More"
+
 }
