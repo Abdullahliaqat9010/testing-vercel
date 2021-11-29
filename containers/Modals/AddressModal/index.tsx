@@ -130,7 +130,7 @@ const LocationForm = ({ onLocationChange, onSubmit, initialValues }) => {
 		zip: Yup.string().required(t("p.error")),
 	});
 	return (
-		<div style={{ width: "80%" }}>
+		<div>
 			<Formik
 				initialValues={{
 					...initialValues,
@@ -308,19 +308,26 @@ const AddressModal = ({ show, handleClose, onAddress, initialValues }) => {
 		<Modal
 			visible={show}
 			onCancel={handleClose}
-			// size="lg"
 			centered
-			style={{ minWidth: "80vw" }}
+			style={{ minWidth: "70vw" }}
+			bodyStyle={{ width: "100%" }}
 			title="Pick Address on Map"
 			footer={null}
 		>
-			{/* <Modal.Header closeButton>s</Modal.Header> */}
-			{/* <Modal.Body> */}
 			<div
-				style={{ backgroundColor: "red" }}
-				className="d-flex flex-row h-100 w-100"
+				style={{ minHeight: 200 }}
+				className="d-flex d-lg-none position-relative mb-2"
 			>
-				<div className="d-none d-md-flex w-xs-100 w-lg-40 align-items-center justify-content-center">
+				<LocationMap center={center} width="100%" />
+			</div>
+			<div
+				// style={{ backgroundColor: "red" }}
+				className="d-flex flex-row align-items-center justify-content-center h-100 w-100"
+			>
+				<div
+					style={{ flex: 1 }}
+					className="align-items-center justify-content-center"
+				>
 					<LocationForm
 						onLocationChange={(location) => {
 							setCenter({ ...location });
@@ -333,13 +340,17 @@ const AddressModal = ({ show, handleClose, onAddress, initialValues }) => {
 					/>
 				</div>
 				<div
-					className="w-60 position-relative"
-					style={{ backgroundColor: "blue", height: 200 }}
+					style={{
+						flex: 1.5,
+						backgroundColor: "blue",
+						minHeight: 550,
+						height: "100%",
+					}}
+					className="position-relative ml-4 d-none d-lg-flex"
 				>
-					p{/* <LocationMap center={center} width="100%" /> */}
+					<LocationMap center={center} width="100%" />
 				</div>
 			</div>
-			{/* </Modal.Body> */}
 		</Modal>
 	);
 };
