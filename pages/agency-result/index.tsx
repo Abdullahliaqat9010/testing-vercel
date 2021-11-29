@@ -4482,10 +4482,8 @@ const compareAgency = (property) => {
       citynl: "Adegem",
     },
   ];
-
   const router = useRouter();
   const { t } = useTranslation("agency-result");
-
   const { locale } = router;
   const { auth, id: userId } = useSelector(
     (state: RootState) => state.userInfo
