@@ -236,13 +236,21 @@ const ReviewContainer = styled.div`
 	}
 `;
 
+interface ForthBlockProps {
+	currentAgency?: any;
+	reviews?: any[];
+	isLoading?: boolean;
+	onLoadMore?: () => any;
+	isLoadMoreAvailable?: boolean;
+}
+
 const FourthBlock = ({
 	currentAgency,
-	reviews,
-	isLoading,
+	reviews = [],
+	isLoading = false,
 	onLoadMore,
-	isLoadMoreAvailable,
-}) => {
+	isLoadMoreAvailable = false,
+}: ForthBlockProps) => {
 	const router = useRouter();
 	const { locale } = router;
 	const getImageLink = (review) => {
