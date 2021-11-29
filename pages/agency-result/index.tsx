@@ -4776,14 +4776,12 @@ const compareAgency = (property) => {
     );
   };
   const getImageLink = (agency) => {
-    if(agency?.isLimited){
-      return LogoImage
+    if (agency?.isLimited) {
+      return LogoImage;
+    } else if (agency?.logo_image) {
+      return agency?.logo_image;
     }
-    else if (agency?.logo_image){
-      return agency?.logo_image
-   
-    }
-    
+
     return locale === "fr" ? NoImageFr : NoImage;
   };
   const closeContactForm = () => {
@@ -4887,19 +4885,19 @@ const compareAgency = (property) => {
                         className="agency d-flex"
                       >
                         <div className="image-bassicInfo ">
-                         {/* <img
+                          {/* <img
                             src={
                               agency?.isLimited ? LogoImage : agency?.logo_image
                             }
                             alt="profile"
                           />     */}
 
-                         <Image
-                            style={{ borderRadius: 8}}
+                          <Image
+                            style={{ borderRadius: 8 }}
                             src={getImageLink(agency)}
                             preview={false}
                             fallback={NoImage}
-                          /> 
+                          />
 
                           <div className="agency-basicInfo">
                             <span className="agency-name">
@@ -4932,7 +4930,8 @@ const compareAgency = (property) => {
                                 />{" "}
                                 <span className="from-totla-reviews ">
                                   {" "}
-                                  {t("span.from")} 120
+                                  {t("span.from")}{" "}
+                                   {agency?.rating?.user_ratings_total}{" "}
                                   {t("span.reviews")}{" "}
                                 </span>
                               </p>
