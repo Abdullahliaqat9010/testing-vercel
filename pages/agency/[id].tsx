@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-
+import { isMobile } from "react-device-detect";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import HeaderContainer from "../../containers/Header";
@@ -15,11 +15,10 @@ import SecondBlock from "./blocks/SecondBlock";
 import ThirdBlock from "./blocks/ThirdBlock";
 import FourthBlock from "./blocks/FourthBlock";
 import { useTranslation } from "react-i18next";
-import { agentsList } from "../../templates/agentsList";
 import {
 	getAgencyById,
+	getAgencyReviews,
 	getLeadProperties,
-	getProperties,
 } from "../../network-requests";
 import { useState } from "react";
 import { RootState } from "../../types/state";
@@ -27,16 +26,20 @@ import Loading from "../../components/Loading";
 import ContactAgencyBlock from "../../components/ContactAgencyBlock";
 
 const AgencyPage = () => {
-	const dispatch = useDispatch();
 	const router = useRouter();
 	const { id } = router.query;
 	const { t } = useTranslation("agency-page");
 
-	const userId = useSelector<RootState>((state) => state.userInfo.id);
-
 	const [properties, setProperties] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [agency, setAgency] = useState(null);
+
+	const [reviews, setReviews] = useState([]);
+	const [reviewsPageNumber, setReviewsPageNumber] = useState(1);
+	const [reviewsPageLimit, setReviewsPageLimit] = useState(5);
+	const [numberOfReviews, setNumberOfReviews] = useState(0);
+	const [isLoadingReviews, setIsLoadingReviews] = useState(false);
+	const [isLoadMoreAvailable, setIsLoadMoreAvailable] = useState(false);
 
 	const _getProperties = async () => {
 		try {
@@ -51,6 +54,39 @@ const AgencyPage = () => {
 		try {
 			const _agency = await getAgencyById(Number(id), router.locale);
 			setAgency({ ..._agency });
+			const reviewsResult = await getAgencyReviews(
+				_agency?.company_name,
+				reviewsPageNumber,
+				reviewsPageLimit
+			);
+			setReviews([...reviewsResult?.items]);
+			setReviewsPageNumber(reviewsResult?.meta?.currentPage);
+			setReviewsPageLimit(reviewsResult?.meta?.itemsPerPage);
+			setNumberOfReviews(reviewsResult?.meta?.totalItems);
+			setIsLoadMoreAvailable(
+				reviewsResult?.meta?.currentPage < reviewsResult?.meta?.totalPages
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const loadMoreReviews = async () => {
+		try {
+			setIsLoadingReviews(true);
+			const reviewsResult = await getAgencyReviews(
+				agency?.company_name,
+				reviewsPageNumber + 1,
+				reviewsPageLimit
+			);
+			setReviews([...reviews, ...reviewsResult?.items]);
+			setReviewsPageNumber(reviewsResult?.meta?.currentPage);
+			setReviewsPageLimit(reviewsResult?.meta?.itemsPerPage);
+			setNumberOfReviews(reviewsResult?.meta?.totalItems);
+			setIsLoadMoreAvailable(
+				reviewsResult?.meta?.currentPage < reviewsResult?.meta?.totalPages
+			);
+			setIsLoadingReviews(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -74,6 +110,7 @@ const AgencyPage = () => {
 	if (isLoading) {
 		return <Loading />;
 	}
+	console.log("isMobile", isMobile)
 
 	return (
 		<>
@@ -99,14 +136,22 @@ const AgencyPage = () => {
 									// elementsOnPage={elementsOnPage}
 								/>
 
-								<FourthBlock currentAgency={agency} />
-							</div>
-							<div className="pl-2 bd-highlight ">
-								<ContactAgencyBlock
-									agencyInfo={agency}
-									properties={properties}
+								<FourthBlock
+									isLoading={isLoadingReviews}
+									isLoadMoreAvailable={isLoadMoreAvailable}
+									onLoadMore={loadMoreReviews}
+									reviews={reviews}
+									currentAgency={agency}
 								/>
 							</div>
+							{!isMobile && 
+								<div className="pl-2">
+									<ContactAgencyBlock
+										agencyInfo={agency}
+										properties={properties}
+									/>
+								</div>
+							}
 						</div>
 					</div>
 				</div>

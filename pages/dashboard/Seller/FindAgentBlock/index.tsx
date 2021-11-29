@@ -23,7 +23,6 @@ const FindAgentMain = styled.div`
 		padding: 20px;
 	}
 `;
-
 const FindAgentBlock = ({
 	mainProperty,
 	agencies,
@@ -34,7 +33,6 @@ const FindAgentBlock = ({
 	totalAgencies,
 }) => {
 	const { t } = useTranslation("dashboard-page");
-
 	return (
 		<FindAgentMain>
 			<h3>{t("title.find-your-agent")}</h3>
@@ -61,7 +59,7 @@ const FindAgentBlock = ({
 						block
 						style={{ background: "#F2F6FF" }}
 					>
-						Load More
+						{t('btn.load-more')}
 					</Button>
 				</div>
 			)}

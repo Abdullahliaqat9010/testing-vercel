@@ -12,7 +12,68 @@ import { RootState } from "../../../../types/state";
 import LoadMoreImage from "../../../../assets/images/load-more.svg";
 import { isMobileOnly } from "react-device-detect";
 import { CustomScrollbar } from "../../../../components/Scrollbar";
+import styled from "styled-components"
 
+const PropertiesBlock = styled.div`
+	width: 50%;
+	/* height: 800px; */
+	// padding: 10px;
+
+	@media (max-width: 770px) {
+		margin-top:20px;
+		width: 100%;
+		/* height: 300px; */
+	}
+`
+
+const MapContainer = styled.div`
+	position: relative;
+	width: 50%;
+	height: 800px;
+	// padding: 10px;
+
+	@media (max-width: 770px) {
+		width: 100%;
+		height: 300px;
+	}
+	@media (max-width: 425px) {
+		display: none;
+	}
+`
+const PropertiesMainBlock = styled.div`
+@media (max-width: 770px) {
+	flex-direction: column;
+}
+`
+
+const PropertyMainContant = styled.div`
+	border-radius: 10px;
+	background-color: var(--colorWhite);
+	margin-top: 20px;
+  
+		h3 {
+		  font-family: var(--fontNunitoBold);
+		  font-size: 20px;
+		  line-height: 27px;
+		  margin-bottom: 10px;
+		}
+  
+		p {
+		  font-size: 14px;
+		  line-height: 19px;
+		}
+		@media (min-width: 769px) {
+			padding: 30px;
+		}
+		@media (max-width: 768.99px) {
+			padding: 10px 0px;
+		}
+		@media (max-width: 425px) {
+			padding: 20px;
+			margin-left:10px;
+
+		}
+`
 const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 	const { t } = useTranslation("agency-page");
 
@@ -68,6 +129,8 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 		zoom: 15,
 	};
 
+	console.log("ahs", properties)
+
 	const onClickProperty = (propertyId) => {
 		setActiveMarker(propertyId);
 		const _properties = [
@@ -90,18 +153,20 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 
 	return (
 		<div className="Agency__third-block">
-			<div className="main-content">
+			<PropertyMainContant>
 				<h3>{t("h3.sold-properties")}</h3>
 				<p> {t("p.by") + " " + currentAgency?.company_name}</p>
-				<div className="properties-list">
-					{!isMobileOnly && (
-						<div className="left-block position-relative">
+				<PropertiesMainBlock className="d-flex">
+					{/* {!isMobileOnly && ( */}
+						<MapContainer >
+							{/* left-block */}
 							<GoogleMap {...mapProps} />
-						</div>
-					)}
-					<div className="right-block">
-						<CustomScrollbar className="scroll-block">
-							<div className="property-main-block">
+						</MapContainer>
+					{/* )} */}
+					<PropertiesBlock >
+					<div style={{ height: "100%" }}>
+						<CustomScrollbar style={{ minHeight: 330 }} >
+							{/* <div className="property-main-block"> */}
 								{properties.map((item, index) => {
 									return (
 										<PropertyBlock
@@ -112,15 +177,16 @@ const ThirdBlock = ({ currentAgency }: { currentAgency: any }) => {
 										/>
 									);
 								})}
-							</div>
+							{/* </div> */}
 						</CustomScrollbar>
+						</div>
 						{/* <Button className="load-more" onClick={loadMore}>
 							<img src={LoadMoreImage} alt="LoadMoreImage" />
 							{t("button.learn-more")}
 						</Button> */}
-					</div>
-				</div>
-			</div>
+					</PropertiesBlock>
+				</PropertiesMainBlock>
+			</PropertyMainContant>
 		</div>
 	);
 };
