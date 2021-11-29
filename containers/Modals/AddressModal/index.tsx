@@ -316,8 +316,11 @@ const AddressModal = ({ show, handleClose, onAddress, initialValues }) => {
 		>
 			{/* <Modal.Header closeButton>s</Modal.Header> */}
 			{/* <Modal.Body> */}
-			<div className="d-flex h-100">
-				<div className="d-none d-md-flex w-40 align-items-center justify-content-center">
+			<div
+				style={{ backgroundColor: "red" }}
+				className="d-flex flex-row h-100 w-100"
+			>
+				<div className="d-none d-md-flex w-xs-100 w-lg-40 align-items-center justify-content-center">
 					<LocationForm
 						onLocationChange={(location) => {
 							setCenter({ ...location });
@@ -329,7 +332,12 @@ const AddressModal = ({ show, handleClose, onAddress, initialValues }) => {
 						initialValues={{ ...initialValues }}
 					/>
 				</div>
-				<LocationMap center={center} width="60%" />
+				<div
+					className="w-60 position-relative"
+					style={{ backgroundColor: "blue", height: 200 }}
+				>
+					p{/* <LocationMap center={center} width="100%" /> */}
+				</div>
 			</div>
 			{/* </Modal.Body> */}
 		</Modal>
