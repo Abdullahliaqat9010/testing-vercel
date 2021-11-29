@@ -18,7 +18,7 @@ const Register = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const [step, setStep] = useState(2);
+	const [step, setStep] = useState(1);
 	const [agencyInfo, setAgencyInfo] = useState({
 		search_address: "",
 		street: "",
