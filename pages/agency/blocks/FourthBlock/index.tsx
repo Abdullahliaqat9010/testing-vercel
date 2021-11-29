@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, ProgressBar } from "react-bootstrap";
 import StarRatingComponent from "react-star-rating-component";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import RatingStar from "../../../../assets/images/rating/full-star.svg";
 import RatingStarEmpty from "../../../../assets/images/rating/star.svg";
@@ -8,6 +9,7 @@ import RatingStarEmpty from "../../../../assets/images/rating/star.svg";
 import LoadMoreImage from "../../../../assets/images/load-more.svg";
 import ActiveStar from "../../../../assets/images/rating/full-star.svg";
 import NoActiveStar from "../../../../assets/images/rating/dark-star.svg";
+import UserPlaceholder from "../../../../assets/images/user_placeholder.png";
 import NoActiveLightStar from "../../../../assets/images/rating/star.svg";
 import MessageIcon from "../../../../assets/images/message-icon.svg";
 // import FlagIcon from '../../../../assets/images/flag.svg';
@@ -15,71 +17,73 @@ import Avatar from "../../../../assets/images/no-photo.png";
 import google_reviews_image from "../../../../assets/images/google_reviews.png";
 import { AgentsItem } from "../../../../types/agents";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components"
+import styled from "styled-components";
 
 const AutherBlock = styled.div`
-display: flex;
-align-items: center;
+	display: flex;
+	align-items: center;
 
-img {
-  width: 14px;
-  height: 14px;
-  margin-right: 6px;
-  
-}
+	img {
+		width: 14px;
+		height: 14px;
+		margin-right: 6px;
+	}
 
-span {
-  display: block;
-  font-size: 12px;
-  line-height: 16px;
-  margin-right: 4px;
-}
-`
+	span {
+		display: block;
+		font-size: 12px;
+		line-height: 16px;
+		margin-right: 4px;
+	}
+`;
 
 const ReviewBlock = styled.div`
-justify-content: space-between;
-@media (min-width: 501px) {
-	flex-direction: row;
-}
-@media (max-width: 500px) {
-	flex-direction: column;
-}
-`
+	justify-content: space-between;
+	@media (min-width: 501px) {
+		flex-direction: row;
+	}
+	@media (max-width: 500px) {
+		flex-direction: column;
+	}
+`;
 
 const ReviewTextBlock = styled.div`
-@media (min-width: 501px) {
-	width: 75%;
-}
-@media (max-width: 500px) {
-	width: 100%;
-
-}
-`
+	@media (min-width: 501px) {
+		width: 75%;
+	}
+	@media (max-width: 500px) {
+		width: 100%;
+	}
+`;
 
 const ReviewTitle = styled.div`
-display: flex;
-align-items: center;
-span {
-	font-family: var(--fontNunitoBold);
-	font-size: 14px;
-	line-height: 19px;
-}
+	display: flex;
+	align-items: center;
+	span {
+		font-family: var(--fontNunitoBold);
+		font-size: 14px;
+		line-height: 19px;
+	}
 
-@media (max-width: 768px) {
-	flex-direction: column;
-	align-items: flex-start;
-
-}
-
-`
+	@media (max-width: 768px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+`;
 
 const PerReviewContainer = styled.div`
-margin-top: 20px;
-border-bottom: 1px solid rgba(56, 113, 239, 0.2);
-padding-bottom: 20px;
-`
+	margin-top: 20px;
+	border-bottom: 1px solid rgba(56, 113, 239, 0.2);
+	padding-bottom: 20px;
+`;
 
-const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
+const FourthBlock = ({
+	currentAgency,
+	reviews,
+	isLoading,
+	onLoadMore,
+	isLoadMoreAvailable,
+}) => {
 	const { t } = useTranslation("agency-page");
 	return (
 		<div className="Agency__fourth-block">
@@ -144,7 +148,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 					</div>
 					<div className="sort-block"></div>
 					<div>
-						{currentAgency?.rating?.reviews?.map((review) => {
+						{reviews?.map((review) => {
 							return (
 								<PerReviewContainer>
 									<div className="d-flex align-items-center justify-content-between">
@@ -155,7 +159,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 												renderStarIcon={(index, value) => (
 													<img
 														// className="rating-star"
-														style={{ width:"100%", height:"100%" }}
+														style={{ width: "100%", height: "100%" }}
 														src={index <= value ? RatingStar : RatingStarEmpty}
 														alt="RatingStar"
 													/>
@@ -167,20 +171,25 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 										</ReviewTitle>
 									</div>
 									<ReviewBlock className="d-flex">
-										<ReviewTextBlock className="d-flex justify-content-center" >
-											<div >
-												<p className="mt-2 mb-3">{review?.text}</p>
+										<ReviewTextBlock className="d-flex justify-content-start">
+											<div>
+												{review?.text && (
+													<p className="mt-2 mb-3">{review?.text}</p>
+												)}
 												<AutherBlock>
-													<img src={review?.profile_photo_url} alt="Avatar" />
-													<span >
-														{review?.author_name}
-													</span>
+													<img
+														src={
+															review?.profile_photo_url
+																? review?.profile_photo_url
+																: UserPlaceholder
+														}
+														alt="Avatar"
+													/>
+													<span>{review?.author_name}</span>
 													<span className="opacity-50">
 														{t("span.commented-on")}
 													</span>
-													<span >
-														{review?.relative_time_description}
-													</span>
+													<span>{review?.relative_time_description}</span>
 												</AutherBlock>
 											</div>
 										</ReviewTextBlock>
@@ -190,7 +199,7 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 												// width: "25%",
 												border: "1px solid #EBEFF8",
 												borderRadius: 5,
-												
+
 												padding: 20,
 												height: 120,
 											}}
@@ -207,10 +216,21 @@ const FourthBlock = ({ currentAgency }: { currentAgency: any }) => {
 						})}
 					</div>
 				</div>
-				{/* <Button className="load-more">
-					<img src={LoadMoreImage} alt="LoadMoreImage" />{" "}
-					{t("button.learn-more")}
-				</Button> */}
+
+				{isLoadMoreAvailable && (
+					<Button
+						onClick={isLoading ? () => null : onLoadMore}
+						//disabled={isLoading}
+						className="load-more"
+					>
+						{isLoading ? (
+							<LoadingOutlined style={{ marginRight: 10 }} />
+						) : (
+							<img src={LoadMoreImage} alt="LoadMoreImage" />
+						)}
+						{t("button.learn-more")}
+					</Button>
+				)}
 			</div>
 		</div>
 	);

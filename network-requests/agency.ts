@@ -284,3 +284,24 @@ export const deleteProperties = (ids) => {
 		}
 	});
 };
+
+export const getAgencyReviews = (
+	company_name: string,
+	page = 1,
+	limit = 5
+): Promise<any> => {
+	return new Promise(async (res, rej) => {
+		try {
+			const { data } = await axios.get("agency-reviews", {
+				params: {
+					company_name,
+					page,
+					limit,
+				},
+			});
+			res(data);
+		} catch (error) {
+			rej(error);
+		}
+	});
+};
